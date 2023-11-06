@@ -1,5 +1,7 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
+import Recursos from './components/recursos/recursos'
+import QuienesSomos from './components/quienesSomos/quienesSomos'
 
 
 function App() {
