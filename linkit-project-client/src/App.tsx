@@ -10,8 +10,8 @@ import Talentos from './components/Talentos/Talentos'
 function App() {
   return (
     <>
+      <NavBar />
       <Routes>
-        <NavBar></NavBar>
         <Route path='/' element={<Home />} />
         <Route path='/soyEmpresa' element={<Empresas />} />
         <Route path='/soyTalento' element={<Talentos />} />
