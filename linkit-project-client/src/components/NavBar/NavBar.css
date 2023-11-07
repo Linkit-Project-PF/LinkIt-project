@@ -1,3 +1,10 @@
     .preNavbar{
         @apply static w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center
     }
+    .navBar{
+        @apply sticky top-0 bg-linkIt-50 h-[3.938rem] bg-white flex justify-between items-center px-4 w-[100%]
+    }
+
+    .containerBtnsNavBar {
+        @apply flex items-center justify-center lg:gap-[40px] text-xl lg:text-[15px] lg:whitespace-nowrap font-montserrat font-semibold w-[100%]
+    }
