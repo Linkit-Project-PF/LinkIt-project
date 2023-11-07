@@ -122,8 +122,8 @@ function NavBar() {
         onClick={() => setIsOpenQS(!isOpenQS)}
       >
         Quienes Somos
-        <div className="relative left-44 bottom-6">
-          <svg width="15" height="15" viewBox="0 0 20 20">
+        <div className="relative left-44 lg:left-[128px] lg:top-[-21px] bottom-6">
+          <svg width="15" height="13" viewBox="0 0 20 20">
             <path d="M0 7 L 20 7 L 10 16" />
           </svg>
         </div>
@@ -140,7 +140,7 @@ function NavBar() {
       </ul>{" "}
       </nav>
         <span className=" font-medium">Inglés</span>
-        <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md" onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
+        <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md " onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
         <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-sm active:translate-y-1" onClick={()=> goSoyTalento()} whileTap={{ scale: 0.9}}>Vacantes disponibles</motion.button>
         </div>
         </nav>
