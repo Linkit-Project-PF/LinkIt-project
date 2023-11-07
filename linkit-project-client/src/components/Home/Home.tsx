@@ -1,9 +1,13 @@
 import ModuloA from "./Modulos/ModuloA/ModuloA"
+import ModuloB from "./Modulos/ModuloB/ModuloB"
+import ModuloC from "./Modulos/ModuloC/ModuloC"
 
 function Home() {
     return (
-        <div className="flex flex-col space-y-4"> 
-            <ModuloA/>
+        <div className="flex flex-col">
+            <ModuloA />
+            <ModuloB />
+            <ModuloC />
         </div>
 
     )
