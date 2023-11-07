@@ -80,14 +80,14 @@ function NavBar() {
         <div className="arrow" style={{ transformOrigin: "50% 55%" }}>
         </div>
       </motion.button>
-      <ul
+      <ul className="bg-white flex flex-col"
         style={{
           pointerEvents: isOpenEmpresa ? "auto" : "none",
           clipPath: "inset(10% 50% 90% 50% round 10px)"
         }}
       >
-        <li>Servicios </li>
-        <li>Proceso </li>
+        <li className="border-gray border-b-2 mb-2">Servicios </li>
+        <li className="border-gray border-b-2 mb-2">Proceso </li>
         <li>Cotiza </li>
       </ul>{" "}
       </nav>
@@ -103,14 +103,14 @@ function NavBar() {
       >
         Recursos
       </motion.button>
-      <ul
+      <ul className="bg-white flex flex-col"
         style={{
           pointerEvents: isOpenRecursos ? "auto" : "none",
           clipPath: "inset(10% 50% 90% 50% round 10px)"
         }}
       >
-        <li>Blogs</li>
-        <li>Ebooks</li>
+        <li className="border-gray border-b-2 mb-2">Blogs</li>
+        <li className="border-gray border-b-2 mb-2">Ebooks</li>
         <li>Eventos</li>
       </ul>{" "}
 
@@ -140,8 +140,8 @@ function NavBar() {
       </ul>{" "}
       </nav>
         <span className=" font-medium">Inglés</span>
-        <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md" onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
-        <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-sm active:translate-y-1" onClick={()=> goSoyTalento()} whileTap={{ scale: 0.9}}>Vacantes disponibles</motion.button>
+        <motion.button className="contrataBtnNavB" onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
+        <motion.button className="vacanteBtnNavB" onClick={()=> goSoyTalento()} whileTap={{ scale: 0.9}}>Vacantes disponibles</motion.button>
         </div>
         </nav>
 </div>

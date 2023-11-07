@@ -2,9 +2,30 @@
         @apply static w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center
     }
     .navBar{
-        @apply sticky top-0 bg-linkIt-50 h-[3.938rem] flex justify-between items-center px-4
+        @apply sticky top-0 bg-white h-[3.938rem] flex justify-between items-center px-4
     }
 
     .containerBtnsNavBar {
         @apply flex items-center justify-center space-x-20 text-xl font-montserrat font-semibold
+    }
+
+    .contrataBtnNavB{
+    @apply bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300
+    }
+
+    .vacanteBtnNavB{
+        @apply border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition
+    }
+    
+    @media (max-width: 640px) {
+        .containerBtnsNavBar {
+            @apply flex-wrap space-x-0 space-y-4
+        }
+    }
+    
+    /* Estilos para pantallas de tamaño mediano (entre 640px y 1024px) */
+    @media (min-width: 641px) and (max-width: 1024px) {
+        .containerBtnsNavBar {
+            @apply space-x-10
+        }
     }
