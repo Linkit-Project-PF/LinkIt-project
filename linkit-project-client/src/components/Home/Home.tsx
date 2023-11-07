@@ -1,11 +1,11 @@
+import ModuloA from "./Modulos/ModuloA/ModuloA"
 
 function Home() {
     return (
-        <>
-        <h1>Home Page</h1>
+        <div className="flex flex-col space-y-4"> 
+            <ModuloA/>
+        </div>
 
-        </>
-        
     )
 }
 
