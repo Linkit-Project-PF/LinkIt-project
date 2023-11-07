@@ -1,0 +1,3 @@
+    .preNavbar{
+        @apply static w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center
+    }
