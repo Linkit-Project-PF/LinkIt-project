@@ -29,3 +29,7 @@
 .register-form p{
     @apply text-sm text-center mt-[-5px] mb-[10px];
 }
+
+.register-form button:disabled{
+    @apply opacity-50 cursor-not-allowed;
+}

@@ -35,10 +35,17 @@ function validations(user: User) {
 
     if(user.password.trim() === ""){
         errors.password = "Password is required"
-    }else if(user.password.trim().length < 8){
+    }else if(user.password.length < 8){
         errors.password = "Password must be at least 6 characters"
+    }else if(!/[!@#$%^&*(),.?":{}|<>]/.test(user.password)){
+        errors.password = "Password must contain at least one special character";
     }
 
+    if(user.confirm_password.trim() === ""){
+        errors.confirm_password = "Password confirmation is required"
+    }else if(user.password !== user.confirm_password){
+        errors.confirm_password = "Password confirmation must be equal to password"
+    }
 
     return errors
 }
