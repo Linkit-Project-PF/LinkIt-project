@@ -6,7 +6,7 @@
 }
 
     .containerBtnsNavBar {
-        @apply flex items-center justify-center lg:gap-[40px] text-xl lg:text-[15px] lg:whitespace-nowrap font-montserrat font-semibold w-[100%]
+        @apply flex items-center justify-center lg:gap-[40px] text-xl lg:text-[15px] lg:whitespace-nowrap font-montserrat font-semibold w-[100%] h-12
     }
 
     .contrataBtnNavB{

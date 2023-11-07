@@ -140,8 +140,8 @@ function NavBar() {
       </ul>{" "}
       </nav>
         <span className=" font-medium">Inglés</span>
-        <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md " onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
-        <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-sm active:translate-y-1" onClick={()=> goSoyTalento()} whileTap={{ scale: 0.9}}>Vacantes disponibles</motion.button>
+        <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300" onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
+        <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition" onClick={()=> goSoyTalento()} whileTap={{ scale: 0.9}}>Vacantes disponibles</motion.button>
         </div>
         </nav>
 </div>
