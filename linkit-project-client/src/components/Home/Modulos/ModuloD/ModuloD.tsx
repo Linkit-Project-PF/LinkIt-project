@@ -7,25 +7,37 @@ export default function ModuloD() {
                 <img className="z-0 " src="/public/vectores/linkit-web-vectores-06.svg" alt="360" />
                 <img className="image w-3/12 z-1 " src="/public/vectores/linkit-web-vectores-07.svg" alt="persons" />
             </div>
-            <div className='my-40'>
+            <div className='mt-52'>
                 <ul>
-                    <div className='flex flex-row'>
-                        <img className='w-1/12' src="/public/vectores/linkit-web-vectores-08.svg" alt="" />
-                        <li className='font-bold text-2xl'>Proceso ágil</li>
+                    <div className='flex flex-row my-6'>
+                            <img className='w-2/12' src="/public/vectores/linkit-web-vectores-08.svg" alt="" />
+                        <div className='flex flex-col justify-center'>
+                            <li className='font-bold text-2xl'>Proceso ágil</li>
+                            <p className='mt-4 text-xl pr-72'>En 5 días hábiles presentaremos talentos previamente entrevistados y calificados.</p>
+                        </div>
                     </div>
-                    <p>En 5 días hábiles presentaremos talentos previamente entrevistados y calificados.</p>
                     <div className='division'></div>
-                    <div className='flex flex-row'>
-                        <img className='w-1/12' src="/public/vectores/linkit-web-vectores-09.svg" alt="" />
-                        <li className='font-bold text-2xl'>Comunicación asertiva</li>
+
+                    <div className='flex flex-row my-6'>
+
+                            <img className='w-2/12' src="/public/vectores/linkit-web-vectores-09.svg" alt="" />
+
+                        <div className='flex flex-col justify-center'>
+                            <li className='font-bold text-2xl'>Comunicación asertiva</li>
+                            <p className='mt-4 text-xl pr-72'>Nos comprometemos a mantener una comunicación ágil y efectiva durante todo el proceso de selección.</p>
+                        </div>
                     </div>
-                    <p>Nos comprometemos a mantener una comunicación ágil y efectiva durante todo el proceso de selección.</p>
                     <div className='division'></div>
-                    <div className='flex flex-row'>
-                        <img className='w-1/12' src="/public/vectores/linkit-web-vectores-10.svg" alt="" />
-                        <li className='font-bold text-2xl'>Consultoría 360°</li>
+
+                    <div className='flex flex-row my-6'>
+
+                            <img className='w-2/12' src="/public/vectores/linkit-web-vectores-10.svg" alt="" />
+
+                        <div className='flex flex-col justify-center'>
+                            <li className='font-bold text-2xl'>Consultoría 360°</li>
+                            <p className='mt-4 text-xl pr-72'>Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.</p>
+                        </div>
                     </div>
-                    <p>Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.</p>
                     <div className='division'></div>
                 </ul>
             </div>
