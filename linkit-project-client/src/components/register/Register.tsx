@@ -122,7 +122,7 @@ function Register({setPressLogin, setPressRegister}: FormProps) {
           </div>
         </form>
 
-        <div className="text-grey-dark mt-6">
+        <div className="text-white mt-6">
           Already have an account?
           <a className="no-underline border-b border-blue text-blue cursor-pointer" onClick={()=>{setPressRegister('hidden'), setPressLogin('visible')}}>
             <span> Log in.</span>
