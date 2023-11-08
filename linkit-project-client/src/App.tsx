@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Empresas from "./components/Empresas/Empresas";
 import Talentos from "./components/Talentos/Talentos";
 import Register from "./components/register/Register";
+import Login from "./components/Login/Login";
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
 
@@ -21,7 +22,7 @@ const registerVariants: Variants ={
     transition: {
       type: "spring",
       delay: 0.5,
-      duration: 0.8
+      duration: 1
     }
   }
 }
@@ -38,7 +39,7 @@ function App() {
         animate={pressRegister}
         className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-10"
       >
-        <Register />
+        <Register/>
       </motion.div>
       <button className="bg-linkIt-400 text-white z-20 absolute top-1/2" onClick={()=>{pressRegister === 'visible' ? setPressRegister('hidden'): setPressRegister('visible')}}>Sign Up</button>
       <Routes>
