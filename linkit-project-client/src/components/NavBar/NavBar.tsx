@@ -74,7 +74,7 @@ function NavBar() {
         <div className="containerLinksNavBar">
         <motion.button onClick={()=> goHome()}>Home</motion.button>
 
-        <nav className="relative top-[6px] xl:top-[5px] w-[100px] xl:w-[110px] h-7" ref={scopeEmpresa}>
+        <nav className="relative top-[6px] xl:top-[4px] w-[100px] xl:w-[110px] h-7" ref={scopeEmpresa}>
         <motion.button className=" w-30 flex items-center"
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenEmpresa(!isOpenEmpresa)}
@@ -104,7 +104,7 @@ function NavBar() {
         <NavLink className=" relative" to='/soyTalento'>Soy Talento</NavLink>
 
 
-        <nav className="relative top-[6px] xl:top-[5px] w-[75px] xl:w-[85px] h-7" ref={scopeRecursos}>
+        <nav className="relative top-[6px] xl:top-[4px] w-[75px] xl:w-[85px] h-7" ref={scopeRecursos}>
         <motion.button className="w-30 flex items-center"
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenRecursos(!isOpenRecursos)}
@@ -130,7 +130,7 @@ function NavBar() {
 
 
       </nav>
-        <nav className="relative top-[6px] xl:top-[5px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
+        <nav className="relative top-[6px] xl:top-[4px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
         <motion.button className="w-30 flex items-center"
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenQS(!isOpenQS)}
