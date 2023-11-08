@@ -52,6 +52,29 @@ function App() {
       <NavBar />
 
         <motion.div 
+          variants={loginVariants}
+          initial="hidden"
+          animate={pressLogin}
+          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen "
+          onClick={() => {
+            setPressLogin("hidden");
+          }}
+        >
+          <Login setPressLogin={setPressLogin} setPressRegister={setPressRegister}/>
+        </motion.div>
+
+      <button
+        className="bg-linkIt-400 text-white z-20 absolute top-1/2"
+        onClick={() => {
+          pressLogin === "visible"
+            ? setPressLogin("hidden")
+            : setPressLogin("visible"), setPressRegister("hidden")
+        }}
+      >
+        Login
+      </button>
+
+      <motion.div 
           variants={registerVariants}
           initial="hidden"
           animate={pressRegister}
@@ -60,15 +83,15 @@ function App() {
             setPressRegister("hidden");
           }}
         >
-          <Login />
+          <Register setPressLogin={setPressLogin} setPressRegister={setPressRegister}/>
         </motion.div>
 
       <button
-        className="bg-linkIt-400 text-white z-20 absolute top-1/2"
+        className="bg-linkIt-400 text-white z-20 absolute top-[60%]"
         onClick={() => {
           pressRegister === "visible"
             ? setPressRegister("hidden")
-            : setPressRegister("visible");
+            : setPressRegister("visible"), setPressLogin("hidden")
         }}
       >
         Sign Up
