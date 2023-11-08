@@ -3,11 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import validations from "./registerValidations";
 
-type Event = {
-  target: HTMLInputElement;
-};
-
 function Register() {
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -21,7 +18,7 @@ function Register() {
     confirm_password: "",
   });
 
-  const handleInputChange = ({ target }: Event) => {
+  const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldErrors = validations({
       ...user,
       [target.name]: target.value,
@@ -37,15 +34,22 @@ function Register() {
       [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
     });
   };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
+
+  const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
+    event.stopPropagation()
+  }
 
   return (
-    <div className="register-container">
+      <div className="register-container">
       <div className="register-subContainer">
-        <form className="register-form">
+        <form className="register-form" onSubmit={handleSubmit} onClick={handleClick}>
           <h1 className="register-title">Sign up</h1>
           <input
             type="text"
-            className="register-input"
+            className={`register-input ${errors.name ? 'input-error' : ''}`}
             name="name"
             placeholder="Name"
             onChange={handleInputChange}
@@ -56,7 +60,7 @@ function Register() {
 
           <input
             type="text"
-            className="register-input"
+            className={`register-input ${errors.email ? 'input-error' : ''}` }
             name="email"
             placeholder="Email"
             onChange={handleInputChange}
@@ -68,7 +72,7 @@ function Register() {
 
           <input
             type="password"
-            className="register-input"
+            className={`register-input ${errors.password ? 'input-error' : ''}` }
             name="password"
             placeholder="Password"
             onChange={handleInputChange}
@@ -80,8 +84,8 @@ function Register() {
 
           <input
             type="password"
-            className="register-input"
-            name="confirm_password"
+            className={`register-input ${errors.confirm_password ? 'input-error' : ''}` }
+            name='confirm_password'
             placeholder="Confirm Password"
             onChange={handleInputChange}
           />
@@ -96,7 +100,7 @@ function Register() {
             type="submit"
             className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
             whileTap={{ scale: 0.95 }}
-            disabled={errors.name || errors.email || errors.password || errors.confirm_password ? true : false}
+            disabled={errors.name || errors.email || errors.password || errors.confirm_password || user.confirm_password !== user.password ? true : false}
           >
             Create Account
           </motion.button>
