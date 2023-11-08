@@ -33,3 +33,7 @@
 .login-form button:disabled{
     @apply opacity-50 cursor-not-allowed;
 }
+
+.login-input-error {
+    @apply border-red-500 outline-red-500
+}
