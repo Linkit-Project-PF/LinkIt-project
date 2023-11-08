@@ -11,12 +11,14 @@ function useMenuAnimation(isOpen: boolean) {
 
   useEffect(() => {
 
+    animate(".arrow", { rotate: isOpen ? 180 : 0 }, { duration: 0.2 });
+
     animate(
       "ul",
       {
         clipPath: isOpen
-          ? "inset(0% 0% 0% 0% round 10px)"
-          : "inset(10% 50% 90% 50% round 10px)"
+          ? "inset(0% 0% 0% 0%)"
+          : "inset(10% 50% 90% 50% )"
       },
       {
         type: "spring",
@@ -68,72 +70,94 @@ function NavBar() {
             <NavLink to="https://calendly.com/linkit-project-henry/30min" className="ml-2">Comienza ahora! →</NavLink>
             </div>
         <nav className="navBar">
-        <img src={Logo} alt="" className="h-40"/>
-        <div className="containerBtnsNavBar">
+        <img src={Logo} alt="" className="static h-20 xl:h-24 2xl:h-32 mr-2 xl:mr-6 2xl:mr-16 ml-2 xl:ml-6 2xl:ml-14"/>
+        <div className="containerLinksNavBar">
         <motion.button onClick={()=> goHome()}>Home</motion.button>
-        <nav className="relative top-14" ref={scopeEmpresa}>
-        <motion.button
+
+        <nav className="relative top-[6px] xl:top-[5px] w-[100px] xl:w-[110px] h-7" ref={scopeEmpresa}>
+        <motion.button className=" w-30 flex items-center"
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenEmpresa(!isOpenEmpresa)}
       >
         Soy Empresa
+        <div className="arrow w-3 ml-2" style={{ transformOrigin: "50% 55%" }}>
+          <svg width="10" height="15" viewBox="0 0 20 20">
+            <path d="M0 7 L 20 7 L 10 16" />
+          </svg>
+          </div>
       </motion.button>
       <ul
-      className="bg-white flex flex-col mt-3"
+      className="bg-white mt-5 rounded-b-[7px] w-24 xl:w-32 h-[100px]"
+      style={{
+        pointerEvents: isOpenEmpresa ? "auto" : "none",
+      }}
       >
-        <li className="border-gray border-b-2 mb-2">Servicios </li>
-        <li className="border-gray border-b-2 mb-2">Proceso </li>
-        <li>Cotiza </li>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Servicios </li>
+        <hr className="w-[90px] ml-4"/>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Proceso </li>
+        <hr className="w-[90px] ml-4 text-xs"/>
+        <li className="ml-4 mt-3 text-[10px] xl:text-xs">Cotiza </li>
       </ul>{" "}
       </nav>
 
 
-        <NavLink className=" relative bottom-1 hover:border-b-4 hover:border-linkIt-300" to='/soyTalento'>Soy Talento</NavLink>
+        <NavLink className=" relative" to='/soyTalento'>Soy Talento</NavLink>
 
 
-        <nav className="relative top-14" ref={scopeRecursos}>
-        <motion.button
+        <nav className="relative top-[6px] xl:top-[5px] w-[75px] xl:w-[85px] h-7" ref={scopeRecursos}>
+        <motion.button className="w-30 flex items-center"
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenRecursos(!isOpenRecursos)}
       >
         Recursos
-      </motion.button>
-      <ul className="bg-white flex flex-col mt-3"
-        style={{
-          pointerEvents: isOpenRecursos ? "auto" : "none",
-        }}
-      >
-        <li className="border-gray border-b-2 mb-2">Blogs</li>
-        <li className="border-gray border-b-2 mb-2">Ebooks</li>
-        <li>Eventos</li>
-      </ul>{" "}
-
-
-      </nav>
-        <nav className="relative top-[76px]" ref={scopeQS}>
-        <motion.button
-        whileTap={{ scale: 0.97 }}
-        onClick={() => setIsOpenQS(!isOpenQS)}
-      >
-        Quienes Somos
-        <div className="relative left-44 lg:left-[128px] lg:top-[-21px] bottom-6">
-          <svg width="15" height="13" viewBox="0 0 20 20">
+        <div className="arrow w-3 ml-2" style={{ transformOrigin: "50% 55%" }}>
+          <svg width="10" height="15" viewBox="0 0 20 20">
             <path d="M0 7 L 20 7 L 10 16" />
           </svg>
         </div>
       </motion.button>
-      <ul className="bg-white flex flex-col mt-1"
+      <ul className="bg-white mt-5 rounded-b-[7px] w-24 xl:w-32 h-[100px]"
+        style={{
+          pointerEvents: isOpenRecursos ? "auto" : "none",
+        }}
+      >
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Blogs</li>
+        <hr className="w-[90px] ml-4"/>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Ebooks</li>
+        <hr className="w-[90px] ml-4"/>
+        <li className="ml-4 mt-3 text-[10px] xl:text-xs">Eventos</li>
+      </ul>{" "}
+
+
+      </nav>
+        <nav className="relative top-[6px] xl:top-[5px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
+        <motion.button className="w-30 flex items-center"
+        whileTap={{ scale: 0.97 }}
+        onClick={() => setIsOpenQS(!isOpenQS)}
+      >Quienes Somos
+        <div className="arrow w-3 ml-2" style={{ transformOrigin: "50% 55%" }}>
+          <svg width="10" height="15" viewBox="0 0 20 20">
+            <path d="M0 7 L 20 7 L 10 16" />
+          </svg>
+          </div>
+      </motion.button>
+      <ul className="bg-white flex flex-col mt-2 w-26 xl:w-36 rounded-b-[7px] h-[150px]"
         style={{
           pointerEvents: isOpenQS ? "auto" : "none",
         }}
       >
-        <li className="border-gray border-b-2 mb-2">Mision</li>
-        <li className="border-gray border-b-2 mb-2">Vision</li>
-        <li className="border-gray border-b-2 mb-2">Valores e Historia</li>
-        <li>Talento interno</li>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Mision</li>
+        <hr className="w-[90px] ml-4"/>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Vision</li>
+        <hr className="w-[90px] ml-4"/>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Valores e Historia</li>
+        <hr className="w-[90px] ml-4"/>
+        <li className="ml-4 mt-3 text-[10px] xl:text-xs">Talento interno</li>
       </ul>{" "}
       </nav>
         <span className=" font-medium">Inglés</span>
+        </div>
+        <div className="containerBtnsNavbar">
         <motion.button className="contrataBtnNavB" onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
         <motion.button className="vacanteBtnNavB" onClick={()=> goSoyTalento()} whileTap={{ scale: 0.9}}>Vacantes disponibles</motion.button>
         </div>

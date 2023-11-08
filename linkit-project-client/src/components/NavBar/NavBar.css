@@ -1,31 +1,27 @@
-    .preNavbar{
-        @apply static w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center
-    }
-    .navBar{
-@apply sticky top-0 h-[3.938rem] bg-white flex justify-between items-center px-4 w-[100%]
+body {
+    @apply overflow-x-hidden;
 }
 
-    .containerBtnsNavBar {
-        @apply flex items-center justify-center lg:gap-[40px] text-xl lg:text-[15px] lg:whitespace-nowrap font-montserrat font-semibold w-[100%] h-12
+  
+  .preNavbar{
+        @apply fixed top-0 w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center z-50
+    }
+    .navBar{
+@apply fixed top-7 h-[3.938rem] bg-white flex justify-start items-center px-4 w-[100%] z-50
+}
+
+    .containerLinksNavBar {
+        @apply flex items-center gap-[30px] xl:gap-[50px] 2xl:gap-[60px] text-[10px] xl:text-sm whitespace-nowrap font-montserrat font-semibold h-12
+    }
+    .containerBtnsNavbar {
+        @apply flex ml-8 xl:ml-10 2xl:ml-14 items-center justify-center space-x-4 whitespace-nowrap font-montserrat font-semibold h-12
     }
 
     .contrataBtnNavB{
-    @apply bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300
+    @apply bg-linkIt-300 flex items-center rounded-[7px] p-2 h-8 text-white text-xs shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300
     }
 
     .vacanteBtnNavB{
-        @apply border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition
+        @apply border-linkIt-300 flex items-center border rounded-[7px] p-2 h-8 text-xs shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition
     }
     
-    @media (max-width: 640px) {
-        .containerBtnsNavBar {
-            @apply flex-wrap space-x-0 space-y-4
-        }
-    }
-    
-    /* Estilos para pantallas de tamaño mediano (entre 640px y 1024px) */
-    @media (min-width: 641px) and (max-width: 1024px) {
-        .containerBtnsNavBar {
-            @apply space-x-10
-        }
-    }
