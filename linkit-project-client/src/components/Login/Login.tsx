@@ -34,10 +34,18 @@ function Login() {
     });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
+
+  const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
+    event.stopPropagation()
+  }
+
   return (
     <div className="login-container">
       <div className="login-subContainer">
-        <form className="login-form">
+        <form className="login-form" onClick={handleClick} onSubmit={handleSubmit}>
           <h1 className="login-title">Log in</h1>
 
           <input

@@ -60,7 +60,7 @@ function App() {
             setPressRegister("hidden");
           }}
         >
-          <Register />
+          <Login />
         </motion.div>
 
       <button
