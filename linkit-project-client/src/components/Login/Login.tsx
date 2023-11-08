@@ -7,7 +7,12 @@ type Event = {
   target: HTMLInputElement;
 };
 
-function Login() {
+type FormProps = {
+  setPressLogin: React.Dispatch<React.SetStateAction<string>>;
+  setPressRegister: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Login({setPressLogin, setPressRegister}: FormProps) {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -83,7 +88,7 @@ function Login() {
 
           <div className="login-conditions-container">
             Don't have an account?
-            <a className="login-conditions-links" href="#">
+            <a className="register-link" onClick={()=>{setPressLogin('hidden'), setPressRegister('visible')}}>
               <span> Sign up.</span>
             </a>
           </div>

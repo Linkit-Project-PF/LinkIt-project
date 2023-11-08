@@ -22,8 +22,8 @@
     @apply text-center text-sm text-linkIt-400 mt-4 font-manrope
 }
 
-.login-conditions-links{
-    @apply no-underline border-b border-linkIt-400 text-linkIt-400;
+.register-link{
+    @apply no-underline border-b border-linkIt-400 text-linkIt-400 cursor-pointer;
 }
 
 .login-form p{
