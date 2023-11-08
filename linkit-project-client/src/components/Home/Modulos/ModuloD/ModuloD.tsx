@@ -13,19 +13,19 @@ export default function ModuloD() {
                         <img className='w-1/12' src="/public/vectores/linkit-web-vectores-08.svg" alt="" />
                         <li>Proceso ágil</li>
                         <p>En 5 días hábiles presentaremos talentos previamente entrevistados y calificados.</p>
-                        <div></div>
+                        <div className='division'></div>
                     </div>
                     <div>
                         <img className='w-1/12' src="/public/vectores/linkit-web-vectores-09.svg" alt="" />
                         <li>Comunicación asertiva</li>
                         <p>Nos comprometemos a mantener una comunicación ágil y efectiva durante todo el proceso de selección.</p>
-                        <div></div>
+                        <div className='division'></div>
                     </div>
                     <div>
                         <img className='w-1/12' src="/public/vectores/linkit-web-vectores-10.svg" alt="" />
                         <li>Consultoría 360°</li>
                         <p>Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.</p>
-                        <div></div>
+                        <div className='division'></div>
                     </div>
                 </ul>
             </div>

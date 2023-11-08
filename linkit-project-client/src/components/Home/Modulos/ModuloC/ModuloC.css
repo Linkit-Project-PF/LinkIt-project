@@ -20,10 +20,4 @@
     transform: translateY(-50%);
   }
   
-  .line::before {
-    left: 0;
-  }
-  
-  .line::after {
-    right: 0;
-  }
+ 
