@@ -1,6 +1,7 @@
 import ModuloA from "./Modulos/ModuloA/ModuloA"
 import ModuloB from "./Modulos/ModuloB/ModuloB"
 import ModuloC from "./Modulos/ModuloC/ModuloC"
+import ModuloD from "./Modulos/ModuloD/ModuloD"
 
 function Home() {
     return (
@@ -8,6 +9,7 @@ function Home() {
             <ModuloA />
             <ModuloB />
             <ModuloC />
+            <ModuloD />
         </div>
 
     )

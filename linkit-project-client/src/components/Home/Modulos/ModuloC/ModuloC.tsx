@@ -1,6 +1,8 @@
+import './ModuloC.css'
+
 export default function ModuloC() {
     return (
-        <div className="p-32">
+        <div className="p-20">
             <h1 className="flex justify-center text-5xl font-semibold mb-32">¿Qué nos hace diferentes?</h1>
             <div>
                 <ul className="grid grid-cols-4 gap-2">
@@ -28,6 +30,7 @@ export default function ModuloC() {
                     </div>
                 </ul>
                 <ul className="grid grid-cols-4 gap-64 m-28  justify-items-center">
+                <div className="flex line "></div>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">1</li>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">2</li>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">3</li>
