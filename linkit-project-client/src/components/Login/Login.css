@@ -35,5 +35,5 @@
 }
 
 .login-input-error {
-    @apply border-red-500;
+    @apply border-red-500 outline-red-500
 }
