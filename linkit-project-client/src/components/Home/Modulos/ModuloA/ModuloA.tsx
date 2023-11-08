@@ -20,8 +20,8 @@ export default function ModuloA() {
           <h3 className="text-3xl">Contrata y gestiona al mejor talento de manera global</h3>
         </div>
         <div className="flex">
-          <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 m-2" onClick={goSoyEmpresa} whileTap={{ scale: 0.9 }}>Contrata Talento</motion.button>
-          <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition m-2" onClick={goSoyTalento} whileTap={{ scale: 0.9 }}>Vacantes disponibles</motion.button>
+          <motion.button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out m-2" onClick={goSoyEmpresa} whileTap={{ scale: 0.9 }}>Contrata Talento</motion.button>
+          <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition-all duration-300 ease-in-out m-2" onClick={goSoyTalento} whileTap={{ scale: 0.9 }}>Vacantes disponibles</motion.button>
         </div>
         <div className="flex flex-row items-center">
           <img className="w-1/6" src="/public/vectores/linkit-web-vectores-16.svg" alt="stars" />
