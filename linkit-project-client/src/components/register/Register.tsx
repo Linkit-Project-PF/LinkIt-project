@@ -3,7 +3,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import validations from "./registerValidations";
 
-function Register() {
+type FormProps = {
+  setPressLogin: React.Dispatch<React.SetStateAction<string>>;
+  setPressRegister: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Register({setPressLogin, setPressRegister}: FormProps) {
 
   const [user, setUser] = useState({
     name: "",
@@ -119,7 +124,7 @@ function Register() {
 
         <div className="text-grey-dark mt-6">
           Already have an account?
-          <a className="no-underline border-b border-blue text-blue" href="#">
+          <a className="no-underline border-b border-blue text-blue cursor-pointer" onClick={()=>{setPressRegister('hidden'), setPressLogin('visible')}}>
             <span> Log in.</span>
           </a>
         </div>
