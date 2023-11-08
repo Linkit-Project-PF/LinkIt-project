@@ -71,20 +71,15 @@ function NavBar() {
         <img src={Logo} alt="" className="h-40"/>
         <div className="containerBtnsNavBar">
         <motion.button onClick={()=> goHome()}>Home</motion.button>
-        <nav className="relative top-10" ref={scopeEmpresa}>
+        <nav className="relative top-14" ref={scopeEmpresa}>
         <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenEmpresa(!isOpenEmpresa)}
       >
         Soy Empresa
-        <div className="arrow" style={{ transformOrigin: "50% 55%" }}>
-        </div>
       </motion.button>
       <ul
-      className="bg-white flex flex-col"
-        style={{
-          pointerEvents: isOpenEmpresa ? "auto" : "none",
-        }}
+      className="bg-white flex flex-col mt-3"
       >
         <li className="border-gray border-b-2 mb-2">Servicios </li>
         <li className="border-gray border-b-2 mb-2">Proceso </li>
@@ -93,17 +88,17 @@ function NavBar() {
       </nav>
 
 
-        <NavLink className="hover:border-b-4 hover:border-linkIt-300" to='/soyTalento'>Soy Talento</NavLink>
+        <NavLink className=" relative bottom-1 hover:border-b-4 hover:border-linkIt-300" to='/soyTalento'>Soy Talento</NavLink>
 
 
-        <nav className="relative top-10" ref={scopeRecursos}>
+        <nav className="relative top-14" ref={scopeRecursos}>
         <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenRecursos(!isOpenRecursos)}
       >
         Recursos
       </motion.button>
-      <ul className="bg-white flex flex-col"
+      <ul className="bg-white flex flex-col mt-3"
         style={{
           pointerEvents: isOpenRecursos ? "auto" : "none",
         }}
@@ -115,7 +110,7 @@ function NavBar() {
 
 
       </nav>
-        <nav className="relative top-20" ref={scopeQS}>
+        <nav className="relative top-[76px]" ref={scopeQS}>
         <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenQS(!isOpenQS)}
@@ -127,7 +122,7 @@ function NavBar() {
           </svg>
         </div>
       </motion.button>
-      <ul className="bg-white flex flex-col"
+      <ul className="bg-white flex flex-col mt-1"
         style={{
           pointerEvents: isOpenQS ? "auto" : "none",
         }}
