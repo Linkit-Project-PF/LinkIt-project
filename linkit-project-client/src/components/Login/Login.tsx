@@ -9,10 +9,10 @@ type Event = {
 
 type FormProps = {
   setPressLogin: React.Dispatch<React.SetStateAction<string>>;
-  setPressRegister: React.Dispatch<React.SetStateAction<string>>;
+  setPressSignUp: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Login({setPressLogin, setPressRegister}: FormProps) {
+function Login({setPressLogin, setPressSignUp}: FormProps) {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -88,7 +88,7 @@ function Login({setPressLogin, setPressRegister}: FormProps) {
 
           <div className="login-conditions-container">
             Don't have an account?
-            <a className="register-link" onClick={()=>{setPressLogin('hidden'), setPressRegister('visible')}}>
+            <a className="register-link" onClick={()=>{setPressLogin('hidden'), setPressSignUp('visible')}}>
               <span> Sign up.</span>
             </a>
           </div>
