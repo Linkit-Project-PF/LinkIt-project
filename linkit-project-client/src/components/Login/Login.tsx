@@ -42,7 +42,7 @@ function Login() {
 
           <input
             type="text"
-            className="login-input"
+            className={`login-input ${errors.email ? 'login-input-error' : ''}`}
             name="email"
             placeholder="Email"
             onChange={handleInputChange}
@@ -54,7 +54,7 @@ function Login() {
 
           <input
             type="password"
-            className="login-input"
+            className={`login-input ${errors.password ? 'login-input-error' : ''}`}
             name="password"
             placeholder="Password"
             onChange={handleInputChange}
