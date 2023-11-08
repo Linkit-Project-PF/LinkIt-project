@@ -6,7 +6,9 @@ import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import Empresas from "./components/Empresas/Empresas";
 import Talentos from "./components/Talentos/Talentos";
-import Register from "./components/register/Register";
+import RegisterTalent from "./components/register/RegisterTalent";
+import RegisterCompany from "./components/register/RegisterCompany";
+import PreRegisterForm from "./components/register/preRegisterForm";
 import Login from "./components/Login/Login";
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
@@ -15,6 +17,11 @@ const registerVariants: Variants = {
   hidden: {
     opacity: 0,
     x: "-100vw",
+    transition: {
+      type: "spring",
+      delay: 0.3,
+      duration: 1,
+    }
   },
   visible: {
     opacity: 1,
@@ -31,6 +38,11 @@ const loginVariants: Variants = {
   hidden: {
     opacity: 0,
     x: "-100vw",
+    transition:{
+      type: "spring",
+      delay: 0.2,
+      duration: 1,
+    }
   },
   visible: {
     opacity: 1,
@@ -43,9 +55,53 @@ const loginVariants: Variants = {
   },
 };
 
+const registerCompanyVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    x: "-100vw",
+    transition: {
+      type: "spring",
+      delay: 0.3,
+      duration: 1,
+    }
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      delay: 0.5,
+      duration: 1,
+    },
+  },
+}
+
+const registerTalentVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    x: "-100vw",
+    transition: {
+      type: "spring",
+      delay: 0.3,
+      duration: 1,
+    }
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      delay: 0.5,
+      duration: 1,
+    },
+  }
+}
+
 function App() {
-  const [pressRegister, setPressRegister] = useState("hidden");
+  const [pressSignUp, setPressSignUp] = useState("hidden");
   const [pressLogin, setPressLogin] = useState("hidden");
+  const [pressCompany, setPressCompany] = useState("hidden");
+  const [pressTalent, setPressTalent] = useState("hidden");
 
   return (
     <>
@@ -55,12 +111,12 @@ function App() {
           variants={loginVariants}
           initial="hidden"
           animate={pressLogin}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen "
+          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100] "
           onClick={() => {
             setPressLogin("hidden");
           }}
         >
-          <Login setPressLogin={setPressLogin} setPressRegister={setPressRegister}/>
+          <Login setPressLogin={setPressLogin} setPressSignUp={setPressSignUp}/>
         </motion.div>
 
       <button
@@ -68,7 +124,7 @@ function App() {
         onClick={() => {
           pressLogin === "visible"
             ? setPressLogin("hidden")
-            : setPressLogin("visible"), setPressRegister("hidden")
+            : setPressLogin("visible"), setPressSignUp("hidden")
         }}
       >
         Login
@@ -77,21 +133,45 @@ function App() {
       <motion.div 
           variants={registerVariants}
           initial="hidden"
-          animate={pressRegister}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen "
+          animate={pressSignUp}
+          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
-            setPressRegister("hidden");
+            setPressSignUp("hidden");
           }}
         >
-          <Register setPressLogin={setPressLogin} setPressRegister={setPressRegister}/>
+          <PreRegisterForm setPressTalent={setPressTalent} setPressCompany={setPressCompany} setPressSignUp={setPressSignUp}/>
+        </motion.div>
+
+        <motion.div 
+          variants={registerCompanyVariants}
+          initial="hidden"
+          animate={pressCompany}
+          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
+          onClick={() => {
+            setPressCompany("hidden");
+          }}
+        >
+          <RegisterCompany setPressLogin={setPressLogin} setPressSignUp={setPressSignUp} setPressCompany={setPressCompany}/>
+        </motion.div>
+
+        <motion.div 
+          variants={registerTalentVariants}
+          initial="hidden"
+          animate={pressTalent}
+          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
+          onClick={() => {
+            setPressTalent("hidden");
+          }}
+        >
+          <RegisterTalent setPressLogin={setPressLogin} setPressSignUp={setPressSignUp} setPressTalent={setPressTalent}/>
         </motion.div>
 
       <button
         className="bg-linkIt-400 text-white z-20 absolute top-[60%]"
         onClick={() => {
-          pressRegister === "visible"
-            ? setPressRegister("hidden")
-            : setPressRegister("visible"), setPressLogin("hidden")
+          pressSignUp === "visible"
+            ? setPressSignUp("hidden")
+            : setPressSignUp("visible"), setPressLogin("hidden"), setPressCompany("hidden"), setPressTalent("hidden")
         }}
       >
         Sign Up

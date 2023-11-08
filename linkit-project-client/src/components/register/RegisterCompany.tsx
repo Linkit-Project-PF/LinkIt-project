@@ -1,54 +1,54 @@
-import "./Register.css";
+import './Register.css'
 import { motion } from "framer-motion";
 import { useState } from "react";
-import validations from "./registerValidations";
+import validations from "./registerCompanyValidations"
 
 type FormProps = {
-  setPressLogin: React.Dispatch<React.SetStateAction<string>>;
-  setPressRegister: React.Dispatch<React.SetStateAction<string>>;
-}
-
-function Register({setPressLogin, setPressRegister}: FormProps) {
-
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-  });
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-  });
-
-  const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const fieldErrors = validations({
-      ...user,
-      [target.name]: target.value,
-    });
-
-    setUser({
-      ...user,
-      [target.name]: target.value,
-    });
-
-    setErrors({
-      ...errors,
-      [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
-    });
-  };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    setPressLogin: React.Dispatch<React.SetStateAction<string>>;
+    setPressSignUp: React.Dispatch<React.SetStateAction<string>>;
+    setPressCompany: React.Dispatch<React.SetStateAction<string>>;
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
-    event.stopPropagation()
-  }
+function RegisterCompany({setPressLogin, setPressSignUp, setPressCompany}: FormProps) {
 
+    const [company, setCompany] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+      });
+      const [errors, setErrors] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+      });
+    
+      const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        const fieldErrors = validations({
+          ...company,
+          [target.name]: target.value,
+        });
+    
+        setCompany({
+          ...company,
+          [target.name]: target.value,
+        });
+    
+        setErrors({
+          ...errors,
+          [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
+        });
+      };
+      const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+      }
+    
+      const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
+        event.stopPropagation()
+      }
   return (
-      <div className="register-container">
+    <div className="register-container">
       <div className="register-subContainer">
         <form className="register-form" onSubmit={handleSubmit} onClick={handleClick}>
           <h1 className="register-title">Sign up</h1>
@@ -56,7 +56,7 @@ function Register({setPressLogin, setPressRegister}: FormProps) {
             type="text"
             className={`register-input ${errors.name ? 'input-error' : ''}`}
             name="name"
-            placeholder="Name"
+            placeholder="Company Name"
             onChange={handleInputChange}
           />
           {errors.name && (
@@ -105,7 +105,7 @@ function Register({setPressLogin, setPressRegister}: FormProps) {
             type="submit"
             className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
             whileTap={{ scale: 0.95 }}
-            disabled={errors.name || errors.email || errors.password || errors.confirm_password || user.confirm_password !== user.password ? true : false}
+            disabled={errors.name || errors.email || errors.password || errors.confirm_password || company.confirm_password !== company.password ? true : false}
           >
             Create Account
           </motion.button>
@@ -124,13 +124,13 @@ function Register({setPressLogin, setPressRegister}: FormProps) {
 
         <div className="text-white mt-6">
           Already have an account?
-          <a className="no-underline border-b border-blue text-blue cursor-pointer" onClick={()=>{setPressRegister('hidden'), setPressLogin('visible')}}>
+          <a className="no-underline border-b border-blue text-blue cursor-pointer" onClick={()=>{setPressSignUp('hidden'), setPressCompany('hidden'), setPressLogin('visible')}}>
             <span> Log in.</span>
           </a>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default RegisterCompany
