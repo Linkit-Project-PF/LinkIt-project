@@ -1,0 +1,39 @@
+.register-container{
+    @apply min-h-screen flex flex-col font-manrope;
+}
+
+.register-subContainer{
+    @apply container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2;
+}
+
+.register-form{
+    @apply bg-white px-6 py-8 rounded shadow-md text-black w-full;
+}
+
+.register-title{
+    @apply mb-8 text-3xl text-center
+}
+
+.register-input{
+    @apply block border  w-full p-3 rounded mb-4;
+}
+
+.register-conditions-container{
+    @apply text-center text-sm text-linkIt-400 mt-4 font-manrope
+}
+
+.register-conditions-links{
+    @apply no-underline border-b border-linkIt-400 text-linkIt-400;
+}
+
+.register-form p{
+    @apply text-sm text-center mt-[-5px] mb-[10px];
+}
+
+.register-form button:disabled{
+    @apply opacity-50 cursor-not-allowed;
+}
+
+.input-error{
+    @apply border-red-500 outline-red-500
+}

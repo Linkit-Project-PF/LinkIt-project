@@ -1,0 +1,26 @@
+.image {
+    position: absolute;
+    top: 3100px;
+    left: 225px;
+}
+
+.division {
+    width: 90%;
+    height: 4px;
+    margin: none;
+    background-color: #A9C1D9;
+    z-index: -1;
+}
+
+
+.division::before {
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #A9C1D9;
+    transform: translateY(-40%);
+    right: 4.5%;
+}
+
