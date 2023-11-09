@@ -5,11 +5,11 @@
     },
     {
         "name": "Angular",
-        "logo": "angular_logo.png"
+        "logo": "Technologies-logo/angular-seeklogo.com 2.svg"
     },
     {
         "name": "AWS",
-        "logo": "Technologies-logo/amazon-web-services-aws-seeklogo.com/eps"
+        "logo": "-"
     },
     {
         "name": "AZURE",
@@ -49,7 +49,7 @@
     },
     {
         "name": "Java",
-        "logo": "Technologies-logo/java-seeklogo.com.eps"
+        "logo": "-"
     },
     {
         "name": "Javascript",
@@ -57,7 +57,7 @@
     },
     {
         "name": "Jenkins",
-        "logo": "Technologies-logo/jenkins-seeklogo.com.eps"
+        "logo": "-"
     },
     {
         "name": "Kubernetes",
@@ -65,7 +65,7 @@
     },
     {
         "name": "PHP",
-        "logo": "Technologies-logo/PHP.eps"
+        "logo": "-"
     },
     {
         "name": "SQL",
@@ -81,23 +81,23 @@
     },
     {
         "name": "Node",
-        "logo": "Technologies-logo/nodejs-seeklogo.com.eps"
+        "logo": "-"
     },
     {
         "name": "Oracle",
-        "logo": "Technologies-logo/Oracle.eps"
+        "logo": "-"
     },
     {
         "name": "Power BI",
-        "logo": "Technologies-logo/power-bi-seeklogo.com.eps"
+        "logo": "-"
     },
     {
         "name": "Python",
-        "logo": "Technologies-logo/python-seeklogo.com.ai"
+        "logo": "-"
     },
     {
         "name": "QA Automation",
-        "logo": "Technologies-logo/"
+        "logo": "-"
     },
     {
         "name": "QA Manual",
@@ -117,7 +117,7 @@
     },
     {
         "name": "SAP",
-        "logo": "Technologies-logo/sap.eps"
+        "logo": "-"
     },
     {
         "name": "SOLIDITY",
@@ -125,7 +125,7 @@
     },
     {
         "name": "Tableau",
-        "logo": "Technologies-logo/tableau-software-seeklogo.com.ai"
+        "logo": "-"
     },
     {
         "name": "Terraform",
