@@ -1,15 +1,19 @@
-.image {
+.relative {
+    position: relative;
+  }
+  
+  .absolute {
     position: absolute;
-    top: 3100px;
-    left: 225px;
-}
+    top: 0;
+    left: 0;
+  }
 
 .division {
     width: 90%;
     height: 4px;
     margin: none;
     background-color: #A9C1D9;
-    z-index: -1;
+    z-index: 1;
 }
 
 
