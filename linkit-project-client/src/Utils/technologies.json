@@ -1,0 +1,178 @@
+[
+    {
+        "name": "Android",
+        "logo": "Technologies-logo/android.svg"
+    },
+    {
+        "name": "Angular",
+        "logo": "angular_logo.png"
+    },
+    {
+        "name": "AWS",
+        "logo": "Technologies-logo/amazon-web-services-aws-seeklogo.com/eps"
+    },
+    {
+        "name": "AZURE",
+        "logo": "Technologies-logo/microsoft-azure-seeklogo.com.svg"
+    },
+    {
+        "name": "C/CSS/C++",
+        "logo": "-"
+    },
+    {
+        "name": "C#: .NET",
+        "logo": "-"
+    },
+    {
+        "name": "DevOps",
+        "logo": "Technologies-logo/devops-seeklogo.com.svg"
+    },
+    {
+        "name": "Docker",
+        "logo": "Technologies-logo/01-primary-blue-docker-logo.svg"
+    },
+    {
+        "name": "GCP",
+        "logo": "-"
+    },
+    {
+        "name": "Go",
+        "logo": "Technologies-logo/go-programming-language-seeklogo.com.svg"
+    },
+    {
+        "name": "HTML",
+        "logo": "-"
+    },
+    {
+        "name": "iOS",
+        "logo": "Technologies-logo/ios-seeklogo.com.svg"
+    },
+    {
+        "name": "Java",
+        "logo": "Technologies-logo/java-seeklogo.com.eps"
+    },
+    {
+        "name": "Javascript",
+        "logo": "Technologies-logo/javascript-js-seeklogo.com.svg"
+    },
+    {
+        "name": "Jenkins",
+        "logo": "Technologies-logo/jenkins-seeklogo.com.eps"
+    },
+    {
+        "name": "Kubernetes",
+        "logo": "Technologies-logo/kubernetes-seeklogo.com-3.svg"
+    },
+    {
+        "name": "PHP",
+        "logo": "Technologies-logo/PHP.eps"
+    },
+    {
+        "name": "SQL",
+        "logo": "-"
+    },
+    {
+        "name": "MONGO",
+        "logo": "Technologies-logo/mongodb-seeklogo.com.svg"
+    },
+    {
+        "name": "Next.JS",
+        "logo": "Technologies-logo/next-js-seeklogo.com.svg"
+    },
+    {
+        "name": "Node",
+        "logo": "Technologies-logo/nodejs-seeklogo.com.eps"
+    },
+    {
+        "name": "Oracle",
+        "logo": "Technologies-logo/Oracle.eps"
+    },
+    {
+        "name": "Power BI",
+        "logo": "Technologies-logo/power-bi-seeklogo.com.eps"
+    },
+    {
+        "name": "Python",
+        "logo": "Technologies-logo/python-seeklogo.com.ai"
+    },
+    {
+        "name": "QA Automation",
+        "logo": "Technologies-logo/"
+    },
+    {
+        "name": "QA Manual",
+        "logo": "-"
+    },
+    {
+        "name": "React",
+        "logo": "Technologies-logo/react-seeklogo.com.svg"
+    },
+    {
+        "name": "React Native",
+        "logo": "-"
+    },
+    {
+        "name": "Ruby on Rails",
+        "logo": "Technologies-logo/rails-seeklogo.com.svg"
+    },
+    {
+        "name": "SAP",
+        "logo": "Technologies-logo/sap.eps"
+    },
+    {
+        "name": "SOLIDITY",
+        "logo": "Technologies-logo/solidity-seeklogo.com.svg"
+    },
+    {
+        "name": "Tableau",
+        "logo": "Technologies-logo/tableau-software-seeklogo.com.ai"
+    },
+    {
+        "name": "Terraform",
+        "logo": "Technologies-logo/terraform-seeklogo.com.svg"
+    },
+    {
+        "name": "Typescript",
+        "logo": "Technologies-logo/typescript-seeklogo.com.svg"
+    },
+    {
+        "name": "UX/UI",
+        "logo": "-"
+    },
+    {
+        "name": "Objective-C",
+        "logo": "-"
+    },
+    {
+        "name": "Unity",
+        "logo": "-"
+    },
+    {
+        "name": "Web3",
+        "logo": "-"
+    },
+    {
+        "name": "Solidity",
+        "logo": "-"
+    },
+    {
+        "name": "Firewall",
+        "logo": "-"
+    },
+    {
+        "name": "Nessus",
+        "logo": "-"
+    },
+    {
+        "name": "Cisco",
+        "logo": "-"
+    },
+    {
+        "name": "Linux",
+        "logo": "-"
+    },
+    {
+        "name": "McAfee",
+        "logo": "-"
+    }
+]
