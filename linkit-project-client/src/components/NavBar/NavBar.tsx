@@ -150,9 +150,7 @@ function NavBar() {
         <nav className="relative top-[6px] xl:top-[4px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
         <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveQS ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
-        onClick={()=> goQS()}
-        onMouseEnter={() => setIsOpenQS(true)}
-        onMouseLeave={() => setIsOpenQS(false)}
+        onClick={() => setIsOpenQS(!isOpenQS)}
       >Quiénes Somos
         <div className="arrow w-3 ml-1 mt-1">
           <img src={arrow} alt="" />
