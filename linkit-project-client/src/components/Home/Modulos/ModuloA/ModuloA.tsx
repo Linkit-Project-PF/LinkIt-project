@@ -24,13 +24,13 @@ export default function ModuloA() {
           <motion.button className="border-linkIt-300 border rounded-lg p-2 h-10 font-medium shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition-all duration-300 ease-in-out m-2" onClick={goSoyTalento} whileTap={{ scale: 0.9 }}>Vacantes disponibles</motion.button>
         </div>
         <div className="flex flex-row items-center">
-          <img className="w-1/6" src="/public/vectores/linkit-web-vectores-16.svg" alt="stars" />
+          <img className="w-1/6" src="Vectores/linkit-web-vectores-16.svg" alt="stars" />
           <h4 className="flex font-semibold">4/5 on Truspilot <p className="underline ml-2">Read reviews</p></h4>
         </div>
       </div>
 
       <div>
-        <img className="w-auto" src="/public/vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
+        <img className="w-auto" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
       </div>
     </div>
   )

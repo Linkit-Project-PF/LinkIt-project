@@ -1,58 +1,58 @@
 [
     {
         "id": 1,
-        "logo": "/public/clients-media/Altum Lab.jpeg"
+        "logo": "/Clients-media/Altum Lab.jpeg"
     },
     {
         "id": 3,
-        "logo": "/public/clients-media/Arion Koder.png"
+        "logo": "/Clients-media/Arion Koder.png"
     },
     {
         "id": 4,
-        "logo": "/public/clients-media/DND.png"
+        "logo": "/Clients-media/DND.png"
     },
     {
         "id": 5,
-        "logo": "/public/clients-media/Geo tech.png"
+        "logo": "/Clients-media/Geo tech.png"
     },
     {
         "id": 6,
-        "logo": "/public/clients-media/Goforma.png"
+        "logo": "/Clients-media/Goforma.png"
     },
     {
         "id": 7,
-        "logo": "/public/clients-media/Kamda.svg"
+        "logo": "/Clients-media/Kamda.svg"
     },
     {
         "id": 8,
-        "logo": "/public/clients-media/logo-properix.png"
+        "logo": "/Clients-media/logo-properix.png"
     },
     {
         "id": 9,
-        "logo": "/public/clients-media/Mobilvendor.jpeg"
+        "logo": "/Clients-media/Mobilvendor.jpeg"
     },
     {
         "id": 10,
-        "logo": "/public/clients-media/Movigoo.png"
+        "logo": "/Clients-media/Movigoo.png"
     },
     {
         "id": 11,
-        "logo": "/public/clients-media/Seidor.png"
+        "logo": "/Clients-media/Seidor.png"
     },
     {
         "id": 12,
-        "logo": "/public/clients-media/Symbiose.png"
+        "logo": "/Clients-media/Symbiose.png"
     },
     {
         "id": 13,
-        "logo": "/public/clients-media/The collace group.png"
+        "logo": "/Clients-media/The collace group.png"
     },
     {
         "id": 14,
-        "logo": "/public/clients-media/Vairix.jpeg"
+        "logo": "/Clients-media/Vairix.jpeg"
     },
     {
         "id": 15,
-        "logo": "/public/clients-media/zunzun.jpeg"
+        "logo": "/Clients-media/zunzun.jpeg"
     }
 ]
