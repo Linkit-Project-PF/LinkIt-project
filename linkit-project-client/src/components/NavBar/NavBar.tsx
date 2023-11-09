@@ -105,6 +105,7 @@ function NavBar() {
       className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
       style={{
         pointerEvents: isOpenEmpresa ? "auto" : "none",
+        clipPath: "inset(10% 50% 90% 50%)"
       }}
       >
         <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Servicios </li>
@@ -134,6 +135,7 @@ function NavBar() {
       <ul className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
         style={{
           pointerEvents: isOpenRecursos ? "auto" : "none",
+          clipPath: "inset(10% 50% 90% 50%)"
         }}
       >
         <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Blogs</li>
@@ -159,6 +161,7 @@ function NavBar() {
       <ul className="bg-white flex flex-col mt-[21.2px] w-26 xl:w-36 rounded-b-[7px] h-[150px]"
         style={{
           pointerEvents: isOpenQS ? "auto" : "none",
+          clipPath: "inset(10% 50% 90% 50%)"
         }}
       >
         <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Misión</li>
