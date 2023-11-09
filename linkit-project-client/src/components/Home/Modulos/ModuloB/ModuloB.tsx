@@ -10,8 +10,8 @@ export default function ModuloB() {
 
     return (
         <div>
-            <div className="flex flex-col p-32 skewed-border">
-                <div className="content">
+            <div className="flex flex-col p-32 skewed-borderB">
+                <div className="contentB">
                     <h1 className="flex justify-center text-white text-5xl font-semibold mt-2">Nuestros servicios</h1>
                     <ul className="grid grid-cols-3 gap-6">
                         <div className="flex  flex-col items-center mt-32 mx-12">

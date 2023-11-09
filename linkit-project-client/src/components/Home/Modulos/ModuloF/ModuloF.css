@@ -1,10 +1,10 @@
 
-.skewed-borderB {
+.skewed-borderF {
     position: relative;
     overflow: hidden;
 }
 
-.skewed-borderB::after {
+.skewed-borderF::after {
     content: "";
     position: absolute;
     bottom: 4px;
@@ -19,20 +19,20 @@
     z-index: 2;
 }
 
-.skewed-borderB::before {
+.skewed-borderF::before {
     content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #173951;
+    background: #ECEEF0;
     transform-origin: bottom left;
     transform: skewY(-3deg);
     z-index: 1;
 }
 
-.contentB {
+.contentF {
     position: relative;
     z-index: 2;
 }
