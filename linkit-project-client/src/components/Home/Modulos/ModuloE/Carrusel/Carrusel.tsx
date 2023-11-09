@@ -26,7 +26,7 @@ export default function Carrusel() {
     return (
         <div className="flex flex-row justify-between px-20 py-2">
             <button onClick={handlePrevius} disabled={currentPage === 0}>
-                <img src="/public/vectores/previus.png" alt="previus" />
+                <img src="Vectores/previus.png" alt="previus" />
             </button>
             {companiesFiltered.map((c) => {
 
@@ -49,7 +49,7 @@ export default function Carrusel() {
                 )
             })}
             <button onClick={handleNext} disabled={endIndex > companies.length}>
-                <img src="/public/vectores/next.png" alt="next" />
+                <img src="Vectores/next.png" alt="next" />
             </button>
         </div>
     )
