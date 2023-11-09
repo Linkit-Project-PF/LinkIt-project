@@ -1,11 +1,12 @@
 import "./NavBar.css"
 import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg"
 import arrow from "/Vectores/arrow.png"
+import iconUser from "/Vectores/iconUser.png"
 import { NavLink, useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 
-const staggerMenuItems = stagger(0.1, { startDelay: 0.15 });
+const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
 
 function useMenuAnimation(isOpen: boolean) {
@@ -35,7 +36,7 @@ function useMenuAnimation(isOpen: boolean) {
         ? { opacity: 1, scale: 1, filter: "blur(0px)" }
         : { opacity: 0, scale: 0.3, filter: "blur(20px)" },
       {
-        duration: 0.2,
+        duration: 0.1,
         delay: isOpen ? staggerMenuItems : 0
       }
     );
@@ -50,8 +51,10 @@ function NavBar() {
     const [isOpenEmpresa, setIsOpenEmpresa] = useState(false);
     const [isOpenRecursos, setIsOpenRecursos] = useState(false);
     const [isOpenQS, setIsOpenQS] = useState(false);
+    const [isOpenUser, setIsOpenUser] = useState(false);
 
     const scopeQS = useMenuAnimation(isOpenQS);
+    const scopeUser = useMenuAnimation(isOpenUser);
     const scopeRecursos = useMenuAnimation(isOpenRecursos);
     const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
 
@@ -89,16 +92,15 @@ function NavBar() {
         <motion.button className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveHome ? 'underline text-linkIt-300' : ''}`} onClick={()=> goHome()}>Home</motion.button>
         
 
-        <nav className="relative top-[6px] xl:top-[4px] w-[100px] xl:w-[110px] h-7" ref={scopeEmpresa}>
+        <motion.nav className="relative top-[11px] xl:top-[11px] w-[85px] xl:w-[110px] h-[38px] xl:h-[41px]" ref={scopeEmpresa}
+                onMouseEnter={() => setIsOpenEmpresa(true)}
+                onMouseLeave={() => setIsOpenEmpresa(false)}>
         <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveEmpresa ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
-        onClick={()=> goSoyEmpresa()}
-        onMouseEnter={() => setIsOpenEmpresa(true)}
-        onMouseLeave={() => setIsOpenEmpresa(false)}
-      >
+        onClick={()=> goSoyEmpresa()}>
         Soy Empresa
-        <div className="arrow w-3 ml-1 mt-1">
-          <img src={arrow} alt="" />
+        <div className="arrow w-3 ml-1 mt-[2px]">
+          <img src={arrow} alt="arrow" />
           </div>
       </motion.button>
       <ul
@@ -114,22 +116,24 @@ function NavBar() {
         <hr className="w-[90px] ml-4 text-xs"/>
         <li className="ml-4 mt-3 text-[10px] xl:text-xs">Cotiza </li>
       </ul>{" "}
-      </nav>
+      </motion.nav>
 
 
-        <NavLink className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? 'underline text-linkIt-300' : ''}`} to='/SoyTalento'>Soy Talento</NavLink>
+        <NavLink className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? 'underline text-linkIt-300' : ''}`} to='/SoyTalento'
+        >Soy Talento</NavLink>
 
 
-        <nav className="relative top-[6px] xl:top-[4px] w-[75px] xl:w-[85px] h-7" ref={scopeRecursos}>
+        <motion.nav className="relative top-[11px] xl:top-[11px] w-[65px] xl:w-[85px] h-[38px] xl:h-[41px]" ref={scopeRecursos} 
+        onMouseEnter={() => setIsOpenRecursos(true)}
+        onMouseLeave={() => setIsOpenRecursos(false)}>
+        
         <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveRecursos ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
         onClick={()=> goRecursos()}
-        onMouseEnter={() => setIsOpenRecursos(true)}
-        onMouseLeave={() => setIsOpenRecursos(false)}
       >
         Recursos
-        <div className="arrow w-3 ml-1 mt-1">
-          <img src={arrow} alt="" />
+        <div className="arrow w-3 ml-1 mt[2px]">
+          <img src={arrow} alt="arrow" />
           </div>
       </motion.button>
       <ul className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
@@ -146,19 +150,19 @@ function NavBar() {
       </ul>{" "}
 
 
-      </nav>
-        <nav className="relative top-[6px] xl:top-[4px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
+      </motion.nav>
+        <motion.nav className="relative top-[11px] xl:top-[11px] w-[100px] xl:w-[125px] h-[38px] xl:h-[41px]" ref={scopeQS}
+         onMouseEnter={() => setIsOpenQS(true)}
+         onMouseLeave={() => setIsOpenQS(false)}>
         <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveQS ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
         onClick={()=> goQS()}
-        onMouseEnter={() => setIsOpenQS(true)}
-        onMouseLeave={() => setIsOpenQS(false)}
       >Quiénes Somos
-        <div className="arrow w-3 ml-1 mt-1">
-          <img src={arrow} alt="" />
+        <div className="arrow w-3 ml-1 mt-[2px]">
+          <img src={arrow} alt="arrow" />
           </div>
       </motion.button>
-      <ul className="bg-white flex flex-col mt-[21.2px] w-26 xl:w-36 rounded-b-[7px] h-[150px]"
+      <ul className="bg-white flex flex-col mt-[21.2px] w-28 xl:w-36 rounded-b-[7px] h-[150px]"
         style={{
           pointerEvents: isOpenQS ? "auto" : "none",
           clipPath: "inset(10% 50% 90% 50%)"
@@ -172,8 +176,28 @@ function NavBar() {
         <hr className="w-[90px] ml-4"/>
         <li className="ml-4 mt-3 text-[10px] xl:text-xs">Talento interno</li>
       </ul>{" "}
-      </nav>
-        <span className=" font-medium">Inglés</span>
+      </motion.nav>
+        <span className="font-medium">Inglés</span>
+        <motion.nav className="relative top-1 left-2 w-[75px] xl:w-[85px] h-[52px] xl:h-[52px]" ref={scopeUser} 
+        onMouseEnter={() => setIsOpenUser(true)}
+        onMouseLeave={() => setIsOpenUser(false)}>
+       <img className="w-8 xl:w-9 2xl:w-10 h-8 xl:h-9 2xl:h-10 relative top-1" src={iconUser} alt="inconUser" />
+       <div className="arrow w-3 relative left-10 2xl:left-12 bottom-4 xl:bottom-[19px] 2xl:bottom-[22px]">
+          <img src={arrow} alt="arrow" />
+          </div>
+      <ul className="bg-white relative bottom-3 rounded-b-[7px] w-20 xl:w-26 h-[80px]"
+        style={{
+          pointerEvents: isOpenUser ? "auto" : "none",
+          clipPath: "inset(10% 50% 90% 50%)"
+        }}
+      >
+        <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Login</li>
+        <hr className="w-[50px] mt-5 ml-4"/>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Sign Up</li>
+      </ul>{" "}
+
+
+      </motion.nav>
         </div>
         <div className="containerBtnsNavbar">
         <motion.button className="contrataBtnNavB" onClick={()=> goSoyEmpresa()} whileTap={{ scale: 0.9}}>Contrata Talento</motion.button>
