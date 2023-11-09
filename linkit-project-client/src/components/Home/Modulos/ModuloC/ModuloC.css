@@ -8,7 +8,7 @@
     z-index: -1;
   }
   /*puntos*/
-  .line::before,
+  
   .line::after {
     content: "";
     position: absolute;
@@ -18,6 +18,16 @@
     background-color: #A9C1D9;
     top: 50%;
     transform: translateY(-50%);
+    
   }
   
- 
+  .line::before{
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #A9C1D9;
+    transform: translateY(-40%);
+    right: -2px;
+  }
