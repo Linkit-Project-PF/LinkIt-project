@@ -13,7 +13,7 @@ export default function ModuloA() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-1 p-5 bg-linkIt-50 py-24">
+    <div className="grid grid-cols-2 gap-1 p-5 bg-linkIt-500 py-24">
       <div className="flex flex-col justify-center p-24">
         <h1 className="text-6xl font-bold ">Conectando al talento más destacado con los mejores proyectos IT</h1>
         <div className="py-8 pr-60">
