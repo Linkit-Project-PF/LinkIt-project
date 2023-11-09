@@ -86,11 +86,11 @@ function NavBar() {
         <nav className="navBar">
         <img src={Logo} alt="" className="static h-20 xl:h-24 2xl:h-32 mr-2 xl:mr-6 2xl:mr-16 ml-2 xl:ml-6 2xl:ml-14"/>
         <div className="containerLinksNavBar">
-        <motion.button className={`relative hover:underline underline-offset-[22px] decoration-4 ${isActiveHome ? 'underline' : ''}`} onClick={()=> goHome()}>Home</motion.button>
+        <motion.button className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveHome ? 'underline text-linkIt-300' : ''}`} onClick={()=> goHome()}>Home</motion.button>
         
 
         <nav className="relative top-[6px] xl:top-[4px] w-[100px] xl:w-[110px] h-7" ref={scopeEmpresa}>
-        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 ${isActiveEmpresa ? 'underline' : ''}`}
+        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveEmpresa ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
         onClick={()=> goSoyEmpresa()}
         onMouseEnter={() => setIsOpenEmpresa(true)}
@@ -102,13 +102,13 @@ function NavBar() {
           </div>
       </motion.button>
       <ul
-      className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[100px]"
+      className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
       style={{
         pointerEvents: isOpenEmpresa ? "auto" : "none",
       }}
       >
-        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Servicios </li>
-        <hr className="w-[90px] ml-4"/>
+        <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Servicios </li>
+        <hr className="w-[90px] mt-5 ml-4"/>
         <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Proceso </li>
         <hr className="w-[90px] ml-4 text-xs"/>
         <li className="ml-4 mt-3 text-[10px] xl:text-xs">Cotiza </li>
@@ -116,11 +116,11 @@ function NavBar() {
       </nav>
 
 
-        <NavLink className={`relative hover:underline underline-offset-[22px] decoration-4 ${isActiveTalento ? 'underline' : ''}`} to='/SoyTalento'>Soy Talento</NavLink>
+        <NavLink className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? 'underline text-linkIt-300' : ''}`} to='/SoyTalento'>Soy Talento</NavLink>
 
 
         <nav className="relative top-[6px] xl:top-[4px] w-[75px] xl:w-[85px] h-7" ref={scopeRecursos}>
-        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 ${isActiveRecursos ? 'underline' : ''}`}
+        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveRecursos ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
         onClick={()=> goRecursos()}
         onMouseEnter={() => setIsOpenRecursos(true)}
@@ -131,13 +131,13 @@ function NavBar() {
           <img src={arrow} alt="" />
           </div>
       </motion.button>
-      <ul className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[100px]"
+      <ul className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
         style={{
           pointerEvents: isOpenRecursos ? "auto" : "none",
         }}
       >
-        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Blogs</li>
-        <hr className="w-[90px] ml-4"/>
+        <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Blogs</li>
+        <hr className="w-[90px] mt-5 ml-4"/>
         <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Ebooks</li>
         <hr className="w-[90px] ml-4"/>
         <li className="ml-4 mt-3 text-[10px] xl:text-xs">Eventos</li>
@@ -146,7 +146,7 @@ function NavBar() {
 
       </nav>
         <nav className="relative top-[6px] xl:top-[4px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
-        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 ${isActiveQS ? 'underline' : ''}`}
+        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveQS ? 'underline text-linkIt-300' : ''}`}
         whileTap={{ scale: 0.97 }}
         onClick={()=> goQS()}
         onMouseEnter={() => setIsOpenQS(true)}
