@@ -1,11 +1,12 @@
 import "./NavBar.css"
 import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg"
 import arrow from "/Vectores/arrow.png"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 
 const staggerMenuItems = stagger(0.1, { startDelay: 0.15 });
+
 
 function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
@@ -45,7 +46,7 @@ function useMenuAnimation(isOpen: boolean) {
 
 function NavBar() {
     const navigate = useNavigate()
-
+    const location = useLocation();
     const [isOpenEmpresa, setIsOpenEmpresa] = useState(false);
     const [isOpenRecursos, setIsOpenRecursos] = useState(false);
     const [isOpenQS, setIsOpenQS] = useState(false);
@@ -58,27 +59,42 @@ function NavBar() {
     const goHome = () => {
         navigate("/")
     }
+    const isActiveHome = location.pathname === '/';
     const goSoyEmpresa = () => {
         navigate("/SoyEmpresa")
     }
+    const isActiveEmpresa = location.pathname === '/SoyEmpresa';
     const goSoyTalento = () => {
         navigate("/SoyTalento")
     }
+    const isActiveTalento = location.pathname === '/SoyTalento';
+
+    const goRecursos = () => {
+        navigate("/recursos")
+    }
+    const isActiveRecursos = location.pathname === '/recursos';
+    const goQS = () => {
+        navigate("/quienesSomos")
+    }
+    const isActiveQS = location.pathname === '/quienesSomos';
     return (
         <div>
         <div className="preNavbar">
             <span className="">Contrata y gestiona talentos de forma global con LinkIt | </span>
-            <NavLink to="https://calendly.com/linkit-project-henry/30min" className="ml-2">Comienza ahora! →</NavLink>
+            <NavLink to="https://calendly.com/linkit-project-henry/30min" className="ml-2 underline underline-offset-[3.3px]">Comienza ahora! →</NavLink>
             </div>
         <nav className="navBar">
         <img src={Logo} alt="" className="static h-20 xl:h-24 2xl:h-32 mr-2 xl:mr-6 2xl:mr-16 ml-2 xl:ml-6 2xl:ml-14"/>
         <div className="containerLinksNavBar">
-        <motion.button onClick={()=> goHome()}>Home</motion.button>
+        <motion.button className={`relative hover:underline underline-offset-[22px] decoration-4 ${isActiveHome ? 'underline' : ''}`} onClick={()=> goHome()}>Home</motion.button>
+        
 
         <nav className="relative top-[6px] xl:top-[4px] w-[100px] xl:w-[110px] h-7" ref={scopeEmpresa}>
-        <motion.button className=" w-30 flex items-center"
+        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 ${isActiveEmpresa ? 'underline' : ''}`}
         whileTap={{ scale: 0.97 }}
-        onClick={() => setIsOpenEmpresa(!isOpenEmpresa)}
+        onClick={()=> goSoyEmpresa()}
+        onMouseEnter={() => setIsOpenEmpresa(true)}
+        onMouseLeave={() => setIsOpenEmpresa(false)}
       >
         Soy Empresa
         <div className="arrow w-3 ml-1 mt-1">
@@ -86,7 +102,7 @@ function NavBar() {
           </div>
       </motion.button>
       <ul
-      className="bg-white mt-5 rounded-b-[7px] w-24 xl:w-32 h-[100px]"
+      className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[100px]"
       style={{
         pointerEvents: isOpenEmpresa ? "auto" : "none",
       }}
@@ -100,20 +116,22 @@ function NavBar() {
       </nav>
 
 
-        <NavLink className=" relative" to='/soyTalento'>Soy Talento</NavLink>
+        <NavLink className={`relative hover:underline underline-offset-[22px] decoration-4 ${isActiveTalento ? 'underline' : ''}`} to='/SoyTalento'>Soy Talento</NavLink>
 
 
         <nav className="relative top-[6px] xl:top-[4px] w-[75px] xl:w-[85px] h-7" ref={scopeRecursos}>
-        <motion.button className="w-30 flex items-center"
+        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 ${isActiveRecursos ? 'underline' : ''}`}
         whileTap={{ scale: 0.97 }}
-        onClick={() => setIsOpenRecursos(!isOpenRecursos)}
+        onClick={()=> goRecursos()}
+        onMouseEnter={() => setIsOpenRecursos(true)}
+        onMouseLeave={() => setIsOpenRecursos(false)}
       >
         Recursos
         <div className="arrow w-3 ml-1 mt-1">
           <img src={arrow} alt="" />
           </div>
       </motion.button>
-      <ul className="bg-white mt-5 rounded-b-[7px] w-24 xl:w-32 h-[100px]"
+      <ul className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[100px]"
         style={{
           pointerEvents: isOpenRecursos ? "auto" : "none",
         }}
@@ -128,15 +146,17 @@ function NavBar() {
 
       </nav>
         <nav className="relative top-[6px] xl:top-[4px] w-[115px] xl:w-[130px] h-7" ref={scopeQS}>
-        <motion.button className="w-30 flex items-center"
+        <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 ${isActiveQS ? 'underline' : ''}`}
         whileTap={{ scale: 0.97 }}
-        onClick={() => setIsOpenQS(!isOpenQS)}
+        onClick={()=> goQS()}
+        onMouseEnter={() => setIsOpenQS(true)}
+        onMouseLeave={() => setIsOpenQS(false)}
       >Quiénes Somos
         <div className="arrow w-3 ml-1 mt-1">
           <img src={arrow} alt="" />
           </div>
       </motion.button>
-      <ul className="bg-white flex flex-col mt-2 w-26 xl:w-36 rounded-b-[7px] h-[150px]"
+      <ul className="bg-white flex flex-col mt-[21.2px] w-26 xl:w-36 rounded-b-[7px] h-[150px]"
         style={{
           pointerEvents: isOpenQS ? "auto" : "none",
         }}
