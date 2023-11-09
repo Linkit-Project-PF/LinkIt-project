@@ -2,15 +2,15 @@ import './ModuloD.css'
 
 export default function ModuloD() {
     return (
-        <div className="grid grid-cols-2 gap-2 bg-linkIt-50">
-            <div className="flex flex-col m-12 p-6">
-                <img className="z-0 " src="/public/vectores/linkit-web-vectores-06.svg" alt="360" />
-                <img className="image w-3/12 z-1 " src="/public/vectores/linkit-web-vectores-07.svg" alt="persons" />
+        <div className="grid grid-cols-2 gap-1 bg-linkIt-500">
+            <div className="flex flex-col m-12 p-4 relative">
+                <img className="z-0 h-auto w-auto" src="/Vectores/linkit-web-vectores-06.svg" alt="360" />
+                <img className="absolute top-[28%] left-[25%] h-auto w-6/12 z-1 " src="/Vectores/linkit-web-vectores-07.svg" alt="persons" />
             </div>
-            <div className='mt-52'>
+            <div className='mt-40'>
                 <ul>
-                    <div className='flex flex-row my-6'>
-                            <img className='w-2/12' src="/public/vectores/linkit-web-vectores-08.svg" alt="" />
+                    <div className='flex flex-row my-6 '>
+                            <img className='w-2/12' src="/Vectores/linkit-web-vectores-08.svg" alt="" />
                         <div className='flex flex-col justify-center'>
                             <li className='font-bold text-2xl'>Proceso ágil</li>
                             <p className='mt-4 text-xl pr-72'>En 5 días hábiles presentaremos talentos previamente entrevistados y calificados.</p>
@@ -20,7 +20,7 @@ export default function ModuloD() {
 
                     <div className='flex flex-row my-6'>
 
-                            <img className='w-2/12' src="/public/vectores/linkit-web-vectores-09.svg" alt="" />
+                            <img className='w-2/12' src="/Vectores/linkit-web-vectores-09.svg" alt="" />
 
                         <div className='flex flex-col justify-center'>
                             <li className='font-bold text-2xl'>Comunicación asertiva</li>
@@ -31,7 +31,7 @@ export default function ModuloD() {
 
                     <div className='flex flex-row my-6'>
 
-                            <img className='w-2/12' src="/public/vectores/linkit-web-vectores-10.svg" alt="" />
+                            <img className='w-2/12' src="/Vectores/linkit-web-vectores-10.svg" alt="" />
 
                         <div className='flex flex-col justify-center'>
                             <li className='font-bold text-2xl'>Consultoría 360°</li>
