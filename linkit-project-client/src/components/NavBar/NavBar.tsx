@@ -1,5 +1,6 @@
 import "./NavBar.css"
 import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg"
+import arrow from "/Vectores/arrow.png"
 import { NavLink, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
@@ -80,10 +81,8 @@ function NavBar() {
         onClick={() => setIsOpenEmpresa(!isOpenEmpresa)}
       >
         Soy Empresa
-        <div className="arrow w-3 ml-2" style={{ transformOrigin: "50% 55%" }}>
-          <svg width="10" height="15" viewBox="0 0 20 20">
-            <path d="M0 7 L 20 7 L 10 16" />
-          </svg>
+        <div className="arrow w-3 ml-1 mt-1">
+          <img src={arrow} alt="" />
           </div>
       </motion.button>
       <ul
@@ -110,11 +109,9 @@ function NavBar() {
         onClick={() => setIsOpenRecursos(!isOpenRecursos)}
       >
         Recursos
-        <div className="arrow w-3 ml-2" style={{ transformOrigin: "50% 55%" }}>
-          <svg width="10" height="15" viewBox="0 0 20 20">
-            <path d="M0 7 L 20 7 L 10 16" />
-          </svg>
-        </div>
+        <div className="arrow w-3 ml-1 mt-1">
+          <img src={arrow} alt="" />
+          </div>
       </motion.button>
       <ul className="bg-white mt-5 rounded-b-[7px] w-24 xl:w-32 h-[100px]"
         style={{
@@ -134,11 +131,9 @@ function NavBar() {
         <motion.button className="w-30 flex items-center"
         whileTap={{ scale: 0.97 }}
         onClick={() => setIsOpenQS(!isOpenQS)}
-      >Quienes Somos
-        <div className="arrow w-3 ml-2" style={{ transformOrigin: "50% 55%" }}>
-          <svg width="10" height="15" viewBox="0 0 20 20">
-            <path d="M0 7 L 20 7 L 10 16" />
-          </svg>
+      >Quiénes Somos
+        <div className="arrow w-3 ml-1 mt-1">
+          <img src={arrow} alt="" />
           </div>
       </motion.button>
       <ul className="bg-white flex flex-col mt-2 w-26 xl:w-36 rounded-b-[7px] h-[150px]"
@@ -146,9 +141,9 @@ function NavBar() {
           pointerEvents: isOpenQS ? "auto" : "none",
         }}
       >
-        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Mision</li>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Misión</li>
         <hr className="w-[90px] ml-4"/>
-        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Vision</li>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Visión</li>
         <hr className="w-[90px] ml-4"/>
         <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Valores e Historia</li>
         <hr className="w-[90px] ml-4"/>
