@@ -97,7 +97,6 @@ function RegisterCompany({
             className="register-input phone"
             name="phone"
             placeholder="Phone Number"
-            defaultCountry="US"
             initialValueFormat="national"
             onChange={(value: string)=>{
               setPhone(value);
