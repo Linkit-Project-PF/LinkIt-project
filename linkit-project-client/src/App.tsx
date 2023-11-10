@@ -10,7 +10,8 @@ import RegisterTalent from "./components/register/RegisterTalent";
 import RegisterCompany from "./components/register/RegisterCompany";
 import PreRegisterForm from "./components/register/preRegisterForm";
 import Login from "./components/Login/Login";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import { setPressLogin, setPressSignUp, setPressCompany, setPressTalent } from "./redux/features/registerLoginSlice";
 import { motion, Variants } from "framer-motion";
 
 const registerVariants: Variants = {
@@ -98,10 +99,12 @@ const registerTalentVariants: Variants = {
 }
 
 function App() {
-  const [pressSignUp, setPressSignUp] = useState("hidden");
-  const [pressLogin, setPressLogin] = useState("hidden");
-  const [pressCompany, setPressCompany] = useState("hidden");
-  const [pressTalent, setPressTalent] = useState("hidden");
+  const dispatch = useDispatch();
+  const pressSignUp = useSelector((state: any) => state.registerLogin.pressSignUp);
+  const pressLogin = useSelector((state: any) => state.registerLogin.pressLogin);
+  const pressCompany = useSelector((state: any) => state.registerLogin.pressCompany);
+  const pressTalent = useSelector((state: any) => state.registerLogin.pressTalent);
+
 
   return (
     <>
@@ -113,22 +116,11 @@ function App() {
           animate={pressLogin}
           className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
-            setPressLogin("hidden");
+            dispatch(setPressLogin("hidden"));
           }}
         >
-          <Login setPressLogin={setPressLogin} setPressSignUp={setPressSignUp}/>
+          <Login/>
         </motion.div>
-
-      <button
-        className="bg-linkIt-400 text-white z-20 absolute top-1/2"
-        onClick={() => {
-          pressLogin === "visible"
-            ? setPressLogin("hidden")
-            : setPressLogin("visible"), setPressSignUp("hidden")
-        }}
-      >
-        Login
-      </button>
 
       <motion.div 
           variants={registerVariants}
@@ -136,10 +128,10 @@ function App() {
           animate={pressSignUp}
           className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
-            setPressSignUp("hidden");
+            dispatch(setPressSignUp("hidden"));
           }}
         >
-          <PreRegisterForm setPressTalent={setPressTalent} setPressCompany={setPressCompany} setPressSignUp={setPressSignUp}/>
+          <PreRegisterForm/>
         </motion.div>
 
         <motion.div 
@@ -148,10 +140,10 @@ function App() {
           animate={pressCompany}
           className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
-            setPressCompany("hidden");
+            dispatch(setPressCompany("hidden"));
           }}
         >
-          <RegisterCompany setPressLogin={setPressLogin} setPressSignUp={setPressSignUp} setPressCompany={setPressCompany}/>
+          <RegisterCompany />
         </motion.div>
 
         <motion.div 
@@ -160,22 +152,12 @@ function App() {
           animate={pressTalent}
           className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
-            setPressTalent("hidden");
+            dispatch(setPressTalent("hidden"));
           }}
         >
-          <RegisterTalent setPressLogin={setPressLogin} setPressSignUp={setPressSignUp} setPressTalent={setPressTalent}/>
+          <RegisterTalent />
         </motion.div>
 
-      <button
-        className="bg-linkIt-400 text-white z-20 absolute top-[60%]"
-        onClick={() => {
-          pressSignUp === "visible"
-            ? setPressSignUp("hidden")
-            : setPressSignUp("visible"), setPressLogin("hidden"), setPressCompany("hidden"), setPressTalent("hidden")
-        }}
-      >
-        Sign Up
-      </button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/soyEmpresa" element={<Empresas />} />
