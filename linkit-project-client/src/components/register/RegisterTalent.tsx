@@ -2,6 +2,10 @@ import "./Register.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import validations from "./registerValidations";
+import PhoneInput from "react-phone-number-input";
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import "react-phone-number-input/style.css";
+
 
 type FormProps = {
   setPressLogin: React.Dispatch<React.SetStateAction<string>>;
@@ -11,11 +15,16 @@ type FormProps = {
 
 function RegisterTalent({setPressLogin, setPressSignUp, setPressTalent}: FormProps) {
 
+  const [phone, setPhone] = useState<string | undefined>();
+  const [country, setCountry] = useState<string | undefined>();
+
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     confirm_password: "",
+    phone,
+    country
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -34,6 +43,8 @@ function RegisterTalent({setPressLogin, setPressSignUp, setPressTalent}: FormPro
       ...user,
       [target.name]: target.value,
     });
+
+    setPhone(target.value)
 
     setErrors({
       ...errors,
@@ -75,6 +86,23 @@ function RegisterTalent({setPressLogin, setPressSignUp, setPressTalent}: FormPro
           {errors.email && (
             <p className="text-red-500 text-xs italic">{errors.email}</p>
           )}
+
+            <PhoneInput
+              className='register-input phone'
+              name="phone"
+              placeholder="Phone Number"
+              initialValueFormat="national"
+              onChange={(value: string)=>{
+                setPhone(value);
+                if (typeof value === 'string') {
+                  const phoneNumber = parsePhoneNumberFromString(value);
+                  if (phoneNumber) {
+                    setCountry(phoneNumber.country);
+                  }
+                }
+              }}
+            />
+
 
           <input
             type="password"
