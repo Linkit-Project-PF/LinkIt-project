@@ -2,7 +2,7 @@ import "./NavBar.css"
 import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg"
 import arrow from "/Vectores/arrow.png"
 import iconUser from "/Vectores/iconUser.png"
-import { NavLink, useNavigate, useLocation } from "react-router-dom"
+import { NavLink, useNavigate, useLocation, Link} from "react-router-dom"
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux/es/exports";
@@ -116,7 +116,7 @@ function NavBar() {
         clipPath: "inset(10% 50% 90% 50%)"
       }}
       >
-        <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Servicios </li>
+        <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Servicios</li>
         <hr className="w-[90px] mt-5 ml-4"/>
         <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Proceso </li>
         <hr className="w-[90px] ml-4 text-xs"/>
