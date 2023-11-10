@@ -5,16 +5,12 @@ import validations from "./registerValidations";
 import PhoneInput from "react-phone-number-input";
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import "react-phone-number-input/style.css";
+import { useDispatch } from "react-redux";
+import { setPressLogin, setPressSignUp, setPressTalent } from "../../redux/features/registerLoginSlice";
 
+function RegisterTalent() {
 
-type FormProps = {
-  setPressLogin: React.Dispatch<React.SetStateAction<string>>;
-  setPressSignUp: React.Dispatch<React.SetStateAction<string>>;
-  setPressTalent: React.Dispatch<React.SetStateAction<string>>;
-}
-
-function RegisterTalent({setPressLogin, setPressSignUp, setPressTalent}: FormProps) {
-
+  const dispatch = useDispatch();
   const [phone, setPhone] = useState<string | undefined>();
   const [country, setCountry] = useState<string | undefined>();
 
@@ -153,7 +149,7 @@ function RegisterTalent({setPressLogin, setPressSignUp, setPressTalent}: FormPro
 
         <div className="text-white mt-6">
           Already have an account?
-          <a className="no-underline border-b border-blue text-blue cursor-pointer" onClick={()=>{setPressSignUp('hidden'), setPressTalent('hidden'),setPressLogin('visible')}}>
+          <a className="no-underline border-b border-blue text-blue cursor-pointer" onClick={()=>{dispatch(setPressSignUp('hidden')), dispatch(setPressTalent('hidden')),dispatch(setPressLogin('visible'))}}>
             <span> Log in.</span>
           </a>
         </div>

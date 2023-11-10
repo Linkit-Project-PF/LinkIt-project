@@ -5,20 +5,14 @@ import validations from "./registerCompanyValidations";
 import PhoneInput from "react-phone-number-input";
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import "react-phone-number-input/style.css";
+import { useDispatch } from "react-redux";
+import { setPressLogin, setPressSignUp, setPressCompany } from "../../redux/features/registerLoginSlice";
 
 
-type FormProps = {
-  setPressLogin: React.Dispatch<React.SetStateAction<string>>;
-  setPressSignUp: React.Dispatch<React.SetStateAction<string>>;
-  setPressCompany: React.Dispatch<React.SetStateAction<string>>;
-};
 
-function RegisterCompany({
-  setPressLogin,
-  setPressSignUp,
-  setPressCompany,
-}: FormProps) {
+function RegisterCompany() {
 
+  const dispatch = useDispatch();
 
   const [phone, setPhone] = useState<string | undefined>();
   const [country, setCountry] = useState<string | undefined>();
@@ -97,7 +91,6 @@ function RegisterCompany({
             className="register-input phone"
             name="phone"
             placeholder="Phone Number"
-            defaultCountry="US"
             initialValueFormat="national"
             onChange={(value: string)=>{
               setPhone(value);
@@ -176,9 +169,9 @@ function RegisterCompany({
           <a
             className="no-underline border-b border-blue text-blue cursor-pointer"
             onClick={() => {
-              setPressSignUp("hidden"),
-                setPressCompany("hidden"),
-                setPressLogin("visible");
+              dispatch(setPressSignUp("hidden")),
+                dispatch(setPressCompany("hidden")),
+                dispatch(setPressLogin("visible"));
             }}
           >
             <span> Log in.</span>

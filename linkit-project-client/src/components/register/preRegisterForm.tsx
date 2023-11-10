@@ -1,27 +1,30 @@
 import './PreRegister.css'
+import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import { setPressSignUp, setPressCompany, setPressTalent } from '../../redux/features/registerLoginSlice';
 
-type PreRegisterFormProps = {
-  setPressCompany: (value: string) => void;
-  setPressSignUp: (value: string) => void;
-  setPressTalent: (value: string) => void;
-}
-
-function PreRegisterForm({setPressCompany, setPressSignUp, setPressTalent}: PreRegisterFormProps) {
+function PreRegisterForm() {
+  const dispatch = useDispatch();
+  
+  const handleClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+  };
   return (
     <div className="preRegister-container">
       <div className="preRegister-subContainer">
-        <div className="preRegister-content">
+        <div className="preRegister-content" onClick={handleClick}>
           <h1 className="preRegister-title">Selecciona Tu Tipo De Perfil:</h1>
           <div className='btn-container'>
             <button
                 className='preRegister-btn'
-                onClick={()=>{setPressTalent("visible"), setPressSignUp("hidden")}}
+                onClick={()=>{dispatch(setPressTalent("visible")), dispatch(setPressSignUp("hidden"))}}
             >
                 Talento
             </button>
             <button
                 className='preRegister-btn'
-                onClick={()=>{setPressCompany("visible"), setPressSignUp("hidden")}}
+                onClick={()=>{dispatch(setPressCompany("visible")), dispatch(setPressSignUp("hidden"))}}
             >
                 Empresa
             </button>
