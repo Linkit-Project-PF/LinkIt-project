@@ -37,3 +37,7 @@
 .input-error{
     @apply border-red-500 outline-red-500
 }
+
+.input-error-message{
+    @apply text-red-500 text-xs italic
+}
