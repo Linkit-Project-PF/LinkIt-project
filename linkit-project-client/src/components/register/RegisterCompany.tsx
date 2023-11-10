@@ -1,6 +1,6 @@
 import "./Register.css";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import validations from "./registerCompanyValidations";
 import PhoneInput from "react-phone-number-input";
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
@@ -33,6 +33,14 @@ function RegisterCompany() {
     confirm_password: "",
   });
 
+  useEffect(()=>{
+    setCompany(prevCompany => ({
+      ...prevCompany,
+      phone: phone,
+      country: country
+    }))
+  },[phone, country])
+
   const handleInputChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,10 +62,8 @@ function RegisterCompany() {
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-
-      const response = await axios.post('http://linkit-server.onrender.com/users/register', company)
-      console.log(response)
-      return response
+        const response = await axios.post('https://linkit-server.onrender.com/users/register', company)
+        return response
     } catch (error: any) {
       console.log(error.message)
     }
