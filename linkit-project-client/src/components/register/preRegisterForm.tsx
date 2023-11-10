@@ -7,10 +7,15 @@ type PreRegisterFormProps = {
 }
 
 function PreRegisterForm({setPressCompany, setPressSignUp, setPressTalent}: PreRegisterFormProps) {
+  const handleClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+  };
   return (
     <div className="preRegister-container">
       <div className="preRegister-subContainer">
-        <div className="preRegister-content">
+        <div className="preRegister-content" onClick={handleClick}>
           <h1 className="preRegister-title">Selecciona Tu Tipo De Perfil:</h1>
           <div className='btn-container'>
             <button
