@@ -2,17 +2,17 @@ import "./Login.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import validations from "./loginValidations.tsx";
+import { useDispatch } from "react-redux";
+import { setPressLogin, setPressSignUp } from "../../redux/features/registerLoginSlice.ts";
 
 type Event = {
   target: HTMLInputElement;
 };
 
-type FormProps = {
-  setPressLogin: React.Dispatch<React.SetStateAction<string>>;
-  setPressSignUp: React.Dispatch<React.SetStateAction<string>>;
-}
+function Login(){
 
-function Login({setPressLogin, setPressSignUp}: FormProps) {
+  const dispatch = useDispatch()
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -88,7 +88,7 @@ function Login({setPressLogin, setPressSignUp}: FormProps) {
 
           <div className="login-conditions-container">
             Don't have an account?
-            <a className="register-link" onClick={()=>{setPressLogin('hidden'), setPressSignUp('visible')}}>
+            <a className="register-link" onClick={()=>{dispatch(setPressLogin('hidden')), dispatch(setPressSignUp('visible'))}}>
               <span> Sign up.</span>
             </a>
           </div>
