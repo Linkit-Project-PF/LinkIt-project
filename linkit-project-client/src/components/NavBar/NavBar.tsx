@@ -95,10 +95,10 @@ function NavBar() {
         <nav className="navBar">
         <img src={Logo} alt="" className="static h-20 xl:h-24 2xl:h-32 mr-2 xl:mr-6 2xl:mr-16 ml-2 xl:ml-6 2xl:ml-14"/>
         <div className="containerLinksNavBar">
-        <motion.button className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveHome ? 'underline text-linkIt-300' : ''}`} onClick={()=> goHome()}>Home</motion.button>
+        <motion.button className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveHome ? 'underline text-linkIt-300' : ''}`} onClick={()=> goHome()}>Inicio</motion.button>
         
 
-        <motion.nav className="relative top-[11px] xl:top-[11px] w-[85px] xl:w-[110px] h-[38px] xl:h-[41px]" ref={scopeEmpresa}
+        <motion.nav className="relative top-[14px] xl:top-[14px] w-[85px] xl:w-[110px] h-[45px] xl:h-[48px]" ref={scopeEmpresa}
                 onMouseEnter={() => setIsOpenEmpresa(true)}
                 onMouseLeave={() => setIsOpenEmpresa(false)}>
         <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveEmpresa ? 'underline text-linkIt-300' : ''}`}
@@ -129,7 +129,7 @@ function NavBar() {
         >Soy Talento</NavLink>
 
 
-        <motion.nav className="relative top-[11px] xl:top-[11px] w-[65px] xl:w-[85px] h-[38px] xl:h-[41px]" ref={scopeRecursos} 
+        <motion.nav className="relative top-[14px] xl:top-[14px] w-[65px] xl:w-[85px] h-[45px] xl:h-[48px]" ref={scopeRecursos} 
         onMouseEnter={() => setIsOpenRecursos(true)}
         onMouseLeave={() => setIsOpenRecursos(false)}>
         
@@ -138,7 +138,7 @@ function NavBar() {
         onClick={()=> goRecursos()}
       >
         Recursos
-        <div className="arrow w-3 ml-1 mt[2px]">
+        <div className="arrow w-3 ml-1 mt-[3px]">
           <img src={arrow} alt="arrow" />
           </div>
       </motion.button>
@@ -157,7 +157,7 @@ function NavBar() {
 
 
       </motion.nav>
-        <motion.nav className="relative top-[11px] xl:top-[11px] w-[100px] xl:w-[125px] h-[38px] xl:h-[41px]" ref={scopeQS}
+        <motion.nav className="relative top-[14px] xl:top-[14px] w-[100px] xl:w-[125px] h-[45px] xl:h-[48px]" ref={scopeQS}
          onMouseEnter={() => setIsOpenQS(true)}
          onMouseLeave={() => setIsOpenQS(false)}>
         <motion.button className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveQS ? 'underline text-linkIt-300' : ''}`}
@@ -191,7 +191,7 @@ function NavBar() {
        <div className="arrow w-3 relative left-10 2xl:left-12 bottom-4 xl:bottom-[19px] 2xl:bottom-[22px]">
           <img src={arrow} alt="arrow" />
           </div>
-      <ul className="bg-white relative bottom-3 rounded-b-[7px] w-20 xl:w-26 h-[80px]"
+      <ul className="bg-white relative bottom-3 rounded-b-[7px] w-[100px] h-[80px]"
         style={{
           pointerEvents: isOpenUser ? "auto" : "none",
           clipPath: "inset(10% 50% 90% 50%)"
@@ -205,7 +205,7 @@ function NavBar() {
             : dispatch(setPressLogin("visible")), dispatch(setPressSignUp("hidden"))
         }}
       >
-        Login
+        Inicia Sesión
       </button></li>
         <hr className="w-[50px] mt-5 ml-4"/>
         <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs"><button
@@ -216,7 +216,7 @@ function NavBar() {
             : dispatch(setPressSignUp("visible")), dispatch(setPressLogin("hidden")), dispatch(setPressCompany("hidden")), setPressTalent("hidden")
         }}
       >
-        Sign Up
+        Registrate
       </button></li>
       </ul>{" "}
 
