@@ -11,10 +11,10 @@ body {
 }
 
     .containerLinksNavBar {
-        @apply flex items-center gap-[30px] xl:gap-[50px] 2xl:gap-[60px] text-[10px] xl:text-sm whitespace-nowrap font-montserrat font-semibold h-12
+        @apply flex items-center gap-[25px] xl:gap-[35px] 2xl:gap-[60px] text-[10px] xl:text-sm whitespace-nowrap font-montserrat font-semibold h-12
     }
     .containerBtnsNavbar {
-        @apply flex ml-8 xl:ml-10 2xl:ml-14 items-center justify-center space-x-4 whitespace-nowrap font-montserrat font-semibold h-12
+        @apply flex ml-6 xl:ml-5 2xl:ml-14 items-center justify-center space-x-4 whitespace-nowrap font-montserrat font-semibold h-12
     }
 
     .contrataBtnNavB{

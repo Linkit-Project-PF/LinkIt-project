@@ -111,7 +111,7 @@ function App() {
           variants={loginVariants}
           initial="hidden"
           animate={pressLogin}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100] "
+          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
             setPressLogin("hidden");
           }}
