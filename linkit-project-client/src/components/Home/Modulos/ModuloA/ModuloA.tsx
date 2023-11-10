@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import PhoneInput from "react-phone-number-input/input"
 
 export default function ModuloA() {
 
