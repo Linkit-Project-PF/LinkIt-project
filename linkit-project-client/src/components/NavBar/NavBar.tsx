@@ -5,12 +5,15 @@ import iconUser from "/Vectores/iconUser.png"
 import { NavLink, useNavigate, useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import { setPressLogin, setPressSignUp, setPressCompany, setPressTalent} from "../../redux/features/registerLoginSlice";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
 
 function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
+  
 
   useEffect(() => {
 
@@ -46,6 +49,9 @@ function useMenuAnimation(isOpen: boolean) {
 }
 
 function NavBar() {
+    const dispatch = useDispatch();
+    const pressLogin = useSelector((state: any) => state.registerLogin.pressLogin);
+    const pressSignUp = useSelector((state: any) => state.registerLogin.pressSignUp);
     const navigate = useNavigate()
     const location = useLocation();
     const [isOpenEmpresa, setIsOpenEmpresa] = useState(false);
@@ -191,9 +197,27 @@ function NavBar() {
           clipPath: "inset(10% 50% 90% 50%)"
         }}
       >
-        <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Login</li>
+        <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs"><button
+        className=""
+        onClick={() => {
+          pressLogin === "visible"
+            ? dispatch(setPressLogin("hidden"))
+            : dispatch(setPressLogin("visible")), dispatch(setPressSignUp("hidden"))
+        }}
+      >
+        Login
+      </button></li>
         <hr className="w-[50px] mt-5 ml-4"/>
-        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Sign Up</li>
+        <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs"><button
+        className=""
+        onClick={() => {
+          pressSignUp === "visible"
+            ? dispatch(setPressSignUp("hidden"))
+            : dispatch(setPressSignUp("visible")), dispatch(setPressLogin("hidden")), dispatch(setPressCompany("hidden")), setPressTalent("hidden")
+        }}
+      >
+        Sign Up
+      </button></li>
       </ul>{" "}
 
 
