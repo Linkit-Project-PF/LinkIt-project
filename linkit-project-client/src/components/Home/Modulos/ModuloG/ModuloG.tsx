@@ -22,7 +22,7 @@ export default function ModuloG() {
                     })
                 }
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center mb-12">
                 <button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out mb-2 px-12">Conoce más</button>
             </div>
         </div>
