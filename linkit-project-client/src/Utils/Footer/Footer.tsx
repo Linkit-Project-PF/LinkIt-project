@@ -25,19 +25,19 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink className="hover:underline"> Cómo funciona </NavLink>
+                  <NavLink to='' className="hover:underline"> Cómo funciona </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline">Casos de exito </NavLink>
+                  <NavLink to='' className="hover:underline">Casos de exito </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline">FAQ</NavLink>
+                  <NavLink to='' className="hover:underline">FAQ</NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline">Ingresar</NavLink>
+                  <NavLink to='' className="hover:underline">Ingresar</NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline">Login</NavLink>
+                  <NavLink to='' className="hover:underline">Login</NavLink>
                 </li>
               </ul>
             </div>
@@ -47,13 +47,13 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink className="hover:underline"> FAQ </NavLink>
+                  <NavLink to='' className="hover:underline"> FAQ </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Login </NavLink>
+                  <NavLink to='' className="hover:underline"> Login </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Blog </NavLink>
+                  <NavLink to='' className="hover:underline"> Blog </NavLink>
                 </li>
               </ul>
             </div>
@@ -63,13 +63,13 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink className="hover:underline"> Blogs </NavLink>
+                  <NavLink to='' className="hover:underline"> Blogs </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Ebooks </NavLink>
+                  <NavLink to='' className="hover:underline"> Ebooks </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Eventos </NavLink>
+                  <NavLink to='' className="hover:underline"> Eventos </NavLink>
                 </li>
               </ul>
             </div>
@@ -79,16 +79,16 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink className="hover:underline"> Misión </NavLink>
+                  <NavLink to='' className="hover:underline"> Misión </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Visión </NavLink>
+                  <NavLink to='' className="hover:underline"> Visión </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Valores e historia </NavLink>
+                  <NavLink to='' className="hover:underline"> Valores e historia </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Talento interno </NavLink>
+                  <NavLink to='' className="hover:underline"> Talento interno </NavLink>
                 </li>
               </ul>
             </div>
@@ -98,22 +98,22 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink className="hover:underline"> Desarrolladores </NavLink>
+                  <NavLink to='' className="hover:underline"> Desarrolladores </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Tester  </NavLink>
+                  <NavLink to='' className="hover:underline"> Tester  </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Infraestructura</NavLink>
+                  <NavLink to='' className="hover:underline"> Infraestructura</NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Datos </NavLink>
+                  <NavLink to='' className="hover:underline"> Datos </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Sap </NavLink>
+                  <NavLink to='' className="hover:underline"> Sap </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> Ciberseguridad </NavLink>
+                  <NavLink to='' className="hover:underline"> Ciberseguridad </NavLink>
                 </li>
               </ul>
             </div>
@@ -123,29 +123,29 @@ export default function Footer() {
                 <br />
                 <br />
                 <li>
-                  <NavLink className="hover:underline"> En Chile</NavLink>
+                  <NavLink to='' className="hover:underline"> En Chile</NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> En Colombia </NavLink>
+                  <NavLink to='' className="hover:underline"> En Colombia </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> En España </NavLink>
+                  <NavLink to='' className="hover:underline"> En España </NavLink>
                 </li>
                 <li>
-                  <NavLink className="hover:underline"> En LATAM </NavLink>
+                  <NavLink to='' className="hover:underline"> En LATAM </NavLink>
                 </li>
               </li>
             </div>
           </ul>
           <div className="flex justify-evenly font-semibold mt-[18%]">
             <p>
-              <NavLink className="hover:underline"> ©2023 | Todos los derecchos reservados</NavLink>
+              <NavLink to='' className="hover:underline"> ©2023 | Todos los derecchos reservados</NavLink>
             </p>
             <p>
-              <NavLink className="hover:underline"> Politica de Privacidad</NavLink>
+              <NavLink to='' className="hover:underline"> Politica de Privacidad</NavLink>
             </p>
             <p>
-              <NavLink className="hover:underline"> Terminos y condiciones</NavLink>
+              <NavLink to='' className="hover:underline"> Terminos y condiciones</NavLink>
             </p>
           </div>
         </div>
