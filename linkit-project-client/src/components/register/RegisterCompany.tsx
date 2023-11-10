@@ -7,7 +7,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import "react-phone-number-input/style.css";
 import { useDispatch } from "react-redux";
 import { setPressLogin, setPressSignUp, setPressCompany } from "../../redux/features/registerLoginSlice";
-
+import axios from "axios";
 
 
 function RegisterCompany() {
@@ -20,10 +20,11 @@ function RegisterCompany() {
   const [company, setCompany] = useState({
     name: "",
     email: "",
-    password: "",
-    confirm_password: "",
     phone,
     country,
+    role: "company",
+    password: "",
+    confirm_password: "",
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -50,8 +51,16 @@ function RegisterCompany() {
       [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
     });
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+
+      const response = await axios.post('http://linkit-server.onrender.com/users/register', company)
+      console.log(response)
+      return response
+    } catch (error: any) {
+      console.log(error.message)
+    }
   };
 
   const handleClick = (

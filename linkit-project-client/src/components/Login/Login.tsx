@@ -4,6 +4,8 @@ import { useState } from "react";
 import validations from "./loginValidations.tsx";
 import { useDispatch } from "react-redux";
 import { setPressLogin, setPressSignUp } from "../../redux/features/registerLoginSlice.ts";
+import axios from "axios";
+
 
 type Event = {
   target: HTMLInputElement;
@@ -39,8 +41,19 @@ function Login(){
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    try {
+      const response = await axios({
+        method: 'get',
+        url: 'http://linkit-server.onrender.com/users/login',
+        data: user
+      })
+      console.log(response)
+      return response 
+    } catch (error: any) {
+      console.log(error.message)
+    }
   }
 
   const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
