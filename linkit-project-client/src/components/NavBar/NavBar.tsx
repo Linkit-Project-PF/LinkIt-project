@@ -2,7 +2,7 @@ import "./NavBar.css"
 import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg"
 import arrow from "/Vectores/arrow.png"
 import iconUser from "/Vectores/iconUser.png"
-import { NavLink, useNavigate, useLocation, Link} from "react-router-dom"
+import { NavLink, useNavigate, useLocation} from "react-router-dom"
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux/es/exports";
