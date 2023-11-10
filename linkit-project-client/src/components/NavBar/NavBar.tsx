@@ -216,7 +216,7 @@ function NavBar() {
             : dispatch(setPressSignUp("visible")), dispatch(setPressLogin("hidden")), dispatch(setPressCompany("hidden")), setPressTalent("hidden")
         }}
       >
-        Registrate
+        Regístrate
       </button></li>
       </ul>{" "}
 
