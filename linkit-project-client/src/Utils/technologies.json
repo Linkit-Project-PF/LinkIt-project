@@ -1,177 +1,221 @@
 [
     {
+        "id": 1,
         "name": "Android",
         "logo": "Technologies-logo/android.svg"
     },
     {
+        "id": 2,
         "name": "Angular",
         "logo": "Technologies-logo/angular-seeklogo.com 2.svg"
     },
     {
+        "id": 3,
         "name": "AWS",
         "logo": "-"
     },
     {
+        "id": 4,
         "name": "AZURE",
         "logo": "Technologies-logo/microsoft-azure-seeklogo.com.svg"
     },
     {
+        "id": 5,
         "name": "C/CSS/C++",
         "logo": "-"
     },
     {
+        "id": 6,
         "name": "C#: .NET",
         "logo": "-"
     },
     {
+        "id": 7,
         "name": "DevOps",
         "logo": "Technologies-logo/devops-seeklogo.com.svg"
     },
     {
+        "id": 8,
         "name": "Docker",
         "logo": "Technologies-logo/01-primary-blue-docker-logo.svg"
     },
     {
+        "id": 9,
         "name": "GCP",
         "logo": "-"
     },
     {
+        "id": 10,
         "name": "Go",
         "logo": "Technologies-logo/go-programming-language-seeklogo.com.svg"
     },
     {
+        "id": 11,
         "name": "HTML",
         "logo": "-"
     },
     {
+        "id": 12,
         "name": "iOS",
         "logo": "Technologies-logo/ios-seeklogo.com.svg"
     },
     {
+        "id": 13,
         "name": "Java",
         "logo": "-"
     },
     {
+        "id": 14,
         "name": "Javascript",
         "logo": "Technologies-logo/javascript-js-seeklogo.com.svg"
     },
     {
+        "id": 15,
         "name": "Jenkins",
         "logo": "-"
     },
     {
+        "id": 16,
         "name": "Kubernetes",
         "logo": "Technologies-logo/kubernetes-seeklogo.com-3.svg"
     },
     {
+        "id": 17,
         "name": "PHP",
         "logo": "-"
     },
     {
+        "id": 18,
         "name": "SQL",
         "logo": "-"
     },
     {
+        "id": 19,
         "name": "MONGO",
         "logo": "Technologies-logo/mongodb-seeklogo.com.svg"
     },
     {
+        "id": 20,
         "name": "Next.JS",
         "logo": "Technologies-logo/next-js-seeklogo.com.svg"
     },
     {
+        "id": 21,
         "name": "Node",
         "logo": "-"
     },
     {
+        "id": 22,
         "name": "Oracle",
         "logo": "-"
     },
     {
+        "id": 23,
         "name": "Power BI",
         "logo": "-"
     },
     {
+        "id": 24,
         "name": "Python",
         "logo": "-"
     },
     {
+        "id": 25,
         "name": "QA Automation",
         "logo": "-"
     },
     {
+        "id": 26,
         "name": "QA Manual",
         "logo": "-"
     },
     {
+        "id": 27,
         "name": "React",
         "logo": "Technologies-logo/react-seeklogo.com.svg"
     },
     {
+        "id": 28,
         "name": "React Native",
         "logo": "-"
     },
     {
+        "id": 29,
         "name": "Ruby on Rails",
         "logo": "Technologies-logo/rails-seeklogo.com.svg"
     },
     {
+        "id": 30,
         "name": "SAP",
         "logo": "-"
     },
     {
+        "id": 31,
         "name": "SOLIDITY",
         "logo": "Technologies-logo/solidity-seeklogo.com.svg"
     },
     {
+        "id": 32,
         "name": "Tableau",
         "logo": "-"
     },
     {
+        "id": 33,
         "name": "Terraform",
         "logo": "Technologies-logo/terraform-seeklogo.com.svg"
     },
     {
+        "id": 34,
         "name": "Typescript",
         "logo": "Technologies-logo/typescript-seeklogo.com.svg"
     },
     {
+        "id": 35,
         "name": "UX/UI",
         "logo": "-"
     },
     {
+        "id": 36,
         "name": "Objective-C",
         "logo": "-"
     },
     {
+        "id": 37,
         "name": "Unity",
         "logo": "-"
     },
     {
+        "id": 38,
         "name": "Web3",
         "logo": "-"
     },
     {
+        "id": 39,
         "name": "Solidity",
         "logo": "-"
     },
     {
+        "id": 40,
         "name": "Firewall",
         "logo": "-"
     },
     {
+        "id": 41,
         "name": "Nessus",
         "logo": "-"
     },
     {
+        "id": 42,
         "name": "Cisco",
         "logo": "-"
     },
     {
+        "id": 43,
         "name": "Linux",
         "logo": "-"
     },
     {
+        "id": 44,
         "name": "McAfee",
         "logo": "-"
     }
