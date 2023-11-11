@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function Carrusel() {
 
-    const items: number = 5;
+   const items: number = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const [animation, setAnimation] = useState('right');
 
@@ -16,7 +16,7 @@ export default function Carrusel() {
     const handlePrevius = () => {
         setCurrentPage(currentPage - 1)
         setAnimation('left')
-    }
+    } 
 
     const startIndex = currentPage * items
     const endIndex = startIndex + items
