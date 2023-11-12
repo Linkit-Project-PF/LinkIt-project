@@ -86,6 +86,7 @@ function NavBar() {
         navigate("/quienesSomos")
     }
     const isActiveQS = location.pathname === '/quienesSomos';
+    
     return (
         <div>
         <div className="preNavbar">
