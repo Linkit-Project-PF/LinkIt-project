@@ -44,15 +44,10 @@ function Login(){
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const response = await axios({
-        method: 'get',
-        url: 'http://linkit-server.onrender.com/users/login',
-        data: user
-      })
-      console.log(response)
+      const response = await axios(`https://linkit-server.onrender.com/users/login?email=${user.email}&password=${user.password}`)
       return response 
     } catch (error: any) {
-      console.log(error.message)
+      console.log({error: error.response.data})
     }
   }
 

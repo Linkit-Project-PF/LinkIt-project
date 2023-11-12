@@ -1,12 +1,14 @@
 import "./Register.css";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import validations from "./registerValidations";
 import PhoneInput from "react-phone-number-input";
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import "react-phone-number-input/style.css";
 import { useDispatch } from "react-redux";
 import { setPressLogin, setPressSignUp, setPressTalent } from "../../redux/features/registerLoginSlice";
+import axios from "axios";
+
 
 function RegisterTalent() {
 
@@ -29,6 +31,14 @@ function RegisterTalent() {
     confirm_password: "",
   });
 
+  useEffect(()=>{
+    setUser(prevUser =>({
+      ...prevUser,
+      phone: phone,
+      country: country
+    }))
+  }, [phone, country])
+
   const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const fieldErrors = validations({
       ...user,
@@ -47,8 +57,14 @@ function RegisterTalent() {
       [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
     });
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    try {
+      const response = await axios.post('https://linkit-server.onrender.com/users/register', user)
+      return response
+    } catch (error: any) {
+      console.log(error.message)
+    }
   }
 
   const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
