@@ -7,14 +7,14 @@ body {
         @apply fixed top-0 w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center z-50
     }
     .navBar{
-@apply fixed top-7 h-[3.938rem] bg-white flex justify-start items-center px-4 w-[100%] z-50
+@apply fixed top-7 h-[3.938rem] bg-white flex justify-between items-center px-4 w-[100%] z-50
 }
 
     .containerLinksNavBar {
         @apply flex items-center gap-[25px] xl:gap-[35px] 2xl:gap-[60px] text-[10px] xl:text-sm whitespace-nowrap font-montserrat font-semibold h-12
     }
     .containerBtnsNavbar {
-        @apply flex ml-6 xl:ml-5 2xl:ml-14 items-center justify-center space-x-4 whitespace-nowrap font-montserrat font-semibold h-12
+        @apply flex items-center justify-center space-x-6 whitespace-nowrap font-montserrat font-semibold h-12 mr-8
     }
 
     .contrataBtnNavB{
