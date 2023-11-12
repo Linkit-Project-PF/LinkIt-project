@@ -1,8 +1,9 @@
 import ModuloD from "./modulosEmpresas/moduloD/ModuloD"
 import ModuloA from "./modulosEmpresas/moduloA/ModuloA"
-import ModuloB from "./modulosEmpresas/moduloB/ModuloB"
+import ModuloB from "./modulosEmpresas/moduloB/moduloB"
 import ModuloC from "./modulosEmpresas/moduloC/ModuloC"
 import ModuloE from "./modulosEmpresas/moduloE/ModuloE"
+
 function Empresas() {
   return (
     <div className="flex flex-col">
@@ -12,7 +13,7 @@ function Empresas() {
       <ModuloD />
       <ModuloE />
     </div>
-    )
+  )
 }
 
 export default Empresas
