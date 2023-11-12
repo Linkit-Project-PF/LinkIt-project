@@ -13,6 +13,9 @@ export default function Recursos() {
             <section id='ebooks'>
                 <Ebooks/>
             </section>
+            <section id='events'>
+                <h1>Eventos</h1>
+            </section>    
         </> 
     )
 }
