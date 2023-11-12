@@ -12,18 +12,18 @@ type BlogsCardProps = {
 function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
   return (
     <motion.div
-      className="flex flex-col border-[0.13rem] w-[23rem] rounded-[0.625rem] font-montserrat text-[1.5rem] h-[83vh] items-center justify-center bg-white shadow-lg"
+      className="flex flex-col border-[0.13rem] w-screen lg:w-[17rem] xl:w-[21rem] rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[65vh] lg:h-[89vh] items-center justify-center bg-white card-container"
     >
       <img
         src={image}
         alt={title}
-        className="w-[100%] h-[12rem] rounded-[0.625rem]"
+        className={`w-full h-[12rem] rounded-[0.625rem] ${title.length > 20 ? 'xl:-mt-4' : ''}`}
       />
-      <div className="p-[3rem] flex flex-col flex-grow justify-between">
+      <div className="p-[3rem] flex flex-col flex-grow justify-between lg:w-full lg:p-[1rem] xl:p-[1.8rem]">
         <div>
-          <p className="border-[2px] text-[0.8rem] w-[30%] mb-[10px] h-[25px] border-linkIt-300 rounded-[10px] p-[0.7rem] font-semibold flex items-center justify-center ">{genre}</p>
-          <h1 className="font-bold w-[18rem] text-[1.3rem]">{title}</h1>
-          <p className="font-semibold text-[0.9rem] mt-[15px] line-clamp-3">{description}</p>
+          <p className="border-[2px] text-[0.8rem] mb-[10px] xl:mb-[1.5rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem]">{genre}</p>
+          <h1 className="font-bold w-full text-[1.3rem] lg:text-[1rem] xl:w-[17rem]">{title}</h1>
+          <p className="font-semibold text-[0.9rem] mt-[15px] xl:mb-[1rem] xl:w-[17rem]">{description}</p>
         </div>
         <motion.a 
         href={link} 
