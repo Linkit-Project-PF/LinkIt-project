@@ -2,22 +2,28 @@
 
 import React from 'react';
 import JobCard from './JobCard';
+import { useSelector } from 'react-redux';
 
-type JobCardsProps = {
-  jobs: Array<{
-    id: string;
-    title: string;
-    location: string;
-    contractType: string;
-  }>;
-};
+type stateProps = {
+  jobCard: {
+    allJobOffers: []
+  }
+}
 
-const JobCards: React.FC<JobCardsProps> = ({ jobs }) => {
+type jobOfferProps = {
+  title: string
+}
+
+const JobCards: React.FC = () => {
+  const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {jobs.map((job) => (
-        <JobCard key={job.id} jobTitle={job.title} location={job.location} contractType={job.contractType} />
-      ))}
+      {data.map((jobOffer: jobOfferProps) => {
+        return (
+          <JobCard title={jobOffer.title}/>
+        )
+       }) 
+      }
     </div>
   );
 };
