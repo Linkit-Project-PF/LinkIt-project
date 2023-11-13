@@ -2,7 +2,7 @@ import './ModuloTalentosE.css'
 
 export default function ModuloTalentosE() {
     return (
-        <div className="p-20 bg-linkIt-50">
+        <div className="p-20 bg-linkIt-500">
             <h1 className="text-linkIt-200 flex justify-center text-5xl font-semibold mb-32">Cómo aplicar a</h1>
             <div>
                 <ul className="grid grid-cols-4 gap-2">
