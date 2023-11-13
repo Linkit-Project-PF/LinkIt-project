@@ -12,7 +12,7 @@ type BlogsCardProps = {
 function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
   return (
     <motion.div
-      className="flex flex-col border-[0.13rem] w-screen lg:w-[17rem] xl:w-[21rem] rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[65vh] lg:h-[89vh] items-center justify-center bg-white card-container"
+      className="flex flex-col border-[0.13rem] w-screen lg:w-[17rem] xl:w-[21rem] rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[33rem] lg:h-[89vh] items-center justify-center bg-white card-container"
     >
       <img
         src={image}
