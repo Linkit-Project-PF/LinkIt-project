@@ -62,7 +62,7 @@ function RegisterCompany() {
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-        const response = await axios.post('https://linkit-server.onrender.com/users/register', company)
+        const response = await axios.post('https://linkit-server.onrender.com/users/register?type=email', company)
         return response
     } catch (error: any) {
       console.log(error.message)
@@ -159,7 +159,11 @@ function RegisterCompany() {
               errors.email ||
               errors.password ||
               errors.confirm_password ||
-              company.confirm_password !== company.password
+              company.confirm_password !== company.password ||
+              company.name === "" ||
+              company.email === "" ||
+              company.password === "" ||
+              company.confirm_password === ""
                 ? true
                 : false
             }
