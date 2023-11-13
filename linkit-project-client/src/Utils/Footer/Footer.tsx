@@ -119,7 +119,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <li>
+              <ul>
                 <br />
                 <br />
                 <li>
@@ -134,7 +134,7 @@ export default function Footer() {
                 <li>
                   <NavLink to='' className="hover:underline"> En LATAM </NavLink>
                 </li>
-              </li>
+              </ul>
             </div>
           </ul>
           <div className="flex justify-evenly font-semibold mt-[18%]">
