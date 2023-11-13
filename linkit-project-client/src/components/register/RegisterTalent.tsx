@@ -60,7 +60,7 @@ function RegisterTalent() {
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const response = await axios.post('https://linkit-server.onrender.com/users/register', user)
+      const response = await axios.post('https://linkit-server.onrender.com/users/register?type=email', user)
       return response
     } catch (error: any) {
       console.log(error.message)

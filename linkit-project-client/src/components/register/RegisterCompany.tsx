@@ -62,7 +62,7 @@ function RegisterCompany() {
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-        const response = await axios.post('https://linkit-server.onrender.com/users/register', company)
+        const response = await axios.post('https://linkit-server.onrender.com/users/register?type=email', company)
         return response
     } catch (error: any) {
       console.log(error.message)
