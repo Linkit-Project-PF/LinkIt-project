@@ -159,7 +159,11 @@ function RegisterCompany() {
               errors.email ||
               errors.password ||
               errors.confirm_password ||
-              company.confirm_password !== company.password
+              company.confirm_password !== company.password ||
+              company.name === "" ||
+              company.email === "" ||
+              company.password === "" ||
+              company.confirm_password === ""
                 ? true
                 : false
             }
