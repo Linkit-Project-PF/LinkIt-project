@@ -12,9 +12,10 @@ export default function ModuloG() {
             <h1 className="flex justify-center text-center text-2xl xl:text-3xl 2xl:text-4xl font-bold">Talento especializado en más <br /> de 100 tecnologías</h1>
             <div className=" flex flex-row flex-wrap justify-center items-center p-12 mx-10 xl:mx-32 2xl:mx-[400px]">
                 {
-                    tecnologies.map(({ name, logo }: Technology) => {
+                    tecnologies.map(({ name, logo, }: Technology, index) => {
                         return (
                             <CardTech
+                                key={index}
                                 name={name}
                                 logo={logo}
                             />
