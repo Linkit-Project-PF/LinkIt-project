@@ -2,6 +2,7 @@ import tecnologies from "../../../../Utils/technologies.json"
 import CardTech from "./CardTech/CardTech"
 
 interface Technology {
+    id: number;
     name: string;
     logo: string;
 }
@@ -12,9 +13,11 @@ export default function ModuloG() {
             <h1 className="flex justify-center text-5xl font-bold mt-20">Talento especializado en más de 100 tecnologías</h1>
             <div className=" flex  flex-row flex-wrap justify-center items-center p-12 mx-56">
                 {
-                    tecnologies.map(({ name, logo }: Technology) => {
+                    tecnologies.map(({ name, logo, id }: Technology) => {
                         return (
                             <CardTech
+                                key={id}
+                                id={id}
                                 name={name}
                                 logo={logo}
                             />
