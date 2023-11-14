@@ -13,6 +13,10 @@ import Login from "./components/Login/Login";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { setPressLogin, setPressSignUp, setPressCompany, setPressTalent } from "./redux/features/registerLoginSlice";
 import { motion, Variants } from "framer-motion";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { setJobOffers } from "./redux/features/JobCardsSlice";
+
 
 const registerVariants: Variants = {
   hidden: {
@@ -105,6 +109,19 @@ function App() {
   const pressCompany = useSelector((state: any) => state.registerLogin.pressCompany);
   const pressTalent = useSelector((state: any) => state.registerLogin.pressTalent);
 
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const response  = await axios.get('https://linkit-server.onrender.com/posts/get?type=jd')
+       
+          dispatch(setJobOffers(response.data));
+        
+      } catch (error: any) {
+        console.log({error: error.message})
+      }
+    }
+    fetchData()
+  }, [])
 
   return (
     <>

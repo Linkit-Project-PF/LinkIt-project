@@ -1,0 +1,33 @@
+.line {
+    position: absolute;
+    left: 3%;
+    width: 90%;
+    height: 4px;
+    margin: 2.5rem;
+    background-color: #A9C1D9;
+    z-index: -1;
+  }
+  /*puntos*/
+  
+  .line::after {
+    content: "";
+    position: absolute;
+    width: 15px; /* Diámetro de las bolas */
+    height: 15px;
+    border-radius: 50%;
+    background-color: #A9C1D9;
+    top: 50%;
+    transform: translateY(-50%);
+    
+  }
+  
+  .line::before{
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #A9C1D9;
+    transform: translateY(-40%);
+    right: -2px;
+  }
