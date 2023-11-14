@@ -3,17 +3,18 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import validations from "./loginValidations.tsx";
 import { useDispatch } from "react-redux";
-import { setPressLogin, setPressSignUp } from "../../redux/features/registerLoginSlice.ts";
+import {
+  setPressLogin,
+  setPressSignUp,
+} from "../../redux/features/registerLoginSlice.ts";
 import axios from "axios";
-
 
 type Event = {
   target: HTMLInputElement;
 };
 
-function Login(){
-
-  const dispatch = useDispatch()
+function Login() {
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     email: "",
@@ -41,29 +42,38 @@ function Login(){
     });
   };
 
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
-      const response = await axios(`https://linkit-server.onrender.com/users/login?email=${user.email}&password=${user.password}`)
-      return response 
+      const response = await axios(
+        `https://linkit-server.onrender.com/users/login?email=${user.email}&password=${user.password}`
+      );
+      if (response.data._id) alert(`Bienvenido ${response.data.name}`);
+      return response;
     } catch (error: any) {
-      console.log({error: error.response.data})
+      alert(error.response?.data);
     }
-  }
+  };
 
-  const handleClick = (event: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
-    event.stopPropagation()
-  }
+  const handleClick = (
+    event: React.MouseEvent<HTMLFormElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+  };
 
   return (
     <div className="login-container">
       <div className="login-subContainer">
-        <form className="login-form" onClick={handleClick} onSubmit={handleSubmit}>
+        <form
+          className="login-form"
+          onClick={handleClick}
+          onSubmit={handleSubmit}
+        >
           <h1 className="login-title">Log in</h1>
 
           <input
             type="text"
-            className={`login-input ${errors.email ? 'login-input-error' : ''}`}
+            className={`login-input ${errors.email ? "login-input-error" : ""}`}
             name="email"
             placeholder="Email"
             onChange={handleInputChange}
@@ -75,7 +85,9 @@ function Login(){
 
           <input
             type="password"
-            className={`login-input ${errors.password ? 'login-input-error' : ''}`}
+            className={`login-input ${
+              errors.password ? "login-input-error" : ""
+            }`}
             name="password"
             placeholder="Password"
             onChange={handleInputChange}
@@ -96,7 +108,13 @@ function Login(){
 
           <div className="login-conditions-container">
             Don't have an account?
-            <a className="register-link" onClick={()=>{dispatch(setPressLogin('hidden')), dispatch(setPressSignUp('visible'))}}>
+            <a
+              className="register-link"
+              onClick={() => {
+                dispatch(setPressLogin("hidden")),
+                  dispatch(setPressSignUp("visible"));
+              }}
+            >
               <span> Sign up.</span>
             </a>
           </div>

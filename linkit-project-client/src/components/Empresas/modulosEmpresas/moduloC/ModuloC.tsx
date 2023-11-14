@@ -11,6 +11,7 @@ export default function ModuloC() {
     const endIndex = startindex + items;
     const duplicatedCompanies = [...companies, ...companies, ...companies];
     const renderedCompanies = duplicatedCompanies.slice(startindex, endIndex);
+    
     const handleNext = () => {
         setCurrentPage((prevPage) => (prevPage + 1) % companies.length);
       };

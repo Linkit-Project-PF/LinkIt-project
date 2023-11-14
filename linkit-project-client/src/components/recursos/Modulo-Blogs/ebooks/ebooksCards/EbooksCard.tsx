@@ -48,7 +48,7 @@ function EbooksCard({
   return (
     <motion.div
       key={key}
-      className="bg-white w-[60%] h-[50vh] xl:h-[33vh] font-montserrat rounded-[0.75rem] flex flex-col justify-between p-[2rem] lg:p-[1.5rem] lg:h-[55vh]"
+      className="bg-white w-[60%] h-[50vh] xl:h-[17rem] font-montserrat rounded-[0.75rem] flex flex-col justify-between p-[2rem] lg:p-[1.5rem] lg:h-[55vh]"
       variants={cardVariants}
       initial={"initial"}
       animate={"animate"}
