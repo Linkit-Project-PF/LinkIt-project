@@ -1,13 +1,14 @@
-import './PreRegister.css'
-import { useDispatch } from 'react-redux/es/hooks/useDispatch';
-import { setPressSignUp, setPressCompany, setPressTalent } from '../../redux/features/registerLoginSlice';
+import "./PreRegister.css";
+import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import {
+  setPressSignUp,
+  setPressRegister,
+} from "../../redux/features/registerLoginSlice";
 
 function PreRegisterForm() {
   const dispatch = useDispatch();
-  
-  const handleClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
   };
   return (
@@ -15,24 +16,32 @@ function PreRegisterForm() {
       <div className="preRegister-subContainer">
         <div className="preRegister-content" onClick={handleClick}>
           <h1 className="preRegister-title">Selecciona Tu Tipo De Perfil:</h1>
-          <div className='btn-container'>
+          <div className="btn-container">
             <button
-                className='preRegister-btn'
-                onClick={()=>{dispatch(setPressTalent("visible")), dispatch(setPressSignUp("hidden"))}}
+              className="preRegister-btn"
+              onClick={() => {
+                dispatch(setPressRegister("visible")),
+                  dispatch(setPressSignUp("hidden")),
+                  sessionStorage.setItem("RegisterType", "user");
+              }}
             >
-                Talento
+              Talento
             </button>
             <button
-                className='preRegister-btn'
-                onClick={()=>{dispatch(setPressCompany("visible")), dispatch(setPressSignUp("hidden"))}}
+              className="preRegister-btn"
+              onClick={() => {
+                dispatch(setPressRegister("visible")),
+                  dispatch(setPressSignUp("hidden")),
+                  sessionStorage.setItem("RegisterType", "company");
+              }}
             >
-                Empresa
+              Empresa
             </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default PreRegisterForm
+export default PreRegisterForm;
