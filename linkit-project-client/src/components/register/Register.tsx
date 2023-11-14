@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { auth } from "../../helpers/authentication/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 
 function Register() {
   const dispatch = useDispatch();
@@ -105,31 +106,21 @@ function Register() {
         const response = await signInWithPopup(auth, provider);
         if (!response._tokenResponse.isNewUser) {
           //* In case trying to register with google but user already exists
-          const userDB = await axios.get(
+          const {data} = await axios.get(
             `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
           );
-          console.log(userDB.data[0]);
-          // TODO userDB.data[0] has user info to be saved on redux persist or the user management system
+          // TODO data[0] has user info to be saved on redux persist or the user management system
           dispatch(setPressRegister("hidden"));
           throw Error(
-            `User already registreded, logged in ${userDB.data[0].name}`
+            `El usuario ya existe, te has logueado como ${data[0].name}`
           );
         }
+        //* In case user does not exist enters here
         if (response.user) {
-          const userToSave = {
-            name: response.user.displayName,
-            email: response.user.email,
-            image: response.user.photoURL,
-            phone: response.user.phoneNumber || "1111111",
-            country: "US",
-          };
-          console.log(userToSave);
-          const DBresponse = await axios.post(
-            "https://linkit-server.onrender.com/users/register",
-            userToSave
-          );
+          const DBresponse = await saveUserThirdAuth(response.user)
+          // TODO DBresponse has user info to be saved on redux persist or the user management system
           alert(
-            `Te has registrado exitosamente, bienvenido ${DBresponse.data.name}`
+            `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
           );
           dispatch(setPressRegister("hidden"));
           setThirdParty(false);
@@ -137,10 +128,13 @@ function Register() {
       }
     } catch (error: any) {
       setThirdParty(false);
-      alert(error);
+      if (error.code === "auth/popup-closed-by-user") console.log(error)
+      else {
+        alert(error);
+      }
     }
   };
-
+  //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
     <div className="register-container">
       <div className="register-subContainer">
@@ -251,7 +245,7 @@ function Register() {
                   : false
               }
             >
-              Create Account
+              Crear cuenta
             </motion.button>
 
             <div className="register-conditions-container">
