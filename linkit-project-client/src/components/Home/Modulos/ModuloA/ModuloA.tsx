@@ -30,7 +30,7 @@ export default function ModuloA() {
       </div>
 
       <div>
-        <img className="w-auto" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
+        <img className="w-auto md:" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
       </div>
     </div>
   )
