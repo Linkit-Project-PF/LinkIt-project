@@ -7,7 +7,7 @@ export default function ModuloD() {
                 <img className="z-0 h-[80%] w-auto" src="/Vectores/linkit-web-vectores-06.svg" alt="360" />
                 <img className="absolute h-auto w-6/12 z-1 top-[35%] left-[23%] sm:top-[28%]" src="/Vectores/linkit-web-vectores-07.svg" alt="persons" />
             </div>
-            <div className='sm:pt-16 md:pt-10 lg:pt-6 xl:pt-20 2xl:pt-52'>
+            <div className='sm:pt-16 md:pt-10 lg:pt-6 xl:pt-20 2xl:pt-40'>
                 <ul>
                     <div className='flex flex-row '>
                             <img className='w-2/12' src="/Vectores/linkit-web-vectores-08.svg" alt="" />
