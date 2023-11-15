@@ -11,10 +11,11 @@ import {
   setPressSignUp,
   setPressRegister,
 } from "../../redux/features/registerLoginSlice";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { auth } from "../../helpers/authentication/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
+import { FirebaseError } from "firebase/app";
 
 function Register() {
   const dispatch = useDispatch();
@@ -77,17 +78,19 @@ function Register() {
         "https://linkit-server.onrender.com/users/register?type=email",
         user
       );
-      console.log(response);
       if (response.data._id)
         alert("Te has registrado exitosamente, ya puedes loguearte!");
       dispatch(setPressRegister("hidden"));
       return response;
-    } catch (error: any) {
-      alert(error.response?.data);
-      if (
-        error.response?.data === "Register error: That email is already on use"
-      )
-        setErrors({ ...errors, email: "Email en uso" });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        alert(error.response?.data);
+        if (
+          error.response?.data ===
+          "Register error: That email is already on use"
+        )
+          setErrors({ ...errors, email: "Email en uso" });
+      } else console.log(error);
     }
   };
 
@@ -104,9 +107,10 @@ function Register() {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
+        // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
           //* In case trying to register with google but user already exists
-          const {data} = await axios.get(
+          const { data } = await axios.get(
             `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
           );
           // TODO data[0] has user info to be saved on redux persist or the user management system
@@ -117,7 +121,8 @@ function Register() {
         }
         //* In case user does not exist enters here
         if (response.user) {
-          const DBresponse = await saveUserThirdAuth(response.user)
+          console.log("outside", user.role);
+          const DBresponse = await saveUserThirdAuth(response.user, user.role);
           // TODO DBresponse has user info to be saved on redux persist or the user management system
           alert(
             `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
@@ -126,12 +131,17 @@ function Register() {
           setThirdParty(false);
         }
       }
-    } catch (error: any) {
-      setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error)
-      else {
-        alert(error);
-      }
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setThirdParty(false);
+        if (error.code === "auth/popup-closed-by-user") {
+          console.log("Firebase: Pop-Up Closed");
+        } else {
+          alert(error);
+        }
+      } else if (error instanceof AxiosError) {
+        alert("AxiosError: " + error);
+      } else console.log(error);
     }
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action

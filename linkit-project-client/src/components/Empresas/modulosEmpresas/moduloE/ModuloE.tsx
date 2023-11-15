@@ -1,9 +1,6 @@
-import { useState } from "react";
 import "./ModuloE.css";
-import axios from "axios";
 
 export default function ModuloE() {
-  const [post, setPost] = useState({ title: "", description: "", input: "jd" });
   return (
     <div>
       <div className="relative bottom-20 2xl:bottom-32 flex flex-col p-16 skewed-borderBME h-[32rem] xl:h-[33rem] 2xl:h-[50rem]">
@@ -71,40 +68,6 @@ export default function ModuloE() {
           </p>
         </div>
       </div>
-      {/* TESTING FOR DEMO*/}
-      <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-          try {
-            const response = await axios.post(
-              "https://linkit-server.onrender.com/posts/create",
-              post
-            );
-            if (response.data) {
-              alert("El post se ha creado exitosamente");
-              return response;
-            }
-          } catch (error: any) {
-            alert(error.response.data);
-          }
-        }}
-      >
-        <label htmlFor="">Titulo</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setPost({ ...post, title: event.target.value });
-          }}
-        />
-        <label htmlFor="">Descripcion</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setPost({ ...post, description: event.target.value });
-          }}
-        />
-        <button type="submit">POST</button>
-      </form>
     </div>
   );
 }

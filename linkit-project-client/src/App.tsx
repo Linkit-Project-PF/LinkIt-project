@@ -16,7 +16,7 @@ import {
   setPressRegister,
 } from "./redux/features/registerLoginSlice";
 import { motion, Variants } from "framer-motion";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import { setJobOffers } from "./redux/features/JobCardsSlice";
 
@@ -99,12 +99,12 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://linkit-server.onrender.com/posts/get?type=jd"
+          "https://linkit-server.onrender.com/posts/type?type=jd"
         );
 
         dispatch(setJobOffers(response.data));
-      } catch (error: any) {
-        console.log({ error: error.message });
+      } catch (error) {
+        if (error instanceof AxiosError) console.log({ error: error.message });
       }
     };
     fetchData();
