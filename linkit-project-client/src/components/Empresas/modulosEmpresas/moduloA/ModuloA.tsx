@@ -12,7 +12,7 @@ export default function ModuloA() {
   return (
     <div className="grid grid-cols-2 gap-1 p-4 bg-linkIt-500 py-24 h-screen">
       <div className="flex flex-col p-24">
-        <h1 className="text-4xl xl:text-6xl 2xl:text-8xl w-[390px] xl:w-[660px] 2xl:w-[1100px] font-bold relative bottom-12 2xl:bottom-2 right-10 xl:right-12 2xl:right-2">Contrata y escala <br /> con el mejor talento IT en tan solo 5 días!</h1>
+        <h1 className="text-4xl xl:text-6xl 2xl:text-6xl w-[390px] xl:w-[660px] 2xl:w-[1100px] font-bold relative bottom-12 2xl:bottom-2 right-10 xl:right-12 2xl:right-2">Contrata y escala <br /> con el mejor talento IT en tan solo 5 días!</h1>
         <div className="py-8 pr-60">
           <h3 className="text-base xl:text-[22px] 2xl:text-5xl relative bottom-16 2xl:bottom-2 w-60 xl:w-96 2xl:w-[760px] right-10 xl:right-12 2xl:right-2">Escala, gestiona y retiene al mejor talento del mundo.</h3>
         </div>

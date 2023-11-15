@@ -1,9 +1,0 @@
-.btn:hover::before {
-    content: '';
-    position: relative;
-    top: 10px;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background-color: #019A83;
-  }
