@@ -72,42 +72,47 @@ function Login() {
   const handleAuthClick = async (prov: string) => {
     try {
       let provider;
-      if(prov === "google") {
+      if (prov === "google") {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
-        const response = await signInWithPopup(auth, provider)
-        if(response._tokenResponse.isNewUser) {
+        const response = await signInWithPopup(auth, provider);
+        if (response._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
-          const DBresponse = await saveUserThirdAuth(response.user)
+          const DBresponse = await saveUserThirdAuth(response.user);
           //TODO DB response has user info for redux persist or the user management system
-          alert(`No existe una cuenta con este email, cuenta creada para ${DBresponse.name}`) 
+          alert(
+            `No existe una cuenta con este email, cuenta creada para ${DBresponse.name}`
+          );
         } else {
           //* In case user exists, enters here
-          const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?email=${response.user.email}`)
+          const { data } = await axios.get(
+            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
+          );
           // TODO data[0] has user info to be saved on redux persist or the user management system
           if (data.length) {
-              const authUser = data[0];
-              alert(`Has ingresado. Bienvenido, ${authUser.name}`)
-            } else throw Error("Usuario autenticado pero registro no encontrado, contacte a un administrador")
-          }
+            const authUser = data[0];
+            alert(`Has ingresado. Bienvenido, ${authUser.name}`);
+          } else
+            throw Error(
+              "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+            );
         }
-        dispatch(setPressLogin("hidden"))
-        setThirdParty(false);
+      }
+      dispatch(setPressLogin("hidden"));
+      setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error)
+      if (error.code === "auth/popup-closed-by-user") console.log(error);
       else {
         alert(error);
       }
     }
-  
-
-  }
+  };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
     <div className="login-container">
       <div className="login-subContainer">
-        <fieldset 
+        <fieldset
           className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
           disabled={thirdParty ? true : false}
         >
@@ -130,7 +135,9 @@ function Login() {
             <a onClick={() => handleAuthClick("google")}>Google</a>
             <input
               type="text"
-              className={`login-input ${errors.email ? "login-input-error" : ""}`}
+              className={`login-input ${
+                errors.email ? "login-input-error" : ""
+              }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
