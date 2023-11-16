@@ -11,6 +11,7 @@ import {
   setPressSignUp,
   setPressRegister,
 } from "../../redux/features/registerLoginSlice";
+import { logout } from "../../redux/features/AuthSlice";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -290,12 +291,14 @@ function NavBar() {
             </ul>{" "}
           </motion.nav>
         </div>
+        <button onClick={()=>dispatch(logout())}>Salir</button>
         <div className="containerBtnsNavbar">
           <motion.button
             className="contrataBtnNavB"
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
           >
+            
             Contrata Talento
           </motion.button>
           <motion.button
