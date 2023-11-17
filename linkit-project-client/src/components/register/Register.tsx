@@ -75,7 +75,7 @@ function Register() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://linkit-server.onrender.com/users/register?type=email",
+        "https://linkit-server.onrender.com/users/create?type=email",
         user
       );
       if (response.data._id)

@@ -50,11 +50,10 @@ function Login() {
     event.preventDefault();
     try {
       const response = await axios(
-        `https://linkit-server.onrender.com/users/login?email=${user.email}&password=${user.password}`
+        `https://linkit-server.onrender.com/users/find?email=${user.email}`
       );
-      if (response.data._id) alert(`Bienvenido ${response.data.name}`);{
-        console.log(response)
-        const token = response.data._id;
+      if (response.data[0].id) alert(`Bienvenido ${response.data[0].name}`);{
+        const token = response.data.id;
         dispatch(loginSuccess({ token }));
         return response;
       };
