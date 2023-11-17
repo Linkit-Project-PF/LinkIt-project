@@ -11,6 +11,7 @@ import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave.ts";
+import { loginSuccess } from "../../redux/features/AuthSlice.ts";
 
 type Event = {
   target: HTMLInputElement;
@@ -51,8 +52,12 @@ function Login() {
       const response = await axios(
         `https://linkit-server.onrender.com/users/login?email=${user.email}&password=${user.password}`
       );
-      if (response.data._id) alert(`Bienvenido ${response.data.name}`);
-      return response;
+      if (response.data._id) alert(`Bienvenido ${response.data.name}`);{
+        console.log(response)
+        const token = response.data._id;
+        dispatch(loginSuccess({ token }));
+        return response;
+      };
     } catch (error: any) {
       alert(error.response?.data);
     }

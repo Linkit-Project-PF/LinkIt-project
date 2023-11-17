@@ -1,0 +1,14 @@
+.skewed-top{
+    position: relative;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    transform: skewY(-2deg);
+    transform-origin: top left;
+    z-index: 1;
+}
+
+.skewed-second{
+    transform: skewY(-2deg);
+}
