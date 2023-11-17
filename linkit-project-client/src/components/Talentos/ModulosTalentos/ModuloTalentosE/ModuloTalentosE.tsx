@@ -30,13 +30,12 @@ export default function ModuloTalentosE() {
                     </div>
                 </ul>
                 <ul className="grid grid-cols-4 gap-64 mx-[7rem] mt-[3rem] justify-items-center">
-                <div className=" line "></div>
+                <div className=" lineD "></div>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">1</li>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">2</li>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">3</li>
                     <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">4</li>
                 </ul>
-                <div className="lineD top-[-33px] left-[-23px] md:top-[-28px] md:left-[-5px] lg:top-[-23px] lg:left-[6px] xl:top-[-10px] xl:left-[20px] 2xl:top-[-9px] 2xl:left-[47px]"></div>
             </div>
         </div>
     )
