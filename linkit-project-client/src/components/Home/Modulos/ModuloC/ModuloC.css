@@ -1,9 +1,5 @@
 .line {
     position: absolute;
-    left: 3%;
-    width: 90%;
-    height: 4px;
-    margin: 2.5rem;
     background-color: #A9C1D9;
     z-index: -1;
   }

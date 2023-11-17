@@ -22,29 +22,29 @@ function validations(user: User) {
     }
 
     if(user.name.trim() === ""){
-        errors.name = "Name is required"
+        errors.name = "Debes escribir un nombre"
     }else if(/[\d]/.test(user.name)){
-        errors.name = "Name must not contain numbers"
+        errors.name = "El nombre no debe contener numeros"
     }
 
     if(user.email.trim() === ""){
-        errors.email = "Email is required"
+        errors.email = "Debes escribir un email"
     }else if(!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(user.email)){
-        errors.email = "Email is invalid"
+        errors.email = "Email inválido"
     }
 
     if(user.password.trim() === ""){
-        errors.password = "Password is required"
+        errors.password = "Debes escribir una contraseña"
     }else if(user.password.length < 8){
-        errors.password = "Password must be at least 8 characters"
+        errors.password = "La contraseña debe tener al menos 8 caracteres"
     }else if(!/[!@#$%^&*(),.?":{}|<>]/.test(user.password)){
-        errors.password = "Password must contain at least one special character";
+        errors.password = "La contraseña debe contener al menos 1 caracter especial";
     }
 
     if(user.confirm_password.trim() === ""){
-        errors.confirm_password = "Password confirmation is required"
+        errors.confirm_password = "Debes escribir la confirmación de la contraseña"
     }else if(user.password !== user.confirm_password){
-        errors.confirm_password = "Password confirmation must be equal to password"
+        errors.confirm_password = "Las contraseñas no coinciden"
     }
 
     return errors

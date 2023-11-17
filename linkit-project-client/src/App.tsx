@@ -6,17 +6,19 @@ import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import Empresas from "./components/Empresas/Empresas";
 import Talentos from "./components/Talentos/Talentos";
-import RegisterTalent from "./components/register/RegisterTalent";
-import RegisterCompany from "./components/register/RegisterCompany";
+import Register from "./components/register/Register";
 import PreRegisterForm from "./components/register/preRegisterForm";
 import Login from "./components/Login/Login";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { setPressLogin, setPressSignUp, setPressCompany, setPressTalent } from "./redux/features/registerLoginSlice";
+import {
+  setPressLogin,
+  setPressSignUp,
+  setPressRegister,
+} from "./redux/features/registerLoginSlice";
 import { motion, Variants } from "framer-motion";
-import axios from 'axios';
-import { useEffect } from 'react';
+import axios, { AxiosError } from "axios";
+import { useEffect } from "react";
 import { setJobOffers } from "./redux/features/JobCardsSlice";
-
 
 const registerVariants: Variants = {
   hidden: {
@@ -26,7 +28,7 @@ const registerVariants: Variants = {
       type: "spring",
       delay: 0.3,
       duration: 1,
-    }
+    },
   },
   visible: {
     opacity: 1,
@@ -43,11 +45,11 @@ const loginVariants: Variants = {
   hidden: {
     opacity: 0,
     x: "-100vw",
-    transition:{
+    transition: {
       type: "spring",
       delay: 0.2,
       duration: 1,
-    }
+    },
   },
   visible: {
     opacity: 1,
@@ -60,7 +62,7 @@ const loginVariants: Variants = {
   },
 };
 
-const registerCompanyVariants: Variants = {
+const registerFormVariants: Variants = {
   hidden: {
     opacity: 0,
     x: "-100vw",
@@ -68,7 +70,7 @@ const registerCompanyVariants: Variants = {
       type: "spring",
       delay: 0.3,
       duration: 1,
-    }
+    },
   },
   visible: {
     opacity: 1,
@@ -79,101 +81,79 @@ const registerCompanyVariants: Variants = {
       duration: 1,
     },
   },
-}
-
-const registerTalentVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    x: "-100vw",
-    transition: {
-      type: "spring",
-      delay: 0.3,
-      duration: 1,
-    }
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: "spring",
-      delay: 0.5,
-      duration: 1,
-    },
-  }
-}
+};
 
 function App() {
   const dispatch = useDispatch();
-  const pressSignUp = useSelector((state: any) => state.registerLogin.pressSignUp);
-  const pressLogin = useSelector((state: any) => state.registerLogin.pressLogin);
-  const pressCompany = useSelector((state: any) => state.registerLogin.pressCompany);
-  const pressTalent = useSelector((state: any) => state.registerLogin.pressTalent);
+  const pressSignUp = useSelector(
+    (state: any) => state.registerLogin.pressSignUp
+  );
+  const pressLogin = useSelector(
+    (state: any) => state.registerLogin.pressLogin
+  );
+  const pressRegister = useSelector(
+    (state: any) => state.registerLogin.pressRegister
+  );
 
-  useEffect(()=>{
+  useEffect(() => {
+    /**
+     * Fetches data from the server and sets the job offers in the state.
+     */
     const fetchData = async () => {
       try {
-        const response  = await axios.get('https://linkit-server.onrender.com/posts/get?type=jd')
-       
-          dispatch(setJobOffers(response.data));
-        
-      } catch (error: any) {
-        console.log({error: error.message})
+        const response = await axios.get(
+          "https://linkit-server.onrender.com/posts/type?type=jd"
+        );
+
+        dispatch(setJobOffers(response.data));
+      } catch (error) {
+        if (error instanceof AxiosError) console.log({ error: error.message });
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
       <NavBar />
 
-        <motion.div 
-          variants={loginVariants}
-          initial="hidden"
-          animate={pressLogin}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-          onClick={() => {
-            dispatch(setPressLogin("hidden"));
-          }}
-        >
-          <Login/>
-        </motion.div>
+      <motion.div
+        variants={loginVariants}
+        initial="hidden"
+        animate={pressLogin}
+        className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
+        onClick={() => {
+          dispatch(setPressLogin("hidden"));
+        }}
+      >
+        <Login />
+      </motion.div>
 
-      <motion.div 
-          variants={registerVariants}
-          initial="hidden"
-          animate={pressSignUp}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-          onClick={() => {
-            dispatch(setPressSignUp("hidden"));
-          }}
-        >
-          <PreRegisterForm/>
-        </motion.div>
+      <motion.div
+        variants={registerVariants}
+        initial="hidden"
+        animate={pressSignUp}
+        className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
+        onClick={() => {
+          dispatch(setPressSignUp("hidden"));
+        }}
+      >
+        <PreRegisterForm />
+      </motion.div>
 
-        <motion.div 
-          variants={registerCompanyVariants}
+      {pressRegister === "visible" ? (
+        <motion.div
+          variants={registerFormVariants}
           initial="hidden"
-          animate={pressCompany}
+          animate={pressRegister}
           className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
           onClick={() => {
-            dispatch(setPressCompany("hidden"));
+            dispatch(setPressRegister("hidden"));
           }}
         >
-          <RegisterCompany />
+          <Register />
         </motion.div>
-
-        <motion.div 
-          variants={registerTalentVariants}
-          initial="hidden"
-          animate={pressTalent}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-          onClick={() => {
-            dispatch(setPressTalent("hidden"));
-          }}
-        >
-          <RegisterTalent />
-        </motion.div>
+      ) : null}
 
       <Routes>
         <Route path="/" element={<Home />} />
