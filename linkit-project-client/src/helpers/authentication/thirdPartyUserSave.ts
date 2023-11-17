@@ -1,5 +1,4 @@
 import axios from "axios";
-import { User } from "firebase/auth";
 
 export default async function saveUserThirdAuth(user: any, role: string) {
     const userToSave = {
