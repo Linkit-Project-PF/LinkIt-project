@@ -11,7 +11,7 @@
 
   .skew-green{
     width: 100%;
-    height: 5px;
+    height: 8px;
     background-color: #019A83;
     position: relative;
     bottom: 20px;
@@ -21,3 +21,38 @@
   .custom-shadow {
     box-shadow: 3px 0px 10px 0px rgba(0,0,0,0.75);
   }
+
+  @media screen and (min-width: 1440px){
+    .cv-image{
+      position: relative;
+      right: 5rem !important;
+      
+    }
+    .cv-text{
+      position: relative;
+      font-size:  3rem !important;
+      left: 10rem !important;
+    }
+    .cv-button{
+      position: relative;
+      left: 4.7rem !important;
+    }
+  }
+
+  @media screen and (min-width: 1280px){
+    .cv-image{
+      position: relative;
+      right: 10rem !important;
+      
+    }
+    .cv-text{
+      position: relative;
+      font-size:  3rem !important;
+      left: 7rem !important;
+    }
+    .cv-button{
+      position: relative;
+      left: 1.7rem !important;
+    }
+  }
+
