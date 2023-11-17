@@ -169,7 +169,7 @@ function Login() {
             </motion.button>
                 <p>
                   O Ingresa con
-                  <a onClick={() => handleAuthLogin("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+                  <a onClick={() => handleAuthClick("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
                 </p>
             <div className="login-conditions-container">
               No tienes una cuenta?
