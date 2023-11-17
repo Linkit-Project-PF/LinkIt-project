@@ -49,17 +49,32 @@ const scope = useMenuAnimation(isOpen);
     Nombre: "",
     Apellido: "",
     Empresa: "",
-    Servicio: [],
+    Servicio: [] as string[],
     Email: "",
     Mensaje: "",
    });
 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
+    if (e.target.type === "checkbox") {
+      if (e.target.checked) {
+        setContactos({
+          ...contactos,
+          Servicio: [...contactos.Servicio, e.target.value],
+        });
+      } else {
+        setContactos({
+          ...contactos,
+          Servicio: contactos.Servicio.filter(
+            (servicio) => servicio !== e.target.name
+          ),
+        });
+      }
+    } else {
     setContactos({
       ...contactos,
       [e.target.name]: e.target.value,
     });
-    }
+    }}
 
 
   return (
@@ -95,17 +110,17 @@ const scope = useMenuAnimation(isOpen);
               onMouseLeave={() => setIsOpen(false)}
             >
               <li className="my-2 text-base items-center">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="" id="Recruiting" />
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Servicio" value={contactos.Servicio} id="Recruiting" />
               <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="" id="StaffA" />
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Servicio" value={contactos.Servicio} id="StaffA" />
               <label htmlFor="StaffA" className="cursor-pointer">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="" id="PayM" />
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Servicio" value={contactos.Servicio} id="PayM" />
               <label htmlFor="PayM" className="cursor-pointer">Payroll Management</label>
               </li>
             </ul>{" "}
