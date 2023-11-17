@@ -10,7 +10,7 @@ export default function ModuloB() {
 
     return (
         <div>
-            <div className="flex flex-col skewed-borderB pb-6 sm:pb-10 md:p-6 md:pb-12 lg:pb-16 xl:pb-24 2xl:pb-32">
+            <div className="flex flex-col skewed-borderB pb-6 sm:pb-10 md:p-6 md:pb-12 lg:pb-16 xl:pb-24 xl:p-32 2xl:pb-32">
                 <div className="contentB">
                     <h1 className="flex justify-center text-white font-semibold text-sm m-6  lg:text-3xl xl:text-4xl xl:m-12 2xl:text-5xl xl:my-6">Nuestros servicios</h1>
                     <ul className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-10 2xl:gap-16">

@@ -2,8 +2,8 @@ import './ModuloC.css'
 
 export default function ModuloC() {
     return (
-        <div className="pb-1 m-2 lg:m-4 xl:pb-12 2xl:mx-12">
-            <h1 className="flex justify-center font-semibold text-sm m-6 md:text-2xl lg:text-3xl lg:my-12 xl:text-4xl xl:m-16 2xl:text-5xl 2xl:m-24">¿Qué nos hace diferentes?</h1>
+        <div className="pb-1 m-2 lg:m-4 2xl:mx-12 xl:px-32">
+            <h1 className="flex justify-center font-semibold text-sm m-6 md:text-2xl lg:text-3xl lg:my-12 xl:text-4xl xl:m-6 2xl:text-5xl 2xl:m-24">¿Qué nos hace diferentes?</h1>
             <div>
                 <ul className="grid grid-cols-4 gap-2 md:gap-4 2xl:my-10 2xl:gap-10">
                     <div className="flex  flex-col text-center items-center 2xl:px-6">
