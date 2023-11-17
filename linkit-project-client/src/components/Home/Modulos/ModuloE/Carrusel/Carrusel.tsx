@@ -32,9 +32,9 @@ export default function ModuloC() {
     }, []);
 
     return (
-        <div className="relative flex flex-col items-center pb-3">
-            <div className="flex flex-row space-x-10">
-                <button className="" onClick={handlePrev}> <img className='h-5 rotate-90 ' src={arrow} alt="prev" /></button>
+        <div className="relative flex flex-col items-center p-3">
+            <div className="flex flex-row space-x-10 ">
+                <button className="" onClick={handlePrev}> <img className='relative h-5 rotate-90 left-[290px] top-[-15px] sm:left-[160px] md:left-[100px] lg:left-[10px] xl:left-[-40px] 2xl:top-[-40px] 2xl:left-[-50px]' src={arrow} alt="prev" /></button>
                 <motion.div
                     className="w-[50rem] xl:w-[55rem] 2xl:w-[65rem] flex flex-row justify-center mb-10 xl:mb-12 2xl:mb-24"
                 >
@@ -42,13 +42,13 @@ export default function ModuloC() {
                     {renderedCompanies.map((company) => (
                         <motion.div
                             key={company.id}
-                            className="relative px-4 py-4 justify-center overflow:hidden w-36 xl:w-40 2xl:w-52  h-16 xl:h-24 2xl:h-32 top-4 2xl:top-9">
-                            <img src={company.logo} className="h-full w-full object-contain" alt='logo' />
+                            className="relative justify-center overflow:hidden h-4 w-12 sm:w-20 sm:h-8 md:w-28 lg:w-40 lg:h-12 xl:w-60 2xl:w-72">
+                            <img src={company.logo} className="h-full w-full object-contain mx-2" alt='logo' />
                         </motion.div>
                     ))}
 
                 </motion.div>
-                <button className="relative" onClick={handleNext}> <img className='h-5 -rotate-90' src={arrow} alt="prev" /></button>
+                <button className="relative" onClick={handleNext}> <img className='relative h-[20px] -rotate-90 left-[-290px] top-[-15px] sm:left-[-160px] md:left-[-100px] lg:left-[-10px] xl:left-[40px] 2xl:top-[-40px] 2xl:left-[50px]' src={arrow} alt="prev" /></button>
             </div>
         </div>
     )

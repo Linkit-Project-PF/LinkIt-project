@@ -23,4 +23,4 @@ const registerLoginSlice = createSlice({
 })
 
 export default registerLoginSlice.reducer;
-export const { setPressLogin, setPressSignUp, setPressRegister } = registerLoginSlice.actions;
+export const { setPressLogin, setPressSignUp, setPressRegister } = registerLoginSlice.actions; 

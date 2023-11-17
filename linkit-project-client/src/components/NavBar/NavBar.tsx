@@ -11,6 +11,7 @@ import {
   setPressSignUp,
   setPressRegister,
 } from "../../redux/features/registerLoginSlice";
+import { logout } from "../../redux/features/AuthSlice";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -67,6 +68,8 @@ function NavBar() {
   const scopeRecursos = useMenuAnimation(isOpenRecursos);
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
 
+  const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
+
   const goHome = () => {
     navigate("/");
   };
@@ -98,6 +101,7 @@ function NavBar() {
         <NavLink
           to="https://calendly.com/linkit-project-henry/30min"
           className="ml-2 underline underline-offset-[3.3px]"
+          target="_blank"
         >
           Comienza ahora! →
         </NavLink>
@@ -108,11 +112,11 @@ function NavBar() {
           alt=""
           className="static h-20 xl:h-24 2xl:h-32 mr-2 xl:mr-6 2xl:mr-16 ml-2 xl:ml-6 2xl:ml-14"
         />
+
         <div className="containerLinksNavBar">
           <motion.button
-            className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${
-              isActiveHome ? "underline text-linkIt-300" : ""
-            }`}
+            className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveHome ? "underline text-linkIt-300" : ""
+              }`}
             onClick={() => goHome()}
           >
             Inicio
@@ -125,9 +129,8 @@ function NavBar() {
             onMouseLeave={() => setIsOpenEmpresa(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${
-                isActiveEmpresa ? "underline text-linkIt-300" : ""
-              }`}
+              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveEmpresa ? "underline text-linkIt-300" : ""
+                }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyEmpresa()}
             >
@@ -144,21 +147,21 @@ function NavBar() {
               }}
             >
               <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                Servicios
+                <a href="#servicios">Servicios</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                 Proceso{" "}
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">Cotiza </li>
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+              <a href="#cotiza">Cotiza</a> </li>
             </ul>{" "}
           </motion.nav>
 
           <NavLink
-            className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${
-              isActiveTalento ? "underline text-linkIt-300" : ""
-            }`}
+            className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? "underline text-linkIt-300" : ""
+              }`}
             to="/SoyTalento"
           >
             Soy Talento
@@ -171,9 +174,8 @@ function NavBar() {
             onMouseLeave={() => setIsOpenRecursos(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${
-                isActiveRecursos ? "underline text-linkIt-300" : ""
-              }`}
+              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveRecursos ? "underline text-linkIt-300" : ""
+                }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goRecursos()}
             >
@@ -190,12 +192,14 @@ function NavBar() {
               }}
             >
               <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                Blogs
+                <a href="#blogs">Blogs</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Ebooks</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                <a href="#ebooks">Ebooks</a></li>
               <hr className="w-[90px] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">Eventos</li>
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+                <a href="#events">Eventos</a></li>
             </ul>{" "}
           </motion.nav>
           <motion.nav
@@ -205,9 +209,8 @@ function NavBar() {
             onMouseLeave={() => setIsOpenQS(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${
-                isActiveQS ? "underline text-linkIt-300" : ""
-              }`}
+              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveQS ? "underline text-linkIt-300" : ""
+                }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goQS()}
             >
@@ -258,44 +261,70 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                <button
-                  className=""
-                  onClick={() => {
-                    pressLogin === "visible"
-                      ? dispatch(setPressLogin("hidden"))
-                      : dispatch(setPressLogin("visible")),
-                      dispatch(setPressSignUp("hidden"));
-                  }}
-                >
-                  Inicia Sesión
-                </button>
-              </li>
-              <hr className="w-[50px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                <button
-                  className=""
-                  onClick={() => {
-                    pressSignUp === "visible"
-                      ? dispatch(setPressSignUp("hidden"))
-                      : dispatch(setPressSignUp("visible")),
-                      dispatch(setPressLogin("hidden")),
-                      dispatch(setPressRegister("hidden")),
-                      setPressRegister("hidden");
-                  }}
-                >
-                  Regístrate
-                </button>
-              </li>
+              {isAuth ? (
+                <div>
+
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mi Perfil
+                    </button>
+                  </li>
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="logout"
+                      onClick={() => dispatch(logout())}
+                    >
+                      Salir
+                    </button>
+                  </li>
+                </div>
+              ) : (
+                <div>
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className=""
+                      onClick={() => {
+                        pressLogin === "visible"
+                          ? dispatch(setPressLogin("hidden"))
+                          : dispatch(setPressLogin("visible")),
+                          dispatch(setPressSignUp("hidden"));
+                      }}
+                    >
+                      Inicia Sesión
+                    </button>
+                  </li>
+                  <hr className="w-[50px] mt-5 ml-4" />
+                  <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className=""
+                      onClick={() => {
+                        pressSignUp === "visible"
+                          ? dispatch(setPressSignUp("hidden"))
+                          : dispatch(setPressSignUp("visible")),
+                          dispatch(setPressLogin("hidden")),
+                          dispatch(setPressRegister("hidden")),
+                          setPressRegister("hidden");
+                      }}
+                    >
+                      Regístrate
+                    </button>
+                  </li>
+                </div>
+              )}
             </ul>{" "}
           </motion.nav>
         </div>
+
+
         <div className="containerBtnsNavbar">
           <motion.button
             className="contrataBtnNavB"
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
           >
+
             Contrata Talento
           </motion.button>
           <motion.button
@@ -306,8 +335,8 @@ function NavBar() {
             Vacantes disponibles
           </motion.button>
         </div>
-      </nav>
-    </div>
+      </nav >
+    </div >
   );
 }
 

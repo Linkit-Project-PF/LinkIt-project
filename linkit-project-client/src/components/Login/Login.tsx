@@ -11,6 +11,7 @@ import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave.ts";
+import { loginSuccess } from "../../redux/features/AuthSlice.ts";
 
 type Event = {
   target: HTMLInputElement;
@@ -49,10 +50,14 @@ function Login() {
     event.preventDefault();
     try {
       const response = await axios(
-        `https://linkit-server.onrender.com/users/login?email=${user.email}&password=${user.password}`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
-      if (response.data._id) alert(`Bienvenido ${response.data.name}`);
-      return response;
+      console.log(response)
+      if (response.data.id) alert(`Bienvenido ${response.data.name}`); {
+        const token = response.data.id;
+        dispatch(loginSuccess({ token }));
+        return response;
+      };
     } catch (error: any) {
       alert(error.response?.data);
     }
@@ -67,42 +72,45 @@ function Login() {
   const handleAuthClick = async (prov: string) => {
     try {
       let provider;
-      if(prov === "google") {
+      if (prov === "google") {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
-        const response = await signInWithPopup(auth, provider)
-        if(response._tokenResponse.isNewUser) {
+        const response = await signInWithPopup(auth, provider);
+        if (response._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
-          const DBresponse = await saveUserThirdAuth(response.user, "user")
+          const DBresponse = await saveUserThirdAuth(response.user, "user");
           //TODO DB response has user info for redux persist or the user management system
           alert(`No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`) 
         } else {
           //* In case user exists, enters here
-          const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?email=${response.user.email}`)
+          const { data } = await axios.get(
+            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
+          );
           // TODO data[0] has user info to be saved on redux persist or the user management system
           if (data.length) {
-              const authUser = data[0];
-              alert(`Has ingresado. Bienvenido, ${authUser.name}`)
-            } else throw Error("Usuario autenticado pero registro no encontrado, contacte a un administrador")
-          }
+            const authUser = data[0];
+            alert(`Has ingresado. Bienvenido, ${authUser.name}`);
+          } else
+            throw Error(
+              "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+            );
         }
-        dispatch(setPressLogin("hidden"))
-        setThirdParty(false);
+      }
+      dispatch(setPressLogin("hidden"));
+      setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error)
+      if (error.code === "auth/popup-closed-by-user") console.log(error);
       else {
         alert(error);
       }
     }
-  
-
-  }
+  };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
     <div className="login-container">
       <div className="login-subContainer">
-        <fieldset 
+        <fieldset
           className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
           disabled={thirdParty ? true : false}
         >
@@ -121,11 +129,10 @@ function Login() {
             onSubmit={handleSubmit}
           >
             <h1 className="login-title">Inicia sesión</h1>
-
-            <a onClick={() => handleAuthClick("google")}>Google</a>
             <input
               type="text"
-              className={`login-input ${errors.email ? "login-input-error" : ""}`}
+              className={`login-input ${errors.email ? "login-input-error" : ""
+                }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
@@ -137,9 +144,8 @@ function Login() {
 
             <input
               type="password"
-              className={`login-input ${
-                errors.password ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.password ? "login-input-error" : ""
+                }`}
               name="password"
               placeholder="Contraseña"
               onChange={handleInputChange}
@@ -157,7 +163,10 @@ function Login() {
             >
               Ingresa
             </motion.button>
-
+                <p>
+                  O Ingresa con
+                  <a onClick={() => handleAuthClick("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+                </p>
             <div className="login-conditions-container">
               No tienes una cuenta?
               <a

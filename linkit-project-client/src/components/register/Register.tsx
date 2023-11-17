@@ -11,10 +11,11 @@ import {
   setPressSignUp,
   setPressRegister,
 } from "../../redux/features/registerLoginSlice";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { auth } from "../../helpers/authentication/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
+import { FirebaseError } from "firebase/app";
 
 function Register() {
   const dispatch = useDispatch();
@@ -74,20 +75,22 @@ function Register() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://linkit-server.onrender.com/users/register?type=email",
+        "https://linkit-server.onrender.com/auth/register",
         user
       );
-      console.log(response);
       if (response.data._id)
         alert("Te has registrado exitosamente, ya puedes loguearte!");
       dispatch(setPressRegister("hidden"));
       return response;
-    } catch (error: any) {
-      alert(error.response?.data);
-      if (
-        error.response?.data === "Register error: That email is already on use"
-      )
-        setErrors({ ...errors, email: "Email en uso" });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        alert(error.response?.data);
+        if (
+          error.response?.data ===
+          "Register error: That email is already on use"
+        )
+          setErrors({ ...errors, email: "Email en uso" });
+      } else console.log(error);
     }
   };
 
@@ -104,9 +107,10 @@ function Register() {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
+        // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
           //* In case trying to register with google but user already exists
-          const {data} = await axios.get(
+          const { data } = await axios.get(
             `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
           );
           // TODO data[0] has user info to be saved on redux persist or the user management system
@@ -116,6 +120,7 @@ function Register() {
           );
         }
         //* In case user does not exist enters here
+<<<<<<< HEAD
         const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
         // TODO DBresponse has user info to be saved on redux persist or the user management system
         alert(
@@ -123,13 +128,30 @@ function Register() {
         );
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
+=======
+        if (response.user) {
+          console.log("outside", user.role);
+          const DBresponse = await saveUserThirdAuth(response.user, user.role);
+          // TODO DBresponse has user info to be saved on redux persist or the user management system
+          alert(
+            `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+          );
+          dispatch(setPressRegister("hidden"));
+          setThirdParty(false);
+        }
+>>>>>>> 6849b2e23a82259772136ba6c7cb94ce91ef5066
       }
-    } catch (error: any) {
-      setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error)
-      else {
-        alert(error);
-      }
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setThirdParty(false);
+        if (error.code === "auth/popup-closed-by-user") {
+          console.log("Firebase: Pop-Up Closed");
+        } else {
+          alert(error);
+        }
+      } else if (error instanceof AxiosError) {
+        alert("AxiosError: " + error);
+      } else console.log(error);
     }
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
@@ -155,7 +177,6 @@ function Register() {
             onClick={handleClick}
           >
             <h1 className="register-title">Registrate</h1>
-            <a onClick={() => handleAuthLogin("google")}>Google</a>
             <input
               type="text"
               className={`register-input ${errors.name ? "input-error" : ""}`}
@@ -224,6 +245,7 @@ function Register() {
               </p>
             )}
 
+
             <motion.button
               type="submit"
               className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
@@ -245,6 +267,11 @@ function Register() {
             >
               Crear cuenta
             </motion.button>
+
+            <p>
+              O registrate con
+            <a onClick={() => handleAuthLogin("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+            </p>
 
             <div className="register-conditions-container">
               Al registrarte aceptas nuestros
