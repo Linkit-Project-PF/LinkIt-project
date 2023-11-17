@@ -131,8 +131,6 @@ function Login() {
             onSubmit={handleSubmit}
           >
             <h1 className="login-title">Inicia sesión</h1>
-
-            <a className="relative bottom-3 border border-linkIt-500 shadow p-1 cursor-pointer" onClick={() => handleAuthClick("google")}>Google</a>
             <input
               type="text"
               className={`login-input ${errors.email ? "login-input-error" : ""
