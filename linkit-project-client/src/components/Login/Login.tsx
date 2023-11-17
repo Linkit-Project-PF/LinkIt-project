@@ -73,9 +73,9 @@ function Login() {
         const response = await signInWithPopup(auth, provider)
         if(response._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
-          const DBresponse = await saveUserThirdAuth(response.user)
+          const DBresponse = await saveUserThirdAuth(response.user, "user")
           //TODO DB response has user info for redux persist or the user management system
-          alert(`No existe una cuenta con este email, cuenta creada para ${DBresponse.name}`) 
+          alert(`No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`) 
         } else {
           //* In case user exists, enters here
           const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?email=${response.user.email}`)

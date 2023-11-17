@@ -1,5 +1,5 @@
 import "./Register.css";
-import { motion } from "framer-motion";
+import { calcLength, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import validations from "./registerValidations";
 import PhoneInput from "react-phone-number-input";
@@ -116,15 +116,13 @@ function Register() {
           );
         }
         //* In case user does not exist enters here
-        if (response.user) {
-          const DBresponse = await saveUserThirdAuth(response.user)
-          // TODO DBresponse has user info to be saved on redux persist or the user management system
-          alert(
-            `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
-          );
-          dispatch(setPressRegister("hidden"));
-          setThirdParty(false);
-        }
+        const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
+        // TODO DBresponse has user info to be saved on redux persist or the user management system
+        alert(
+          `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+        );
+        dispatch(setPressRegister("hidden"));
+        setThirdParty(false);
       }
     } catch (error: any) {
       setThirdParty(false);
