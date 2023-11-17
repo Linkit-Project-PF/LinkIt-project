@@ -12,9 +12,10 @@ export default function ModuloTalentosF() {
             <h1 className="flex justify-center text-5xl font-bold mt-20">Oportunidades en más de 100 tecnologías</h1>
             <div className=" flex  flex-row flex-wrap justify-center items-center p-12 mx-56">
                 {
-                    tecnologies.map(({ name, logo }: Technology) => {
+                    tecnologies.map(({ name, logo }: Technology, index) => {
                         return (
                             <CardTech
+                                id={index}
                                 name={name}
                                 logo={logo}
                             />
