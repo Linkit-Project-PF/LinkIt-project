@@ -37,3 +37,15 @@
 .skewed-second{
     transform: skewY(-2deg);
 }
+
+@media screen and (min-width: 1900px){
+    .skewed-top{
+        position: relative;
+        top: 0px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        transform: skewY(-2deg);
+        transform-origin: top left;
+    }
+}
