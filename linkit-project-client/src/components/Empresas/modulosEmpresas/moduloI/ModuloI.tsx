@@ -132,6 +132,7 @@ const scope = useMenuAnimation(isOpen);
         <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 pb-20 2xl:pb-20 outline-none w-[25vw] h-28 2xl:text-xl" type="text" placeholder="Mensaje" name="Mensaje" value={contactos.Mensaje} onChange={handleChange} />
         </div>
       </form>
+
     </div>
   );
 }
