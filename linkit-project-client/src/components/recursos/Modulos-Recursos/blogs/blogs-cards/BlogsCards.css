@@ -1,0 +1,18 @@
+@media screen and (min-width: 1900px){
+    .container{
+        width: 25rem !important;
+        height: 55vh !important;
+    }
+    .cards-container{
+        gap: 6rem !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
