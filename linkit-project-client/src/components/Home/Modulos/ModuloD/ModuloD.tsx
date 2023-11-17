@@ -2,7 +2,7 @@ import './ModuloD.css'
 
 export default function ModuloD() {
     return (
-        <div className="grid grid-cols-2 gap-1 bg-linkIt-500 p-2 2xl:p-0">
+        <div className="grid grid-cols-2 gap-1 bg-linkIt-500 p-2 xl:px-32 2xl:p-0 ">
             <div className="flex flex-col relative justify-center">
                 <img className="z-0 h-[80%] w-auto" src="/Vectores/linkit-web-vectores-06.svg" alt="360" />
                 <img className="absolute h-auto w-6/12 z-1 top-[35%] left-[23%] sm:top-[28%]" src="/Vectores/linkit-web-vectores-07.svg" alt="persons" />
