@@ -12,13 +12,17 @@ function Empresas() {
   return (
     <div className="flex flex-col">
       <ModuloA />
+      <section id="servicios">
       <ModuloB />
+      </section>
       <ModuloC />
       <ModuloD />
       <ModuloE />
       <ModuloF />
       <ModuloG />
+      <section id='cotiza'>
       <ModuloH />
+      </section>
       <MooduloI />
       <Footer />
     </div>
