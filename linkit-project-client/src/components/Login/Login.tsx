@@ -53,7 +53,7 @@ function Login() {
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
       console.log(response)
-      if (response.data.id) alert(`Bienvenido ${response.data.name}`);{
+      if (response.data.id) alert(`Bienvenido ${response.data.name}`); {
         const token = response.data.id;
         dispatch(loginSuccess({ token }));
         return response;
@@ -135,9 +135,8 @@ function Login() {
             <a className="relative bottom-3 border border-linkIt-500 shadow p-1 cursor-pointer" onClick={() => handleAuthClick("google")}>Google</a>
             <input
               type="text"
-              className={`login-input ${
-                errors.email ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.email ? "login-input-error" : ""
+                }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
@@ -149,9 +148,8 @@ function Login() {
 
             <input
               type="password"
-              className={`login-input ${
-                errors.password ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.password ? "login-input-error" : ""
+                }`}
               name="password"
               placeholder="Contraseña"
               onChange={handleInputChange}
@@ -169,7 +167,10 @@ function Login() {
             >
               Ingresa
             </motion.button>
-
+                <p>
+                  O Ingresa con
+                  <a onClick={() => handleAuthLogin("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+                </p>
             <div className="login-conditions-container">
               No tienes una cuenta?
               <a
