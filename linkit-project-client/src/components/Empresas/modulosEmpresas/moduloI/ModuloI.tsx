@@ -37,7 +37,7 @@ function useMenuAnimation(isOpen: boolean) {
   return scope;
 }
 
-export default function MooduloI() {
+export default function ModuloI() {
 
 
 
@@ -65,7 +65,7 @@ const scope = useMenuAnimation(isOpen);
         setContactos({
           ...contactos,
           Servicio: contactos.Servicio.filter(
-            (servicio) => servicio !== e.target.name
+            (servicio) => servicio !== e.target.value
           ),
         });
       }
@@ -110,18 +110,21 @@ const scope = useMenuAnimation(isOpen);
               onMouseLeave={() => setIsOpen(false)}
             >
               <li className="my-2 text-base items-center">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Servicio" value={contactos.Servicio} id="Recruiting" />
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contactos.Servicio.includes('Recruiting')}
+              onChange={handleChange} />
               <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Servicio" value={contactos.Servicio} id="StaffA" />
-              <label htmlFor="StaffA" className="cursor-pointer">Staff Augmentation</label>
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contactos.Servicio.includes('Staff Augmentation')}
+              onChange={handleChange} />
+              <label htmlFor="Staff Augmentation" className="cursor-pointer">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Servicio" value={contactos.Servicio} id="PayM" />
-              <label htmlFor="PayM" className="cursor-pointer">Payroll Management</label>
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contactos.Servicio.includes('Payroll Management')}
+              onChange={handleChange} />
+              <label htmlFor="Payroll Management" className="cursor-pointer">Payroll Management</label>
               </li>
             </ul>{" "}
           </motion.nav>
@@ -130,6 +133,9 @@ const scope = useMenuAnimation(isOpen);
         </div>
         <div>
         <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 pb-20 2xl:pb-20 outline-none w-[25vw] h-28 2xl:text-xl" type="text" placeholder="Mensaje" name="Mensaje" value={contactos.Mensaje} onChange={handleChange} />
+        </div>
+        <div>
+          <button>h</button>
         </div>
       </form>
 

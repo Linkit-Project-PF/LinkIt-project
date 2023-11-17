@@ -7,7 +7,7 @@ import ModuloE from "./modulosEmpresas/moduloE/ModuloE"
 import ModuloF from "./modulosEmpresas/moduloF/ModuloF"
 import ModuloG from "./modulosEmpresas/moduloG/ModuloG"
 import ModuloH from "./modulosEmpresas/moduloH/ModuloH"
-import MooduloI from "./modulosEmpresas/moduloI/ModuloI"
+import ModuloI from "./modulosEmpresas/moduloI/ModuloI"
 function Empresas() {
   return (
     <div className="flex flex-col">
@@ -23,7 +23,7 @@ function Empresas() {
       <section id='cotiza'>
       <ModuloH />
       </section>
-      <MooduloI />
+      <ModuloI />
       <Footer />
     </div>
   )
