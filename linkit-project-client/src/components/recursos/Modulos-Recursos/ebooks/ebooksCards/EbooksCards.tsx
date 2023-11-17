@@ -1,6 +1,7 @@
 import eBooks from '../../../../../Utils/ebooks.json'
 import EbooksCard from "./EbooksCard"
 import { useState } from 'react'
+import './ebooksCard.css'
 
 function EbooksCards() {
     const items: number = 3
@@ -19,7 +20,7 @@ function EbooksCards() {
 
 
   return (
-    <div className="flex flex-row gap-[2rem] relative left-[0.5rem]">
+    <div className="flex flex-row gap-[2rem] relative left-[0.5rem] cards-container">
         <button
         onClick={handlePrevius}
         disabled={currentPage === 0}

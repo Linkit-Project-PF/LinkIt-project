@@ -50,9 +50,10 @@ function Login() {
     event.preventDefault();
     try {
       const response = await axios(
-        `https://linkit-server.onrender.com/users/find?email=${user.email}`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
-      if (response.data[0].id) alert(`Bienvenido ${response.data[0].name}`);{
+      console.log(response)
+      if (response.data.id) alert(`Bienvenido ${response.data.name}`); {
         const token = response.data.id;
         dispatch(loginSuccess({ token }));
         return response;
@@ -130,13 +131,10 @@ function Login() {
             onSubmit={handleSubmit}
           >
             <h1 className="login-title">Inicia sesión</h1>
-
-            <a onClick={() => handleAuthClick("google")}>Google</a>
             <input
               type="text"
-              className={`login-input ${
-                errors.email ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.email ? "login-input-error" : ""
+                }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
@@ -148,9 +146,8 @@ function Login() {
 
             <input
               type="password"
-              className={`login-input ${
-                errors.password ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.password ? "login-input-error" : ""
+                }`}
               name="password"
               placeholder="Contraseña"
               onChange={handleInputChange}
@@ -168,7 +165,10 @@ function Login() {
             >
               Ingresa
             </motion.button>
-
+                <p>
+                  O Ingresa con
+                  <a onClick={() => handleAuthClick("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+                </p>
             <div className="login-conditions-container">
               No tienes una cuenta?
               <a
