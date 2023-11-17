@@ -1,21 +1,30 @@
 import './recursos.css'
 import ModuloA from '../Home/Modulos/ModuloA/ModuloA'
-import Blogs from './Modulo-Blogs/blogs/Blogs'
-import Ebooks from './Modulo-Blogs/ebooks/Ebooks'
+import Blogs from './Modulos-Recursos/blogs/Blogs'
+import Ebooks from './Modulos-Recursos/ebooks/Ebooks'
+import Events from './Modulos-Recursos/eventos/Events'
+import CV from './Modulos-Recursos/cv/CV'
+import FAQ from './Modulos-Recursos/FAQ/FAQ'
 
 export default function Recursos() {
     return (
         <>  
             <ModuloA/>
             <section id='blogs'>
-            <Blogs/>
+                <Blogs/>
             </section>
             <section id='ebooks'>
                 <Ebooks/>
             </section>
             <section id='events'>
-                <h1>Eventos</h1>
+                <Events/>
             </section>    
+            <section id='CV'>
+                <CV/>
+            </section>
+            <section id='FAQ'>
+                <FAQ/>
+            </section>
         </> 
     )
 }

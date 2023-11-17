@@ -23,6 +23,7 @@ function EbooksCards() {
         <button
         onClick={handlePrevius}
         disabled={currentPage === 0}
+        className=" h-[2rem] self-center"
         >
             <img src="Vectores/previus.png" alt="previus" className='w-[3rem]' />
         </button>
@@ -42,6 +43,7 @@ function EbooksCards() {
         <button
         onClick={handleNext}
         disabled={endIndex > eBooks.length-1}
+        className=" h-[2rem] self-center"
         >
             <img src="Vectores/next.png" alt="next" className='w-[3rem]' />
         </button>

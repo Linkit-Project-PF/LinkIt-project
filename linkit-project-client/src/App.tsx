@@ -96,6 +96,9 @@ function App() {
   );
 
   useEffect(() => {
+    /**
+     * Fetches data from the server and sets the job offers in the state.
+     */
     const fetchData = async () => {
       try {
         const response = await axios.get(
