@@ -56,3 +56,20 @@
     }
   }
 
+  @media screen and (min-width: 1600px){
+    .cv-image{
+      position: relative;
+      left: 5rem !important;
+      
+    }
+    .cv-text{
+      position: relative;
+      font-size:  3rem !important;
+      left: 10rem !important;
+    }
+    .cv-button{
+      position: relative;
+      left: 4.8rem !important;
+    }
+  }
+
