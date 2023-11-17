@@ -1,5 +1,5 @@
 import "./Register.css";
-import { motion } from "framer-motion";
+import { calcLength, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import validations from "./registerValidations";
 import PhoneInput from "react-phone-number-input";
@@ -120,6 +120,15 @@ function Register() {
           );
         }
         //* In case user does not exist enters here
+<<<<<<< HEAD
+        const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
+        // TODO DBresponse has user info to be saved on redux persist or the user management system
+        alert(
+          `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+        );
+        dispatch(setPressRegister("hidden"));
+        setThirdParty(false);
+=======
         if (response.user) {
           console.log("outside", user.role);
           const DBresponse = await saveUserThirdAuth(response.user, user.role);
@@ -130,6 +139,7 @@ function Register() {
           dispatch(setPressRegister("hidden"));
           setThirdParty(false);
         }
+>>>>>>> 6849b2e23a82259772136ba6c7cb94ce91ef5066
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
