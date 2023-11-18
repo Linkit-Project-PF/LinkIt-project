@@ -155,7 +155,7 @@ function NavBar() {
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs">
-              <a href="#cotiza">Cotiza</a> </li>
+                <a href="#cotiza">Cotiza</a> </li>
             </ul>{" "}
           </motion.nav>
 
@@ -255,7 +255,7 @@ function NavBar() {
               <img src={arrow} alt="arrow" />
             </div>
             <ul
-              className="bg-white relative bottom-3 rounded-b-[7px] w-[100px] h-[80px]"
+              className="bg-white relative bottom-3 rounded-b-[7px] w-fit h-fit pr-4 pb-4"
               style={{
                 pointerEvents: isOpenUser ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -263,14 +263,22 @@ function NavBar() {
             >
               {isAuth ? (
                 <div>
-
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
                     >
-                      Mi Perfil
+                      Mis datos
                     </button>
                   </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis Busquedas
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="logout"
@@ -295,7 +303,7 @@ function NavBar() {
                       Inicia Sesión
                     </button>
                   </li>
-                  <hr className="w-[50px] mt-5 ml-4" />
+                  <hr className="w-[90%] mt-5 ml-4" />
                   <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className=""
