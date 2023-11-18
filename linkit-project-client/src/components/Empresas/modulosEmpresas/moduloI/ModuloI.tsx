@@ -45,50 +45,59 @@ const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
 
 
-  const [contactos, setContactos] = useState({
-    Nombre: "",
-    Apellido: "",
-    Empresa: "",
-    Servicio: [] as string[],
-    Email: "",
-    Mensaje: "",
+  const [contacts, setContacts] = useState({
+    name: "",
+    lastName: "",
+    company: "",
+    service: [] as string[],
+    email: "",
+    message: "",
    });
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
+  const [errors, setErrors] = useState({
+    name: "",
+    lastName: "",
+    company: "",
+    service: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
     if (e.target.type === "checkbox") {
       if (e.target.checked) {
-        setContactos({
-          ...contactos,
-          Servicio: [...contactos.Servicio, e.target.value],
+        setContacts({
+          ...contacts,
+          service: [...contacts.service, e.target.value],
         });
       } else {
-        setContactos({
-          ...contactos,
-          Servicio: contactos.Servicio.filter(
-            (servicio) => servicio !== e.target.value
+        setContacts({
+          ...contacts,
+          service: contacts.service.filter(
+            (service) => service !== e.target.value
           ),
         });
       }
     } else {
-    setContactos({
-      ...contactos,
+    setContacts({
+      ...contacts,
       [e.target.name]: e.target.value,
     });
     }}
 
 
   return (
-    <div className="bg-linkIt-300 text-white flex flex-row py-12 px-20 gap-[15vw] 2xl:gap-[25vw]">
-      <h1 className="font-semibold text-3xl 2xl:text-4xl ">Contáctanos</h1>
-      <form className="grid grid-cols-2 gap-3 mb-20">
-        <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Nombre"  name="Nombre" value={contactos.Nombre} onChange={handleChange} />
-        <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Apellido" name="Apellido" value={contactos.Apellido} onChange={handleChange} />
-        <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Empresa" name="Empresa" value={contactos.Empresa} onChange={handleChange} />
+    <div className="bg-linkIt-300 text-white flex flex-row p-32 gap-[10vw] 2xl:gap-[10vw]">
+      <h1 className="font-semibold text-3xl 2xl:text-7xl ">Contáctanos</h1>
+      <form className="grid grid-cols-2  gap-8 mb-20">
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} />
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} />
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} />
         <motion.nav
-            className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 outline-none w-[25vw] h-[6vh] xl:h-[4vh] 2xl:text-xl"
+            className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] h-[6vh] xl:h-[5vh] 2xl:text-xl"
             ref={scope}
             onClick={(e) => { e.preventDefault();
-               setIsOpen(!isOpen);
+              setIsOpen(!isOpen);
               }}
           >
             <motion.button
@@ -101,7 +110,7 @@ const scope = useMenuAnimation(isOpen);
               </div>
             </motion.button>
             <ul
-              className="relative border-white border border-t-0 bg-white rounded-md text-black p-1 placeholder-white w-[25vw] 2xl:text-xl right-2 mt-3"
+              className="relative border-white border border-t-0 bg-white rounded-xl text-black p-1 placeholder-white w-[25vw] 2xl:text-xl right-2 mt-3"
               style={{
                 pointerEvents: isOpen ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -110,35 +119,34 @@ const scope = useMenuAnimation(isOpen);
               onMouseLeave={() => setIsOpen(false)}
             >
               <li className="my-2 text-base items-center">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contactos.Servicio.includes('Recruiting')}
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
               onChange={handleChange} />
               <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contactos.Servicio.includes('Staff Augmentation')}
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
               onChange={handleChange} />
               <label htmlFor="Staff Augmentation" className="cursor-pointer">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contactos.Servicio.includes('Payroll Management')}
+              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
               onChange={handleChange} />
               <label htmlFor="Payroll Management" className="cursor-pointer">Payroll Management</label>
               </li>
             </ul>{" "}
           </motion.nav>
-        <div>
-        <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Email" name="Email" value={contactos.Email} onChange={handleChange}/>
+        <div className="">
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange}/>
+      <div>
+        <button className=" mt-[11vh] bg-white text-linkIt-200 font-bold p-3 w-[5vw] rounded-xl">Enviar</button>
+        </div>
         </div>
         <div>
-        <input className="border-white border rounded-md bg-transparent text-white placeholder-white p-1 2xl:p-2 pb-20 2xl:pb-20 outline-none w-[25vw] h-28 2xl:text-xl" type="text" placeholder="Mensaje" name="Mensaje" value={contactos.Mensaje} onChange={handleChange} />
-        </div>
-        <div>
-          <button>h</button>
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 pb-20 2xl:pb-[17vh] outline-none w-[25vw] h-[20vh] 2xl:text-xl" type="text" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} />
         </div>
       </form>
-
     </div>
   );
 }
