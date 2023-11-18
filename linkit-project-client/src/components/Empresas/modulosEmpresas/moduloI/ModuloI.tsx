@@ -1,7 +1,7 @@
 import arrow from "/Vectores/arrow.png";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
-
+import validations from "./validations";
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
 function useMenuAnimation(isOpen: boolean) {
@@ -86,12 +86,26 @@ const scope = useMenuAnimation(isOpen);
     }}
 
 
+    const validate = () => { 
+      const validateErrors = validations(contacts);
+      setErrors(validateErrors);
+
+    }
+
   return (
     <div className="bg-linkIt-300 text-white flex flex-row p-32 gap-[10vw] 2xl:gap-[10vw]">
       <h1 className="font-semibold text-3xl 2xl:text-7xl ">Contáctanos</h1>
-      <form className="grid grid-cols-2  gap-8 mb-20">
+      <div className="w-[60vw]">
+      <form className="flex flex-wrap gap-6">
+        <div>
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} />
+        <p className="ml-4 text-xl opacity-0">error</p>
+        </div>
+        <div>
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} />
+        <p className="ml-4 text-xl opacity-0">error</p>
+        </div>
+        <div>
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} />
         <motion.nav
             className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] h-[6vh] xl:h-[5vh] 2xl:text-xl"
@@ -137,16 +151,18 @@ const scope = useMenuAnimation(isOpen);
               </li>
             </ul>{" "}
           </motion.nav>
-        <div className="">
+          <p className="ml-4 text-xl ">error</p>
+          </div>
+          <div className=" flex flex-col">
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange}/>
-      <div>
+        <p>error</p>
         <button className=" mt-[11vh] bg-white text-linkIt-200 font-bold p-3 w-[5vw] rounded-xl">Enviar</button>
-        </div>
         </div>
         <div>
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 pb-20 2xl:pb-[17vh] outline-none w-[25vw] h-[20vh] 2xl:text-xl" type="text" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} />
         </div>
       </form>
+      </div>
     </div>
   );
 }
