@@ -105,7 +105,6 @@ const scope = useMenuAnimation(isOpen);
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} />
         <p className="ml-4 text-xl opacity-0">error</p>
         </div>
-        <div>
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} />
         <motion.nav
             className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] h-[6vh] xl:h-[5vh] 2xl:text-xl"
@@ -151,8 +150,6 @@ const scope = useMenuAnimation(isOpen);
               </li>
             </ul>{" "}
           </motion.nav>
-          <p className="ml-4 text-xl ">error</p>
-          </div>
           <div className=" flex flex-col">
         <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange}/>
         <p>error</p>
