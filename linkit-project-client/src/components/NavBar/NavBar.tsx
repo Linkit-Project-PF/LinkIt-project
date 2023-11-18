@@ -69,6 +69,8 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
 
   const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
+  const role = useSelector((state: any) => state.Authentication.authState.role)
+
 
   const goHome = () => {
     navigate("/");
@@ -261,7 +263,7 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {isAuth ? (
+              {isAuth && role === 'user' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
@@ -275,7 +277,7 @@ function NavBar() {
                     <button
                       className="profile"
                     >
-                      Mis Busquedas
+                      Mis búsquedas
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -284,7 +286,69 @@ function NavBar() {
                       className="logout"
                       onClick={() => dispatch(logout())}
                     >
-                      Salir
+                      Cerrar sesión
+                    </button>
+                  </li>
+                </div>
+              ) : isAuth && role === 'admin' ? (
+                <div>
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis datos
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Panel
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Usuarios
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="logout"
+                      onClick={() => dispatch(logout())}
+                    >
+                      Cerrar sesión
+                    </button>
+                  </li>
+                </div>
+              ) : isAuth && role === 'company' ? (
+                <div>
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis datos
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis vacantes
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="logout"
+                      onClick={() => dispatch(logout())}
+                    >
+                      Cerrar sesión
                     </button>
                   </li>
                 </div>
