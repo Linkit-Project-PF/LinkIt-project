@@ -55,7 +55,8 @@ function Login() {
       console.log(response)
       if (response.data.id) alert(`Bienvenido ${response.data.name}`); {
         const token = response.data.id;
-        dispatch(loginSuccess({ token }));
+        const role = response.data.role
+        dispatch(loginSuccess({ token, role }));
         return response;
       };
     } catch (error: any) {
