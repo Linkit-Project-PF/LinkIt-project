@@ -86,7 +86,7 @@ function NavBar() {
   const goRecursos = () => {
     navigate("/recursos");
   };
-  const isActiveRecursos = location.pathname === "/recursos";
+  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria" 
   const goQS = () => {
     navigate("/quienesSomos");
   };
