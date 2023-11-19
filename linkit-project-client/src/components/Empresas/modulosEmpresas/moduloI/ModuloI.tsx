@@ -63,7 +63,11 @@ const [focusedField, setFocusedField] = useState("");
     message: "",
   });
 
- 
+  useEffect(() => {
+    const validateErrors = validations(contacts);
+    setErrors(validateErrors);
+  }, [contacts]);
+
 const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
   const { name, value, type, checked } = e.target;
 
@@ -79,11 +83,6 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
         service: contacts.service.filter((service) => service !== value),
       });
     }
-    const isAnyServiceSelected = checked || contacts.service.length > 1;
-    setErrors({
-      ...errors,
-      service: isAnyServiceSelected ? "" : "Seleccione al menos un servicio",
-    });
   } else {
     setContacts({
       ...contacts,
@@ -91,13 +90,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
     });
   }
 
-  const validateErrors = validations({
-    ...contacts,
-    [name]: value,
-  });
-  setErrors({ ...errors, ...validateErrors });
-
-};
+}
 const handleFieldFocus = (fieldName: string) => {
   setFocusedField(fieldName);
 }

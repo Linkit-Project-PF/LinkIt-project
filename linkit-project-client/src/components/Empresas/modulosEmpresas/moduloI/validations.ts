@@ -30,7 +30,8 @@ export default function validations (contacts: contacts) {
     if (typeof contacts.company !== 'string') {
         errors.company = "Nombre inválido"
      }
-
+    if (contacts.service.length === 0) {
+        errors.service = "Selecciona al menos un servicio"}
     if (!contacts.email) {
         errors.email = "Email requerido"
     } else if (!/\S+@\S+\.\S+/.test(contacts.email)) {
