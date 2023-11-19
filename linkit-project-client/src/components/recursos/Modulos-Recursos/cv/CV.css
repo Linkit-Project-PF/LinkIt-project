@@ -73,6 +73,46 @@
     }
   }
 
+  @media screen and (min-width: 1720px){
+    .skew-white {
+      width: 100%;
+      height: 10px;
+      background-color: white;
+      position: relative;
+      bottom: 30px;
+      transform: skewY(-2deg);
+    }
+  
+    .skew-green{
+      width: 100%;
+      height: 8px;
+      background-color: #019A83;
+      position: relative;
+      bottom: 30px;
+      transform: skewY(-2deg);
+    }
+  }
+
+  @media screen and (min-width: 1800px){
+    .skew-white {
+      width: 100%;
+      height: 10px;
+      background-color: white;
+      position: relative;
+      bottom: 20px;
+      transform: skewY(-2deg);
+    }
+  
+    .skew-green{
+      width: 100%;
+      height: 8px;
+      background-color: #019A83;
+      position: relative;
+      bottom: 30px;
+      transform: skewY(-2deg);
+    }
+  }
+
   @media screen and (min-width: 1800px){
     .cv-image{
       position: relative;

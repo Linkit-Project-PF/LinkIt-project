@@ -9,12 +9,14 @@ import Talentos from "./components/Talentos/Talentos";
 import Register from "./components/register/Register";
 import PreRegisterForm from "./components/register/preRegisterForm";
 import Login from "./components/Login/Login";
+import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx"
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   setPressLogin,
   setPressSignUp,
   setPressRegister,
 } from "./redux/features/registerLoginSlice";
+import { setResources } from "./redux/features/ResourcesSlice.ts";
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
@@ -101,11 +103,14 @@ function App() {
      */
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://linkit-server.onrender.com/posts/type?type=jd"
+        const responseJd = await axios.get(
+          "https://linkit-server.onrender.com/jds/find"
         );
-
-        dispatch(setJobOffers(response.data));
+        const responseResources = await axios.get(
+          "https://linkit-server.onrender.com/posts/find"
+        );
+        dispatch(setJobOffers(responseJd.data));
+        dispatch(setResources(responseResources.data))
       } catch (error) {
         if (error instanceof AxiosError) console.log({ error: error.message });
       }
@@ -160,6 +165,7 @@ function App() {
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/recursos" element={<Recursos />} />
+        <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
       </Routes>
     </>
