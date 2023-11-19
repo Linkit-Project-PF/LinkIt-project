@@ -43,7 +43,7 @@ export default function ModuloI() {
 
 const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
-
+const [focusedField, setFocusedField] = useState("");
 
   const [contacts, setContacts] = useState({
     name: "",
@@ -63,34 +63,45 @@ const scope = useMenuAnimation(isOpen);
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
-    if (e.target.type === "checkbox") {
-      if (e.target.checked) {
-        setContacts({
-          ...contacts,
-          service: [...contacts.service, e.target.value],
-        });
-      } else {
-        setContacts({
-          ...contacts,
-          service: contacts.service.filter(
-            (service) => service !== e.target.value
-          ),
-        });
-      }
+ 
+const handleChange = (e: React.ChangeEvent<HTMLInputElement> ) => {
+  const { name, value, type, checked } = e.target;
+
+  if (type === "checkbox") {
+    if (checked) {
+      setContacts({
+        ...contacts,
+        service: [...contacts.service, value],
+      });
     } else {
+      setContacts({
+        ...contacts,
+        service: contacts.service.filter((service) => service !== value),
+      });
+    }
+    const isAnyServiceSelected = checked || contacts.service.length > 1;
+    setErrors({
+      ...errors,
+      service: isAnyServiceSelected ? "" : "Seleccione al menos un servicio",
+    });
+  } else {
     setContacts({
       ...contacts,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
-    }}
+  }
 
+  const validateErrors = validations({
+    ...contacts,
+    [name]: value,
+  });
+  setErrors({ ...errors, ...validateErrors });
 
-    const validate = () => { 
-      const validateErrors = validations(contacts);
-      setErrors(validateErrors);
+};
+const handleFieldFocus = (fieldName: string) => {
+  setFocusedField(fieldName);
+}
 
-    }
 
   return (
     <div className="bg-linkIt-300 text-white flex flex-row p-32 gap-[10vw] 2xl:gap-[10vw]">
@@ -98,24 +109,36 @@ const scope = useMenuAnimation(isOpen);
       <div className="w-[60vw]">
       <form className="flex flex-wrap gap-6">
         <div>
-        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} />
-        <p className="ml-4 text-xl opacity-0">error</p>
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onFocus={() => handleFieldFocus("name")} />
+        <p className={`ml-4 text-xl ${focusedField === "name" && errors.name ? "opacity-1" : "opacity-0"}`}>
+              {focusedField === "name" && errors.name ? errors.name : ""}
+            </p>
         </div>
         <div>
-        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} />
-        <p className="ml-4 text-xl opacity-0">error</p>
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} onFocus={() => handleFieldFocus("lastName")} />
+        <p className={`ml-4 text-xl ${focusedField === "lastName" && errors.lastName ? "opacity-1" : "opacity-0"}`}>
+              {focusedField === "lastName" && errors.lastName ? errors.lastName : ""}
+            </p>
         </div>
-        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} />
+        <div>
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} onFocus={() => handleFieldFocus("company")} />
+        <p className={`ml-4 text-xl ${focusedField === "company" && errors.company ? "opacity-1" : "opacity-0"}`}>
+              {focusedField === "company" && errors.company ? errors.company : ""}
+            </p>
+        </div>
+        <div>
         <motion.nav
             className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] h-[6vh] xl:h-[5vh] 2xl:text-xl"
             ref={scope}
             onClick={(e) => { e.preventDefault();
               setIsOpen(!isOpen);
               }}
+              
           >
             <motion.button
               className='flex justify-between items-center w-full'
               whileTap={{ scale: 0.97 }}
+              onFocus={() => handleFieldFocus("service")}
             >
               ¿Qué servicio te interesa?
               <div className="arrow w-3 ml-1 mt-[2px]">
@@ -133,30 +156,39 @@ const scope = useMenuAnimation(isOpen);
             >
               <li className="my-2 text-base items-center">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
-              onChange={handleChange} />
+              onChange={handleChange} onFocus={() => handleFieldFocus("service")} />
               <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
-              onChange={handleChange} />
+              onChange={handleChange} onFocus={() => handleFieldFocus("service")} />
               <label htmlFor="Staff Augmentation" className="cursor-pointer">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
-              onChange={handleChange} />
+              onChange={handleChange} onFocus={() => handleFieldFocus("service")} />
               <label htmlFor="Payroll Management" className="cursor-pointer">Payroll Management</label>
               </li>
             </ul>{" "}
           </motion.nav>
+          <p className={`ml-4 text-xl ${focusedField === "service" && errors.service ? "opacity-1" : "opacity-0"}`}>
+              {focusedField === "service" && errors.service ? errors.service : ""}
+            </p>
+          </div>
           <div className=" flex flex-col">
-        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange}/>
-        <p>error</p>
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 outline-none w-[25vw] 2xl:text-xl" type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onFocus={() => handleFieldFocus("email")}/>
+        <p className={`ml-4 text-xl ${focusedField === "email" && errors.email ? "opacity-1" : "opacity-0"}`}>
+              {focusedField === "email" && errors.email ? errors.email : ""}
+            </p>
         <button className=" mt-[11vh] bg-white text-linkIt-200 font-bold p-3 w-[5vw] rounded-xl">Enviar</button>
         </div>
         <div>
-        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 pb-20 2xl:pb-[17vh] outline-none w-[25vw] h-[20vh] 2xl:text-xl" type="text" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} />
+        <input className="border-white border rounded-xl bg-transparent text-white placeholder-white p-1 2xl:p-3 pb-20 2xl:pb-[17vh] outline-none w-[25vw] h-[20vh] 2xl:text-xl flex flex-wrap" type="text" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onFocus={() => handleFieldFocus("message")} />
+        <p className={`ml-4 text-xl ${focusedField === "message" && errors.message ? "opacity-1" : "opacity-0"}`}>
+              {focusedField === "message" && errors.message ? errors.message : ""}
+            </p>
         </div>
       </form>
       </div>

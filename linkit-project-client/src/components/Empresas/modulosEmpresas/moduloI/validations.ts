@@ -1,16 +1,15 @@
 import { contacts } from "./typeContacts";
 
-const errors = {
-    name: "",
-    lastName: "",
-    company: "",
-    service: "",
-    email: "",
-    message: ""
-}
-
-
 export default function validations (contacts: contacts) {
+    let errors = {
+        name: "",
+        lastName: "",
+        company: "",
+        service: "",
+        email: "",
+        message: ""
+    }
+    
     if (!contacts.name) {
         errors.name = "Nombre requerido"
     }
@@ -31,9 +30,7 @@ export default function validations (contacts: contacts) {
     if (typeof contacts.company !== 'string') {
         errors.company = "Nombre inválido"
      }
-    if (!contacts.service) {
-        errors.service = "Servicio requerido"
-    }
+
     if (!contacts.email) {
         errors.email = "Email requerido"
     } else if (!/\S+@\S+\.\S+/.test(contacts.email)) {
