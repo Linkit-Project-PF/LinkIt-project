@@ -1,0 +1,50 @@
+@media screen and (min-width: 1024px) and (max-width: 1280px){
+    .lg-card{
+        width: 17rem !important;
+        height: 32rem !important;
+    }
+    .card-thumbnail{
+        height: 20rem !important;
+        
+    }
+    .category{
+        font-size: .6rem !important;
+    }
+    .title{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1720px){
+    .lg-card{
+        width: 23vw !important;
+        height: 37rem !important;
+    }
+    .card-thumbnail{
+        height: 26vh !important;
+        
+    }
+    .category{
+        font-size: .9rem !important;
+    }
+    .title{
+        font-size: 1.3rem !important;
+    }
+}
+
+@media screen and (min-width: 1720px) and (max-width: 1920px){
+    .lg-card{
+        width: 23vw !important;
+        height: 37rem !important;
+    }
+    .card-thumbnail{
+        height: 35vh !important;
+        
+    }
+    .category{
+        font-size: .9rem !important;
+    }
+    .title{
+        font-size: 1.3rem !important;
+    }
+}

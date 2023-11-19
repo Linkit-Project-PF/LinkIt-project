@@ -14,7 +14,7 @@ export default function ModuloA() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-1 bg-linkIt-500 pt-24 pl-2 md:pl-6 md:pt-24 xl:pt-28 2xl:pb-24">
+    <div className="grid grid-cols-2 gap-1 bg-linkIt-500 pt-24 pl-2 md:pl-6 md:pt-24 xl:pt-28 xl:p-32 2xl:pb-24">
       <div className="flex flex-col justify-center md:mx-2 lg:mx-4 xl:mx-6 2xl:ml-12 2xl:mt-24">
         <h1 className="text-sm font-bold md:text-2xl lg:text-4xl xl:text-5xl 2xl:text-6xl">Conectando al talento más destacado con los mejores proyectos IT</h1>
         <div className="my-1 md:my-2 lg:my-6 xl:my-6 2xl:pr-32 2xl:mt-12">

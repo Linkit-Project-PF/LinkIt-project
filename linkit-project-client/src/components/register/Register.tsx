@@ -75,7 +75,7 @@ function Register() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://linkit-server.onrender.com/users/register?type=email",
+        "https://linkit-server.onrender.com/auth/register",
         user
       );
       if (response.data._id)
@@ -120,16 +120,13 @@ function Register() {
           );
         }
         //* In case user does not exist enters here
-        if (response.user) {
-          console.log("outside", user.role);
-          const DBresponse = await saveUserThirdAuth(response.user, user.role);
-          // TODO DBresponse has user info to be saved on redux persist or the user management system
-          alert(
-            `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
-          );
-          dispatch(setPressRegister("hidden"));
-          setThirdParty(false);
-        }
+        const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
+        // TODO DBresponse has user info to be saved on redux persist or the user management system
+        alert(
+          `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+        );
+        dispatch(setPressRegister("hidden"));
+        setThirdParty(false);
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -167,7 +164,6 @@ function Register() {
             onClick={handleClick}
           >
             <h1 className="register-title">Registrate</h1>
-            <a onClick={() => handleAuthLogin("google")}>Google</a>
             <input
               type="text"
               className={`register-input ${errors.name ? "input-error" : ""}`}
@@ -236,6 +232,7 @@ function Register() {
               </p>
             )}
 
+
             <motion.button
               type="submit"
               className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
@@ -257,6 +254,11 @@ function Register() {
             >
               Crear cuenta
             </motion.button>
+
+            <p>
+              O registrate con
+            <a onClick={() => handleAuthLogin("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+            </p>
 
             <div className="register-conditions-container">
               Al registrarte aceptas nuestros

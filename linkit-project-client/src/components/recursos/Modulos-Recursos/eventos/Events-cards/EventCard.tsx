@@ -55,7 +55,7 @@ function EventCard({
   return (
     <>
       <motion.div 
-      className="border-[2px] h-[35.7rem] rounded-[7px] w-[22rem] flex flex-col font-montserrat"
+      className="border-[2px] h-[35.7rem] rounded-[7px] w-[22rem] flex flex-col font-montserrat lg-card"
       key={key}
       variants={eventCardVariants}
       initial="hidden"
@@ -64,7 +64,7 @@ function EventCard({
       >
         {image.includes("youtube") ? (
           <div
-            className="bg-center bg-cover h-[31rem] rounded-[7px] w-full"
+            className="bg-center bg-cover h-[31rem] rounded-[7px] w-full card-thumbnail"
             style={{ backgroundImage: `url(${videoToThumbnail(image)})` }}
           />
         ) : (
@@ -72,12 +72,12 @@ function EventCard({
         )}
         <div className="flex flex-col h-[100%] p-[2rem]">
           <div>
-            <p className="font-semibold text-[.9rem] border-[2px] border-linkIt-300 inline-flex p-[.3rem] rounded-[7px]">
+            <p className="font-semibold text-[.9rem] border-[2px] border-linkIt-300 inline-flex p-[.3rem] rounded-[7px] category">
               {category}
             </p>
           </div>
-          <h2 className="mt-[1rem] font-bold text-[1.4rem]">{title}</h2>
-          <p className="mt-[2rem] font-[500]">{description}</p>
+          <h2 className="mt-[1rem] font-bold text-[1.4rem] title">{title}</h2>
+          <p className="mt-[2rem] font-[500] description">{description}</p>
           <a href={link} target="_blank" className="mt-[2rem] font-bold">
             Ver Grabación
           </a>

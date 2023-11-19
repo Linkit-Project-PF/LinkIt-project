@@ -4,8 +4,8 @@ export default function ModuloTalentosD() {
 
     return (
         <div>
-            <div className="flex flex-col p-32 skewed-borderB">
-                <div className="contentB">
+            <div className="flex flex-col p-32 skewed-borderC">
+                <div className="contentC">
                     <h1 className="flex justify-center text-white text-5xl font-semibold mt-2">Nuestros servicios</h1>
                     <ul className="flex flex-col gap-6">
                         <div className="flex  flex-row items-center mt-32 mx-12">

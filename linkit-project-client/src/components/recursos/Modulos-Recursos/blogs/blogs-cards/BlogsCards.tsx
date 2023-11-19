@@ -2,6 +2,7 @@ import blogs from "../../../../../Utils/blogs.json";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import BlogsCard from "./BlogsCard";
+import "./BlogsCards.css";
 
 function BlogsCards() {
   const [currentBlog, setCurrentBlog] = useState(0);
@@ -34,7 +35,7 @@ function BlogsCards() {
   }
 
   return (
-    <div className="flex flex-row gap-[2rem] justify-center">
+    <div className="flex flex-row gap-[2rem] justify-center cards-container">
       <button onClick={handlePrev} className=" h-[2rem] self-center">
         <img src="Vectores/previus.png" alt="previus-icon" />
       </button>

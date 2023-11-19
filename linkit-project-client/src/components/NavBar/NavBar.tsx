@@ -69,6 +69,8 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
 
   const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
+  const role = useSelector((state: any) => state.Authentication.authState.role)
+
 
   const goHome = () => {
     navigate("/");
@@ -101,6 +103,7 @@ function NavBar() {
         <NavLink
           to="https://calendly.com/linkit-project-henry/30min"
           className="ml-2 underline underline-offset-[3.3px]"
+          target="_blank"
         >
           Comienza ahora! →
         </NavLink>
@@ -146,14 +149,15 @@ function NavBar() {
               }}
             >
               <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                Servicios
+                <a href="#servicios">Servicios</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                 Proceso{" "}
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">Cotiza </li>
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+                <a href="#cotiza">Cotiza</a> </li>
             </ul>{" "}
           </motion.nav>
 
@@ -190,12 +194,14 @@ function NavBar() {
               }}
             >
               <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                Blogs
+                <a href="#blogs">Blogs</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Ebooks</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                <a href="#ebooks">Ebooks</a></li>
               <hr className="w-[90px] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">Eventos</li>
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+                <a href="#events">Eventos</a></li>
             </ul>{" "}
           </motion.nav>
           <motion.nav
@@ -251,28 +257,98 @@ function NavBar() {
               <img src={arrow} alt="arrow" />
             </div>
             <ul
-              className="bg-white relative bottom-3 rounded-b-[7px] w-[100px] h-[80px]"
+              className="bg-white relative bottom-3 rounded-b-[7px] w-fit h-fit pr-4 pb-4"
               style={{
                 pointerEvents: isOpenUser ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {isAuth ? (
+              {isAuth && role === 'user' ? (
                 <div>
-
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
                     >
-                      Mi Perfil
+                      Mis datos
                     </button>
                   </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis búsquedas
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="logout"
                       onClick={() => dispatch(logout())}
                     >
-                      Salir
+                      Cerrar sesión
+                    </button>
+                  </li>
+                </div>
+              ) : isAuth && role === 'admin' ? (
+                <div>
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis datos
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Panel
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Usuarios
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="logout"
+                      onClick={() => dispatch(logout())}
+                    >
+                      Cerrar sesión
+                    </button>
+                  </li>
+                </div>
+              ) : isAuth && role === 'company' ? (
+                <div>
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis datos
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="profile"
+                    >
+                      Mis vacantes
+                    </button>
+                  </li>
+                  <hr className="w-[90%] mt-5 ml-4" />
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                    <button
+                      className="logout"
+                      onClick={() => dispatch(logout())}
+                    >
+                      Cerrar sesión
                     </button>
                   </li>
                 </div>
@@ -291,7 +367,7 @@ function NavBar() {
                       Inicia Sesión
                     </button>
                   </li>
-                  <hr className="w-[50px] mt-5 ml-4" />
+                  <hr className="w-[90%] mt-5 ml-4" />
                   <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className=""
