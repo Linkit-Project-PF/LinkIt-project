@@ -71,7 +71,9 @@ function NavBar() {
   const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
   const role = useSelector((state: any) => state.Authentication.authState.role)
 
-
+  const goAdminDashboard = () => {
+    navigate("/AdminDashboard")
+  }
   const goHome = () => {
     navigate("/");
   };
@@ -88,7 +90,7 @@ function NavBar() {
   const goRecursos = () => {
     navigate("/recursos");
   };
-  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria" 
+  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria"
   const goQS = () => {
     navigate("/quienesSomos");
   };
@@ -302,6 +304,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
+                      onClick={goAdminDashboard}
                       className="profile"
                     >
                       Panel
