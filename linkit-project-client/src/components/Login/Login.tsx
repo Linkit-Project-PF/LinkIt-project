@@ -46,15 +46,14 @@ function Login() {
     });
   };
 
+  // prettier-ignore
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
-      );
+      const response = await axios(`https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`);
       console.log(response);
-      if (response.data.id) alert(`Bienvenido ${response.data.name}`);
-      {
+      if (response.data.id) {
+        alert(`Bienvenido ${response.data.name}`);
         const token = response.data.id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
@@ -70,7 +69,7 @@ function Login() {
   ) => {
     event.stopPropagation();
   };
-
+  // prettier-ignore
   const handleAuthClick = async (prov: string) => {
     try {
       let provider;
@@ -81,23 +80,22 @@ function Login() {
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
-          //TODO DB response has user info for redux persist or the user management system
-          alert(
-            `No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`
-          );
+          alert(`No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`);
         } else {
           //* In case user exists, enters here
-          const { data } = await axios.get(
-            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
-          );
-          // TODO data[0] has user info to be saved on redux persist or the user management system
-          if (data.length) {
-            const authUser = data[0];
+          const usersData = await axios.get(`https://linkit-server.onrender.com/users/find?email=${response.user.email}`);
+          if (usersData.data.length) {
+            const authUser = usersData.data[0];
             alert(`Has ingresado. Bienvenido, ${authUser.name}`);
-          } else
-            throw Error(
+          } else {
+            const companyData = await axios.get(`https://linkit-server.onrender.com/companies/find?email=${response.user.email}`);
+            if (companyData.data.length) {
+              const authCompany = companyData.data[0];
+              alert(`Has ingresado. Bienvenido, ${authCompany.name}`);
+            } else throw Error(
               "Usuario autenticado pero registro no encontrado, contacte a un administrador"
             );
+          }
         }
       }
       dispatch(setPressLogin("hidden"));
@@ -119,7 +117,7 @@ function Login() {
           disabled={thirdParty ? true : false}
         >
           {thirdParty ? (
-            <div className="fixed top-[45%] left-[47%] flex flex-col items-center">
+            <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
               <img
                 src="https://i.gifer.com/ZKZg.gif"
                 className="w-10 allign-self-center"

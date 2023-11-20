@@ -120,11 +120,12 @@ function Register() {
           );
         }
         //* In case user does not exist enters here
-        const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
-        // TODO DBresponse has user info to be saved on redux persist or the user management system
-        alert(
-          `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+        const DBresponse = await saveUserThirdAuth(
+          response.user,
+          String(user.role)
         );
+        // TODO DBresponse has user info to be saved on redux persist or the user management system
+        alert(`Te has registrado exitosamente, bienvenido ${DBresponse.name}`);
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
       }
@@ -150,7 +151,7 @@ function Register() {
           disabled={thirdParty ? true : false}
         >
           {thirdParty ? (
-            <div className="fixed top-[45%] left-[47%] flex flex-col items-center">
+            <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
               <img
                 src="https://i.gifer.com/ZKZg.gif"
                 className="w-10 allign-self-center"
@@ -232,7 +233,6 @@ function Register() {
               </p>
             )}
 
-
             <motion.button
               type="submit"
               className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
@@ -257,7 +257,12 @@ function Register() {
 
             <p>
               O registrate con
-            <a onClick={() => handleAuthLogin("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+              <a
+                onClick={() => handleAuthLogin("google")}
+                className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold"
+              >
+                Google
+              </a>
             </p>
 
             <div className="register-conditions-container">
