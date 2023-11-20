@@ -12,6 +12,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../redux/features/AuthSlice.ts";
+import { SUPERADMN_ID } from "../../env.ts";
 
 type Event = {
   target: HTMLInputElement;
@@ -52,13 +53,13 @@ function Login() {
       const response = await axios(
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
-      console.log(response)
-      if (response.data.id) alert(`Bienvenido ${response.data.name}`); {
-        const token = response.data.id;
-        const role = response.data.role
+      if (response.data._id) {
+        alert(`Bienvenido ${response.data.name}`);
+        const token = response.data._id;
+        const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
-        return response;
-      };
+        dispatch(setPressLogin("hidden"));
+      }
     } catch (error: any) {
       alert(error.response?.data);
     }
@@ -77,24 +78,48 @@ function Login() {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
-        if (response._tokenResponse.isNewUser) {
+        if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
-          //TODO DB response has user info for redux persist or the user management system
-          alert(`No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`) 
+          alert(
+            `No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}. Ahora puedes iniciar sesión`
+          );
         } else {
           //* In case user exists, enters here
-          const { data } = await axios.get(
-            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
+          const usersData = await axios.get(
+            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`,
+            {
+              headers: {
+                Authorization: `Bearer ${SUPERADMN_ID}`,
+              },
+            }
           );
-          // TODO data[0] has user info to be saved on redux persist or the user management system
-          if (data.length) {
-            const authUser = data[0];
+          if (usersData.data.length) {
+            const authUser = usersData.data[0];
+            const token = authUser._id;
+            const role = authUser.role;
+            dispatch(loginSuccess({ token, role }));
             alert(`Has ingresado. Bienvenido, ${authUser.name}`);
-          } else
-            throw Error(
-              "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+          } else {
+            const companyData = await axios.get(
+              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${SUPERADMN_ID}`,
+                },
+              }
             );
+            if (companyData.data.length) {
+              const authCompany = companyData.data[0];
+              const token = authCompany._id;
+              const role = authCompany.role;
+              dispatch(loginSuccess({ token, role }));
+              alert(`Has ingresado. Bienvenido, ${authCompany.name}`);
+            } else
+              throw Error(
+                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+              );
+          }
         }
       }
       dispatch(setPressLogin("hidden"));
@@ -116,7 +141,7 @@ function Login() {
           disabled={thirdParty ? true : false}
         >
           {thirdParty ? (
-            <div className="fixed top-[45%] left-[47%] flex flex-col items-center">
+            <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
               <img
                 src="https://i.gifer.com/ZKZg.gif"
                 className="w-10 allign-self-center"
@@ -132,8 +157,9 @@ function Login() {
             <h1 className="login-title">Inicia sesión</h1>
             <input
               type="text"
-              className={`login-input ${errors.email ? "login-input-error" : ""
-                }`}
+              className={`login-input ${
+                errors.email ? "login-input-error" : ""
+              }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
@@ -145,8 +171,9 @@ function Login() {
 
             <input
               type="password"
-              className={`login-input ${errors.password ? "login-input-error" : ""
-                }`}
+              className={`login-input ${
+                errors.password ? "login-input-error" : ""
+              }`}
               name="password"
               placeholder="Contraseña"
               onChange={handleInputChange}
@@ -164,10 +191,15 @@ function Login() {
             >
               Ingresa
             </motion.button>
-                <p>
-                  O Ingresa con
-                  <a onClick={() => handleAuthClick("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
-                </p>
+            <p>
+              O Ingresa con
+              <a
+                onClick={() => handleAuthClick("google")}
+                className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold"
+              >
+                Google
+              </a>
+            </p>
             <div className="login-conditions-container">
               No tienes una cuenta?
               <a

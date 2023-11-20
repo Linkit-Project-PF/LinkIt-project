@@ -1,95 +1,95 @@
 @media screen and (min-width: 1440px){
-    .container-ebook{
+    .container-ebook-resources{
         width: 27rem !important;
         height: 37vh !important;
     }
-    .category{
+    .category-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
         font-size: 1rem !important;
     }
 }
 
 @media screen and (min-width: 1620px){
-    .container-ebook{
+    .container-ebook-resources{
         width: 27rem !important;
         height: 29vh !important;
         margin: 0 auto !important;
     }
-    .cards-container{
+    .cards-container-resources{
         gap: -1rem !important;
     }
-    .category{
+    .category-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
         font-size: 1rem !important;
     }
 }
 
 @media screen and (min-width: 1720px){
-    .container-ebook{
+    .container-ebook-resources{
         width: 27rem !important;
         height: 29vh !important;
         margin: 0 auto !important;
     }
-    .cards-container{
+    .cards-container-resources{
         gap: 2rem !important;
     }
-    .category{
+    .category-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
         font-size: 1rem !important;
     }
 }
 
 @media screen and (min-width: 1800px){
-    .container-ebook{
+    .container-ebook-resources{
         width: 27rem !important;
         height: 29vh !important;
         margin: 0 auto !important;
     }
-    .cards-container{
+    .cards-container-resources{
         gap: 4rem !important;
     }
-    .category{
+    .category-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
         font-size: 1rem !important;
     }
 }
 
 @media screen and (min-width: 1800px){
-    .container-ebook{
+    .container-ebook-resources{
         width: 27rem !important;
         height: 29vh !important;
         margin: 0 auto !important;
     }
-    .cards-container{
+    .cards-container-resources{
         gap: 6rem !important;
     }
-    .category{
+    .category-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
         font-size: 1rem !important;
     }
 }

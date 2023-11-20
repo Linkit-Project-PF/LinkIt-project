@@ -4,18 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite --host",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.13.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@szhsin/react-accordion": "^1.2.3",
     "@tailwindcss/forms": "^0.5.7",
     "@types/axios": "^0.14.0",
     "@types/react-phone-number-input": "^3.0.17",
     "axios": "^1.6.1",
+    "dotenv": "^16.3.1",
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.4",
     "libphonenumber-js": "^1.10.49",

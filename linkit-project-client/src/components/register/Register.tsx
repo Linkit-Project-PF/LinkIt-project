@@ -16,6 +16,7 @@ import { auth } from "../../helpers/authentication/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 import { FirebaseError } from "firebase/app";
+import { SUPERADMN_ID } from "../../env";
 
 function Register() {
   const dispatch = useDispatch();
@@ -110,21 +111,36 @@ function Register() {
         // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
           //* In case trying to register with google but user already exists
-          const { data } = await axios.get(
-            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`
+          console.log(import.meta.env);
+          const result = await axios.get(
+            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`,
+            {
+              headers: {
+                Authorization: `Bearer ${SUPERADMN_ID}`,
+              },
+            }
           );
-          // TODO data[0] has user info to be saved on redux persist or the user management system
-          dispatch(setPressRegister("hidden"));
-          throw Error(
-            `El usuario ya existe, te has logueado como ${data[0].name}`
-          );
+          if (result.data.length)
+            throw Error(`El usuario ya existe, para acceder inicia sesion`);
+          else {
+            const result = await axios.get(
+              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${SUPERADMN_ID}`,
+                },
+              }
+            );
+            if (result.data.length)
+              throw Error(`La empresa ya existe, para acceder inicia sesion`);
+          }
         }
         //* In case user does not exist enters here
-        const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
-        // TODO DBresponse has user info to be saved on redux persist or the user management system
-        alert(
-          `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+        const DBresponse = await saveUserThirdAuth(
+          response.user,
+          String(user.role)
         );
+        alert(`Te has registrado exitosamente, bienvenido ${DBresponse.name}`);
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
       }
@@ -138,8 +154,9 @@ function Register() {
         }
       } else if (error instanceof AxiosError) {
         alert("AxiosError: " + error);
-      } else console.log(error);
+      } else alert("AuthError: " + error);
     }
+    dispatch(setPressRegister("hidden"));
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
@@ -150,7 +167,7 @@ function Register() {
           disabled={thirdParty ? true : false}
         >
           {thirdParty ? (
-            <div className="fixed top-[45%] left-[47%] flex flex-col items-center">
+            <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
               <img
                 src="https://i.gifer.com/ZKZg.gif"
                 className="w-10 allign-self-center"
@@ -232,7 +249,6 @@ function Register() {
               </p>
             )}
 
-
             <motion.button
               type="submit"
               className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
@@ -257,7 +273,12 @@ function Register() {
 
             <p>
               O registrate con
-            <a onClick={() => handleAuthLogin("google")} className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold">Google</a>
+              <a
+                onClick={() => handleAuthLogin("google")}
+                className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold"
+              >
+                Google
+              </a>
             </p>
 
             <div className="register-conditions-container">
