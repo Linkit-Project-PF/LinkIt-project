@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants} from "framer-motion";
 import "./EbookResources.css";
 
 type EbooksCardProps = {
@@ -7,6 +7,30 @@ type EbooksCardProps = {
   link: string;
   category: string;
 };
+
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    x: 100,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      type: "spring",
+      delay: 0.2,
+    },
+  },
+  exit: {
+    x: 100,
+    transition: {
+      duration: 1,
+      type: "spring",
+    }
+  }
+}
+
 
 function EbookResourcesCard({
   title,
@@ -18,7 +42,11 @@ function EbookResourcesCard({
     <>
       <motion.div
         className="bg-white w-full border-[2px] border-linkIt-500 h-[50vh] xl:h-[17rem] font-montserrat rounded-[0.75rem] flex flex-col justify-between p-[2rem] lg:p-[1.5rem] lg:h-[55vh] container-ebook-resources"
-
+        variants={cardVariants}
+        initial="hidden"
+        whileInView={"visible"}
+        viewport={{once: true}}
+        exit="exit"
       >
         <div>
           <p className="border-[2px] text-[0.8rem] mb-[1rem] h-[25px] lg:h-[10px] border-linkIt-300 rounded-[10px] p-[0.8rem] lg:p-[0.7rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] category-resources">

@@ -1,8 +1,11 @@
 import "./Events.css";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import EventsCards from "./Events-cards/EventsCards";
 
 function Events() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex flex-col">
@@ -31,7 +34,11 @@ function Events() {
         </motion.div>
         <EventsCards />
 
-        <button className="bg-linkIt-300 text-white font-manrope p-[.5rem] rounded-[9px] w-[7rem] self-center mt-[3rem] mb-[5rem] hover:bg-white hover:text-linkIt-300 border-[2px] hover:border-linkIt-300 transition-all duration-300 ease-in-out ">Ver más</button>
+        <button className="bg-linkIt-300 text-white font-manrope p-[.5rem] rounded-[9px] w-[7rem] self-center mt-[3rem] mb-[5rem] hover:bg-white hover:text-linkIt-300 border-[2px] hover:border-linkIt-300 transition-all duration-300 ease-in-out "
+        onClick={()=>navigate("/recursos/libreria")}
+        >
+          Ver más
+        </button>
       </div>
     </>
   );
