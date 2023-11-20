@@ -16,7 +16,7 @@ import {
   setPressSignUp,
   setPressRegister,
 } from "./redux/features/registerLoginSlice";
-import { setResources } from "./redux/features/ResourcesSlice.ts";
+import { setResources, setBlogs, setEbooks, setEvents } from "./redux/features/ResourcesSlice.ts";
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
@@ -111,6 +111,9 @@ function App() {
         );
         dispatch(setJobOffers(responseJd.data));
         dispatch(setResources(responseResources.data))
+        dispatch(setEvents())
+        dispatch(setBlogs())
+        dispatch(setEbooks())
       } catch (error) {
         if (error instanceof AxiosError) console.log({ error: error.message });
       }
