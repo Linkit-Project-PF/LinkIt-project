@@ -77,7 +77,9 @@ function Login() {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
-        if (response._tokenResponse.isNewUser) {
+        console.log(response)
+        //if(response._tokenResponse.isNewUser)
+        if (!response.user.uid) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
           //TODO DB response has user info for redux persist or the user management system
