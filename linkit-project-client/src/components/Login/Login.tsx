@@ -134,88 +134,89 @@ function Login() {
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
+
     <div className="login-container">
-      <div className="login-subContainer">
-        <fieldset
-          className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
-          disabled={thirdParty ? true : false}
-        >
-          {thirdParty ? (
-            <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
-              <img
-                src="https://i.gifer.com/ZKZg.gif"
-                className="w-10 allign-self-center"
-              ></img>
-              <p>Autenticando...</p>
-            </div>
-          ) : null}
-          <form
-            className="login-form"
-            onClick={handleClick}
-            onSubmit={handleSubmit}
-          >
-            <h1 className="login-title">Inicia sesión</h1>
-            <input
-              type="text"
-              className={`login-input ${
-                errors.email ? "login-input-error" : ""
-              }`}
-              name="email"
-              placeholder="Email"
-              onChange={handleInputChange}
-            />
-
-            {errors.email && (
-              <p className="text-red-500 text-xs italic">{errors.email}</p>
-            )}
-
-            <input
-              type="password"
-              className={`login-input ${
-                errors.password ? "login-input-error" : ""
-              }`}
-              name="password"
-              placeholder="Contraseña"
-              onChange={handleInputChange}
-            />
-
-            {errors.password && (
-              <p className="text-red-500 text-xs italic">{errors.password}</p>
-            )}
-
-            <motion.button
-              type="submit"
-              className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
-              whileTap={{ scale: 0.95 }}
-              disabled={errors.email || errors.password ? true : false}
+    <div className="login-subContainer">
+    <fieldset
+    className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
+    disabled={thirdParty ? true : false}
+    >
+    {thirdParty ? (
+      <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
+                <img
+                  src="https://i.gifer.com/ZKZg.gif"
+                  className="w-10 allign-self-center"
+                ></img>
+                <p>Autenticando...</p>
+              </div>
+            ) : null}
+            <form
+              className="login-form"
+              onClick={handleClick}
+              onSubmit={handleSubmit}
             >
-              Ingresa
-            </motion.button>
-            <p>
-              O Ingresa con
-              <a
-                onClick={() => handleAuthClick("google")}
-                className="relative block border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold"
+              <h1 className="login-title">Inicia sesión</h1>
+              <input
+                type="text"
+                className={`login-input ${
+                  errors.email ? "login-input-error" : ""
+                }`}
+                name="email"
+                placeholder="Email"
+                onChange={handleInputChange}
+              />
+
+              {errors.email && (
+                <p className="text-red-500 text-xs italic">{errors.email}</p>
+              )}
+
+              <input
+                type="password"
+                className={`login-input ${
+                  errors.password ? "login-input-error" : ""
+                }`}
+                name="password"
+                placeholder="Contraseña"
+                onChange={handleInputChange}
+              />
+
+              {errors.password && (
+                <p className="text-red-500 text-xs italic">{errors.password}</p>
+              )}
+
+              <motion.button
+                type="submit"
+                className="w-full text-center py-3 rounded bg-linkIt-300 text-white focus:outline-none my-1 z-[1000]"
+                whileTap={{ scale: 0.95 }}
+                disabled={errors.email || errors.password ? true : false}
               >
-                Google
-              </a>
-            </p>
-            <div className="login-conditions-container">
-              No tienes una cuenta?
-              <a
-                className="register-link"
-                onClick={() => {
-                  dispatch(setPressLogin("hidden")),
-                    dispatch(setPressSignUp("visible"));
-                }}
-              >
-                <span> Regístrate.</span>
-              </a>
-            </div>
-          </form>
-        </fieldset>
+                Ingresa
+              </motion.button>
+              <p>
+                O Ingresa con
+                <a
+                  onClick={() => handleAuthClick("google")}
+                  className="relative border border-linkIt-500 flex justify-center  shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold"
+                >
+                  <img alt="google" src="/images/google.png" className="w-[1.5rem]"/>
+                </a>
+              </p>
+              <div className="login-conditions-container">
+                No tienes una cuenta?
+                <a
+                  className="register-link"
+                  onClick={() => {
+                    dispatch(setPressLogin("hidden")),
+                      dispatch(setPressSignUp("visible"));
+                  }}
+                >
+                  <span> Regístrate.</span>
+                </a>
+              </div>
+            </form>
+          </fieldset>
+        </div>
       </div>
-    </div>
   );
 }
 
