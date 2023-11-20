@@ -1,8 +1,34 @@
 import "./AllResources.css";
 import { useSelector } from "react-redux";
-import BlogsCard from "../../blogs/blogs-cards/BlogsCard";
+import BlogResourcesCard from "../allResources/resources-cards/BlogResources/BlogResourcesCard";
 import EbookResourcesCard from "../allResources/resources-cards/Ebookresources/EbookResourcesCard";
-import EventCard from "../../eventos/Events-cards/EventCard";
+import EventResourceCard from "./resources-cards/EventResources/EventResourcesCard";
+import { motion, Variants } from "framer-motion";
+
+const noResults: Variants = {
+  hidden: {
+    opacity: 0,
+    x: 100,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: .8,
+      type: "spring",
+      delay: 0.2,
+    },
+  },
+  exit: {
+    x: 100,
+    transition: {
+      duration: 1,
+      type: "spring",
+    }
+  }
+
+};
+
 
 type resourcesState = {
   resources: {
@@ -34,8 +60,23 @@ function AllResources() {
 
   return (
     <>
-      <div className="grid grid-cols-3 grid-rows-3 gap-x-[1rem] space-y-5">
-        {ebooks.map((ebook: resourceType) => {
+      <div className="flex flex-row flex-wrap justify-between gap-[2rem] mt-[3.5rem] responsive-container">
+        {
+          ebooks.length > 3 && blogs.length > 3 && events.length > 3 
+          ?ebooks.slice(0, 3).map((ebook: resourceType) => {
+          return (
+            <div className="w-[17rem] item">
+                <EbookResourcesCard
+                  key={ebook._id}
+                  title={ebook.title}
+                  description={ebook.description}
+                  category={ebook.category}
+                  link={ebook.link}
+                />
+            </div>
+          );
+        })
+        :ebooks.map((ebook: resourceType) => {
           return (
             <div className="w-[17rem]">
                 <EbookResourcesCard
@@ -47,12 +88,28 @@ function AllResources() {
                 />
             </div>
           );
-        })}
+        })
+       }
 
-        {blogs.map((blog: resourceType) => {
+        {
+          blogs.length > 3 && ebooks.length > 3 && events.length > 3
+            ?blogs?.slice(0, 3).map((blog: resourceType) => {
+            return (
+              <div className="w-[17rem]">
+                  <BlogResourcesCard
+                    key={blog._id}
+                    image={blog.image}
+                    title={blog.title}
+                    description={blog.description}
+                    genre={blog.category}
+                    link={blog.link}
+                  />
+              </div>
+          )})
+        :blogs?.map((blog: resourceType) => {
           return (
             <div className="w-[17rem]">
-                <BlogsCard
+                <BlogResourcesCard
                   key={blog._id}
                   image={blog.image}
                   title={blog.title}
@@ -61,14 +118,16 @@ function AllResources() {
                   link={blog.link}
                 />
             </div>
-          );
-        })}
+        )})
+        }
 
-        {events.map((event: resourceType) => {
+        {
+        events.length > 3 && ebooks.length > 3 && blogs.length > 3
+        ?events?.slice(0,3).map((event: resourceType) => {
           return (
 
             <div className="w-[17rem]">
-                <EventCard
+                <EventResourceCard
                   key={event._id}
                   image={event.image}
                   title={event.title}
@@ -77,8 +136,37 @@ function AllResources() {
                   link={event.link}
                 />
             </div>
-          );
-        })}
+          );})
+
+        :events?.map((event: resourceType) => {
+          return (
+
+            <div className="w-[17rem]">
+                <EventResourceCard
+                  key={event._id}
+                  image={event.image}
+                  title={event.title}
+                  description={event.description}
+                  category={event.category}
+                  link={event.link}
+                />
+            </div>
+          );})
+
+        }
+        {
+          ebooks.length === 0 && blogs.length === 0 && events.length === 0 
+          &&(
+          <motion.h1 
+          className="text-[1.5rem] font-bold absolute left-1/2 top-[70%] "
+          variants={noResults}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          >No se encontraron recursos
+          </motion.h1>
+          )
+        }
       </div>
     </>
   );
