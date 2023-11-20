@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 export default function FormVacancie() {
 
@@ -13,7 +14,7 @@ export default function FormVacancie() {
         stack: "",
     })
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const { name, value } = e.target;
         setInformation({
             ...information,
@@ -21,8 +22,15 @@ export default function FormVacancie() {
         })
     }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async(e:any)=>{
         e.preventDefault();
+        try {
+            const endPoint = "https://linkit-server.onrender.com/jds/create"
+            const response = await axios.post(endPoint, information)
+            console.log("Se envió con éxito", response.data)
+        } catch (error:any) {
+            console.error('Error al enviar la solicitud:', error.message);
+        }
         setInformation({
             title: "",
             description: "",
