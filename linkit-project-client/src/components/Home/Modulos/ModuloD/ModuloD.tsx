@@ -16,7 +16,7 @@ export default function ModuloD() {
                             <p className='text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg xl:p-0 xl:pr-12'>En 5 días hábiles presentaremos talentos previamente entrevistados y calificados.</p>
                         </div>
                     </div>
-                    <div className='division'></div>
+                    <div className='division w-[100%] before:right-[2%] sm:before:right-[1%] md:before:right-[1%] lg:before:right-[0%] xl:before:right-[9%] 2xl:w-[90%] 2xl:before:right-[5%]'></div>
 
                     <div className='flex flex-row'>
 
@@ -27,7 +27,7 @@ export default function ModuloD() {
                             <p className='text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg xl:p-0 xl:pr-20'>Nos comprometemos a mantener una comunicación ágil y efectiva durante todo el proceso de selección.</p>
                         </div>
                     </div>
-                    <div className='division'></div>
+                    <div className='division w-[100%] before:right-[2%] sm:before:right-[1%] md:before:right-[1%] lg:before:right-[0%] xl:before:right-[9%] 2xl:w-[90%] 2xl:before:right-[5%]'></div>
 
                     <div className='flex flex-row'>
 
@@ -38,7 +38,7 @@ export default function ModuloD() {
                             <p className='text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg xl:p-0 xl:pr-20'>Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.</p>
                         </div>
                     </div>
-                    <div className='division'></div>
+                    <div className='division w-[100%] before:right-[2%] sm:before:right-[1%] md:before:right-[1%] lg:before:right-[0%] xl:before:right-[9%] 2xl:w-[90%] 2xl:before:right-[5%]'></div>
                 </ul>
             </div>
         </div>

@@ -1,7 +1,6 @@
 import axios from "axios";
-import { User } from "firebase/auth";
 
-export default async function saveUserThirdAuth(user: User, role?: string | null) {
+export default async function saveUserThirdAuth(user: any, role: string) {
     const userToSave = {
         name: user.displayName,
         email: user.email,
@@ -10,11 +9,22 @@ export default async function saveUserThirdAuth(user: User, role?: string | null
         country: "US",
         role: role ?? "user",
     };
-    console.log("inside", userToSave, role)
-    const {data} = await axios.post(
-        "https://linkit-server.onrender.com/users/register",
-        // "http://localhost:3000/users/register",
-        userToSave
-     );
-    return data;
+    let result
+    try {
+        if (role === "user") {
+        result = await axios.post(
+            "https://linkit-server.onrender.com/users/create",
+            userToSave
+         )
+        } else if (role === "company") {
+            result = await axios.post(
+                'https://linkit-server.onrender.com/companies/create',
+                userToSave
+                )
+         } else throw Error("Not a valid role for this path")
+        
+    } catch (error) {
+        throw Error("Failed to save user info on DB: " + error)
+    }
+    return result.data;
 }

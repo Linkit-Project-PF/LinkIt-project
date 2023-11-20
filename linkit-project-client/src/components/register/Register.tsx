@@ -120,16 +120,13 @@ function Register() {
           );
         }
         //* In case user does not exist enters here
-        if (response.user) {
-          console.log("outside", user.role);
-          const DBresponse = await saveUserThirdAuth(response.user, user.role);
-          // TODO DBresponse has user info to be saved on redux persist or the user management system
-          alert(
-            `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
-          );
-          dispatch(setPressRegister("hidden"));
-          setThirdParty(false);
-        }
+        const DBresponse = await saveUserThirdAuth(response.user, String(user.role))
+        // TODO DBresponse has user info to be saved on redux persist or the user management system
+        alert(
+          `Te has registrado exitosamente, bienvenido ${DBresponse.name}`
+        );
+        dispatch(setPressRegister("hidden"));
+        setThirdParty(false);
       }
     } catch (error) {
       if (error instanceof FirebaseError) {

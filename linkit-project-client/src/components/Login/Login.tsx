@@ -55,7 +55,8 @@ function Login() {
       console.log(response)
       if (response.data.id) alert(`Bienvenido ${response.data.name}`); {
         const token = response.data.id;
-        dispatch(loginSuccess({ token }));
+        const role = response.data.role
+        dispatch(loginSuccess({ token, role }));
         return response;
       };
     } catch (error: any) {
@@ -76,13 +77,13 @@ function Login() {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
-        if (response._tokenResponse.isNewUser) {
+        console.log(response)
+        //if(response._tokenResponse.isNewUser)
+        if (!response.user.uid) {
           //* In case user tries to log in but account does not exist
-          const DBresponse = await saveUserThirdAuth(response.user);
+          const DBresponse = await saveUserThirdAuth(response.user, "user");
           //TODO DB response has user info for redux persist or the user management system
-          alert(
-            `No existe una cuenta con este email, cuenta creada para ${DBresponse.name}`
-          );
+          alert(`No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`) 
         } else {
           //* In case user exists, enters here
           const { data } = await axios.get(

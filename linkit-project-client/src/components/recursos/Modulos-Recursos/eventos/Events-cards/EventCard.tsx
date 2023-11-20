@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import "./EventCard.css";
+import "../../ebooks/ebooksCards/ebooksCard.css"
+import '../../eventos/Events-cards/EventCard.css'
 
 type EventCardProps = {
   image: string;
@@ -68,7 +70,7 @@ function EventCard({
             style={{ backgroundImage: `url(${videoToThumbnail(image)})` }}
           />
         ) : (
-          <img src={image} alt="event image" />
+          <img src={image} alt="event image" className="h-[2rem] rounded-[7px] w-full" />
         )}
         <div className="flex flex-col h-[100%] p-[2rem]">
           <div>
