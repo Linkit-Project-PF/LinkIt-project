@@ -1,3 +1,20 @@
+@media screen and (min-width: 1400px){
+    .container{
+        width: 22rem !important;
+        height: 63vh !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
+
+
 @media screen and (min-width: 1900px){
     .container{
         width: 25rem !important;

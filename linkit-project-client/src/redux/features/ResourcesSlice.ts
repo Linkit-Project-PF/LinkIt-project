@@ -17,6 +17,7 @@ type Resource = {
     date: string,
     image: string,
     category: string,
+    archived: boolean,
 }
 
 const ResourcesSlice = createSlice({
@@ -28,16 +29,16 @@ const ResourcesSlice = createSlice({
             state.allresources = action.payload;
         },
         setEbooks: (state) => {
-            state.ebooks = state.allresources.filter((resource: Resource) => resource.type === "ebook");
+            state.ebooks = state.allresources.filter((resource: Resource) => resource.type === "ebook" && resource.archived === false);
         },
-        setEvents: (state, action) => {
-            state.events = action.payload;
+        setEvents: (state) => {
+            state.events = state.allresources.filter((resource: Resource) => resource.type === "social" && resource.archived === false);
         },
-        setBlogs: (state, action) => {
-            state.blogs = action.payload;
+        setBlogs: (state) => {
+            state.blogs = state.allresources.filter((resource: Resource) => resource.type === "blog" && resource.archived === false);
         },
     },
 });
 
-export const { setResources } = ResourcesSlice.actions;
+export const { setResources, setEbooks, setEvents, setBlogs } = ResourcesSlice.actions;
 export default ResourcesSlice.reducer;

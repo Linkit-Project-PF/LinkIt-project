@@ -16,7 +16,7 @@ function SideBar() {
         <ul className='flex flex-col gap-[1rem] font-[500] mt-[2rem]'>
             {items.map((item, index) => (
                 <li 
-                    className={`list-item${active === index.toString() ? ' active' : ''} cursor-pointer inline-flex`} 
+                    className={`list-item-resource${active === index.toString() ? '-active' : ''} cursor-pointer inline-flex`} 
                     onClick={() => handleActive(index.toString())}
                 >
                     {item}
