@@ -16,11 +16,11 @@ export default function ModuloA() {
         <div className="my-1 md:my-2 lg:my-4 xl:my-6 2xl:pr-32 2xl:mt-12">
           <h3 className="text-xs md:text-base lg:text-[1.1rem] xl:text-[1.5rem] 2xl:text-5xl">Escala, gestiona y retiene al mejor <br /> talento del mundo.</h3>
         </div>
-        <div className="flex 2xl:mt-2">
-          <motion.button className="bg-linkIt-300 rounded-[7px] p-1 h-auto lg:w-[28%] 2xl:w-[20%] text-white shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out m-1 text-xs md:text-sm lg:text-xs xl:text-sm 2xl:text-xl" onClick={goSoyEmpresa} whileTap={{ scale: 0.9 }}>Contrata Talento</motion.button>
+        <div className="flex 2xl:mt-2 h-[5vh]">
+          <motion.button className="bg-linkIt-300 rounded-xl p-1 h-[100%] lg:w-[28%] 2xl:w-[20%] text-white shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out m-1 text-xs md:text-sm lg:text-xs xl:text-sm 2xl:text-xl" onClick={goSoyEmpresa} whileTap={{ scale: 0.9 }}>Contrata Talento</motion.button>
         </div>
         <div className="flex flex-row items-center">
-          <img className=" w-[12vw] -ml-4 2xl:-ml- -mt-4" src="Vectores/linkit-web-vectores_Mesa de trabajo 1.svg" alt="stars" />
+          <img className=" w-[12vw] -ml-4 2xl:-mx-9 -mt-4" src="Vectores/linkit-web-vectores_Mesa de trabajo 1.svg" alt="stars" />
           <h4 className="flex text-[9px] md:text-xs xl:text-lg 2xl:text-lg mb-4">4/5 on Truspilot <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">Leer reviews</Link></h4>
         </div>
       </div>
