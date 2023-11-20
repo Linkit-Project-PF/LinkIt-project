@@ -12,6 +12,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../redux/features/AuthSlice.ts";
+import { SUPERADMN_ID } from "../../env.ts";
 
 type Event = {
   target: HTMLInputElement;
@@ -46,17 +47,18 @@ function Login() {
     });
   };
 
-  // prettier-ignore
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios(`https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`);
+      const response = await axios(
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
+      );
       if (response.data._id) {
         alert(`Bienvenido ${response.data.name}`);
         const token = response.data._id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
-        return response;
+        dispatch(setPressLogin("hidden"));
       }
     } catch (error: any) {
       alert(error.response?.data);
@@ -68,7 +70,7 @@ function Login() {
   ) => {
     event.stopPropagation();
   };
-  // prettier-ignore
+
   const handleAuthClick = async (prov: string) => {
     try {
       let provider;
@@ -79,27 +81,44 @@ function Login() {
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
-          alert(`No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}`);
+          alert(
+            `No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}. Ahora puedes iniciar sesión`
+          );
         } else {
           //* In case user exists, enters here
-          const usersData = await axios.get(`https://linkit-server.onrender.com/users/find?email=${response.user.email}`);
+          const usersData = await axios.get(
+            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`,
+            {
+              headers: {
+                Authorization: `Bearer ${SUPERADMN_ID}`,
+              },
+            }
+          );
           if (usersData.data.length) {
             const authUser = usersData.data[0];
-            const token = authUser._id
-            const role = authUser.role
+            const token = authUser._id;
+            const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
             alert(`Has ingresado. Bienvenido, ${authUser.name}`);
           } else {
-            const companyData = await axios.get(`https://linkit-server.onrender.com/companies/find?email=${response.user.email}`);
+            const companyData = await axios.get(
+              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${SUPERADMN_ID}`,
+                },
+              }
+            );
             if (companyData.data.length) {
               const authCompany = companyData.data[0];
-              const token = authCompany._id
-              const role = authCompany.role
+              const token = authCompany._id;
+              const role = authCompany.role;
               dispatch(loginSuccess({ token, role }));
               alert(`Has ingresado. Bienvenido, ${authCompany.name}`);
-            } else throw Error(
-              "Usuario autenticado pero registro no encontrado, contacte a un administrador"
-            );
+            } else
+              throw Error(
+                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+              );
           }
         }
       }
@@ -138,8 +157,9 @@ function Login() {
             <h1 className="login-title">Inicia sesión</h1>
             <input
               type="text"
-              className={`login-input ${errors.email ? "login-input-error" : ""
-                }`}
+              className={`login-input ${
+                errors.email ? "login-input-error" : ""
+              }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
@@ -151,8 +171,9 @@ function Login() {
 
             <input
               type="password"
-              className={`login-input ${errors.password ? "login-input-error" : ""
-                }`}
+              className={`login-input ${
+                errors.password ? "login-input-error" : ""
+              }`}
               name="password"
               placeholder="Contraseña"
               onChange={handleInputChange}
