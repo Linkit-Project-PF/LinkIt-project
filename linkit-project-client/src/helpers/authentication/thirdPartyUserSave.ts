@@ -22,7 +22,6 @@ export default async function saveUserThirdAuth(user: any, role: string) {
                 userToSave
                 )
          } else throw Error("Not a valid role for this path")
-        
     } catch (error) {
         throw Error("Failed to save user info on DB: " + error)
     }
