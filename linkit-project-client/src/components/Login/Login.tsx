@@ -51,10 +51,9 @@ function Login() {
     event.preventDefault();
     try {
       const response = await axios(`https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`);
-      console.log(response);
-      if (response.data.id) {
+      if (response.data._id) {
         alert(`Bienvenido ${response.data.name}`);
-        const token = response.data.id;
+        const token = response.data._id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
         return response;
@@ -86,11 +85,17 @@ function Login() {
           const usersData = await axios.get(`https://linkit-server.onrender.com/users/find?email=${response.user.email}`);
           if (usersData.data.length) {
             const authUser = usersData.data[0];
+            const token = authUser._id
+            const role = authUser.role
+            dispatch(loginSuccess({ token, role }));
             alert(`Has ingresado. Bienvenido, ${authUser.name}`);
           } else {
             const companyData = await axios.get(`https://linkit-server.onrender.com/companies/find?email=${response.user.email}`);
             if (companyData.data.length) {
               const authCompany = companyData.data[0];
+              const token = authCompany._id
+              const role = authCompany.role
+              dispatch(loginSuccess({ token, role }));
               alert(`Has ingresado. Bienvenido, ${authCompany.name}`);
             } else throw Error(
               "Usuario autenticado pero registro no encontrado, contacte a un administrador"
@@ -133,9 +138,8 @@ function Login() {
             <h1 className="login-title">Inicia sesión</h1>
             <input
               type="text"
-              className={`login-input ${
-                errors.email ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.email ? "login-input-error" : ""
+                }`}
               name="email"
               placeholder="Email"
               onChange={handleInputChange}
@@ -147,9 +151,8 @@ function Login() {
 
             <input
               type="password"
-              className={`login-input ${
-                errors.password ? "login-input-error" : ""
-              }`}
+              className={`login-input ${errors.password ? "login-input-error" : ""
+                }`}
               name="password"
               placeholder="Contraseña"
               onChange={handleInputChange}
