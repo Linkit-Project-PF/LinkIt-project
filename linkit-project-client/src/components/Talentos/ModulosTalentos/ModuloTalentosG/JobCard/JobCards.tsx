@@ -1,29 +1,47 @@
 // JobCardList.tsx
+import { FunctionComponent, useEffect, useState } from 'react';
+import JobCard, {JobCardProps} from './JobCard';
+import { getJobOffers } from '../../../Services/jobOffers.service';
+import { useDispatch, useSelector } from 'react-redux';
+import { setJobOffers } from '../../../../../redux/features/JobCardsSlice';
 
-import React from 'react';
-import JobCard from './JobCard';
-import { useSelector } from 'react-redux';
 
-type stateProps = {
-  jobCard: {
-    allJobOffers: []
-  }
-}
+const JobCards: FunctionComponent = () => {
+  const dispatch = useDispatch()
+  const [current, setCurrent] = useState(0);
+  const jobOffers = useSelector((state: any) => state.jobCard.allJobOffers as JobCardProps[]);
+  console.log(jobOffers)
 
-type jobOfferProps = {
-  title: string
-}
+  const jobsPerPage = 6;
+  const maxPages = Math.ceil(jobOffers.length / jobsPerPage);
+  const handlePrev = () => setCurrent(current === 0 ? maxPages - 1 : current - 1);
+  const handleNext = () => setCurrent(current === maxPages - 1 ? 0 : current + 1);
 
-const JobCards: React.FC = () => {
-  const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
+  useEffect(() => {
+    const fetchedJobOffers = async () => {
+      // Fetch my job offers from backend api
+      const fetchedJobOffers = await getJobOffers()
+      // Set the job offers in the state
+      dispatch(setJobOffers(fetchedJobOffers))
+    }
+
+    fetchedJobOffers()
+  }, [])
+
+  const jobOffersToShow = jobOffers.slice(
+    current * jobsPerPage,
+    (current + 1) * jobsPerPage
+  );
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {data?.map((jobOffer: jobOfferProps) => {
-        return (
-          <JobCard title={jobOffer.title}/>
-        )
-       }) 
-      }
+    <div className="flex w-full h-[340px] space-x-6 items-center justify-center">
+      <button onClick={handlePrev} className="text-3xl ">{'<'}</button>
+      <div className="w-4/6 grid grid-cols-3 grid-rows-2 gap-5">
+        {jobOffersToShow.map((jobDescription) => (
+          <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
+        ))}
+      </div>
+      <button onClick={handleNext} className="text-3xl ">{'>'}</button>
     </div>
   );
 };

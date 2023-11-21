@@ -7,6 +7,7 @@ import FAQ from "./Modulos-Recursos/FAQ/FAQ";
 import Footer from "../../Utils/Footer/Footer";
 
 export default function Recursos() {
+  
   return (
     <>
       <section id="moduloA">
@@ -20,7 +21,7 @@ export default function Recursos() {
       <section id="ebooks">
         <Ebooks />
       </section>
-      <section id="events">
+      <section id="webinars">
         <Events />
       </section>
       <section id="CV">

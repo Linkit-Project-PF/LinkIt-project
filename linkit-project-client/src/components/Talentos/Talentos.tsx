@@ -5,17 +5,19 @@ import ModuloTalentosE from "./ModulosTalentos/ModuloTalentosE/ModuloTalentosE"
 import ModuloTalentosF from "./ModulosTalentos/ModuloTalentosF/ModuloTalentosF"
 import ModuloTalentosC from "./ModulosTalentos/ModuloTalentosC/ModuloTalentosC"
 import ModuloTalentosG from "./ModulosTalentos/ModuloTalentosG/ModuloTalentosG"
+import Footer from "../../Utils/Footer/Footer"
 
 function Talentos() {
   return (
 <div>
   <ModuloTalentosA/>
+  <ModuloTalentosG/>
   <ModuloTalentosB/>
   <ModuloTalentosC/>
   <ModuloTalentosD/>
   <ModuloTalentosE/>
   <ModuloTalentosF/>
-  <ModuloTalentosG/>
+  <Footer/>
 </div>
   )
 }

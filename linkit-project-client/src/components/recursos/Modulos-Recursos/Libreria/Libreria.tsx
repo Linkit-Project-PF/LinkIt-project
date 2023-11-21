@@ -1,8 +1,14 @@
 import "./Libreria.css";
 import SideBar from "./sidebar/SideBar";
 import AllResources from "./allResources/AllResources";
+import { useEffect } from "react";
+
 
 function Libreria() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <div className="mt-[6rem] p-[3.5rem]">
