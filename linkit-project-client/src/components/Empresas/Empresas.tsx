@@ -8,9 +8,10 @@ import ModuloF from "./modulosEmpresas/moduloF/ModuloF"
 import ModuloG from "./modulosEmpresas/moduloG/ModuloG"
 import ModuloH from "./modulosEmpresas/moduloH/ModuloH"
 import ModuloI from "./modulosEmpresas/moduloI/ModuloI"
+import './Empresas.css'
 function Empresas() {
   return (
-    <div className="flex flex-col">
+    <>
       <ModuloA />
       <section id="servicios">
       <ModuloB />
@@ -25,7 +26,7 @@ function Empresas() {
       </section>
       <ModuloI />
       <Footer />
-    </div>
+      </>
   )
 }
 
