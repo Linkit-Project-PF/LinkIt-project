@@ -10,6 +10,9 @@ export type JobCardProps = {
   modality: string
   schedule: string
   location: string
+
+  archived: boolean
+
 }
 
 export const JobCard: FunctionComponent<JobCardProps> = ({ title, location, modality, schedule }) => {
