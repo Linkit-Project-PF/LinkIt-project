@@ -22,7 +22,8 @@ const JobCards: FunctionComponent = () => {
       // Fetch my job offers from backend api
       const fetchedJobOffers = await getJobOffers()
       // Set the job offers in the state
-      dispatch(setJobOffers(fetchedJobOffers))
+      const activeJobOffers = fetchedJobOffers.filter((jobOffer) => jobOffer.archived === false)
+      dispatch(setJobOffers(activeJobOffers))
     }
 
     fetchedJobOffers()
