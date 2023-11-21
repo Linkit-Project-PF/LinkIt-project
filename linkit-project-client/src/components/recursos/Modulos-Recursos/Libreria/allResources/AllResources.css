@@ -24,12 +24,26 @@
 
 }
 
-@media screen and (min-width: 1440px) and (max-width: 1720px) {
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
     .responsive-container {
         display: flex !important;
         flex-direction: row  !important;
         flex-wrap: wrap !important;
         gap: 2rem !important;
+    }
+    .item{
+        display: inline-flex !important;
+        width: 17rem !important;
+    }
+}
+
+@media screen and (min-width: 1680px) and (max-width: 1720px) and (min-height: 1050px) {
+    .responsive-container {
+        display: flex !important;
+        flex-direction: row  !important;
+        flex-wrap: wrap !important;
+        gap: 1.5rem !important;
+        width: 85%;
     }
     .item{
         display: inline-flex !important;
