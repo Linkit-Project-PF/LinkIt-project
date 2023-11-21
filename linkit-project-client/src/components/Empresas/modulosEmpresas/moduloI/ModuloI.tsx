@@ -44,7 +44,7 @@ export default function ModuloI() {
 
 const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
-const [focusedField, setFocusedField] = useState("");
+// const [focusedField, setFocusedField] = useState("");
 
   const [contacts, setContacts] = useState({
     name: "",
@@ -53,7 +53,7 @@ const [focusedField, setFocusedField] = useState("");
     service: [] as string[],
     email: "",
     message: "",
-   });
+  });
 
   const [errors, setErrors] = useState({
     name: "",
@@ -64,13 +64,18 @@ const [focusedField, setFocusedField] = useState("");
     message: "",
   });
 
-  useEffect(() => {
-    const validateErrors = validations(contacts);
-    setErrors(validateErrors);
-  }, [contacts]);
+  // useEffect(() => {
+  //   const validateErrors = validations(contacts);
+  //   setErrors(validateErrors);
+  // }, [contacts]);
 
 const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
   const { name, value, type, checked } = e.target;
+
+  const fieldErrors = validations({
+    ...contacts,
+    [name]: value,
+  });
 
   if (type === "checkbox") {
     if (checked) {
@@ -90,11 +95,15 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
       [name]: value,
     });
   }
+  setErrors({
+    ...errors,
+    [name]: fieldErrors[name as keyof typeof fieldErrors],
+  });
 
 }
-const handleFieldFocus = (fieldName: string) => {
-  setFocusedField(fieldName);
-}
+// const handleFieldFocus = (fieldName: string) => {
+//   setFocusedField(fieldName);
+// }
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   if (Object.values(errors).every((error) => error === "")) {
@@ -116,26 +125,26 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       <div className=" w-[80vw] 2xl:w-[60vw]">
       <form className="flex flex-wrap gap-4 2xl:gap-6 mt-4" onSubmit={contactsBtn}>
         <div>
-        <input className={`placeholder-white border-white border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onFocus={() => handleFieldFocus("name")} />
-        <p className={`ml-4 text-sm 2xl:text-xl text-red-600 ${focusedField === "name" && errors.name ? "opacity-1" : "opacity-0"}`}>
-              {focusedField === "name" && errors.name ? errors.name : ""}
-            </p>
+        <input className={`${errors.name ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} />
+        {errors.name && (
+              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.name}</p>
+            )}
         </div>
         <div>
-        <input className={`placeholder-white border-white border rounded-lg bg-transparent text-white p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} onFocus={() => handleFieldFocus("lastName")} />
-        <p className={`ml-4 text-sm 2xl:text-xl text-red-600  ${focusedField === "lastName" && errors.lastName ? "opacity-1" : "opacity-0"}`}>
-              {focusedField === "lastName" && errors.lastName ? errors.lastName : ""}
-            </p>
+        <input className={`${errors.lastName ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} />
+        {errors.lastName && (
+              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.lastName}</p>
+            )}
         </div>
         <div>
-        <input className={`placeholder-white border-white border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} onFocus={() => handleFieldFocus("company")} />
-        <p className={`ml-4 text-sm 2xl:text-xl text-red-600 ${focusedField === "company" && errors.company ? "opacity-1" : "opacity-0"}`}>
-              {focusedField === "company" && errors.company ? errors.company : ""}
-            </p>
+        <input className={`${errors.company ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} />
+        {errors.company && (
+              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.company}</p>
+            )}
         </div>
         <div>
         <motion.nav
-            className={`placeholder-white border-white border rounded-lg bg-transparent p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[6.5vh] xl:h-[5vh] 2xl:text-xl`}
+            className={`${errors.service ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[6.5vh] xl:h-[5vh] 2xl:text-xl`}
             ref={scope}
             onClick={(e) => { 
               e.preventDefault();
@@ -146,7 +155,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             <motion.button
               className={`text-white flex justify-between items-center w-full`}
               whileTap={{ scale: 0.97 }}
-              onFocus={() => handleFieldFocus("service")}
+              
             >
               ¿Qué servicio te interesa?
               <div className="arrow w-3 ml-1 mt-[2px]">
@@ -164,32 +173,32 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             >
               <li className="my-2 text-base items-center">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
-              onChange={handleChange} onFocus={() => handleFieldFocus("service")} />
+              onChange={handleChange} />
               <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
-              onChange={handleChange} onFocus={() => handleFieldFocus("service")} />
+              onChange={handleChange} />
               <label htmlFor="Staff Augmentation" className="cursor-pointer">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
-              onChange={handleChange} onFocus={() => handleFieldFocus("service")} />
+              onChange={handleChange} />
               <label htmlFor="Payroll Management" className="cursor-pointer">Payroll Management</label>
               </li>
             </ul>{" "}
           </motion.nav>
-          <p className={`ml-4 text-sm 2xl:text-xl text-red-600 ${focusedField === "service" && errors.service ? "opacity-1" : "opacity-0"}`}>
-              {focusedField === "service" && errors.service ? errors.service : ""}
-            </p>
+          {errors.service && (
+              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.service}</p>
+            )}
           </div>
           <div className=" flex flex-col">
-        <input className={`placeholder-white border-white border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onFocus={() => handleFieldFocus("email")}/>
-        <p className={`ml-4 text-sm 2xl:text-xl text-red-600 ${focusedField === "email" && errors.email ? "opacity-1" : "opacity-0"}`}>
-              {focusedField === "email" && errors.email ? errors.email : ""}
-            </p>
+        <input className={`${errors.email ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange}/>
+        {errors.email && (
+              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.email}</p>
+            )}
         <button className=" mt-12 2xl:mt-[11vh] bg-white text-linkIt-200 text-sm font-medium 2xl:font-bold p-1 2xl:p-3 w-[8vw] 2xl:w-[5vw] rounded-lg disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
           errors.name ||
           errors.lastName ||
@@ -208,10 +217,10 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         }>Enviar</button>
         </div>
         <div>
-        <input className={`placeholder-white border-white border rounded-lg bg-transparent text-white p-2 2xl:p-3 pb-20 xl:pb-32 2xl:pb-[17vh] outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[20vh] 2xl:text-xl break-words`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onFocus={() => handleFieldFocus("message")} />
-        <p className={`ml-4 text-sm 2xl:text-xl text-red-600 ${focusedField === "message" && errors.message ? "opacity-1" : "opacity-0"}`}>
-              {focusedField === "message" && errors.message ? errors.message : ""}
-            </p>
+        <input className={`${errors.message ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white p-2 2xl:p-3 pb-20 xl:pb-32 2xl:pb-[17vh] outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[20vh] 2xl:text-xl break-words`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} />
+        {errors.message && (
+              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.message}</p>
+            )}
         </div>
       </form>
       </div>
