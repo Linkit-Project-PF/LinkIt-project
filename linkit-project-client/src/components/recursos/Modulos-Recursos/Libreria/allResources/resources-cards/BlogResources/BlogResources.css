@@ -1,0 +1,59 @@
+@media screen and (min-width: 1280px) and (max-width: 1365px){
+    .container{
+        width: 17rem !important;
+        height: 60vh !important;
+    }
+    
+}
+
+@media screen and (min-width: 1400px){
+    .container{
+        width: 17rem !important;
+        height: 55vh !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1720px){
+    .container{
+        width: 17rem !important;
+        height: 50vh !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
+
+
+@media screen and (min-width: 1800px) and (max-width: 1920px){
+    .container{
+        width: 20rem !important;
+        height: 48vh !important;
+    }
+    .cards-container{
+        gap: 5rem !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}

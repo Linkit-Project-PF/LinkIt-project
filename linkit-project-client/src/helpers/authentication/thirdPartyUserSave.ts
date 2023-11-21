@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SUPERADMN_ID } from "../../env";
 
 export default async function saveUserThirdAuth(user: any, role: string) {
     const userToSave = {
@@ -14,15 +15,22 @@ export default async function saveUserThirdAuth(user: any, role: string) {
         if (role === "user") {
         result = await axios.post(
             "https://linkit-server.onrender.com/users/create",
-            userToSave
+            userToSave, {
+                headers: {
+                  'Authorization': `Bearer ${SUPERADMN_ID}`
+                }
+              }
          )
         } else if (role === "company") {
             result = await axios.post(
                 'https://linkit-server.onrender.com/companies/create',
-                userToSave
+                userToSave, {
+                    headers: {
+                      'Authorization': `Bearer ${SUPERADMN_ID}`
+                    }
+                  }
                 )
          } else throw Error("Not a valid role for this path")
-        
     } catch (error) {
         throw Error("Failed to save user info on DB: " + error)
     }

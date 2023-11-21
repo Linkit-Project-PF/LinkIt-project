@@ -21,6 +21,7 @@ import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import { setJobOffers } from "./redux/features/JobCardsSlice";
+import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 
 const registerVariants: Variants = {
   hidden: {
@@ -166,6 +167,7 @@ function App() {
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
+        <Route path="/AdminDashboard" element={<AdminPanel />} />
       </Routes>
     </>
   );

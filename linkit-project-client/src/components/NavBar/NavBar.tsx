@@ -71,7 +71,9 @@ function NavBar() {
   const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
   const role = useSelector((state: any) => state.Authentication.authState.role)
 
-
+  const goAdminDashboard = () => {
+    navigate("/AdminDashboard")
+  }
   const goHome = () => {
     navigate("/");
   };
@@ -88,7 +90,7 @@ function NavBar() {
   const goRecursos = () => {
     navigate("/recursos");
   };
-  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria" 
+  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria"
   const goQS = () => {
     navigate("/quienesSomos");
   };
@@ -187,7 +189,7 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
+              className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[12.5rem]"
               style={{
                 pointerEvents: isOpenRecursos ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -201,7 +203,16 @@ function NavBar() {
                 <a href="#ebooks">Ebooks</a></li>
               <hr className="w-[90px] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs">
-                <a href="#events">Eventos</a></li>
+                <a href="#webinars">Webinars</a>
+              </li>
+              <hr className="w-[90px] mt-[.7rem] ml-4" />
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+                <a href="#FAQ">FAQ</a>
+              </li>
+              <hr className="w-[90px] mt-[.7rem] ml-4" />
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+                <a onClick={()=>navigate("/recursos/libreria")} className="cursor-pointer">Libreria</a>
+              </li>
             </ul>{" "}
           </motion.nav>
           <motion.nav
@@ -302,6 +313,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
+                      onClick={goAdminDashboard}
                       className="profile"
                     >
                       Panel
