@@ -8,36 +8,33 @@ export default function NavSoluciones() {
       }
 
       return (
-        <div className="flex flex-col justify-center items-center w-[90%] mt-1 2xl:mb-16 py-6">
-        <nav className="bg-linkIt-500 rounded-md flex justify-around font-semibold text-xs 2xl:text-base w-[100%] h-8 px-2">
-            <button className={`border-t-4 ${activeButton === 1 ? "border-t-4 border-linkIt-300 text-linkIt-300" : "border-t-4 hover:border-t-4  hover:border-linkIt-300 hover:text-linkIt-300" }`} onClick={() => handleClick(1)}>1. Rol asignado</button>
-            <button className={`border-t-4 ${activeButton === 2 ? "border-t-4 border-linkIt-300 text-linkIt-300" : "border-t-4 hover:border-t-4  hover:border-linkIt-300 hover:text-linkIt-300" }`} onClick={() => handleClick(2)}>2. Pre-alineamiento</button>
-            <button className={`border-t-4 ${activeButton === 3 ? "border-t-4 border-linkIt-300 text-linkIt-300" : "border-t-4 hover:border-t-4  hover:border-linkIt-300 hover:text-linkIt-300" }`} onClick={() => handleClick(3)}>3. Alineamiento</button>
-            <button className={`border-t-4 ${activeButton === 4 ? "border-t-4 border-linkIt-300 text-linkIt-300" : "border-t-4 hover:border-t-4  hover:border-linkIt-300 hover:text-linkIt-300" }`} onClick={() => handleClick(4)}>4. Sourcing y reclutamiento</button>
-            <button className={`border-t-4 ${activeButton === 5 ? "border-t-4 border-linkIt-300 text-linkIt-300" : "border-t-4 hover:border-t-4  hover:border-linkIt-300 hover:text-linkIt-300" }`} onClick={() => handleClick(5)}>5. Presentación de candidatos</button>
-            <button className={`border-t-4 ${activeButton === 6 ? "border-t-4 border-linkIt-300 text-linkIt-300" : "border-t-4 hover:border-t-4  hover:border-linkIt-300 hover:text-linkIt-300" }`} onClick={() => handleClick(6)}>6. Analytics and follow up</button>
+        <div className="flex flex-row justify-center items-center mt-16 2xl:mb-16 gap-[10vw]">
+        <nav className="items-start rounded-md flex flex-col font-semibold xl:space-y-9 2xl:space-y-14 2xl:text-base">
+            <button className={`text-2xl 2xl:text-5xl ${activeButton === 1 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(1)}>1. Rol asignado</button>
+            <button className={`text-2xl 2xl:text-5xl ${activeButton === 2 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(2)}>2. Pre-alineamiento</button>
+            <button className={`text-2xl 2xl:text-5xl ${activeButton === 3 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(3)}>3. Alineamiento</button>
+            <button className={`text-2xl 2xl:text-5xl ${activeButton === 4 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(4)}>4. Sourcing y reclutamiento</button>
+            <button className={`text-2xl 2xl:text-5xl ${activeButton === 5 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(5)}>5. Presentación de candidatos</button>
+            <button className={`text-2xl 2xl:text-5xl ${activeButton === 6 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(6)}>6. Analytics and follow up</button>
         </nav>
-        <div className="flex">
-        <motion.div className={`flex flex-row gap-[12rem] xl:gap-[32vw] 2xl:gap-[40vw] h-[28rem] ${activeButton === 1 ? "opacity-1 block" : "opacity-0 hidden"}`} 
+        <div className="flex bg-linkIt-300 p-6 2xl:p-12 rounded-xl w-[40vw] h-[50vh] text-white">
+        <motion.div className={` ${activeButton === 1 ? "opacity-1 block" : "opacity-0 hidden"}`} 
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: activeButton === 1 ? 0 : 30, opacity: activeButton === 1 ? 1 : 0 }}
             exit={{ x: -30, opacity: 0 }}
             transition={{ duration: 0.4 }}>
-            <h1 className="flex font-bold text-2xl mt-5 2xl:text-3xl">Rol asignado</h1>
-            <p className="mt-5 text-sm 2xl:text-xl">Este es el primer paso de nuestro proceso, aquí es <br /> donde el equipo de ventas abre un nuevo rol <br /> (puede ser de un cliente existente o nuevo). <br /><br />
-Se asigna un reclutador y un buscador para liderar <br /> el rol (a veces puede ser solo un reclutador).</p>
+            <p className="mt-5 text-xl 2xl:text-2xl">Este es el primer paso de nuestro proceso, aquí es donde el equipo de ventas abre un nuevo rol (puede ser de un cliente existente o nuevo).
+Se asigna un reclutador y un buscador para liderar el rol (a veces puede ser solo un reclutador).</p>
         </motion.div>
-        <motion.div className={`flex gap-[12rem] xl:gap-[25rem] 2xl:gap-[30vw] mx-16 2xl:mx-[12vw] h-[28rem] ${activeButton === 2 ? "opacity-1 block" : "opacity-0 hidden"}`}
+        <motion.div className={`h-[28rem] ${activeButton === 2 ? "opacity-1 block" : "opacity-0 hidden"}`}
           initial={{ x: 30, opacity: 0 }}
           animate={{ x: activeButton === 2 ? 0 : 30, opacity: activeButton === 2 ? 1 : 0 }}
           exit={{ x: -30, opacity: 0 }}
           transition={{ duration: 0.4 }}>
             <div className="flex flex-col">
-            <h1 className="font-bold text-2xl mt-5 2xl:text-3xl">Pre-alineamiento</h1>
-            <h2>¡Prepárate para conocer al cliente!</h2>
             </div>
-            <p className="mt-5 mb-12 text-sm 2xl:text-xl">
-El Alignment es la reunión en la que tienes la oportunidad de conocer al cliente cara a cara, por lo que es muy  importante que te prepares para ella. 
+            <p className="mt-5 mb-12 text- 2xl:text-2xl">
+El Alignment es la reunión en la que tienes la oportunidad de conocer al cliente cara a cara, por lo que es muy importante que te prepares para ella. 
 Aquí hay algunos consejos que puedes seguir: <br /><br />
 <li>Relájate y mantén la calma, recuerda que eres una estrella, tú puedes hacerlo.
 </li>
@@ -46,16 +43,14 @@ Aquí hay algunos consejos que puedes seguir: <br /><br />
 <li>Recuerda siempre pedir al BDM la descripción del trabajo del cliente (la enviarán, pero en caso de que no lo hagan, contáctalos y pídelo).</li>
 </p>
         </motion.div>
-        <motion.div className={`flex flex-row gap-[12rem] xl:gap-[25rem] 2xl:gap-[30vw] mx-16 2xl:mx-[12vw] h-[28rem] ${activeButton === 3 ? "opacity-1 block" : "opacity-0 hidden"}`} 
+        <motion.div className={`h-[28rem] ${activeButton === 3 ? "opacity-1 block" : "opacity-0 hidden"}`} 
          initial={{ x: 30, opacity: 0 }}
             animate={{ x: activeButton === 3 ? 0: 30, opacity: activeButton === 3 ? 1 : 0 }}
             exit={{ x: -30, opacity: 0 }}
             transition={{ duration: 0.4 }}>
         <div className="flex flex-col">
-            <h1 className="font-bold text-2xl mt-5 2xl:text-3xl ">Alineamiento</h1>
-            <h2 className="text-start">El BDM te invitará a una reunión de 30 minutos con el cliente.</h2>
             </div>
-            <p className="mt-5 mb-12 text-sm 2xl:text-xl">
+            <p className="mt-5 mb-12 text-sm 2xl:text-2xl">
             En esta reunión, verás: el BDM de LinkIT, nuestro cliente, y el reclutador líder. <br /><br />
 En esta reunión debes: <br /><br />
 <li>Presentarte.</li>
@@ -66,16 +61,14 @@ En esta reunión debes: <br /><br />
 <li>Explicar los próximos pasos.</li>
 </p>
         </motion.div>
-        <motion.div className={`flex flex-row gap-[12rem] xl:gap-[25rem] 2xl:gap-[30vw] mx-16 2xl:ml-[12vw] h-[28rem] ${activeButton === 4 ? "opacity-1 block" : "opacity-0 hidden"}`}
+        <motion.div className={`h-[28rem] ${activeButton === 4 ? "opacity-1 block" : "opacity-0 hidden"}`}
           initial={{ x: 30, opacity: 0 }}
           animate={{ x: activeButton === 4 ? 0 : 30, opacity: activeButton === 4 ? 1 : 0 }}
           exit={{ x: -30, opacity: 0 }}
           transition={{ duration: 0.4 }}>
         <div className="flex flex-col">
-            <h1 className="font-bold text-2xl mt-5 2xl:text-3xl">Sourcing y reclutamiento</h1>
-            <h2 className="text-start">Definir estrategia de reclutamiento</h2>
             </div>
-            <p className="mt-5 mb-12 text-sm 2xl:text-xl">
+            <p className="mt-5 mb-12 text-sm 2xl:text-2xl">
             Aquí están algunos puntos clave a tener en cuenta:<br /><br />
 <li>Unificar las notas de alineación: ¿a quiénes estamos buscando?</li>
 <li>Dónde buscar: candidatos de otros procesos/ATS/mercado.</li>
@@ -87,16 +80,14 @@ En esta reunión debes: <br /><br />
 <li>Establecer un marcador de posición en caso de que no se haya establecido durante la alineación</li>
 </p>
         </motion.div>
-        <motion.div className={`flex flex-row gap-[12rem] xl:gap-[20rem] 2xl:gap-[30vw] mx-16 2xl:ml-[12vw] h-[28rem] ${activeButton === 5 ? "opacity-1 block" : "opacity-0 hidden"}`}
+        <motion.div className={`h-[28rem] ${activeButton === 5 ? "opacity-1 block" : "opacity-0 hidden"}`}
           initial={{ x: 30, opacity: 0 }}
           animate={{ x: activeButton === 5 ? 0 : 30, opacity: activeButton === 5 ? 1 : 0 }}
           exit={{ x: -30, opacity: 0 }}
           transition={{ duration: 0.4 }}>
         <div className="flex flex-col">
-            <h1 className="font-bold text-2xl mt-5 w-[12rem] 2xl:text-3xl">Presentación de candidatos</h1>
-            <h2 className="text-start">Endorsar candidatos</h2>
             </div>
-            <p className="mt-5 mb-12 text-sm 2xl:text-xl">
+            <p className="mt-5 mb-12 text-sm 2xl:text-2xl">
             Este es el momento en el que presentarás candidatos al cliente y programarás las entrevistas.<br /><br />
 
 <li>Antes de enviar
@@ -116,16 +107,14 @@ En esta reunión debes: <br /><br />
 </li>
 </p>
         </motion.div>
-        <motion.div className={`flex flex-row gap-[12rem] xl:gap-[25rem] 2xl:gap-[30vw] mx-16 2xl:ml-[12vw] h-[28rem] ${activeButton === 6 ? "opacity-1 block" : "opacity-0 hidden"}`}
+        <motion.div className={`h-[28rem] ${activeButton === 6 ? "opacity-1 block" : "opacity-0 hidden"}`}
           initial={{ x: 30, opacity: 0 }}
           animate={{ x: activeButton === 6 ? 0 : 30, opacity: activeButton === 6 ? 1 : 0 }}
           exit={{ x: -10, opacity: 0 }}
           transition={{ duration: 0.4 }}>
         <div className="flex flex-col">
-            <h1 className="font-bold text-2xl mt-5 w-[10rem] 2xl:text-3xl">Analytics and follow up</h1>
-            <h2 className="text-start">Presionar y hacer seguimiento</h2>
             </div>
-            <p className="mt-5 mb-12 text-sm 2xl:text-xl">
+            <p className="mt-5 mb-12 text-sm 2xl:text-2xl">
             En este punto, deberíamos estar presionando para que las entrevistas ocurran en caso de que no lo hayan hecho, intentemos ser insistentes con una cara feliz.<br /><br />
 
 <li>Candidatos
@@ -145,6 +134,7 @@ En esta reunión debes: <br /><br />
 </p>
         </motion.div>
         </div>
+
     </div>
       )
 }
