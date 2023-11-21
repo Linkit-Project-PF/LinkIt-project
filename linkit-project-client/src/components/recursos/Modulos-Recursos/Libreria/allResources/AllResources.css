@@ -37,7 +37,7 @@
     }
 }
 
-@media screen and (min-width: 1680px) and (max-width: 1720px) {
+@media screen and (min-width: 1680px) and (max-width: 1720px) and (min-height: 1050px) {
     .responsive-container {
         display: flex !important;
         flex-direction: row  !important;
