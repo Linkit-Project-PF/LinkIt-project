@@ -10,9 +10,9 @@ export default function ModuloA() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-1 bg-linkIt-500 pt-24 pl-2 md:pl-6 md:pt-24 lg:p-14 lg:pt-36 xl:pt-38 xl:p-30 xl:pb-24 2xl:pb-24">
-      <div className="flex flex-col justify-center md:mx-2 lg:mx-4 xl:mx-6 2xl:ml-12 2xl:mt-24">
-        <h1 className="text-sm font-bold md:text-2xl lg:text-4xl xl:text-5xl 2xl:text-8xl">Contrata y escala <br /> con el mejor talento IT <br /> en tan solo 5 días!</h1>
+    <div className="grid grid-cols-2 gap-1 bg-linkIt-500 pt-24 pl-2 md:pl-6 md:pt-24 lg:p-14 lg:pt-36 xl:pt-38 xl:p-30 xl:pb-24 2xl:pb-24 h-[95vh]">
+      <div className="flex flex-col justify-center md:mx-2 xl:mx-6 2xl:ml-12 2xl:mt-24">
+        <h1 className="text-sm font-bold md:text-2xl lg:text-4xl  xl:text-5xl 2xl:text-8xl font-manrope">Contrata y escala <br /> con el mejor talento IT <br /> en tan solo 5 días!</h1>
         <div className="my-1 md:my-2 lg:my-4 xl:my-6 2xl:pr-32 2xl:mt-12">
           <h3 className="text-xs md:text-base lg:text-[1.1rem] xl:text-[1.5rem] 2xl:text-5xl">Escala, gestiona y retiene al mejor <br /> talento del mundo.</h3>
         </div>
@@ -26,7 +26,7 @@ export default function ModuloA() {
       </div>
 
       <div>
-        <img className="w-auto" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
+        <img className="absolute 2xl:w-[55vw] w-[60vw] top-28 left-[40vw] 2xl:left-[45vw]" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
       </div>
     </div>
   )
