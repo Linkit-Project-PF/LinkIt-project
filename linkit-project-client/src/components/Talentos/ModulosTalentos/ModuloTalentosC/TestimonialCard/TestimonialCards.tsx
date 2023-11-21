@@ -20,9 +20,10 @@ const TestimonialCards: FunctionComponent = () => {
       // Fetch my reviews from backend api
       const fetchedReviews = await getReviews()
       // Set the reviews in the state
-      
+
       const activeReviews = fetchedReviews.filter((review) => review.archived === false)
       setReviews(activeReviews);
+
     }
 
     fetchReviews()

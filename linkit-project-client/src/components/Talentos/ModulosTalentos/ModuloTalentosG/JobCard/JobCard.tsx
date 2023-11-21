@@ -11,6 +11,7 @@ export type JobCardProps = {
   schedule: string
   location: string
 
+
   archived: boolean
 
 }

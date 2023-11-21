@@ -26,6 +26,7 @@ const JobCards: FunctionComponent = () => {
       const activeJobOffers = fetchedJobOffers.filter((jobOffer) => jobOffer.archived === false)
       dispatch(setJobOffers(activeJobOffers))
 
+
     }
 
     fetchedJobOffers()

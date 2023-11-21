@@ -1,8 +1,10 @@
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../redux/features/JobCardsSlice";
+
 
 type stateProps = {
   jobCard: {
@@ -26,6 +28,7 @@ type vacancieProps = {
 };
 
 export default function AdminPanel() {
+
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
 
@@ -33,6 +36,7 @@ export default function AdminPanel() {
   const [editing, setEditing] = useState(false)
   const [editRow, setEditRow] = useState<string | null>(null)
   const [editedData, setEditedData] = useState<Partial<vacancieProps>>({})
+
 
   useEffect(() => {
 
@@ -49,6 +53,7 @@ export default function AdminPanel() {
   }, [dispatch])
 
 
+
   const showForm = () => {
     setViewForm(!viewForm)
   }
@@ -57,8 +62,10 @@ export default function AdminPanel() {
     const resultado = confirm("¿Deseas eliminar la vacante?")
     if (resultado) {
       try {
+
         const response = await axios.delete(`https://linkit-server.onrender.com/jds/delete/${id}`)
         return alert (response.data)
+
       } catch (error: any) {
         console.error('Error al enviar la solicitud:', error.message);
       }
@@ -85,13 +92,16 @@ export default function AdminPanel() {
     setEditedData({
       ...editedData,
       [name]: value
+
     })
   }
 
   return (
     <div>
       <h1 className="text-5xl pt-32 pl-32 pb-16">Panel de Administrador</h1>
+
       <button className="border-[3px] border-linkIt-300 active:scale-90 ml-16 px-3 mb-6" onClick={showForm}>Crear vacante</button>
+
       <table className="w-[95%] mx-12 border-collapse border border-gray-300">
         <thead>
           <tr>
@@ -197,10 +207,12 @@ export default function AdminPanel() {
                 {v.archived ? 'Cerrada' : 'Abierta'}</td>
               <td>
                 {!editing && editRow !== v._id
+
                   ? <button onClick={() => handleEdit(v._id)} className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2">Editar</button>
                   : <button onClick={handleSave} className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2">Guardar</button>
                 }
                 <button onClick={() => deleteVacancie(v._id)} className="border-[3px] border-linkIt-300 active:scale-90 px-3 py-2">Borrar</button>
+
               </td>
             </tr>
           ))}

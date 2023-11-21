@@ -27,8 +27,10 @@ export default function FormVacancie() {
         try {
             const endPoint = "https://linkit-server.onrender.com/jds/create"
             const response = await axios.post(endPoint, information)
+
             alert("La vacante fue creada con éxito")
             return response.data
+
         } catch (error:any) {
             console.error('Error al enviar la solicitud:', error.message);
         }
