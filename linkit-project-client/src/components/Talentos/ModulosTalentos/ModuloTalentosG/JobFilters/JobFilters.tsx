@@ -85,7 +85,7 @@ const JobFilters: FC = () => {
   };
 
   return (
-    <div className="flex justify-between bg-white shadow rounded-lg p-4 h-[3.5rem] content-center items-center relative left-[12.5rem]">
+    <div className="flex w-4/6 justify-between items-center bg-white shadow rounded-lg p-4 h-[3.5rem]">
       <Dropdown title={dropdownTitles.stack} options={['Frontend', 'Backend', 'Fullstack']} onSelect={handleSelect('stack')} />
       <Dropdown title={dropdownTitles.type} options={['Permanent', 'Contract', 'Internship']} onSelect={handleSelect('type')} />
       <Dropdown title={dropdownTitles.location} options={['Remote', 'Onsite', 'Hybrid']} onSelect={handleSelect('location')} />

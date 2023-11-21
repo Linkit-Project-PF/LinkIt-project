@@ -20,7 +20,6 @@ import { setResources, setBlogs, setEbooks, setEvents } from "./redux/features/R
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
-import { setJobOffers } from "./redux/features/JobCardsSlice";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 
 const registerVariants: Variants = {
@@ -104,13 +103,9 @@ function App() {
      */
     const fetchData = async () => {
       try {
-        const responseJd = await axios.get(
-          "https://linkit-server.onrender.com/jds/find"
-        );
         const responseResources = await axios.get(
           "https://linkit-server.onrender.com/posts/find"
         );
-        dispatch(setJobOffers(responseJd.data));
         dispatch(setResources(responseResources.data))
         dispatch(setEvents())
         dispatch(setBlogs())
