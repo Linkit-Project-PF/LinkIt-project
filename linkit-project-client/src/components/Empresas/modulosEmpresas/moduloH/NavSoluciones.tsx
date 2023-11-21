@@ -9,7 +9,7 @@ export default function NavSoluciones() {
 
       return (
         <div className="flex flex-row justify-center items-center mt-16 2xl:mb-16 gap-[10vw]">
-        <nav className="items-start rounded-md flex flex-col font-semibold space-y-14 2xl:text-base">
+        <nav className="items-start rounded-md flex flex-col font-semibold xl:space-y-9 2xl:space-y-14 2xl:text-base">
             <button className={`text-2xl 2xl:text-5xl ${activeButton === 1 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(1)}>1. Rol asignado</button>
             <button className={`text-2xl 2xl:text-5xl ${activeButton === 2 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(2)}>2. Pre-alineamiento</button>
             <button className={`text-2xl 2xl:text-5xl ${activeButton === 3 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(3)}>3. Alineamiento</button>
@@ -17,7 +17,7 @@ export default function NavSoluciones() {
             <button className={`text-2xl 2xl:text-5xl ${activeButton === 5 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(5)}>5. Presentación de candidatos</button>
             <button className={`text-2xl 2xl:text-5xl ${activeButton === 6 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(6)}>6. Analytics and follow up</button>
         </nav>
-        <div className="flex bg-linkIt-300 p-12 rounded-xl w-[40vw] h-[50vh] text-white">
+        <div className="flex bg-linkIt-300 p-6 2xl:p-12 rounded-xl w-[40vw] h-[50vh] text-white">
         <motion.div className={` ${activeButton === 1 ? "opacity-1 block" : "opacity-0 hidden"}`} 
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: activeButton === 1 ? 0 : 30, opacity: activeButton === 1 ? 1 : 0 }}

@@ -100,10 +100,12 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   if (Object.values(errors).every((error) => error === "")) {
     try {
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
-      console.log(response)
+      if(response.status === 200) {
+        alert('Ahora eres uno de nuestros contactos!')
+      }
       return response
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
 }
 }
@@ -206,7 +208,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         }>Enviar</button>
         </div>
         <div>
-        <input className={`${errors.message ? 'border-red-600 placeholder-red-600' : 'border-white placeholder-white'} border rounded-lg bg-transparent text-white p-2 2xl:p-3 pb-20 2xl:pb-[17vh] outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[20vh] 2xl:text-xl break-words`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onFocus={() => handleFieldFocus("message")} />
+        <input className={`${errors.message ? 'border-red-600 placeholder-red-600' : 'border-white placeholder-white'} border rounded-lg bg-transparent text-white p-2 2xl:p-3 pb-20 xl:pb-32 2xl:pb-[17vh] outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[20vh] 2xl:text-xl break-words`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onFocus={() => handleFieldFocus("message")} />
         <p className={`ml-4 text-sm 2xl:text-xl text-red-600 ${focusedField === "message" && errors.message ? "opacity-1" : "opacity-0"}`}>
               {focusedField === "message" && errors.message ? errors.message : ""}
             </p>
