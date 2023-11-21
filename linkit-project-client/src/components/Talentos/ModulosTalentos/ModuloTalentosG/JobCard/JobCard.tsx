@@ -12,7 +12,7 @@ export type JobCardProps = {
   location: string
 }
 
-export const JobCard: FunctionComponent<JobCardProps> = ({ title, description, location, modality, schedule }) => {
+export const JobCard: FunctionComponent<JobCardProps> = ({ title, location, modality, schedule }) => {
   return (
     <div className="flex space-x-3 bg-white border border-gray-300 shadow rounded-md p-4 max-w-sm w-full ">
       <div className="animate-pulse rounded-full bg-slate-700 h-12 w-12"></div>

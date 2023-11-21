@@ -20,7 +20,6 @@ import { setResources, setBlogs, setEbooks, setEvents } from "./redux/features/R
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
-import { setJobOffers } from "./redux/features/JobCardsSlice";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 
 const registerVariants: Variants = {
