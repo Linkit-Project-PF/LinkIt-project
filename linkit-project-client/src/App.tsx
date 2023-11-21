@@ -103,13 +103,9 @@ function App() {
      */
     const fetchData = async () => {
       try {
-        const responseJd = await axios.get(
-          "https://linkit-server.onrender.com/jds/find"
-        );
         const responseResources = await axios.get(
           "https://linkit-server.onrender.com/posts/find"
         );
-        dispatch(setJobOffers(responseJd.data));
         dispatch(setResources(responseResources.data))
         dispatch(setEvents())
         dispatch(setBlogs())
