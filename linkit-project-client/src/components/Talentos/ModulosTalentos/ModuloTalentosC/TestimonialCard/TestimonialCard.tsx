@@ -1,17 +1,22 @@
-import { motion } from 'framer-motion';
-import { FunctionComponent } from 'react';
+import { motion } from "framer-motion";
+import { FunctionComponent } from "react";
 
 export type TestimonialCardProps = {
-  _id: string,
-  nameUserOrCompany: string,
-  rol: string,
-  createdDate: string,
-  country: string,
-  detail: string,
-  archived: boolean
+  _id: string;
+  name: string;
+  rol: string;
+  createdDate: string;
+  country: string;
+  detail: string;
+  archived: boolean;
 };
 
-const TestimonialCard: FunctionComponent<TestimonialCardProps> = ({ detail, nameUserOrCompany, rol, country }) => {
+const TestimonialCard: FunctionComponent<TestimonialCardProps> = ({
+  detail,
+  name,
+  rol,
+  country,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -23,7 +28,7 @@ const TestimonialCard: FunctionComponent<TestimonialCardProps> = ({ detail, name
         <p className="text-base font-semibold">{detail}</p>
       </div>
       <div className="flex flex-col justify-start h-2/6 mt-3">
-        <p className="font-semibold">{nameUserOrCompany}</p>
+        <p className="font-semibold">{name}</p>
         <p className="text-[0.9rem]">{rol}</p>
         <p className="text-[0.9rem]">{country}</p>
       </div>

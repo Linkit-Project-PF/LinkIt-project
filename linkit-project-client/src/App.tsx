@@ -9,18 +9,24 @@ import Talentos from "./components/Talentos/Talentos";
 import Register from "./components/register/Register";
 import PreRegisterForm from "./components/register/preRegisterForm";
 import Login from "./components/Login/Login";
-import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx"
+import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   setPressLogin,
   setPressSignUp,
   setPressRegister,
 } from "./redux/features/registerLoginSlice";
-import { setResources, setBlogs, setEbooks, setEvents } from "./redux/features/ResourcesSlice.ts";
+import {
+  setResources,
+  setBlogs,
+  setEbooks,
+  setEvents,
+} from "./redux/features/ResourcesSlice.ts";
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
+import { SUPERADMN_ID } from "./env.ts";
 
 const registerVariants: Variants = {
   hidden: {
@@ -104,12 +110,13 @@ function App() {
     const fetchData = async () => {
       try {
         const responseResources = await axios.get(
-          "https://linkit-server.onrender.com/posts/find"
+          "https://linkit-server.onrender.com/posts/find",
+          { headers: { Authorization: `Bearer ${SUPERADMN_ID}` } }
         );
-        dispatch(setResources(responseResources.data))
-        dispatch(setEvents())
-        dispatch(setBlogs())
-        dispatch(setEbooks())
+        dispatch(setResources(responseResources.data));
+        dispatch(setEvents());
+        dispatch(setBlogs());
+        dispatch(setEbooks());
       } catch (error) {
         if (error instanceof AxiosError) console.log({ error: error.message });
       }
