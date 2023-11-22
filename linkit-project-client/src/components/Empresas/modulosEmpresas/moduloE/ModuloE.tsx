@@ -32,7 +32,7 @@ export default function ModuloE() {
                     </div>
                 </ul>
                 <ul className="grid grid-cols-4 justify-items-center pb-8 relative">
-                <div className="line top-[-33px] left-[-23px] md:top-[-28px] md:left-[-5px] lg:top-[-23px] lg:left-[6px] xl:top-[-10px] xl:left-[20px] 2xl:top-[-9px] 2xl:left-[47px] mb-9"></div>
+                <div className="line top-[-33px] left-[-23px] md:top-[-28px] md:left-[-5px] lg:top-[20px] lg:left-[6px] xl:top-[25px] xl:left-[20px] 2xl:top-[28px] 2xl:left-[47px] mb-9"></div>
                     <li className="flex  items-center justify-center text-sm md:text-sm lg:text-xl xl:text-2xl 2xl:text-3xl  text-linkIt-400 h-5 w-5 md:h-7 md:w-7 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16 font-bold  bg-white rounded-full">1</li>
                     <li className="flex  items-center justify-center text-sm md:text-sm lg:text-xl xl:text-2xl 2xl:text-3xl  text-linkIt-400 h-5 w-5 md:h-7 md:w-7 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16 font-bold  bg-white rounded-full">2</li>
                     <li className="flex  items-center justify-center text-sm md:text-sm lg:text-xl xl:text-2xl 2xl:text-3xl  text-linkIt-400 h-5 w-5 md:h-7 md:w-7 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16 font-bold  bg-white rounded-full">3</li>

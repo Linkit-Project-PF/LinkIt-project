@@ -1,0 +1,9 @@
+
+section::before {
+    content: "";
+    display: block;
+    height: 5rem; 
+    margin-top: -5rem; 
+    visibility: hidden;
+    pointer-events: none;
+}
