@@ -69,9 +69,32 @@ export default function FormVacancie() {
     }
   };
 
+<<<<<<< HEAD
   return (
     <div className="flex flex-col m-4 justify-center items-center">
       <h1 className="text-2xl">Nueva vacante</h1>
+=======
+    const handleSubmit = async(e:any)=>{
+        e.preventDefault();
+        try {
+            const endPoint = "https://linkit-server.onrender.com/jds/create"
+            const response = await axios.post(endPoint, information)
+            alert("La vacante fue creada con éxito")
+            return response.data
+        } catch (error:any) {
+            console.error('Error al enviar la solicitud:', error.message);
+        }
+        setInformation({
+            title: "",
+            description: "",
+            location: "",
+            modality: "",
+            requisites: "",
+            schedule: "",
+            stack: "",
+        })
+    }
+>>>>>>> fcab938d704edd4d99a862aef44a1dc0883b8934
 
       <form
         onSubmit={handleSubmit}
