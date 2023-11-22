@@ -106,7 +106,7 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 // }
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (Object.values(errors).every((error) => error === "")) {
+  if (Object.values(errors)) {
     try {
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
       if(response.status === 200) {
@@ -116,9 +116,10 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
     } catch (error) {
       alert(error)
     }
+} else {
+  alert('Por favor, rellena todos los campos correctamente')
 }
 }
-
   return (
     <div className="bg-linkIt-300 text-white flex flex-row p-10 2xl:p-32 gap-[10vw] 2xl:gap-[10vw]">
       <h1 className="font-semibold text-[2.5rem] 2xl:text-8xl">Contáctanos</h1>
