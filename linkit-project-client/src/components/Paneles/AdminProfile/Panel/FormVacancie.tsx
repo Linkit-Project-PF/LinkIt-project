@@ -40,8 +40,7 @@ export default function FormVacancie() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      // const endPoint = "https://linkit-server.onrender.com/jds/create";
-      const endPoint = "http://localhost:3000/jds/create";
+      const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
       }); //TODO THIS ID MUST BE FROM THE LOGGED USER ON REDUX PERSIST FOR ROUTE PROTECT
@@ -69,32 +68,9 @@ export default function FormVacancie() {
     }
   };
 
-<<<<<<< HEAD
   return (
     <div className="flex flex-col m-4 justify-center items-center">
       <h1 className="text-2xl">Nueva vacante</h1>
-=======
-    const handleSubmit = async(e:any)=>{
-        e.preventDefault();
-        try {
-            const endPoint = "https://linkit-server.onrender.com/jds/create"
-            const response = await axios.post(endPoint, information)
-            alert("La vacante fue creada con éxito")
-            return response.data
-        } catch (error:any) {
-            console.error('Error al enviar la solicitud:', error.message);
-        }
-        setInformation({
-            title: "",
-            description: "",
-            location: "",
-            modality: "",
-            requisites: "",
-            schedule: "",
-            stack: "",
-        })
-    }
->>>>>>> fcab938d704edd4d99a862aef44a1dc0883b8934
 
       <form
         onSubmit={handleSubmit}
