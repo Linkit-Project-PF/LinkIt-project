@@ -64,7 +64,7 @@ export default function AdminPanel() {
       try {
 
         const response = await axios.delete(`https://linkit-server.onrender.com/jds/delete/${id}`)
-        return alert (response.data)
+        return alert(response.data)
 
       } catch (error: any) {
         console.error('Error al enviar la solicitud:', error.message);
@@ -81,7 +81,13 @@ export default function AdminPanel() {
     }
   }
 
-  const handleSave = () => {
+  const handleSave = async (id: string) => {
+    try {
+      const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`
+      await axios.put(endPoint, editedData)
+    } catch (error: any) {
+      console.error('Error al enviar la solicitud:', error.message);
+    }
     setEditing(false)
     setEditRow(null)
     setEditedData({})
@@ -209,7 +215,7 @@ export default function AdminPanel() {
                 {!editing && editRow !== v._id
 
                   ? <button onClick={() => handleEdit(v._id)} className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2">Editar</button>
-                  : <button onClick={handleSave} className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2">Guardar</button>
+                  : <button onClick={() => handleSave(v._id)} className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2">Guardar</button>
                 }
                 <button onClick={() => deleteVacancie(v._id)} className="border-[3px] border-linkIt-300 active:scale-90 px-3 py-2">Borrar</button>
 
