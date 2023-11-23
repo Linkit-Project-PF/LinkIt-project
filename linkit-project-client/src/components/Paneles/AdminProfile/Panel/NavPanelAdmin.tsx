@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 export default function NavPanelAdmin() {
   return (
     <nav>
-        <ul className="flex flex-row m-16 mb-4 mt-6 pl-12">
-            <li className="mx-6"><NavLink to="/AdminDashboard/vacantes">Vacantes</NavLink></li>
-            <li className="mx-6"><NavLink to="/AdminDashboard/recursos">Rescursos</NavLink></li>
-            <li className="mx-6"><NavLink to="/AdminDashboard/reviews">Reviews</NavLink></li>
+        <ul className="flex flex-row p-6 pl-16 pb-0">
+            <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/vacantes">Vacantes</NavLink></li>
+            <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/recursos">Rescursos</NavLink></li>
+            <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/reviews">Reviews</NavLink></li>
         </ul>
     </nav>
   )

@@ -6,6 +6,7 @@ import AdminReviews from "./AdminReviews/AdminReviews";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Footer from "../../../../Utils/Footer/Footer";
 
 type userInfoProps = {
     _id:string
@@ -37,13 +38,15 @@ export default function AdminPanel() {
 
     return (
         <div className="pt-32">
-            <h1 className="text-5xl pt-6 pl-32">Hola {userData.name}!</h1>
+            <h1 className="text-5xl pt-6 pl-16 font-bold">Hola {userData.name}!</h1>
             <NavPanelAdmin />
             <Routes>
                 <Route path="vacantes" element={<Vacancies />} />
                 <Route path="recursos" element={<AdminRecursos />} />
                 <Route path="reviews" element={<AdminReviews />} />
             </Routes>
+            <br />
+            <Footer/>
         </div>
     )
 }
