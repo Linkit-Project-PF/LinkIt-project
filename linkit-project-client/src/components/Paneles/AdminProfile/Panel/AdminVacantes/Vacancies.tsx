@@ -13,12 +13,14 @@ type stateProps = {
 type vacancieProps = {
   code: string;
   title: string;
+  company: string
   description: string;
   createdDate: string;
   location: string;
   modality: string;
   requirements: string[];
   stack: string[];
+  users: any[]
   archived: boolean;
   __v: number;
   _id: string;
@@ -41,8 +43,8 @@ export default function Vacancies() {
         const response = await axios(
           "https://linkit-server.onrender.com/jds/find",
           { headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` } }
-            //headers: { Authorization: `Bearer ${token}` }//* descomentar cuando se tenga  creado el logeo de admin
-        ); 
+          //headers: { Authorization: `Bearer ${token}` }//* descomentar cuando se tenga  creado el logeo de admin
+        );
         dispatch(setJobOffers(response.data));
       } catch (error) {
         console.error("Error al cargar las ofertas de trabajo", error);
@@ -62,8 +64,8 @@ export default function Vacancies() {
         const response = await axios.delete(
           `https://linkit-server.onrender.com/jds/delete/${id}`,
           { headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` } }
-            // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
-        ); 
+          // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+        );
         dispatch(setJobOffers(response.data));
         return alert("Vacante cerrada con exito");
       } catch (error: any) {
@@ -86,7 +88,7 @@ export default function Vacancies() {
       const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
       await axios.put(endPoint, editedData, {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
-            // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+        // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
     } catch (error: any) {
       console.error("Error al enviar la solicitud:", error.message);
@@ -119,14 +121,14 @@ export default function Vacancies() {
         <thead>
           <tr>
             <th className="border border-gray-300 px-3 py-2">Título Vacante</th>
+            <th className="border border-gray-300 px-3 py-2">Empresa</th>
             <th className="border border-gray-300 px-3 py-2">Descripción</th>
-            <th className="border border-gray-300 px-3 py-2">
-              Fecha de publicación
-            </th>
+            <th className="border border-gray-300 px-3 py-2">Fecha de publicación</th>
             <th className="border border-gray-300 px-3 py-2">Locación</th>
             <th className="border border-gray-300 px-3 py-2">Modalidad</th>
             <th className="border border-gray-300 px-3 py-2">Requisitos</th>
             <th className="border border-gray-300 px-3 py-2">Tecnologías</th>
+            <th className="border border-gray-300 px-3 py-2">Postulados</th>
             <th className="border border-gray-300 px-3 py-2">Estado</th>
           </tr>
         </thead>
@@ -141,7 +143,22 @@ export default function Vacancies() {
                     className="w-[80%]"
                     type="text"
                     name="title"
+                    autoComplete="off"
                     placeholder={v.title}
+                    onChange={handleChange}
+                  />
+                )}
+              </td>
+              <td className="border border-gray-300 px-3 py-2">
+                {!editing && !editing && editRow !== v._id ? (
+                  v.company
+                ) : (
+                  <input
+                    className="w-[80%]"
+                    type="text"
+                    name="company"
+                    autoComplete="off"
+                    placeholder={v.company}
                     onChange={handleChange}
                   />
                 )}
@@ -154,6 +171,7 @@ export default function Vacancies() {
                     className="w-[80%]"
                     type="text"
                     name="description"
+                    autoComplete="off"
                     placeholder={v.description}
                     onChange={handleChange}
                   />
@@ -170,6 +188,7 @@ export default function Vacancies() {
                     className="w-[80%]"
                     type="text"
                     name="location"
+                    autoComplete="off"
                     placeholder={v.location}
                     onChange={handleChange}
                   />
@@ -183,6 +202,7 @@ export default function Vacancies() {
                     className="w-[80%]"
                     type="text"
                     name="modality"
+                    autoComplete="off"
                     placeholder={v.modality}
                     onChange={handleChange}
                   />
@@ -196,7 +216,8 @@ export default function Vacancies() {
                     className="w-[80%]"
                     type="text"
                     name="requisites"
-                    placeholder={v.requirements.join("-")}
+                    autoComplete="off"
+                    placeholder={v.requirements.join("")}
                     onChange={handleChange}
                   />
                 )}
@@ -209,10 +230,14 @@ export default function Vacancies() {
                     className="w-[80%]"
                     type="text"
                     name="stack"
+                    autoComplete="off"
                     placeholder={v.stack.join(" - ")}
                     onChange={handleChange}
                   />
                 )}
+              </td>
+              <td className="border border-gray-300 px-3 py-2">
+               {v.users.length}
               </td>
               <td className="border border-gray-300 px-3 py-2">
                 {v.archived ? "Cerrada" : "Abierta"}
