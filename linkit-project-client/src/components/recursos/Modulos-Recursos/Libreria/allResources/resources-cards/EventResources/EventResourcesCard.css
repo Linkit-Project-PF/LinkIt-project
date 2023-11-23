@@ -15,6 +15,23 @@
     }
 }
 
+@media screen and (min-width: 1366px) and (max-width: 1440px){
+    .lg-card-resources{
+        width: 17rem !important;
+        height: 32rem !important;
+    }
+    .card-thumbnail-resources{
+        height: 20rem !important;
+        
+    }
+    .category-resources{
+        font-size: .7rem !important;
+    }
+    .title-resources{
+        font-size: 1rem !important;
+    }
+}
+
 @media screen and (min-width: 1440px) and (max-width: 1670px){
     .lg-card-resources{
         width: 19vw !important;
