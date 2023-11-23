@@ -30,7 +30,7 @@ export default function Vacancies() {
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
-
+  console.log(data)
 
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -98,7 +98,7 @@ export default function Vacancies() {
     setEditedData({});
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedData({
       ...editedData,
@@ -217,7 +217,7 @@ export default function Vacancies() {
                     type="text"
                     name="requisites"
                     autoComplete="off"
-                    placeholder={v.requirements.join("")}
+                    placeholder={v.requirements.join(", ")}
                     onChange={handleChange}
                   />
                 )}
@@ -237,7 +237,7 @@ export default function Vacancies() {
                 )}
               </td>
               <td className="border border-gray-300 px-3 py-2">
-               {v.users.length}
+                {v.users.length}
               </td>
               <td className="border border-gray-300 px-3 py-2">
                 {v.archived ? "Cerrada" : "Abierta"}
