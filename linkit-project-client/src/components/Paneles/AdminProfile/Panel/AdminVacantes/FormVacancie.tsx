@@ -20,7 +20,7 @@ export default function FormVacancie() {
   });
 
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
     //! NOTE: This props are arrays, this is done so that everytime form user separes with ', ' a new array item is created.
@@ -38,7 +38,7 @@ export default function FormVacancie() {
     }
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const endPoint = "https://linkit-server.onrender.com/jds/create";

@@ -98,7 +98,7 @@ export default function Vacancies() {
     setEditedData({});
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "requirements" || name === "technologies") {
       setEditedData({
