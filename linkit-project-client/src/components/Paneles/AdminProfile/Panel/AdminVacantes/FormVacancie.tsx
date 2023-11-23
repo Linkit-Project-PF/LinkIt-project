@@ -1,22 +1,42 @@
 import { useState } from "react";
 import axios from "axios";
+import { validateForm } from "../../../errors/validation";
+import { ValidationError } from "../../../errors/errors";
 
 export default function FormVacancie() {
+  //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
   const [information, setInformation] = useState({
-    code: "",
+    code: "", //! what is thats supposed to be?
     title: "",
     description: "", //! 10 chars minimum back requirement.
+    type: "", //! ASK COMPANY ON FRIDAY what is supposed to be this
     location: "",
     modality: "", //TODO This should be a select/checkbox as there are only three options 'full-time', 'part-time' or 'freelance'
-    requirements: [],
     stack: [],
-    type: "", //! ASK COMPANY ON FRIDAY what is supposed to be this
-    benefits: [],
     aboutUs: "",
     aboutClient: "",
     responsabilities: "",
+    requirements: [],
     niceToHave: [],
+    benefits: [],
     company: "", //TODO This may be a select with all companies names ? Do it with route companies/find, save company name
+  });
+
+  const [errors, setErrors] = useState({
+    code: "",
+    title: "",
+    description: "",
+    type: "",
+    location: "",
+    modality: "",
+    stack: "",
+    aboutUs: "",
+    aboutClient: "",
+    responsabilities: "",
+    requirements: "",
+    niceToHave: "",
+    benefits: "",
+    company: "",
   });
 
 
@@ -36,11 +56,18 @@ export default function FormVacancie() {
         [name]: value,
       });
     }
+
+    //! NOTE: test this logic & the errors implementation
+    setErrors({
+      ...errors,
+      [name]: value,
+    })
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      await validateForm(information); //TODO: this is a custom error, create a custom error handler
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
@@ -50,22 +77,24 @@ export default function FormVacancie() {
       setInformation({
         code: "",
         title: "",
-        description: "",
+        description: "", 
+        type: "", 
         location: "",
         modality: "",
-        requirements: [],
         stack: [],
-        type: "",
-        benefits: [],
         aboutUs: "",
         aboutClient: "",
         responsabilities: "",
+        requirements: [],
         niceToHave: [],
+        benefits: [],
         company: "",
       });
       return response.data;
-    } catch (error: any) {
-      console.error("Error al enviar la solicitud:", error.message);
+    } catch (error) {
+      console.error("Error al enviar la solicitud:", error);
+      //TODO: this is a custom error, create a custom error handler
+      throw new ValidationError(`Error al ingresar los datos en el formulario: ${(error as Error).message}`)
     }
   };
 
