@@ -19,6 +19,7 @@ export default function FormVacancie() {
     company: "", //TODO This may be a select with all companies names ? Do it with route companies/find, save company name
   });
 
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
