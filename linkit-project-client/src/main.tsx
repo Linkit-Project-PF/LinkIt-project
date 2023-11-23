@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import './i18.ts'
 
 const persistor = persistStore(store)
 
