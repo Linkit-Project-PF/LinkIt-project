@@ -13,14 +13,14 @@ type stateProps = {
 type vacancieProps = {
   code: string;
   title: string;
-  company: string
+  company: string;
   description: string;
   createdDate: string;
   location: string;
   modality: string;
   requirements: string[];
   stack: string[];
-  users: any[]
+  users: string[];
   archived: boolean;
   __v: number;
   _id: string;
@@ -30,7 +30,6 @@ export default function Vacancies() {
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
-
 
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -86,12 +85,13 @@ export default function Vacancies() {
   const handleSave = async (id: string) => {
     try {
       const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
+      console.log(editedData);
       await axios.put(endPoint, editedData, {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
     } catch (error: any) {
-      console.error("Error al enviar la solicitud:", error.message);
+      console.error("Error al enviar la solicitud: ", error.message);
     }
     setEditing(false);
     setEditRow(null);
@@ -100,10 +100,17 @@ export default function Vacancies() {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setEditedData({
-      ...editedData,
-      [name]: value,
-    });
+    if (name === "requirements" || name === "technologies") {
+      setEditedData({
+        ...editedData,
+        [name]: value.split(", "),
+      });
+    } else {
+      setEditedData({
+        ...editedData,
+        [name]: value,
+      });
+    }
   };
 
   return (
@@ -123,7 +130,9 @@ export default function Vacancies() {
             <th className="border border-gray-300 px-3 py-2">Título Vacante</th>
             <th className="border border-gray-300 px-3 py-2">Empresa</th>
             <th className="border border-gray-300 px-3 py-2">Descripción</th>
-            <th className="border border-gray-300 px-3 py-2">Fecha de publicación</th>
+            <th className="border border-gray-300 px-3 py-2">
+              Fecha de publicación
+            </th>
             <th className="border border-gray-300 px-3 py-2">Locación</th>
             <th className="border border-gray-300 px-3 py-2">Modalidad</th>
             <th className="border border-gray-300 px-3 py-2">Requisitos</th>
@@ -210,14 +219,14 @@ export default function Vacancies() {
               </td>
               <td className="border border-gray-300 px-3 py-2">
                 {!editing && !editing && editRow !== v._id ? (
-                  v.requirements
+                  v.requirements.join(", ")
                 ) : (
                   <input
                     className="w-[80%]"
                     type="text"
-                    name="requisites"
+                    name="requirements"
                     autoComplete="off"
-                    placeholder={v.requirements.join("")}
+                    placeholder={v.requirements.join(" ")}
                     onChange={handleChange}
                   />
                 )}
@@ -237,7 +246,7 @@ export default function Vacancies() {
                 )}
               </td>
               <td className="border border-gray-300 px-3 py-2">
-               {v.users.length}
+                {v.users.length}
               </td>
               <td className="border border-gray-300 px-3 py-2">
                 {v.archived ? "Cerrada" : "Abierta"}
