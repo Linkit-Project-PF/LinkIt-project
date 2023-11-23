@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import swal from 'sweetalert';
 
 type stateProps = {
   jobCard: {
@@ -87,7 +88,7 @@ export default function Vacancies() {
           // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setJobOffers(response.data));
-        return alert("Vacante cerrada con exito");
+        return swal("Vacante cerrada con exito");
       } catch (error: any) {
         console.error("Error al enviar la solicitud:", error.message);
       }
