@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, Variants } from "framer-motion";
 
-
 const goBackVariants: Variants = {
   hover: {
     scale: 1.1,
