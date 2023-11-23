@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import swal from 'sweetalert';
 
 type stateProps = {
   jobCard: {
@@ -36,6 +37,27 @@ export default function Vacancies() {
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancieProps>>({});
 
+
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(0);
+
+
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const dataToShow = data.slice(startIndex, endIndex)
+
+  const totalPages = Math.ceil(data.length / itemsPerPage)
+
+
+  const handleNext = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevius = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -66,7 +88,7 @@ export default function Vacancies() {
           // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setJobOffers(response.data));
-        return alert("Vacante cerrada con exito");
+        return swal("Vacante cerrada con exito");
       } catch (error: any) {
         console.error("Error al enviar la solicitud:", error.message);
       }
@@ -85,7 +107,6 @@ export default function Vacancies() {
   const handleSave = async (id: string) => {
     try {
       const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
-      console.log(editedData);
       await axios.put(endPoint, editedData, {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
@@ -115,36 +136,56 @@ export default function Vacancies() {
 
   return (
     <div>
-      <h1 className="text-5xl pl-32 pb-4">Gestión de vacantes</h1>
+      <div className="bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-[95%]">
+        <h1 className="text-4xl pl-16 py-6">Gestión de vacantes</h1>
 
-      <button
-        className="border-[3px] border-linkIt-300 active:scale-90 ml-16 px-3 mb-6"
-        onClick={showForm}
-      >
-        Crear vacante
-      </button>
+        <button
+          className="contrataBtnNavB ml-16"
+          onClick={showForm}
+        >Crear vacante
+        </button>
 
-      <table className="w-[95%] mx-12 border-collapse border border-gray-300">
+        <div className="flex flex-col items-end justify-center pr-32 pb-10">
+          <div className="pb-2">
+            <button className="" onClick={handlePrevius} disabled={currentPage === 0}>Anterior</button>
+            <button className="ml-12" onClick={handleNext} disabled={endIndex >= data.length}>Siguiente</button>
+          </div>
+          <span>Pagina {currentPage + 1} de {totalPages}</span>
+        </div>
+
+      </div>
+
+      <table className="w-[95%] mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
         <thead>
-          <tr>
-            <th className="border border-gray-300 px-3 py-2">Título Vacante</th>
-            <th className="border border-gray-300 px-3 py-2">Empresa</th>
-            <th className="border border-gray-300 px-3 py-2">Descripción</th>
-            <th className="border border-gray-300 px-3 py-2">
-              Fecha de publicación
-            </th>
-            <th className="border border-gray-300 px-3 py-2">Locación</th>
-            <th className="border border-gray-300 px-3 py-2">Modalidad</th>
-            <th className="border border-gray-300 px-3 py-2">Requisitos</th>
-            <th className="border border-gray-300 px-3 py-2">Tecnologías</th>
-            <th className="border border-gray-300 px-3 py-2">Postulados</th>
-            <th className="border border-gray-300 px-3 py-2">Estado</th>
+          <tr className="h-12">
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Título Vacante</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Empresa</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Descripción</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Fecha de publicación </th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Locación</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Modalidad</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Requisitos</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Tecnologías</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Postulados</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Estado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {data.map((v: vacancieProps) => (
+          {dataToShow.map((v: vacancieProps) => (
             <tr key={v._id}>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.title
                 ) : (
@@ -158,7 +199,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.company
                 ) : (
@@ -172,7 +214,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.description
                 ) : (
@@ -186,10 +229,12 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {v.createdDate.split("T")[0]}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.location
                 ) : (
@@ -203,7 +248,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.modality
                 ) : (
@@ -217,7 +263,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.requirements.join(", ")
                 ) : (
@@ -231,7 +278,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {!editing && !editing && editRow !== v._id ? (
                   v.stack.join(" - ")
                 ) : (
@@ -245,37 +293,44 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {v.users.length}
               </td>
-              <td className="border border-gray-300 px-3 py-2">
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit w-44">
                 {v.archived ? "Cerrada" : "Abierta"}
               </td>
-              <td>
+              <td className="px-2 border-b-2 border-black"></td>
+              <td className="p-2 border-b-2 border-black">
                 {!editing && editRow !== v._id ? (
                   <button
                     onClick={() => handleEdit(v._id)}
-                    className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2"
+                    className="active:scale-90 m-1 h-fit w-fit"
                   >
                     Editar
                   </button>
                 ) : (
                   <button
                     onClick={() => handleSave(v._id)}
-                    className="border-[3px] border-linkIt-300 active:scale-90 m-1 px-3 py-2"
+                    className="active:scale-90 m-1 h-fit w-fit"
                   >
                     Guardar
                   </button>
                 )}
                 <button
                   onClick={() => deleteVacancie(v._id)}
-                  className="border-[3px] border-linkIt-300 active:scale-90 px-3 py-2"
+                  className="active:scale-90 m-1 h-fit w-fit"
                 >
                   Cerrar
                 </button>
               </td>
+              <td className="px-2"></td>
             </tr>
           ))}
+          <tr>
+            <td className="pb-8"></td>
+          </tr>
         </tbody>
       </table>
       {viewForm && <FormVacancie />}
