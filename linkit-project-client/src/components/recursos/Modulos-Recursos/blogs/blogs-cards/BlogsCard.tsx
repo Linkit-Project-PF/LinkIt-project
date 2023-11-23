@@ -1,6 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
-import "././BlogsCards.css";
+import "./BlogsCards.css";
 
 type BlogsCardProps = {
   image: string;
@@ -44,36 +44,36 @@ function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
 
   return (
     <motion.div 
-    className="flex flex-col border-[0.13rem] w-screen lg:w-[17rem] xl:w-[21rem] rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[33rem] lg:h-[89vh] items-center justify-center bg-white card-container container"
-    key={key}
+    className="flex flex-col border-[0.13rem] w-[60vw] lg:w-[25vw] rounded-[0.625rem] font-montserrat lg:h-[73vh] items-center justify-center bg-white container"
     variants={blogsCardVariants}
     initial="hidden"
     animate="visible"
     exit="exit"
+    key={key}
     >
       <img
         src={image}
         alt={title}
-        className={`w-full h-[12rem] rounded-[0.625rem] ${
+        className={`w-full h-[15rem] lg:h-[8rem] xl:h-[20rem] rounded-[0.625rem] ${
           title.length > 20 ? "xl:-mt-4" : ""
         } image`}
       />
-      <div className="p-[3rem] flex flex-col flex-grow justify-between lg:w-full lg:p-[1rem] xl:p-[1.8rem] content-container">
+      <div className="p-[3rem] flex flex-col flex-grow w-full justify-between lg:p-[1.5rem] xl:p-[1.8rem] content-container">
         <div>
-          <p className="border-[2px] text-[0.8rem] mb-[10px] xl:mb-[1.5rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] genre">
+          <p className="border-[2px] text-[0.8rem] mb-[1rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] lg:p-[.7rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] genre">
             {genre}
           </p>
-          <h1 className="font-bold w-full text-[1.3rem] lg:text-[1rem] xl:w-[17rem] title">
+          <h1 className="font-bold text-[1rem] lg:text-[.8rem] title-card">
             {title}
           </h1>
-          <p className="font-semibold text-[0.9rem] mt-[15px] xl:mb-[1rem] xl:w-[17rem] description">
+          <p className="font-semibold text-[0.9rem] lg:text-[.8rem] w-full mt-[15px] xl:mb-[1rem] description">
             {description}
           </p>
         </div>
         <motion.a
           href={link}
           target="_blank"
-          className="text-[1rem] font-bold link"
+          className="text-[1rem] font-bold lg:text-[.8rem] lg:mt-[1rem] link"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
         >

@@ -26,7 +26,7 @@ function EbooksCards() {
         disabled={currentPage === 0}
         className=" h-[2rem] self-center"
         >
-            <img src="Vectores/previus.png" alt="previus" className='w-[3rem]' />
+            <img src="Vectores/previus.png" alt="previus" className='w-[5rem] lg:w-[6rem] xl:w-[8rem] previus' />
         </button>
         {
             eBooks.slice(startIndex, endIndex).map((ebook)=>{
@@ -46,7 +46,7 @@ function EbooksCards() {
         disabled={endIndex > eBooks.length-1}
         className=" h-[2rem] self-center"
         >
-            <img src="Vectores/next.png" alt="next" className='w-[3rem]' />
+            <img src="Vectores/next.png" alt="next" className='w-[5rem] lg:w-[6rem] xl:w-[8rem] next'/>
         </button>
     </div>
   )

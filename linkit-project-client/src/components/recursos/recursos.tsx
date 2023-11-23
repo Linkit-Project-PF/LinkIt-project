@@ -11,7 +11,7 @@ export default function Recursos() {
   return (
     <>
       <section id="moduloA">
-        <div className="bg-linkIt-200 h-[60vh] flex justify-center items-center content-center">
+        <div className="bg-linkIt-200 h-[40vh] flex justify-center items-center content-center">
           <h1 className="font-bold font-manrope text-white text-[3rem] mt-[4rem]">Recursos de LinkIT</h1>
         </div>
       </section>

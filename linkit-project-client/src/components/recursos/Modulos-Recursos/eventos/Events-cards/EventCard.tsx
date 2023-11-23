@@ -72,15 +72,15 @@ function EventCard({
         ) : (
           <img src={image} alt="event image" className="h-[2rem] rounded-[7px] w-full" />
         )}
-        <div className="flex flex-col h-[100%] p-[2rem]">
+        <div className="flex flex-col h-[100%] p-[2rem] justify-between">
           <div>
             <p className="font-semibold text-[.9rem] border-[2px] border-linkIt-300 inline-flex p-[.3rem] rounded-[7px] category">
               {category}
             </p>
           </div>
-          <h2 className="mt-[1rem] font-bold text-[1.4rem] title">{title}</h2>
-          <p className="mt-[2rem] font-[500] description">{description}</p>
-          <a href={link} target="_blank" className="mt-[2rem] font-bold">
+          <h2 className=" font-bold text-[1.4rem] title">{title}</h2>
+          <p className=" font-[500] description">{description}</p>
+          <a href={link} target="_blank" className=" font-bold">
             Ver Grabación
           </a>
         </div>
