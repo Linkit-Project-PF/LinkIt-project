@@ -1,5 +1,4 @@
 import "./Register.css";
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import validations from "./registerValidations";
 import "react-phone-number-input/style.css";
@@ -79,6 +78,33 @@ function Register() {
     };
   }, []);
 
+  useEffect(()=>{
+    if (thirdParty) {
+      dispatch(setPressRegister("hidden"));
+      Swal.fire({
+        icon: 'info',
+        title: 'Espera un momento',
+        text: `Estamos registrando tu cuenta`,
+        confirmButtonText: 'Iniciar sesión',
+        confirmButtonColor: '#2D46B9',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        showDenyButton: false,
+        showConfirmButton: true,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        didClose: () => {
+          dispatch(setPressRegister("hidden"));
+          dispatch(setPressLogin("visible"));
+        }
+      })
+    }
+  },[thirdParty])
+
   const handleInputChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +126,7 @@ function Register() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
+      try {
       if (user.role === "user") user.name = user.name + " " + user.lastname;
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
@@ -204,7 +230,29 @@ function Register() {
           response.user,
           String(user.role)
         );
-        alert(`Te has registrado exitosamente, bienvenido ${DBresponse.name}`);
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          text: `Bienvenido a LinkIT ${DBresponse.name}`,
+          confirmButtonText: 'Iniciar sesión',
+          confirmButtonColor: '#2D46B9',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          showCloseButton: false,
+          showCancelButton: false,
+          showDenyButton: false,
+          showConfirmButton: true,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+          didClose: () => {
+            dispatch(setPressRegister("hidden"));
+            dispatch(setPressLogin("visible"));
+          }
+        })
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
       }
@@ -214,13 +262,77 @@ function Register() {
         if (error.code === "auth/popup-closed-by-user") {
           console.log("Firebase: Pop-Up Closed");
         } else {
-          alert(error);
+          Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: `${error.message}`,
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#2D46B9',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showCloseButton: false,
+            showCancelButton: false,
+            showDenyButton: false,
+            showConfirmButton: true,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+            },
+            didClose: () => {
+              dispatch(setPressRegister("hidden"));
+            }
+          })
         }
       } else if (error instanceof AxiosError) {
-        alert("AxiosError: " + error);
-      } else alert("AuthError: " + error);
+        Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: `${error.response?.data}`,
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#2D46B9',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          showCloseButton: false,
+          showCancelButton: false,
+          showDenyButton: false,
+          showConfirmButton: true,
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+          didClose: () => {
+            dispatch(setPressRegister("hidden"));
+          }
+        })
+      } else Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: `${error}`,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#2D46B9',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        showDenyButton: false,
+        showConfirmButton: true,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        didClose: () => {
+          dispatch(setPressRegister("hidden"));
+        }
+      });
     }
     dispatch(setPressRegister("hidden"));
+
   };
   return (
     <>
@@ -233,20 +345,6 @@ function Register() {
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSubmit}
         >
-          <fieldset
-            className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
-            disabled={thirdParty ? true : false}
-          >
-            {thirdParty ? (
-              <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
-                <img
-                  src="https://i.gifer.com/ZKZg.gif"
-                  className="w-10 allign-self-center"
-                ></img>
-                <p>Autenticando...</p>
-              </div>
-            ) : null}
-          </fieldset>
 
           <img
             src="/Linkit-logo/linkit-logo-blue.svg"
@@ -382,7 +480,7 @@ function Register() {
             <button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
               onClick={() => handleAuthLogin("google")}
-              type="submit"
+              type="button"
             >
               {" "}
               <img

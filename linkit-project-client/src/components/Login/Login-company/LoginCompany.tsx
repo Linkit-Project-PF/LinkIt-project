@@ -1,7 +1,7 @@
 import "./LoginCompany.css";
 import { setPressLoginCompany, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -111,9 +111,15 @@ function LoginCompany() {
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
-          alert(
-            `No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}. Ahora puedes iniciar sesión`
-          );
+          Swal.fire({
+            title: `Bienvenido ${DBresponse.name}`,
+            text: 'Has ingresado correctamente',
+            icon: 'success',
+            iconColor: '#173951',
+            background: '#ECEEF0',
+            confirmButtonColor: '#01A28B',
+            confirmButtonText: 'Continuar'
+          })
         } else {
           //* In case user exists, enters here
           const usersData = await axios.get(
@@ -129,7 +135,15 @@ function LoginCompany() {
             const token = authUser._id;
             const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
-            alert(`Has ingresado. Bienvenido, ${authUser.name}`);
+            Swal.fire({
+              title: `Bienvenido de vuelta ${authUser.name}`,
+              text: 'Has ingresado correctamente',
+              icon: 'success',
+              iconColor: '#173951',
+              background: '#ECEEF0',
+              confirmButtonColor: '#01A28B',
+              confirmButtonText: 'Continuar'
+            })
           } else {
             const companyData = await axios.get(
               `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
@@ -144,7 +158,15 @@ function LoginCompany() {
               const token = authCompany._id;
               const role = authCompany.role;
               dispatch(loginSuccess({ token, role }));
-              alert(`Has ingresado. Bienvenido, ${authCompany.name}`);
+              Swal.fire({
+                title: `Bienvenido de vuelta ${authCompany.name}`,
+                text: 'Has ingresado correctamente',
+                icon: 'success',
+                iconColor: '#173951',
+                background: '#ECEEF0',
+                confirmButtonColor: '#01A28B',
+                confirmButtonText: 'Continuar'
+              })
             } else
               throw Error(
                 "Usuario autenticado pero registro no encontrado, contacte a un administrador"
@@ -158,10 +180,43 @@ function LoginCompany() {
       setThirdParty(false);
       if (error.code === "auth/popup-closed-by-user") console.log(error);
       else {
-        alert(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Usuario o contraseña incorrectos',
+          icon: 'error',
+          background: '#ECEEF0',
+          confirmButtonColor: '#01A28B',
+          confirmButtonText: 'Continuar'
+        })
       }
     }
   };
+
+  useEffect(()=>{
+    if (thirdParty) {
+      dispatch(setPressLoginCompany("hidden"));
+      Swal.fire({
+        icon: 'info',
+        title: 'Espera un momento',
+        text: `Estamos autenticando tu cuenta`,
+        confirmButtonText: 'Iniciar sesión',
+        confirmButtonColor: '#2D46B9',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        showDenyButton: false,
+        showConfirmButton: true,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        didClose: () => {
+          dispatch(setPressLoginCompany("hidden"));
+        }
+      })
+    }
+  },[thirdParty])
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
     <>
@@ -174,20 +229,6 @@ function LoginCompany() {
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSignIn}
         >
-          <fieldset
-            className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
-            disabled={thirdParty ? true : false}
-          >
-            {thirdParty ? (
-              <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col items-center">
-                <img
-                  src="https://i.gifer.com/ZKZg.gif"
-                  className="w-10 allign-self-center"
-                ></img>
-                <p>Autenticando...</p>
-              </div>
-            ) : null}
-          </fieldset>
 
           <img
             src="/Linkit-logo/linkit-logo-blue.svg"
@@ -256,7 +297,7 @@ function LoginCompany() {
             <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
               onClick={() => handleAuthClick("google")}
-              type="submit"
+              type="button"
               whileHover={{ scale: 1.05 }}
             >
               {" "}

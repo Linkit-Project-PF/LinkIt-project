@@ -13,7 +13,6 @@ import LoginTalent from "./components/Login/Login-talent/LoginTalent.tsx";
 import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-  setPressSignUp,
   setPressRegister,
 } from "./redux/features/registerLoginSlice";
 import {
@@ -179,7 +178,8 @@ function App() {
         <PreRegisterForm />
       </motion.div>
 
-      
+      {
+        pressRegister === "visible" &&
         <motion.div
           variants={registerVariants}
           initial="hidden"
@@ -188,6 +188,7 @@ function App() {
         >
           <Register />
         </motion.div>
+      }
 
 
       <Routes>
