@@ -1,5 +1,5 @@
 import "./LoginCompany.css";
-import { setPressLoginCompany } from "../../../redux/features/registerLoginSlice.ts";
+import { setPressLoginCompany, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import validations from "../loginValidations.ts";
@@ -11,6 +11,8 @@ import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSav
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 type Event = {
   target: HTMLInputElement;
@@ -21,6 +23,11 @@ function LoginCompany() {
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
+
+  const handlePressNotRegistered = () => {
+    dispatch(setPressSignUp("visible"));
+    dispatch(setPressLoginCompany("hidden"));
+  }
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -68,14 +75,29 @@ function LoginCompany() {
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
       if (response.data._id) {
-        alert(`Bienvenido ${response.data.name}`);
+        Swal.fire({
+          title: `Bienvenido de vuelta ${response.data.name}`,
+          text: 'Has ingresado correctamente',
+          icon: 'success',
+          iconColor: '#173951',
+          background: '#ECEEF0',
+          confirmButtonColor: '#01A28B',
+          confirmButtonText: 'Continuar'
+        })
         const token = response.data._id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
-      alert(error.response?.data);
+      Swal.fire({
+        title: 'Error',
+        text: 'Usuario o contraseña incorrectos',
+        icon: 'error',
+        background: '#ECEEF0',
+        confirmButtonColor: '#01A28B',
+        confirmButtonText: 'Continuar'
+      })
     }
   };
 
@@ -259,9 +281,9 @@ function LoginCompany() {
           </Link>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
             ¿Aún no tienes cuenta?
-            <motion.a href="" className="text-linkIt-300 underline">
+            <motion.span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressNotRegistered}>
               Registrarse
-            </motion.a>
+            </motion.span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
             INGRESO PARA EMPRESAS

@@ -147,25 +147,25 @@ function App() {
         variants={loginVariants}
         initial="hidden"
         animate={pressLogin}
-        className="fixed w-screen h-screen z-[100]"
+        className="fixed w-screen h-screen z-[1000] top-[.0rem]"
       >
         <PreLogin />
       </motion.div>
       
       <motion.div
-        variants={registerVariants}
+        variants={loginVariants}
         initial="hidden"
         animate={pressLoginTalent}
-        className="fixed w-screen h-screen z-[100]"
+        className="fixed w-screen h-screen z-[100] top-[.0rem]"
       >
         <LoginTalent />
       </motion.div>
 
       <motion.div
-        variants={registerVariants}
+        variants={loginVariants}
         initial="hidden"
         animate={pressLoginCompany}
-        className="fixed w-screen h-screen z-[100]"
+        className="fixed w-screen h-screen z-[100] top-[.0rem]"
       >
         <LoginCompany />
       </motion.div>
@@ -174,27 +174,21 @@ function App() {
         variants={registerVariants}
         initial="hidden"
         animate={pressSignUp}
-        className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-        onClick={() => {
-          dispatch(setPressSignUp("hidden"));
-        }}
+        className="fixed w-screen h-screen z-[100] top-[.0rem]"
       >
         <PreRegisterForm />
       </motion.div>
 
-      {pressRegister === "visible" ? (
+      
         <motion.div
-          variants={registerFormVariants}
+          variants={registerVariants}
           initial="hidden"
           animate={pressRegister}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-          onClick={() => {
-            dispatch(setPressRegister("hidden"));
-          }}
+          className="fixed w-screen h-screen z-[100] top-[.0rem]"
         >
           <Register />
         </motion.div>
-      ) : null}
+
 
       <Routes>
         <Route path="/" element={<Home />} />

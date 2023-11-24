@@ -1,4 +1,4 @@
-import { setPressLoginTalent } from "../../../redux/features/registerLoginSlice.ts";
+import { setPressLoginTalent, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import "./LoginTalent.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -10,6 +10,8 @@ import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 type Event = {
   target: HTMLInputElement;
@@ -20,6 +22,11 @@ function LoginTalent() {
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
+
+  const handlePressNotRegistered = () => {
+    dispatch(setPressSignUp("visible"));
+    dispatch(setPressLoginTalent("hidden"));
+  }
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -67,14 +74,29 @@ function LoginTalent() {
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
       if (response.data._id) {
-        alert(`Bienvenido ${response.data.name}`);
+        Swal.fire({
+          title: `Bienvenido de vuelta ${response.data.name}`,
+          text: 'Has ingresado correctamente',
+          icon: 'success',
+          iconColor: '#173951',
+          background: '#ECEEF0',
+          confirmButtonColor: '#01A28B',
+          confirmButtonText: 'Continuar'
+        })
         const token = response.data._id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
         dispatch(setPressLoginTalent("hidden"));
       }
     } catch (error: any) {
-      alert(error.response?.data);
+      Swal.fire({
+        title: 'Error',
+        text: 'Usuario o contraseña incorrectos',
+        icon: 'error',
+        background: '#ECEEF0',
+        confirmButtonColor: '#01A28B',
+        confirmButtonText: 'Continuar'
+      })
     }
   };
 
@@ -239,10 +261,10 @@ function LoginTalent() {
             </button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
-            ¿Aún no tienes cuenta?
-            <motion.a href="" className="text-linkIt-300 underline">
+            ¿Aún no tienes cuenta? {" "}
+            <motion.span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressNotRegistered}>
               Registrarse
-            </motion.a>
+            </motion.span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
             INGRESO PARA TALENTOS
