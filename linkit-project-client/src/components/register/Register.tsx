@@ -158,7 +158,6 @@ function Register() {
     }
     dispatch(setPressRegister("hidden"));
   };
-  //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
   return (
     <div className="register-container">
       <div className="register-subContainer">
@@ -219,7 +218,7 @@ function Register() {
                 }
               }}
             />
-            
+
             <input
               type="password"
               className={`register-input ${
@@ -278,7 +277,11 @@ function Register() {
                 onClick={() => handleAuthLogin("google")}
                 className="relative flex justify-center border border-linkIt-500 shadow cursor-pointer p-[.5rem] rounded-[7px] font-montserrat w-[100%] text-center font-semibold"
               >
-                <img alt="google" src="/images/google.png" className="w-[1.5rem]"/>
+                <img
+                  alt="google"
+                  src="/images/google.png"
+                  className="w-[1.5rem]"
+                />
               </a>
             </p>
 
