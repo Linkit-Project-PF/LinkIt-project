@@ -62,11 +62,13 @@ function NavBar() {
   const [isOpenRecursos, setIsOpenRecursos] = useState(false);
   const [isOpenQS, setIsOpenQS] = useState(false);
   const [isOpenUser, setIsOpenUser] = useState(false);
+  const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
 
   const scopeQS = useMenuAnimation(isOpenQS);
   const scopeUser = useMenuAnimation(isOpenUser);
   const scopeRecursos = useMenuAnimation(isOpenRecursos);
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
+  const scopeSoyTalento = useMenuAnimation(isOpenSoyTalento);
 
   const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
   const role = useSelector((state: any) => state.Authentication.authState.role)
@@ -88,11 +90,13 @@ function NavBar() {
     navigate("/SoyEmpresa");
   };
   const isActiveEmpresa = location.pathname === "/SoyEmpresa";
+  const isActiveServiciosEmpresa = location.pathname === "/SoyEmpresa#servicios";
+
   const goSoyTalento = () => {
     navigate("/SoyTalento");
   };
   const isActiveTalento = location.pathname === "/SoyTalento";
-
+  // const isActiveServiciosT = location.pathname === "/SoyTalento#serviciosT";
   const goRecursos = () => {
     navigate("/recursos");
   };
@@ -156,26 +160,57 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                <a href="#servicios">Servicios</a>
+              <li className={`relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300 ${isActiveServiciosEmpresa ? 'text-linkIt-300' : ''}`}>
+                <a href="#serviciosE">Servicios</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
                 Proceso{" "}
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a href="#cotiza">Cotiza</a> </li>
             </ul>{" "}
           </motion.nav>
 
-          <NavLink
-            className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? "underline text-linkIt-300" : ""
-              }`}
-            to="/SoyTalento"
+
+          <motion.nav
+            className="relative top-[14px] xl:top-[14px] w-[85px] xl:w-[110px] h-[45px] xl:h-[48px]"
+            ref={scopeSoyTalento}
+            onMouseEnter={() => setIsOpenSoyTalento(true)}
+            onMouseLeave={() => setIsOpenSoyTalento(false)}
           >
-            Soy Talento
-          </NavLink>
+            <motion.button
+              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? "underline text-linkIt-300" : ""
+                }`}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => goSoyTalento()}
+            >
+              Soy Talento
+              <div className="arrow w-3 ml-1 mt-[2px]">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+            <ul
+              className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
+              style={{
+                pointerEvents: isOpenSoyTalento ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+              <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
+                <a href="#serviciosT">Servicios</a>
+              </li>
+              <hr className="w-[90px] mt-5 ml-4" />
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
+              <a href="#procesoT">Proceso</a>
+              </li>
+              <hr className="w-[90px] ml-4 text-xs" />
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
+                <a href="#vacantes">Vacantes</a></li>
+            </ul>{" "}
+          </motion.nav>
+
 
           <motion.nav
             className="relative top-[14px] xl:top-[14px] w-[65px] xl:w-[85px] h-[45px] xl:h-[48px]"
@@ -201,22 +236,22 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+              <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a href="#blogs">Blogs</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a href="#ebooks">Ebooks</a></li>
               <hr className="w-[90px] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a href="#webinars">Webinars</a>
               </li>
               <hr className="w-[90px] mt-[.7rem] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a href="#FAQ">FAQ</a>
               </li>
               <hr className="w-[90px] mt-[.7rem] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a onClick={()=>navigate("/recursos/libreria")} className="cursor-pointer">Libreria</a>
               </li>
             </ul>{" "}
@@ -245,15 +280,15 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Misión</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">Misión</li>
               <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">Visión</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">Visión</li>
               <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
                 Valores e Historia
               </li>
               <hr className="w-[90px] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs">
+              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
                 Talento interno
               </li>
             </ul>{" "}
