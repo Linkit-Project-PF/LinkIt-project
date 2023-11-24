@@ -8,6 +8,8 @@ export default function NavPanelAdmin() {
             <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/vacantes">Vacantes</NavLink></li>
             <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/recursos">Rescursos</NavLink></li>
             <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/reviews">Reviews</NavLink></li>
+            <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/usuarios">Usuarios</NavLink></li>
+            <li className="text-2xl mr-16"><NavLink to="/AdminDashboard/mis-datos">Mis datos</NavLink></li>
         </ul>
     </nav>
   )
