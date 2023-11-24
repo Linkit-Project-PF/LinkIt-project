@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { JobCardProps } from '../ModulosTalentos/ModuloTalentosG/JobCard/JobCard';
+import { JobCardProps } from '../Talentos/ModulosTalentos/ModuloTalentosG/JobCard/JobCard';
 import { URL } from './reviews.service';
-import { SUPERADMN_ID } from '../../../env';
+import { SUPERADMN_ID } from '../../env';
 
 
 export const getJobOffers = async (): Promise<JobCardProps[]> => {

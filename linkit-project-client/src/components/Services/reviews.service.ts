@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TestimonialCardProps } from '../ModulosTalentos/ModuloTalentosC/TestimonialCard/TestimonialCard';
+import { TestimonialCardProps } from '../Talentos/ModulosTalentos/ModuloTalentosC/TestimonialCard/TestimonialCard';
 
 export const URL = `https://linkit-server.onrender.com`
 
