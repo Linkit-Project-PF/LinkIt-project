@@ -1,7 +1,7 @@
 // JobCardList.tsx
 import { FunctionComponent, useEffect, useState } from 'react';
 import JobCard, {JobCardProps} from './JobCard';
-import { getJobOffers } from '../../../Services/jobOffers.service';
+import { getJobOffers } from '../../../../Services/jobOffers.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobOffers } from '../../../../../redux/features/JobCardsSlice';
 

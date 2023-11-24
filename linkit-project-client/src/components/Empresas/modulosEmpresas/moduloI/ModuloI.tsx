@@ -1,4 +1,4 @@
-import arrow from "/Vectores/arrow.png";
+import arrow from "/Vectores/white-arrow.png";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 import validations from "./validations";
@@ -44,7 +44,6 @@ export default function ModuloI() {
 
 const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
-// const [focusedField, setFocusedField] = useState("");
 
   const [contacts, setContacts] = useState({
     name: "",
@@ -63,11 +62,6 @@ const scope = useMenuAnimation(isOpen);
     email: "",
     message: "",
   });
-
-  // useEffect(() => {
-  //   const validateErrors = validations(contacts);
-  //   setErrors(validateErrors);
-  // }, [contacts]);
 
 const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
   const { name, value, type, checked } = e.target;
@@ -101,12 +95,10 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
   });
 
 }
-// const handleFieldFocus = (fieldName: string) => {
-//   setFocusedField(fieldName);
-// }
+
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (Object.values(errors).every((error) => error === "")) {
+  if (Object.values(errors)) {
     try {
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
       if(response.status === 200) {
@@ -116,35 +108,35 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
     } catch (error) {
       alert(error)
     }
+} else {
+  alert('Por favor, rellena todos los campos correctamente')
 }
 }
-
   return (
-    <div className="bg-linkIt-300 text-white flex flex-row p-10 2xl:p-32 gap-[10vw] 2xl:gap-[10vw]">
-      <h1 className="font-semibold text-[2.5rem] 2xl:text-8xl">Contáctanos</h1>
-      <div className=" w-[80vw] 2xl:w-[60vw]">
-      <form className="flex flex-wrap gap-4 2xl:gap-6 mt-4" onSubmit={contactsBtn}>
+    <div className="bg-linkIt-300 text-white grid grid-cols-2 p-[4vw]">
+      <h1 className="font-semibold text-[3.5vw]">Contáctanos</h1>
+      <form className="grid grid-cols-2 gap-[1vw] -ml-[15vw] mr-[10vw] mt-[1.8vh] xl:mt-[3.8vh] text-[1.1vw] xl:text-[0.9vw]" onSubmit={contactsBtn}>
         <div>
-        <input className={`${errors.name ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} />
+        <input className={`${errors.name ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
         {errors.name && (
-              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.name}</p>
+              <p className="text-red-500 ml-3 italic">{errors.name}</p>
             )}
         </div>
         <div>
-        <input className={`${errors.lastName ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} />
+        <input className={`${errors.lastName ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} onBlur={handleChange} />
         {errors.lastName && (
-              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.lastName}</p>
+              <p className="text-red-500 ml-3 italic">{errors.lastName}</p>
             )}
         </div>
         <div>
-        <input className={`${errors.company ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} />
+        <input className={`${errors.company ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} onBlur={handleChange} />
         {errors.company && (
-              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.company}</p>
+              <p className="text-red-500 ml-3 italic">{errors.company}</p>
             )}
         </div>
         <div>
         <motion.nav
-            className={`${errors.service ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[6.5vh] xl:h-[5vh] 2xl:text-xl`}
+            className={`${errors.service ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent outline-none p-2 w-[25vw] h-[5.8vh] xl:h-[4.3vh]`}
             ref={scope}
             onClick={(e) => { 
               e.preventDefault();
@@ -173,33 +165,33 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             >
               <li className="my-2 text-base items-center">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
-              onChange={handleChange} />
+              onChange={handleChange} onBlur={handleChange} />
               <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
-              onChange={handleChange} />
+              onChange={handleChange} onBlur={handleChange} />
               <label htmlFor="Staff Augmentation" className="cursor-pointer">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
               <li className="my-2 text-base">
               <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
-              onChange={handleChange} />
+              onChange={handleChange} onBlur={handleChange} />
               <label htmlFor="Payroll Management" className="cursor-pointer">Payroll Management</label>
               </li>
             </ul>{" "}
           </motion.nav>
           {errors.service && (
-              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.service}</p>
+              <p className="text-red-500 ml-3 italic">{errors.service}</p>
             )}
           </div>
           <div className=" flex flex-col">
-        <input className={`${errors.email ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white  p-2 2xl:p-3 outline-none w-[28vw] 2xl:w-[25vw] text-sm 2xl:text-xl`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange}/>
+        <input className={`${errors.email ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
         {errors.email && (
-              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.email}</p>
+              <p className="text-red-500 ml-3 italic">{errors.email}</p>
             )}
-        <button className=" mt-12 2xl:mt-[11vh] bg-white text-linkIt-200 text-sm font-medium 2xl:font-bold p-1 2xl:p-3 w-[8vw] 2xl:w-[5vw] rounded-lg disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
+        <button className=" mt-[9vh] xl:mt-[10vh] bg-white text-linkIt-200 text-sm font-medium 2xl:font-bold p-[1vh] w-[8vw] 2xl:w-[5vw] rounded-[0.6vw] xl:rounded-[0.4vw] disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
           errors.name ||
           errors.lastName ||
           errors.company ||
@@ -217,13 +209,12 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         }>Enviar</button>
         </div>
         <div>
-        <input className={`${errors.message ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-lg bg-transparent text-white p-2 2xl:p-3 pb-20 xl:pb-32 2xl:pb-[17vh] outline-none w-[28vw] 2xl:w-[25vw] text-sm h-[20vh] 2xl:text-xl break-words`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} />
+        <input className={`${errors.message ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw] h-[19vh] pb-[15vh]`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onBlur={handleChange} />
         {errors.message && (
-              <p className="text-red-500 ml-4 text-sm 2xl:text-xl italic">{errors.message}</p>
+              <p className="text-red-500 ml-3 italic">{errors.message}</p>
             )}
         </div>
       </form>
       </div>
-    </div>
   );
 }

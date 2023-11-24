@@ -27,6 +27,7 @@ import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
+import Profile from "./components/Profiles/Profile.tsx";
 import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
 
 type registerLoginState = {
@@ -203,6 +204,7 @@ function App() {
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
+        <Route path ="/MyProfile/*" element={<Profile/>}/>
       </Routes>
     </>
   );

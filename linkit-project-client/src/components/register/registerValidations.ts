@@ -1,6 +1,7 @@
 
 type User = {
     name: string,
+    lastname: string,
     email: string,
     password: string,
     confirm_password: string
@@ -8,6 +9,7 @@ type User = {
 
 type Error = {
     name: string,
+    lastname: string,
     email: string,
     password: string,
     confirm_password: string
@@ -16,6 +18,7 @@ type Error = {
 function validations(user: User) {
     const errors: Error = {
         name: "",
+        lastname: "",
         email: "",
         password: "",
         confirm_password: ""
@@ -25,6 +28,12 @@ function validations(user: User) {
         errors.name = "Debes escribir un nombre"
     }else if(/[\d]/.test(user.name)){
         errors.name = "El nombre no debe contener numeros"
+    }
+
+    if(user.lastname.trim() === ""){
+        errors.lastname = "Debes escribir un apellido"
+    }else if(/[\d]/.test(user.lastname)){
+        errors.lastname = "El apellido no debe contener numeros"
     }
 
     if(user.email.trim() === ""){
