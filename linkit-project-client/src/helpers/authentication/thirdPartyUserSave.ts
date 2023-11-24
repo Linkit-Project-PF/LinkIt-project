@@ -6,8 +6,6 @@ export default async function saveUserThirdAuth(user: any, role: string) {
     name: user.displayName,
     email: user.email,
     image: user.photoURL,
-    phone: user.phoneNumber || "1111111",
-    country: "US",
     role: role ?? "user",
   };
   let result;

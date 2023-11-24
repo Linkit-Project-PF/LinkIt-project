@@ -2,8 +2,6 @@ import "./Register.css";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import validations from "./registerValidations";
-import PhoneInput from "react-phone-number-input";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
 import "react-phone-number-input/style.css";
 import { useDispatch } from "react-redux";
 import {
@@ -20,33 +18,23 @@ import { SUPERADMN_ID } from "../../env";
 
 function Register() {
   const dispatch = useDispatch();
-  const [phone, setPhone] = useState<string | undefined>();
-  const [country, setCountry] = useState<string | undefined>();
   const [thirdParty, setThirdParty] = useState<boolean | undefined>(false);
 
   const [user, setUser] = useState({
     name: "",
+    lastname: "",
     email: "",
     password: "",
     confirm_password: "",
     role: sessionStorage.getItem("RegisterType"),
-    phone,
-    country,
   });
   const [errors, setErrors] = useState({
     name: "",
+    lastname: "",
     email: "",
     password: "",
     confirm_password: "",
   });
-
-  useEffect(() => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      phone: phone,
-      country: country,
-    }));
-  }, [phone, country]);
 
   useEffect(() => {
     return () => {
@@ -63,18 +51,21 @@ function Register() {
     });
 
     setUser({
-      ...user,
-      [target.name]: target.value,
-    });
+        ...user,
+        [target.name]: target.value,
+      });
 
     setErrors({
       ...errors,
       [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
     });
   };
+
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      if (user.role === 'user') user.name = user.name + ' ' + user.lastname
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
         user
@@ -184,12 +175,23 @@ function Register() {
               type="text"
               className={`register-input ${errors.name ? "input-error" : ""}`}
               name="name"
-              placeholder="Nombre"
-              onChange={handleInputChange}
+              placeholder={user.role === "user" ? "Nombre" : "Nombre de la empresa"}
+              onChange={handleInputChange} 
             />
             {errors.name && (
               <p className="text-red-500 text-xs italic">{errors.name}</p>
             )}
+
+            {user.role === "user" ? <div><input
+              type="text"
+              className={`register-input ${errors.lastname ? "input-error" : ""}`}
+              name="lastname"
+              placeholder="Apellido"
+              onChange={handleInputChange} 
+            />
+            {errors.lastname && (
+              <p className="text-red-500 text-xs italic">{errors.lastname}</p>
+            )}</div> : null}
 
             <input
               type="text"
@@ -202,22 +204,6 @@ function Register() {
             {errors.email && (
               <p className="text-red-500 text-xs italic">{errors.email}</p>
             )}
-
-            <PhoneInput
-              className="register-input phone"
-              name="phone"
-              placeholder="Numero de telefono"
-              initialValueFormat="national"
-              onChange={(value: string) => {
-                setPhone(value);
-                if (typeof value === "string") {
-                  const phoneNumber = parsePhoneNumberFromString(value);
-                  if (phoneNumber) {
-                    setCountry(phoneNumber.country);
-                  }
-                }
-              }}
-            />
 
             <input
               type="password"
