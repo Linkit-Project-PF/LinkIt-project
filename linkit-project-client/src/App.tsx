@@ -8,11 +8,11 @@ import Empresas from "./components/Empresas/Empresas";
 import Talentos from "./components/Talentos/Talentos";
 import Register from "./components/register/Register";
 import PreRegisterForm from "./components/register/preRegisterForm";
-import Login from "./components/Login/Login";
+import PreLogin from "./components/Login/pre-login/PreLogin.tsx";
+import LoginTalent from "./components/Login/Login-talent/LoginTalent.tsx";
 import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-  setPressLogin,
   setPressSignUp,
   setPressRegister,
 } from "./redux/features/registerLoginSlice";
@@ -28,6 +28,18 @@ import { useEffect } from "react";
 import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 import Profile from "./components/Profiles/Profile.tsx";
+import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
+
+type registerLoginState = {
+  registerLogin:{
+    pressSignUp: string;
+    pressLogin: string;
+    pressRegister: string;
+    pressLoginTalent: string;
+    pressLoginCompany: string;
+  }
+};
+
 
 const registerVariants: Variants = {
   hidden: {
@@ -95,14 +107,16 @@ const registerFormVariants: Variants = {
 function App() {
   const dispatch = useDispatch();
   const pressSignUp = useSelector(
-    (state: any) => state.registerLogin.pressSignUp
+    (state: registerLoginState) => state.registerLogin.pressSignUp
   );
   const pressLogin = useSelector(
-    (state: any) => state.registerLogin.pressLogin
+    (state: registerLoginState) => state.registerLogin.pressLogin
   );
   const pressRegister = useSelector(
-    (state: any) => state.registerLogin.pressRegister
+    (state: registerLoginState) => state.registerLogin.pressRegister
   );
+  const pressLoginTalent = useSelector((state: registerLoginState)=>state.registerLogin.pressLoginTalent);
+  const pressLoginCompany = useSelector((state: registerLoginState)=>state.registerLogin.pressLoginCompany);
 
   useEffect(() => {
     /**
@@ -133,12 +147,27 @@ function App() {
         variants={loginVariants}
         initial="hidden"
         animate={pressLogin}
-        className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-        onClick={() => {
-          dispatch(setPressLogin("hidden"));
-        }}
+        className="fixed w-screen h-screen z-[100]"
       >
-        <Login />
+        <PreLogin />
+      </motion.div>
+      
+      <motion.div
+        variants={registerVariants}
+        initial="hidden"
+        animate={pressLoginTalent}
+        className="fixed w-screen h-screen z-[100]"
+      >
+        <LoginTalent />
+      </motion.div>
+
+      <motion.div
+        variants={registerVariants}
+        initial="hidden"
+        animate={pressLoginCompany}
+        className="fixed w-screen h-screen z-[100]"
+      >
+        <LoginCompany />
       </motion.div>
 
       <motion.div
