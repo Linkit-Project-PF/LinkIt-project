@@ -2,11 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { validateForm } from "../../../errors/validation";
 import { ValidationError } from "../../../errors/errors";
+import swal from 'sweetalert';
 
 export default function FormVacancie() {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
   const [information, setInformation] = useState({
-    code: "", //! what is thats supposed to be?
+    code: "", //! what is thats supposed to be? = 
     title: "",
     description: "", //! 10 chars minimum back requirement.
     type: "", //! ASK COMPANY ON FRIDAY what is supposed to be this
@@ -39,11 +40,12 @@ export default function FormVacancie() {
     company: "",
   });
 
+    
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
-    //! NOTE: This props are arrays, this is done so that everytime form user separes with ', ' a new array item is created.
     // In case you want to apply this logic, please state on the form that this props must be separated with a comma.
     if (arrayProps.includes(name)) {
       setInformation({
@@ -63,6 +65,7 @@ export default function FormVacancie() {
       [name]: value,
     })
   };
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,9 +74,10 @@ export default function FormVacancie() {
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
-      }); //TODO THIS ID MUST BE FROM THE LOGGED USER ON REDUX PERSIST FOR ROUTE PROTECT
+        // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+      }); 
 
-      alert("La vacante fue creada con éxito");
+      swal("La vacante fue creada con éxito");
       setInformation({
         code: "",
         title: "",
@@ -92,11 +96,11 @@ export default function FormVacancie() {
       });
       return response.data;
     } catch (error) {
-      console.error("Error al enviar la solicitud:", error);
-      //TODO: this is a custom error, create a custom error handler
       throw new ValidationError(`Error al ingresar los datos en el formulario: ${(error as Error).message}`)
     }
   };
+
+
 
   return (
     <div className="flex flex-col m-4 justify-center items-center">

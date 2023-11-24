@@ -37,6 +37,7 @@ export default function Vacancies() {
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancieProps>>({});
 
+  
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);

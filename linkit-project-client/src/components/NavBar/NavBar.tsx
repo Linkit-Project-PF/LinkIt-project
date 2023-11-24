@@ -80,7 +80,7 @@ function NavBar() {
     navigate("/");
   };
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     dispatch(logout());
     navigate("/")
   }
@@ -203,7 +203,7 @@ function NavBar() {
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-              <a href="#procesoT">Proceso</a>
+                <a href="#procesoT">Proceso</a>
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
@@ -252,7 +252,7 @@ function NavBar() {
               </li>
               <hr className="w-[90px] mt-[.7rem] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a onClick={()=>navigate("/recursos/libreria")} className="cursor-pointer">Libreria</a>
+                <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">Libreria</a>
               </li>
             </ul>{" "}
           </motion.nav>
@@ -319,8 +319,8 @@ function NavBar() {
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="profile" 
-                      onClick={() => {navigate("/MyProfile")}}
+                      className="profile"
+                      onClick={() => { navigate("/MyProfile") }}
                     >
                       Mis datos
                     </button>
@@ -347,26 +347,10 @@ function NavBar() {
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="profile"
-                    >
-                      Mis datos
-                    </button>
-                  </li>
-                  <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                    <button
                       onClick={goAdminDashboard}
                       className="profile"
                     >
                       Panel
-                    </button>
-                  </li>
-                  <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
-                    <button
-                      className="profile"
-                    >
-                      Usuarios
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -384,7 +368,7 @@ function NavBar() {
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
-                      onClick={() => {navigate("/MyProfile")}}
+                      onClick={() => { navigate("/MyProfile") }}
                     >
                       Mis datos
                     </button>
