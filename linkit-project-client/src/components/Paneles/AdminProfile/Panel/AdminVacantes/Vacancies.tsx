@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { vacancieProps } from "../../../admin.types";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
@@ -11,27 +12,10 @@ type stateProps = {
   };
 };
 
-type vacancieProps = {
-  code: string;
-  title: string;
-  company: string;
-  description: string;
-  createdDate: string;
-  location: string;
-  modality: string;
-  requirements: string[];
-  stack: string[];
-  users: string[];
-  archived: boolean;
-  __v: number;
-  _id: string;
-};
-
 export default function Vacancies() {
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
-
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
@@ -94,8 +78,8 @@ export default function Vacancies() {
         );
         dispatch(setJobOffers(response.data));
         return swal("Vacante cerrada con exito");
-      } catch (error: any) {
-        console.error("Error al enviar la solicitud:", error.message);
+      } catch (error) {
+        console.error("Error al enviar la solicitud:", (error as Error).message);
       }
     }
   };
@@ -116,8 +100,8 @@ export default function Vacancies() {
         headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
-    } catch (error: any) {
-      console.error("Error al enviar la solicitud: ", error.message);
+    } catch (error) {
+      console.error("Error al enviar la solicitud: ", (error as Error).message);
     }
     setEditing(false);
     setEditRow(null);

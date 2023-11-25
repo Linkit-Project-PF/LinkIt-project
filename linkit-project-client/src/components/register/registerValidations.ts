@@ -1,19 +1,4 @@
-
-type User = {
-    name: string,
-    lastname: string,
-    email: string,
-    password: string,
-    confirm_password: string
-}
-
-type Error = {
-    name: string,
-    lastname: string,
-    email: string,
-    password: string,
-    confirm_password: string
-}
+import { Error, User } from "./register.types"
 
 function validations(user: User) {
     const errors: Error = {
