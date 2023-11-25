@@ -1,4 +1,21 @@
-export default function validations (vacancies) {
+type Vacancies = {
+  code: string,
+  title: string,
+  description: string,
+  type: string,
+  location: string,
+  modality: string,
+  stack: string[],
+  aboutUs: string,
+  aboutClient: string,
+  responsabilities: string[],
+  requirements: string[],
+  niceToHave: string[],
+  benefits: string[],
+  company: string,
+}
+
+export default function validations (vacancies: Vacancies) {
   const errors = {
     code: "",
     title: "",
