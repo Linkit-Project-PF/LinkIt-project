@@ -337,7 +337,7 @@ function NavBar() {
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="logout"
-                      onClick={() => dispatch(logout())}
+                      onClick={handleLogout}
                     >
                       Cerrar sesión
                     </button>
@@ -385,7 +385,7 @@ function NavBar() {
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="logout"
-                      onClick={() => dispatch(logout())}
+                      onClick={handleLogout}
                     >
                       Cerrar sesión
                     </button>
