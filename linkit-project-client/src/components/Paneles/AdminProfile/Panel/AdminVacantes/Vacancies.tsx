@@ -76,7 +76,11 @@ export default function Vacancies() {
   }, [dispatch]);
 
   const showForm = () => {
-    setViewForm(!viewForm);
+    setViewForm(true);
+  };
+  
+  const noShowForm = () => {
+    setViewForm(false);
   };
 
   const deleteVacancie = async (id: string) => {
@@ -136,12 +140,12 @@ export default function Vacancies() {
   };
 
   return (
-    <div>
-      <div className="bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-[95%]">
+    <div className="mb-32">
+      <div className="bg-linkIt-500 mx-12  rounded-[20px] rounded-b-none w-auto ">
         <h1 className="text-4xl pl-16 py-6">Gestión de vacantes</h1>
 
         <button
-          className="contrataBtnNavB ml-16"
+          className="bg-linkIt-300 flex items-center rounded-[7px] ml-20 p-3 h-10 text-white text-[10px] xl:text-xs shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out"
           onClick={showForm}
         >Crear vacante
         </button>
@@ -156,7 +160,7 @@ export default function Vacancies() {
 
       </div>
 
-      <table className="w-[95%] mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
+      <table className="w-[]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
         <thead>
           <tr className="h-12">
             <th></th>
@@ -334,7 +338,7 @@ export default function Vacancies() {
           </tr>
         </tbody>
       </table>
-      {viewForm && <FormVacancie />}
+      {viewForm && <FormVacancie onClose={noShowForm}/>}
     </div>
   );
 }
