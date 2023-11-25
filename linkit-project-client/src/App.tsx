@@ -13,9 +13,6 @@ import LoginTalent from "./components/Login/Login-talent/LoginTalent.tsx";
 import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-  setPressRegister,
-} from "./redux/features/registerLoginSlice";
-import {
   setResources,
   setBlogs,
   setEbooks,
@@ -68,27 +65,6 @@ const loginVariants: Variants = {
     transition: {
       type: "spring",
       delay: 0.2,
-      duration: 1,
-    },
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: "spring",
-      delay: 0.5,
-      duration: 1,
-    },
-  },
-};
-
-const registerFormVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    x: "-100vw",
-    transition: {
-      type: "spring",
-      delay: 0.3,
       duration: 1,
     },
   },
