@@ -11,7 +11,7 @@ declare global {
 interface IComponentProps {
   children: React.ReactNode
   setFilePublicId: (value: string) => void
-
+  className?: string
 }
 
 // Create a context to manage the script loading state
@@ -29,7 +29,7 @@ const CloudinaryScriptContext = createContext({});
  *    <button>Upload</button>
  *  </CloudinaryUploadWidget>
 */
-function CloudinaryUploadWidget({children, setFilePublicId}: IComponentProps) {
+function CloudinaryUploadWidget({children, setFilePublicId, className}: IComponentProps) {
   const [loaded, setLoaded] = useState(false);
 
   const [uwConfig] = useState({
@@ -79,7 +79,7 @@ function CloudinaryUploadWidget({children, setFilePublicId}: IComponentProps) {
 
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
-      <div onClick={openCloudinaryWidget} id="upload_widget">
+      <div className={className} onClick={openCloudinaryWidget} id="upload_widget">
         {children}
       </div>
     </CloudinaryScriptContext.Provider>
