@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { ResourceProps } from "../../../admin.types";
 import { setResources } from "../../../../../redux/features/ResourcesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,19 +9,6 @@ interface RootState {
     allresources: ResourceProps[];
   };
 }
-
-type ResourceProps = {
-  id: number,
-  title: string,
-  description: string,
-  link: string,
-  type: string,
-  date: string,
-  image: string,
-  category: string,
-  archived: boolean,
-}
-
 
 export default function AdminRecursos() {
 
