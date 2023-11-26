@@ -117,9 +117,9 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       <h1 className="font-semibold text-[3.5vw]">Contáctanos</h1>
       <form className="grid grid-cols-2 gap-[1vw] -ml-[15vw] mr-[10vw] mt-[1.8vh] xl:mt-[3.8vh] text-[1.1vw] xl:text-[0.9vw]" onSubmit={contactsBtn}>
         <div>
-        <input className={`${errors.name ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
+        <input className={`${errors.name ? ' border-black' : ''} placeholder-white border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
         {errors.name && (
-              <p className="text-red-500 ml-3 italic">{errors.name}</p>
+              <p className="text-white ml-3 italic">{errors.name}</p>
             )}
         </div>
         <div>
