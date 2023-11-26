@@ -1,21 +1,6 @@
-type Vacancies = {
-  code: string,
-  title: string,
-  description: string,
-  type: string,
-  location: string,
-  modality: string,
-  stack: string[],
-  aboutUs: string,
-  aboutClient: string,
-  responsabilities: string[],
-  requirements: string[],
-  niceToHave: string[],
-  benefits: string[],
-  company: string,
-}
+import { vacancieProps } from "../../../admin.types"
 
-export default function validations (vacancies: Vacancies) {
+export default function validations (vacancies: vacancieProps) {
   const errors = {
     code: "",
     title: "",
