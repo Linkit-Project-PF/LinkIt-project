@@ -13,10 +13,6 @@ import LoginTalent from "./components/Login/Login-talent/LoginTalent.tsx";
 import Libreria from "./components/recursos/Modulos-Recursos/Libreria/Libreria.tsx";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-  setPressSignUp,
-  setPressRegister,
-} from "./redux/features/registerLoginSlice";
-import {
   setResources,
   setBlogs,
   setEbooks,
@@ -83,27 +79,6 @@ const loginVariants: Variants = {
   },
 };
 
-const registerFormVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    x: "-100vw",
-    transition: {
-      type: "spring",
-      delay: 0.3,
-      duration: 1,
-    },
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: "spring",
-      delay: 0.5,
-      duration: 1,
-    },
-  },
-};
-
 function App() {
   const dispatch = useDispatch();
   const pressSignUp = useSelector(
@@ -147,25 +122,25 @@ function App() {
         variants={loginVariants}
         initial="hidden"
         animate={pressLogin}
-        className="fixed w-screen h-screen z-[100]"
+        className="fixed w-screen h-screen z-[1000] top-[.0rem]"
       >
         <PreLogin />
       </motion.div>
       
       <motion.div
-        variants={registerVariants}
+        variants={loginVariants}
         initial="hidden"
         animate={pressLoginTalent}
-        className="fixed w-screen h-screen z-[100]"
+        className="fixed w-screen h-screen z-[100] top-[.0rem]"
       >
         <LoginTalent />
       </motion.div>
 
       <motion.div
-        variants={registerVariants}
+        variants={loginVariants}
         initial="hidden"
         animate={pressLoginCompany}
-        className="fixed w-screen h-screen z-[100]"
+        className="fixed w-screen h-screen z-[100] top-[.0rem]"
       >
         <LoginCompany />
       </motion.div>
@@ -174,27 +149,23 @@ function App() {
         variants={registerVariants}
         initial="hidden"
         animate={pressSignUp}
-        className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-        onClick={() => {
-          dispatch(setPressSignUp("hidden"));
-        }}
+        className="fixed w-screen h-screen z-[100] top-[.0rem]"
       >
         <PreRegisterForm />
       </motion.div>
 
-      {pressRegister === "visible" ? (
+      {
+        pressRegister === "visible" &&
         <motion.div
-          variants={registerFormVariants}
+          variants={registerVariants}
           initial="hidden"
           animate={pressRegister}
-          className="bg-black bg-opacity-50 fixed top-0 left-0 w-screen h-screen z-[100]"
-          onClick={() => {
-            dispatch(setPressRegister("hidden"));
-          }}
+          className="fixed w-screen h-screen z-[100] top-[.0rem]"
         >
           <Register />
         </motion.div>
-      ) : null}
+      }
+
 
       <Routes>
         <Route path="/" element={<Home />} />

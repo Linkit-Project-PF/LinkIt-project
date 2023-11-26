@@ -1,7 +1,7 @@
-import { setPressLoginTalent } from "../../../redux/features/registerLoginSlice.ts";
+import { setPressLoginTalent, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import "./LoginTalent.css";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -10,6 +10,8 @@ import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 type Event = {
   target: HTMLInputElement;
@@ -20,6 +22,11 @@ function LoginTalent() {
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
+
+  const handlePressNotRegistered = () => {
+    dispatch(setPressSignUp("visible"));
+    dispatch(setPressLoginTalent("hidden"));
+  }
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -67,14 +74,29 @@ function LoginTalent() {
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
       );
       if (response.data._id) {
-        alert(`Bienvenido ${response.data.name}`);
+        Swal.fire({
+          title: `Bienvenido de vuelta ${response.data.name}`,
+          text: 'Has ingresado correctamente',
+          icon: 'success',
+          iconColor: '#173951',
+          background: '#ECEEF0',
+          confirmButtonColor: '#01A28B',
+          confirmButtonText: 'Continuar'
+        })
         const token = response.data._id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
         dispatch(setPressLoginTalent("hidden"));
       }
     } catch (error: any) {
-      alert(error.response?.data);
+      Swal.fire({
+        title: 'Error',
+        text: 'Usuario o contraseña incorrectos',
+        icon: 'error',
+        background: '#ECEEF0',
+        confirmButtonColor: '#01A28B',
+        confirmButtonText: 'Continuar'
+      })
     }
   };
 
@@ -88,9 +110,15 @@ function LoginTalent() {
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
-          alert(
-            `No existe una cuenta con este email, cuenta de talento creada para ${DBresponse.name}. Ahora puedes iniciar sesión`
-          );
+          Swal.fire({
+            title: `Bienvenido ${DBresponse.name}`,
+            text: 'Has ingresado correctamente',
+            icon: 'success',
+            iconColor: '#173951',
+            background: '#ECEEF0',
+            confirmButtonColor: '#01A28B',
+            confirmButtonText: 'Continuar'
+          })
         } else {
           //* In case user exists, enters here
           const usersData = await axios.get(
@@ -106,7 +134,15 @@ function LoginTalent() {
             const token = authUser._id;
             const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
-            alert(`Has ingresado. Bienvenido, ${authUser.name}`);
+            Swal.fire({
+              title: `Bienvenido de vuelta ${authUser.name}`,
+              text: 'Has ingresado correctamente',
+              icon: 'success',
+              iconColor: '#173951',
+              background: '#ECEEF0',
+              confirmButtonColor: '#01A28B',
+              confirmButtonText: 'Continuar'
+            })
           } else {
             const companyData = await axios.get(
               `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
@@ -121,7 +157,15 @@ function LoginTalent() {
               const token = authCompany._id;
               const role = authCompany.role;
               dispatch(loginSuccess({ token, role }));
-              alert(`Has ingresado. Bienvenido, ${authCompany.name}`);
+              Swal.fire({
+                title: `Bienvenido de vuelta ${authCompany.name}`,
+                text: 'Has ingresado correctamente',
+                icon: 'success',
+                iconColor: '#173951',
+                background: '#ECEEF0',
+                confirmButtonColor: '#01A28B',
+                confirmButtonText: 'Continuar'
+              })
             } else
               throw Error(
                 "Usuario autenticado pero registro no encontrado, contacte a un administrador"
@@ -135,11 +179,44 @@ function LoginTalent() {
       setThirdParty(false);
       if (error.code === "auth/popup-closed-by-user") console.log(error);
       else {
-        alert(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Usuario o contraseña incorrectos',
+          icon: 'error',
+          background: '#ECEEF0',
+          confirmButtonColor: '#01A28B',
+          confirmButtonText: 'Continuar'
+        })
       }
     }
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
+
+  useEffect(()=>{
+    if (thirdParty) {
+      dispatch(setPressLoginTalent("hidden"));
+      Swal.fire({
+        icon: 'info',
+        title: 'Espera un momento',
+        text: `Estamos autenticando tu cuenta`,
+        confirmButtonText: 'Iniciar sesión',
+        confirmButtonColor: '#2D46B9',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        showDenyButton: false,
+        showConfirmButton: true,
+        didOpen: () => {
+          Swal.showLoading()
+        },
+        didClose: () => {
+          dispatch(setPressLoginTalent("hidden"));
+        }
+      })
+    }
+  },[thirdParty])
 
   return (
     <>
@@ -149,20 +226,6 @@ function LoginTalent() {
       ></div>
       <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
         <form className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full" onSubmit={handleSignIn}>
-          <fieldset
-            className={thirdParty ? "opacity-80 w-full" : "bg-inherit w-full"}
-            disabled={thirdParty ? true : false}
-          >
-            {thirdParty ? (
-              <div className="fixed top-[45%] left-[48%] flex flex-col items-center">
-                <img
-                  src="https://i.gifer.com/ZKZg.gif"
-                  className="w-10 allign-self-center"
-                ></img>
-                <p>Autenticando...</p>
-              </div>
-            ) : null}
-          </fieldset>
 
           <img
             src="/Linkit-logo/linkit-logo-blue.svg"
@@ -227,7 +290,7 @@ function LoginTalent() {
             </button>
             <button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
-              onClick={() => handleAuthClick("google")} type="submit"
+              onClick={() => handleAuthClick("google")} type="button"
             >
               {" "}
               <img
@@ -239,10 +302,10 @@ function LoginTalent() {
             </button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
-            ¿Aún no tienes cuenta?
-            <motion.a href="" className="text-linkIt-300 underline">
+            ¿Aún no tienes cuenta? {" "}
+            <motion.span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressNotRegistered}>
               Registrarse
-            </motion.a>
+            </motion.span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
             INGRESO PARA TALENTOS

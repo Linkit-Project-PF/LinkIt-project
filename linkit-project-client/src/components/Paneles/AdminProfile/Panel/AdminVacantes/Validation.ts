@@ -1,4 +1,6 @@
-export default function validations (vacancies) {
+import { vacancieProps } from "../../../admin.types"
+
+export default function validations (vacancies: vacancieProps) {
   const errors = {
     code: "",
     title: "",
