@@ -78,7 +78,7 @@ function LoginCompany() {
       );
       if (response.data._id) {
         Swal.fire({
-          title: `Bienvenido de vuelta ${response.data.name}`,
+          title: `Bienvenido de vuelta ${response.data.companyName}`,
           text: 'Has ingresado correctamente',
           icon: 'success',
           iconColor: '#173951',
@@ -114,7 +114,7 @@ function LoginCompany() {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
           Swal.fire({
-            title: `Bienvenido ${DBresponse.name}`,
+            title: `Bienvenido ${DBresponse.companyName}`,
             text: 'Has ingresado correctamente',
             icon: 'success',
             iconColor: '#173951',
@@ -125,7 +125,7 @@ function LoginCompany() {
         } else {
           //* In case user exists, enters here
           const usersData = await axios.get(
-            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`,
+            `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
@@ -138,7 +138,7 @@ function LoginCompany() {
             const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
             Swal.fire({
-              title: `Bienvenido de vuelta ${authUser.name}`,
+              title: `Bienvenido de vuelta ${authUser.companyName}`,
               text: 'Has ingresado correctamente',
               icon: 'success',
               iconColor: '#173951',
@@ -161,7 +161,7 @@ function LoginCompany() {
               const role = authCompany.role;
               dispatch(loginSuccess({ token, role }));
               Swal.fire({
-                title: `Bienvenido de vuelta ${authCompany.name}`,
+                title: `Bienvenido de vuelta ${authCompany.companyName}`,
                 text: 'Has ingresado correctamente',
                 icon: 'success',
                 iconColor: '#173951',

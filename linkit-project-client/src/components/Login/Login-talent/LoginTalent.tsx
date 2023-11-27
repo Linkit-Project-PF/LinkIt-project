@@ -146,21 +146,21 @@ function LoginTalent() {
               confirmButtonText: 'Continuar'
             })
           } else {
-            const companyData = await axios.get(
-              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+            const adminData = await axios.get(
+              `https://linkit-server.onrender.com/admins/find?email=${response.user.email}`,
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
                 },
               }
             );
-            if (companyData.data.length) {
-              const authCompany = companyData.data[0];
-              const token = authCompany._id;
-              const role = authCompany.role;
+            if (adminData.data.length) {
+              const authAdmin = adminData.data[0];
+              const token = authAdmin._id;
+              const role = authAdmin.role;
               dispatch(loginSuccess({ token, role }));
               Swal.fire({
-                title: `Bienvenido de vuelta ${authCompany.name}`,
+                title: `Bienvenido de vuelta ${authAdmin.name}`,
                 text: 'Has ingresado correctamente',
                 icon: 'success',
                 iconColor: '#173951',
