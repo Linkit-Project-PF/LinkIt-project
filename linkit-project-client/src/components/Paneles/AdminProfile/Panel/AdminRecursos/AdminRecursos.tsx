@@ -41,7 +41,7 @@ export default function AdminRecursos() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/posts/find",
-          { headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` } }
+          { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } }
         );
         dispatch(setResources(response.data))
       } catch (error) {

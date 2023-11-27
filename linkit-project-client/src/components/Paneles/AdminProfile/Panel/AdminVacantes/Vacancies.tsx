@@ -48,7 +48,7 @@ export default function Vacancies() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/jds/find",
-          { headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` } }
+          { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } }
           //headers: { Authorization: `Bearer ${token}` }//* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setJobOffers(response.data));
@@ -73,7 +73,7 @@ export default function Vacancies() {
       try {
         const response = await axios.delete(
           `https://linkit-server.onrender.com/jds/delete/${id}`,
-          { headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` } }
+          { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } }
           // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setJobOffers(response.data));
@@ -97,7 +97,7 @@ export default function Vacancies() {
     try {
       const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
       await axios.put(endPoint, editedData, {
-        headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
+        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
     } catch (error) {
