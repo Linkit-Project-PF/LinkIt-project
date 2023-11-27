@@ -33,24 +33,7 @@ const i18nOptions: InitOptions = {
         "Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.":"We advise you from the ideal profile, the ideal budgets and hiring processes to benefit plans, retention and much more.",
         //Home module F
         "Talento y empresas en más de 50 países":"Talent and companies in more than 50 countries",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
+   
         //!Company module A
         "Contrata y escala": "Hire and scale",
         "con el mejor talento IT":"with the best IT talent",
@@ -128,8 +111,33 @@ const i18nOptions: InitOptions = {
          //Company module I
          "Contáctanos":"Contact us",
          "¿Qué servicio te interesa?":"What service are you interested in?",
-         "Enviar":"Send"
-        
+         "Enviar":"Send",
+
+        //!Login - company
+        "¡Te damos la bienvenida a LinkIT!":"Welcome to LinkIT!",
+        "Conectamos a las empresas con el":"We connect companies with the",
+        "mejor talento para sus equipos.":"best talent for their teams.",
+        "olvidé mi contraseña":"I forgot my password",
+        "Contraseña":"Password",
+        "Email corporativo":"Business email",
+        "Iniciar sesión":"Log in",
+        "Ingresa con Google":"Sign in with Google",
+        "¿Necesitas ayuda?":"Do you need help?",
+        "Agenda una reunión":"Schedule a meeting",
+        "¿Aún no tienes cuenta?":"Don't have an account yet?",
+        "Registrarse":"Check in",
+        "INGRESO PARA EMPRESAS":"COMPANIES LOGIN ",
+
+        //!Login - talents
+        "Conéctate con los mejores proyectos y aplica":"Connect with the best projects and apply",
+        "a oportunidades de manera remota.":"to opportunities remotely.",
+        "INGRESO PARA TALENTOS":"TALENT LOGIN",
+
+        //!Login pre-login
+        "Conectando al talento más destacado":"Connecting the most outstanding talent",
+        "con los mejores proyectos IT.":"with the best IT projects.",
+        "Soy Talento":"I am a Talent",
+        "Soy Empresa":"I am a company"
       },
     }
   },

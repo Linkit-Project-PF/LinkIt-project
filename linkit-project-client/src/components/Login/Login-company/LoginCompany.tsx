@@ -13,12 +13,14 @@ import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import { useTranslation } from "react-i18next";
 
 type Event = {
   target: HTMLInputElement;
 };
 
 function LoginCompany() {
+  const {t}= useTranslation()
   const dispatch = useDispatch();
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
@@ -218,6 +220,7 @@ function LoginCompany() {
     }
   },[thirdParty])
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
+
   return (
     <>
       <div
@@ -237,11 +240,11 @@ function LoginCompany() {
           />
           <div className="flex flex-col justify-center items-center text-center">
             <h1 className="font-bold text-linkIt-400 text-[.9rem] 2xl:text-[1.4rem]">
-              ¡Te damos la bienvenida a LinkIT!
+              {t('¡Te damos la bienvenida a LinkIT!')}
             </h1>
             <p className="text-linkIt-400 font-[500] text-[.85rem] 2xl:text-[1.2rem]">
-              Conectamos a las empresas con el <br />
-              mejor talento para sus equipos.
+              {t('Conectamos a las empresas con el')} <br />
+              {t('mejor talento para sus equipos.')}
             </p>
           </div>
           <fieldset className="flex flex-col w-full content-center justify-center items-center gap-[.5rem]">
@@ -253,7 +256,7 @@ function LoginCompany() {
               />
               <input
                 type="text"
-                placeholder="Email corporativo"
+                placeholder={t("Email corporativo")}
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
@@ -264,7 +267,7 @@ function LoginCompany() {
               <img src={lock} alt="email" className="w-[.9rem]" />
               <input
                 type={visiblePassword}
-                placeholder="Contraseña"
+                placeholder={t("Contraseña")}
                 name="password"
                 value={user.password}
                 onChange={handleInputChange}
@@ -283,7 +286,7 @@ function LoginCompany() {
                 href="_blank"
                 whileHover={{ textDecoration: "underline" }}
               >
-                olvidé mi contraseña
+                {t('olvidé mi contraseña')}
               </motion.a>
             </p>
           </fieldset>
@@ -292,7 +295,7 @@ function LoginCompany() {
               className="bg-linkIt-300 text-white font-semibold text-[.9rem] p-[.2rem] w-[90%] rounded-[.7rem] border-[.125rem] border-linkIt-300 hover:bg-linkIt-500 hover:text-linkIt-300 transition-all duration-300 ease-in-out"
               type="submit"
             >
-              Iniciar sesión
+              {t('Iniciar sesión')}
             </button>
             <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
@@ -306,7 +309,7 @@ function LoginCompany() {
                 alt="sign-in with google"
                 className="w-[1.2rem]"
               />
-              Ingresa con Google
+              {t('Ingresa con Google')}
             </motion.button>
           </div>
           <Link 
@@ -316,18 +319,18 @@ function LoginCompany() {
           >
             <img src="/Vectores/calendario.svg" alt="" className="w-[2.5rem]" />
             <p className="font-semibold text-[.85rem]">
-              ¿Necesitas ayuda? <br />{" "}
-              <span className="text-linkIt-300">Agenda una reunión</span>
+              {t('¿Necesitas ayuda?')} <br />{" "}
+              <span className="text-linkIt-300">{t('Agenda una reunión')}</span>
             </p>
           </Link>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
-            ¿Aún no tienes cuenta?
+            {t('¿Aún no tienes cuenta?')}
             <motion.span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressNotRegistered}>
-              Registrarse
+              {t('Registrarse')}
             </motion.span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
-            INGRESO PARA EMPRESAS
+            {t('INGRESO PARA EMPRESAS')}
           </h3>
         </form>
       </div>
