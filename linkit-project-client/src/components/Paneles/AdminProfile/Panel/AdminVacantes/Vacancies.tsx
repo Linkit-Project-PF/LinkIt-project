@@ -144,7 +144,7 @@ export default function Vacancies() {
 
       </div>
 
-      <table className="w-[]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
+      <table className="w-[95%]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
         <thead>
           <tr className="h-12">
             <th></th>
