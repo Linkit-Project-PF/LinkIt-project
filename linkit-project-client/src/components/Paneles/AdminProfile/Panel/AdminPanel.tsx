@@ -29,7 +29,7 @@ export default function AdminPanel() {
         const infoUser = async()=>{
             const response = await axios(
                 `https://linkit-server.onrender.com/users/find?id=${token}`,
-            { headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` } })
+            { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } })
             // { headers: { Authorization: `Bearer ${token}` } }) //* descomentar cuando se tenga  creado el logeo de admin
             setUserData(response.data)
         }

@@ -73,7 +73,7 @@ function LoginTalent() {
     event.preventDefault();
     try {
       const response = await axios(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`
       );
       if (response.data._id) {
         Swal.fire({

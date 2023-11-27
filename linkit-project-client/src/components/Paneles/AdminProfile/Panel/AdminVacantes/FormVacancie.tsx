@@ -130,7 +130,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
       await validateForm(information); //TODO: this is a custom error, create a custom error handler
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
-        headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
+        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
 
