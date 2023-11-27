@@ -13,7 +13,45 @@ const i18nOptions: InitOptions = {
   resources: {
     en: {
       translation: {
-        //Company module A
+        //!Home module A
+        "Conectando al talento más destacado con los mejores proyectos IT":"Connecting the most outstanding talent with the best IT projects",
+        "Contrata y gestiona al mejor talento de manera global":"Hire and manage the best talent globally",
+        "Vacantes disponibles":"Vacancies available",
+        //Home module B
+        "Reclutamiento y selección":"Recruitment and selection",
+        "Identificamos a profesionales con el stack, habilidades y experiencia adecuada para tus proyectos y así lograr construir un equipo de alto desempeño.":"We identify professionals with the appropriate stack, skills and experience for your projects and thus build a high-performance team.",
+        "Ver más":"See more",
+        "Realizamos la gestión contractual y de pagos del talento. Refuerza tu equipo y aumenta la capacidad productiva sin riesgos.":"We carry out contractual and payment management of talent. Strengthen your team and increase productive capacity without risks.",
+        "Gestión y beneficios":"Management and benefits",
+        "Facilitamos planes de beneficios, asesoramiento en la retención y elaboración de informes y mucho más.":"We provide benefits plans, retention and reporting advice and much more.",
+        //Home module D
+        "Proceso ágil":"Agile process",
+        "En 5 días hábiles presentaremos talentos previamente entrevistados y calificados.":"In 5 business days we will present previously interviewed and qualified talent.",
+        "Comunicación asertiva":"Assertive communication",
+        "Nos comprometemos a mantener una comunicación ágil y efectiva durante todo el proceso de selección.":"We are committed to maintaining agile and effective communication throughout the selection process.",
+        "Consultoría":"Consultancy",
+        "Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.":"We advise you from the ideal profile, the ideal budgets and hiring processes to benefit plans, retention and much more.",
+        //Home module F
+        "Talento y empresas en más de 50 países":"Talent and companies in more than 50 countries",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        //!Company module A
         "Contrata y escala": "Hire and scale",
         "con el mejor talento IT":"with the best IT talent",
         "en tan solo 5 días!":"in just 5 days!",
@@ -90,14 +128,7 @@ const i18nOptions: InitOptions = {
          //Company module I
          "Contáctanos":"Contact us",
          "¿Qué servicio te interesa?":"What service are you interested in?",
-         "Enviar":"Send",
-         "":"",
-         "":"",
-         "":"",
-         "":"",
-         "":"",
-         "":"",
-         "":"",
+         "Enviar":"Send"
         
       },
     }
