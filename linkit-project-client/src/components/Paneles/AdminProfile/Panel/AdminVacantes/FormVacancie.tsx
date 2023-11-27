@@ -3,6 +3,7 @@ import axios from "axios";
 import { validateForm } from "../../../errors/validation";
 import { ValidationError } from "../../../errors/errors";
 import swal from 'sweetalert';
+import validations from "./Validation";
 
 type OnCloseFunction = () => void;
 
@@ -30,7 +31,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     requirements: [],
     niceToHave: [],
     benefits: [],
-    company: "", //TODO This may be a select with all companies names ? Do it with route companies/find, save company name
+    company: "", 
   });
   console.log(information)
 
@@ -116,13 +117,14 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
         [name]: value,
       });
     }
-
-    //! NOTE: test this logic & the errors implementation
-    setErrors({
-      ...errors,
-      [name]: value,
-    })
   };
+
+
+  const handleBlurErrors = () =>{
+    const validationError = validations(information)
+    setErrors(validationError)
+  }
+  console.log(errors)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

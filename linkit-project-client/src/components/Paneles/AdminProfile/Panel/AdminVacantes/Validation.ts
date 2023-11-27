@@ -25,7 +25,7 @@ export default function validations (vacancies: vacancieProps) {
     errors.title = "Título inválido"
   }
 
-  if(!vacancies.description) {
+  if(!vacancies.description) {  
     errors.description = "Descripción requerida"
   }
   if(typeof vacancies.description !== 'string') {
