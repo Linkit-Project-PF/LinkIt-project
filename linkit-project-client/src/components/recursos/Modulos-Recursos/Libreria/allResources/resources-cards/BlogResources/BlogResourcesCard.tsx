@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import "./BlogResources.css";
+import { useTranslation } from "react-i18next";
 
 type BlogsCardProps = {
   image: string;
@@ -35,6 +36,7 @@ const blogsCardVariants: Variants = {
 }
 
 function BlogsResourceCard({ image, title, description, link, genre }: BlogsCardProps) {
+  const {t} = useTranslation();
   return (
     <motion.div 
     className="flex flex-col border-[0.13rem] w-full rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[30rem] lg:h-[70vh] items-center justify-center bg-white card-container-resources container-resources"
@@ -70,7 +72,7 @@ function BlogsResourceCard({ image, title, description, link, genre }: BlogsCard
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
         >
-          Leer Nota
+          {t('Leer Nota')}
         </motion.a>
       </div>
     </motion.div>
