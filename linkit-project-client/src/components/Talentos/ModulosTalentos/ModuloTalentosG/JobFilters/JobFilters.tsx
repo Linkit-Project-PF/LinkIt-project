@@ -1,5 +1,6 @@
 // JobFilters.tsx
 import { useState, useEffect, useRef, FC } from 'react';
+import { useTranslation } from "react-i18next";
 
 type DropdownProps = {
   title: string;
@@ -31,6 +32,7 @@ const Dropdown: FC<DropdownProps> = ({ title, options, onSelect, isLast }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+  
 
   const borderStyle = isLast ? '' : 'border-r border-gray-300';
 
@@ -57,7 +59,6 @@ const Dropdown: FC<DropdownProps> = ({ title, options, onSelect, isLast }) => {
     </div>
   );
 };
-
 const JobFilters: FC = () => {
   const [filters, setFilters] = useState({
     stack: '',
@@ -65,8 +66,9 @@ const JobFilters: FC = () => {
     location: '',
     modality: '',
   });
-
+  const {t} = useTranslation();
   const [dropdownTitles, setDropdownTitles] = useState({
+    
     stack: 'Stack',
     type: 'Tipo',
     location: 'Ubicación',
@@ -84,6 +86,7 @@ const JobFilters: FC = () => {
     }));
   };
 
+
   return (
     <div className="flex w-4/6 justify-between items-center bg-white shadow rounded-lg p-4 h-[3.5rem]">
       <Dropdown title={dropdownTitles.stack} options={['Frontend', 'Backend', 'Fullstack']} onSelect={handleSelect('stack')} />
@@ -91,7 +94,7 @@ const JobFilters: FC = () => {
       <Dropdown title={dropdownTitles.location} options={['Remote', 'Onsite', 'Hybrid']} onSelect={handleSelect('location')} />
       <Dropdown title={dropdownTitles.modality} options={['Full-time', 'Part-time', 'Freelance']} onSelect={handleSelect('modality')} isLast={true} />
       <button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out ">
-        Encontrar Vacante
+        {t('Encontrar Vacante')}
       </button>
     </div>
   );
