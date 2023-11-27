@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { setPressRegister, setPressSignUp} from "../../redux/features/registerLoginSlice"
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 function PreLogin() {
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const handlePressSignUpTalent = () => {
     dispatch(setPressRegister("visible"));
@@ -31,11 +33,11 @@ function PreLogin() {
         />
         <div className="flex flex-col justify-center items-center text-center">
           <h1 className="font-bold text-linkIt-400 text-[.9rem] 2xl:text-[1.4rem]">
-            ¡Te damos la bienvenida a LinkIT!
+            {t('¡Te damos la bienvenida a LinkIT!')}
           </h1>
           <p className="text-linkIt-400 font-[500] text-[.85rem] 2xl:text-[1.2rem]">
-            Conectando al talento más destacado <br />
-            con los mejores proyectos IT.
+            {t('Conectando al talento más destacado')} <br />
+            {t('con los mejores proyectos IT.')}
           </p>
         </div>
         <div className="flex flex-col content-center justify-center items-center gap-[.5rem] w-full">
@@ -43,24 +45,24 @@ function PreLogin() {
           className="bg-linkIt-300 text-white font-semibold text-[.9rem] p-[.5rem] w-[90%] rounded-[.7rem] border-[.125rem] border-linkIt-300 hover:bg-linkIt-500 hover:text-linkIt-300 transition-all duration-300 ease-in-out"
           onClick={handlePressSignUpTalent}
           >
-            Soy Talento
+            {t('Soy Talento')}
           </button>
           <button 
           className="bg-linkIt-300 text-white font-semibold text-[.9rem] p-[.5rem] w-[90%] rounded-[.7rem] border-[.125rem] border-linkIt-300 hover:bg-linkIt-500 hover:text-linkIt-300 transition-all duration-300 ease-in-out"
           onClick={handlePressSignUpCompany}
           >
-            Soy Empresa
+            {t('Soy Empresa')}
           </button>
         </div>
         <p className="text-[.8rem] 2xl:text-[1rem]">
-          ¿Necesitas ayuda?{" "}
+          {t('¿Necesitas ayuda?')}{" "}
           <motion.a
             href=""
             target="_blank"
             className="text-linkIt-300 underline"
             whileHover={{ textDecoration: "none" }}
           >
-            Contáctanos
+            {t('Contáctanos')}
           </motion.a>
         </p>
       </div>

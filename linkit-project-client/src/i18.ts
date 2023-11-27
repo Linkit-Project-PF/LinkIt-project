@@ -5,7 +5,7 @@ import { initReactI18next } from 'react-i18next';
 
 //i18next  Configuration
 const i18nOptions: InitOptions = {
-  fallbackLng: 'es',
+  fallbackLng: 'en',
   debug: true,
   interpolation: {
     escapeValue: false,
@@ -16,7 +16,7 @@ const i18nOptions: InitOptions = {
         //!Home module A
         "Conectando al talento más destacado con los mejores proyectos IT":"Connecting the most outstanding talent with the best IT projects",
         "Contrata y gestiona al mejor talento de manera global":"Hire and manage the best talent globally",
-        "Vacantes disponibles":"Vacancies available",
+        "Vacantes disponibles":"Available vacancies",
         //Home module B
         "Reclutamiento y selección":"Recruitment and selection",
         "Identificamos a profesionales con el stack, habilidades y experiencia adecuada para tus proyectos y así lograr construir un equipo de alto desempeño.":"We identify professionals with the appropriate stack, skills and experience for your projects and thus build a high-performance team.",
@@ -212,22 +212,43 @@ const i18nOptions: InitOptions = {
         "Todos los recursos":"All resources",
         //!Recursos
         "Recursos de LinkIT":"LinkIT Resources",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
+        //!Register
+        "Apellido":"Lastname",
+        "Confirmar contraseña":"Confirm Password",
+        "Crear Cuenta":"Create Account",
+        "Registrate con Google":"Sign up with Google",
+        "¿Ya tienes una cuenta?":"Do you already have an account?",
+        "Ingresa aquí":"Enter here",
+        //!Talentos modulo A
+        "Conéctate con los mejores proyectos IT":"Connect with the best IT projects",
+        "Aplica a las mejores oportunidades":"Apply to the best opportunities",
+        "de manera remota.":"remotely",
+        //!Talentos modulo C
+        "Lo que dicen nuestros talentos":"What our talents say",
+        //!Talentos modulo D
+        "Crecimiento y desarrollo":"Growth and development",
+        "Trabaja en los mejores proyectos de tecnología con las empresas más destacadas del mundo. Te acompañamos en tu desarrollo profesional asesorándote sobre las tecnologías de vanguardia, competitividad en el mercado y mejores oportunidades globales.":"Work on the best technology projects with the most prominent companies in the world. We accompany you in your professional development, advising you on cutting-edge technologies, market competitiveness and better global opportunities.",
+        "Trabajo remoto":"Remote work",
+        "Despídete de las largas horas de traslado y trabaja desde la comodidad de tu hogar. Democratizamos oportunidades a nivel global para que encuentres el equilibrio perfecto entre el trabajo y la vida personal.":"Say goodbye to long commutes and work from the comfort of your home. We democratize opportunities globally so you find the perfect balance between work and personal life.",
+        "Facilidades de pago":"Payment facilities",
+        "Elige dónde y cómo recibir el dinero. Te asesoramos en las mejores formas para recibir el dinero, teniendo en cuenta las contrataciones y legislaciones laborales a nivel global.":"Choose where and how to receive the money. We advise you on the best ways to receive the money, taking into account contracting and labor legislation at a global level.",
+        //!Talentos modulo E
+        "Cómo aplicar a":"How to apply to",
+        "Consulta nuestras vacantes":"Check our vacancies",
+        "Tenemos posiciones abiertas en múltiples áreas de crecimiento.":"We have open positions in multiple growth areas.",
+        "Aplica completando el formulario":"Apply by completing the form",
+        "Selecciona tu posición ideal rellenando la solicitud en pocos clicks.":"Select your ideal position by filling out the application in a few clicks.",
+        "Proceso de entrevistas":"Interview process",
+        "Conoce en detalle la oportunidad y prepárate para los próximos pasos.":"Learn about the opportunity in detail and prepare for the next steps.",
+        "Consigue el trabajo de tus sueños":"Get your dream job",
+        "Comienza a trabajar de forma remota y lleva tu carrera al siguiente nivel.":"Start working remotely and take your career to the next level.",
+        //!Talentos modulo F
+        "Oportunidades en más de 100 tecnologías":"Opportunities in more than 100 technologies",
+        //!Talentos modulo G
+        "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!":"If none of these vacancies are for you, don't worry, there are many more to come!",
+        "Contáctanos para futuras oportunidades":"Contact us for future opportunities",
+        //!Talentos Job filters
+        "Encontrar Vacante":"Find vacancies",
         "":"",
         "":"",
         "":"",

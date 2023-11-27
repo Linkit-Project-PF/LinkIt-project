@@ -6,6 +6,7 @@ import ModuloTalentosF from "./ModulosTalentos/ModuloTalentosF/ModuloTalentosF"
 import ModuloTalentosC from "./ModulosTalentos/ModuloTalentosC/ModuloTalentosC"
 import ModuloTalentosG from "./ModulosTalentos/ModuloTalentosG/ModuloTalentosG"
 import Footer from "../../Utils/Footer/Footer"
+
 import "./Talentos.css"
 function Talentos() {
   return (
