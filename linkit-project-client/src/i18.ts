@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 
 
 //i18next  Configuration
-const i18nOptions: InitOptions = {
+export const i18nOptions: InitOptions = {
   fallbackLng: 'es',
   debug: true,
   interpolation: {
