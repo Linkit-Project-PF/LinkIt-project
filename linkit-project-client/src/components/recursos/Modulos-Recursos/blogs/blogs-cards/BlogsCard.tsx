@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./BlogsCards.css";
 
 type BlogsCardProps = {
@@ -37,7 +38,7 @@ const blogsCardVariants: Variants = {
 
 function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
   const [key, setKey] = useState(Math.random());
-
+  const{t} = useTranslation()
   useEffect(() => {
     setKey(Math.random()); // change key to force re-render
   }, [title, description, link, genre]);
@@ -77,7 +78,7 @@ function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
         >
-          Leer Nota
+          {t('Leer Nota')}
         </motion.a>
       </div>
     </motion.div>

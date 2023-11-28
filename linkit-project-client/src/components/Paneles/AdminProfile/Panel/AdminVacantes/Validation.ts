@@ -18,21 +18,27 @@ export default function validations (vacancies: vacancieProps) {
     company: "",
   }
 
+  
   if(!vacancies.title) {
     errors.title = "Título requerido"
   }
+  
+  if(!vacancies.code) {
+    errors.code = "Código requerido"
+  }
+
   if(typeof vacancies.title !== 'string') {
     errors.title = "Título inválido"
   }
 
-  if(!vacancies.description) {
+  if(!vacancies.description) {  
     errors.description = "Descripción requerida"
   }
   if(typeof vacancies.description !== 'string') {
     errors.description = "Descripción inválida"
   }
   
-  if(!vacancies.type) {
+  if(vacancies.type === "") {
     errors.type = "Tipo requerido"
   }
   if(typeof vacancies.type !== 'string') {
@@ -46,12 +52,10 @@ export default function validations (vacancies: vacancieProps) {
     errors.location = "Ubicación inválida"
   }
 
-  if(!vacancies.modality) {
+  if(vacancies.modality === "") {
     errors.modality = "Modalidad requerida"
   }
-  if(typeof vacancies.modality !== 'string') {
-    errors.modality = "Modalidad inválida"
-  }
+
 
   if(!vacancies.stack) {
     errors.stack = "Stack requerido"
@@ -96,9 +100,7 @@ export default function validations (vacancies: vacancieProps) {
     errors.requirements = "Requerimientos requeridos"
   }
 
-  if(!Array.isArray(vacancies.requirements)) {
-    errors.requirements = "Requerimientos inválidos"
-  }
+ 
 
   if(!vacancies.niceToHave) {
     errors.niceToHave = "Nice to have requerido"
@@ -133,6 +135,5 @@ export default function validations (vacancies: vacancieProps) {
   }
 
   return errors
-
 
 }

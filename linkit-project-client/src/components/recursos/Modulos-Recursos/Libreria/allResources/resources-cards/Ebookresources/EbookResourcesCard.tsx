@@ -1,4 +1,6 @@
 import { motion, Variants} from "framer-motion";
+import { useTranslation } from "react-i18next";
+
 import "./EbookResources.css";
 
 type EbooksCardProps = {
@@ -38,6 +40,7 @@ function EbookResourcesCard({
   link,
   category,
 }: EbooksCardProps): JSX.Element {
+  const {t} = useTranslation();
   return (
     <>
       <motion.div
@@ -64,7 +67,7 @@ function EbookResourcesCard({
           className="font-bold"
           target="_blank"
         >
-          Descargar
+          {t('Descargar')}
         </motion.a>
       </motion.div>
     </>

@@ -12,12 +12,14 @@ import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import { useTranslation } from "react-i18next";
 
 type Event = {
   target: HTMLInputElement;
 };
 
 function LoginTalent() {
+  const {t}= useTranslation()
   const dispatch = useDispatch();
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
@@ -71,7 +73,7 @@ function LoginTalent() {
     event.preventDefault();
     try {
       const response = await axios(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`
       );
       if (response.data._id) {
         Swal.fire({
@@ -144,21 +146,21 @@ function LoginTalent() {
               confirmButtonText: 'Continuar'
             })
           } else {
-            const companyData = await axios.get(
-              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+            const adminData = await axios.get(
+              `https://linkit-server.onrender.com/admins/find?email=${response.user.email}`,
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
                 },
               }
             );
-            if (companyData.data.length) {
-              const authCompany = companyData.data[0];
-              const token = authCompany._id;
-              const role = authCompany.role;
+            if (adminData.data.length) {
+              const authAdmin = adminData.data[0];
+              const token = authAdmin._id;
+              const role = authAdmin.role;
               dispatch(loginSuccess({ token, role }));
               Swal.fire({
-                title: `Bienvenido de vuelta ${authCompany.name}`,
+                title: `Bienvenido de vuelta ${authAdmin.name}`,
                 text: 'Has ingresado correctamente',
                 icon: 'success',
                 iconColor: '#173951',
@@ -234,11 +236,10 @@ function LoginTalent() {
           />
           <div className="flex flex-col justify-center items-center text-center">
             <h1 className="font-bold text-linkIt-400 text-[.9rem] 2xl:text-[1.4rem]">
-              ¡Te damos la bienvenida a LinkIT!
+              {t('¡Te damos la bienvenida a LinkIT!')}
             </h1>
             <p className="text-linkIt-400 font-[500] text-[.85rem] 2xl:text-[1.2rem]">
-              Conéctate con los mejores proyectos y aplica <br />a oportunidades
-              de manera remota.
+              {t('Conéctate con los mejores proyectos y aplica')} <br />{t('a oportunidades de manera remota.')}
             </p>
           </div>
           <fieldset className="flex flex-col w-full content-center justify-center items-center gap-[.5rem]">
@@ -250,7 +251,7 @@ function LoginTalent() {
               />
               <input
                 type="text"
-                placeholder="Email corporativo"
+                placeholder={t("Email corporativo")}
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
@@ -261,7 +262,7 @@ function LoginTalent() {
               <img src={lock} alt="email" className="w-[.9rem]" />
               <input
                 type={visiblePassword}
-                placeholder="Contraseña"
+                placeholder={t("Contraseña")}
                 name="password"
                 value={user.password}
                 onChange={handleInputChange}
@@ -280,13 +281,13 @@ function LoginTalent() {
                 href="_blank"
                 whileHover={{ textDecoration: "underline" }}
               >
-                olvidé mi contraseña
+                {t('olvidé mi contraseña')}
               </motion.a>
             </p>
           </fieldset>
           <div className="flex flex-col w-full items-center gap-[.5rem]">
             <button className="bg-linkIt-300 text-white font-semibold text-[.9rem] p-[.2rem] w-[90%] rounded-[.7rem] border-[.125rem] border-linkIt-300 hover:bg-linkIt-500 hover:text-linkIt-300 transition-all duration-300 ease-in-out" type="submit">
-              Iniciar sesión
+              {t('Iniciar sesión')}
             </button>
             <button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
@@ -298,17 +299,17 @@ function LoginTalent() {
                 alt="sign-in with google"
                 className="w-[1.2rem]"
               />
-              Ingresa con Google
+              {t('Ingresa con Google')}
             </button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
-            ¿Aún no tienes cuenta? {" "}
+            {t('¿Aún no tienes cuenta?')} {" "}
             <motion.span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressNotRegistered}>
-              Registrarse
+              {t('Registrarse')}
             </motion.span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
-            INGRESO PARA TALENTOS
+            {t('INGRESO PARA TALENTOS')}
           </h3>
         </form>
       </div>

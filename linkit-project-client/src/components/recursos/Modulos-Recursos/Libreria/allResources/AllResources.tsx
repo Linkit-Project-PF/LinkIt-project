@@ -4,6 +4,7 @@ import BlogResourcesCard from "../allResources/resources-cards/BlogResources/Blo
 import EbookResourcesCard from "../allResources/resources-cards/Ebookresources/EbookResourcesCard";
 import EventResourceCard from "./resources-cards/EventResources/EventResourcesCard";
 import { motion, Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const noResults: Variants = {
   hidden: {
@@ -57,7 +58,7 @@ function AllResources() {
   const blogs = useSelector((state: resourcesState) => state.resources.blogs);
   const ebooks = useSelector((state: resourcesState) => state.resources.ebooks);
   const events = useSelector((state: resourcesState) => state.resources.events);
-
+  const {t} = useTranslation();
   return (
     <>
       <div className="flex flex-row flex-wrap justify-between gap-[2rem] mt-[3.5rem] responsive-container">
@@ -163,7 +164,7 @@ function AllResources() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          >No se encontraron recursos
+          >{t('No se encontraron recursos')}
           </motion.h1>
           )
         }

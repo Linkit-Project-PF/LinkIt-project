@@ -4,6 +4,7 @@ import AllResources from "./allResources/AllResources";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const goBackVariants: Variants = {
   hover: {
@@ -27,6 +28,7 @@ const goBackVariants: Variants = {
 }
 
 function Libreria() {
+  const {t} = useTranslation(); 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -51,7 +53,7 @@ function Libreria() {
           Volver
         </motion.h3>
         <h1 className="text-left text-[2rem] font-bold font-montserrat ">
-          Todos los recursos
+          {t('Todos los recursos')}
         </h1>
         <div className=" content-display">
           <section>
