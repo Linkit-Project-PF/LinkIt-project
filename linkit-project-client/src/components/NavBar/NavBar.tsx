@@ -282,16 +282,16 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">{t('Misión')}</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300"><a href="#mision">{t('Misión')}</a></li>
               <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">{t('Visión')}</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300"><a href="#vision">{t('Visión')}</a></li>
               <hr className="w-[90px] ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                {t('Valores e Historia')}
+                <a href="#valores">{t('Valores e Historia')}</a>
               </li>
               <hr className="w-[90px] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                {t('Talento interno')}
+                <a href="#talento-Interno">{t('Talento interno')}</a>
               </li>
             </ul>{" "}
           </motion.nav>
