@@ -12,6 +12,7 @@ import {
   setPressRegister,
 } from "../../redux/features/registerLoginSlice";
 import { logout } from "../../redux/features/AuthSlice";
+import { useTranslation } from "react-i18next";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -49,6 +50,7 @@ function useMenuAnimation(isOpen: boolean) {
 }
 
 function NavBar() {
+  const {t}= useTranslation()
   const dispatch = useDispatch();
   const pressLogin = useSelector(
     (state: any) => state.registerLogin.pressLogin
@@ -110,14 +112,14 @@ function NavBar() {
     <div>
       <div className="preNavbar">
         <span className="">
-          Contrata y gestiona talentos de forma global con LinkIt |{" "}
+          {t('Contrata y gestiona talentos de forma global con LinkIt')} |{" "}
         </span>
         <NavLink
           to="https://calendly.com/linkit-project-henry/30min"
           className="ml-2 underline underline-offset-[3.3px]"
           target="_blank"
         >
-          Comienza ahora! →
+          {t('Comienza ahora!')} →
         </NavLink>
       </div>
       <nav className="navBar">
@@ -133,7 +135,7 @@ function NavBar() {
               }`}
             onClick={() => goHome()}
           >
-            Inicio
+            {t('Inicio')}
           </motion.button>
 
           <motion.nav
@@ -148,7 +150,7 @@ function NavBar() {
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyEmpresa()}
             >
-              Soy Empresa
+              {t('Soy Empresa')}
               <div className="arrow w-3 ml-1 mt-[2px]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -161,15 +163,15 @@ function NavBar() {
               }}
             >
               <li className={`relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300 ${isActiveServiciosEmpresa ? 'text-linkIt-300' : ''}`}>
-                <a href="#serviciosE">Servicios</a>
+                <a href="#serviciosE">{t('Servicios')}</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                Proceso{" "}
+                {t('Proceso')}{" "}
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#cotiza">Cotiza</a> </li>
+                <a href="#cotiza">{t('Cotiza')}</a> </li>
             </ul>{" "}
           </motion.nav>
 
@@ -186,7 +188,7 @@ function NavBar() {
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyTalento()}
             >
-              Soy Talento
+              {t('Soy Talento')}
               <div className="arrow w-3 ml-1 mt-[2px]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -199,15 +201,15 @@ function NavBar() {
               }}
             >
               <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#serviciosT">Servicios</a>
+                <a href="#serviciosT">{t('Servicios')}</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#procesoT">Proceso</a>
+                <a href="#procesoT">{t('Proceso')}</a>
               </li>
               <hr className="w-[90px] ml-4 text-xs" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#vacantes">Vacantes</a></li>
+                <a href="#vacantes">{t('Vacantes')}</a></li>
             </ul>{" "}
           </motion.nav>
 
@@ -224,7 +226,7 @@ function NavBar() {
               whileTap={{ scale: 0.97 }}
               onClick={() => goRecursos()}
             >
-              Recursos
+              {t('Recursos')}
               <div className="arrow w-3 ml-1 mt-[3px]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -237,14 +239,14 @@ function NavBar() {
               }}
             >
               <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#blogs">Blogs</a>
+                <a href="#blogs">{t('Blogs')}</a>
               </li>
               <hr className="w-[90px] mt-5 ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#ebooks">Ebooks</a></li>
+                <a href="#ebooks">{t('Ebooks')}</a></li>
               <hr className="w-[90px] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#webinars">Webinars</a>
+                <a href="#webinars">{t('Webinars')}</a>
               </li>
               <hr className="w-[90px] mt-[.7rem] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
@@ -252,7 +254,7 @@ function NavBar() {
               </li>
               <hr className="w-[90px] mt-[.7rem] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">Libreria</a>
+                <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Libreria')}</a>
               </li>
             </ul>{" "}
           </motion.nav>
@@ -268,7 +270,7 @@ function NavBar() {
               whileTap={{ scale: 0.97 }}
               onClick={() => goQS()}
             >
-              Quiénes Somos
+              {t('Quiénes Somos')}
               <div className="arrow w-3 ml-1 mt-[2px]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -280,16 +282,16 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">Misión</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">{t('Misión')}</li>
               <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">Visión</li>
+              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">{t('Visión')}</li>
               <hr className="w-[90px] ml-4" />
               <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                Valores e Historia
+                {t('Valores e Historia')}
               </li>
               <hr className="w-[90px] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                Talento interno
+                {t('Talento interno')}
               </li>
             </ul>{" "}
           </motion.nav>
@@ -322,7 +324,7 @@ function NavBar() {
                       className="profile"
                       onClick={() => { navigate("/MyProfile") }}
                     >
-                      Mis datos
+                      {t('Mis datos')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -330,7 +332,7 @@ function NavBar() {
                     <button
                       className="profile"
                     >
-                      Mis búsquedas
+                      {t('Mis búsquedas')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -339,7 +341,7 @@ function NavBar() {
                       className="logout"
                       onClick={handleLogout}
                     >
-                      Cerrar sesión
+                      {t('Cerrar sesión')}
                     </button>
                   </li>
                 </div>
@@ -350,7 +352,7 @@ function NavBar() {
                       onClick={goAdminDashboard}
                       className="profile"
                     >
-                      Panel
+                      {t('Panel')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -359,7 +361,7 @@ function NavBar() {
                       className="logout"
                       onClick={handleLogout}
                     >
-                      Cerrar sesión
+                      {t('Cerrar sesión')}
                     </button>
                   </li>
                 </div>
@@ -370,7 +372,7 @@ function NavBar() {
                       className="profile"
                       onClick={() => { navigate("/MyProfile") }}
                     >
-                      Mis datos
+                      {t('Mis datos')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -378,7 +380,7 @@ function NavBar() {
                     <button
                       className="profile"
                     >
-                      Mis vacantes
+                      {t('Mis vacantes')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -387,7 +389,7 @@ function NavBar() {
                       className="logout"
                       onClick={handleLogout}
                     >
-                      Cerrar sesión
+                      {t('Cerrar sesión')}
                     </button>
                   </li>
                 </div>
@@ -403,7 +405,7 @@ function NavBar() {
                           dispatch(setPressSignUp("hidden"));
                       }}
                     >
-                      Inicia Sesión
+                      {t('Inicia Sesión')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
@@ -419,7 +421,7 @@ function NavBar() {
                           setPressRegister("hidden");
                       }}
                     >
-                      Regístrate
+                      {t('Regístrate')}
                     </button>
                   </li>
                 </div>
@@ -436,14 +438,14 @@ function NavBar() {
             whileTap={{ scale: 0.9 }}
           >
 
-            Contrata Talento
+            {t('Contrata Talento')}
           </motion.button>
           <motion.button
             className="vacanteBtnNavB"
             onClick={() => goSoyTalento()}
             whileTap={{ scale: 0.9 }}
           >
-            Vacantes disponibles
+            {t('Vacantes disponibles')}
           </motion.button>
         </div>
       </nav >

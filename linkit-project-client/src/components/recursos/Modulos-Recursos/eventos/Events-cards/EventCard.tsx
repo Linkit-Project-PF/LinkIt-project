@@ -3,6 +3,8 @@ import { motion, Variants } from "framer-motion";
 import "./EventCard.css";
 import "../../ebooks/ebooksCards/ebooksCard.css"
 import '../../eventos/Events-cards/EventCard.css'
+import { useTranslation } from "react-i18next";
+
 
 type EventCardProps = {
   image: string;
@@ -47,7 +49,8 @@ function EventCard({
     const videoId = link.split("v=")[1];
     return `https://img.youtube.com/vi/${videoId}/0.jpg`;
   };
-
+  
+  const {t} = useTranslation();
   const [key, setKey] = useState(Math.random());
 
   useEffect(() => {
@@ -81,7 +84,7 @@ function EventCard({
           <h2 className=" font-bold text-[1.4rem] title">{title}</h2>
           <p className=" font-[500] description">{description}</p>
           <a href={link} target="_blank" className=" font-bold">
-            Ver Grabación
+            {t('Ver Grabación')}
           </a>
         </div>
       </motion.div>

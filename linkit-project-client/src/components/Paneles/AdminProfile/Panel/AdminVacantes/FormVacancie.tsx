@@ -3,6 +3,8 @@ import axios from "axios";
 import { validateForm } from "../../../errors/validation";
 import { ValidationError } from "../../../errors/errors";
 import swal from 'sweetalert';
+import validations from "./Validation";
+import { vacancieProps } from "../../../admin.types";
 
 type OnCloseFunction = () => void;
 
@@ -16,7 +18,7 @@ interface InfoList {
 
 export default function FormVacancie({ onClose }: FormVacancieProps) {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
-  const [information, setInformation] = useState({
+  const [information, setInformation] = useState<Partial<vacancieProps>>({
     code: "",
     title: "",
     description: "", //! 10 chars minimum back requirement.
@@ -30,9 +32,8 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     requirements: [],
     niceToHave: [],
     benefits: [],
-    company: "", //TODO This may be a select with all companies names ? Do it with route companies/find, save company name
+    company: "",
   });
-  console.log(information)
 
   const [errors, setErrors] = useState({
     code: "",
@@ -116,13 +117,13 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
         [name]: value,
       });
     }
-
-    //! NOTE: test this logic & the errors implementation
-    setErrors({
-      ...errors,
-      [name]: value,
-    })
   };
+
+
+  const handleBlurErrors = () => {
+    const validationError = validations(information)
+    setErrors(validationError)
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -130,7 +131,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
       await validateForm(information); //TODO: this is a custom error, create a custom error handler
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
-        headers: { Authorization: `Bearer 65566e201b4939c1cef34a54` },
+        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
 
@@ -179,44 +180,53 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Código</label>
               <input
-                className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.code ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
                 name="code"
+                placeholder={errors.code ? "*" : ""}
                 autoComplete="off"
                 onChange={handleChange}
+                onBlur={handleBlurErrors}
               />
+
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Titulo</label>
               <input
-                className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.title ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
                 name="title"
+                placeholder={errors.title ? "*" : ""}
                 autoComplete="off"
                 onChange={handleChange}
+                onBlur={handleBlurErrors}
               />
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Nombre de la empresa</label>
               <input
-                className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.company ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
                 name="company"
+                placeholder={errors.company ? "*" : ""}
                 autoComplete="off"
                 onChange={handleChange}
+                onBlur={handleBlurErrors}
               />
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Ubicación</label>
               <input
-                className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.location ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
                 name="location"
+                placeholder={errors.location ? "*" : ""}
                 autoComplete="off"
                 onChange={handleChange}
+                onBlur={handleBlurErrors}
               />
             </div>
 
@@ -248,18 +258,21 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Tecnologías</label>
               <input
-                className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.stack ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
                 name="stack"
                 autoComplete="off"
+                placeholder={errors.stack ? "*" : ""}
                 onChange={handleChange}
                 onKeyDown={addToList}
+                onBlur={handleBlurErrors}
               />
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Deseable</label>
               <input
+
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 type="text"
                 name="niceToHave"
@@ -272,12 +285,14 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Requisitos</label>
               <input
-                className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.requirements ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
                 name="requirements"
                 autoComplete="off"
+                placeholder={errors.requirements ? "*" : ""}
                 onChange={handleChange}
                 onKeyDown={addToList}
+                onBlur={handleBlurErrors}
               />
             </div>
 
@@ -307,10 +322,12 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Descripción</label>
               <textarea
-                className="appearance-none block h-fit w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                className={errors.description ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 name="description"
                 autoComplete="off"
+                placeholder={errors.description ? "*" : ""}
                 onChange={handleChange}
+                onBlur={handleBlurErrors}
               ></textarea>
             </div>
 
@@ -393,9 +410,8 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 </ul>
               </div>
               : null}
-
           </div>
-
+          {errors.code || errors.title || errors.company || errors.location || errors.stack || errors.requirements || errors.description ? <span className="text-red-500">Los campos marcados con * son obligatioris</span> : null}
           <div className="flex">
             <button onClick={onClose} className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
               Volver
@@ -404,7 +420,6 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
               Publicar
             </button>
           </div>
-
         </form>
       </div>
     </div>

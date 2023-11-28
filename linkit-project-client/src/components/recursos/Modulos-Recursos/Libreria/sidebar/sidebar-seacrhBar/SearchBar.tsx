@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchResources } from "../../../../../../redux/features/ResourcesSlice";
-
+import { useTranslation } from "react-i18next";
 import "./SearchBar.css";
 
 function SearchBar() {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-
+  const {t} = useTranslation();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
     dispatch(setSearchResources(event.target.value));
@@ -20,7 +20,7 @@ function SearchBar() {
           type="text"
           name="searchBar"
           className=" border-none placeholder:text-black grow font-montserrat focus:outline-none text-left w-[10rem] pl-[.8rem] placeholder:font-[600] font-[600]"
-          placeholder="Buscar recursos"
+          placeholder={t("Buscar recursos")}
           value={search}
           onChange={handleChange}
         />
