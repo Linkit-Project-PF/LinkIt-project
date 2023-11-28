@@ -23,7 +23,7 @@ export default function Vacancies() {
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
 
-  
+
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
@@ -59,12 +59,12 @@ export default function Vacancies() {
       }
     };
     loadData();
-  }, [dispatch]);
+  }, [data]);
 
   const showForm = () => {
     setViewForm(true);
   };
-  
+
   const noShowForm = () => {
     setViewForm(false);
   };
@@ -116,12 +116,13 @@ export default function Vacancies() {
     setEditedData({});
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (name === "requirements" || name === "technologies") {
+    if (name === "requirements" || name === "stack") {
+      const valuesArray = value.split(",").map((i)=>i.trim())
       setEditedData({
         ...editedData,
-        [name]: value.split(", "),
+        [name]:  valuesArray,
       });
     } else {
       setEditedData({
@@ -130,6 +131,7 @@ export default function Vacancies() {
       });
     }
   };
+  console.log(data)
 
   return (
     <div className="mb-32">
@@ -168,6 +170,8 @@ export default function Vacancies() {
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Modalidad</th>
             <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Tipo</th>
+            <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Requisitos</th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Tecnologías</th>
@@ -176,13 +180,15 @@ export default function Vacancies() {
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Estado</th>
             <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Vista</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {dataToShow.map((v: vacancyProps) => (
             <tr key={v._id}>
-              <td className="px-2"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.title
                 ) : (
@@ -196,8 +202,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.company
                 ) : (
@@ -211,8 +217,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.description
                 ) : (
@@ -226,12 +232,12 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {v.createdDate.split("T")[0]}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.location
                 ) : (
@@ -245,23 +251,43 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.modality
                 ) : (
-                  <input
+                  <select
                     className="w-[80%]"
-                    type="text"
                     name="modality"
-                    autoComplete="off"
                     placeholder={v.modality}
                     onChange={handleChange}
-                  />
+                  >
+                    <option value="remote">remote</option>
+                    <option value="specific-remote">specific-remote</option>
+                    <option value="on-site">on-site</option>
+                    <option value="hybrid">hybrid</option>
+                  </select>
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
+                {!editing && !editing && editRow !== v._id ? (
+                  v.type
+                ) : (
+                  <select
+                    className="w-[80%]"
+                    name="type"
+                    placeholder={v.type}
+                    onChange={handleChange}
+                  >
+                    <option value="full-time">full-time</option>
+                    <option value="part-time">part-time</option>
+                    <option value="freelance">freelance</option>
+                  </select>
+                )}
+              </td>
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.requirements.join(", ")
                 ) : (
@@ -275,8 +301,8 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && !editing && editRow !== v._id ? (
                   v.stack.join(" - ")
                 ) : (
@@ -290,15 +316,34 @@ export default function Vacancies() {
                   />
                 )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
-                <a onClick={() => setViewUserPost(true)}>{v.users.length}</a>
+
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
+                {v.users.length}
+
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit w-44">
-                {v.archived ? "Cerrada" : "Abierta"}
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
+                {!editing && !editing && editRow !== v._id ? (
+                  v.status
+                ) : (
+                  <select
+                    className="w-[80%]"
+                    name="status"
+                    placeholder={v.status}
+                    onChange={handleChange}
+                  >
+                    <option value="open">open</option>
+                    <option value="first-interview">first-interview</option>
+                    <option value="second-interview">second-interview</option>
+                    <option value="closed">closed</option>
+                  </select>
+                )}
               </td>
-              <td className="px-2 border-b-2 border-black"></td>
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
+                {v.archived ? "Oculta" : "Visible"}
+              </td>
               <td className="p-2 border-b-2 border-black">
                 {!editing && editRow !== v._id ? (
                   <button
@@ -322,8 +367,7 @@ export default function Vacancies() {
                   Cerrar
                 </button>
               </td>
-              <td className="px-2"></td>
-              {viewUserPost ? <UserPostulations users={v.users} onClose={hideUserPost}/>:null}
+              <td className="px-1"></td>
             </tr>
           ))}
           <tr>
@@ -331,7 +375,7 @@ export default function Vacancies() {
           </tr>
         </tbody>
       </table>
-      {viewForm && <FormVacancie onClose={noShowForm}/>}
+      {viewForm && <FormVacancie onClose={noShowForm} />}
     </div>
   );
 }
