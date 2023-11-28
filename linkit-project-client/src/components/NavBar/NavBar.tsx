@@ -291,10 +291,6 @@ function NavBar() {
                 <a href="#valores">{t('Valores e Historia')}</a>
               </li>
               <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#historia">Historia</a>
-              </li>
-              <hr className="w-[90px] ml-4" />
               <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
                 <a href="#talento-Interno">{t('Talento interno')}</a>
               </li>

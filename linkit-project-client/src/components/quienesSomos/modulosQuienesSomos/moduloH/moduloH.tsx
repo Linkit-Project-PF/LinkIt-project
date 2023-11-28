@@ -17,7 +17,7 @@
                     <img src="/people-LinkIt/edwar-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh] object-contain" alt="Edwar-Jimenez" />
                     <img src="/people-LinkIt/alfredo-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh] object-cover" alt="Alfredo-Rodas" />
                     <img src="/people-LinkIt/mateo-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh] object-cover" alt="Mateo-Guerrero" />
-                    <img src="/people-LinkIt/carolina-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh] object-contain" alt="Carolina-Tobar" />
+                    <img src="/people-LinkIt/carolina-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh] object-cover" alt="Carolina-Tobar" />
                     <p className="text-center mt-4 text-white font-bold text-[1vw] font-montserrat">Edwar Jimenez <br /><span className="font-normal text-[0.8vw]  font-montserrat">FullStack Web Developer</span></p>
                     <p className="text-center mt-4 text-white font-bold text-[1vw] font-montserrat">Alfredo Rodas <br /><span className="font-normal text-[0.8vw]  font-montserrat">FullStack Web Developer</span></p>
                     <p className="text-center mt-4 text-white font-bold text-[1vw] font-montserrat">Mateo Guerrero <br /><span className="font-normal text-[0.8vw]  font-montserrat">FullStack Web Developer</span></p>
