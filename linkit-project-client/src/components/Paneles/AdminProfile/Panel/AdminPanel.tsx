@@ -26,6 +26,7 @@ export default function AdminPanel() {
         if (state.Authentication.authState.role === 'company') return 'companie'
         else return state.Authentication.authState.role
     })
+    console.log(role)
 
     const [userData, setUserData] = useState<Partial<userInfoProps>>({})
 

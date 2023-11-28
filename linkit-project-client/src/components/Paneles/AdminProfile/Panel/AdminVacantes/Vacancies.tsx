@@ -5,6 +5,7 @@ import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from 'sweetalert';
+import {UserPostulations} from "./userPostulations";
 
 type stateProps = {
   jobCard: {
@@ -17,6 +18,7 @@ export default function Vacancies() {
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
   const [viewForm, setViewForm] = useState(false);
+  const [viewUserPost, setViewUserPost] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
@@ -67,6 +69,10 @@ export default function Vacancies() {
     setViewForm(false);
   };
 
+  const hideUserPost = () => {
+    setViewUserPost(false);
+  }
+
   const deleteVacancie = async (id: string) => {
     const resultado = confirm("¿Deseas cerrar la vacante?");
     if (resultado) {
@@ -83,6 +89,8 @@ export default function Vacancies() {
       }
     }
   };
+
+
 
   const handleEdit = (id: string) => {
     const rowToEdit = data.find((v) => v._id === id);
@@ -308,6 +316,7 @@ export default function Vacancies() {
                   />
                 )}
               </td>
+
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
                 {v.users.length}
