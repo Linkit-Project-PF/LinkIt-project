@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { vacancieProps } from "../../../admin.types";
+import { vacancyProps } from "../../../admin.types";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
@@ -8,7 +8,7 @@ import swal from 'sweetalert';
 
 type stateProps = {
   jobCard: {
-    allJobOffers: vacancieProps[];
+    allJobOffers: vacancyProps[];
   };
 };
 
@@ -19,7 +19,7 @@ export default function Vacancies() {
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
-  const [editedData, setEditedData] = useState<Partial<vacancieProps>>({});
+  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
 
   
 
@@ -171,7 +171,7 @@ export default function Vacancies() {
           </tr>
         </thead>
         <tbody>
-          {dataToShow.map((v: vacancieProps) => (
+          {dataToShow.map((v: vacancyProps) => (
             <tr key={v._id}>
               <td className="px-2"></td>
               <td className="border-b-2 border-black h-fit w-44">
