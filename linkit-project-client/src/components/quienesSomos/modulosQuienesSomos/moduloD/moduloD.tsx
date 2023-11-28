@@ -28,6 +28,6 @@ Con su <span className="bg-neutral-100 bg-opacity-[0.2]">compromiso y pasión po
 </div> 
 <div className="bg-linkIt-500 w-screen h-[8vh] grid grid-cols-2 items-center px-32">
     <button className={`text-linkIt-300 text-[2vw] font-bold text-start  ${show ? 'self-start relative 2xl:bottom-2' : ''}`} onClick={handleClick}>{show ? "_" : "+"}</button>
-    <button className='text-linkIt-300 text-[1.4vw] font-bold text-end' onClick={handleClick}>{show ? "Leer menos" : "Leer más"}</button>
+    <button className='text-linkIt-300 text-[1.4vw] font-bold text-end' onClick={handleClick}>{show ? (<a >Leer menos</a>) : "Leer más"}</button>
 </div>
 </div>) }

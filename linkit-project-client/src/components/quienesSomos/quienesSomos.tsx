@@ -7,6 +7,7 @@ import ModuloF from "./modulosQuienesSomos/moduloF/moduloF";
 import ModuloG from "./modulosQuienesSomos/moduloG/moduloG";
 
 
+
 export default function QuienesSomos() {
     return (
         <div>
