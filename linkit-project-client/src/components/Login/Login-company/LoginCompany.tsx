@@ -1,5 +1,8 @@
 import "./LoginCompany.css";
-import { setPressLoginCompany, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
+import {
+  setPressLoginCompany,
+  setPressSignUp,
+} from "../../../redux/features/registerLoginSlice.ts";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
@@ -11,8 +14,8 @@ import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSav
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2'
-import 'sweetalert2/dist/sweetalert2.min.css'
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
 
 type Event = {
@@ -20,7 +23,7 @@ type Event = {
 };
 
 function LoginCompany() {
-  const {t}= useTranslation()
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
@@ -29,7 +32,7 @@ function LoginCompany() {
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
     dispatch(setPressLoginCompany("hidden"));
-  }
+  };
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -79,13 +82,13 @@ function LoginCompany() {
       if (response.data._id) {
         Swal.fire({
           title: `Bienvenido de vuelta ${response.data.companyName}`,
-          text: 'Has ingresado correctamente',
-          icon: 'success',
-          iconColor: '#173951',
-          background: '#ECEEF0',
-          confirmButtonColor: '#01A28B',
-          confirmButtonText: 'Continuar'
-        })
+          text: "Has ingresado correctamente",
+          icon: "success",
+          iconColor: "#173951",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: "Continuar",
+        });
         const token = response.data._id;
         const role = response.data.role;
         dispatch(loginSuccess({ token, role }));
@@ -93,13 +96,13 @@ function LoginCompany() {
       }
     } catch (error: any) {
       Swal.fire({
-        title: 'Error',
-        text: 'Usuario o contraseña incorrectos',
-        icon: 'error',
-        background: '#ECEEF0',
-        confirmButtonColor: '#01A28B',
-        confirmButtonText: 'Continuar'
-      })
+        title: "Error",
+        text: "Usuario o contraseña incorrectos",
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: "Continuar",
+      });
     }
   };
 
@@ -115,13 +118,13 @@ function LoginCompany() {
           const DBresponse = await saveUserThirdAuth(response.user, "user");
           Swal.fire({
             title: `Bienvenido ${DBresponse.companyName}`,
-            text: 'Has ingresado correctamente',
-            icon: 'success',
-            iconColor: '#173951',
-            background: '#ECEEF0',
-            confirmButtonColor: '#01A28B',
-            confirmButtonText: 'Continuar'
-          })
+            text: "Has ingresado correctamente",
+            icon: "success",
+            iconColor: "#173951",
+            background: "#ECEEF0",
+            confirmButtonColor: "#01A28B",
+            confirmButtonText: "Continuar",
+          });
         } else {
           //* In case user exists, enters here
           const usersData = await axios.get(
@@ -139,13 +142,13 @@ function LoginCompany() {
             dispatch(loginSuccess({ token, role }));
             Swal.fire({
               title: `Bienvenido de vuelta ${authUser.companyName}`,
-              text: 'Has ingresado correctamente',
-              icon: 'success',
-              iconColor: '#173951',
-              background: '#ECEEF0',
-              confirmButtonColor: '#01A28B',
-              confirmButtonText: 'Continuar'
-            })
+              text: "Has ingresado correctamente",
+              icon: "success",
+              iconColor: "#173951",
+              background: "#ECEEF0",
+              confirmButtonColor: "#01A28B",
+              confirmButtonText: "Continuar",
+            });
           } else {
             const companyData = await axios.get(
               `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
@@ -162,13 +165,13 @@ function LoginCompany() {
               dispatch(loginSuccess({ token, role }));
               Swal.fire({
                 title: `Bienvenido de vuelta ${authCompany.companyName}`,
-                text: 'Has ingresado correctamente',
-                icon: 'success',
-                iconColor: '#173951',
-                background: '#ECEEF0',
-                confirmButtonColor: '#01A28B',
-                confirmButtonText: 'Continuar'
-              })
+                text: "Has ingresado correctamente",
+                icon: "success",
+                iconColor: "#173951",
+                background: "#ECEEF0",
+                confirmButtonColor: "#01A28B",
+                confirmButtonText: "Continuar",
+              });
             } else
               throw Error(
                 "Usuario autenticado pero registro no encontrado, contacte a un administrador"
@@ -180,29 +183,26 @@ function LoginCompany() {
       setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error);
-      else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Usuario o contraseña incorrectos',
-          icon: 'error',
-          background: '#ECEEF0',
-          confirmButtonColor: '#01A28B',
-          confirmButtonText: 'Continuar'
-        })
-      }
+      Swal.fire({
+        title: "Error",
+        text: "Usuario o contraseña incorrectos",
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: "Continuar",
+      });
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (thirdParty) {
       dispatch(setPressLoginCompany("hidden"));
       Swal.fire({
-        icon: 'info',
-        title: 'Espera un momento',
+        icon: "info",
+        title: "Espera un momento",
         text: `Estamos autenticando tu cuenta`,
-        confirmButtonText: 'Iniciar sesión',
-        confirmButtonColor: '#2D46B9',
+        confirmButtonText: "Iniciar sesión",
+        confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
@@ -211,14 +211,14 @@ function LoginCompany() {
         showDenyButton: false,
         showConfirmButton: true,
         didOpen: () => {
-          Swal.showLoading()
+          Swal.showLoading();
         },
         didClose: () => {
           dispatch(setPressLoginCompany("hidden"));
-        }
-      })
+        },
+      });
     }
-  },[thirdParty])
+  }, [thirdParty]);
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
 
   return (
@@ -232,7 +232,6 @@ function LoginCompany() {
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSignIn}
         >
-
           <img
             src="/Linkit-logo/linkit-logo-blue.svg"
             alt="linkIT-Logo"
@@ -240,11 +239,11 @@ function LoginCompany() {
           />
           <div className="flex flex-col justify-center items-center text-center">
             <h1 className="font-bold text-linkIt-400 text-[.9rem] 2xl:text-[1.4rem]">
-              {t('¡Te damos la bienvenida a LinkIT!')}
+              {t("¡Te damos la bienvenida a LinkIT!")}
             </h1>
             <p className="text-linkIt-400 font-[500] text-[.85rem] 2xl:text-[1.2rem]">
-              {t('Conectamos a las empresas con el')} <br />
-              {t('mejor talento para sus equipos.')}
+              {t("Conectamos a las empresas con el")} <br />
+              {t("mejor talento para sus equipos.")}
             </p>
           </div>
           <fieldset className="flex flex-col w-full content-center justify-center items-center gap-[.5rem]">
@@ -286,7 +285,7 @@ function LoginCompany() {
                 href="_blank"
                 whileHover={{ textDecoration: "underline" }}
               >
-                {t('olvidé mi contraseña')}
+                {t("olvidé mi contraseña")}
               </motion.a>
             </p>
           </fieldset>
@@ -295,7 +294,7 @@ function LoginCompany() {
               className="bg-linkIt-300 text-white font-semibold text-[.9rem] p-[.2rem] w-[90%] rounded-[.7rem] border-[.125rem] border-linkIt-300 hover:bg-linkIt-500 hover:text-linkIt-300 transition-all duration-300 ease-in-out"
               type="submit"
             >
-              {t('Iniciar sesión')}
+              {t("Iniciar sesión")}
             </button>
             <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
@@ -309,28 +308,31 @@ function LoginCompany() {
                 alt="sign-in with google"
                 className="w-[1.2rem]"
               />
-              {t('Ingresa con Google')}
+              {t("Ingresa con Google")}
             </motion.button>
           </div>
-          <Link 
-          className="flex flex-row border-[2px] border-linkIt-300 rounded-[8px] p-[.5rem] bg-white w-[90%] justify-center items-center content-center gap-[.5rem] hover:scale-105 transition-all duration-300 ease-in-out"
-          to={"https://calendly.com/linkit-project-henry/30min"}
-          target="_blank"
+          <Link
+            className="flex flex-row border-[2px] border-linkIt-300 rounded-[8px] p-[.5rem] bg-white w-[90%] justify-center items-center content-center gap-[.5rem] hover:scale-105 transition-all duration-300 ease-in-out"
+            to={"https://calendly.com/linkit-project-henry/30min"}
+            target="_blank"
           >
             <img src="/Vectores/calendario.svg" alt="" className="w-[2.5rem]" />
             <p className="font-semibold text-[.85rem]">
-              {t('¿Necesitas ayuda?')} <br />{" "}
-              <span className="text-linkIt-300">{t('Agenda una reunión')}</span>
+              {t("¿Necesitas ayuda?")} <br />{" "}
+              <span className="text-linkIt-300">{t("Agenda una reunión")}</span>
             </p>
           </Link>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
-            {t('¿Aún no tienes cuenta?')}
-            <motion.span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressNotRegistered}>
-              {t('Registrarse')}
+            {t("¿Aún no tienes cuenta?")}
+            <motion.span
+              className="text-linkIt-300 underline cursor-pointer"
+              onClick={handlePressNotRegistered}
+            >
+              {t("Registrarse")}
             </motion.span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
-            {t('INGRESO PARA EMPRESAS')}
+            {t("INGRESO PARA EMPRESAS")}
           </h3>
         </form>
       </div>
