@@ -4,7 +4,7 @@ import { validateForm } from "../../../errors/validation";
 import { ValidationError } from "../../../errors/errors";
 import swal from 'sweetalert';
 import validations from "./Validation";
-import { vacancieProps } from "../../../admin.types";
+import { vacancyProps } from "../../../admin.types";
 
 type OnCloseFunction = () => void;
 
@@ -18,7 +18,7 @@ interface InfoList {
 
 export default function FormVacancie({ onClose }: FormVacancieProps) {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
-  const [information, setInformation] = useState<Partial<vacancieProps>>({
+  const [information, setInformation] = useState<Partial<vacancyProps>>({
     code: "",
     title: "",
     description: "", //! 10 chars minimum back requirement.
@@ -34,6 +34,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     benefits: [],
     company: "",
   });
+  // console.log(information)
 
   const [errors, setErrors] = useState({
     code: "",
@@ -51,6 +52,8 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     benefits: "",
     company: "",
   });
+
+  console.log(errors)
 
   const [infoList, setInfoList] = useState<InfoList>({
     stack: [],
@@ -83,6 +86,28 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     }
   };
 
+  const addToListBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    const { name } = e.currentTarget;
+    const value = (e.target as HTMLInputElement).value;
+
+    if (value.trim() !== "") {
+      if (!infoList[name]?.includes(value)) {
+        setInfoList({
+          ...infoList,
+          [name]: [...(infoList[name] || []), value]
+        });
+
+        setInformation({
+          ...information,
+          [name]: [...(infoList[name] || []), value]
+        });
+      } else {
+        swal("Ya se encuentra agregado")
+      }
+    }
+      (e.target as HTMLInputElement).value = "";
+  };
+
   const deleteFromList = (e: React.MouseEvent<HTMLButtonElement>, id: string, listName: string) => {
     e.preventDefault()
 
@@ -99,7 +124,6 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     })
 
   };
-
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -128,7 +152,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await validateForm(information); //TODO: this is a custom error, create a custom error handler
+      await validateForm(information);
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
@@ -155,6 +179,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
       onClose()
       return response.data;
     } catch (error) {
+      console.error(error)
       throw new ValidationError(`Error al ingresar los datos en el formulario: ${(error as Error).message}`)
     }
   };
@@ -265,7 +290,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 placeholder={errors.stack ? "*" : ""}
                 onChange={handleChange}
                 onKeyDown={addToList}
-                onBlur={handleBlurErrors}
+                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -279,6 +304,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
                 onKeyDown={addToList}
+                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -292,7 +318,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 placeholder={errors.requirements ? "*" : ""}
                 onChange={handleChange}
                 onKeyDown={addToList}
-                onBlur={handleBlurErrors}
+                onBlur={errors.requirements ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -316,6 +342,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
                 onKeyDown={addToList}
+                onBlur={errors.benefits ? handleBlurErrors : addToListBlur}
               />
             </div>
 

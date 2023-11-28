@@ -1,4 +1,4 @@
-export type vacancieProps = {
+export type vacancyProps = {
   code: string
   title: string
   description: string
