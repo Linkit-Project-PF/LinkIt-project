@@ -6,8 +6,12 @@ import ModuloD from "./Modulos/ModuloD/ModuloD"
 import ModuloE from "./Modulos/ModuloE/ModuloE"
 import ModuloF from "./Modulos/ModuloF/ModuloF"
 import ModuloG from "./Modulos/ModuloG/ModuloG"
+import { useEffect } from "react";
 
 function Home() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
         <div className="flex flex-col">
             <ModuloA />
