@@ -4,7 +4,7 @@ import { validateForm } from "../../../errors/validation";
 import { ValidationError } from "../../../errors/errors";
 import swal from 'sweetalert';
 import validations from "./Validation";
-import { vacancieProps } from "../../../admin.types";
+import { vacancyProps } from "../../../admin.types";
 
 type OnCloseFunction = () => void;
 
@@ -18,7 +18,7 @@ interface InfoList {
 
 export default function FormVacancie({ onClose }: FormVacancieProps) {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
-  const [information, setInformation] = useState<Partial<vacancieProps>>({
+  const [information, setInformation] = useState<Partial<vacancyProps>>({
     code: "",
     title: "",
     description: "", //! 10 chars minimum back requirement.
@@ -33,9 +33,11 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     niceToHave: [],
     benefits: [],
     company: "",
+    status: "open"
   });
+  // console.log(information)
 
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState ({
     code: "",
     title: "",
     description: "",
@@ -50,7 +52,10 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     niceToHave: "",
     benefits: "",
     company: "",
+    
   });
+
+  // console.log(errors)
 
   const [infoList, setInfoList] = useState<InfoList>({
     stack: [],
@@ -83,6 +88,28 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     }
   };
 
+  const addToListBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+    const { name } = e.currentTarget;
+    const value = (e.target as HTMLInputElement).value;
+
+    if (value.trim() !== "") {
+      if (!infoList[name]?.includes(value)) {
+        setInfoList({
+          ...infoList,
+          [name]: [...(infoList[name] || []), value]
+        });
+
+        setInformation({
+          ...information,
+          [name]: [...(infoList[name] || []), value]
+        });
+      } else {
+        swal("Ya se encuentra agregado")
+      }
+    }
+    (e.target as HTMLInputElement).value = "";
+  };
+
   const deleteFromList = (e: React.MouseEvent<HTMLButtonElement>, id: string, listName: string) => {
     e.preventDefault()
 
@@ -101,11 +128,9 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
   };
 
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
-    // In case you want to apply this logic, please state on the form that this props must be separated with a comma.
     if (arrayProps.includes(name)) {
       setInformation({
         ...information,
@@ -117,6 +142,8 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
         [name]: value,
       });
     }
+    const validationError = validations(information)
+    setErrors(validationError)
   };
 
 
@@ -127,8 +154,10 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const validationError = validations(information)
+    setErrors(validationError)
     try {
-      await validateForm(information); //TODO: this is a custom error, create a custom error handler
+      await validateForm(information);
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
@@ -154,7 +183,8 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
       });
       onClose()
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error.response.data)
       throw new ValidationError(`Error al ingresar los datos en el formulario: ${(error as Error).message}`)
     }
   };
@@ -233,11 +263,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Modalidad</label>
               <div>
-                <select name="modality" className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white" onChange={handleChange}>
+                <select
+                  name="modality"
+                  className={errors.type ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                  onChange={handleChange}>
                   <option value="">Selecciona</option>
-                  <option value="part-time">Medio tiempo</option>
-                  <option value="full-time">Tiempo completo</option>
-                  <option value="freelance">Independiente</option>
+                  <option value="remote">Remoto</option>
+                  <option value="specific-remote">Remoto Específico</option>
+                  <option value="on-site">Presencial</option>
+                  <option value="hybrid">Hibrido</option>
                 </select>
               </div>
             </div>
@@ -245,12 +279,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Tipo</label>
               <div>
-                <select name="type" className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white" onChange={handleChange}>
+                <select
+                  name="type"
+                  className={errors.type ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                  onChange={handleChange}
+                >
                   <option value="">Selecciona</option>
-                  <option value="remote">Remoto</option>
-                  <option value="remote-place">Remoto desde un lugar</option>
-                  <option value="on-site">Presencial</option>
-                  <option value="hybrid">Hibrido</option>
+                  <option value="full-time">Tiempo completo</option>
+                  <option value="part-time">Medio tiempo</option>
+                  <option value="freelance">Independiente</option>
                 </select>
               </div>
             </div>
@@ -265,7 +302,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 placeholder={errors.stack ? "*" : ""}
                 onChange={handleChange}
                 onKeyDown={addToList}
-                onBlur={handleBlurErrors}
+                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -279,6 +316,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
                 onKeyDown={addToList}
+                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -292,7 +330,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 placeholder={errors.requirements ? "*" : ""}
                 onChange={handleChange}
                 onKeyDown={addToList}
-                onBlur={handleBlurErrors}
+                onBlur={errors.requirements ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -316,6 +354,7 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
                 onKeyDown={addToList}
+                onBlur={errors.benefits ? handleBlurErrors : addToListBlur}
               />
             </div>
 
@@ -349,6 +388,21 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
               />
+            </div>
+            <div className="w-fit px-3 mb-6">
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Estado (Abierta por defecto)</label>
+              <div>
+                <select
+                  name="status"
+                  className='"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                  onChange={handleChange}
+                >
+                  <option value="open">Abierta</option>
+                  <option value="first-interview">Primera entrevista</option>
+                  <option value="second-interview">Segunda entrevista</option>
+                  <option value="closed">Cerrada</option>
+                </select>
+              </div>
             </div>
             {infoList && infoList.stack && infoList.stack.length > 0 ?
               <div className="mx-4">
