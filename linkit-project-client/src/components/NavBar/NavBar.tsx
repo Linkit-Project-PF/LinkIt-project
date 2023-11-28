@@ -1,6 +1,7 @@
 import "./NavBar.css";
 import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg";
 import arrow from "/Vectores/arrow.png";
+import Languaje from "../../Utils/Language";
 import iconUser from "/Vectores/iconUser.png";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -295,7 +296,8 @@ function NavBar() {
               </li>
             </ul>{" "}
           </motion.nav>
-          <span className="font-medium">Inglés</span>
+          <Languaje />
+          {/* <span className="font-medium">Inglés</span> */}
           <motion.nav
             className="relative top-1 left-2 w-[75px] xl:w-[85px] h-[52px] xl:h-[52px]"
             ref={scopeUser}
