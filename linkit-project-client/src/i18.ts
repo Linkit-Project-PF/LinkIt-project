@@ -5,7 +5,7 @@ import { initReactI18next } from 'react-i18next';
 
 //i18next  Configuration
 const i18nOptions: InitOptions = {
-  fallbackLng: 'en',
+  fallbackLng: 'es',
   debug: true,
   interpolation: {
     escapeValue: false,
