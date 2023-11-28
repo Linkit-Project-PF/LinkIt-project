@@ -30,6 +30,7 @@ export function UserPostulations(props: propsInterface) {
         }
         getUsers();
     }, [])
+    console.log(userList)
     return(
         <div>
            <a onClick={props.onClose}>X</a>
