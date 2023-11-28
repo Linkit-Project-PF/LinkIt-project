@@ -1,11 +1,11 @@
-import CompanyProfile from "./CompanyProfile/CompanyProfile";
+// import CompanyProfile from "./CompanyProfile/CompanyProfile";
 import TalentProfile from "./TalentProfile/TalentProfile";
 
 const Profile = () => {
   return (
     <div>
     <TalentProfile/>
-    <CompanyProfile/>
+    {/* <CompanyProfile/> */}
     </div>
   )
 };
