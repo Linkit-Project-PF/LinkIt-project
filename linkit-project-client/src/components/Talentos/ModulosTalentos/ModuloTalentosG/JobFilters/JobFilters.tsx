@@ -1,100 +1,118 @@
-// JobFilters.tsx
-import { useState, useEffect, useRef, FC } from 'react';
-import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {SelectCountryEs} from "./selectCountry/SelectCountry";
+import './JobFilter.css'
 
-type DropdownProps = {
-  title: string;
-  options: string[];
-  onSelect: (option: string) => void;
-  isLast?: boolean;
-};
+const dropdownVariants = {
+  open: { 
+    opacity: 1,
+     y: 0,
+    transition: {
+      type: "spring",
+      duration: .8
+    }
 
-const Dropdown: FC<DropdownProps> = ({ title, options, onSelect, isLast }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
-  const dropdownRef = useRef<HTMLDivElement>(null);
+    },
+  closed: {  opacity: 0,
+    y: -10,
+    transition: {
+      type: "spring",
+      duration: .8
+    } 
+  },
+}
 
-  const handleToggle = () => setIsOpen(!isOpen);
 
-  const handleSelect = (option: string) => {
-    setSelectedOption(option === selectedOption ? '' : option);
-    setIsOpen(false);
-    onSelect(option);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-  
-
-  const borderStyle = isLast ? '' : 'border-r border-gray-300';
+const JobFilters = () => {
+  const [stack, setStack] = useState<string>("Stack");
+  const [type, setType] = useState<string>("Tipo");
+  const [location, setLocation] = useState<string>("Ubicación");
+  const [modality, setModality] = useState<string>("Modalidad");
+  const [stackOpen, setStackOpen] = useState<string>('closed');
+  const [typeOpen, setTypeOpen] = useState<string>('closed');
+  const [locationOpen, setLocationOpen] = useState<string>('closed');
+  const [modalityOpen, setModalityOpen] = useState<string>('closed');
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
-      <div className={`inline-flex items-center h-[2rem] pr-[1rem] ${borderStyle}`}>
-        <button onClick={handleToggle} className="bg-white text-sm font-medium text-gray-700 focus:outline-none flex gap-[1rem]">
-          {selectedOption || title} 
-          <span className="ml-2">
-            <img className="w-[1rem] relative top-[2px]" src="Vectores/arrow.png" alt="" />
-          </span>
+    <div className="flex w-[90%] justify-between items-center bg-white font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[3.5rem]">
+      <section className="relative">
+        <button
+          className="flex flex-row justify-center items-center gap-[1rem]"
+          onClick={() => setStackOpen(stackOpen === 'closed' ? 'open' : 'closed')}
+        >
+          {stack}
+          <img
+            src="/Vectores/dropdown.png"
+            alt="dropdown-arrow"
+            className={`w-[1.1rem] ml-[30%] mr-[-10%] ${stackOpen === 'open' ? "rotate" : "normal"}`}
+          />
+          <hr
+          className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" 
+          />
         </button>
-      </div>
-      {isOpen && (
-        <ul className="origin-top-left absolute left-0 mt-1 w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-          {options.map((option) => (
-            <li key={option} className="text-gray-700 flex justify-between items-center px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer" onClick={() => handleSelect(option)}>
-              {option}
-              {selectedOption === option && <span className="text-green-500">✔</span>}
-            </li>
-          ))}
+        <motion.ul 
+        className={`bg-white ${stackOpen === 'open' ?'dropdown-stack':'hidden'} rounded-b-[8px]`}
+        variants={dropdownVariants}
+        initial="closed"
+        animate={stackOpen}
+        >
+          <li onClick={()=>setStack('Frontend')}>FrontEnd</li>
+          <li onClick={()=>setStack('Backend')}>BackEnd</li>
+          <li onClick={()=>setStack('FullStack')}>FullStack</li>
+        </motion.ul>
+      </section>
+      <section className="relative">
+        <button
+          className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
+          onClick={() => setTypeOpen(typeOpen === 'closed' ? 'open' : 'closed')}
+        >
+          {type}
+          <img
+            src="/Vectores/dropdown.png"
+            alt="dropdown-arrow"
+            className={`w-[1.1rem] ml-[30%] mr-[-10%] ${typeOpen === 'open' ? "rotate" : "normal"}`}
+          />
+          <hr
+          className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" 
+          />
+        </button>
+        <motion.ul 
+        className={`bg-white ${typeOpen === 'open' ?'dropdown-type':'hidden'} rounded-b-[8px]`}
+        variants={dropdownVariants}
+        initial="closed"
+        animate={typeOpen}
+        >
+          <li onClick={()=>setType('Part-time')}>Part-time</li>
+          <li onClick={()=>setType('Full-time')}>Full-time</li>
+          <li onClick={()=>setType('Freelance')}>Freelance</li>
+        </motion.ul>
+      </section>
+      <section>
+        <SelectCountryEs />
+      </section>
+      <section>
+        <button 
+        className="flex flex-row justify-center items-center gap-[1rem]"
+        onClick={() => setModalityOpen(locationOpen === 'closed' ? 'open' : 'closed')}
+        >
+          {modality}{" "}
+          <img
+            src="/Vectores/dropdown.png"
+            alt="dropdown-arrow"
+            className={`w-[1.1rem] ml-[30%] ${modalityOpen? 'rotate': 'normal'}`} 
+          />
+        </button>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
         </ul>
-      )}
-    </div>
-  );
-};
-const JobFilters: FC = () => {
-  const [filters, setFilters] = useState({
-    stack: '',
-    type: '',
-    location: '',
-    modality: '',
-  });
-  const {t} = useTranslation();
-  const [dropdownTitles, setDropdownTitles] = useState({
-    
-    stack: 'Stack',
-    type: 'Tipo',
-    location: 'Ubicación',
-    modality: 'Modalidad',
-  });
-
-  const handleSelect = (category: keyof typeof filters) => (option: string) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [category]: option,
-    }));
-    setDropdownTitles((prevTitles) => ({
-      ...prevTitles,
-      [category]: option,
-    }));
-  };
-
-
-  return (
-    <div className="flex w-4/6 justify-between items-center bg-white shadow rounded-lg p-4 h-[3.5rem]">
-      <Dropdown title={dropdownTitles.stack} options={['Frontend', 'Backend', 'Fullstack']} onSelect={handleSelect('stack')} />
-      <Dropdown title={dropdownTitles.type} options={['Permanent', 'Contract', 'Internship']} onSelect={handleSelect('type')} />
-      <Dropdown title={dropdownTitles.location} options={['Remote', 'Onsite', 'Hybrid']} onSelect={handleSelect('location')} />
-      <Dropdown title={dropdownTitles.modality} options={['Full-time', 'Part-time', 'Freelance']} onSelect={handleSelect('modality')} isLast={true} />
-      <button className="bg-linkIt-300 rounded-lg p-2 h-10 text-white font-medium shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out ">
-        {t('Encontrar Vacante')}
+      </section>
+      <button 
+      className=" bg-linkIt-300 text-white rounded-[8px] py-[.4rem] px-[.8rem] border-[2px] border-linkIt-300 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out font-montserrat font-[500] ml-[3%]"
+      >
+        Encontrar Vacante
       </button>
     </div>
   );
