@@ -26,6 +26,7 @@ export default function AdminPanel() {
         if (state.Authentication.authState.role === 'company') return 'companie'
         else return state.Authentication.authState.role
     })
+    console.log(role)
 
     const [userData, setUserData] = useState<Partial<userInfoProps>>({})
 
@@ -33,7 +34,8 @@ export default function AdminPanel() {
         const infoUser = async()=>{
             const response = await axios(
                 `https://linkit-server.onrender.com/${role}s/find?id=${token}`,
-            { headers: { Authorization: `Bearer ${token}` } })
+            { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } })
+            // { headers: { Authorization: `Bearer ${token}` } }) //* descomentar cuando se tenga  creado el logeo de admin
             setUserData(response.data)
         }
         infoUser()

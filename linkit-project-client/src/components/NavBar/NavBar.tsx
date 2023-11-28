@@ -6,7 +6,7 @@ import iconUser from "/Vectores/iconUser.png";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux";
 import {
   setPressLogin,
   setPressSignUp,
@@ -14,6 +14,7 @@ import {
 } from "../../redux/features/registerLoginSlice";
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
+import { RootState } from "../../redux/types";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -54,16 +55,16 @@ function NavBar() {
   const {t}= useTranslation()
   const dispatch = useDispatch();
   const pressLogin = useSelector(
-    (state: any) => state.registerLogin.pressLogin
+    (state: RootState) => state.registerLogin.pressLogin
   );
   const pressSignUp = useSelector(
-    (state: any) => state.registerLogin.pressSignUp
+    (state: RootState) => state.registerLogin.pressSignUp
   );
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpenEmpresa, setIsOpenEmpresa] = useState(false);
   const [isOpenRecursos, setIsOpenRecursos] = useState(false);
-  const [isOpenQS, setIsOpenQS] = useState(false);
+  const [isOpenQS, setIsOpenQS] = useState(false);  
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
 
@@ -73,8 +74,7 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
   const scopeSoyTalento = useMenuAnimation(isOpenSoyTalento);
 
-  const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
-  const role = useSelector((state: any) => state.Authentication.authState.role)
+  const {isAuthenticated, role} = useSelector((state: RootState) => state.Authentication)
 
   const goAdminDashboard = () => {
     navigate("/AdminDashboard")
@@ -319,12 +319,12 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {isAuth && role === 'user' ? (
+              {isAuthenticated && role === 'user' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
-                      onClick={() => { navigate("/MyProfile") }}
+                      onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
                     </button>
@@ -347,7 +347,7 @@ function NavBar() {
                     </button>
                   </li>
                 </div>
-              ) : isAuth && role === 'admin' ? (
+              ) : isAuthenticated && role === 'admin' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
@@ -367,12 +367,12 @@ function NavBar() {
                     </button>
                   </li>
                 </div>
-              ) : isAuth && role === 'company' ? (
+              ) : isAuthenticated && role === 'company' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
-                      onClick={() => { navigate("/MyProfile") }}
+                      onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
                     </button>

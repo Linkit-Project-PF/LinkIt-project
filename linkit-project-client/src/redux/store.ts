@@ -9,27 +9,25 @@ import thunk from 'redux-thunk'
 import AuthSlice from "./features/AuthSlice";
 
 const persistConfig ={
-    key: "root",
-    storage,
-    whitelist:["authState"]
+  key: "root",
+  storage,
 }
 
+const persistedAuthReducer = persistReducer(persistConfig, AuthSlice)
+
 const rootReducer = combineReducers({
-    authState: AuthSlice
+  Authentication: persistedAuthReducer,
+  registerLogin: registerLoginSlice,
+  jobCard: JobCardSlice,
+  resources: ResourcesSlice,
 })
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
-    reducer: {
-        Authentication : persistedReducer,
-        registerLogin: registerLoginSlice,
-        jobCard: JobCardSlice,
-        resources: ResourcesSlice,
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: false,
-    }).concat(thunk),
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }).concat(thunk),
 })
 
 export default store;
