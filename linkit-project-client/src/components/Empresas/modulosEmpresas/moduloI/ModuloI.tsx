@@ -2,6 +2,8 @@ import arrow from "/Vectores/white-arrow.png";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 import validations from "./validations";
+import { validateContact } from "./errors/validation";
+import { ValidationError } from "./errors/errors";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
@@ -99,19 +101,25 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (Object.values(errors)) {
     try {
+      await validateContact(contacts);
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
       if(response.status === 200) {
         alert('Ahora eres uno de nuestros contactos!')
+        setContacts({
+          name: "",
+          lastName: "",
+          company: "",
+          service: [] as string[],
+          email: "",
+          message: "",
+        })
       }
       return response
     } catch (error) {
-      alert(error)
+      console.log(error)
+      throw new ValidationError(`Faltan datos del formulario: ${(error as Error).message}`);
     }
-} else {
-  alert('Por favor, rellena todos los campos correctamente')
-}
 }
   return (
     <div className="bg-linkIt-300 text-white grid grid-cols-2 p-[4vw]">
