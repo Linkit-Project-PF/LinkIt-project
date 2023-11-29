@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
+ 
  export default function ModuloH() { 
+const {t} = useTranslation();
+
     return (
         <div className="bg-black grid  p-[6vw] px-[15vw] gap-[3vw]">
-        <h1 className="text-white text-[2.6vw] font-manrope text-center"> Conoce a nuestros desarrolladores</h1>
+        <h1 className="text-white text-[2.6vw] font-manrope text-center"> {t('Conoce a nuestros desarrolladores')}</h1>
         <img src="/Vectores/henry-Logo.svg" className=" w-1/4 place-self-center -mt-6 xl:-mt-10 mb-10" alt="Henry-logo" />
         <div className="grid grid-cols-4 justify-items-center">
                     <img src="/people-LinkIt/samuel-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh]" alt="Samuel-henry" />
