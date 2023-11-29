@@ -2,16 +2,15 @@ import axios from "axios";
 import { SUPERADMN_ID } from "../../env";
 
 export default async function saveUserThirdAuth(user: any, role: string) {
+  const userToSave = {
+    name: user.displayName,
+    email: user.email,
+    image: user.photoURL,
+    role: role ?? "user",
+  };
   let result;
-  console.log(SUPERADMN_ID);
   try {
     if (role === "user") {
-      const userToSave = {
-        name: user.displayName,
-        email: user.email,
-        image: user.photoURL,
-        role: role ?? "user",
-      };
       result = await axios.post(
         "https://linkit-server.onrender.com/users/create",
         userToSave,
@@ -22,15 +21,9 @@ export default async function saveUserThirdAuth(user: any, role: string) {
         }
       );
     } else if (role === "company") {
-      const companyToSave = {
-        companyName: user.displayName,
-        email: user.email,
-        image: user.photoURL,
-        role: role ?? "company",
-      };
       result = await axios.post(
         "https://linkit-server.onrender.com/companies/create",
-        companyToSave,
+        userToSave,
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,

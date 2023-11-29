@@ -178,7 +178,7 @@ function App() {
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
-        <Route path ="/MyProfile/*" element={<Profile/>}/>
+        <Route path ="/profile/*" element={<Profile/>}/>
         <Route path="/blog/:id" element={<BlogView/>} />
       </Routes>
     </>
