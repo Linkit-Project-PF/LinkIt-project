@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { FunctionComponent } from 'react'
-import axios from 'axios'
-import { SUPERADMN_ID } from '../../../../../env'
 import { useNavigate } from 'react-router-dom'
 
 

@@ -1,97 +1,103 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { userProps } from "../../../admin.types";
+import { CreatePostulation } from "./createPost";
 
-type localData = {
-  user: userInfo;
+export interface localInfo {
+  user: userProps;
   status: string;
-};
-
-export type incomingData = {
-  user: string;
-  status: string;
-};
-
-interface propsInterface {
-  users: incomingData[];
-  onClose: () => void;
-  token: string;
 }
 
-interface userInfo {
-  _id: string;
-  airTableId: string;
-  image: string;
-  name: string;
-  email: string;
-  country: string;
-  linkedin: string;
-  cv: string;
-  role: string;
-  technologies: string[];
-  active: boolean;
-  postulations: any[];
-  __v: number;
+export interface arrivingInfo {
+  user: string;
+  status: string;
+}
+
+interface propsInterface {
+  users: arrivingInfo[];
+  onClose: () => void;
+  jdId: string;
 }
 
 export function UserPostulations(props: propsInterface) {
-  const { users, token } = props;
-  const [userList, setUserList] = useState<localData[]>([]);
+  const { users } = props;
+  const [userList, setUserList] = useState<Partial<localInfo[]>>([]);
+  const [createForm, viewCreateForm] = useState(false);
+  const token = useSelector((state: any) => state.Authentication.token);
+  const [changes, setChanges] = useState(false);
 
   useEffect(() => {
-    const getUserInfo = async () => {
-      const info = [];
-      for (let i = 0; i < users.length; i++) {
-        const { data } = await axios(
-          `https://linkit-server.onrender.com/users/find?id=${users[i].user}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        const newObj = { user: data, status: users[i].status };
-        info.push(newObj);
+    const getUsers = async () => {
+      try {
+        const newArr = [];
+        for (let i = 0; i < users.length; i++) {
+          const { data } = await axios.get(
+            `https://linkit-server.onrender.com/users/find?id=${users[i].user}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const newObj = { user: data, status: users[i].status };
+          newArr.push(newObj);
+        }
+        setUserList(newArr);
+      } catch (error) {
+        console.error(error);
       }
-      setUserList(info);
     };
-    getUserInfo();
-  }, []);
+    getUsers();
+  }, [changes]);
+
+  console.log(userList);
+
+  function hideCreateForm(): void {
+    viewCreateForm(false);
+  }
+
   return (
     <div>
       <a onClick={props.onClose}>X</a>
+      <a onClick={() => viewCreateForm(true)}>CREATE</a>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Country</th>
-            <th>Download CV</th>
-            <th>Stack</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Ubicacion</th>
+            <th>Tecnologias</th>
+            <th>LinkedIn</th>
+            <th>CV</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {userList.map((item) => {
-            return (
-              <tr key={item.user._id}>
-                <td>{item.user._id}</td>
-                <td>{item.user.name}</td>
-                <td>{item.user.email}</td>
-                <td>{item.user.country}</td>
-                <td>{item.user.cv}</td>
-                <td>{item.user.technologies.join(", ")}</td>
-                <td>{item.status}</td>
-                {users.length ? (
-                  <td>
-                    <button>Edit</button>
-                  </td>
-                ) : null}
-              </tr>
-            );
-          })}
+          {userList.map((obj) => (
+            <tr key={obj?.user._id} className="gap-4">
+              <td>{obj?.user._id}</td>
+              <td>{obj?.user.name}</td>
+              <td>{obj?.user.email}</td>
+              <td>{obj?.user.country}</td>
+              <td>{obj?.user.technologies.join(", ")}</td>
+              <td>{obj?.user.linkedin}</td>
+              <td>{obj?.user.cv}</td>
+              <td>{obj?.status}</td>
+              <td>EDIT</td>
+              <td>DELETE</td>
+            </tr>
+          ))}
         </tbody>
       </table>
+      {createForm && (
+        <CreatePostulation
+          onClose={hideCreateForm}
+          reload={setChanges}
+          jdId={props.jdId}
+        />
+      )}
     </div>
   );
 }
-
-/*
-
-*/

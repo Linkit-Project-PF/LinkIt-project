@@ -2,7 +2,6 @@ import Select from "react-select";
 import countries from 'i18n-iso-countries';
 import english from 'i18n-iso-countries/langs/en.json';
 import espanish from 'i18n-iso-countries/langs/es.json';
-import { useState } from "react";
 import { components } from "react-select";
 
 interface OptionType {

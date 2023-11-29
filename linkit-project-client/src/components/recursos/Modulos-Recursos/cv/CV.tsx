@@ -1,11 +1,8 @@
 import { useTranslation } from "react-i18next";
 import "./CV.css";
-import { useSelector } from "react-redux";
 
 function CV() {
   const {t}= useTranslation()
-  
-
 
   return (
     <div className="bg-linkIt-300 overflow-hidden">

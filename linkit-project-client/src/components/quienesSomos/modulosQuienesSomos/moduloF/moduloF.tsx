@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
                 </h1>
                 <p className="text-white text-[1vw] col-start-2 text-start font-montserrat font-bold -ml-[7vw] 2xl:-mt-10">Ary Molchadsky <br />
                 <span className="text-white col-start-2 text-start font-manrope font-normal">CEO & Co-Founder</span></p>
-                
                 </div>
             </div>
         )
