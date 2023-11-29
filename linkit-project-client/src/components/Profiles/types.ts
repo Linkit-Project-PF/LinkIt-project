@@ -18,7 +18,7 @@ interface IPostulation {
 
 export interface IUser {
   _id: string
-  image: string
+  image?: string
   name: string
   email: string
   country: string
@@ -28,5 +28,24 @@ export interface IUser {
   cv: string
   technologies: string[]
   active: boolean
+  password?: string
   postulations: IPostulation[]
 }
+
+export interface ICompany {
+  _id: string
+  image?: string
+  companyName: string
+  repName?: string
+  country?: string
+  email: string
+  password?: string 
+  role: UserRoleEnum
+  linkedin?: string
+  active: boolean
+}
+
+export interface IAdmin {
+  
+}
+

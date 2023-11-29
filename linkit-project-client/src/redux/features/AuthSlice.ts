@@ -1,11 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IAuthState } from "../types";
-import { IUser } from "../../components/Profiles/types";
+import { ICompany, IUser } from "../../components/Profiles/types";
 
 const initialState: IAuthState = {
   isAuthenticated: false,
   role: '',
   user: null,
+  company: null,
   token: null,
 }
 
@@ -24,14 +25,23 @@ const authSlice = createSlice({
       state.role = action.payload.role
       state.user = action.payload
     },
+    companyLogin: (state, action: PayloadAction<ICompany>) =>{
+      state.isAuthenticated = true
+      /** @deprecated remove it and use state.user only */
+      state.token = action.payload._id
+      /** @deprecated remove it and use state.user only */
+      state.role = action.payload.role
+      state.company = action.payload
+    },
     logout: (state) =>{
       state.isAuthenticated =  false
       state.user = null
+      state.company = null
       state.token = null
       state.role = ''
     }
   }
 })
 
-export const { loginSuccess, logout, setUser} = authSlice.actions;
+export const { loginSuccess, logout, setUser, companyLogin} = authSlice.actions;
 export default authSlice.reducer;

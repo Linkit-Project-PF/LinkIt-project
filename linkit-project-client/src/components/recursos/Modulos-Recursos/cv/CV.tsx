@@ -3,8 +3,6 @@ import "./CV.css";
 
 function CV() {
   const {t}= useTranslation()
-  
-
 
   return (
     <div className="bg-linkIt-300 overflow-hidden">
