@@ -310,7 +310,7 @@ function Register() {
             dispatch(setPressRegister("hidden"));
           },
         });
-      } else
+      } else {
         Swal.fire({
           icon: "error",
           title: "¡Error!",
@@ -333,28 +333,7 @@ function Register() {
             dispatch(setPressRegister("hidden"));
           }
         })
-      } else Swal.fire({
-        icon: 'error',
-        title: '¡Error!',
-        text: `${error}`,
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#2D46B9',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showCloseButton: false,
-        showCancelButton: false,
-        showDenyButton: false,
-        showConfirmButton: true,
-        timer: 5000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        didClose: () => {
-          dispatch(setPressRegister("hidden"));
-        }
-      });
+      }
     }
     dispatch(setPressRegister("hidden"));
 

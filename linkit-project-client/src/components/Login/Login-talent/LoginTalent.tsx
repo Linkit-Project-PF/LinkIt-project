@@ -88,9 +88,8 @@ function LoginTalent() {
           confirmButtonColor: "#01A28B",
           confirmButtonText: t("Continuar"),
         });
-        const token = response.data._id;
-        const role = response.data.role;
-        dispatch(loginSuccess({ token, role }));
+
+        dispatch(loginSuccess(loggedUser));
         dispatch(setPressLoginTalent("hidden"));
       }
     } catch (error: any) {

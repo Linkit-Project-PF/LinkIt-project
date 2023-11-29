@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { useTranslation } from "react-i18next";
+import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 
 
 
@@ -79,7 +80,6 @@ function LoginCompany() {
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`
       )
       const loggeCompany = response.data
-      console.log(loggeCompany)
 
       if (response.data._id) {
         
@@ -92,9 +92,8 @@ function LoginCompany() {
           confirmButtonColor: "#01A28B",
           confirmButtonText: t("Continuar"),
         });
-        const token = response.data._id;
-        const role = response.data.role;
-        dispatch(loginSuccess({ token, role }));
+        
+        dispatch(loginSuccess(loggeCompany));
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
@@ -140,11 +139,9 @@ function LoginCompany() {
               },
             }
           );
-          if (usersData.data.length) {
-            const authUser = usersData.data[0];
-            const token = authUser._id;
-            const role = authUser.role;
-            dispatch(loginSuccess({ token, role }));
+          if (getCompanyResponse.data.length) {
+            const authUser = getCompanyResponse.data[0];
+            dispatch(loginSuccess(authUser));
             console.log(authUser)
             Swal.fire({
               title: t("Bienvenido de vuelta", {name:authUser.companyName}),
@@ -157,7 +154,7 @@ function LoginCompany() {
             });
           } else {
             const companyData = await axios.get(
-              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+              `https://linkit-server.onrender.com/companies/find?email=${firebaseAuthResponse.user.email}`,
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
@@ -166,9 +163,7 @@ function LoginCompany() {
             );
             if (companyData.data.length) {
               const authCompany = companyData.data[0];
-              const token = authCompany._id;
-              const role = authCompany.role;
-              dispatch(loginSuccess({ token, role }));
+              dispatch(loginSuccess(authCompany));
               Swal.fire({
                 
                 title: t("Bienvenido de vuelta", {name:authCompany.companyName}),
