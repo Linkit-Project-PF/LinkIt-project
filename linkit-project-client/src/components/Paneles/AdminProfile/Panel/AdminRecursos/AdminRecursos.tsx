@@ -21,7 +21,14 @@ export default function AdminRecursos() {
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
-  const [editedData, setEditedData] = useState<Partial<ResourceProps>>({});
+  const [editedData, setEditedData] = useState<Partial<ResourceProps>>({
+    title: "",
+    description: "",
+    link: "",
+    type: "",
+    image: "",
+    category: "",
+  });
 
 
 
@@ -67,6 +74,7 @@ export default function AdminRecursos() {
 
   const noShowForm = () => {
     setViewForm(false);
+    setSaveStatus(!saveStatus)
   };
 
 
@@ -81,6 +89,7 @@ export default function AdminRecursos() {
           // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setResources(response.data));
+        setSaveStatus(!saveStatus)
         return swal("Recurso ocultado");
       } catch (error) {
         console.error("Error al enviar la solicitud:", (error as Error).message);
@@ -92,10 +101,18 @@ export default function AdminRecursos() {
 
   const handleEdit = (id: string) => {
     const rowToEdit = data.find((r) => r._id === id);
+    const editedProperties = {
+      title: rowToEdit?.title,
+      description: rowToEdit?.description,
+      link: rowToEdit?.link,
+      type: rowToEdit?.type,
+      image: rowToEdit?.image,
+      category: rowToEdit?.category,
+    }
     if (rowToEdit) {
       setEditRow(id);
       setEditing(false);
-      setEditedData(rowToEdit);
+      setEditedData(editedProperties);
       setSaveStatus(!saveStatus)
     }
   };
@@ -113,6 +130,7 @@ export default function AdminRecursos() {
     setEditing(false);
     setEditRow(null);
     setEditedData({});
+    setSaveStatus(!saveStatus)
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -130,7 +148,6 @@ export default function AdminRecursos() {
       });
     }
   };
-  console.log(data)
 
   return (
     <div className="mb-32">
@@ -153,7 +170,7 @@ export default function AdminRecursos() {
 
       </div>
 
-      <table className="w-[95%]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
+      <table className="w-full sm:w-[95%] mx-auto bg-linkIt-500 rounded-[20px] rounded-t-none overflow-x-scroll">
         <thead>
           <tr className="h-12">
             <th></th>
@@ -163,9 +180,9 @@ export default function AdminRecursos() {
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Link</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Tipo</th>
-            <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Fecha</th>
+            <th></th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Tipo</th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Imágen</th>
             <th></th>
@@ -180,7 +197,7 @@ export default function AdminRecursos() {
             <tr key={r._id}>
               <td className="px-1"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
+                {!editing && editRow !== r._id ? (
                   r.title
                 ) : (
                   <input
@@ -195,13 +212,13 @@ export default function AdminRecursos() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
+                {!editing && editRow !== r._id ? (
                   r.description
                 ) : (
                   <input
                     className="w-[80%]"
                     type="text"
-                    name="company"
+                    name="description"
                     autoComplete="off"
                     placeholder={r.description}
                     onChange={handleChange}
@@ -210,13 +227,13 @@ export default function AdminRecursos() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
+                {!editing && editRow !== r._id ? (
                   r.link
                 ) : (
                   <input
                     className="w-[80%]"
                     type="text"
-                    name="description"
+                    name="link"
                     autoComplete="off"
                     placeholder={r.link}
                     onChange={handleChange}
@@ -225,63 +242,49 @@ export default function AdminRecursos() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
+                {r.createdDate.split("T").slice()[0]}
+              </td>
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
+                {!editing && editRow !== r._id ? (
                   r.type
+                ) : (
+                  <select
+                    className="w-[80%]"
+                    name="type"
+                    placeholder={r.type}
+                    onChange={handleChange}
+                  >
+                    <option value="blog">blog</option>
+                    <option value="ebook">ebook</option>
+                    <option value="social">social</option>
+                  </select>
+                )}
+              </td>
+              <td className="px-1 border-b-2 border-black"></td>
+              <td className="border-b-2 border-black h-fit min-w-max">
+                {!editing && editRow !== r._id ? (
+                  r.image
                 ) : (
                   <input
                     className="w-[80%]"
                     type="text"
-                    name="location"
+                    name="image"
                     autoComplete="off"
-                    placeholder={r.type}
+                    placeholder={r.image}
                     onChange={handleChange}
                   />
                 )}
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
-                  r.createdDate.split("T")[0]
-                ) : (
-                  <select
-                    className="w-[80%]"
-                    name="modality"
-                    placeholder={r.createdDate}
-                    onChange={handleChange}
-                  >
-                    <option value="remote">remote</option>
-                    <option value="specific-remote">specific-remote</option>
-                    <option value="on-site">on-site</option>
-                    <option value="hybrid">hybrid</option>
-                  </select>
-                )}
-              </td>
-              <td className="px-1 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
-                  r.image
-                ) : (
-                  <select
-                    className="w-[80%]"
-                    name="type"
-                    placeholder={r.image}
-                    onChange={handleChange}
-                  >
-                    <option value="full-time">full-time</option>
-                    <option value="part-time">part-time</option>
-                    <option value="freelance">freelance</option>
-                  </select>
-                )}
-              </td>
-              <td className="px-1 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== r._id ? (
+                {!editing && editRow !== r._id ? (
                   r.category
                 ) : (
                   <input
                     className="w-[80%]"
                     type="text"
-                    name="requirements"
+                    name="category"
                     autoComplete="off"
                     placeholder={r.category}
                     onChange={handleChange}

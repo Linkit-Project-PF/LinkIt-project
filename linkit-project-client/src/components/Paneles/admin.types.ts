@@ -53,3 +53,10 @@ interface postulations {
   jd: string;
   status: string;
 }
+
+export type Review = {
+  nameUserOrCompany: string,
+  rol: string
+  country: string
+  detail: string
+}

@@ -21,9 +21,20 @@ export default function Vacancies() {
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
-  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
   const [postulData, setPostulData] = useState<Partial<vacancyProps>>({});
   const [viewPostul, setViewPostul] = useState(false);
+  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({
+    title: "", 
+    company: "",
+    description:"",
+    location:"",
+    modality:"",
+    type: "",
+    requirements: [],
+    stack: [],
+    status:"",
+  });
+
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
@@ -64,6 +75,7 @@ export default function Vacancies() {
 
   const noShowForm = () => {
     setViewForm(false);
+    setSaveStatus(!saveStatus)
   };
 
   const hidePostul = () => {
@@ -81,6 +93,7 @@ export default function Vacancies() {
           }
         );
         dispatch(setJobOffers(response.data));
+        setSaveStatus(!saveStatus)
         return swal("Vacante ocultada");
       } catch (error) {
         console.error(
@@ -93,6 +106,17 @@ export default function Vacancies() {
 
   const handleEdit = (id: string) => {
     const rowToEdit = data.find((v) => v._id === id);
+    const editedProperties = {
+      title: rowToEdit?.title,
+      company: rowToEdit?.company,
+      description:rowToEdit?.description,
+      location:rowToEdit?.location,
+      modality:rowToEdit?.modality,
+      type: rowToEdit?.type,
+      requirements: rowToEdit?.requirements,
+      stack: rowToEdit?.stack,
+      status:rowToEdit?.status
+    }
     if (rowToEdit) {
       setEditRow(id);
       setEditing(false);
@@ -106,6 +130,7 @@ export default function Vacancies() {
     if (activeRow) {
       setPostulData(activeRow);
       setViewPostul(true);
+
     }
   };
 
@@ -122,6 +147,7 @@ export default function Vacancies() {
     setEditing(false);
     setEditRow(null);
     setEditedData({});
+    setSaveStatus(!saveStatus)
   };
 
   const handleChange = (
@@ -141,6 +167,8 @@ export default function Vacancies() {
       });
     }
   };
+
+  
 
   return (
     <div className="mb-32">
@@ -177,7 +205,7 @@ export default function Vacancies() {
         </div>
       </div>
 
-      <table className="w-[95%]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
+      <table className="w-full sm:w-[95%] mx-auto bg-linkIt-500 rounded-[20px] rounded-t-none overflow-x-scroll">
         <thead>
           <tr className="h-12">
             <th></th>
