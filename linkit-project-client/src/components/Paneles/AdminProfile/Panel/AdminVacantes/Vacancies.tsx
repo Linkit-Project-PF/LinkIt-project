@@ -1,36 +1,39 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { vacancyProps } from "../../../admin.types";
+import { VacancyProps } from "../../../admin.types";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
-import { UserPostulations, incomingData } from "./userPostulations";
+import { UserPostulations } from "./userPostulations";
 
 type stateProps = {
   jobCard: {
-    allJobOffers: vacancyProps[];
-  };
-  Authentication: {
-    authState: {
-      token: string;
-    };
+    allJobOffers: VacancyProps[];
   };
 };
 
 export default function Vacancies() {
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
-  const token = useSelector(
-    (state: stateProps) => state.Authentication.authState.token
-  ); //* token de usuario para autenticación de protección de rutas
+  const token = useSelector((state: any) => state.Authentication.token);
   const [saveStatus, setSaveStatus] = useState(false);
   const [viewForm, setViewForm] = useState(false);
-  const [viewUserPost, setViewUserPost] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
-  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
-  const [activePost, setActivePost] = useState<Partial<vacancyProps>>({});
+  const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
+  const [viewPostul, setViewPostul] = useState(false);
+  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({
+    title: "",
+    company: "",
+    description: "",
+    location: "",
+    modality: "",
+    type: "",
+    requirements: [],
+    stack: [],
+    status: "",
+  });
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
@@ -71,23 +74,26 @@ export default function Vacancies() {
 
   const noShowForm = () => {
     setViewForm(false);
+    setSaveStatus(!saveStatus);
   };
 
-  const hideUserPost = () => {
-    setViewUserPost(false);
+  const hidePostul = () => {
+    setViewPostul(false);
   };
 
   const deleteVacancie = async (id: string) => {
-    const resultado = confirm("¿Deseas cerrar la vacante?");
+    const resultado = confirm("¿Deseas ocultar la vacante?");
     if (resultado) {
       try {
         const response = await axios.delete(
           `https://linkit-server.onrender.com/jds/delete/${id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
-        setSaveStatus(!saveStatus);
         dispatch(setJobOffers(response.data));
-        return swal("Vacante cerrada con exito");
+        setSaveStatus(!saveStatus);
+        return swal("Vacante ocultada");
       } catch (error) {
         console.error(
           "Error al enviar la solicitud:",
@@ -97,20 +103,32 @@ export default function Vacancies() {
     }
   };
 
-  const handlePostClick = (id: string) => {
-    const post = data.find((v) => v._id === id);
-    if (post) {
-      setActivePost(post);
-    }
-    setViewUserPost(true);
-  };
-
   const handleEdit = (id: string) => {
     const rowToEdit = data.find((v) => v._id === id);
+    const editedProperties = {
+      title: rowToEdit?.title,
+      company: rowToEdit?.company,
+      description: rowToEdit?.description,
+      location: rowToEdit?.location,
+      modality: rowToEdit?.modality,
+      type: rowToEdit?.type,
+      requirements: rowToEdit?.requirements,
+      stack: rowToEdit?.stack,
+      status: rowToEdit?.status,
+    };
     if (rowToEdit) {
       setEditRow(id);
       setEditing(false);
-      setEditedData(rowToEdit);
+      setEditedData(editedProperties);
+      setSaveStatus(!saveStatus);
+    }
+  };
+
+  const handlePostul = (id: string): void => {
+    const activeRow = data.find((v) => v._id === id);
+    if (activeRow) {
+      setPostulData(activeRow);
+      setViewPostul(true);
     }
   };
 
@@ -118,16 +136,16 @@ export default function Vacancies() {
     try {
       const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
       await axios.put(endPoint, editedData, {
-        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
-        // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+        headers: { Authorization: `Bearer ${token}` },
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error.response.data);
       console.error("Error al enviar la solicitud: ", (error as Error).message);
     }
-    setSaveStatus(!saveStatus);
     setEditing(false);
     setEditRow(null);
     setEditedData({});
+    setSaveStatus(!saveStatus);
   };
 
   const handleChange = (
@@ -183,7 +201,7 @@ export default function Vacancies() {
         </div>
       </div>
 
-      <table className="w-[95%]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
+      <table className="w-full sm:w-[95%] mx-auto bg-linkIt-500 rounded-[20px] rounded-t-none overflow-x-scroll">
         <thead>
           <tr className="h-12">
             <th></th>
@@ -238,11 +256,11 @@ export default function Vacancies() {
           </tr>
         </thead>
         <tbody>
-          {dataToShow.map((v: vacancyProps) => (
+          {dataToShow.map((v: VacancyProps) => (
             <tr key={v._id}>
               <td className="px-1"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.title
                 ) : (
                   <input
@@ -257,7 +275,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.company
                 ) : (
                   <input
@@ -272,7 +290,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.description
                 ) : (
                   <input
@@ -291,7 +309,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.location
                 ) : (
                   <input
@@ -306,7 +324,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.modality
                 ) : (
                   <select
@@ -324,7 +342,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.type
                 ) : (
                   <select
@@ -341,7 +359,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.requirements.join(", ")
                 ) : (
                   <input
@@ -356,7 +374,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.stack.join(" - ")
                 ) : (
                   <input
@@ -372,11 +390,11 @@ export default function Vacancies() {
 
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                <a onClick={() => handlePostClick(v._id)}>{v.users.length}</a>
+                <a onClick={() => handlePostul(v._id)}>{v.users.length}</a>
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.status
                 ) : (
                   <select
@@ -412,6 +430,18 @@ export default function Vacancies() {
                     Guardar
                   </button>
                 )}
+                {!editing && editRow !== v._id ? null : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditing(false);
+                      setEditRow(null);
+                      setEditedData({});
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                )}
                 <button
                   onClick={() => deleteVacancie(v._id)}
                   className="active:scale-90 m-1 h-fit w-fit"
@@ -427,14 +457,13 @@ export default function Vacancies() {
           </tr>
         </tbody>
       </table>
-      {viewForm && <FormVacancie onClose={noShowForm} />}
-      {viewUserPost && (
+      {viewPostul && (
         <UserPostulations
-          users={activePost.users as unknown as incomingData[]}
-          onClose={hideUserPost}
-          token={token}
+          onClose={hidePostul}
+          jdId={postulData._id as string}
         />
       )}
+      {viewForm && <FormVacancie onClose={noShowForm} token={token} />}
     </div>
   );
 }

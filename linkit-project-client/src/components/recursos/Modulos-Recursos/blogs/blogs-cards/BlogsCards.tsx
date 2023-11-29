@@ -1,10 +1,26 @@
-import blogs from "../../../../../Utils/blogs.json";
-import { useState } from "react";
+import axios from "axios";
+import { SUPERADMN_ID } from "../../../../../env.ts";
+import { PostEntity } from "../types.blogs.ts";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import BlogsCard from "./BlogsCard.tsx";
 
 function BlogsCards() {
   const [currentBlog, setCurrentBlog] = useState(0);
+  const [blogs, setBlogs] = useState<PostEntity[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get<PostEntity[]>("https://linkit-server.onrender.com/posts/find?type=blog", {
+          headers: {"Authorization": `Bearer ${SUPERADMN_ID}`}
+        });
+        setBlogs(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   const handlePrev = () => {
     if (currentBlog > 0) {
@@ -22,7 +38,7 @@ function BlogsCards() {
 
   const blogsToShow = 3;
   const startIndex = currentBlog * blogsToShow;
-  let endIndex = startIndex + blogsToShow;
+  const endIndex = startIndex + blogsToShow;
 
   let blogsToShowArray = blogs.slice(startIndex, endIndex);
 
@@ -51,8 +67,8 @@ function BlogsCards() {
               image={blog.image}
               title={blog.title}
               description={blog.description}
-              link={blog.link}
-              genre={blog.genre}
+              _id={blog._id}
+              genre={blog.category}
             />
           </motion.div>
         );

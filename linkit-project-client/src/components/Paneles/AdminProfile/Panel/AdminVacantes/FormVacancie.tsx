@@ -1,24 +1,25 @@
 import { useState } from "react";
 import axios from "axios";
-import { validateForm } from "../../../errors/validation";
+import { validateVacancy } from "../../../errors/validation";
+import { VacancyProps } from "../../../admin.types";
 import { ValidationError } from "../../../errors/errors";
-import swal from 'sweetalert';
-import validations from "./Validation";
-import { vacancyProps } from "../../../admin.types";
+import swal from "sweetalert";
+import { validations } from "./Validation";
 
 type OnCloseFunction = () => void;
 
 interface FormVacancieProps {
   onClose: OnCloseFunction;
+  token: string;
 }
 
 interface InfoList {
   [key: string]: string[] | undefined;
 }
 
-export default function FormVacancie({ onClose }: FormVacancieProps) {
+export default function FormVacancie(props: FormVacancieProps) {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
-  const [information, setInformation] = useState<Partial<vacancyProps>>({
+  const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
     description: "", //! 10 chars minimum back requirement.
@@ -33,11 +34,11 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     niceToHave: [],
     benefits: [],
     company: "",
-    status: "open"
+    status: "open",
   });
   // console.log(information)
 
-  const [errors, setErrors] = useState ({
+  const [errors, setErrors] = useState({
     code: "",
     title: "",
     description: "",
@@ -52,7 +53,6 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     niceToHave: "",
     benefits: "",
     company: "",
-    
   });
 
   // console.log(errors)
@@ -61,11 +61,11 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
     stack: [],
     requirements: [],
     niceToHave: [],
-    benefits: []
-  })
+    benefits: [],
+  });
 
   const addToList = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       const { name } = e.currentTarget;
       const value = (e.target as HTMLInputElement).value;
@@ -73,18 +73,18 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
       if (!infoList[name]?.includes(value)) {
         setInfoList({
           ...infoList,
-          [name]: [...(infoList[name] || []), value]
+          [name]: [...(infoList[name] || []), value],
         });
 
         setInformation({
           ...information,
-          [name]: [...(infoList[name] || []), value]
+          [name]: [...(infoList[name] || []), value],
         });
       } else {
-        swal("Ya se encuentra agregado")
+        swal("Ya se encuentra agregado");
       }
 
-      (e.target as HTMLInputElement).value = ''; // Limpiar el valor
+      (e.target as HTMLInputElement).value = ""; // Limpiar el valor
     }
   };
 
@@ -96,39 +96,45 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
       if (!infoList[name]?.includes(value)) {
         setInfoList({
           ...infoList,
-          [name]: [...(infoList[name] || []), value]
+          [name]: [...(infoList[name] || []), value],
         });
 
         setInformation({
           ...information,
-          [name]: [...(infoList[name] || []), value]
+          [name]: [...(infoList[name] || []), value],
         });
       } else {
-        swal("Ya se encuentra agregado")
+        swal("Ya se encuentra agregado");
       }
     }
     (e.target as HTMLInputElement).value = "";
   };
 
-  const deleteFromList = (e: React.MouseEvent<HTMLButtonElement>, id: string, listName: string) => {
-    e.preventDefault()
+  const deleteFromList = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string,
+    listName: string
+  ) => {
+    e.preventDefault();
 
-    const updateList = infoList[listName]?.filter((i) => i !== id)
+    const updateList = infoList[listName]?.filter((i) => i !== id);
 
     setInfoList({
       ...infoList,
-      [listName]: updateList
-    })
+      [listName]: updateList,
+    });
 
     setInformation({
       ...information,
-      [listName]: updateList
-    })
-
+      [listName]: updateList,
+    });
   };
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
     const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
     if (arrayProps.includes(name)) {
@@ -142,26 +148,24 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
         [name]: value,
       });
     }
-    const validationError = validations(information)
-    setErrors(validationError)
+    const validationError = validations(information as VacancyProps);
+    setErrors(validationError);
   };
 
-
   const handleBlurErrors = () => {
-    const validationError = validations(information)
-    setErrors(validationError)
-  }
+    const validationError = validations(information as VacancyProps);
+    setErrors(validationError);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validationError = validations(information)
-    setErrors(validationError)
+    const validationError = validations(information as VacancyProps);
+    setErrors(validationError);
     try {
-      await validateForm(information);
+      validateVacancy(information as VacancyProps);
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
-        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
-        // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+        headers: { Authorization: `Bearer ${props.token}` },
       });
 
       swal("La vacante fue creada con éxito");
@@ -181,21 +185,21 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
         benefits: [],
         company: "",
       });
-      onClose()
+      props.onClose();
       return response.data;
-    } catch (error: any) {
-      console.error(error.response.data)
-      throw new ValidationError(`Error al ingresar los datos en el formulario: ${(error as Error).message}`)
+    } catch (error) {
+      console.error((error as Error).message);
+      throw new ValidationError(
+        `Error al ingresar los datos en el formulario: ${
+          (error as Error).message
+        }`
+      );
     }
   };
 
-
-
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
-
       <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300 ">
-
         <div>
           <h1 className="text-3xl my-12">Nueva vacante</h1>
         </div>
@@ -206,11 +210,16 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
           action=""
         >
           <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
-
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Código</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Código
+              </label>
               <input
-                className={errors.code ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.code
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 type="text"
                 name="code"
                 placeholder={errors.code ? "*" : ""}
@@ -218,13 +227,18 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 onChange={handleChange}
                 onBlur={handleBlurErrors}
               />
-
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Titulo</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Titulo
+              </label>
               <input
-                className={errors.title ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.title
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 type="text"
                 name="title"
                 placeholder={errors.title ? "*" : ""}
@@ -235,9 +249,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Nombre de la empresa</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Nombre de la empresa
+              </label>
               <input
-                className={errors.company ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.company
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 type="text"
                 name="company"
                 placeholder={errors.company ? "*" : ""}
@@ -248,9 +268,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Ubicación</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Ubicación
+              </label>
               <input
-                className={errors.location ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.location
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 type="text"
                 name="location"
                 placeholder={errors.location ? "*" : ""}
@@ -261,12 +287,19 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Modalidad</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Modalidad
+              </label>
               <div>
                 <select
                   name="modality"
-                  className={errors.type ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                  onChange={handleChange}>
+                  className={
+                    errors.modality
+                      ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                      : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                  }
+                  onChange={handleChange}
+                >
                   <option value="">Selecciona</option>
                   <option value="remote">Remoto</option>
                   <option value="specific-remote">Remoto Específico</option>
@@ -277,11 +310,17 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Tipo</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Tipo
+              </label>
               <div>
                 <select
                   name="type"
-                  className={errors.type ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                  className={
+                    errors.type
+                      ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                      : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                  }
                   onChange={handleChange}
                 >
                   <option value="">Selecciona</option>
@@ -293,9 +332,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Tecnologías</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Tecnologías
+              </label>
               <input
-                className={errors.stack ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.stack
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 type="text"
                 name="stack"
                 autoComplete="off"
@@ -307,9 +352,10 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Deseable</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Deseable
+              </label>
               <input
-
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 type="text"
                 name="niceToHave"
@@ -321,9 +367,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Requisitos</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Requisitos
+              </label>
               <input
-                className={errors.requirements ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.requirements
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 type="text"
                 name="requirements"
                 autoComplete="off"
@@ -335,7 +387,9 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Responsabilidades</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Responsabilidades
+              </label>
               <input
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 type="text"
@@ -346,7 +400,9 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Beneficios</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Beneficios
+              </label>
               <input
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 type="text"
@@ -359,9 +415,15 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Descripción</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Descripción
+              </label>
               <textarea
-                className={errors.description ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                className={
+                  errors.description
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
                 name="description"
                 autoComplete="off"
                 placeholder={errors.description ? "*" : ""}
@@ -371,7 +433,9 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Acerca de la empresa</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Acerca de la empresa
+              </label>
               <textarea
                 className="appearance-none block h-fit w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 name="aboutUs"
@@ -381,7 +445,9 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Acerca del cliente (opcional)</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Acerca del cliente (opcional)
+              </label>
               <textarea
                 className="appearance-none block h-fit w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 name="aboutClient"
@@ -390,7 +456,9 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
               />
             </div>
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Estado (Abierta por defecto)</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                Estado (Abierta por defecto)
+              </label>
               <div>
                 <select
                   name="status"
@@ -404,73 +472,121 @@ export default function FormVacancie({ onClose }: FormVacancieProps) {
                 </select>
               </div>
             </div>
-            {infoList && infoList.stack && infoList.stack.length > 0 ?
+            {infoList && infoList.stack && infoList.stack.length > 0 ? (
               <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">Tecnologías agregadas</h3>
+                <h3 className="text-md font-bold text-linkIt-200">
+                  Tecnologías agregadas
+                </h3>
                 <ul className="list-disc">
                   {infoList.stack?.map((t: string) => {
                     return (
                       <div key={t} className="flex">
                         <li className="text-sm">{t}</li>
-                        <button onClick={(e) => deleteFromList(e, t, "stack")} className="ml-3 hover:text-red-500">x</button>
+                        <button
+                          onClick={(e) => deleteFromList(e, t, "stack")}
+                          className="ml-3 hover:text-red-500"
+                        >
+                          x
+                        </button>
                       </div>
-                    )
+                    );
                   })}
                 </ul>
               </div>
-              : null}
-            {infoList && infoList.requirements && infoList.requirements.length > 0 ?
+            ) : null}
+            {infoList &&
+            infoList.requirements &&
+            infoList.requirements.length > 0 ? (
               <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">Requisitos agregados</h3>
+                <h3 className="text-md font-bold text-linkIt-200">
+                  Requisitos agregados
+                </h3>
                 <ul className="list-disc">
                   {infoList.requirements?.map((t: string) => {
                     return (
                       <div key={t} className="flex">
                         <li className="text-sm">{t}</li>
-                        <button onClick={(e) => deleteFromList(e, t, "requirements")} className="ml-3 hover:text-red-500">x</button>
+                        <button
+                          onClick={(e) => deleteFromList(e, t, "requirements")}
+                          className="ml-3 hover:text-red-500"
+                        >
+                          x
+                        </button>
                       </div>
-                    )
+                    );
                   })}
                 </ul>
               </div>
-              : null}
-            {infoList && infoList.niceToHave && infoList.niceToHave.length > 0 ?
+            ) : null}
+            {infoList &&
+            infoList.niceToHave &&
+            infoList.niceToHave.length > 0 ? (
               <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">Deseables agregados</h3>
+                <h3 className="text-md font-bold text-linkIt-200">
+                  Deseables agregados
+                </h3>
                 <ul className="list-disc">
                   {infoList.niceToHave?.map((t: string) => {
                     return (
                       <div key={t} className="flex">
                         <li className="text-sm">{t}</li>
-                        <button onClick={(e) => deleteFromList(e, t, "niceToHave")} className="ml-3 hover:text-red-500">x</button>
+                        <button
+                          onClick={(e) => deleteFromList(e, t, "niceToHave")}
+                          className="ml-3 hover:text-red-500"
+                        >
+                          x
+                        </button>
                       </div>
-                    )
+                    );
                   })}
                 </ul>
               </div>
-              : null}
-            {infoList && infoList.benefits && infoList.benefits.length > 0 ?
+            ) : null}
+            {infoList && infoList.benefits && infoList.benefits.length > 0 ? (
               <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">Beneficios agregados</h3>
+                <h3 className="text-md font-bold text-linkIt-200">
+                  Beneficios agregados
+                </h3>
                 <ul className="list-disc">
                   {infoList.benefits?.map((t: string) => {
                     return (
                       <div key={t} className="flex">
                         <li className="text-sm">{t}</li>
-                        <button onClick={(e) => deleteFromList(e, t, "benefits")} className="ml-3 hover:text-red-500">x</button>
+                        <button
+                          onClick={(e) => deleteFromList(e, t, "benefits")}
+                          className="ml-3 hover:text-red-500"
+                        >
+                          x
+                        </button>
                       </div>
-                    )
+                    );
                   })}
                 </ul>
               </div>
-              : null}
+            ) : null}
           </div>
-          {errors.code || errors.title || errors.company || errors.location || errors.stack || errors.requirements || errors.description ? <span className="text-red-500">Los campos marcados con * son obligatioris</span> : null}
+          {errors.code ||
+          errors.title ||
+          errors.company ||
+          errors.location ||
+          errors.stack ||
+          errors.requirements ||
+          errors.description ? (
+            <span className="text-red-500">
+              Los campos marcados con * son obligatioris
+            </span>
+          ) : null}
           <div className="flex">
-            <button onClick={onClose} className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
+            <button
+              onClick={props.onClose}
+              className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
+            >
               Volver
             </button>
-            <button type="submit" className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
+            <button
+              type="submit"
+              className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
+            >
               Publicar
             </button>
           </div>

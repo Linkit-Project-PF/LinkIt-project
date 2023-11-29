@@ -6,7 +6,7 @@ import { initReactI18next } from 'react-i18next';
 //i18next  Configuration
 export const i18nOptions: InitOptions = {
   fallbackLng: 'es',
-  debug: false,
+  debug: true,
   interpolation: {
     escapeValue: false,
   },
@@ -151,7 +151,7 @@ export const i18nOptions: InitOptions = {
 
         //!NavBar
         "Contrata y gestiona talentos de forma global con LinkIt":"Hire and manage talent globally with LinkIt",
-        "Comienza ahora!":"Starts now!",
+        "Comienza ahora!":"Start now!",
         "Inicio":"Home",
         "Servicios":"Services",
         "Proceso":"Process",
@@ -165,7 +165,7 @@ export const i18nOptions: InitOptions = {
         "Quiénes Somos":"About us",
         "Misión":"Mission",
         "Visión":"Vision",
-        "Valores e Historia":"Values and History",
+        "Valores":"Values",
         "Talento interno":"Internal talent",
         "Mis datos":"My data",
         "Mis búsquedas":"My searches",
@@ -174,6 +174,7 @@ export const i18nOptions: InitOptions = {
         "Mis vacantes":"My vacancies",
         "Regístrate":"Register",
         "Inicia Sesión":"Log in",
+        "Historia":"History",
          //!Blogs
         "Leer Nota":"Read note",
         "Descubre más sobre el mundo IT":"Discover more about the IT world",
@@ -380,6 +381,53 @@ export const i18nOptions: InitOptions = {
         //Quienes Somos modulo I
         "Nombre":"Name",
         "Mensaje":"Message",
+        //!Paneles AdminRecursos
+        "¿Deseas ocultar el recurso?":"Do you want to hide the resource?",
+        "Recurso ocultado":"Hidden resource",
+        "Gestión de recursos":"Resource management",
+        "Crear recurso":"Create resource",
+        "Anterior":"Previous",
+        "Siguiente":"Next",
+        "Pagina":"Page",
+        "de":"of",
+        "Título":"Title",
+        "Descripción":"Description",
+        "Fecha":"Date",
+        "Tipo":"Type",
+        "Imagen":"Image",
+        "Categoría":"Category",
+        "Vista":"View",
+        "Editar":"Edit",
+        "Guardar":"Save",
+        "Cerrar":"Close",
+        //!Paneles FormResource
+        "El post fue creado con éxito":"The post was successfully created",
+        "Nuevo Recurso":"New Resource",
+        "Selecciona":"Select",
+        "Los campos marcados con * son obligatorios":"Fields marked with * are required",
+        "Volver":"Back",
+        "Publicar":"Post",
+        //!Paneles AdminReviews
+        "Gestión de reseñas":"Review management",
+        "Error al cargar las reseñas":"Error loading reviews",
+        "Crear reseña":"Create review",
+        "Rol":"Role",
+        "País":"Country",
+        "Detalle":"Detail",
+        //!Paneles FormReviews
+        "Nueva Reseña":"New Review",
+        "Nombre Cliente":"Customer Name",
+        "Usuario":"User",
+        "Los campos marcados con * son obligatiorios":"Fields marked with * are mandatory.",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
       },
     }
   },

@@ -3,27 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     jobOffers: [],
     allJobOffers: [],
-    filters: []
+}
+
+type JobOffer = {
+    id: number,
+    title: string,
+    description: string,
+    company: string,
+    location: string,
+    salary: number,
+    archived: boolean,
+    created_at: string,
+
 }
 
 const JobCardSlice = createSlice({
     name: 'jobCard',
     initialState,
     reducers: {
-        setFilters: (state, action) => {
-            state.filters = { ...state.filters, ...action.payload };
-        },
-        applyFilters: (state) => {
-            state.jobOffers = state.allJobOffers.filter(offer => {
-                // Apply all filters. If a filter function returns false, exclude the offer.
-                for (let key in state.filters) {
-                    if (state.filters[key] !== offer[key]) {
-                        return false;
-                    }
-                }
-                // If none of the filters excluded the offer, include it.
-                return true;
-            });
+        applyFilters: (state, action) => {
+            state.jobOffers = action.payload.filter((jobOffer: JobOffer) => jobOffer.archived === false)
         },
         setJobOffers: (state, action) =>{
             state.jobOffers = action.payload;
@@ -32,7 +31,7 @@ const JobCardSlice = createSlice({
     }
 })
 
-export const { setFilters, applyFilters, setJobOffers } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 
