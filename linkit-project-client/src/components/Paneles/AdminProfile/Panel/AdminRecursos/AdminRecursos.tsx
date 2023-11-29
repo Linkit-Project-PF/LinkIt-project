@@ -94,7 +94,7 @@ export default function AdminRecursos() {
         setSaveStatus(!saveStatus)
         return swal("Recurso ocultado");
       } catch (error) {
-        console.error("Error al enviar la solicitud:", (error as Error).message);
+        console.error(error);
       }
     }
   };

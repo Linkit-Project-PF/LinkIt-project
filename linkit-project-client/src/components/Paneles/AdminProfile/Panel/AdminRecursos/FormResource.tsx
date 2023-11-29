@@ -167,18 +167,18 @@ export default function FormResource({ onClose }: FormResourceProps) {
                 </select>
               </div>
             </div>
-          </div>
 
-          <div className="mb-6">
-            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Descripción')}</label>
-            <textarea
-              className={errors.description ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-              name="description"
-              autoComplete="off"
-              placeholder={errors.description ? "*" : ""}
-              onChange={handleChange}
-              onBlur={handleBlurErrors}
-            ></textarea>
+            <div className="mb-6">
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Descripción</label>
+              <textarea
+                className={errors.description ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                name="description"
+                autoComplete="off"
+                placeholder={errors.description ? "*" : ""}
+                onChange={handleChange}
+                onBlur={handleBlurErrors}
+              ></textarea>
+            </div>
           </div>
 
           {errors.title || errors.description || errors.link || errors.type || errors.image || errors.category ? <span className="text-red-500">{t('Los campos marcados con * son obligatorios')}</span> : null}

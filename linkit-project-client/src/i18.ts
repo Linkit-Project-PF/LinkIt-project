@@ -151,7 +151,7 @@ export const i18nOptions: InitOptions = {
 
         //!NavBar
         "Contrata y gestiona talentos de forma global con LinkIt":"Hire and manage talent globally with LinkIt",
-        "Comienza ahora!":"Starts now!",
+        "Comienza ahora!":"Start now!",
         "Inicio":"Home",
         "Servicios":"Services",
         "Proceso":"Process",
