@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CompanyProfile from "./CompanyProfile/CompanyProfile";
+// import CompanyProfile from "./CompanyProfile/CompanyProfile";
 // import TalentProfile from "./TalentProfile/TalentProfile";
 
 const Profile = () => {
@@ -21,7 +21,7 @@ const Profile = () => {
   
   return (
     <div>
-      <CompanyProfile/>
+      {/* <CompanyProfile/> */}
       {/* <TalentProfile/> */}
     </div>
   )

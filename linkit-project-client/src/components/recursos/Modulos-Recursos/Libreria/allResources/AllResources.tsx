@@ -104,6 +104,7 @@ function AllResources() {
                     description={blog.description}
                     genre={blog.category}
                     link={blog.link}
+                    _id={blog._id}
                   />
               </div>
           )})
@@ -117,6 +118,7 @@ function AllResources() {
                   description={blog.description}
                   genre={blog.category}
                   link={blog.link}
+                  _id={blog._id}
                 />
             </div>
         )})

@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchResources } from "../../../../../../redux/features/ResourcesSlice";
+import { setSearchResources, setFilterResources } from "../../../../../../redux/features/ResourcesSlice";
 import { useTranslation } from "react-i18next";
 import "./SearchBar.css";
 
-function SearchBar() {
+type SearchBarProps = {
+  setActive: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function SearchBar({setActive}: SearchBarProps) {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
     dispatch(setSearchResources(event.target.value));
+    setActive("0")
   }
 
   return (
