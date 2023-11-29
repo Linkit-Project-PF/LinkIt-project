@@ -1,0 +1,44 @@
+[
+    {
+        "image": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+        "title":"Cómo evaluar el desempeño de tu equipo de trabajo",
+        "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, seddiam nonummy nibh euismod",
+        "link":"https://www.google.com",
+        "category":"GUÍA"
+    },
+    {
+        "image": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+        "title":"Cómo evaluar las competencias de tu equipo de trabajo",
+        "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, seddiam nonummy nibh euismod",
+        "link":"https://www.google.com",
+        "category":"GUÍA"
+    },
+    {
+        "image": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+        "title":"Cómo evaluar las habilidades técnicas de un candidato en IT",
+        "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, seddiam nonummy nibh euismod",
+        "link":"https://www.google.com",
+        "category":"GUÍA"
+    },
+    {
+        "image": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+        "title":"Cómo evaluar la experiencia en desarrollo de software",
+        "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, seddiam nonummy nibh euismod",
+        "link":"https://www.google.com",
+        "category":"GUÍA"
+    },
+    {
+        "image": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+        "title":"Properix logró incorporar talento en menos de 5 días",
+        "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, seddiam nonummy nibh euismod",
+        "link":"https://www.google.com",
+        "category":"CASO DE ÉXITO"
+    },
+    {
+        "image": "https://www.youtube.com/watch?v=iTjkiI8QQsM",
+        "title":"Mercado Libre tiene un proceso de selección de talento eficiente",
+        "description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, seddiam nonummy nibh euismod",
+        "link":"https://www.google.com",
+        "category":"CASO DE ÉXITO"
+    }
+]

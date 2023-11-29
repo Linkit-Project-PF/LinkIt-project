@@ -1,9 +1,7 @@
 .line {
     position: absolute;
-    left: 3%;
-    width: 90%;
+    width: 95%;
     height: 4px;
-    margin: 2.5rem;
     background-color: #A9C1D9;
     z-index: -1;
   }
@@ -16,9 +14,9 @@
     height: 15px;
     border-radius: 50%;
     background-color: #A9C1D9;
-    top: 50%;
     transform: translateY(-50%);
-    
+    right:100%;
+    top: 2px;    
   }
   
   .line::before{
@@ -29,5 +27,5 @@
     border-radius: 50%;
     background-color: #A9C1D9;
     transform: translateY(-40%);
-    right: -2px;
+    left: 100%;
   }

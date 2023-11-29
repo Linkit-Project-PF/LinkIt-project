@@ -1,0 +1,145 @@
+@media screen and (min-width: 1280px){
+    .cards-container{
+        gap: 2rem !important;
+    }
+    .container{
+        width: 22vw !important;
+        height: 63vh !important;
+    }
+    .genre{
+        font-size: 0.8rem !important;
+    }
+    .title-card{
+        font-size: 1rem !important;
+        text-wrap: balance !important;
+    }
+    .description{
+        font-size: 0.8rem !important;
+        text-wrap: balance !important;
+    }
+    .image{
+        width: 100% !important;
+        height: 11rem !important;
+    }
+    .link{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1366px){
+    .cards-container{
+        gap: 3rem !important;
+    }
+    .container{
+        width: 24vw !important;
+        height: 100% !important;
+    }
+    .genre{
+        font-size: 0.8rem !important;
+    }
+    .title-card{
+        font-size: 1rem !important;
+        text-wrap: balance !important;
+    }
+    .description{
+        font-size: 0.8rem !important;
+        text-wrap: balance !important;
+    }
+    .image{
+        width: 100% !important;
+        height: 35% !important;
+    }
+    .link{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1400px){
+    .container{
+        width: 22vw !important;
+        height: 57vh !important;
+    }
+    .image{
+        width: 100% !important;
+        height: 11rem !important;
+    }
+}
+
+@media screen and (min-width: 1680px){
+    .cards-container{
+        gap: 3rem !important;
+    }
+    .container{
+        width: 21vw !important;
+        height: 49vh !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title-card{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1720px){
+    .cards-container{
+        gap: 3rem !important;
+    }
+    .container{
+        width: 21vw !important;
+        height: 48vh !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title-card{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
+
+
+@media screen and (min-width: 1800px){
+    .container{
+        width: 21vw !important;
+        min-height: 45vh !important;
+        max-height: 45vh !important;
+    }
+    .cards-container{
+        gap: 1rem !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title-card{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1920px){
+    .container{
+        width: 21vw !important;
+        min-height: 45vh !important;
+        max-height: 48vh !important;
+    }
+    .cards-container{
+        gap: 1rem !important;
+    }
+    .genre{
+        font-size: 1rem !important;
+    }
+    .title-card{
+        font-size: 1.2rem !important;
+    }
+    .description{
+        font-size: 1rem !important;
+    }
+}
