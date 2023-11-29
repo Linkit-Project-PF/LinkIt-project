@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { useTranslation } from "react-i18next";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   setPressLogin,
   setPressSignUp,

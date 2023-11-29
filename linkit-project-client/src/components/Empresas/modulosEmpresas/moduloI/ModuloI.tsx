@@ -6,6 +6,8 @@ import { validateContact } from "./errors/validation";
 import { ValidationError } from "./errors/errors";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import Swal from 'sweetalert2'
+
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
 function useMenuAnimation(isOpen: boolean) {
@@ -105,7 +107,11 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       await validateContact(contacts);
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
       if(response.status === 200) {
-        alert('Ahora eres uno de nuestros contactos!')
+        Swal.fire({ 
+          title: "Gracias por contactarnos!",
+          text: "Nos estaremos comunicando a la brevedad",
+          icon: "success" })
+
         setContacts({
           name: "",
           lastName: "",
@@ -118,6 +124,11 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       return response
     } catch (error) {
       console.log(error)
+      Swal.fire({ 
+        title: "Faltan datos del formulario!",
+        text: "error",
+        icon: 'error' })
+        
       throw new ValidationError(`Faltan datos del formulario: ${(error as Error).message}`);
     }
 }
