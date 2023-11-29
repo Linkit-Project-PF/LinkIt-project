@@ -23,12 +23,19 @@ export type vacancyProps = {
 
 export type ResourceProps = {
   _id: string;
-  title: string, //
+  title: string, 
   description: string,
-  link: string, //
-  type: string, //
+  link: string, 
+  type: string, 
   createdDate: string,
-  image: string, //
-  category: string, //
+  image: string, 
+  category: string, 
   archived: boolean,
+}
+
+export type Review = {
+  nameUserOrCompany: string,
+  rol: string
+  country: string
+  detail: string
 }
