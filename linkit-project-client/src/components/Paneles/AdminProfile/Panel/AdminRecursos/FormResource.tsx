@@ -59,6 +59,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
     e.preventDefault();
     // const validationError = validations(information)
     // setErrors(validationError)
+    
     try {
       const endPoint = "https://linkit-server.onrender.com/posts/create";
       const response = await axios.post(endPoint, information, {
