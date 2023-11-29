@@ -18,6 +18,8 @@ import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
 
+
+
 type Event = {
   target: HTMLInputElement;
 };
@@ -80,14 +82,15 @@ function LoginCompany() {
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`
       );
       if (response.data._id) {
+        
         Swal.fire({
-          title: `Bienvenido de vuelta ${response.data.companyName}`,
-          text: "Has ingresado correctamente",
+          title: t("Bienvenido de vuelta",{ name: response.data.companyName }),
+          text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
           background: "#ECEEF0",
           confirmButtonColor: "#01A28B",
-          confirmButtonText: "Continuar",
+          confirmButtonText: t("Continuar"),
         });
         const token = response.data._id;
         const role = response.data.role;
@@ -97,11 +100,11 @@ function LoginCompany() {
     } catch (error: any) {
       Swal.fire({
         title: "Error",
-        text: "Usuario o contraseña incorrectos",
+        text: t("Usuario o contraseña incorrectos"),
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
-        confirmButtonText: "Continuar",
+        confirmButtonText: t("Continuar"),
       });
     }
   };
@@ -117,13 +120,13 @@ function LoginCompany() {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
           Swal.fire({
-            title: `Bienvenido ${DBresponse.companyName}`,
-            text: "Has ingresado correctamente",
+            title: t("Bienvenido", {name:DBresponse.companyName}),
+            text: t("Has ingresado correctamente"),
             icon: "success",
             iconColor: "#173951",
             background: "#ECEEF0",
             confirmButtonColor: "#01A28B",
-            confirmButtonText: "Continuar",
+            confirmButtonText: t("Continuar"),
           });
         } else {
           //* In case user exists, enters here
@@ -141,13 +144,13 @@ function LoginCompany() {
             const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
             Swal.fire({
-              title: `Bienvenido de vuelta ${authUser.companyName}`,
-              text: "Has ingresado correctamente",
+              title: t("Bienvenido de vuelta", {name:authUser.companyName}),
+              text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
               background: "#ECEEF0",
               confirmButtonColor: "#01A28B",
-              confirmButtonText: "Continuar",
+              confirmButtonText: t("Continuar"),
             });
           } else {
             const companyData = await axios.get(
@@ -164,17 +167,18 @@ function LoginCompany() {
               const role = authCompany.role;
               dispatch(loginSuccess({ token, role }));
               Swal.fire({
-                title: `Bienvenido de vuelta ${authCompany.companyName}`,
-                text: "Has ingresado correctamente",
+                
+                title: t("Bienvenido de vuelta", {name:authCompany.companyName}),
+                text: t("Has ingresado correctamente"),
                 icon: "success",
                 iconColor: "#173951",
                 background: "#ECEEF0",
                 confirmButtonColor: "#01A28B",
-                confirmButtonText: "Continuar",
+                confirmButtonText: t("Continuar"),
               });
             } else
               throw Error(
-                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+                t("Usuario autenticado pero registro no encontrado, contacte a un administrador")
               );
           }
         }
@@ -185,11 +189,11 @@ function LoginCompany() {
       setThirdParty(false);
       Swal.fire({
         title: "Error",
-        text: "Usuario o contraseña incorrectos",
+        text: t("Usuario o contraseña incorrectos"),
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
-        confirmButtonText: "Continuar",
+        confirmButtonText: t("Continuar"),
       });
     }
   };
@@ -199,9 +203,9 @@ function LoginCompany() {
       dispatch(setPressLoginCompany("hidden"));
       Swal.fire({
         icon: "info",
-        title: "Espera un momento",
-        text: `Estamos autenticando tu cuenta`,
-        confirmButtonText: "Iniciar sesión",
+        title: t("Espera un momento"),
+        text: t("Estamos autenticando tu cuenta"),
+        confirmButtonText: t("Iniciar sesión"),
         confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,

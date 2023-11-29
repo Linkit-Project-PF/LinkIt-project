@@ -86,9 +86,9 @@ function Register() {
       dispatch(setPressRegister("hidden"));
       Swal.fire({
         icon: "info",
-        title: "Espera un momento",
-        text: `Estamos registrando tu cuenta`,
-        confirmButtonText: "Iniciar sesión",
+        title:t("Espera un momento"),
+        text: t("Estamos registrando tu cuenta"),
+        confirmButtonText: t("Iniciar sesión"),
         confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,
@@ -138,9 +138,9 @@ function Register() {
       if (response.data._id)
         Swal.fire({
           icon: "success",
-          title: "¡Registro exitoso!",
-          text: `Bienvenido a LinkIT ${user.name}`,
-          confirmButtonText: "Iniciar sesión",
+          title: t("¡Registro exitoso!"),
+          text: t("Bienvenido a LinkIT",{name:user.name}),
+          confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -167,7 +167,7 @@ function Register() {
           icon: "error",
           title: "¡Error!",
           text: `${error.response?.data}`,
-          confirmButtonText: "Aceptar",
+          confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -235,13 +235,14 @@ function Register() {
         );
         Swal.fire({
           icon: "success",
-          title: "¡Registro exitoso!",
-          text: `Bienvenido a LinkIT ${
-            DBresponse.name == "undefined"
-              ? DBresponse.companyName
-              : DBresponse.name
-          }`,
-          confirmButtonText: "Iniciar sesión",
+          title: t("¡Registro exitoso!"),
+          text: t("welcomeToLinkIT", {
+            name:
+              DBresponse.name === "undefined"
+                ? DBresponse.companyName
+                : DBresponse.name,
+          }),
+          confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -270,7 +271,7 @@ function Register() {
           icon: "error",
           title: "¡Error!",
           text: `${error.message}`,
-          confirmButtonText: "Aceptar",
+          confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -293,7 +294,7 @@ function Register() {
           icon: "error",
           title: "¡Error!",
           text: `${error.response?.data}`,
-          confirmButtonText: "Aceptar",
+          confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -316,7 +317,7 @@ function Register() {
           icon: "error",
           title: "¡Error!",
           text: `${error}`,
-          confirmButtonText: "Aceptar",
+          confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
