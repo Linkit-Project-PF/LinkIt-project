@@ -80,13 +80,13 @@ function LoginTalent() {
       );
       if (response.data._id) {
         Swal.fire({
-          title: `Bienvenido de vuelta ${response.data.name}`,
-          text: "Has ingresado correctamente",
+          title: t("Bienvenido de vuelta", {name:response.data.name}),
+          text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
           background: "#ECEEF0",
           confirmButtonColor: "#01A28B",
-          confirmButtonText: "Continuar",
+          confirmButtonText: t("Continuar"),
         });
         const token = response.data._id;
         const role = response.data.role;
@@ -96,11 +96,11 @@ function LoginTalent() {
     } catch (error: any) {
       Swal.fire({
         title: "Error",
-        text: "Usuario o contraseña incorrectos",
+        text: t("Usuario o contraseña incorrectos"),
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
-        confirmButtonText: "Continuar",
+        confirmButtonText: t("Continuar"),
       });
     }
   };
@@ -116,13 +116,14 @@ function LoginTalent() {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
           Swal.fire({
-            title: `Bienvenido ${DBresponse.name}`,
-            text: "Se ha creado una nueva cuenta para ti",
+            
+            title: t("Bienvenido", {name:DBresponse.name}),
+            text: t("Se ha creado una nueva cuenta para ti"),
             icon: "success",
             iconColor: "#173951",
             background: "#ECEEF0",
             confirmButtonColor: "#01A28B",
-            confirmButtonText: "Continuar",
+            confirmButtonText: t("Continuar"),
           });
         } else {
           //* In case user exists, enters here
@@ -140,13 +141,13 @@ function LoginTalent() {
             const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
             Swal.fire({
-              title: `Bienvenido de vuelta ${authUser.name}`,
-              text: "Has ingresado correctamente",
+              title: t("Bienvenido de vuelta", {name:authUser.name}),
+              text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
               background: "#ECEEF0",
               confirmButtonColor: "#01A28B",
-              confirmButtonText: "Continuar",
+              confirmButtonText: t("Continuar"),
             });
           } else {
             const adminData = await axios.get(
@@ -163,13 +164,13 @@ function LoginTalent() {
               const role = authAdmin.role;
               dispatch(loginSuccess({ token, role }));
               Swal.fire({
-                title: `Bienvenido de vuelta ${authAdmin.name}`,
-                text: "Has ingresado correctamente",
+                title: t("Bienvenido de vuelta", {name:authAdmin.name}),
+                text: t("Has ingresado correctamente"),
                 icon: "success",
                 iconColor: "#173951",
                 background: "#ECEEF0",
                 confirmButtonColor: "#01A28B",
-                confirmButtonText: "Continuar",
+                confirmButtonText: t("Continuar"),
               });
             } else
               throw Error(
@@ -184,11 +185,11 @@ function LoginTalent() {
       setThirdParty(false);
       Swal.fire({
         title: "Error",
-        text: "Usuario o contraseña incorrectos",
+        text:t( "Usuario o contraseña incorrectos"),
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
-        confirmButtonText: "Continuar",
+        confirmButtonText: t("Continuar"),
       });
     }
   };
@@ -199,9 +200,9 @@ function LoginTalent() {
       dispatch(setPressLoginTalent("hidden"));
       Swal.fire({
         icon: "info",
-        title: "Espera un momento",
-        text: `Estamos autenticando tu cuenta`,
-        confirmButtonText: "Iniciar sesión",
+        title: t("Espera un momento"),
+        text: t(`Estamos autenticando tu cuenta`),
+        confirmButtonText: t("Iniciar sesión"),
         confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,
