@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { validatePostulation } from "./Validation";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 
 interface relationObj {
   user: string;
@@ -11,11 +12,12 @@ interface relationObj {
 
 interface propsInterface {
   onClose: () => void;
-  reload: any;
   jdId: string;
+  hideMainForm: () => void;
 }
 
 export function CreatePostulation(props: propsInterface) {
+  const dispatch = useDispatch();
   const [info, setInfo] = useState<relationObj>({
     user: "",
     jd: props.jdId,
@@ -56,8 +58,14 @@ export function CreatePostulation(props: propsInterface) {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      props.reload(true);
+      const newData = await axios(
+        "https://linkit-server.onrender.com/jds/find",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(setJobOffers(newData.data));
       props.onClose();
+      props.hideMainForm();
+
       alert("Se ha creado una nueva vacante exitosamente.");
     } catch (error: any) {
       alert(error.response);
@@ -77,7 +85,7 @@ export function CreatePostulation(props: propsInterface) {
     <div>
       <a onClick={props.onClose}>X</a>
       <form onSubmit={handleSubmit}>
-        <label>ID de la Job Description: </label>
+        <label>ID de la vacante: </label>
         <input
           name="jd"
           value={info.jd}
