@@ -1,9 +1,9 @@
-import CompanyForm from "./CompanyProfileModules/CompanyProfileForm";
+// import CompanyForm from "./CompanyProfileModules/CompanyProfileForm";
 
-const CompanyProfile = () => {
-  return (
-    <CompanyForm/>
-  )
-};
+// const CompanyProfile = () => {
+//   return (
+//     <CompanyForm/>
+//   )
+// };
 
-export default CompanyProfile;
+// export default CompanyProfile;
