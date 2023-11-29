@@ -29,7 +29,7 @@ function Empresas() {
       <ModuloE />
       <ModuloF />
       <ModuloG />
-      <section id='cotiza'>
+      <section id='procesoE'>
       <ModuloH />
       </section>
       <ModuloI />

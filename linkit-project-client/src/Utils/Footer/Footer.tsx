@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import {
   setPressLogin,
   setPressSignUp,
@@ -21,60 +21,60 @@ export default function Footer() {
   const navigatetoHowItWorks = () => {
     navigate('/SoyEmpresa')
     setTimeout(() => {
-      window.location.href = '#cotiza';
-    }, 1000);
+      window.location.href = '#procesoE';
+    }, 0);
     }
 
   const navigatetoSuccessStories = () => {
     navigate('/SoyEmpresa')
     setTimeout(() => {
       window.location.href = '#casosDeExitoE';
-    }, 1000);
+    }, 0);
     }
 
   const navigatetoBlogs = () => {
     navigate('/recursos')
     setTimeout(() => {
       window.location.href = '#blogs';
-    }, 1000);
+    }, 0);
     }
   const navigatetoEbooks = () => {
     navigate('/recursos')
     setTimeout(() => {
       window.location.href = '#ebooks';
-    }, 1000);
+    }, 0);
     }
   const navigatetoEvents = () => {
     navigate('/recursos')
     setTimeout(() => {
       window.location.href = '#webinars';
-    }, 1000);
+    }, 0);
     }
 
   const navigatetoMission = () => {
     navigate('/quienesSomos')
     setTimeout(() => {
       window.location.href = '#mision';
-    }, 1000);
+    }, 0);
     }
   const navigatetoVision = () => {
     navigate('/quienesSomos')
     setTimeout(() => {
       window.location.href = '#vision';
-    }, 1000);
+    }, 0);
     }
   const navigatetoValues = () => {
     navigate('/quienesSomos')
     setTimeout(() => {
       window.location.href = '#valores';
-    }, 1000);
+    }, 0);
     }
 
   const navigatetoInternalTalent = () => {
     navigate('/quienesSomos')
     setTimeout(() => {
       window.location.href = '#talento-Interno';
-    }, 1000);
+    }, 0);
     }
 
   const {t} = useTranslation();
@@ -88,8 +88,8 @@ export default function Footer() {
             <h1 className="font-semibold my-1">Link IT</h1>
             <p className="w-full text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">{t('Conectando al talento mas destacado con los mejores proyectos IT')}</p>
             <div className="flex flex-row flex-wrap">
-              <img className="w-[10%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" />
-              <img className="w-[10%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" />
+              <a href="" className="w-[10%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
+              <a href="https://www.linkedin.com/company/linkit-hr/" target="_blank" className="w-[10%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" /></a>
             </div>
           </div>
         </div>
