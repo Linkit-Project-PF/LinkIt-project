@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Footer from "../../../../Utils/Footer/Footer";
+import UsersAdmin from "../Usuarios/UsersAdmin";
 
 type userInfoProps = {
-    _id:string
+    _id: string
     name: string
     email: string
     phone: string
@@ -21,20 +22,20 @@ type userInfoProps = {
 
 export default function AdminPanel() {
 
-    const token = useSelector((state:any) => state.Authentication.token)
+    const token = useSelector((state: any) => state.Authentication.token)
     console.log(token)
 
     const [userData, setUserData] = useState<Partial<userInfoProps>>({})
 
-    useEffect(()=>{
-        const infoUser = async()=>{
+    useEffect(() => {
+        const infoUser = async () => {
             const response = await axios(
                 `https://linkit-server.onrender.com/admins/find?id=${token}`,
-            { headers: { Authorization: `Bearer ${token}` } })
+                { headers: { Authorization: `Bearer ${token}` } })
             setUserData(response.data)
         }
         infoUser()
-    },[])
+    }, [])
 
     return (
         <div className="pt-32">
@@ -44,9 +45,10 @@ export default function AdminPanel() {
                 <Route path="vacantes" element={<Vacancies />} />
                 <Route path="recursos" element={<AdminRecursos />} />
                 <Route path="reviews" element={<AdminReviews />} />
+                <Route path="usuarios" element={<UsersAdmin />} />
             </Routes>
             <br />
-            <Footer/>
+            <Footer />
         </div>
     )
 }
