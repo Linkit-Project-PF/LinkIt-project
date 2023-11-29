@@ -17,7 +17,7 @@ interface FormReviewProps {
 
 
 export default function FormReview({ onClose }: FormReviewProps) {
-    //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
+    
     const {t}=useTranslation();
     
     const [information, setInformation] = useState<Partial<ReviewProps>>({
@@ -46,18 +46,20 @@ export default function FormReview({ onClose }: FormReviewProps) {
             [name]: value,
         });
 
+        const validationError = validations(information as ReviewProps);
+        setErrors(validationError);
     };
 
 
     const handleBlurErrors = () => {
-        // const validationError = validations(information)
-        // setErrors(validationError)
+        const validationError = validations(information as ReviewProps);
+        setErrors(validationError);
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // const validationError = validations(information)
-        // setErrors(validationError)
+        const validationError = validations(information as ReviewProps);
+        setErrors(validationError);
         try {
             //* validation review form
             const validationError = validations(information as ReviewProps)

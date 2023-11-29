@@ -18,7 +18,7 @@ interface InfoList {
 }
 
 export default function FormVacancie(props: FormVacancieProps) {
-  //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
+  
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",

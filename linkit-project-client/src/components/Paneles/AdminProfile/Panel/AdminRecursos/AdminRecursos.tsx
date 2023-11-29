@@ -6,7 +6,6 @@ import { setResources } from "../../../../../redux/features/ResourcesSlice";
 import swal from 'sweetalert';
 import FormResource from "./FormResource";
 import { useTranslation } from "react-i18next";
-// import {UserPostulations} from "./userPostulations";
 
 type stateProps = {
   resources: {
@@ -15,7 +14,7 @@ type stateProps = {
 }
 
 export default function AdminRecursos() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.resources.allresources);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
@@ -137,18 +136,12 @@ export default function AdminRecursos() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (name === "requirements" || name === "stack") {
-      const valuesArray = value.split(",").map((i) => i.trim())
-      setEditedData({
-        ...editedData,
-        [name]: valuesArray,
-      });
-    } else {
-      setEditedData({
-        ...editedData,
-        [name]: value,
-      });
-    }
+
+    setEditedData({
+      ...editedData,
+      [name]: value,
+    });
+
   };
 
   return (
