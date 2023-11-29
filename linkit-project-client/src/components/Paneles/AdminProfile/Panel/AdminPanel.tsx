@@ -21,21 +21,16 @@ type userInfoProps = {
 
 export default function AdminPanel() {
 
-    const token = useSelector((state:any) => state.Authentication.authState.token)
-    const role = useSelector((state: any) => {
-        if (state.Authentication.authState.role === 'company') return 'companie'
-        else return state.Authentication.authState.role
-    })
-    console.log(role)
+    const token = useSelector((state:any) => state.Authentication.token)
+    console.log(token)
 
     const [userData, setUserData] = useState<Partial<userInfoProps>>({})
 
     useEffect(()=>{
         const infoUser = async()=>{
             const response = await axios(
-                `https://linkit-server.onrender.com/${role}s/find?id=${token}`,
-            { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } })
-            // { headers: { Authorization: `Bearer ${token}` } }) //* descomentar cuando se tenga  creado el logeo de admin
+                `https://linkit-server.onrender.com/admins/find?id=${token}`,
+            { headers: { Authorization: `Bearer ${token}` } })
             setUserData(response.data)
         }
         infoUser()
