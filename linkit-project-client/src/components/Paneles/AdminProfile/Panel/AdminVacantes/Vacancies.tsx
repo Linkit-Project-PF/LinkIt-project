@@ -23,7 +23,7 @@ export default function Vacancies() {
   const [editRow, setEditRow] = useState<string | null>(null);
   const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
   const [viewPostul, setViewPostul] = useState(false);
-  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({
+  const [editedData, setEditedData] = useState<Partial<VacancyProps>>({
     title: "",
     company: "",
     description: "",
