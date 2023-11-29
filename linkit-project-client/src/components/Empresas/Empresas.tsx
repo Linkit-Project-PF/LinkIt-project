@@ -32,7 +32,9 @@ function Empresas() {
       <section id='procesoE'>
       <ModuloH />
       </section>
+      <section id="contactanosE">
       <ModuloI />
+      </section>
       <Footer />
       </>
   )
