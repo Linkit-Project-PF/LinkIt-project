@@ -5,7 +5,7 @@ import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from 'sweetalert';
-import {UserPostulations} from "./userPostulations";
+// import {UserPostulations} from "./userPostulations";
 
 type stateProps = {
   jobCard: {
@@ -17,13 +17,14 @@ export default function Vacancies() {
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
-  const [saveStatus, setSaveStatus] = useState(false);
   const [viewForm, setViewForm] = useState(false);
   const [viewUserPost, setViewUserPost] = useState(false);
+  console.log(viewUserPost);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
-  const [activePost, setActivePost] = useState<Partial<vacancyProps>>({});
+
+
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
@@ -59,7 +60,7 @@ export default function Vacancies() {
       }
     };
     loadData();
-  }, [saveStatus]);
+  }, [data]);
 
   const showForm = () => {
     setViewForm(true);
@@ -72,6 +73,8 @@ export default function Vacancies() {
   const hideUserPost = () => {
     setViewUserPost(false);
   }
+  console.log(hideUserPost)
+  
 
   const deleteVacancie = async (id: string) => {
     const resultado = confirm("¿Deseas cerrar la vacante?");
@@ -90,13 +93,7 @@ export default function Vacancies() {
     }
   };
 
-  const handlePostClick = (id: string) => {
-    const post = data.find(v => v._id === id);
-    if(post) {
-      setActivePost(post)
-    }
-    setViewUserPost(true);
-  }
+
 
   const handleEdit = (id: string) => {
     const rowToEdit = data.find((v) => v._id === id);
@@ -117,7 +114,6 @@ export default function Vacancies() {
     } catch (error) {
       console.error("Error al enviar la solicitud: ", (error as Error).message);
     }
-    setSaveStatus(!saveStatus)
     setEditing(false);
     setEditRow(null);
     setEditedData({});
@@ -138,6 +134,7 @@ export default function Vacancies() {
       });
     }
   };
+  console.log(data)
 
   return (
     <div className="mb-32">
@@ -325,7 +322,7 @@ export default function Vacancies() {
 
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                <a onClick={() => handlePostClick(v._id)}>{v.users.length}</a>
+                {v.users.length}
 
               </td>
               <td className="px-1 border-b-2 border-black"></td>
@@ -382,7 +379,6 @@ export default function Vacancies() {
         </tbody>
       </table>
       {viewForm && <FormVacancie onClose={noShowForm} />}
-      {viewUserPost && <UserPostulations users={activePost.users as any[]} onClose={hideUserPost}/>}
     </div>
   );
 }

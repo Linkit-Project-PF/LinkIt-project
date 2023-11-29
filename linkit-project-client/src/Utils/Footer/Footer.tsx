@@ -1,7 +1,82 @@
 import { NavLink } from "react-router-dom"
 import { useTranslation } from "react-i18next";
+import { useNavigate, Link} from "react-router-dom";
+import {
+  setPressLogin,
+  setPressSignUp,
+  setPressRegister,
+} from "../../redux/features/registerLoginSlice";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 
 export default function Footer() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const pressLogin = useSelector(
+    (state: any) => state.registerLogin.pressLogin
+  );
+  const pressSignUp = useSelector(
+    (state: any) => state.registerLogin.pressSignUp
+  );
+
+  const navigatetoHowItWorks = () => {
+    navigate('/SoyEmpresa')
+    setTimeout(() => {
+      window.location.href = '#procesoE';
+    }, 0);
+    }
+
+  const navigatetoSuccessStories = () => {
+    navigate('/SoyEmpresa')
+    setTimeout(() => {
+      window.location.href = '#casosDeExitoE';
+    }, 0);
+    }
+
+  const navigatetoBlogs = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#blogs';
+    }, 0);
+    }
+  const navigatetoEbooks = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#ebooks';
+    }, 0);
+    }
+  const navigatetoEvents = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#webinars';
+    }, 0);
+    }
+
+  const navigatetoMission = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#mision';
+    }, 0);
+    }
+  const navigatetoVision = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#vision';
+    }, 0);
+    }
+  const navigatetoValues = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#valores';
+    }, 0);
+    }
+
+  const navigatetoInternalTalent = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#talento-Interno';
+    }, 0);
+    }
+
   const {t} = useTranslation();
   return (
     <div className="bg-black text-white">
@@ -13,8 +88,8 @@ export default function Footer() {
             <h1 className="font-semibold my-1">Link IT</h1>
             <p className="w-full text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">{t('Conectando al talento mas destacado con los mejores proyectos IT')}</p>
             <div className="flex flex-row flex-wrap">
-              <img className="w-[10%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" />
-              <img className="w-[10%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" />
+              <a href="" className="w-[10%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
+              <a href="https://www.linkedin.com/company/linkit-hr/" target="_blank" className="w-[10%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" /></a>
             </div>
           </div>
         </div>
@@ -27,19 +102,31 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Cómo funciona')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoHowItWorks}> {t('Cómo funciona')}</button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">{t('Casos de éxito')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoSuccessStories}>{t('Casos de éxito')} </button>
                 </li>
                 <li>
                   <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">FAQ</NavLink>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">{t('Ingresar')}</NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"  onClick={() => {
+                        pressSignUp === "visible"
+                          ? dispatch(setPressSignUp("hidden"))
+                          : dispatch(setPressSignUp("visible")),
+                          dispatch(setPressLogin("hidden")),
+                          dispatch(setPressRegister("hidden")),
+                          setPressRegister("hidden");
+                      }}>{t('Ingresar')}</button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">Login</NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={() => {
+                        pressLogin === "visible"
+                          ? dispatch(setPressLogin("hidden"))
+                          : dispatch(setPressLogin("visible")),
+                          dispatch(setPressSignUp("hidden"));
+                      }}>Login</button>
                 </li>
               </ul>
             </div>
@@ -52,10 +139,15 @@ export default function Footer() {
                   <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> FAQ </NavLink>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> Login </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={() => {
+                        pressLogin === "visible"
+                          ? dispatch(setPressLogin("hidden"))
+                          : dispatch(setPressLogin("visible")),
+                          dispatch(setPressSignUp("hidden"));
+                      }}> Login </button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> Blog </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> Blog </button>
                 </li>
               </ul>
             </div>
@@ -65,13 +157,13 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> Blogs </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoBlogs}> Blogs </button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> Ebooks </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoEbooks}> Ebooks </button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Eventos')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoEvents}> {t('Eventos')} </button>
                 </li>
               </ul>
             </div>
@@ -81,16 +173,16 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">{t('Misión')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoMission}>{t('Misión')} </button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Visión')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoVision}> {t('Visión')} </button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Valores e historia')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoValues}> {t('Valores e historia')} </button>
                 </li>
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Talento interno')} </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoInternalTalent}> {t('Talento interno')} </button>
                 </li>
               </ul>
             </div>

@@ -6,7 +6,7 @@ import iconUser from "/Vectores/iconUser.png";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux";
 import {
   setPressLogin,
   setPressSignUp,
@@ -14,6 +14,7 @@ import {
 } from "../../redux/features/registerLoginSlice";
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
+import { RootState } from "../../redux/types";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -54,16 +55,16 @@ function NavBar() {
   const {t}= useTranslation()
   const dispatch = useDispatch();
   const pressLogin = useSelector(
-    (state: any) => state.registerLogin.pressLogin
+    (state: RootState) => state.registerLogin.pressLogin
   );
   const pressSignUp = useSelector(
-    (state: any) => state.registerLogin.pressSignUp
+    (state: RootState) => state.registerLogin.pressSignUp
   );
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpenEmpresa, setIsOpenEmpresa] = useState(false);
   const [isOpenRecursos, setIsOpenRecursos] = useState(false);
-  const [isOpenQS, setIsOpenQS] = useState(false);
+  const [isOpenQS, setIsOpenQS] = useState(false);  
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
 
@@ -73,8 +74,7 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
   const scopeSoyTalento = useMenuAnimation(isOpenSoyTalento);
 
-  const isAuth = useSelector((state: any) => state.Authentication.authState.isAuthenticated)
-  const role = useSelector((state: any) => state.Authentication.authState.role)
+  const {isAuthenticated, role} = useSelector((state: RootState) => state.Authentication)
 
   const goAdminDashboard = () => {
     navigate("/AdminDashboard")
@@ -92,22 +92,125 @@ function NavBar() {
   const goSoyEmpresa = () => {
     navigate("/SoyEmpresa");
   };
-  const isActiveEmpresa = location.pathname === "/SoyEmpresa";
-  const isActiveServiciosEmpresa = location.pathname === "/SoyEmpresa#servicios";
 
+  const isActiveEmpresa = location.pathname === "/SoyEmpresa";
+
+  const navigatetoServicesCompany = () => { 
+    navigate("/SoyEmpresa")
+    setTimeout(() => {
+      window.location.href = '#serviciosE';
+    }, 0); 
+  }
+
+  const navigatetoProcessCompany = () => {
+    navigate('/SoyEmpresa')
+    setTimeout(() => {
+      window.location.href = '#procesoE';
+    }, 0);
+    }
+
+  // const navigatetoQuoteCompany = () => {
+  //   navigate('/quienesSomos')
+  //   setTimeout(() => {
+  //     window.location.href = '#cotiza';
+  //   }, 1000);
+  //   }
+  
   const goSoyTalento = () => {
     navigate("/SoyTalento");
   };
   const isActiveTalento = location.pathname === "/SoyTalento";
-  // const isActiveServiciosT = location.pathname === "/SoyTalento#serviciosT";
+
+  const navigatetoServicesTalent = () => {
+    navigate('/SoyTalento')
+    setTimeout(() => {
+      window.location.href = '#serviciosT';
+    }, 0);
+    }
+
+  const navigatetoProcessTalent = () => {
+    navigate('/SoyTalento')
+    setTimeout(() => {
+      window.location.href = '#procesoT';
+    }, 0);
+    }
+    
+  const navigatetoVacanciesTalent = () => {
+    navigate('/SoyTalento')
+    setTimeout(() => {
+      window.location.href = '#vacantes';
+    }, 0);
+    }
+
+
   const goRecursos = () => {
     navigate("/recursos");
   };
-  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria"
+  const isActiveRecursos = location.pathname === "/recursos" || location.pathname === "/recursos/libreria";
+
+  const navigatetoBlogs = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#blogs';
+    }, 0);
+    }
+
+  const navigatetoEbooks = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#ebooks';
+    }, 0);
+    }
+
+  const navigatetoWebinars = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#webinars';
+    }, 0);
+    }
+
+  const navigatetoFAQ = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#FAQ';
+    }, 0);
+    }
+
   const goQS = () => {
     navigate("/quienesSomos");
   };
   const isActiveQS = location.pathname === "/quienesSomos";
+
+  const navigatetoMission = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#mision';
+    }, 0);
+    }
+  const navigatetoVision = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#vision';
+    }, 0);
+    }
+  const navigatetoValues = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#valores';
+    }, 0);
+    }
+  const navigatetoHistory = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#historia';
+    }, 0);
+    }
+  const navigatetoInternalTalent = () => {
+    navigate('/quienesSomos')
+    setTimeout(() => {
+      window.location.href = '#talento-Interno';
+    }, 0);
+    }
 
   return (
     <div>
@@ -124,15 +227,16 @@ function NavBar() {
         </NavLink>
       </div>
       <nav className="navBar">
+        <div className="h-full w-[8vw]">
         <img
           src={Logo}
           alt=""
-          className="static h-20 xl:h-24 2xl:h-32 mr-2 xl:mr-6 2xl:mr-16 ml-2 xl:ml-6 2xl:ml-14"
+          className="h-full w-full object-cover"
         />
-
-        <div className="containerLinksNavBar">
+         </div>
+        
           <motion.button
-            className={`relative hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveHome ? "underline text-linkIt-300" : ""
+            className={`border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300" : ""
               }`}
             onClick={() => goHome()}
           >
@@ -140,164 +244,199 @@ function NavBar() {
           </motion.button>
 
           <motion.nav
-            className="relative top-[14px] xl:top-[14px] w-[85px] xl:w-[110px] h-[45px] xl:h-[48px]"
+            className=""
             ref={scopeEmpresa}
             onMouseEnter={() => setIsOpenEmpresa(true)}
             onMouseLeave={() => setIsOpenEmpresa(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveEmpresa ? "underline text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveEmpresa ? "text-linkIt-300 border-b-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyEmpresa()}
             >
               {t('Soy Empresa')}
-              <div className="arrow w-3 ml-1 mt-[2px]">
+              <div className="arrow w-[0.7vw] ml-[0.3vw]">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
+              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenEmpresa ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className={`relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300 ${isActiveServiciosEmpresa ? 'text-linkIt-300' : ''}`}>
-                <a href="#serviciosE">{t('Servicios')}</a>
+              <li className={`hover:text-linkIt-300 `}>
+                <button onClick={navigatetoServicesCompany} >{t('Servicios')}</button>
               </li>
-              <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                {t('Proceso')}{" "}
+              <hr className="w-[90%]" />
+              <li className=" hover:text-linkIt-300">
+                <button onClick={navigatetoProcessCompany}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90px] ml-4 text-xs" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#cotiza">{t('Cotiza')}</a> </li>
+              <hr className="w-[90%]" />
+              <li className=" hover:text-linkIt-300">
+                <button>{t('Cotiza')}</button> </li>
             </ul>{" "}
           </motion.nav>
 
 
           <motion.nav
-            className="relative top-[14px] xl:top-[14px] w-[85px] xl:w-[110px] h-[45px] xl:h-[48px]"
+            className=""
             ref={scopeSoyTalento}
             onMouseEnter={() => setIsOpenSoyTalento(true)}
             onMouseLeave={() => setIsOpenSoyTalento(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveTalento ? "underline text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveTalento ? "text-linkIt-300 border-b-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyTalento()}
             >
               {t('Soy Talento')}
-              <div className="arrow w-3 ml-1 mt-[2px]">
+              <div className="arrow w-[0.7vw] ml-[0.3vw]">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[110px]"
+              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenSoyTalento ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className=" relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#serviciosT">{t('Servicios')}</a>
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoServicesTalent}>{t('Servicios')}</button>
               </li>
-              <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#procesoT">{t('Proceso')}</a>
+              <hr className="w-[90%]" />
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoProcessTalent}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90px] ml-4 text-xs" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#vacantes">{t('Vacantes')}</a></li>
-            </ul>{" "}
+              <hr className="w-[90%]" />
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button></li>
+            </ul>
           </motion.nav>
 
 
           <motion.nav
-            className="relative top-[14px] xl:top-[14px] w-[65px] xl:w-[85px] h-[45px] xl:h-[48px]"
+            className=""
             ref={scopeRecursos}
             onMouseEnter={() => setIsOpenRecursos(true)}
             onMouseLeave={() => setIsOpenRecursos(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveRecursos ? "underline text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveRecursos ? "text-linkIt-300 border-b-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goRecursos()}
             >
               {t('Recursos')}
-              <div className="arrow w-3 ml-1 mt-[3px]">
+              <div className="arrow w-[0.7vw] ml-[0.3vw]">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="bg-white mt-[21.2px] rounded-b-[7px] w-24 xl:w-32 h-[12.5rem]"
+              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] pr-[1.4vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenRecursos ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#blogs">{t('Blogs')}</a>
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoBlogs}>{t('Blogs')}</button>
               </li>
-              <hr className="w-[90px] mt-5 ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#ebooks">{t('Ebooks')}</a></li>
-              <hr className="w-[90px] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#webinars">{t('Webinars')}</a>
+              <hr className="w-[110%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoEbooks}>{t('Ebooks')}</button></li>
+              <hr className="w-[110%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoWebinars}>{t('Webinars')}</button>
               </li>
-              <hr className="w-[90px] mt-[.7rem] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#FAQ">FAQ</a>
+              <hr className="w-[110%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoFAQ}>FAQ</button>
               </li>
-              <hr className="w-[90px] mt-[.7rem] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
+              <hr className="w-[110%]" />
+
+              <li className="hover:text-linkIt-300">
                 <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Libreria')}</a>
               </li>
-            </ul>{" "}
+            </ul>
           </motion.nav>
+
+
           <motion.nav
-            className="relative top-[14px] xl:top-[14px] w-[100px] xl:w-[125px] h-[45px] xl:h-[48px]"
+            className=""
             ref={scopeQS}
             onMouseEnter={() => setIsOpenQS(true)}
             onMouseLeave={() => setIsOpenQS(false)}
           >
             <motion.button
-              className={`w-30 flex items-center hover:underline underline-offset-[22px] decoration-4 hover:text-linkIt-300 ${isActiveQS ? "underline text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveQS ? "text-linkIt-300 border-b-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goQS()}
             >
               {t('Quiénes Somos')}
-              <div className="arrow w-3 ml-1 mt-[2px]">
+              <div className="arrow w-[0.7vw] ml-[0.3vw]">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="bg-white flex flex-col mt-[21.2px] w-28 xl:w-36 rounded-b-[7px] h-[150px]"
+              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenQS ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300"><a href="#mision">{t('Misión')}</a></li>
-              <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300"><a href="#vision">{t('Visión')}</a></li>
-              <hr className="w-[90px] ml-4" />
-              <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#valores">{t('Valores e Historia')}</a>
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoMission} >{t('Misión')}</button></li>
+              <hr className="w-[90%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoVision} >{t('Visión')}</button></li>
+              <hr className="w-[90%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoValues} >{t('Valores e Historia')}</button>
               </li>
-              <hr className="w-[90px] ml-4" />
-              <li className="ml-4 mt-3 text-[10px] xl:text-xs hover:text-linkIt-300">
-                <a href="#talento-Interno">{t('Talento interno')}</a>
+              <hr className="w-[90%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoHistory} >Historia</button>
               </li>
-            </ul>{" "}
+              <hr className="w-[90%]" />
+
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoInternalTalent} >{t('Talento interno')}</button>
+              </li>
+            </ul>
           </motion.nav>
+        
+
+
+        <div className="containerBtnsNavbar">
           <Languaje />
-          {/* <span className="font-medium">Inglés</span> */}
+          <motion.button
+            className="contrataBtnNavB"
+            onClick={() => goSoyEmpresa()}
+            whileTap={{ scale: 0.9 }}
+          >
+
+            {t('Contrata Talento')}
+          </motion.button>
+          <motion.button
+            className="vacanteBtnNavB"
+            onClick={() => goSoyTalento()}
+            whileTap={{ scale: 0.9 }}
+          >
+            {t('Vacantes disponibles')}
+          </motion.button>
+
           <motion.nav
             className="relative top-1 left-2 w-[75px] xl:w-[85px] h-[52px] xl:h-[52px]"
             ref={scopeUser}
@@ -319,12 +458,12 @@ function NavBar() {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {isAuth && role === 'user' ? (
+              {isAuthenticated && role === 'user' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
-                      onClick={() => { navigate("/MyProfile") }}
+                      onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
                     </button>
@@ -347,7 +486,7 @@ function NavBar() {
                     </button>
                   </li>
                 </div>
-              ) : isAuth && role === 'admin' ? (
+              ) : isAuthenticated && role === 'admin' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
@@ -367,12 +506,12 @@ function NavBar() {
                     </button>
                   </li>
                 </div>
-              ) : isAuth && role === 'company' ? (
+              ) : isAuthenticated && role === 'company' ? (
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       className="profile"
-                      onClick={() => { navigate("/MyProfile") }}
+                      onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
                     </button>
@@ -430,25 +569,6 @@ function NavBar() {
               )}
             </ul>{" "}
           </motion.nav>
-        </div>
-
-
-        <div className="containerBtnsNavbar">
-          <motion.button
-            className="contrataBtnNavB"
-            onClick={() => goSoyEmpresa()}
-            whileTap={{ scale: 0.9 }}
-          >
-
-            {t('Contrata Talento')}
-          </motion.button>
-          <motion.button
-            className="vacanteBtnNavB"
-            onClick={() => goSoyTalento()}
-            whileTap={{ scale: 0.9 }}
-          >
-            {t('Vacantes disponibles')}
-          </motion.button>
         </div>
       </nav >
     </div >

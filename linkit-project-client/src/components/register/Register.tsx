@@ -84,11 +84,11 @@ function Register() {
     if (thirdParty) {
       dispatch(setPressRegister("hidden"));
       Swal.fire({
-        icon: 'info',
-        title: 'Espera un momento',
-        text: `Estamos registrando tu cuenta`,
-        confirmButtonText: 'Iniciar sesión',
-        confirmButtonColor: '#2D46B9',
+        icon: "info",
+        title:t("Espera un momento"),
+        text: t("Estamos registrando tu cuenta"),
+        confirmButtonText: t("Iniciar sesión"),
+        confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
@@ -135,29 +135,29 @@ function Register() {
         user
       );
       if (response.data._id)
-      Swal.fire({
-        icon: 'success',
-        title: '¡Registro exitoso!',
-        text: `Bienvenido a LinkIT ${user.name}`,
-        confirmButtonText: 'Iniciar sesión',
-        confirmButtonColor: '#2D46B9',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showCloseButton: false,
-        showCancelButton: false,
-        showDenyButton: false,
-        showConfirmButton: true,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        didClose: () => {
-          dispatch(setPressRegister("hidden"));
-          dispatch(setPressLogin("visible"));
-        }
-    })
+        Swal.fire({
+          icon: "success",
+          title: t("¡Registro exitoso!"),
+          text: t("Bienvenido a LinkIT",{name:user.name}),
+          confirmButtonText: t("Iniciar sesión"),
+          confirmButtonColor: "#2D46B9",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          showCloseButton: false,
+          showCancelButton: false,
+          showDenyButton: false,
+          showConfirmButton: true,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          didClose: () => {
+            dispatch(setPressRegister("hidden"));
+            dispatch(setPressLogin("visible"));
+          },
+        });
       dispatch(setPressRegister("hidden"));
       return response;
     } catch (error) {
@@ -166,8 +166,8 @@ function Register() {
           icon: 'error',
           title: '¡Error!',
           text: `${error.response?.data}`,
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#2D46B9',
+          confirmButtonText: t("Aceptar"),
+          confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -233,11 +233,16 @@ function Register() {
           String(user.role)
         );
         Swal.fire({
-          icon: 'success',
-          title: '¡Registro exitoso!',
-          text: `Bienvenido a LinkIT ${DBresponse.name}`,
-          confirmButtonText: 'Iniciar sesión',
-          confirmButtonColor: '#2D46B9',
+          icon: "success",
+          title: t("¡Registro exitoso!"),
+          text: t("welcomeToLinkIT", {
+            name:
+              DBresponse.name === "undefined"
+                ? DBresponse.companyName
+                : DBresponse.name,
+          }),
+          confirmButtonText: t("Iniciar sesión"),
+          confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -260,40 +265,58 @@ function Register() {
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
-        setThirdParty(false);
-        if (error.code === "auth/popup-closed-by-user") {
-          console.log("Firebase: Pop-Up Closed");
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: '¡Error!',
-            text: `${error.message}`,
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#2D46B9',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-            showCloseButton: false,
-            showCancelButton: false,
-            showDenyButton: false,
-            showConfirmButton: true,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: () => {
-              Swal.showLoading()
-            },
-            didClose: () => {
-              dispatch(setPressRegister("hidden"));
-            }
-          })
-        }
+        Swal.fire({
+          icon: "error",
+          title: "¡Error!",
+          text: `${error.message}`,
+          confirmButtonText: t("Aceptar"),
+          confirmButtonColor: "#2D46B9",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          showCloseButton: false,
+          showCancelButton: false,
+          showDenyButton: false,
+          showConfirmButton: true,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          didClose: () => {
+            dispatch(setPressRegister("hidden"));
+          },
+        });
       } else if (error instanceof AxiosError) {
         Swal.fire({
           icon: 'error',
           title: '¡Error!',
           text: `${error.response?.data}`,
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#2D46B9',
+          confirmButtonText: t("Aceptar"),
+          confirmButtonColor: "#2D46B9",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          showCloseButton: false,
+          showCancelButton: false,
+          showDenyButton: false,
+          showConfirmButton: true,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          didClose: () => {
+            dispatch(setPressRegister("hidden"));
+          },
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "¡Error!",
+          text: `${error}`,
+          confirmButtonText: t("Aceptar"),
+          confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -310,28 +333,7 @@ function Register() {
             dispatch(setPressRegister("hidden"));
           }
         })
-      } else Swal.fire({
-        icon: 'error',
-        title: '¡Error!',
-        text: `${error}`,
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#2D46B9',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        showCloseButton: false,
-        showCancelButton: false,
-        showDenyButton: false,
-        showConfirmButton: true,
-        timer: 5000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading()
-        },
-        didClose: () => {
-          dispatch(setPressRegister("hidden"));
-        }
-      });
+      }
     }
     dispatch(setPressRegister("hidden"));
 

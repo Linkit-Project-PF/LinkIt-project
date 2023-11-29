@@ -6,10 +6,12 @@ import CV from "./Modulos-Recursos/cv/CV";
 import FAQ from "./Modulos-Recursos/FAQ/FAQ";
 import Footer from "../../Utils/Footer/Footer";
 import { useTranslation } from "react-i18next";
-
+import { useEffect } from "react";
 export default function Recursos() {
   const {t} = useTranslation(); 
-  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <section id="moduloA">

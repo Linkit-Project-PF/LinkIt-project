@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./LoginCompany.css";
 import { setPressLoginCompany, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import { motion } from "framer-motion";
@@ -8,12 +9,14 @@ import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
-import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { useTranslation } from "react-i18next";
+import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
+
+
 
 type Event = {
   target: HTMLInputElement;
@@ -71,35 +74,37 @@ function LoginCompany() {
   };
 
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      const response = await axios(
+      const response = await axios.get<any>(
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`
-      );
+      )
+      const loggeCompany = response.data
+
       if (response.data._id) {
+        
         Swal.fire({
-          title: `Bienvenido de vuelta ${response.data.companyName}`,
-          text: 'Has ingresado correctamente',
-          icon: 'success',
-          iconColor: '#173951',
-          background: '#ECEEF0',
-          confirmButtonColor: '#01A28B',
-          confirmButtonText: 'Continuar'
-        })
-        const token = response.data._id;
-        const role = response.data.role;
-        dispatch(loginSuccess({ token, role }));
+          title: t("Bienvenido de vuelta",{ name: response.data.companyName }),
+          text: t("Has ingresado correctamente"),
+          icon: "success",
+          iconColor: "#173951",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+        
+        dispatch(loginSuccess(loggeCompany));
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
       Swal.fire({
-        title: 'Error',
-        text: 'Usuario o contraseña incorrectos',
-        icon: 'error',
-        background: '#ECEEF0',
-        confirmButtonColor: '#01A28B',
-        confirmButtonText: 'Continuar'
-      })
+        title: "Error",
+        text: t("Usuario o contraseña incorrectos"),
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      });
     }
   };
 
@@ -109,46 +114,47 @@ function LoginCompany() {
       if (prov === "google") {
         setThirdParty(true);
         provider = new GoogleAuthProvider();
-        const response = await signInWithPopup(auth, provider);
-        if ((response as any)._tokenResponse.isNewUser) {
+        const firebaseAuthResponse = await signInWithPopup(auth, provider);
+        const isNewUser: boolean = (firebaseAuthResponse as any)._tokenResponse.isNewUser
+
+        if (isNewUser) {
           //* In case user tries to log in but account does not exist
-          const DBresponse = await saveUserThirdAuth(response.user, "user");
+          const DBresponse = await saveUserThirdAuth(firebaseAuthResponse.user, "user");
           Swal.fire({
-            title: `Bienvenido ${DBresponse.companyName}`,
-            text: 'Has ingresado correctamente',
-            icon: 'success',
-            iconColor: '#173951',
-            background: '#ECEEF0',
-            confirmButtonColor: '#01A28B',
-            confirmButtonText: 'Continuar'
-          })
+            title: t("Bienvenido", {name:DBresponse.companyName}),
+            text: t("Has ingresado correctamente"),
+            icon: "success",
+            iconColor: "#173951",
+            background: "#ECEEF0",
+            confirmButtonColor: "#01A28B",
+            confirmButtonText: t("Continuar"),
+          });
         } else {
           //* In case user exists, enters here
-          const usersData = await axios.get(
-            `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+          const getCompanyResponse = await axios.get<any>(
+            `https://linkit-server.onrender.com/companies/find?email=${firebaseAuthResponse.user.email}`,
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
               },
             }
           );
-          if (usersData.data.length) {
-            const authUser = usersData.data[0];
-            const token = authUser._id;
-            const role = authUser.role;
-            dispatch(loginSuccess({ token, role }));
+          if (getCompanyResponse.data.length) {
+            const authUser = getCompanyResponse.data[0];
+            dispatch(loginSuccess(authUser));
+            console.log(authUser)
             Swal.fire({
-              title: `Bienvenido de vuelta ${authUser.companyName}`,
-              text: 'Has ingresado correctamente',
-              icon: 'success',
-              iconColor: '#173951',
-              background: '#ECEEF0',
-              confirmButtonColor: '#01A28B',
-              confirmButtonText: 'Continuar'
-            })
+              title: t("Bienvenido de vuelta", {name:authUser.companyName}),
+              text: t("Has ingresado correctamente"),
+              icon: "success",
+              iconColor: "#173951",
+              background: "#ECEEF0",
+              confirmButtonColor: "#01A28B",
+              confirmButtonText: t("Continuar"),
+            });
           } else {
             const companyData = await axios.get(
-              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+              `https://linkit-server.onrender.com/companies/find?email=${firebaseAuthResponse.user.email}`,
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
@@ -157,21 +163,20 @@ function LoginCompany() {
             );
             if (companyData.data.length) {
               const authCompany = companyData.data[0];
-              const token = authCompany._id;
-              const role = authCompany.role;
-              dispatch(loginSuccess({ token, role }));
+              dispatch(loginSuccess(authCompany));
               Swal.fire({
-                title: `Bienvenido de vuelta ${authCompany.companyName}`,
-                text: 'Has ingresado correctamente',
-                icon: 'success',
-                iconColor: '#173951',
-                background: '#ECEEF0',
-                confirmButtonColor: '#01A28B',
-                confirmButtonText: 'Continuar'
-              })
+                
+                title: t("Bienvenido de vuelta", {name:authCompany.companyName}),
+                text: t("Has ingresado correctamente"),
+                icon: "success",
+                iconColor: "#173951",
+                background: "#ECEEF0",
+                confirmButtonColor: "#01A28B",
+                confirmButtonText: t("Continuar"),
+              });
             } else
               throw Error(
-                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+                t("Usuario autenticado pero registro no encontrado, contacte a un administrador")
               );
           }
         }
@@ -180,17 +185,14 @@ function LoginCompany() {
       setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error);
-      else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Usuario o contraseña incorrectos',
-          icon: 'error',
-          background: '#ECEEF0',
-          confirmButtonColor: '#01A28B',
-          confirmButtonText: 'Continuar'
-        })
-      }
+      Swal.fire({
+        title: "Error",
+        text: t("Usuario o contraseña incorrectos"),
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      });
     }
   };
 
@@ -198,11 +200,11 @@ function LoginCompany() {
     if (thirdParty) {
       dispatch(setPressLoginCompany("hidden"));
       Swal.fire({
-        icon: 'info',
-        title: 'Espera un momento',
-        text: `Estamos autenticando tu cuenta`,
-        confirmButtonText: 'Iniciar sesión',
-        confirmButtonColor: '#2D46B9',
+        icon: "info",
+        title: t("Espera un momento"),
+        text: t("Estamos autenticando tu cuenta"),
+        confirmButtonText: t("Iniciar sesión"),
+        confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,

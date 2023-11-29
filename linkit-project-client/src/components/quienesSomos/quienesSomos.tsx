@@ -8,10 +8,13 @@ import ModuloF from "./modulosQuienesSomos/moduloF/moduloF";
 import ModuloG from "./modulosQuienesSomos/moduloG/moduloG";
 import ModuloH from "./modulosQuienesSomos/moduloH/moduloH";
 import ModuloI from "./modulosQuienesSomos/moduloI/ModuloI";
-
+import { useEffect } from "react";
 
 
 export default function QuienesSomos() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
         <div>
             <section id="mision">
