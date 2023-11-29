@@ -3,14 +3,28 @@ import countries from 'i18n-iso-countries';
 import english from 'i18n-iso-countries/langs/en.json';
 import espanish from 'i18n-iso-countries/langs/es.json';
 import { useState } from "react";
+import { components } from "react-select";
 
 interface OptionType {
   value: string;
   label: string;
 }
 
+
 countries.registerLocale(english);
 countries.registerLocale(espanish);
+
+const DropdownIndicator = (props: any) => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <img
+        src="/Vectores/dropdown.png"
+        alt="dropdown-arrow"
+        className={`w-[1.1rem] ml-[30%] mr-[-10%]`}
+      />
+    </components.DropdownIndicator>
+  );
+}
 
 const countryOptionsEs: OptionType[] = [
   // Paises de habla hispana
@@ -88,12 +102,15 @@ const customStyles = {
     ...provided,
     height: '30px',
     padding: '0 3rem 0 0',
-    width: '100%',
+    maxWidth: '100%',
+    overflow: 'hidden',
   }),
 
   input: (provided: any) => ({
     ...provided,
     margin: '0px',
+    maxWidth: '100%',
+    overflow: 'hidden',
   }),
 
   indicatorsContainer: (provided: any) => ({
@@ -104,6 +121,7 @@ const customStyles = {
     ...provided,
     fontFamily: 'Montserrat',
     width: '150%',
+    maxWidth: '150%',
     marginLeft: '-40%'
   }),
   indicatorSeparator: () => ({
@@ -115,8 +133,8 @@ const customStyles = {
   }),
 };
 
-export function SelectCountryEs() {
-  const [country, setCountry] = useState<OptionType>({ value: 'CO', label: 'Colombia' });
+export function SelectCountryEs({setCountry, country}: any) {
+  
   
   const handleChange = (selectedOption: OptionType|null) => {
     setCountry(selectedOption as OptionType)
@@ -130,12 +148,13 @@ export function SelectCountryEs() {
       styles={customStyles}
       placeholder= 'Ubicación'
       onChange={handleChange}
+      components={{ DropdownIndicator }}
     />
   );
 }
 
-export function SelectCountryEn() {
-  const [country, setCountry] = useState<OptionType>({ value: 'US', label: 'United States' });
+export function SelectCountryEn({setCountry, country}: any) {
+
   
   const handleChange = (selectedOption: OptionType|null) => {
     setCountry(selectedOption as OptionType)
@@ -149,6 +168,7 @@ export function SelectCountryEn() {
       styles={customStyles}
       placeholder= 'Ubicación'
       onChange={handleChange}
+      components={{ DropdownIndicator }}
     />
   );
 }

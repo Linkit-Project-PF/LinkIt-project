@@ -140,6 +140,7 @@ function LoginCompany() {
             const token = authUser._id;
             const role = authUser.role;
             dispatch(loginSuccess({ token, role }));
+            console.log(authUser)
             Swal.fire({
               title: `Bienvenido de vuelta ${authUser.companyName}`,
               text: "Has ingresado correctamente",
