@@ -39,9 +39,9 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
         cvPublicId
       }
 
-      const updatedUser = await editUser(newUser, token)
+      const updatedUser = await editUser(newUser)
       // TODO: dispatch action to update user in redux store
-      // dispatch(setUser(updatedqUser))
+      dispatch(setUser(updatedUser))
       
     } catch (error) {
       console.log(error) 

@@ -10,6 +10,7 @@ interface propsInterface {
 export function UserPostulations(props: propsInterface) {
     const {users} = props
     const [userList, setUserList] = useState([])
+    console.log(userList)
     const token = useSelector((state:any) => state.Authentication.authState.token)
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export function UserPostulations(props: propsInterface) {
                     const newObj = {user: data, status: users[i].status};
                     newArr.push(newObj)
                 }
-                setUserList(newArr)
+                setUserList(newArr as any)
             } catch (error) {
                 console.error(error)
             }

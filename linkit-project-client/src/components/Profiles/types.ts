@@ -12,13 +12,12 @@ export enum EnglishLevelEnum {
 }
 
 interface IPostulation {
-  _id: string
+  jd: string
   status: string
 }
 
 export interface IUser {
-  _id:	string
-  airTableId:	string
+  _id: string
   image: string
   name: string
   email: string
@@ -26,7 +25,6 @@ export interface IUser {
   linkedin: string
   englishLevel: EnglishLevelEnum 
   cv: string
-  role: UserRoleEnum
   technologies: string[]
   active: boolean
   postulations: IPostulation[]

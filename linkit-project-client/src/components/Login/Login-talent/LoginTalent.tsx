@@ -135,9 +135,7 @@ function LoginTalent() {
           );
           if (usersData.data.length) {
             const authUser = usersData.data[0];
-            const token = authUser._id;
-            const role = authUser.role;
-            dispatch(loginSuccess({ token, role }));
+            dispatch(loginSuccess(authUser));
             Swal.fire({
               title: `Bienvenido de vuelta ${authUser.name}`,
               text: 'Has ingresado correctamente',
@@ -158,9 +156,7 @@ function LoginTalent() {
             );
             if (adminData.data.length) {
               const authAdmin = adminData.data[0];
-              const token = authAdmin._id;
-              const role = authAdmin.role;
-              dispatch(loginSuccess({ token, role }));
+              dispatch(loginSuccess(authAdmin))
               Swal.fire({
                 title: `Bienvenido de vuelta ${authAdmin.name}`,
                 text: 'Has ingresado correctamente',

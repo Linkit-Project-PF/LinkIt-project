@@ -9,13 +9,11 @@ import axios from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
-import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { useTranslation } from "react-i18next";
-import { IUser } from "../../Profiles/types.ts";
 
 type Event = {
   target: HTMLInputElement;

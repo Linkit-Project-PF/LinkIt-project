@@ -5,7 +5,7 @@ import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from 'sweetalert';
-import {UserPostulations} from "./userPostulations";
+// import {UserPostulations} from "./userPostulations";
 
 type stateProps = {
   jobCard: {
@@ -19,6 +19,7 @@ export default function Vacancies() {
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
   const [viewForm, setViewForm] = useState(false);
   const [viewUserPost, setViewUserPost] = useState(false);
+  console.log(viewUserPost);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
@@ -72,6 +73,8 @@ export default function Vacancies() {
   const hideUserPost = () => {
     setViewUserPost(false);
   }
+  console.log(hideUserPost)
+  
 
   const deleteVacancie = async (id: string) => {
     const resultado = confirm("¿Deseas cerrar la vacante?");
