@@ -54,9 +54,11 @@ interface postulations {
   status: string;
 }
 
-export type Review = {
-  nameUserOrCompany: string,
+export type ReviewProps = {
+  _id: string;
+  name: string,
   rol: string
   country: string
   detail: string
+  archived: boolean,
 }
