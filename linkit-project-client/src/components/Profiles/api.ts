@@ -2,10 +2,7 @@ import axios from 'axios';
 import { IUser } from './types';
 import { SUPERADMN_ID } from '../../env';
 
-
 export const URL = `https://linkit-server.onrender.com`
-
-
 
 export const editUser = async (user: IUser): Promise<IUser> => {
   const userObj = {

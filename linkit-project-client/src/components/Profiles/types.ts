@@ -24,6 +24,7 @@ export interface IUser {
   country: string
   linkedin: string
   englishLevel: EnglishLevelEnum 
+  role: UserRoleEnum
   cv: string
   technologies: string[]
   active: boolean
