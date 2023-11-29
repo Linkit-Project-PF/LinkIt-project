@@ -402,12 +402,12 @@ function NavBar() {
               <hr className="w-[90%]" />
 
               <li className="hover:text-linkIt-300">
-                <button onClick={navigatetoValues} >{t('Valores e Historia')}</button>
+                <button onClick={navigatetoValues}>{t('Valores')}</button>
               </li>
               <hr className="w-[90%]" />
 
               <li className="hover:text-linkIt-300">
-                <button onClick={navigatetoHistory} >Historia</button>
+                <button onClick={navigatetoHistory} >{t('Historia')}</button>
               </li>
               <hr className="w-[90%]" />
 

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReviewProps } from "../../../admin.types";
@@ -5,7 +6,7 @@ import axios from "axios";
 import { setReviews } from "../../../../../redux/features/ReviewsSlice";
 import swal from 'sweetalert';
 import FormReview from "./FormReviews";
-
+import { useTranslation } from "react-i18next";
 
 
 type stateProps = {
@@ -15,6 +16,7 @@ type stateProps = {
 };
 
 export default function AdminReviews() {
+  const {t}=useTranslation();
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.reviews.allReviews);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
@@ -61,7 +63,7 @@ export default function AdminReviews() {
         );
         dispatch(setReviews(response.data));
       } catch (error) {
-        console.error("Error al cargar las reviews", error);
+        console.error(t("Error al cargar las reseñas"), error);
       }
     };
     loadData();
@@ -79,7 +81,7 @@ export default function AdminReviews() {
 
 
   const deleteReview = async (id: string) => {
-    const resultado = confirm("¿Deseas ocultar el recurso?");
+    const resultado = confirm(t("¿Deseas ocultar el recurso?"));
     if (resultado) {
       try {
         const response = await axios.delete(
@@ -89,7 +91,7 @@ export default function AdminReviews() {
         );
         dispatch(setReviews(response.data));
         setSaveStatus(!saveStatus)
-        return swal("Review ocultada");
+        return swal(t("Review ocultada"));
       } catch (error) {
         console.error(error);
       }
@@ -149,20 +151,20 @@ export default function AdminReviews() {
   return (
     <div className="mb-32">
       <div className="bg-linkIt-500 mx-12  rounded-[20px] rounded-b-none w-auto ">
-        <h1 className="text-4xl pl-16 py-6">Gestión de reviews</h1>
+        <h1 className="text-4xl pl-16 py-6">{t("Gestión de reseñas")}</h1>
 
         <button
           className="bg-linkIt-300 flex items-center rounded-[7px] ml-20 p-3 h-10 text-white text-[10px] xl:text-xs shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out"
           onClick={showForm}
-        >Crear review
+        >{t('Crear reseña')}
         </button>
 
         <div className="flex flex-col items-end justify-center pr-32 pb-10">
           <div className="pb-2">
-            <button className="" onClick={handlePrevius} disabled={currentPage === 0}>Anterior</button>
-            <button className="ml-12" onClick={handleNext} disabled={endIndex >= data.length}>Siguiente</button>
+            <button className="" onClick={handlePrevius} disabled={currentPage === 0}>{t('Anterior')}</button>
+            <button className="ml-12" onClick={handleNext} disabled={endIndex >= data.length}>{t('Siguiente')}</button>
           </div>
-          <span>Pagina {currentPage + 1} de {totalPages}</span>
+          <span>{t('Pagina')} {currentPage + 1} {t('de')} {totalPages}</span>
         </div>
 
       </div>
@@ -171,15 +173,15 @@ export default function AdminReviews() {
         <thead>
           <tr className="h-12">
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Nombre</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Nombre')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Rol</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Rol')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">País</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('País')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Detalle</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Detalle')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Vista</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Vista')}</th>
             <th></th>
           </tr>
         </thead>
@@ -256,21 +258,21 @@ export default function AdminReviews() {
                     onClick={() => handleEdit(r._id)}
                     className="active:scale-90 m-1 h-fit w-fit"
                   >
-                    Editar
+                    {t('Editar')}
                   </button>
                 ) : (
                   <button
                     onClick={() => handleSave(r._id)}
                     className="active:scale-90 m-1 h-fit w-fit"
                   >
-                    Guardar
+                    {t('Guardar')}
                   </button>
                 )}
                 <button
                   onClick={() => deleteReview(r._id)}
                   className="active:scale-90 m-1 h-fit w-fit"
                 >
-                  Cerrar
+                  {t('Cerrar')}
                 </button>
               </td>
               <td className="px-1"></td>

@@ -4,6 +4,8 @@ import axios from "axios";
 import swal from 'sweetalert';
 // import validations from "./Validation";
 import { ResourceProps } from "../../../admin.types";
+import { useTranslation } from "react-i18next";
+
 
 type OnCloseFunction = () => void;
 
@@ -14,6 +16,7 @@ interface FormResourceProps {
 
 export default function FormResource({ onClose }: FormResourceProps) {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
+  const {t} = useTranslation()
   const [information, setInformation] = useState<Partial<ResourceProps>>({
     title: "",
     description: "",
@@ -63,7 +66,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
 
-      swal("El post fue creado con éxito");
+      swal(t("El post fue creado con éxito"));
       setInformation({
         title: "",
         description: "",
@@ -87,7 +90,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
       <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300 ">
 
         <div>
-          <h1 className="text-3xl my-12">Nuevo Recurso</h1>
+          <h1 className="text-3xl my-12">{t('Nuevo Recurso')}</h1>
         </div>
 
         <form
@@ -98,7 +101,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
           <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Título</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Título')}</label>
               <input
                 className={errors.title ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
@@ -125,7 +128,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Imágen</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
               <input
                 className={errors.image ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
@@ -138,7 +141,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Categoría</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Categoría')}</label>
               <input
                 className={errors.category ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 type="text"
@@ -151,13 +154,13 @@ export default function FormResource({ onClose }: FormResourceProps) {
             </div>
 
             <div className="w-fit px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >Tipo</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Tipo')}</label>
               <div>
                 <select
                   name="type"
                   className={errors.type ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                   onChange={handleChange}>
-                  <option value="">Selecciona</option>
+                  <option value="">{t('Selecciona')}</option>
                   <option value="blog">Blog</option>
                   <option value="ebook">Ebook</option>
                   <option value="social">Social</option>
@@ -166,7 +169,7 @@ export default function FormResource({ onClose }: FormResourceProps) {
             </div>
 
             <div className="mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Descripción</label>
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Descripción')}</label>
               <textarea
                 className={errors.description ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                 name="description"
@@ -178,13 +181,13 @@ export default function FormResource({ onClose }: FormResourceProps) {
             </div>
           </div>
 
-          {errors.title || errors.description || errors.link || errors.type || errors.image || errors.category ? <span className="text-red-500">Los campos marcados con * son obligatioris</span> : null}
+          {errors.title || errors.description || errors.link || errors.type || errors.image || errors.category ? <span className="text-red-500">{t('Los campos marcados con * son obligatorios')}</span> : null}
           <div className="flex">
             <button onClick={onClose} className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
-              Volver
+              {t('Volver')}
             </button>
             <button type="submit" className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
-              Publicar
+              {t('Publicar')}
             </button>
           </div>
         </form>
