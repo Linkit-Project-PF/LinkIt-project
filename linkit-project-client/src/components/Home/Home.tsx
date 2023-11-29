@@ -1,4 +1,5 @@
 import Footer from "../../Utils/Footer/Footer"
+import TopButton from "../../Utils/TopButton"
 import ModuloA from "./Modulos/ModuloA/ModuloA"
 import ModuloB from "./Modulos/ModuloB/ModuloB"
 import ModuloC from "./Modulos/ModuloC/ModuloC"
@@ -17,6 +18,7 @@ function Home() {
             <ModuloE />
             <ModuloF />
             <ModuloG />
+            <TopButton />
             <Footer />
         </div>
 
