@@ -17,9 +17,8 @@ export default function Vacancies() {
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
+  const [saveStatus, setSaveStatus] = useState(false);
   const [viewForm, setViewForm] = useState(false);
-  const [viewUserPost, setViewUserPost] = useState(false);
-  console.log(viewUserPost);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
   const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
@@ -60,7 +59,7 @@ export default function Vacancies() {
       }
     };
     loadData();
-  }, [data]);
+  }, [saveStatus]);
 
   const showForm = () => {
     setViewForm(true);
@@ -70,14 +69,9 @@ export default function Vacancies() {
     setViewForm(false);
   };
 
-  const hideUserPost = () => {
-    setViewUserPost(false);
-  }
-  console.log(hideUserPost)
-  
 
   const deleteVacancie = async (id: string) => {
-    const resultado = confirm("¿Deseas cerrar la vacante?");
+    const resultado = confirm("¿Deseas ocultar la vacante?");
     if (resultado) {
       try {
         const response = await axios.delete(
@@ -86,7 +80,7 @@ export default function Vacancies() {
           // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setJobOffers(response.data));
-        return swal("Vacante cerrada con exito");
+        return swal("Vacante ocultada");
       } catch (error) {
         console.error("Error al enviar la solicitud:", (error as Error).message);
       }
@@ -101,6 +95,7 @@ export default function Vacancies() {
       setEditRow(id);
       setEditing(false);
       setEditedData(rowToEdit);
+      setSaveStatus(!saveStatus)
     }
   };
 
@@ -111,7 +106,8 @@ export default function Vacancies() {
         headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error.response.data)
       console.error("Error al enviar la solicitud: ", (error as Error).message);
     }
     setEditing(false);
@@ -134,7 +130,6 @@ export default function Vacancies() {
       });
     }
   };
-  console.log(data)
 
   return (
     <div className="mb-32">
@@ -192,7 +187,7 @@ export default function Vacancies() {
             <tr key={v._id}>
               <td className="px-1"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.title
                 ) : (
                   <input
@@ -207,7 +202,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.company
                 ) : (
                   <input
@@ -222,7 +217,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.description
                 ) : (
                   <input
@@ -241,7 +236,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.location
                 ) : (
                   <input
@@ -256,7 +251,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.modality
                 ) : (
                   <select
@@ -274,7 +269,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.type
                 ) : (
                   <select
@@ -291,7 +286,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.requirements.join(", ")
                 ) : (
                   <input
@@ -306,7 +301,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.stack.join(" - ")
                 ) : (
                   <input
@@ -327,7 +322,7 @@ export default function Vacancies() {
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {!editing && !editing && editRow !== v._id ? (
+                {!editing && editRow !== v._id ? (
                   v.status
                 ) : (
                   <select
