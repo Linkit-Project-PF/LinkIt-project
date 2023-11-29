@@ -2,7 +2,9 @@
 import { useState } from "react";
 import axios from "axios";
 import swal from 'sweetalert';
-// import validations from "./Validation";
+import { validations } from "./Validation";
+import { ValidationError } from "../../../errors/errors";
+import { validateReview } from "../../../errors/validation";
 import { ReviewProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
 
@@ -57,6 +59,11 @@ export default function FormReview({ onClose }: FormReviewProps) {
         // const validationError = validations(information)
         // setErrors(validationError)
         try {
+            //* validation review form
+            const validationError = validations(information as ReviewProps)
+            setErrors(validationError)
+            
+            validateReview(information as ReviewProps) //* errors from console
             const endPoint = "https://linkit-server.onrender.com/reviews/create";
             const response = await axios.post(endPoint, information, {
                 headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
@@ -72,8 +79,9 @@ export default function FormReview({ onClose }: FormReviewProps) {
             });
             onClose()
             return response.data;
-        } catch (error: any) {
-            console.error(error.response.data)
+        } catch (error) {
+            console.error((error as Error).message)
+            throw new ValidationError((error as Error).message);
         }
     };
 

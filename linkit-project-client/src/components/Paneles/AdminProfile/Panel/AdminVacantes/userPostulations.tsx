@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { userProps } from "../../../admin.types";
+import { UserProps } from "../../../admin.types";
 import { CreatePostulation } from "./createPost";
 
 export interface localInfo {
-  user: userProps;
+  user: UserProps;
   status: string;
 }
 

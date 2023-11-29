@@ -1,6 +1,6 @@
-import { vacancyProps } from "../../../admin.types";
+import { VacancyProps } from "../../../admin.types";
 
-export function validations(vacancies: Partial<vacancyProps>) {
+export function validations(vacancies: VacancyProps) {
   const errors = {
     code: "",
     title: "",
