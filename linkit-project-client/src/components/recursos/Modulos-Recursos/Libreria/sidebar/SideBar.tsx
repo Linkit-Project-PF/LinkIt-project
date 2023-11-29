@@ -25,7 +25,7 @@ function SideBar() {
   return (
     <div className='font-montserrat'>
         <h1 className="font-bold mt-[3rem] text-[1.7rem] mb-[2rem]">{t('Buscar')}</h1>
-        <SearchBar />
+        <SearchBar setActive={setActive} />
         <h2 className='font-bold mt-[2rem] text-[1.7rem]'>{t('Temas')}</h2>
         <ul className='flex flex-col gap-[1rem] font-[500] mt-[2rem]'>
             {items.map((item, index) => (

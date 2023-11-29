@@ -1,8 +1,10 @@
 import { motion, Variants } from "framer-motion";
 import "./BlogResources.css";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 type BlogsCardProps = {
+  _id: string;
   image: string;
   title: string;
   description: string;
@@ -35,8 +37,9 @@ const blogsCardVariants: Variants = {
   
 }
 
-function BlogsResourceCard({ image, title, description, link, genre }: BlogsCardProps) {
+function BlogsResourceCard({ image, title, description, genre, _id }: BlogsCardProps) {
   const {t} = useTranslation();
+  const navigate = useNavigate();
   return (
     <motion.div 
     className="flex flex-col border-[0.13rem] w-full rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[30rem] lg:h-[70vh] items-center justify-center bg-white card-container-resources container-resources"
@@ -66,11 +69,10 @@ function BlogsResourceCard({ image, title, description, link, genre }: BlogsCard
           </p>
         </div>
         <motion.a
-          href={link}
-          target="_blank"
           className="text-[1rem] font-bold link-resources"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
+          onClick={()=>{navigate(`/blog/${_id}`)}}
         >
           {t('Leer Nota')}
         </motion.a>

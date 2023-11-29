@@ -8,6 +8,7 @@ import ModuloTalentosG from "./ModulosTalentos/ModuloTalentosG/ModuloTalentosG"
 import Footer from "../../Utils/Footer/Footer"
 import { useEffect } from "react";
 import "./Talentos.css"
+import TopButton from "../../Utils/TopButton"
 
 function Talentos() {
   useEffect(() => {
@@ -28,7 +29,9 @@ function Talentos() {
   <ModuloTalentosE/>
   </section>
   <ModuloTalentosF/>
+  <footer>
   <Footer/>
+  </footer>
 </div>
   )
 }
