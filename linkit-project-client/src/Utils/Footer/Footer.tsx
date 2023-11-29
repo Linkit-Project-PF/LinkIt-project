@@ -69,13 +69,8 @@ export default function Footer() {
       window.location.href = '#valores';
     }, 1000);
     }
-  const navigatetoHistory = () => {
-    navigate('/quienesSomos')
-    setTimeout(() => {
-      window.location.href = '#historia';
-    }, 1000);
-    }
-  const navigateto = () => {
+
+  const navigatetoInternalTalent = () => {
     navigate('/quienesSomos')
     setTimeout(() => {
       window.location.href = '#talento-Interno';
@@ -187,7 +182,7 @@ export default function Footer() {
                   <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoValues}> {t('Valores e historia')} </button>
                 </li>
                 <li>
-                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigateto}> {t('Talento interno')} </button>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoInternalTalent}> {t('Talento interno')} </button>
                 </li>
               </ul>
             </div>
