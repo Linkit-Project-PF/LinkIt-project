@@ -21,7 +21,17 @@ export default function Vacancies() {
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
-  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({});
+  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({
+    title: "", 
+    company: "",
+    description:"",
+    location:"",
+    modality:"",
+    type: "",
+    requirements: [],
+    stack: [],
+    status:"",
+  });
 
 
 
@@ -67,6 +77,7 @@ export default function Vacancies() {
 
   const noShowForm = () => {
     setViewForm(false);
+    setSaveStatus(!saveStatus)
   };
 
 
@@ -80,6 +91,7 @@ export default function Vacancies() {
           // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
         );
         dispatch(setJobOffers(response.data));
+        setSaveStatus(!saveStatus)
         return swal("Vacante ocultada");
       } catch (error) {
         console.error("Error al enviar la solicitud:", (error as Error).message);
@@ -91,11 +103,21 @@ export default function Vacancies() {
 
   const handleEdit = (id: string) => {
     const rowToEdit = data.find((v) => v._id === id);
+    const editedProperties = {
+      title: rowToEdit?.title,
+      company: rowToEdit?.company,
+      description:rowToEdit?.description,
+      location:rowToEdit?.location,
+      modality:rowToEdit?.modality,
+      type: rowToEdit?.type,
+      requirements: rowToEdit?.requirements,
+      stack: rowToEdit?.stack,
+      status:rowToEdit?.status
+    }
     if (rowToEdit) {
       setEditRow(id);
       setEditing(false);
-      setEditedData(rowToEdit);
-      setSaveStatus(!saveStatus)
+      setEditedData(editedProperties); 
     }
   };
 
@@ -113,6 +135,7 @@ export default function Vacancies() {
     setEditing(false);
     setEditRow(null);
     setEditedData({});
+    setSaveStatus(!saveStatus)
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -130,6 +153,8 @@ export default function Vacancies() {
       });
     }
   };
+
+  
 
   return (
     <div className="mb-32">
@@ -152,7 +177,7 @@ export default function Vacancies() {
 
       </div>
 
-      <table className="w-[95%]  mx-12 bg-linkIt-500 rounded-[20px] rounded-t-none">
+      <table className="w-full sm:w-[95%] mx-auto bg-linkIt-500 rounded-[20px] rounded-t-none overflow-x-scroll">
         <thead>
           <tr className="h-12">
             <th></th>
