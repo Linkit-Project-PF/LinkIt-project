@@ -22,12 +22,12 @@ export type vacancyProps = {
 };
 
 export type ResourceProps = {
-  id: number,
+  _id: string;
   title: string,
   description: string,
   link: string,
   type: string,
-  date: string,
+  createdDate: string,
   image: string,
   category: string,
   archived: boolean,
