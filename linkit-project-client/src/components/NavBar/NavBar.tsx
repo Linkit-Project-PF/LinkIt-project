@@ -67,6 +67,10 @@ function NavBar() {
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
 
+
+  const [isHoveredContrata, setIsHoveredContrata] = useState(false);
+  const [isHoveredVacantes, setIsHoveredVacantes] = useState(false);
+
   const scopeQS = useMenuAnimation(isOpenQS);
   const scopeUser = useMenuAnimation(isOpenUser);
   const scopeRecursos = useMenuAnimation(isOpenRecursos);
@@ -422,17 +426,21 @@ function NavBar() {
         <div className="containerBtnsNavbar">
           <Languaje />
           <motion.button
-            className="contrataBtnNavB"
+            className={`contrataBtnNavB ${isHoveredVacantes ? ' border-linkIt-300 bg-transparent text-black' : 'bg-linkIt-300 text-white'}`}
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
+            onHoverStart={() => setIsHoveredContrata(true)}
+            onHoverEnd={() => setIsHoveredContrata(false)}
           >
 
             {t('Contrata Talento')}
           </motion.button>
           <motion.button
-            className="vacanteBtnNavB"
+            className={`vacanteBtnNavB ${isHoveredContrata ? 'bg-linkIt-300 text-white' : 'border-linkIt-300 bg-transparent text-black'}`}
             onClick={() => goSoyTalento()}
             whileTap={{ scale: 0.9 }}
+            onHoverStart={() => setIsHoveredVacantes(true)}
+            onHoverEnd={() => setIsHoveredVacantes(false)}
           >
             {t('Vacantes disponibles')}
           </motion.button>
