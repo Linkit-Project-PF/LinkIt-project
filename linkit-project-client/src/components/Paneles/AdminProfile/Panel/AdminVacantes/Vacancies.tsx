@@ -5,7 +5,7 @@ import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
-import { UserPostulations, arrivingInfo } from "./userPostulations";
+import { UserPostulations } from "./userPostulations";
 
 type stateProps = {
   jobCard: {
@@ -23,18 +23,17 @@ export default function Vacancies() {
   const [editRow, setEditRow] = useState<string | null>(null);
   const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
   const [viewPostul, setViewPostul] = useState(false);
-  const [editedData, setEditedData] = useState<Partial<VacancyProps>>({
-    title: "", 
+  const [editedData, setEditedData] = useState<Partial<vacancyProps>>({
+    title: "",
     company: "",
-    description:"",
-    location:"",
-    modality:"",
+    description: "",
+    location: "",
+    modality: "",
     type: "",
     requirements: [],
     stack: [],
-    status:"",
+    status: "",
   });
-
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(0);
@@ -75,7 +74,7 @@ export default function Vacancies() {
 
   const noShowForm = () => {
     setViewForm(false);
-    setSaveStatus(!saveStatus)
+    setSaveStatus(!saveStatus);
   };
 
   const hidePostul = () => {
@@ -93,7 +92,7 @@ export default function Vacancies() {
           }
         );
         dispatch(setJobOffers(response.data));
-        setSaveStatus(!saveStatus)
+        setSaveStatus(!saveStatus);
         return swal("Vacante ocultada");
       } catch (error) {
         console.error(
@@ -109,14 +108,14 @@ export default function Vacancies() {
     const editedProperties = {
       title: rowToEdit?.title,
       company: rowToEdit?.company,
-      description:rowToEdit?.description,
-      location:rowToEdit?.location,
-      modality:rowToEdit?.modality,
+      description: rowToEdit?.description,
+      location: rowToEdit?.location,
+      modality: rowToEdit?.modality,
       type: rowToEdit?.type,
       requirements: rowToEdit?.requirements,
       stack: rowToEdit?.stack,
-      status:rowToEdit?.status
-    }
+      status: rowToEdit?.status,
+    };
     if (rowToEdit) {
       setEditRow(id);
       setEditing(false);
@@ -130,7 +129,6 @@ export default function Vacancies() {
     if (activeRow) {
       setPostulData(activeRow);
       setViewPostul(true);
-
     }
   };
 
@@ -147,7 +145,7 @@ export default function Vacancies() {
     setEditing(false);
     setEditRow(null);
     setEditedData({});
-    setSaveStatus(!saveStatus)
+    setSaveStatus(!saveStatus);
   };
 
   const handleChange = (
@@ -167,8 +165,6 @@ export default function Vacancies() {
       });
     }
   };
-
-  
 
   return (
     <div className="mb-32">
@@ -434,6 +430,18 @@ export default function Vacancies() {
                     Guardar
                   </button>
                 )}
+                {!editing && editRow !== v._id ? null : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditing(false);
+                      setEditRow(null);
+                      setEditedData({});
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                )}
                 <button
                   onClick={() => deleteVacancie(v._id)}
                   className="active:scale-90 m-1 h-fit w-fit"
@@ -452,7 +460,6 @@ export default function Vacancies() {
       {viewPostul && (
         <UserPostulations
           onClose={hidePostul}
-          users={postulData.users as unknown as arrivingInfo[]}
           jdId={postulData._id as string}
         />
       )}
