@@ -80,27 +80,28 @@ function LoginTalent() {
 
       if (response.status === 200) {
         Swal.fire({
-          title: `Bienvenido de vuelta ${loggedUser.name}`,
-          text: 'Has ingresado correctamente',
-          icon: 'success',
-          iconColor: '#173951',
-          background: '#ECEEF0',
-          confirmButtonColor: '#01A28B',
-          confirmButtonText: 'Continuar'
-        })
-
-        dispatch(loginSuccess(loggedUser));
+          title: t("Bienvenido de vuelta", {name:response.data.name}),
+          text: t("Has ingresado correctamente"),
+          icon: "success",
+          iconColor: "#173951",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+        const token = response.data._id;
+        const role = response.data.role;
+        dispatch(loginSuccess({ token, role }));
         dispatch(setPressLoginTalent("hidden"));
       }
     } catch (error: any) {
       Swal.fire({
-        title: 'Error',
-        text: 'Usuario o contraseña incorrectos',
-        icon: 'error',
-        background: '#ECEEF0',
-        confirmButtonColor: '#01A28B',
-        confirmButtonText: 'Continuar'
-      })
+        title: "Error",
+        text: t("Usuario o contraseña incorrectos"),
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      });
     }
   };
 
@@ -114,15 +115,15 @@ function LoginTalent() {
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(response.user, "user");
-          Swal.fire({
-            title: `Bienvenido ${DBresponse.name}`,
-            text: 'Has ingresado correctamente',
-            icon: 'success',
-            iconColor: '#173951',
-            background: '#ECEEF0',
-            confirmButtonColor: '#01A28B',
-            confirmButtonText: 'Continuar'
-          })
+          Swal.fire({       
+            title: t("Bienvenido", {name:DBresponse.name}),
+            text: t("Se ha creado una nueva cuenta para ti"),
+            icon: "success",
+            iconColor: "#173951",
+            background: "#ECEEF0",
+            confirmButtonColor: "#01A28B",
+            confirmButtonText: t("Continuar"),
+          });
         } else {
           //* In case user exists, enters here
           const usersData = await axios.get(
@@ -137,14 +138,14 @@ function LoginTalent() {
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
-              title: `Bienvenido de vuelta ${authUser.name}`,
-              text: 'Has ingresado correctamente',
-              icon: 'success',
-              iconColor: '#173951',
-              background: '#ECEEF0',
-              confirmButtonColor: '#01A28B',
-              confirmButtonText: 'Continuar'
-            })
+              title: t("Bienvenido de vuelta", {name:authUser.name}),
+              text: t("Has ingresado correctamente"),
+              icon: "success",
+              iconColor: "#173951",
+              background: "#ECEEF0",
+              confirmButtonColor: "#01A28B",
+              confirmButtonText: t("Continuar"),
+            });
           } else {
             const adminData = await axios.get(
               `https://linkit-server.onrender.com/admins/find?email=${response.user.email}`,
@@ -158,14 +159,14 @@ function LoginTalent() {
               const authAdmin = adminData.data[0];
               dispatch(loginSuccess(authAdmin))
               Swal.fire({
-                title: `Bienvenido de vuelta ${authAdmin.name}`,
-                text: 'Has ingresado correctamente',
-                icon: 'success',
-                iconColor: '#173951',
-                background: '#ECEEF0',
-                confirmButtonColor: '#01A28B',
-                confirmButtonText: 'Continuar'
-              })
+                title: t("Bienvenido de vuelta", {name:authAdmin.name}),
+                text: t("Has ingresado correctamente"),
+                icon: "success",
+                iconColor: "#173951",
+                background: "#ECEEF0",
+                confirmButtonColor: "#01A28B",
+                confirmButtonText: t("Continuar"),
+              });
             } else
               throw Error(
                 "Usuario autenticado pero registro no encontrado, contacte a un administrador"
@@ -177,17 +178,14 @@ function LoginTalent() {
       setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      if (error.code === "auth/popup-closed-by-user") console.log(error);
-      else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Usuario o contraseña incorrectos',
-          icon: 'error',
-          background: '#ECEEF0',
-          confirmButtonColor: '#01A28B',
-          confirmButtonText: 'Continuar'
-        })
-      }
+      Swal.fire({
+        title: "Error",
+        text:t( "Usuario o contraseña incorrectos"),
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      });
     }
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
@@ -196,11 +194,11 @@ function LoginTalent() {
     if (thirdParty) {
       dispatch(setPressLoginTalent("hidden"));
       Swal.fire({
-        icon: 'info',
-        title: 'Espera un momento',
-        text: `Estamos autenticando tu cuenta`,
-        confirmButtonText: 'Iniciar sesión',
-        confirmButtonColor: '#2D46B9',
+        icon: "info",
+        title: t("Espera un momento"),
+        text: t(`Estamos autenticando tu cuenta`),
+        confirmButtonText: t("Iniciar sesión"),
+        confirmButtonColor: "#2D46B9",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
