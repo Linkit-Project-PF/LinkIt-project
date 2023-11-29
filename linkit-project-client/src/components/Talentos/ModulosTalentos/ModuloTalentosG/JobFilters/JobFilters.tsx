@@ -52,7 +52,7 @@ const JobFilters = () => {
           :`${modality  !== "Modalidad" ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}`
         }${
           country.value !== ""
-            ? `&location=${country.label}`
+            ? `&location=${country.value}`
             : ""
         }`,
         {

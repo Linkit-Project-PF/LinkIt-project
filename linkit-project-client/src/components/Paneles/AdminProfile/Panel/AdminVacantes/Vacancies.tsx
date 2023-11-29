@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { vacancyProps } from "../../../admin.types";
+import { VacancyProps } from "../../../admin.types";
 import FormVacancie from "./FormVacancie";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
@@ -9,7 +9,7 @@ import { UserPostulations } from "./userPostulations";
 
 type stateProps = {
   jobCard: {
-    allJobOffers: vacancyProps[];
+    allJobOffers: VacancyProps[];
   };
 };
 
@@ -21,7 +21,7 @@ export default function Vacancies() {
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editRow, setEditRow] = useState<string | null>(null);
-  const [postulData, setPostulData] = useState<Partial<vacancyProps>>({});
+  const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
   const [viewPostul, setViewPostul] = useState(false);
   const [editedData, setEditedData] = useState<Partial<vacancyProps>>({
     title: "",
@@ -256,7 +256,7 @@ export default function Vacancies() {
           </tr>
         </thead>
         <tbody>
-          {dataToShow.map((v: vacancyProps) => (
+          {dataToShow.map((v: VacancyProps) => (
             <tr key={v._id}>
               <td className="px-1"></td>
               <td className="border-b-2 border-black h-fit min-w-max">

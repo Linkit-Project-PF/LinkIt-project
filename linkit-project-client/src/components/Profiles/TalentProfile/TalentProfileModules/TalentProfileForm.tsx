@@ -40,7 +40,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
       }
 
       const updatedUser = await editUser(newUser)
-      // TODO: dispatch action to update user in redux store
       dispatch(setUser(updatedUser))
       
     } catch (error) {
@@ -95,6 +94,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
 
           <select
             onChange={(event) => setEnglishLevel(event.target.value as EnglishLevelEnum)}
+            defaultValue={user.englishLevel}
             className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
           >
             <option value={EnglishLevelEnum.LOW}>Bajo</option>

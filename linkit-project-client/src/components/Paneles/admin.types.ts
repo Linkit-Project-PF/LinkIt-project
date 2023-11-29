@@ -1,4 +1,4 @@
-export type vacancyProps = {
+export type VacancyProps = {
   code: string;
   title: string;
   description: string;
@@ -33,7 +33,7 @@ export type ResourceProps = {
   archived: boolean;
 };
 
-export type userProps = {
+export type UserProps = {
   _id: string;
   airTableId: string;
   image: string;
@@ -54,9 +54,11 @@ interface postulations {
   status: string;
 }
 
-export type Review = {
-  nameUserOrCompany: string,
+export type ReviewProps = {
+  _id: string;
+  name: string,
   rol: string
   country: string
   detail: string
+  archived: boolean,
 }

@@ -5,6 +5,7 @@ import axios from "axios";
 import { setResources } from "../../../../../redux/features/ResourcesSlice";
 import swal from 'sweetalert';
 import FormResource from "./FormResource";
+import { useTranslation } from "react-i18next";
 // import {UserPostulations} from "./userPostulations";
 
 type stateProps = {
@@ -14,6 +15,7 @@ type stateProps = {
 }
 
 export default function AdminRecursos() {
+  const {t} = useTranslation()
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.resources.allresources);
   // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
@@ -80,7 +82,7 @@ export default function AdminRecursos() {
 
 
   const deleteResource = async (id: string) => {
-    const resultado = confirm("¿Deseas ocultar el recurso?");
+    const resultado = confirm(t("¿Deseas ocultar el recurso?"));
     if (resultado) {
       try {
         const response = await axios.delete(
@@ -90,9 +92,9 @@ export default function AdminRecursos() {
         );
         dispatch(setResources(response.data));
         setSaveStatus(!saveStatus)
-        return swal("Recurso ocultado");
+        return swal(t("Recurso ocultado"));
       } catch (error) {
-        console.error("Error al enviar la solicitud:", (error as Error).message);
+        console.error(error);
       }
     }
   };
@@ -152,20 +154,20 @@ export default function AdminRecursos() {
   return (
     <div className="mb-32">
       <div className="bg-linkIt-500 mx-12  rounded-[20px] rounded-b-none w-auto ">
-        <h1 className="text-4xl pl-16 py-6">Gestión de recursos</h1>
+        <h1 className="text-4xl pl-16 py-6">{t('Gestión de recursos')}</h1>
 
         <button
           className="bg-linkIt-300 flex items-center rounded-[7px] ml-20 p-3 h-10 text-white text-[10px] xl:text-xs shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out"
           onClick={showForm}
-        >Crear recurso
+        >{t('Crear recurso')}
         </button>
 
         <div className="flex flex-col items-end justify-center pr-32 pb-10">
           <div className="pb-2">
-            <button className="" onClick={handlePrevius} disabled={currentPage === 0}>Anterior</button>
-            <button className="ml-12" onClick={handleNext} disabled={endIndex >= data.length}>Siguiente</button>
+            <button className="" onClick={handlePrevius} disabled={currentPage === 0}>{t('Anterior')}</button>
+            <button className="ml-12" onClick={handleNext} disabled={endIndex >= data.length}>{t('Siguiente')}</button>
           </div>
-          <span>Pagina {currentPage + 1} de {totalPages}</span>
+          <span>{t('Pagina')} {currentPage + 1} {t('de')} {totalPages}</span>
         </div>
 
       </div>
@@ -174,21 +176,21 @@ export default function AdminRecursos() {
         <thead>
           <tr className="h-12">
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Título</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Título')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Descripción</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Descripción')}</th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Link</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Fecha</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Fecha')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Tipo</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Tipo')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Imágen</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Imagen')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Categoría</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Categoría')}</th>
             <th></th>
-            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">Vista</th>
+            <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">{t('Vista')}</th>
             <th></th>
           </tr>
         </thead>
@@ -301,21 +303,21 @@ export default function AdminRecursos() {
                     onClick={() => handleEdit(r._id)}
                     className="active:scale-90 m-1 h-fit w-fit"
                   >
-                    Editar
+                    {t('Editar')}
                   </button>
                 ) : (
                   <button
                     onClick={() => handleSave(r._id)}
                     className="active:scale-90 m-1 h-fit w-fit"
                   >
-                    Guardar
+                    {t('Guardar')}
                   </button>
                 )}
                 <button
                   onClick={() => deleteResource(r._id)}
                   className="active:scale-90 m-1 h-fit w-fit"
                 >
-                  Cerrar
+                  {t('Cerrar')}
                 </button>
               </td>
               <td className="px-1"></td>

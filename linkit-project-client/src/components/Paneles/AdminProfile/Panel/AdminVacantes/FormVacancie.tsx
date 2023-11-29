@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { validateForm } from "../../../errors/validation";
+import { validateVacancy } from "../../../errors/validation";
+import { VacancyProps } from "../../../admin.types";
 import { ValidationError } from "../../../errors/errors";
 import swal from "sweetalert";
 import { validations } from "./Validation";
-import { vacancyProps } from "../../../admin.types";
 
 type OnCloseFunction = () => void;
 
@@ -19,7 +19,7 @@ interface InfoList {
 
 export default function FormVacancie(props: FormVacancieProps) {
   //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
-  const [information, setInformation] = useState<Partial<vacancyProps>>({
+  const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
     description: "", //! 10 chars minimum back requirement.
@@ -148,21 +148,21 @@ export default function FormVacancie(props: FormVacancieProps) {
         [name]: value,
       });
     }
-    const validationError = validations(information);
+    const validationError = validations(information as VacancyProps);
     setErrors(validationError);
   };
 
   const handleBlurErrors = () => {
-    const validationError = validations(information);
+    const validationError = validations(information as VacancyProps);
     setErrors(validationError);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validationError = validations(information);
+    const validationError = validations(information as VacancyProps);
     setErrors(validationError);
     try {
-      validateForm(information);
+      validateVacancy(information as VacancyProps);
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: { Authorization: `Bearer ${props.token}` },
@@ -187,8 +187,8 @@ export default function FormVacancie(props: FormVacancieProps) {
       });
       props.onClose();
       return response.data;
-    } catch (error: any) {
-      console.error(error.response.data);
+    } catch (error) {
+      console.error((error as Error).message);
       throw new ValidationError(
         `Error al ingresar los datos en el formulario: ${
           (error as Error).message

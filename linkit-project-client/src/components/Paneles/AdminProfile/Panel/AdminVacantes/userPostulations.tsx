@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userProps } from "../../../admin.types";
+
+import { useSelector } from "react-redux";
+import { UserProps } from "../../../admin.types";
 import { CreatePostulation } from "./createPost";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+
 
 export interface localState {
   user: userProps;

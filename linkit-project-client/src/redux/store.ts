@@ -7,6 +7,8 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import thunk from 'redux-thunk'
 import AuthSlice from "./features/AuthSlice";
+import ReviewsSlice from "./features/ReviewsSlice";
+import UsersSlice from "./features/UsersSlice";
 
 const persistConfig ={
   key: "root",
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   registerLogin: registerLoginSlice,
   jobCard: JobCardSlice,
   resources: ResourcesSlice,
+  reviews: ReviewsSlice,
+  users: UsersSlice
 })
 
 

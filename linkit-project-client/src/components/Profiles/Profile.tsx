@@ -1,9 +1,10 @@
 // import CompanyProfile from "./CompanyProfile/CompanyProfile";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/types";
-import TalentProfile from "./TalentProfile/TalentProfile";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// import CompanyProfile from "./CompanyProfile/CompanyProfile";
+// import TalentProfile from "./TalentProfile/TalentProfile";
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -20,8 +21,8 @@ const Profile = () => {
   
   return (
     <div>
-      <TalentProfile/>
       {/* <CompanyProfile/> */}
+      {/* <TalentProfile/> */}
     </div>
   )
 };
