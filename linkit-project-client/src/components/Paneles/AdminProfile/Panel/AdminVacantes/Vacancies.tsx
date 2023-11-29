@@ -120,7 +120,7 @@ export default function Vacancies() {
     if (rowToEdit) {
       setEditRow(id);
       setEditing(false);
-      setEditedData(rowToEdit);
+      setEditedData(editedProperties);
       setSaveStatus(!saveStatus);
     }
   };
