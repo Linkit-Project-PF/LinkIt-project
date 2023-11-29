@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./BlogsCards.css";
 
@@ -7,7 +8,7 @@ type BlogsCardProps = {
   image: string;
   title: string;
   description: string;
-  link: string;
+  _id: string;
   genre: string;
 };
 
@@ -36,12 +37,18 @@ const blogsCardVariants: Variants = {
   
 }
 
-function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
+function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
   const [key, setKey] = useState(Math.random());
   const{t} = useTranslation()
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/blog/${_id}`);
+  }
+
   useEffect(() => {
     setKey(Math.random()); // change key to force re-render
-  }, [title, description, link, genre]);
+  }, [title, description, _id, genre]);
 
   return (
     <motion.div 
@@ -72,8 +79,7 @@ function BlogsCard({ image, title, description, link, genre }: BlogsCardProps) {
           </p>
         </div>
         <motion.a
-          href={link}
-          target="_blank"
+          onClick={handleClick}
           className="text-[1rem] font-bold lg:text-[.8rem] lg:mt-[1rem] link"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
