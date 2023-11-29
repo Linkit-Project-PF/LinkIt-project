@@ -4,6 +4,8 @@ import axios from "axios";
 import swal from 'sweetalert';
 // import validations from "./Validation";
 import { ReviewProps } from "../../../admin.types";
+import { useTranslation } from "react-i18next";
+
 
 type OnCloseFunction = () => void;
 
@@ -14,6 +16,8 @@ interface FormReviewProps {
 
 export default function FormReview({ onClose }: FormReviewProps) {
     //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
+    const {t}=useTranslation();
+    
     const [information, setInformation] = useState<Partial<ReviewProps>>({
         name: "",
         rol: "",
@@ -59,7 +63,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
                 // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
             });
 
-            swal("El post fue creado con éxito");
+            swal(t("El post fue creado con éxito"));
             setInformation({
                 name: "",
                 rol: "",
@@ -81,7 +85,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
             <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300 ">
 
                 <div>
-                    <h1 className="text-3xl my-12">Nueva Review</h1>
+                    <h1 className="text-3xl my-12">{t('Nueva Reseña')}</h1>
                 </div>
 
                 <form
@@ -92,7 +96,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
                     <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
 
                         <div className="w-fit px-3 mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Nombre Cliente</label>
+                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Nombre Cliente')}</label>
                             <input
                                 className={errors.name ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 type="text"
@@ -106,7 +110,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
                         </div>
 
                         <div className="w-fit px-3 mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Rol</label>
+                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Rol')}</label>
                             <select
                                 className={errors.rol ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 name="rol"
@@ -115,14 +119,14 @@ export default function FormReview({ onClose }: FormReviewProps) {
                                 onChange={handleChange}
                                 onBlur={handleBlurErrors}
                             >
-                                <option value="">Selecciona</option>
-                                <option value="user">Usuario</option>
-                                <option value="company">Empresa</option>
+                                <option value="">{t('Selecciona')}</option>
+                                <option value="user">{t('Usuario')}</option>
+                                <option value="company">{t('Empresa')}</option>
                             </select>
                         </div>
 
                         <div className="w-fit px-3 mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >País</label>
+                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('País')}</label>
                             <input
                                 className={errors.country ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 type="text"
@@ -135,7 +139,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
                         </div>
 
                         <div className="mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Detalle</label>
+                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Detalle')}</label>
                             <textarea
                                 className={errors.detail ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 name="detail"
@@ -146,13 +150,13 @@ export default function FormReview({ onClose }: FormReviewProps) {
                             ></textarea>
                         </div>
                     </div>
-                    {errors.name || errors.rol || errors.country || errors.detail ? <span className="text-red-500">Los campos marcados con * son obligatioris</span> : null}
+                    {errors.name || errors.rol || errors.country || errors.detail ? <span className="text-red-500">{t('Los campos marcados con * son obligatiorios')}</span> : null}
                     <div className="flex">
                         <button onClick={onClose} className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
                             Volver
                         </button>
                         <button type="submit" className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
-                            Publicar
+                            {t('Publicar')}
                         </button>
                     </div>
                 </form>

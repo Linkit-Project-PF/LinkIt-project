@@ -82,7 +82,7 @@ export default function AdminRecursos() {
 
 
   const deleteResource = async (id: string) => {
-    const resultado = confirm("¿Deseas ocultar el recurso?");
+    const resultado = confirm(t("¿Deseas ocultar el recurso?"));
     if (resultado) {
       try {
         const response = await axios.delete(
@@ -92,7 +92,7 @@ export default function AdminRecursos() {
         );
         dispatch(setResources(response.data));
         setSaveStatus(!saveStatus)
-        return swal("Recurso ocultado");
+        return swal(t("Recurso ocultado"));
       } catch (error) {
         console.error(error);
       }
