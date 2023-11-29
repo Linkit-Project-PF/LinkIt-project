@@ -1,15 +1,15 @@
-import CloudinaryUploadWidget from "../../Services/cloudinaryWidget";
+import CloudinaryUploadWidget from "../../../Services/cloudinaryWidget";
 import { useState, useEffect, FunctionComponent } from "react";
-import { IUser } from "../types";
+import { IUser } from "../../types";
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../../redux/features/AuthSlice";
+import { logout } from "../../../../redux/features/AuthSlice";
 
 interface IComponentProps {
   user: IUser
 }
 
-const ProfileComponent: FunctionComponent<IComponentProps> = ({user}) => {
+const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
   const dispatch = useDispatch()
   const [filePublicId, setFilePublicId] = useState("")
   const navigate = useNavigate()
@@ -60,4 +60,4 @@ const ProfileComponent: FunctionComponent<IComponentProps> = ({user}) => {
   )
 }
 
-export default ProfileComponent;
+export default TalentComponent;

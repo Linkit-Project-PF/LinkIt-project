@@ -14,7 +14,8 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { useTranslation } from "react-i18next";
-import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
+import { companyLogin} from "../../../redux/features/AuthSlice.ts";
+import { ICompany } from "../../Profiles/types.ts";
 
 
 
@@ -76,12 +77,12 @@ function LoginCompany() {
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const response = await axios.get<any>(
+      const response = await axios.get<ICompany>(
         `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`
       )
-      const loggeCompany = response.data
-
-      if (response.data._id) {
+      const loggedCompany = response.data
+      console.log(loggedCompany)
+      if (response.status === 200) {
         
         Swal.fire({
           title: t("Bienvenido de vuelta",{ name: response.data.companyName }),
@@ -93,7 +94,7 @@ function LoginCompany() {
           confirmButtonText: t("Continuar"),
         });
         
-        dispatch(loginSuccess(loggeCompany));
+        dispatch(companyLogin(loggedCompany));
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
@@ -141,7 +142,7 @@ function LoginCompany() {
           );
           if (getCompanyResponse.data.length) {
             const authUser = getCompanyResponse.data[0];
-            dispatch(loginSuccess(authUser));
+            dispatch(companyLogin(authUser));
             console.log(authUser)
             Swal.fire({
               title: t("Bienvenido de vuelta", {name:authUser.companyName}),
@@ -163,7 +164,7 @@ function LoginCompany() {
             );
             if (companyData.data.length) {
               const authCompany = companyData.data[0];
-              dispatch(loginSuccess(authCompany));
+              dispatch(companyLogin(authCompany));
               Swal.fire({
                 
                 title: t("Bienvenido de vuelta", {name:authCompany.companyName}),

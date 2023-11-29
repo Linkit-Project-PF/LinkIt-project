@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import ProfileComponent from "../ProfileComponent/ProfileComponent";
+import TalentComponent from "./TalentProfileModules/TalentComponent";
 import TalentForm from "./TalentProfileModules/TalentProfileForm";
 import { RootState } from "../../../redux/types";
 
@@ -10,7 +10,7 @@ const TalentProfile = () => {
 
   return (
     <>
-      <ProfileComponent user={user} />
+      <TalentComponent user={user} />
       <TalentForm user={user} />
     </>
   )

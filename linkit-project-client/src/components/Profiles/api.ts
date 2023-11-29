@@ -24,3 +24,7 @@ export const editUser = async (user: IUser): Promise<IUser> => {
   console.log(response)
 	return response.data
 }
+
+// COMPANY // 
+
+// export const editCompany = async (company: ICompany): Promise<ICompany> => {
