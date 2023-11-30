@@ -3,6 +3,7 @@ import { SUPERADMN_ID } from "../../env";
 
 export default async function saveUserThirdAuth(user: any, role: string) {
   const userToSave = {
+    companyName: user.displayName,
     name: user.displayName,
     email: user.email,
     image: user.photoURL,
