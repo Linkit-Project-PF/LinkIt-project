@@ -1,11 +1,11 @@
-import { vacancieProps } from "../../../admin.types"
+import { VacancyProps } from "../../../admin.types";
 
-export default function validations (vacancies: vacancieProps) {
+export function validations(vacancies: VacancyProps) {
   const errors = {
     code: "",
     title: "",
-    description: "", 
-    type: "", 
+    description: "",
+    type: "",
     location: "",
     modality: "",
     stack: "",
@@ -16,124 +16,74 @@ export default function validations (vacancies: vacancieProps) {
     niceToHave: "",
     benefits: "",
     company: "",
+  };
+
+  if (!vacancies.title) {
+    errors.title = "Título requerido";
   }
 
-  
-  if(!vacancies.title) {
-    errors.title = "Título requerido"
-  }
-  
-  if(!vacancies.code) {
-    errors.code = "Código requerido"
+  if (!vacancies.code) {
+    errors.code = "Código requerido";
   }
 
-  if(typeof vacancies.title !== 'string') {
-    errors.title = "Título inválido"
+  if (typeof vacancies.title !== "string") {
+    errors.title = "Título inválido";
   }
 
-  if(!vacancies.description) {  
-    errors.description = "Descripción requerida"
-  }
-  if(typeof vacancies.description !== 'string') {
-    errors.description = "Descripción inválida"
-  }
-  
-  if(vacancies.type === "") {
-    errors.type = "Tipo requerido"
-  }
-  if(typeof vacancies.type !== 'string') {
-    errors.type = "Tipo inválido"
+  if (!vacancies.description) {
+    errors.description = "Descripción requerida";
   }
 
-  if(!vacancies.location) {
-    errors.location = "Ubicación requerida"
-  }
-  if(typeof vacancies.location !== 'string') {
-    errors.location = "Ubicación inválida"
+  if (vacancies.type === "") {
+    errors.type = "Tipo requerido";
   }
 
-  if(vacancies.modality === "") {
-    errors.modality = "Modalidad requerida"
+  if (!vacancies.location) {
+    errors.location = "Ubicación requerida";
   }
 
-
-  if(!vacancies.stack) {
-    errors.stack = "Stack requerido"
-  }
-  if(!vacancies.stack.length) {
-    errors.stack = "Stack requerido"
-  }
-  if(!Array.isArray(vacancies.stack)) {
-    errors.stack = "Stack inválido"
+  if (vacancies.modality === "") {
+    errors.modality = "Modalidad requerida";
   }
 
-  if(!vacancies.aboutUs) {
-    errors.aboutUs = "Sobre nosotros requerido"
-  }
-  if(typeof vacancies.aboutUs !== 'string') {
-    errors.aboutUs = "Sobre nosotros inválido"
+  if (!vacancies.stack || vacancies.stack.length === 0) {
+    errors.stack = "Stack requerido";
   }
 
-  if(!vacancies.aboutClient) {
-    errors.aboutClient = "Sobre el cliente requerido"
-  }
-  if(typeof vacancies.aboutClient !== 'string') {
-    errors.aboutClient = "Sobre el cliente inválido"
+  if (!vacancies.requirements || vacancies.requirements.length === 0) {
+    errors.requirements = "Requerimientos requeridos";
   }
 
-  if(!vacancies.responsabilities) {
-    errors.responsabilities = "Responsabilidades requeridas"
-  }
-  if(!vacancies.responsabilities.length) {
-    errors.responsabilities = "Responsabilidades requeridas"
+  if (!vacancies.company) {
+    errors.company = "Empresa requerida";
   }
 
-  if(!Array.isArray(vacancies.responsabilities)) {
-    errors.responsabilities = "Responsabilidades inválidas"
-  }
+  return errors;
+}
+const objectIdRegex = /^[0-9a-fA-F]{24}$/;
 
-  if(!vacancies.requirements) {
-    errors.requirements = "Requerimientos requeridos"
-  }
+export function objectIDValidator(id: string): string {
+  if (!objectIdRegex.test(id)) return "El ID no es un tipo valido";
+  else return "";
+}
 
-  if(!vacancies.requirements.length) {
-    errors.requirements = "Requerimientos requeridos"
-  }
+interface relationObj {
+  user: string;
+  jd: string;
+  status: string;
+}
 
- 
-
-  if(!vacancies.niceToHave) {
-    errors.niceToHave = "Nice to have requerido"
-  }
-
-  if(!vacancies.niceToHave.length) {
-    errors.niceToHave = "Nice to have requerido"
-  }
-
-  if(!Array.isArray(vacancies.niceToHave)) {
-    errors.niceToHave = "Nice to have inválido"
-  }
-
-  if(!vacancies.benefits) {
-    errors.benefits = "Beneficios requeridos"
-  }
-
-  if(!vacancies.benefits.length) {
-    errors.benefits = "Beneficios requeridos"
-  }
-
-  if(!Array.isArray(vacancies.benefits)) {
-    errors.benefits = "Beneficios inválidos"
-  }
-
-  if(!vacancies.company) {
-    errors.company = "Empresa requerida"
-  }
-
-  if(typeof vacancies.company !== 'string') {
-    errors.company = "Empresa inválida"
-  }
-
-  return errors
-
+export function validatePostulation(obj: Partial<relationObj>) {
+  const validStatus = ["applied", "state1", "state2", "state3"]; //TODO: Change this to the valid user statuses
+  const newObj = { user: "", jd: "", status: "" };
+  if (obj.user) newObj.user = objectIDValidator(obj.user);
+  else newObj.user = "El ID de usuario es necesario";
+  if (obj.jd) newObj.jd = objectIDValidator(obj.jd);
+  else newObj.jd = "El ID de la oferta es necesario";
+  if (obj.status) {
+    if (!validStatus.includes(obj.status))
+      newObj.status = "No es un estado valido";
+    else newObj.status = "";
+  } else newObj.status = "Por favor selecciona un estado";
+  return newObj;
 }

@@ -8,8 +8,14 @@ import ModuloF from "./modulosEmpresas/moduloF/ModuloF"
 import ModuloG from "./modulosEmpresas/moduloG/ModuloG"
 import ModuloH from "./modulosEmpresas/moduloH/ModuloH"
 import ModuloI from "./modulosEmpresas/moduloI/ModuloI"
+import { useEffect } from "react";
 import './Empresas.css'
+
+
 function Empresas() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <ModuloA />
@@ -17,14 +23,18 @@ function Empresas() {
       <ModuloB />
       </section>
       <ModuloC />
+      <section id='casosDeExitoE'>
       <ModuloD />
+      </section>
       <ModuloE />
       <ModuloF />
       <ModuloG />
-      <section id='cotiza'>
+      <section id='procesoE'>
       <ModuloH />
       </section>
+      <section id="contactanosE">
       <ModuloI />
+      </section>
       <Footer />
       </>
   )

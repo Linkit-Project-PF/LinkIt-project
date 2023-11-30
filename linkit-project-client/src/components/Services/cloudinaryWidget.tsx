@@ -11,6 +11,7 @@ declare global {
 interface IComponentProps {
   children: React.ReactNode
   setFilePublicId: (value: string) => void
+  onUploadSuccess?: (value: string) => void
   className?: string
 }
 
@@ -40,13 +41,11 @@ function CloudinaryUploadWidget({children, setFilePublicId, className}: ICompone
 	const openCloudinaryWidget = () => {
     if (loaded) {
       // Create upload widget configuration
-      var myWidget = window.cloudinary.createUploadWidget(
+      const myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            // console
             setFilePublicId(result.info.public_id)
-            // console.log("Done! Here is the image info: ", result.info);
           }
         }
       )

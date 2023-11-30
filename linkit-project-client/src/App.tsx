@@ -25,6 +25,9 @@ import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 import Profile from "./components/Profiles/Profile.tsx";
 import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
+import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx"
+import BlogView from "./components/recursos/Modulos-Recursos/blogs/blogs-view/BlogView.tsx";
+import TopButton from "./Utils/TopButton.tsx";
 
 type registerLoginState = {
   registerLogin:{
@@ -171,12 +174,15 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
+        <Route path= "/soyTalento/Joboffer/:id" element={<JobDescription/>} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
-        <Route path ="/MyProfile/*" element={<Profile/>}/>
+        <Route path ="/profile/*" element={<Profile/>}/>
+        <Route path="/blog/:id" element={<BlogView/>} />
       </Routes>
+      <TopButton/>
     </>
   );
 }
