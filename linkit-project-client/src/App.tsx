@@ -25,20 +25,21 @@ import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 import Profile from "./components/Profiles/Profile.tsx";
 import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
-import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx"
+import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx";
 import BlogView from "./components/recursos/Modulos-Recursos/blogs/blogs-view/BlogView.tsx";
 import TopButton from "./Utils/TopButton.tsx";
+import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
+import Error from "./components/Errores/Error.tsx";
 
 type registerLoginState = {
-  registerLogin:{
+  registerLogin: {
     pressSignUp: string;
     pressLogin: string;
     pressRegister: string;
     pressLoginTalent: string;
     pressLoginCompany: string;
-  }
+  };
 };
-
 
 const registerVariants: Variants = {
   hidden: {
@@ -93,8 +94,12 @@ function App() {
   const pressRegister = useSelector(
     (state: registerLoginState) => state.registerLogin.pressRegister
   );
-  const pressLoginTalent = useSelector((state: registerLoginState)=>state.registerLogin.pressLoginTalent);
-  const pressLoginCompany = useSelector((state: registerLoginState)=>state.registerLogin.pressLoginCompany);
+  const pressLoginTalent = useSelector(
+    (state: registerLoginState) => state.registerLogin.pressLoginTalent
+  );
+  const pressLoginCompany = useSelector(
+    (state: registerLoginState) => state.registerLogin.pressLoginCompany
+  );
 
   useEffect(() => {
     /**
@@ -129,7 +134,7 @@ function App() {
       >
         <PreLogin />
       </motion.div>
-      
+
       <motion.div
         variants={loginVariants}
         initial="hidden"
@@ -157,8 +162,7 @@ function App() {
         <PreRegisterForm />
       </motion.div>
 
-      {
-        pressRegister === "visible" &&
+      {pressRegister === "visible" && (
         <motion.div
           variants={registerVariants}
           initial="hidden"
@@ -167,22 +171,23 @@ function App() {
         >
           <Register />
         </motion.div>
-      }
-
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
-        <Route path= "/soyTalento/Joboffer/:id" element={<JobDescription/>} />
+        <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
-        <Route path ="/profile/*" element={<Profile/>}/>
-        <Route path="/blog/:id" element={<BlogView/>} />
+        <Route path="/profile/*" element={<Profile />} />
+        <Route path="/blog/:id" element={<BlogView />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<Error />} />
       </Routes>
-      <TopButton/>
+      <TopButton />
     </>
   );
 }
