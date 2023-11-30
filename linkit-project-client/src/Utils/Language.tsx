@@ -15,10 +15,10 @@ export default function Language() {
   return (
     <>
     <input onChange={handleClick} type="checkbox" id="checkbox" /><label className="switch" htmlFor="checkbox">
-      <div className="us-flag">
+      <div className="arg-flag">
       <img src={usFlag} alt="" className="bi bi-mic-mute-fill" />
       </div>
-      <div className="arg-flag">
+      <div className="us-flag">
       <img src={argFlag} alt="" className="bi bi-mic-fill" />
       </div>
     </label>
