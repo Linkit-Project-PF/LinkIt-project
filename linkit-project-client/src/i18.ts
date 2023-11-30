@@ -10,6 +10,7 @@ export const i18nOptions: InitOptions = {
   interpolation: {
     escapeValue: false,
   },
+  
   resources: {
     en: {
       translation: {
