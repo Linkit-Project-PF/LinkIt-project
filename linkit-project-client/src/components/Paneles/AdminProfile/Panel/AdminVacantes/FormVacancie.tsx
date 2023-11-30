@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { validateVacancy } from "../../../errors/validation";
 import { VacancyProps } from "../../../admin.types";
 import { ValidationError } from "../../../errors/errors";
 import swal from "sweetalert";
 import { validations } from "./Validation";
+import { useSelector } from "react-redux";
 
 type OnCloseFunction = () => void;
 
@@ -18,7 +19,7 @@ interface InfoList {
 }
 
 export default function FormVacancie(props: FormVacancieProps) {
-  
+  const token = useSelector((state: any) => state.Authentication.token);
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
@@ -63,6 +64,28 @@ export default function FormVacancie(props: FormVacancieProps) {
     niceToHave: [],
     benefits: [],
   });
+  const [allCompanies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    const getCompanies = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://linkit-server.onrender.com/companies/find",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCompanies(data);
+      } catch (error) {
+        alert(error);
+      }
+    };
+    getCompanies();
+    return () => setCompanies([]);
+  }, []);
+  console.log(allCompanies);
 
   const addToList = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -252,7 +275,7 @@ export default function FormVacancie(props: FormVacancieProps) {
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                 Nombre de la empresa
               </label>
-              <input
+              {/* <input
                 className={
                   errors.company
                     ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
@@ -264,7 +287,21 @@ export default function FormVacancie(props: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
                 onBlur={handleBlurErrors}
-              />
+              /> */}
+              <select
+                name="company"
+                className={
+                  errors.company
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
+                onChange={handleChange}
+              >
+                <option value="">Selecciona</option>
+                {allCompanies.map((company: any) => (
+                  <option>{company.companyName}</option>
+                ))}
+              </select>
             </div>
 
             <div className="w-fit px-3 mb-6">
