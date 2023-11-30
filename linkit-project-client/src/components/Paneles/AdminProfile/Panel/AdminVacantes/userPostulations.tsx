@@ -141,9 +141,9 @@ export function UserPostulations(props: propsInterface) {
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 p-[6vw]">
       <div className="relative grid items-center bg-linkIt-500 rounded-[20px] border-[3px] border-linkIt-300 p-[3vw]">
-      <a onClick={props.onClose} className="absolute top-[1vh] left-[1vw]">X</a>
-      <a onClick={showCreateForm} className="text-center row-start-2 ">CREATE</a>
-      <table className="min-w-full divide-y divide-gray-200" >
+      <a onClick={props.onClose} className="absolute top-[1vh] left-[1vw] font-bold font-montserrat hover:text-red-600 cursor-pointer">X</a>
+      <a onClick={showCreateForm} className="text-center row-start-2 bg-linkIt-300 w-fit p-2 text-[0.8vw] rounded-[7px] cursor-pointer text-white font-manrope border-[0.1vw] mt-4 hover:border-linkIt-300 hover:bg-transparent hover:text-black">Create</a>
+      <table className="min-w-full divide-y divide-gray-200 " >
         <thead className="bg-gray-50">
           <tr className="">
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">ID</th>
@@ -159,14 +159,14 @@ export function UserPostulations(props: propsInterface) {
         <tbody className="bg-white divide-y divide-gray-200">
           {userList.map((obj) => (
             <tr key={obj?.user._id} className="">
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user._id}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.email}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.country}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.technologies.join(", ")}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.linkedin}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.cv}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user._id}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.name}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.email}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.country}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.technologies.join(", ")}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.linkedin}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.cv}</td>
+              <td className="px-6 py-4 text-[0.8vw]">
                 {editing ? (
                   <select defaultValue={obj?.status} onChange={handleChange}>
                     <option value="applied">Postulado</option>

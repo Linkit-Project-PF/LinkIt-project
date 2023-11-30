@@ -83,9 +83,9 @@ export function CreatePostulation(props: propsInterface) {
 
   return (
     <div>
-      <a onClick={props.onClose}>X</a>
-      <form onSubmit={handleSubmit}>
-        <label>ID de la vacante: </label>
+      <a onClick={props.onClose} className="font-bold font-montserrat hover:text-red-600 cursor-pointer">X</a>
+      <form onSubmit={handleSubmit} className="min-w-full divide-y divide-gray-200 grid grid-cols-6">
+        <label className="">ID de la vacante: </label>
         <input
           name="jd"
           value={info.jd}
