@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { logout, setCompany } from "../../../../redux/features/AuthSlice";
 import { editCompany } from "../../api";
 import Swal from "sweetalert2";
-
+import { useTranslation } from "react-i18next";
 interface IComponentProps {
   company: ICompany
 }
 
 const CompanyComponent: FunctionComponent<IComponentProps> = ({company}) => {
+  const {t}=useTranslation()
   const dispatch = useDispatch()
   const [filePublicId, setFilePublicId] = useState("")
   const navigate = useNavigate()
@@ -58,20 +59,20 @@ const CompanyComponent: FunctionComponent<IComponentProps> = ({company}) => {
       <div className="flex justify-between w-11/12 p-3">
 
         <div className="flex flex-col justify-between w-1/2">
-          <h1 className="text-4xl font-bold mt-6">Hola {company.companyName}!</h1>
+          <h1 className="text-4xl font-bold mt-6">{t("Hola")} {company.companyName}!</h1>
           <div className="flex space-x-6">
             <button className="text-xl font-semibold hover:text-linkIt-300">
-              Mis Datos
+              {t('Mis Datos')}
             </button>
             <button className="text-xl font-semibold hover:text-linkIt-300">
-              Mis Vacantes
+              {t('Mis Vacantes')}
             </button>
           </div>
         </div>
 
         <div className="flex space-x-4 w-1/2 justify-end items-end">
-          <button className="text-black">Cambiar Contraseña</button>
-          <button className="text-black" onClick={handleLogout}>Cerrar Sesión</button>
+          <button className="text-black">{t('Cambiar Contraseña')}</button>
+          <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
           <div className={`relative rounded-full w-36 h-36 bg-gray-300 ${company.image ? "flex flex-col justify-center items-center content-center" : ''}`}>
             <div className="relative w-full h-full">
               <CloudinaryUploadWidget 

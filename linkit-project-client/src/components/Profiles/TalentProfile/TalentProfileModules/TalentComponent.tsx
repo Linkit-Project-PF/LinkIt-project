@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { logout, setUser } from "../../../../redux/features/AuthSlice";
 import Swal from "sweetalert2";
 import { editUser } from "../../api";
+import { useTranslation } from "react-i18next";
 
 interface IComponentProps {
   user: IUser
 }
 
 const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const [filePublicId, setFilePublicId] = useState("")
   const navigate = useNavigate()
@@ -28,7 +30,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
         dispatch(setUser(editedUser))
         if (editedUser){
           Swal.fire({
-            title: "Imagen actualizada",
+            title: t("Imagen actualizada"),
             text: `${editedUser.image}`,
             icon: "success",
             confirmButtonText: "Ok",
@@ -38,7 +40,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
       } catch (error) {
         Swal.fire({
           title: "Error",
-          text: "Hubo un error al actualizar la imagen",
+          text: t("Hubo un error al actualizar la imagen"),
           icon: "error",
           confirmButtonText: "Ok",
           confirmButtonColor: "#0098DA",
@@ -59,20 +61,20 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
       <div className="flex justify-between w-11/12 p-3">
 
         <div className="flex flex-col justify-between w-1/2">
-          <h1 className="text-4xl font-bold mt-6">Hola {user.name}!</h1>
+          <h1 className="text-4xl font-bold mt-6">{t('Hola')} {user.name}!</h1>
           <div className="flex space-x-6">
             <button className="text-xl font-semibold hover:text-linkIt-300">
-              Mis Datos
+              {t('Mis Datos')}
             </button>
             <button className="text-xl font-semibold hover:text-linkIt-300">
-              Mis Postulaciones
+              {t('Mis Postulaciones')}
             </button>
           </div>
         </div>
 
         <div className="flex space-x-4 w-1/2 justify-end items-end">
-          <button className="text-black">Cambiar Contraseña</button>
-          <button className="text-black" onClick={handleLogout}>Cerrar Sesión</button>
+          <button className="text-black">{t('Cambiar Contraseña')}</button>
+          <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
           <div className={`relative rounded-full w-36 h-36 bg-gray-300 ${user.image ? "flex flex-col justify-center items-center content-center" : ''}`}>
             <div className="relative w-full h-full">
               <CloudinaryUploadWidget

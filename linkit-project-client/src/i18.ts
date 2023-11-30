@@ -6,7 +6,7 @@ import { initReactI18next } from 'react-i18next';
 //i18next  Configuration
 export const i18nOptions: InitOptions = {
   fallbackLng: 'es',
-  debug: true,
+  debug: false,
   interpolation: {
     escapeValue: false,
   },
@@ -224,6 +224,7 @@ export const i18nOptions: InitOptions = {
         //!Recursos
         "Recursos de LinkIT":"LinkIT Resources",
         //!Register
+        "Nombre":"Name",
         "Apellido":"Lastname",
         "Confirmar contraseña":"Confirm Password",
         "Crear Cuenta":"Create Account",
@@ -234,6 +235,10 @@ export const i18nOptions: InitOptions = {
         "¡Registro exitoso!":"Successful registration!",
         "Bienvenido a LinkIT":"Welcome to LinkIT,{{name}}",
         "Aceptar":"Accept",
+        "Nombre de la empresa":"Company name",
+        "TALENTOS":"TALENTS",
+        "EMPRESAS":"COMPANIES",
+        "REGISTRO PARA": "REGISTER FOR",
         
 
         //!Talentos modulo A
@@ -379,7 +384,6 @@ export const i18nOptions: InitOptions = {
         //Quienes Somos modulo H
         "Conoce a nuestros desarrolladores":"Meet our developers",
         //Quienes Somos modulo I
-        "Nombre":"Name",
         "Mensaje":"Message",
         //!Paneles AdminRecursos
         "¿Deseas ocultar el recurso?":"Do you want to hide the resource?",
@@ -419,12 +423,26 @@ export const i18nOptions: InitOptions = {
         "Nombre Cliente":"Customer Name",
         "Usuario":"User",
         "Los campos marcados con * son obligatiorios":"Fields marked with * are mandatory.",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
-        "":"",
+        //!Profiles
+        "Hola":"Hi",
+        "Mis Datos":"My Data",
+        "Mis Vacantes":"My Vacancies",
+        "Cambiar Contraseña":"Change Password",
+        "Cerrar Sesión":"Logout",
+        "Descartar cambios":"Discard changes",
+        "Guardar cambios":"Save changes",
+        "Imagen actualizada":"Updated image",
+        "Hubo un error al actualizar la imagen":"There was an error updating the image",
+        "Mis Postulaciones":"My Applications",
+        "Perfil de LinkedIn":"LinkedIn Profile",
+        "Stack tecnológico":"Technology Stack",
+        "Bajo":"Low",
+        "Medio":"Middle",
+        "Alto":"High",
+        "Bilingue":"Bilingual",
+        "Carga tu CV":"Upload your CV",
+        //!Validations
+
         "":"",
         "":"",
         "":"",

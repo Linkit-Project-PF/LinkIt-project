@@ -364,7 +364,7 @@ function Register() {
             <input
               type="text"
               className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
-              placeholder={user.role === "user" ? "Nombre" : "Nombre de la empresa"}
+              placeholder={user.role === "user" ? t("Nombre") : t("Nombre de la empresa")}
               name="name"
               value={user.name}
               onChange={handleInputChange}
@@ -502,7 +502,7 @@ function Register() {
             </span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
-            {`REGISTRO PARA ${user.role === "user" ? "TALENTOS" : "EMPRESAS"}`}
+            {`${t("REGISTRO PARA")} ${user.role === "user" ?t ("TALENTOS") : t("EMPRESAS")}`}
           </h3>
         </form>
       </div>

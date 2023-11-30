@@ -1,0 +1,67 @@
+[
+    {
+    "id": 1,
+   "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Professionalism and agility.",
+    "testimonio": "The professionalism and agility is noticeable. In my experience, it was a super complex search that underwent changes. But I could see the adaptability to them. I would definitely recommend and would choose them again for future work!",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Tiger",
+    "nombre": "Properix"
+},
+{
+    "id": 2,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Exceptional experience",
+    "testimonio": "I am impressed by the exceptional experience. In my search, I faced unexpected challenges, but the adaptability shown was amazing. I would definitely recommend them and will work with them again in the future.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Oreo",
+    "nombre": "IngeniousTech"
+  },
+  {
+    "id": 3,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Fast and efficient results",
+    "testimonio": "The speed and efficiency of the process was remarkable. Despite the complexity of my search, adaptability was key. I would definitely recommend them and choose to work with them in the future.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Sugar",
+    "nombre": "TechSavvy"
+  },
+  {
+    "id": 4,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Reliable professionals",
+    "testimonio": "Professionalism and reliability were evident at every stage. My search went through changes, but the adaptability was exceptional. I highly recommend and will consider working with them on future projects.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Lion",
+    "nombre": "DigitalPro"
+  },
+  {
+    "id": 5,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Innovation and agility",
+    "testimonio": "They stood out for their innovation and agility. Despite the complexity of my search, they demonstrated amazing adaptability. I would recommend them without hesitation and would consider working with them in the future.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Phoenix",
+    "nombre": "CodeMaster"
+  },
+  {
+    "id": 6,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Efficiency and dedication",
+    "testimonio": "The efficiency and dedication shown was outstanding. Despite changes in my search, they demonstrated exceptional adaptability. I would recommend their service and would consider working with them in the future.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Wolf",
+    "nombre": "DevExpert"
+  },
+  {
+    "id": 7,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Exceptional results",
+    "testimonio": "I obtained exceptional results thanks to their professionalism and agility. I faced unexpected challenges, but they demonstrated impressive adaptability. I would recommend them and would consider working with them on future projects.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Bear",
+    "nombre": "TechInnovator"
+  },
+  {
+    "id": 8,
+    "rating": "/Vectores/linkit-web-vectores-16.svg",
+    "titulo": "Reliable service",
+    "testimonio": "I experienced a reliable and professional service. Despite the changes in my search, they showed outstanding adaptability. I would definitely recommend them and would work with them again in the future.",
+    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Raccoon",
+    "nombre": "DigitalCraft"
+  }
+
+]
