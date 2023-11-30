@@ -139,33 +139,34 @@ export function UserPostulations(props: propsInterface) {
   }
 
   return (
-    <div>
-      <a onClick={props.onClose}>X</a>
-      <a onClick={showCreateForm}>CREATE</a>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Ubicacion</th>
-            <th>Tecnologias</th>
-            <th>LinkedIn</th>
-            <th>CV</th>
-            <th>Status</th>
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 p-[6vw]">
+      <div className="relative grid items-center bg-linkIt-500 rounded-[20px] border-[3px] border-linkIt-300 p-[3vw]">
+      <a onClick={props.onClose} className="absolute top-[1vh] left-[1vw]">X</a>
+      <a onClick={showCreateForm} className="text-center row-start-2 ">CREATE</a>
+      <table className="min-w-full divide-y divide-gray-200" >
+        <thead className="bg-gray-50">
+          <tr className="">
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">ID</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Nombre</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Correo</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Ubicacion</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Tecnologias</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">LinkedIn</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">CV</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-white divide-y divide-gray-200">
           {userList.map((obj) => (
-            <tr key={obj?.user._id} className="gap-4">
-              <td>{obj?.user._id}</td>
-              <td>{obj?.user.name}</td>
-              <td>{obj?.user.email}</td>
-              <td>{obj?.user.country}</td>
-              <td>{obj?.user.technologies.join(", ")}</td>
-              <td>{obj?.user.linkedin}</td>
-              <td>{obj?.user.cv}</td>
-              <td>
+            <tr key={obj?.user._id} className="">
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user._id}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.name}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.email}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.country}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.technologies.join(", ")}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.linkedin}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">{obj?.user.cv}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-[0.8vw]">
                 {editing ? (
                   <select defaultValue={obj?.status} onChange={handleChange}>
                     <option value="applied">Postulado</option>
@@ -191,6 +192,7 @@ export function UserPostulations(props: propsInterface) {
                   </button>
                 ) : (
                   <a
+                   className="px-6 py-4 whitespace-nowrap text-[0.8vw]"
                     onClick={(event) => {
                       setPrevStatus(obj?.status as string);
                       handleEdit(event);
@@ -208,6 +210,7 @@ export function UserPostulations(props: propsInterface) {
               {editing ? (
                 <td>
                   <a
+                  
                     onClick={() => {
                       setEditing(false);
                       setStatus("");
@@ -221,6 +224,7 @@ export function UserPostulations(props: propsInterface) {
               ) : null}
               <td>
                 <a
+                className="px-6 py-4 whitespace-nowrap text-[0.8vw]"
                   onClick={() =>
                     handleDelete(obj?.user._id as string, props.jdId)
                   }
@@ -239,6 +243,7 @@ export function UserPostulations(props: propsInterface) {
           hideMainForm={props.onClose}
         />
       )}
+      </div>
     </div>
   );
 }
