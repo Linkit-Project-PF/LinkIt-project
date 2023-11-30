@@ -215,6 +215,15 @@ function NavBar() {
       window.location.href = '#talento-Interno';
     }, 0);
     }
+  const navigatetoHome = () => {
+    navigate('/')
+    setTimeout(() => {
+      window.location.href = '#inicio';
+      window.scrollTo({
+        top: 0,
+      })
+    }, 0);
+  }
 
   return (
     <div>
@@ -234,8 +243,9 @@ function NavBar() {
         <div className="h-full w-[8vw]">
         <img
           src={Logo}
+          onClick={() => navigatetoHome()}
           alt=""
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
          </div>
         
