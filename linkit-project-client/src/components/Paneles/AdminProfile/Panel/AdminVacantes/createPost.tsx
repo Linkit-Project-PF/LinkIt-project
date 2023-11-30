@@ -3,6 +3,7 @@ import { validatePostulation } from "./Validation";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { useTranslation } from "react-i18next";
 
 interface relationObj {
   user: string;
@@ -17,6 +18,7 @@ interface propsInterface {
 }
 
 export function CreatePostulation(props: propsInterface) {
+  const { t } = useTranslation()
   const dispatch = useDispatch();
   const [info, setInfo] = useState<relationObj>({
     user: "",
@@ -24,7 +26,7 @@ export function CreatePostulation(props: propsInterface) {
     status: "",
   });
   const [errors, setErrors] = useState<Partial<relationObj>>({
-    status: "Por favor selecciona un estado",
+    status: t("Por favor selecciona un estado"),
   });
   const token = useSelector((state: any) => state.Authentication.token);
 
@@ -66,7 +68,7 @@ export function CreatePostulation(props: propsInterface) {
       props.onClose();
       props.hideMainForm();
 
-      alert("Se ha creado una nueva vacante exitosamente.");
+      alert(t("Se ha creado una nueva vacante exitosamente."));
     } catch (error: any) {
       alert(error.response);
     }
@@ -78,14 +80,14 @@ export function CreatePostulation(props: propsInterface) {
       jd: props.jdId,
       status: "",
     });
-    setErrors({ status: "Por favor selecciona un estado" });
+    setErrors({ status: t("Por favor selecciona un estado") });
   }
 
   return (
     <div>
       <a onClick={props.onClose} className="font-bold font-montserrat hover:text-red-600 cursor-pointer">X</a>
       <form onSubmit={handleSubmit} className="min-w-full divide-y divide-gray-200 grid grid-cols-6">
-        <label className="">ID de la vacante: </label>
+        <label className="">{t('ID de la vacante:')} </label>
         <input
           name="jd"
           value={info.jd}
@@ -94,7 +96,7 @@ export function CreatePostulation(props: propsInterface) {
           disabled
         />
         <p>{errors.jd}</p>
-        <label>ID del usuario: </label>
+        <label>{t('ID del usuario:')} </label>
         <input
           name="user"
           value={info.user}
@@ -110,21 +112,21 @@ export function CreatePostulation(props: propsInterface) {
           id="status"
         >
           <option value=""></option>
-          <option value="applied">Postulado</option>
-          <option value="state1">Estado1</option>
-          <option value="state2">Estado2</option>
-          <option value="state3">Estado3</option>
+          <option value="applied">{t('Postulado')}</option>
+          <option value="state1">{t('Estado1')}</option>
+          <option value="state2">{t('Estado2')}</option>
+          <option value="state3">{t('Estado3')}</option>
         </select>
         <p>{errors.status}</p>
         <button onClick={handleInputErase} type="button">
-          Borrar
+         {t('Borrar')}
         </button>
         <button
           type="submit"
           disabled={errors.jd || errors.status || errors.user ? true : false}
           id="subButton"
         >
-          Enviar
+          {t('Enviar')}
         </button>
       </form>
     </div>

@@ -6,6 +6,7 @@ import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
 import { UserPostulations } from "./userPostulations";
+import { useTranslation } from "react-i18next";
 
 type stateProps = {
   jobCard: {
@@ -14,6 +15,7 @@ type stateProps = {
 };
 
 export default function Vacancies() {
+  const { t } = useTranslation()
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
   const token = useSelector((state: any) => state.Authentication.token);
@@ -82,7 +84,7 @@ export default function Vacancies() {
   };
 
   const deleteVacancie = async (id: string) => {
-    const resultado = confirm("¿Deseas ocultar la vacante?");
+    const resultado = confirm(t("¿Deseas ocultar la vacante?"));
     if (resultado) {
       try {
         const response = await axios.delete(
@@ -93,10 +95,10 @@ export default function Vacancies() {
         );
         dispatch(setJobOffers(response.data));
         setSaveStatus(!saveStatus);
-        return swal("Vacante ocultada");
+        return swal(t("Vacante ocultada"));
       } catch (error) {
         console.error(
-          "Error al enviar la solicitud:",
+          t("Error al enviar la solicitud:"),
           (error as Error).message
         );
       }
@@ -140,7 +142,7 @@ export default function Vacancies() {
       });
     } catch (error: any) {
       console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      console.error(t("Error al enviar la solicitud: "), (error as Error).message);
     }
     setEditing(false);
     setEditRow(null);
@@ -169,13 +171,13 @@ export default function Vacancies() {
   return (
     <div className="mb-32">
       <div className="bg-linkIt-500 mx-12  rounded-[20px] rounded-b-none w-auto ">
-        <h1 className="text-4xl pl-16 py-6">Gestión de vacantes</h1>
+        <h1 className="text-4xl pl-16 py-6">{t('Gestión de vacantes')}</h1>
 
         <button
           className="bg-linkIt-300 flex items-center rounded-[7px] ml-20 p-3 h-10 text-white text-[10px] xl:text-xs shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out"
           onClick={showForm}
         >
-          Crear vacante
+          {t('Crear vacante')}
         </button>
 
         <div className="flex flex-col items-end justify-center pr-32 pb-10">
@@ -185,18 +187,18 @@ export default function Vacancies() {
               onClick={handlePrevius}
               disabled={currentPage === 0}
             >
-              Anterior
+              {t('Anterior')}
             </button>
             <button
               className="ml-12"
               onClick={handleNext}
               disabled={endIndex >= data.length}
             >
-              Siguiente
+              {t('Siguiente')}
             </button>
           </div>
           <span>
-            Pagina {currentPage + 1} de {totalPages}
+            {t('Pagina')} {currentPage + 1} {t('de')} {totalPages}
           </span>
         </div>
       </div>
@@ -206,51 +208,51 @@ export default function Vacancies() {
           <tr className="h-12">
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Título Vacante
+              {t('Título Vacante')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Empresa
+              {t('Empresa')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Descripción
+              {t('Descripción')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Fecha de publicación{" "}
+              {t('Fecha de publicación')}{" "}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Locación
+              {t('Ubicación')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Modalidad
+              {t('Modalidad')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Tipo
+              {t('Tipo')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Requisitos
+              {t('Requisitos')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Tecnologías
+              {t('Tecnologías')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Postulados
+              {t('Postulados')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Estado
+              {t('Estado')}
             </th>
             <th></th>
             <th className="bg-linkIt-300 rounded-t-xl px-6 text-white font-light w-fit h-fit">
-              Vista
+              {t('Vista')}
             </th>
             <th></th>
           </tr>
@@ -333,10 +335,10 @@ export default function Vacancies() {
                     placeholder={v.modality}
                     onChange={handleChange}
                   >
-                    <option value="remote">remote</option>
-                    <option value="specific-remote">specific-remote</option>
-                    <option value="on-site">on-site</option>
-                    <option value="hybrid">hybrid</option>
+                    <option value="remote">{t('Remoto')}</option>
+                    <option value="specific-remote">{t('Remoto específico')}</option>
+                    <option value="on-site">{t('Presencial')}</option>
+                    <option value="hybrid">{t('Hibrido')}</option>
                   </select>
                 )}
               </td>
@@ -351,9 +353,9 @@ export default function Vacancies() {
                     placeholder={v.type}
                     onChange={handleChange}
                   >
-                    <option value="full-time">full-time</option>
-                    <option value="part-time">part-time</option>
-                    <option value="freelance">freelance</option>
+                    <option value="full-time">{t('Tiempo completo')}</option>
+                    <option value="part-time">{t('Medio tiempo')}</option>
+                    <option value="freelance">{t('Independiente')}</option>
                   </select>
                 )}
               </td>
@@ -403,16 +405,16 @@ export default function Vacancies() {
                     placeholder={v.status}
                     onChange={handleChange}
                   >
-                    <option value="open">open</option>
-                    <option value="first-interview">first-interview</option>
-                    <option value="second-interview">second-interview</option>
-                    <option value="closed">closed</option>
+                    <option value="open">{t('Abierta')}</option>
+                    <option value="first-interview">{t('Primera entrevista')}</option>
+                    <option value="second-interview">{t('Segunda entrevista')}</option>
+                    <option value="closed">{t('Cerrada')}</option>
                   </select>
                 )}
               </td>
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
-                {v.archived ? "Oculta" : "Visible"}
+                {v.archived ? t("Oculta") : t("Visible")}
               </td>
               <td className="p-2 border-b-2 border-black">
                 {!editing && editRow !== v._id ? (
@@ -420,14 +422,14 @@ export default function Vacancies() {
                     onClick={() => handleEdit(v._id)}
                     className="active:scale-90 m-1 h-fit w-fit"
                   >
-                    Editar
+                    {t('Editar')}
                   </button>
                 ) : (
                   <button
                     onClick={() => handleSave(v._id)}
                     className="active:scale-90 m-1 h-fit w-fit"
                   >
-                    Guardar
+                    {t('Guardar')}
                   </button>
                 )}
                 {!editing && editRow !== v._id ? null : (
@@ -439,14 +441,14 @@ export default function Vacancies() {
                       setEditedData({});
                     }}
                   >
-                    Cancelar
+                    {t('Cancelar')}
                   </button>
                 )}
                 <button
                   onClick={() => deleteVacancie(v._id)}
                   className="active:scale-90 m-1 h-fit w-fit"
                 >
-                  Cerrar
+                  {t('Cerrar')}
                 </button>
               </td>
               <td className="px-1"></td>
