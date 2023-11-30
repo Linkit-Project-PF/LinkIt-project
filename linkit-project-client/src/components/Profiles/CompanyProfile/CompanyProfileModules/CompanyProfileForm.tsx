@@ -4,12 +4,15 @@ import { editCompany } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/types";
 import { setCompany } from "../../../../redux/features/AuthSlice";
+import { useTranslation } from "react-i18next";
+
 
 interface IComponentProps {
   company: ICompany
 }
 
 const CompanyForm: FunctionComponent<IComponentProps> = ({company}) => {
+  const {t}=useTranslation()
   const dispatch = useDispatch()
   const {token} = useSelector((state: RootState) => state.Authentication)
   const [repName, setRepName] = useState(company.repName)
@@ -48,14 +51,14 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({company}) => {
             defaultValue={company.repName}
             onChange={(event) => setRepName(event.target.value)}
             type="text"
-            placeholder="Nombre"
+            placeholder={t("Nombre")}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
           />
           <input
             defaultValue={company.companyName}
             onChange={(event) => setCompanyName(event.target.value)}
             type="text"
-            placeholder="Empresa"
+            placeholder={t("Empresa")}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
           />
           <input
@@ -63,7 +66,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({company}) => {
             onChange={(event) => setEmail(event.target.value)}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
             type="text"
-            placeholder="Email corporativo"
+            placeholder={t("Email corporativo")}
           />
 
           {/* <input
@@ -75,12 +78,12 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({company}) => {
         </div>
 
         <div className="flex flex-row justify-self-end place-self-end mt-8 gap-2"> 
-          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">Descartar cambios</button>
+          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">{t('Descartar cambios')}</button>
           <button
             type="submit"
             className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
           >
-            Guardar cambios
+            {t('Guardar cambios')}
           </button>
         </div>
       </form>
