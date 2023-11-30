@@ -11,6 +11,7 @@ declare global {
 interface IComponentProps {
   children: React.ReactNode
   setFilePublicId: (value: string) => void
+  onUploadSuccess?: (value: string) => void
   className?: string
 }
 
