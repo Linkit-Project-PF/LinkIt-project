@@ -1,7 +1,7 @@
 import { contacts } from "./typeContacts";
 
 export default function validations (contacts: contacts) {
-    let errors = {
+    const errors = {
         name: "",
         lastName: "",
         company: "",
