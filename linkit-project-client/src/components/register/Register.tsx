@@ -60,6 +60,7 @@ function Register() {
 
   const [user, setUser] = useState({
     name: "",
+    companyName: "",
     lastname: "",
     email: "",
     password: "",
@@ -130,6 +131,7 @@ function Register() {
     event.preventDefault();
       try {
       if (user.role === "user") user.name = user.name + " " + user.lastname;
+      if (user.role === 'company') user.companyName = user.name;
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
         user
