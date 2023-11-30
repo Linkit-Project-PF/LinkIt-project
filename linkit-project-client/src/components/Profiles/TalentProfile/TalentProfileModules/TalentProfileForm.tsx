@@ -5,6 +5,8 @@ import { editUser } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/types";
 import { setUser } from "../../../../redux/features/AuthSlice";
+import { useTranslation } from "react-i18next";
+
 
 interface IComponentProps {
   user: IUser
@@ -47,6 +49,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
     }
 
   }
+  const {t} = useTranslation()
 
   return (
     <div className="flex justify-center items-center content-center absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[7rem] bg-linkIt-500 p-[3rem] rounded-[20px]">
@@ -57,7 +60,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
             defaultValue={user.name}
             onChange={(event) => setName(event.target.value)}
             type="text"
-            placeholder="Nombre"
+            placeholder={t("Nombre")}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
           />
 
@@ -66,7 +69,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
             onChange={(event) => setEmail(event.target.value)}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
             type="text"
-            placeholder="Email corporativo"
+            placeholder={t("Email corporativo")}
           />
 
           <input
@@ -74,7 +77,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
             onChange={(event) => setCountry(event.target.value)}
             className="flex border-[.125rem] border-linkIt-400 bg-transparent px-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
             type="text"
-            placeholder="País"
+            placeholder={t("País")}
           />
             
           <input
@@ -82,14 +85,14 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
             onChange={(event) => setLinkedin(event.target.value)}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]" 
             type="text"
-            placeholder="Perfil de LinkedIn"
+            placeholder={t("Perfil de LinkedIn")}
           />
 
           <input
             defaultValue={user.technologies.join(", ")}
             onChange={(event) => setTechnologies(event.target.value.split(","))}
             className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
-            placeholder="Stack tecnológico"
+            placeholder={t("Stack tecnológico")}
           />
 
           <select
@@ -97,10 +100,10 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
             defaultValue={user.englishLevel}
             className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
           >
-            <option value={EnglishLevelEnum.LOW}>Bajo</option>
-            <option value={EnglishLevelEnum.MEDIUM}>Medio</option>
-            <option value={EnglishLevelEnum.HIGH}>Alto</option>
-            <option value={EnglishLevelEnum.BILINGUAL}>Bilingue</option>
+            <option value={EnglishLevelEnum.LOW}>{t('Bajo')}</option>
+            <option value={EnglishLevelEnum.MEDIUM}>{t('Medio')}</option>
+            <option value={EnglishLevelEnum.HIGH}>{t('Alto')}</option>
+            <option value={EnglishLevelEnum.BILINGUAL}>{t('Bilingue')}</option>
           </select>
 
           <CloudinaryUploadWidget
@@ -110,7 +113,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
             {cvPublicId ? cvPublicId : (
               <>
                 <span className="font-[500] text-opacity-80 text-linkIt-400">
-                  Carga tu CV
+                  {t('Carga tu CV')}
                 </span>
                 <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
               </>
@@ -119,12 +122,12 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
         </div>
 
         <div className="flex flex-row justify-self-end place-self-end mt-8 gap-2"> 
-          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">Descartar cambios</button>
+          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">{t('Descartar cambios')}</button>
           <button
             type="submit"
             className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
           >
-            Guardar cambios
+            {t('Guardar cambios')}
           </button>
         </div>
       </form>
