@@ -12,7 +12,7 @@ export default function ModuloA() {
   }
 
   return (
-    <div className="grid grid-cols-2 h-screen w-screen gap-y-3 2xl:gap-y-5 bg-linkIt-500">
+    <div className="grid grid-cols-2 h-screen w-screen gap-y-5 bg-linkIt-500">
         <h1 className="font-bold font-manrope text-[4vw] leading-[8vh] 2xl:leading-[9vh] pt-[24vh] xl:pt-[24vh] pl-[5vw]">{t('Contrata y escala')} <br /> {t('con el mejor talento IT')} <br /> {t('en tan solo 5 días!')}</h1>
           <h3 className="font-monserrat col-start-1 pl-[5vw] text-[1.8vw] leading-[3.5vh] 2xl:leading-[4vh]">{t('Escala, gestiona y retiene al mejor')} <br /> {t('talento del mundo.')}</h3>
           <div className="pl-[5vw]">
