@@ -37,7 +37,7 @@ const JobCards: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex w-full h-[340px] space-x-6 items-center justify-center">
+    <div className="flex w-full h-[340px] space-x-6 items-center justify-center gap-[10%]">
       <button onClick={handlePrev} className=""><img src="/Vectores/previus.png" alt="previus" /></button>
       <div className="w-4/6 grid grid-cols-3 grid-rows-2 gap-5">
         {jobOffers.length === 0

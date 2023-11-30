@@ -239,7 +239,7 @@ function LoginCompany() {
           <img
             src="/Linkit-logo/linkit-logo-blue.svg"
             alt="linkIT-Logo"
-            className="w-[40%] mb-[-1rem] mt-[-9%]"
+            className="w-[40%] mb-[-1rem] mt-[-3%]"
           />
           <div className="flex flex-col justify-center items-center text-center">
             <h1 className="font-bold text-linkIt-400 text-[.9rem] 2xl:text-[1.4rem]">
