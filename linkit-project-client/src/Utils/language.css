@@ -1,19 +1,17 @@
 .switch {
-  position: relative;
-  width: 20px;
+  width: 50px;
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(60, 64, 67);
-  color: #fff;
+  color: black;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.us-flag,
-.arg-flag {
+.es-lang,
+.en-lang {
   width: 100%;
   height: 100%;
   display: flex;
@@ -21,20 +19,7 @@
   align-items: center;
   transition: all 0.3s ease-in-out;
 }
-
-.us-flag {
-  z-index: 4;
-}
-
-.arg-flag {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  opacity: 0;
-}
-
 .switch:hover {
-  background-color: rgba(60, 64, 67, 0.8);
 }
 
 #checkbox {
@@ -42,10 +27,9 @@
 }
 
 #checkbox:checked + .switch {
-  background-color: white;
 }
 
-#checkbox:checked + .switch .arg-flag {
+#checkbox:checked + .switch .en-lang {
   opacity: 1;
 }
 
