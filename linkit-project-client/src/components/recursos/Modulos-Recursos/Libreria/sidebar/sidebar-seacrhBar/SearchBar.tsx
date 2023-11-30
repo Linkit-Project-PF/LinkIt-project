@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchResources, setFilterResources } from "../../../../../../redux/features/ResourcesSlice";
+import { setSearchResources } from "../../../../../../redux/features/ResourcesSlice";
 import { useTranslation } from "react-i18next";
 import "./SearchBar.css";
 
