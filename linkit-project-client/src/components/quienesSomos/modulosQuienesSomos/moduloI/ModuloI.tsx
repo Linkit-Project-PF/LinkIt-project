@@ -2,8 +2,11 @@ import arrow from "/Vectores/white-arrow.png";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
 import validations from "./validations";
+import { validateContact } from "./errors/validation";
+import { ValidationError } from "./errors/errors";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import Swal from 'sweetalert2'
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -42,8 +45,7 @@ function useMenuAnimation(isOpen: boolean) {
 
 export default function ModuloI() {
 
-
-const {t} = useTranslation();
+const { t } = useTranslation();
 
 const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
@@ -101,45 +103,59 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (Object.values(errors)) {
     try {
+      await validateContact(contacts);
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
       if(response.status === 200) {
-        alert('Ahora eres uno de nuestros contactos!')
+        Swal.fire({ 
+          title: "Gracias por contactarnos!",
+          text: "Nos estaremos comunicando a la brevedad",
+          icon: "success" })
+
+        setContacts({
+          name: "",
+          lastName: "",
+          company: "",
+          service: [] as string[],
+          email: "",
+          message: "",
+        })
       }
       return response
     } catch (error) {
-      alert(error)
+      Swal.fire({ 
+        title: "Faltan datos del formulario!",
+        text: "Por favor, completa todos los campos",
+        icon: 'error' })
+        
+      throw new ValidationError(`Faltan datos del formulario: ${(error as Error).message}`);
     }
-} else {
-  alert('Por favor, rellena todos los campos correctamente')
-}
 }
   return (
     <div className="bg-linkIt-300 text-white grid grid-cols-2 p-[4vw]">
       <h1 className="font-semibold text-[3.5vw]">{t('Contáctanos')}</h1>
       <form className="grid grid-cols-2 gap-[1vw] -ml-[15vw] mr-[10vw] mt-[1.8vh] xl:mt-[3.8vh] text-[1.1vw] xl:text-[0.9vw]" onSubmit={contactsBtn}>
         <div>
-        <input className={`${errors.name ? ' border-black' : ''} placeholder-white border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder={t("Nombre")}  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
+        <input className={`${errors.name ? ' border-black' : ''} border rounded-[0.6vw] placeholder-white  xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
         {errors.name && (
               <p className="text-white ml-3 italic">{errors.name}</p>
             )}
         </div>
         <div>
-        <input className={`${errors.lastName ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder={t("Apellido")} name="lastName" value={contacts.lastName} onChange={handleChange} onBlur={handleChange} />
+        <input className={`${errors.lastName ? 'border-black' : '' } border rounded-[0.6vw] placeholder-white  xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Apellido" name="lastName" value={contacts.lastName} onChange={handleChange} onBlur={handleChange} />
         {errors.lastName && (
-              <p className="text-red-500 ml-3 italic">{errors.lastName}</p>
+              <p className="text-white ml-3 italic">{errors.lastName}</p>
             )}
         </div>
         <div>
-        <input className={`${errors.company ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder={t("Empresa")} name="company" value={contacts.company} onChange={handleChange} onBlur={handleChange} />
+        <input className={`${errors.company ? 'border-black' : '' } border rounded-[0.6vw] placeholder-white  xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} onBlur={handleChange} />
         {errors.company && (
-              <p className="text-red-500 ml-3 italic">{errors.company}</p>
+              <p className="text-white ml-3 italic">{errors.company}</p>
             )}
         </div>
         <div>
         <motion.nav
-            className={`${errors.service ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent outline-none p-2 w-[25vw] h-[5.8vh] xl:h-[4.3vh]`}
+            className={`${errors.service ? 'border-black' : '' } border rounded-[0.6vw] placeholder-white xl:rounded-[0.4vw] bg-transparent outline-none p-2 w-[25vw] h-[5.8vh] xl:h-[4.3vh]`}
             ref={scope}
             onClick={(e) => { 
               e.preventDefault();
@@ -148,7 +164,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               
           >
             <motion.button
-              className={`text-white flex justify-between items-center w-full`}
+              className={`text-white flex justify-between items-center text-center w-full`}
               whileTap={{ scale: 0.97 }}
               
             >
@@ -186,13 +202,13 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             </ul>{" "}
           </motion.nav>
           {errors.service && (
-              <p className="text-red-500 ml-3 italic">{errors.service}</p>
+              <p className="text-white ml-3 italic">{errors.service}</p>
             )}
           </div>
           <div className=" flex flex-col">
-        <input className={`${errors.email ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
+        <input className={`${errors.email ? 'border-black' : '' } border rounded-[0.6vw] placeholder-white  xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw]`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
         {errors.email && (
-              <p className="text-red-500 ml-3 italic">{errors.email}</p>
+              <p className="text-white ml-3 italic">{errors.email}</p>
             )}
         <button className=" mt-[9vh] xl:mt-[10vh] bg-white text-linkIt-200 text-sm font-medium 2xl:font-bold p-[1vh] w-[8vw] 2xl:w-[5vw] rounded-[0.6vw] xl:rounded-[0.4vw] disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
           errors.name ||
@@ -212,9 +228,9 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         }>{t('Enviar')}</button>
         </div>
         <div>
-        <input className={`${errors.message ? 'placeholder-red-500 border-red-500' : 'placeholder-white border-white' } border rounded-[0.6vw] xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw] h-[19vh] pb-[15vh]`} type="textArea" placeholder={t("Mensaje")} name="message" value={contacts.message} onChange={handleChange} onBlur={handleChange} />
+        <input className={`${errors.message ? 'border-black' : '' } border placeholder-white rounded-[0.6vw]  xl:rounded-[0.4vw] bg-transparent text-white outline-none p-2 w-[25vw] h-[19vh] pb-[15vh]`} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onBlur={handleChange} />
         {errors.message && (
-              <p className="text-red-500 ml-3 italic">{errors.message}</p>
+              <p className="text-white ml-3 italic">{errors.message}</p>
             )}
         </div>
       </form>
