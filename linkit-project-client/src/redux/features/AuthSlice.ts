@@ -25,6 +25,9 @@ const authSlice = createSlice({
       state.role = action.payload.role
       state.user = action.payload
     },
+    setCompany: (state, action: PayloadAction<ICompany>) => {
+      state.company = action.payload
+    },
     companyLogin: (state, action: PayloadAction<ICompany>) =>{
       state.isAuthenticated = true
       /** @deprecated remove it and use state.user only */
@@ -43,5 +46,5 @@ const authSlice = createSlice({
   }
 })
 
-export const { loginSuccess, logout, setUser, companyLogin} = authSlice.actions;
+export const { loginSuccess, logout, setUser, companyLogin, setCompany} = authSlice.actions;
 export default authSlice.reducer;

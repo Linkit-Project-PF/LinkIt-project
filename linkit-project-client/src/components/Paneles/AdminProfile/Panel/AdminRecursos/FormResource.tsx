@@ -2,9 +2,9 @@
 import { useState } from "react";
 import axios from "axios";
 import swal from 'sweetalert';
-// import validations from "./Validation";
 import { ResourceProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
+import { validations } from "./Validation";
 
 
 type OnCloseFunction = () => void;
@@ -15,7 +15,7 @@ interface FormResourceProps {
 
 
 export default function FormResource({ onClose }: FormResourceProps) {
-  //TODO: Tarea para mi osea yo, implement a type or interface for this state & errors
+
   const {t} = useTranslation()
   const [information, setInformation] = useState<Partial<ResourceProps>>({
     title: "",
@@ -46,19 +46,21 @@ export default function FormResource({ onClose }: FormResourceProps) {
       ...information,
       [name]: value,
     });
-
+    
+    const validationError = validations(information as ResourceProps);
+    setErrors(validationError);
   };
 
 
   const handleBlurErrors = () => {
-    // const validationError = validations(information)
-    // setErrors(validationError)
+    const validationError = validations(information as ResourceProps);
+    setErrors(validationError);
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const validationError = validations(information)
-    // setErrors(validationError)
+    const validationError = validations(information as ResourceProps);
+    setErrors(validationError);
     
     try {
       const endPoint = "https://linkit-server.onrender.com/posts/create";

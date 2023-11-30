@@ -24,7 +24,7 @@ export const JobCard: FunctionComponent<JobCardProps> = ({ title, location, moda
   
   return (
     <motion.div 
-    className="flex space-x-3 bg-white border border-gray-300 shadow rounded-md p-4 max-w-sm w-full "
+    className="flex space-x-3 bg-white border border-gray-300 shadow rounded-md p-4 w-[20vw]"
     onClick={handleClick}
     whileHover={{cursor: 'pointer'}}
     >

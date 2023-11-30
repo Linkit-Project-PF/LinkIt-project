@@ -23,7 +23,8 @@ const rootReducer = combineReducers({
   jobCard: JobCardSlice,
   resources: ResourcesSlice,
   reviews: ReviewsSlice,
-  users: UsersSlice
+  users: UsersSlice,
+
 })
 
 
