@@ -1,10 +1,9 @@
-// import CompanyProfile from "./CompanyProfile/CompanyProfile";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/types";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CompanyProfile from "./CompanyProfile/CompanyProfile";
-// import TalentProfile from "./TalentProfile/TalentProfile";
+import TalentProfile from "./TalentProfile/TalentProfile";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -20,8 +19,7 @@ const Profile = () => {
   // Render based on role
   return (
     <div>
-      {role === 'company' && <CompanyProfile />}
-      {/* {role === 'user' && <TalentProfile />} */}
+      {role === 'company' ? <CompanyProfile /> : <TalentProfile />}
     </div>
   );
 };
