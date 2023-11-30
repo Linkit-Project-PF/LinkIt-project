@@ -1,28 +1,30 @@
 import { useTranslation } from "react-i18next"
-import axios from "axios"
-import argFlag from "../assets/ar.svg"
-import usFlag from "../assets/us.svg"
 
 import "./language.css"
+import { useState } from "react"
 export default function Language() {
+  const [enLang, setEnLang] = useState(false)
+  const [esLang, setEsLang] = useState(true)
   const {i18n} = useTranslation("global")
   const handleClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const {data}: any = axios.get('https://cdn.simplelocalize.io/public/v1/countries')
-    console.log('data', data)
     i18n.changeLanguage(i18n.language === "es" ? "en" : "es")
+    if(i18n.language === "en") setEnLang(true)
+    else setEnLang(false)
+  if(i18n.language === "es") setEsLang(true)
+  else setEsLang(false)
   }
   return (
     <>
     <input onChange={handleClick} type="checkbox" id="checkbox" /><label className="switch" htmlFor="checkbox">
-      <div className="arg-flag">
-      <img src={usFlag} alt="" className="bi bi-mic-mute-fill" />
+      <div className="en-lang">
+      <p className={enLang ? 'text-linkIt-300' : ''}>EN</p>
       </div>
-      <div className="us-flag">
-      <img src={argFlag} alt="" className="bi bi-mic-fill" />
+      <span>|</span>
+      <div className="es-lang">
+      <p className={esLang ? 'text-linkIt-300' : ''}>ES</p>
       </div>
     </label>
     </>
-
   )
 }
