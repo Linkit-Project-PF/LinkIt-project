@@ -81,7 +81,7 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
         <motion.a
           onClick={handleClick}
           className="text-[1rem] font-bold lg:text-[.8rem] lg:mt-[1rem] link"
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02, cursor: 'pointer' }}
           whileTap={{ scale: 1 }}
         >
           {t('Leer Nota')}
