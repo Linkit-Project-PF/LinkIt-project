@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import NavPanelAdmin from "./NavPanelAdmin";
 import Vacancies from "./AdminVacantes/Vacancies";
 import AdminRecursos from "./AdminRecursos/AdminRecursos";
@@ -24,14 +24,27 @@ export default function AdminPanel() {
   const token = useSelector((state: any) => state.Authentication.token);
 
   const [userData, setUserData] = useState<Partial<userInfoProps>>({});
+  const nav = useNavigate();
 
   useEffect(() => {
     const infoUser = async () => {
-      const response = await axios(
-        `https://linkit-server.onrender.com/admins/find?id=${token}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setUserData(response.data);
+      try {
+        if (!token) {
+          nav("/unauthorized");
+          return;
+        }
+        const response = await axios(
+          `https://linkit-server.onrender.com/admins/find?id=${token}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (!response.data) {
+          nav("/unauthorized");
+          return;
+        }
+        setUserData(response.data);
+      } catch (error) {
+        nav("/unauthorized");
+      }
     };
     infoUser();
   }, []);
