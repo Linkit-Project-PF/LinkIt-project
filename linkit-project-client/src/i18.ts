@@ -444,8 +444,17 @@ export const i18nOptions: InitOptions = {
         "Carga tu CV":"Upload your CV",
         //!Validations
 
+        "Reseñas":"Reviews",
+        "Usuarios":"Users",
+        "Estadisticas":"Statistics",
         "":"",
         "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+        "":"",
+         "":"",
         "":"",
       },
     }
