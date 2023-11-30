@@ -100,6 +100,9 @@ export default function Statistics() {
           },
         ],
       },
+      options: {
+        responsive: false,
+      },
     });
   }
 
