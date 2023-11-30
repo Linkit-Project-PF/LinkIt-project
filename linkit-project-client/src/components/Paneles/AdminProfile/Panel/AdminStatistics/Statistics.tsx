@@ -2,6 +2,8 @@ import axios from "axios";
 import Chart, { ChartItem } from "chart.js/auto";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+
 
 interface UsersState {
   users: any[];
@@ -13,6 +15,7 @@ interface jdState {
 }
 
 export default function Statistics() {
+  const {t}=useTranslation();
   const [allusers, setUsers] = useState<UsersState>({
     users: [],
     companies: [],
@@ -109,7 +112,7 @@ export default function Statistics() {
   return (
     <div className="mb-32">
       <div className="bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-auto">
-        <h1 className="text-4xl pl-16 py-6">Estadisticas</h1>
+        <h1 className="text-4xl pl-16 py-6">{t('Estadisticas')}</h1>
         <div className="w-1/3">
           <canvas id="allUsersChart"></canvas>
           <canvas id="jdsStatusChart"></canvas>
