@@ -11,6 +11,7 @@ declare global {
 interface IComponentProps {
   children: React.ReactNode
   setFilePublicId: (value: string) => void
+  setFileName: (value: string) => void
   onUploadSuccess?: (value: string) => void
   className?: string
 }
@@ -30,7 +31,7 @@ const CloudinaryScriptContext = createContext({});
  *    <button>Upload</button>
  *  </CloudinaryUploadWidget>
 */
-function CloudinaryUploadWidget({children, setFilePublicId, className}: IComponentProps) {
+function CloudinaryUploadWidget({children, setFilePublicId, setFileName, className}: IComponentProps) {
   const [loaded, setLoaded] = useState(false);
 
   const [uwConfig] = useState({
@@ -46,6 +47,7 @@ function CloudinaryUploadWidget({children, setFilePublicId, className}: ICompone
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
             setFilePublicId(result.info.public_id)
+            setFileName(`${result.info.original_filename}.${result.info.format}`)
           }
         }
       )
@@ -78,6 +80,7 @@ function CloudinaryUploadWidget({children, setFilePublicId, className}: ICompone
 
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
+      <script src="https://media-editor.cloudinary.com/all.js" type="text/javascript"></script>
       <div className={className} onClick={openCloudinaryWidget} id="upload_widget">
         {children}
       </div>
