@@ -130,11 +130,18 @@ const customStyles = {
   }),
 };
 
-export function SelectCountryEs({setCountry, country}: any) {
+export function SelectCountryEs({setCountry, country, setModalityOpen, setTypeOpen, setStackOpen}: any) {
   
   
   const handleChange = (selectedOption: OptionType|null) => {
     setCountry(selectedOption as OptionType)
+  }
+
+  
+  const handleClick = ()=>{
+    setModalityOpen('closed')
+    setTypeOpen('closed')
+    setStackOpen('closed')
   }
 
 
@@ -146,15 +153,22 @@ export function SelectCountryEs({setCountry, country}: any) {
       placeholder= 'Ubicación'
       onChange={handleChange}
       components={{ DropdownIndicator }}
+      onMenuOpen={handleClick}
     />
   );
 }
 
-export function SelectCountryEn({setCountry, country}: any) {
+export function SelectCountryEn({setCountry, country, setModalityOpen, setTypeOpen, setStackOpen}: any) {
 
   
   const handleChange = (selectedOption: OptionType|null) => {
     setCountry(selectedOption as OptionType)
+  }
+
+  const handleClick = ()=>{
+    setModalityOpen('closed')
+    setTypeOpen('closed')
+    setStackOpen('closed')
   }
 
 
@@ -166,6 +180,7 @@ export function SelectCountryEn({setCountry, country}: any) {
       placeholder= 'Ubicación'
       onChange={handleChange}
       components={{ DropdownIndicator }}
+      onMenuOpen={handleClick}
     />
   );
 }
