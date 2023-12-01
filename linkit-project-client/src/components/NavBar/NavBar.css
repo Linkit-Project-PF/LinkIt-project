@@ -7,7 +7,7 @@ body {
         @apply fixed top-0 w-screen bg-linkIt-400 hover:bg-linkIt-300 h-[4vh] transition duration-300 ease-in-out  text-white text-sm flex items-center justify-center z-50
     }
     .navBar{
-@apply fixed top-[4vh] h-[8vh] whitespace-nowrap text-[0.7vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold
+@apply fixed top-[4vh] h-[8vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold
 }
 
     .containerBtnsNavbar {
@@ -15,9 +15,9 @@ body {
     }
 
     .contrataBtnNavB{
-    @apply flex items-center border rounded-[7px] p-3 px-5 text-[0.7vw] shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:border transition-all duration-300 ease-in-out
+    @apply flex items-center border rounded-[7px] p-2.5 px-5 text-[1vw] shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:border transition-all duration-300 ease-in-out
     }
 
     .vacanteBtnNavB{
-        @apply flex items-center border rounded-[7px] p-2.5 px-5 text-[0.7vw] shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition-all duration-300 ease-in-out
+        @apply flex items-center border rounded-[7px] p-2 px-5 text-[1vw] shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition-all duration-300 ease-in-out
     }

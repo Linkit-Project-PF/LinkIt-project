@@ -19,7 +19,7 @@ export default function NavSoluciones() {
             <button className={`text-start text-[2vw] ${activeButton === 5 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(5)}>5. {t('Presentación de candidatos')}</button>
             <button className={`text-start text-[2vw] ${activeButton === 6 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(6)}>6. {t('Analytics and follow up')}</button>
         </nav>
-        <div className="flex bg-linkIt-300 rounded-xl text-white text-[1vw] p-[4vw] h-[60vh] w-[45vw] mb-[10vh] font-montserrat">
+        <div className="flex bg-linkIt-300 rounded-xl text-white text-[1.2vw] 2xl:text-[1.1vw] p-[4vw] h-[60vh] w-[45vw] mb-[10vh] font-montserrat">
         <motion.div className={` ${activeButton === 1 ? "opacity-1 block" : "opacity-0 hidden"}`} 
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: activeButton === 1 ? 0 : 30, opacity: activeButton === 1 ? 1 : 0 }}
