@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { validateVacancy } from "../../../errors/validation";
 import { VacancyProps } from "../../../admin.types";
 import { ValidationError } from "../../../errors/errors";
 import swal from "sweetalert";
 import { validations } from "./Validation";
+import { useTranslation } from "react-i18next";
+
+import { useSelector } from "react-redux";
 
 type OnCloseFunction = () => void;
 
@@ -18,7 +21,9 @@ interface InfoList {
 }
 
 export default function FormVacancie(props: FormVacancieProps) {
+  const { t } = useTranslation()
   
+  const token = useSelector((state: any) => state.Authentication.token);
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
@@ -63,6 +68,28 @@ export default function FormVacancie(props: FormVacancieProps) {
     niceToHave: [],
     benefits: [],
   });
+  const [allCompanies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    const getCompanies = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://linkit-server.onrender.com/companies/find",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCompanies(data);
+      } catch (error) {
+        alert(error);
+      }
+    };
+    getCompanies();
+    return () => setCompanies([]);
+  }, []);
+  console.log(allCompanies);
 
   const addToList = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -81,7 +108,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           [name]: [...(infoList[name] || []), value],
         });
       } else {
-        swal("Ya se encuentra agregado");
+        swal(t("Ya se encuentra agregado"));
       }
 
       (e.target as HTMLInputElement).value = ""; // Limpiar el valor
@@ -104,7 +131,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           [name]: [...(infoList[name] || []), value],
         });
       } else {
-        swal("Ya se encuentra agregado");
+        swal(t("Ya se encuentra agregado"));
       }
     }
     (e.target as HTMLInputElement).value = "";
@@ -168,7 +195,7 @@ export default function FormVacancie(props: FormVacancieProps) {
         headers: { Authorization: `Bearer ${props.token}` },
       });
 
-      swal("La vacante fue creada con éxito");
+      swal(t("La vacante fue creada con éxito"));
       setInformation({
         code: "",
         title: "",
@@ -190,7 +217,7 @@ export default function FormVacancie(props: FormVacancieProps) {
     } catch (error) {
       console.error((error as Error).message);
       throw new ValidationError(
-        `Error al ingresar los datos en el formulario: ${
+        `${t('Error al ingresar los datos en el formulario')}: ${
           (error as Error).message
         }`
       );
@@ -201,7 +228,7 @@ export default function FormVacancie(props: FormVacancieProps) {
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
       <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300 ">
         <div>
-          <h1 className="text-3xl my-12">Nueva vacante</h1>
+          <h1 className="text-3xl my-12">{t('Nueva vacante')}</h1>
         </div>
 
         <form
@@ -212,7 +239,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Código
+                {t('Código')}
               </label>
               <input
                 className={
@@ -231,7 +258,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Titulo
+                {t('Titulo')}
               </label>
               <input
                 className={
@@ -250,9 +277,9 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Nombre de la empresa
+                {t('Nombre de la empresa')}
               </label>
-              <input
+              {/* <input
                 className={
                   errors.company
                     ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
@@ -264,12 +291,26 @@ export default function FormVacancie(props: FormVacancieProps) {
                 autoComplete="off"
                 onChange={handleChange}
                 onBlur={handleBlurErrors}
-              />
+              /> */}
+              <select
+                name="company"
+                className={
+                  errors.company
+                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
+                onChange={handleChange}
+              >
+                <option value="">Selecciona</option>
+                {allCompanies.map((company: any) => (
+                  <option>{company.companyName}</option>
+                ))}
+              </select>
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Ubicación
+                {t('Ubicación')}
               </label>
               <input
                 className={
@@ -288,7 +329,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Modalidad
+                {t('Modalidad')}
               </label>
               <div>
                 <select
@@ -300,18 +341,18 @@ export default function FormVacancie(props: FormVacancieProps) {
                   }
                   onChange={handleChange}
                 >
-                  <option value="">Selecciona</option>
-                  <option value="remote">Remoto</option>
-                  <option value="specific-remote">Remoto Específico</option>
-                  <option value="on-site">Presencial</option>
-                  <option value="hybrid">Hibrido</option>
+                  <option value="">{t('Selecciona')}</option>
+                  <option value="remote">{t('Remoto')}</option>
+                  <option value="specific-remote">{t('Remoto específico')}</option>
+                  <option value="on-site">{t('Presencial')}</option>
+                  <option value="hybrid">{t('Hibrido')}</option>
                 </select>
               </div>
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Tipo
+                {t('Tipo')}
               </label>
               <div>
                 <select
@@ -323,17 +364,17 @@ export default function FormVacancie(props: FormVacancieProps) {
                   }
                   onChange={handleChange}
                 >
-                  <option value="">Selecciona</option>
-                  <option value="full-time">Tiempo completo</option>
-                  <option value="part-time">Medio tiempo</option>
-                  <option value="freelance">Independiente</option>
+                  <option value="">{t('Selecciona')}</option>
+                  <option value="full-time">{t('Tiempo completo')}</option>
+                  <option value="part-time">{t('Medio tiempo')}</option>
+                  <option value="freelance">{t('Independiente')}</option>
                 </select>
               </div>
             </div>
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Tecnologías
+                {t('Tecnologías')}
               </label>
               <input
                 className={
@@ -353,7 +394,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Deseable
+                {t('Deseable')}
               </label>
               <input
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
@@ -368,7 +409,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Requisitos
+                {t('Requisitos')}
               </label>
               <input
                 className={
@@ -388,7 +429,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Responsabilidades
+                {t('Responsabilidades')}
               </label>
               <input
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
@@ -401,7 +442,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Beneficios
+                {t('Beneficios')}
               </label>
               <input
                 className="appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
@@ -416,7 +457,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Descripción
+                {t('Descripción')}
               </label>
               <textarea
                 className={
@@ -434,7 +475,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Acerca de la empresa
+                {t('Acerca de la empresa')}
               </label>
               <textarea
                 className="appearance-none block h-fit w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
@@ -446,7 +487,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Acerca del cliente (opcional)
+                {t('Acerca del cliente (opcional)')}
               </label>
               <textarea
                 className="appearance-none block h-fit w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
@@ -457,7 +498,7 @@ export default function FormVacancie(props: FormVacancieProps) {
             </div>
             <div className="w-fit px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                Estado (Abierta por defecto)
+                {t('Estado (Abierta por defecto)')}
               </label>
               <div>
                 <select
@@ -465,17 +506,17 @@ export default function FormVacancie(props: FormVacancieProps) {
                   className='"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
                   onChange={handleChange}
                 >
-                  <option value="open">Abierta</option>
-                  <option value="first-interview">Primera entrevista</option>
-                  <option value="second-interview">Segunda entrevista</option>
-                  <option value="closed">Cerrada</option>
+                  <option value="open">{t('Abierta')}</option>
+                  <option value="first-interview">{t('Primera entrevista')}</option>
+                  <option value="second-interview">{t('Segunda entrevista')}</option>
+                  <option value="closed">{t('Cerrada')}</option>
                 </select>
               </div>
             </div>
             {infoList && infoList.stack && infoList.stack.length > 0 ? (
               <div className="mx-4">
                 <h3 className="text-md font-bold text-linkIt-200">
-                  Tecnologías agregadas
+                  {t('Tecnologías agregadas')}
                 </h3>
                 <ul className="list-disc">
                   {infoList.stack?.map((t: string) => {
@@ -499,7 +540,7 @@ export default function FormVacancie(props: FormVacancieProps) {
             infoList.requirements.length > 0 ? (
               <div className="mx-4">
                 <h3 className="text-md font-bold text-linkIt-200">
-                  Requisitos agregados
+                  {t('Requisitos agregados')}
                 </h3>
                 <ul className="list-disc">
                   {infoList.requirements?.map((t: string) => {
@@ -523,7 +564,7 @@ export default function FormVacancie(props: FormVacancieProps) {
             infoList.niceToHave.length > 0 ? (
               <div className="mx-4">
                 <h3 className="text-md font-bold text-linkIt-200">
-                  Deseables agregados
+                  {t('Deseables agregados')}
                 </h3>
                 <ul className="list-disc">
                   {infoList.niceToHave?.map((t: string) => {
@@ -545,7 +586,7 @@ export default function FormVacancie(props: FormVacancieProps) {
             {infoList && infoList.benefits && infoList.benefits.length > 0 ? (
               <div className="mx-4">
                 <h3 className="text-md font-bold text-linkIt-200">
-                  Beneficios agregados
+                  {t('Beneficios agregados')}
                 </h3>
                 <ul className="list-disc">
                   {infoList.benefits?.map((t: string) => {
@@ -573,7 +614,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           errors.requirements ||
           errors.description ? (
             <span className="text-red-500">
-              Los campos marcados con * son obligatioris
+              {t('Los campos marcados con * son obligatiorios')}
             </span>
           ) : null}
           <div className="flex">
@@ -581,13 +622,13 @@ export default function FormVacancie(props: FormVacancieProps) {
               onClick={props.onClose}
               className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
             >
-              Volver
+              {t('Volver')}
             </button>
             <button
               type="submit"
               className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
             >
-              Publicar
+              {t('Publicar')}
             </button>
           </div>
         </form>

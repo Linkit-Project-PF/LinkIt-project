@@ -4,6 +4,8 @@ import { UserProps } from "../../../admin.types";
 import { CreatePostulation } from "./createPost";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 export interface localState {
   user: UserProps;
@@ -16,6 +18,7 @@ interface propsInterface {
 }
 
 export function UserPostulations(props: propsInterface) {
+  const { t } = useTranslation()
   const dispatch = useDispatch();
   const [userList, setUserList] = useState<Partial<localState[]>>([]);
   const [createForm, viewCreateForm] = useState(false);
@@ -62,7 +65,7 @@ export function UserPostulations(props: propsInterface) {
 
   function showCreateForm(): void {
     const result = confirm(
-      "La relacion de usuarios con vacantes no se deberia hacer por este medio, aun asi desea continuar?"
+      t("La relacion de usuarios con vacantes no se deberia hacer por este medio, aun asi desea continuar?")
     );
     if (result) {
       viewCreateForm(true);
@@ -75,7 +78,7 @@ export function UserPostulations(props: propsInterface) {
 
   async function handleDelete(user: string, jd: string) {
     const result = confirm(
-      "¿Esta seguro de borrar la vacante? Esto eliminara todas las relaciones y es irreversible. Puede cambiar la vacante a un estado similar"
+      t("¿Esta seguro de borrar la vacante? Esto eliminara todas las relaciones y es irreversible. Puede cambiar la vacante a un estado similar")
     );
     if (result) {
       try {
@@ -95,7 +98,7 @@ export function UserPostulations(props: propsInterface) {
         );
         dispatch(setJobOffers(newData.data));
         props.onClose();
-        alert("Vacante eliminada exitosamente");
+        alert(t("Vacante eliminada exitosamente"));
       } catch (error: any) {
         alert(error.response);
       }
@@ -133,7 +136,7 @@ export function UserPostulations(props: propsInterface) {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
     if (event.target.value === prevStatus)
-      setError("El estado seleccionado es el mismo estado anterior");
+      setError(t("El estado seleccionado es el mismo estado anterior"));
     else setError("");
     setStatus(event.target.value);
   }
@@ -142,18 +145,18 @@ export function UserPostulations(props: propsInterface) {
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 p-[6vw]">
       <div className="relative grid items-center bg-linkIt-500 rounded-[20px] border-[3px] border-linkIt-300 p-[3vw]">
       <a onClick={props.onClose} className="absolute top-[1vh] left-[1vw] font-bold font-montserrat hover:text-red-600 cursor-pointer">X</a>
-      <a onClick={showCreateForm} className="text-center row-start-2 bg-linkIt-300 w-fit p-2 text-[0.8vw] rounded-[7px] cursor-pointer text-white font-manrope border-[0.1vw] mt-4 hover:border-linkIt-300 hover:bg-transparent hover:text-black">Create</a>
+      <a onClick={showCreateForm} className="text-center row-start-2 bg-linkIt-300 w-fit p-2 text-[0.8vw] rounded-[7px] cursor-pointer text-white font-manrope border-[0.1vw] mt-4 hover:border-linkIt-300 hover:bg-transparent hover:text-black">{t('Crear')}</a>
       <table className="min-w-full divide-y divide-gray-200 " >
         <thead className="bg-gray-50">
           <tr className="">
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">ID</th>
-            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Nombre</th>
-            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Correo</th>
-            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Ubicacion</th>
-            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Tecnologias</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Nombre')}</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Correo')}</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Ubicacion')}</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Tecnologias')}</th>
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">LinkedIn</th>
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">CV</th>
-            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">Status</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Estado')}</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -169,10 +172,10 @@ export function UserPostulations(props: propsInterface) {
               <td className="px-6 py-4 text-[0.8vw]">
                 {editing ? (
                   <select defaultValue={obj?.status} onChange={handleChange}>
-                    <option value="applied">Postulado</option>
-                    <option value="state1">Estado1</option>
-                    <option value="state2">Estado2</option>
-                    <option value="state3">Estado3</option>
+                    <option value="applied">{t('Postulado')}</option>
+                    <option value="state1">{t('Estado1')}</option>
+                    <option value="state2">{t('Estado2')}</option>
+                    <option value="state3">{t('Estado3')}</option>
                   </select>
                 ) : (
                   obj?.status
@@ -188,7 +191,7 @@ export function UserPostulations(props: propsInterface) {
                     id="save"
                     disabled={error ? true : false}
                   >
-                    Guardar
+                    {t('Guardar')}
                   </button>
                 ) : (
                   <a
@@ -198,12 +201,12 @@ export function UserPostulations(props: propsInterface) {
                       handleEdit(event);
                       setStatus(obj?.status as string);
                       setError(
-                        "El estado seleccionado es el mismo estado anterior"
+                        t("El estado seleccionado es el mismo estado anterior")
                       );
                     }}
                     id="edit"
                   >
-                    Editar
+                    {t('Editar')}
                   </a>
                 )}
               </td>
@@ -218,7 +221,7 @@ export function UserPostulations(props: propsInterface) {
                       setError("");
                     }}
                   >
-                    Cancelar
+                    {t('Cancelar')}
                   </a>
                 </td>
               ) : null}
@@ -229,7 +232,7 @@ export function UserPostulations(props: propsInterface) {
                     handleDelete(obj?.user._id as string, props.jdId)
                   }
                 >
-                  Eliminar
+                  {t('Eliminar')}
                 </a>
               </td>
             </tr>

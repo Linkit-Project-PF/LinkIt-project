@@ -63,7 +63,7 @@ export default function AdminRecursos() {
         );
         dispatch(setResources(response.data));
       } catch (error) {
-        console.error("Error al cargar los recursos", error);
+        console.error(t("Error al cargar los recursos"), error);
       }
     };
     loadData();
@@ -126,7 +126,7 @@ export default function AdminRecursos() {
         // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
       });
     } catch (error) {
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      console.error(t("Error al enviar la solicitud: "), (error as Error).message);
     }
     setEditing(false);
     setEditRow(null);
