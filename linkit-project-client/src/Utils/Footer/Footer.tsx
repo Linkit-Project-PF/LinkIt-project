@@ -79,7 +79,7 @@ export default function Footer() {
 
   const {t} = useTranslation();
   return (
-    <div className="bg-black text-white">
+    <div className="bg-linkIt-200 text-white">
       <div className="grid grid-cols-3 gap-1 mx-1">
 
         <div className="flex flex-col">

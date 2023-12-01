@@ -478,26 +478,26 @@ function NavBar() {
             >
               {isAuthenticated && role === 'user' ? (
                 <div>
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                       onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                     >
                       {t('Mis búsquedas')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="logout"
+                      className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
                     >
                       {t('Cerrar sesión')}
@@ -506,18 +506,18 @@ function NavBar() {
                 </div>
               ) : isAuthenticated && role === 'admin' ? (
                 <div>
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
                       onClick={goAdminDashboard}
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                     >
                       {t('Panel')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="logout"
+                      className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
                     >
                       {t('Cerrar sesión')}
@@ -526,26 +526,26 @@ function NavBar() {
                 </div>
               ) : isAuthenticated && role === 'company' ? (
                 <div>
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                       onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                     >
                       {t('Mis vacantes')}
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className="logout"
+                      className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
                     >
                       {t('Cerrar sesión')}
@@ -554,9 +554,9 @@ function NavBar() {
                 </div>
               ) : (
                 <div>
-                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className=""
+                      className=" hover:text-linkIt-300"
                       onClick={() => {
                         pressLogin === "visible"
                           ? dispatch(setPressLogin("hidden"))
@@ -568,9 +568,9 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[90%] mt-5 ml-4" />
-                  <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
+                  <li className="mb-2 mt-3 ml-4 text-[10px] hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
                     <button
-                      className=""
+                      className=" hover:text-linkIt-300"
                       onClick={() => {
                         pressSignUp === "visible"
                           ? dispatch(setPressSignUp("hidden"))
