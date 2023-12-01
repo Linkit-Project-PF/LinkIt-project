@@ -480,7 +480,7 @@ function NavBar() {
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                       onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
@@ -489,7 +489,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                     >
                       {t('Mis búsquedas')}
                     </button>
@@ -497,7 +497,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="logout"
+                      className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
                     >
                       {t('Cerrar sesión')}
@@ -509,7 +509,7 @@ function NavBar() {
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
                       onClick={goAdminDashboard}
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                     >
                       {t('Panel')}
                     </button>
@@ -517,7 +517,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="logout"
+                      className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
                     >
                       {t('Cerrar sesión')}
@@ -528,7 +528,7 @@ function NavBar() {
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                       onClick={() => { navigate("/profile") }}
                     >
                       {t('Mis datos')}
@@ -537,7 +537,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="profile"
+                      className="profile hover:text-linkIt-300"
                     >
                       {t('Mis vacantes')}
                     </button>
@@ -545,7 +545,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className="logout"
+                      className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
                     >
                       {t('Cerrar sesión')}
@@ -556,7 +556,7 @@ function NavBar() {
                 <div>
                   <li className="relative top-3 mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className=""
+                      className=" hover:text-linkIt-300"
                       onClick={() => {
                         pressLogin === "visible"
                           ? dispatch(setPressLogin("hidden"))
@@ -570,7 +570,7 @@ function NavBar() {
                   <hr className="w-[90%] mt-5 ml-4" />
                   <li className="mb-2 mt-3 ml-4 text-[10px] xl:text-xs">
                     <button
-                      className=""
+                      className=" hover:text-linkIt-300"
                       onClick={() => {
                         pressSignUp === "visible"
                           ? dispatch(setPressSignUp("hidden"))
