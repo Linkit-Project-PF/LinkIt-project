@@ -7,6 +7,13 @@ export default function ModuloTalentosE() {
         <div className="p-20 bg-linkIt-500">
             <h1 className="text-linkIt-200 flex justify-center text-5xl font-semibold mb-32">{t('Cómo aplicar a')}</h1>
             <div>
+                <ul className="grid grid-cols-4 gap-64 mx-[7rem] mt-[3rem] justify-items-center">
+                <div className=" lineD "></div>
+                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">1</li>
+                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">2</li>
+                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">3</li>
+                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">4</li>
+                </ul>
                 <ul className="grid grid-cols-4 gap-2">
                     <div className="flex  flex-col items-center mx-12">
                         <li className="text-linkIt-200 font-bold text-xl m-6 text-center w-[12rem]">{t('Consulta nuestras vacantes')}</li>
@@ -36,13 +43,6 @@ export default function ModuloTalentosE() {
 
                         <br />
                     </div>
-                </ul>
-                <ul className="grid grid-cols-4 gap-64 mx-[7rem] mt-[3rem] justify-items-center">
-                <div className=" lineD "></div>
-                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">1</li>
-                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">2</li>
-                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">3</li>
-                    <li className="flex  items-center justify-center text-4xl text-white h-20 w-20 font-bold  bg-linkIt-200 rounded-full">4</li>
                 </ul>
             </div>
         </div>

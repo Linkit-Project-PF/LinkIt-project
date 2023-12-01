@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   SelectCountryEs,
@@ -18,7 +18,7 @@ interface OptionType {
 }
 
 const JobFilters = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { i18n } = useTranslation();
   const { language } = i18n;
   const [stack, setStack] = useState<string>("");
@@ -33,9 +33,15 @@ const JobFilters = () => {
   const [typeOpen, setTypeOpen] = useState<string>("closed");
   const [modalityOpen, setModalityOpen] = useState<string>("closed");
 
+  const stackRef = useRef<HTMLUListElement | null>(null);
+  const typeRef = useRef<HTMLUListElement | null>(null);
+  const modalityRef = useRef<HTMLUListElement | null>(null);
+
   const [country, setCountry] = useState<OptionType>({ value: "", label: "" });
 
-  const allJobOffers = useSelector((state: any) => state.jobCard.allJobOffers as JobCardProps[])
+  const allJobOffers = useSelector(
+    (state: any) => state.jobCard.allJobOffers as JobCardProps[]
+  );
 
   const handleFilters = async () => {
     try {
@@ -44,26 +50,34 @@ const JobFilters = () => {
           stack !== "Stack" ? `stack=${stackValue}` : ""
         }${
           language === "en"
-            ? `${type !== "Type" ? `&type=${typeValue.toLocaleLowerCase()}` : ``}`
-            : `${type !== "Tipo" ? `&type=${typeValue.toLocaleLowerCase()}` : ``}`
+            ? `${
+                type !== "Type" ? `&type=${typeValue.toLocaleLowerCase()}` : ``
+              }`
+            : `${
+                type !== "Tipo" ? `&type=${typeValue.toLocaleLowerCase()}` : ``
+              }`
         }${
-          language === 'en'
-          ?`${modality !== "Modality" ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}`
-          :`${modality  !== "Modalidad" ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}`
-        }${
-          country.value !== ""
-            ? `&location=${country.value}`
-            : ""
-        }`,
+          language === "en"
+            ? `${
+                modality !== "Modality"
+                  ? `&modality=${modalityValue.toLocaleLowerCase()}`
+                  : ``
+              }`
+            : `${
+                modality !== "Modalidad"
+                  ? `&modality=${modalityValue.toLocaleLowerCase()}`
+                  : ``
+              }`
+        }${country.value !== "" ? `&location=${country.value}` : ""}`,
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
           },
         }
       );
-      dispatch(applyFilters(response.data))
+      dispatch(applyFilters(response.data));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -80,14 +94,38 @@ const JobFilters = () => {
     );
   }, [language]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        stackRef.current &&
+        !stackRef.current.contains(event.target as Node) &&
+        typeRef.current &&
+        !typeRef.current.contains(event.target as Node) &&
+        modalityRef.current &&
+        !modalityRef.current.contains(event.target as Node)
+      ) {
+        setStackOpen("closed");
+        setTypeOpen("closed");
+        setModalityOpen("closed");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="flex w-[90%] justify-between items-center bg-white font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[3.5rem]">
       <section className="relative">
         <button
           className="flex flex-row justify-center items-center gap-[1rem]"
-          onClick={() =>
-            setStackOpen(stackOpen === "closed" ? "open" : "closed")
-          }
+          onClick={() => {
+            setStackOpen(stackOpen === "closed" ? "open" : "closed");
+            setTypeOpen("closed");
+            setModalityOpen("closed");
+          }}
         >
           {stack}
           <img
@@ -102,21 +140,46 @@ const JobFilters = () => {
         <motion.ul
           className={`bg-white ${
             stackOpen === "open" ? "dropdown-stack" : "hidden"
-          } rounded-b-[8px]`}
+          } rounded-b-[8px] z-[10]`}
           variants={dropdownVariants}
           initial="closed"
           animate={stackOpen}
-          onClick={() => setStackOpen("closed")}
+          onClick={() => {
+            setStackOpen("closed");
+          }}
+          ref={stackRef}
         >
-          <li onClick={() => {setStack("Frontend"), setStackValue('frontend')}}>FrontEnd</li>
-          <li onClick={() => {setStack("Backend"), setStackValue('backend')}}>BackEnd</li>
-          <li onClick={() => {setStack("FullStack"), setStackValue('fullstack')}}>FullStack</li>
+          <li
+            onClick={() => {
+              setStack("Frontend"), setStackValue("frontend");
+            }}
+          >
+            FrontEnd
+          </li>
+          <li
+            onClick={() => {
+              setStack("Backend"), setStackValue("backend");
+            }}
+          >
+            BackEnd
+          </li>
+          <li
+            onClick={() => {
+              setStack("FullStack"), setStackValue("fullstack");
+            }}
+          >
+            FullStack
+          </li>
         </motion.ul>
       </section>
       <section className="relative">
         <button
           className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
-          onClick={() => setTypeOpen(typeOpen === "closed" ? "open" : "closed")}
+          onClick={() => {
+            setTypeOpen(typeOpen === "closed" ? "open" : "closed");
+            setStackOpen("closed");
+            setModalityOpen("closed");
+          }}
         >
           {type}
           <img
@@ -131,29 +194,65 @@ const JobFilters = () => {
         <motion.ul
           className={`bg-white ${
             typeOpen === "open" ? "dropdown-type" : "hidden"
-          } rounded-b-[8px]`}
+          } rounded-b-[8px] z-[10]`}
           variants={dropdownVariants}
           initial="closed"
           animate={typeOpen}
+          ref={typeRef}
+          onClick={()=>{
+            setTypeOpen("closed")
+          }}
         >
-          <li onClick={() => {setType("Part-time"), setTypeValue('part-time')}}>Part-time</li>
-          <li onClick={() => {setType("Full-time"), setTypeValue('full-time')}}>Full-time</li>
-          <li onClick={() => {setType("Freelance"), setTypeValue('freelance')}}>Freelance</li>
+          <li
+            onClick={() => {
+              setType("Part-time"), setTypeValue("part-time");
+            }}
+          >
+            Part-time
+          </li>
+          <li
+            onClick={() => {
+              setType("Full-time"), setTypeValue("full-time");
+            }}
+          >
+            Full-time
+          </li>
+          <li
+            onClick={() => {
+              setType("Freelance"), setTypeValue("freelance");
+            }}
+          >
+            Freelance
+          </li>
         </motion.ul>
       </section>
       <section>
         {language === "en" ? (
-          <SelectCountryEn setCountry={setCountry} country={country} />
+          <SelectCountryEn
+            setCountry={setCountry}
+            country={country}
+            setStackOpen={setStackOpen}
+            setModalityOpen={setModalityOpen}
+            setTypeOpen={setTypeOpen}
+          />
         ) : (
-          <SelectCountryEs setCountry={setCountry} country={country} />
+          <SelectCountryEs
+            setCountry={setCountry}
+            country={country}
+            setStackOpen={setStackOpen}
+            setModalityOpen={setModalityOpen}
+            setTypeOpen={setTypeOpen}
+          />
         )}
       </section>
       <section className="relative">
         <button
           className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
-          onClick={() =>
-            setModalityOpen(modalityOpen === "closed" ? "open" : "closed")
-          }
+          onClick={() => {
+            setModalityOpen(modalityOpen === "closed" ? "open" : "closed");
+            setTypeOpen("closed");
+            setStackOpen("closed");
+          }}
         >
           {modality}
           <img
@@ -168,20 +267,48 @@ const JobFilters = () => {
         <motion.ul
           className={`bg-white ${
             modalityOpen === "open" ? "dropdown-modality" : "hidden"
-          } rounded-b-[8px]`}
+          } rounded-b-[8px] z-[10]`}
           variants={dropdownVariants}
           initial="closed"
           animate={modalityOpen}
+          ref={modalityRef}
+          onClick={()=>{
+            setModalityOpen("closed")
+          }}
         >
           {language === "en" ? (
-            <li onClick={() => {setModality("Remote"), setModalityValue('remote')}}>Remote</li>
+            <li
+              onClick={() => {
+                setModality("Remote"), setModalityValue("remote");
+              }}
+            >
+              Remote
+            </li>
           ) : (
-            <li onClick={() => {setModality("Remoto"), setModalityValue('remote')}}>Remoto</li>
+            <li
+              onClick={() => {
+                setModality("Remoto"), setModalityValue("remote");
+              }}
+            >
+              Remoto
+            </li>
           )}
           {language === "en" ? (
-            <li onClick={() => {setModality("Presential"), setModalityValue('on-site')}}>Presential</li>
+            <li
+              onClick={() => {
+                setModality("Presential"), setModalityValue("on-site");
+              }}
+            >
+              Presential
+            </li>
           ) : (
-            <li onClick={() => {setModality("Presencial"), setModalityValue('on-site')}}>Presencial</li>
+            <li
+              onClick={() => {
+                setModality("Presencial"), setModalityValue("on-site");
+              }}
+            >
+              Presencial
+            </li>
           )}
         </motion.ul>
       </section>
@@ -192,15 +319,24 @@ const JobFilters = () => {
         Encontrar Vacante
       </button>
       <button
-      className="bg-linkIt-300 text-white rounded-[8px] py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
-      onClick={()=> {dispatch(applyFilters(allJobOffers)), 
-      setStack('Stack'),
-      setType(language === 'en' ? 'Type' : 'Tipo'),
-      setModality(language === 'en' ? 'Modality' : 'Modalidad'),
-      setCountry(language === 'en' ? { value: "", label: "Location" } : { value: "", label: "Ubicación" })
-      }}
+        className="bg-linkIt-300 text-white rounded-[8px] py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
+        onClick={() => {
+          dispatch(applyFilters(allJobOffers)),
+            setStack("Stack"),
+            setType(language === "en" ? "Type" : "Tipo"),
+            setModality(language === "en" ? "Modality" : "Modalidad"),
+            setCountry(
+              language === "en"
+                ? { value: "", label: "Location" }
+                : { value: "", label: "Ubicación" }
+            );
+        }}
       >
-        <img src="/Vectores/reset.svg" alt="reset-filters" className="w-[1.4rem] hover:rotate-180 transition-all duration-300 ease-in-out" />
+        <img
+          src="/Vectores/reset.svg"
+          alt="reset-filters"
+          className="w-[1.4rem] hover:rotate-180 transition-all duration-300 ease-in-out"
+        />
       </button>
     </div>
   );
