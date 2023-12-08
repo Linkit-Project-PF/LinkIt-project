@@ -15,7 +15,8 @@ interface IComponentProps {
 const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
   const dispatch = useDispatch()
   const {token} = useSelector((state: RootState) => state.Authentication)
-  const [cvPublicId, setCvPublicId] = useState("")
+  const [fileName, setFileName] = useState("")
+  const [cv, setCv] = useState("")
   const [englishLevel, setEnglishLevel] = useState(user.englishLevel)
   const [technologies, setTechnologies] = useState(user.technologies)
   const [country, setCountry] = useState(user.country)
@@ -38,7 +39,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
         country,
         technologies,
         englishLevel,
-        cvPublicId
+        cv
       }
 
       const updatedUser = await editUser(newUser)
@@ -108,16 +109,17 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
 
           <CloudinaryUploadWidget
             className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
-            setFilePublicId={setCvPublicId}
+            setFilePublicId={setCv}
+            setFileName={setFileName}
           >
-            {cvPublicId ? cvPublicId : (
+            {fileName ? fileName : (
               <>
                 <span className="font-[500] text-opacity-80 text-linkIt-400">
                   {t('Carga tu CV')}
                 </span>
-                <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
               </>
             )}
+            <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
           </CloudinaryUploadWidget>
         </div>
 
