@@ -7,7 +7,7 @@ body {
         @apply fixed top-0 w-screen bg-linkIt-400 hover:bg-linkIt-300 h-[4vh] transition duration-300 ease-in-out  text-white text-sm flex items-center justify-center z-50
     }
     .navBar{
-@apply fixed top-[4vh] h-[8vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold
+@apply fixed top-[4vh] h-[8vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold shadow-sm
 }
 
     .containerBtnsNavbar {

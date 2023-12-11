@@ -318,15 +318,16 @@ function NavBar() {
             >
               <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
               <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button>
+              </li>
+              <hr className="w-[90%]" />
+              <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoServicesTalent}>{t('Servicios')}</button>
               </li>
               <hr className="w-[90%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoProcessTalent}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90%]" />
-              <li className="hover:text-linkIt-300">
-                <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button></li>
             </ul>
           </motion.nav>
 
