@@ -17,6 +17,7 @@ import {
   setBlogs,
   setEbooks,
   setEvents,
+  setStackTechnologies,
 } from "./redux/features/ResourcesSlice.ts";
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
@@ -111,6 +112,14 @@ function App() {
           "https://linkit-server.onrender.com/posts/find",
           { headers: { Authorization: `Bearer ${SUPERADMN_ID}` } }
         );
+
+        const responseTechnologies = await axios.get("https://linkit-server.onrender.com/resources/stackList",
+        {
+          headers:{
+            Authorization: `Bearer ${SUPERADMN_ID}`
+          }
+        })
+        dispatch(setStackTechnologies(responseTechnologies.data))
         dispatch(setResources(responseResources.data));
         dispatch(setEvents());
         dispatch(setBlogs());

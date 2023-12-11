@@ -18,6 +18,14 @@ interface OptionType {
 }
 
 const JobFilters = () => {
+
+  const allJobOffers = useSelector(
+    (state: any) => state.jobCard.allJobOffers as JobCardProps[]
+  );
+  
+  const allStackTechnologies = useSelector(
+    (state: any) => state.resources.stackTechnologies as string[]
+  );
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
   const { language } = i18n;
@@ -25,7 +33,11 @@ const JobFilters = () => {
   const [type, setType] = useState<string>("");
   const [modality, setModality] = useState<string>("");
 
-  const [stackValue, setStackValue] = useState<string>("");
+  const [checked, setChecked] = useState(
+    new Array(allStackTechnologies.length).fill(false)
+  );
+
+  const [stackValue, setStackValue] = useState<string[]>([]);
   const [typeValue, setTypeValue] = useState<string>("");
   const [modalityValue, setModalityValue] = useState<string>("");
 
@@ -39,9 +51,6 @@ const JobFilters = () => {
 
   const [country, setCountry] = useState<OptionType>({ value: "", label: "" });
 
-  const allJobOffers = useSelector(
-    (state: any) => state.jobCard.allJobOffers as JobCardProps[]
-  );
 
   const handleFilters = async () => {
     try {
@@ -94,28 +103,6 @@ const JobFilters = () => {
     );
   }, [language]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        stackRef.current &&
-        !stackRef.current.contains(event.target as Node) &&
-        typeRef.current &&
-        !typeRef.current.contains(event.target as Node) &&
-        modalityRef.current &&
-        !modalityRef.current.contains(event.target as Node)
-      ) {
-        setStackOpen("closed");
-        setTypeOpen("closed");
-        setModalityOpen("closed");
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <div className="flex w-[90%] justify-between items-center bg-white font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[3.5rem]">
       <section className="relative">
@@ -144,32 +131,35 @@ const JobFilters = () => {
           variants={dropdownVariants}
           initial="closed"
           animate={stackOpen}
-          onClick={() => {
-            setStackOpen("closed");
-          }}
           ref={stackRef}
         >
-          <li
-            onClick={() => {
-              setStack("Frontend"), setStackValue("frontend");
-            }}
-          >
-            FrontEnd
-          </li>
-          <li
-            onClick={() => {
-              setStack("Backend"), setStackValue("backend");
-            }}
-          >
-            BackEnd
-          </li>
-          <li
-            onClick={() => {
-              setStack("FullStack"), setStackValue("fullstack");
-            }}
-          >
-            FullStack
-          </li>
+          {allStackTechnologies?.map((stack: any, index: number) => {
+            return (
+              <>
+                <li
+                  key={index}
+                  className="flex flex-row justify-between items-center"
+                  onClick={() => {
+                    let newChecked = [...checked]; // copy the array
+                    newChecked[index] = !newChecked[index]; // toggle the value
+                    setChecked(newChecked); // update the state
+                  }}
+                >
+                  {stack.name}
+                  <div className="content">
+                    <label className="checkBox">
+                      <input
+                        id={`ch-${index}`}
+                        type="checkbox"
+                        checked={checked[index]}
+                      />
+                      <div className="transition"></div>
+                    </label>
+                  </div>
+                </li>
+              </>
+            );
+          })}
         </motion.ul>
       </section>
       <section className="relative">
@@ -199,8 +189,8 @@ const JobFilters = () => {
           initial="closed"
           animate={typeOpen}
           ref={typeRef}
-          onClick={()=>{
-            setTypeOpen("closed")
+          onClick={() => {
+            setTypeOpen("closed");
           }}
         >
           <li
@@ -272,8 +262,8 @@ const JobFilters = () => {
           initial="closed"
           animate={modalityOpen}
           ref={modalityRef}
-          onClick={()=>{
-            setModalityOpen("closed")
+          onClick={() => {
+            setModalityOpen("closed");
           }}
         >
           {language === "en" ? (
@@ -330,6 +320,7 @@ const JobFilters = () => {
                 ? { value: "", label: "Location" }
                 : { value: "", label: "Ubicación" }
             );
+            setChecked(new Array(allStackTechnologies.length).fill(false));
         }}
       >
         <img
