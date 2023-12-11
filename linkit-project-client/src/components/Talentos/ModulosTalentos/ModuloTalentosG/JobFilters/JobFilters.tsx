@@ -33,10 +33,6 @@ const JobFilters = () => {
   const [type, setType] = useState<string>("");
   const [modality, setModality] = useState<string>("");
 
-  const [checked, setChecked] = useState(
-    new Array(allStackTechnologies.length).fill(false)
-  );
-
   const [stackValue, setStackValue] = useState<string[]>([]);
   const [typeValue, setTypeValue] = useState<string>("");
   const [modalityValue, setModalityValue] = useState<string>("");
@@ -89,6 +85,14 @@ const JobFilters = () => {
       console.log(error);
     }
   };
+  
+  const handleStack = (stack: string) => {
+    if(stackValue.includes(stack)){
+      setStackValue(stackValue.filter((item)=>item!==stack))
+    }else{
+      setStackValue([...stackValue, stack])
+    }
+  }
 
   const dropdownVariants = {};
 
@@ -102,6 +106,10 @@ const JobFilters = () => {
         : { value: "", label: "Ubicación" }
     );
   }, [language]);
+
+  useEffect(() => {
+    console.log(stackValue)
+  },[stackValue])
 
   return (
     <div className="flex w-[90%] justify-between items-center bg-white font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[3.5rem]">
@@ -139,11 +147,7 @@ const JobFilters = () => {
                 <li
                   key={index}
                   className="flex flex-row justify-between items-center"
-                  onClick={() => {
-                    let newChecked = [...checked]; // copy the array
-                    newChecked[index] = !newChecked[index]; // toggle the value
-                    setChecked(newChecked); // update the state
-                  }}
+                  onClick={() => handleStack(stack.name)}
                 >
                   {stack.name}
                   <div className="content">
@@ -151,7 +155,8 @@ const JobFilters = () => {
                       <input
                         id={`ch-${index}`}
                         type="checkbox"
-                        checked={checked[index]}
+                        checked={stackValue.includes(stack.name)}
+                        onClick={(e)=> e.stopPropagation()}
                       />
                       <div className="transition"></div>
                     </label>
@@ -320,7 +325,6 @@ const JobFilters = () => {
                 ? { value: "", label: "Location" }
                 : { value: "", label: "Ubicación" }
             );
-            setChecked(new Array(allStackTechnologies.length).fill(false));
         }}
       >
         <img
