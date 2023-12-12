@@ -1,5 +1,5 @@
 @media screen and (min-width: 1280px) and (max-width: 1365px){
-    .container{
+    .container-resources{
         width: 17rem !important;
         height: 60vh !important;
     }
@@ -7,30 +7,46 @@
 }
 
 @media screen and (min-width: 1400px){
-    .container{
+    .container-resources{
         width: 17rem !important;
         height: 55vh !important;
     }
-    .genre{
+    .genre-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1680px) and (min-height: 1050px){
+    .container-resources{
+        width: 17rem !important;
+        height: 47.3vh !important;
+    }
+    .genre-resources{
+        font-size: 1rem !important;
+    }
+    .title-resources{
+        font-size: 1.2rem !important;
+    }
+    .description-resources{
         font-size: 1rem !important;
     }
 }
 
 @media screen and (min-width: 1720px){
-    .container{
+    .container-resources{
         width: 17rem !important;
         height: 50vh !important;
     }
-    .genre{
+    .genre-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
     .description{
@@ -40,20 +56,20 @@
 
 
 @media screen and (min-width: 1800px) and (max-width: 1920px){
-    .container{
+    .container-resources{
         width: 20rem !important;
         height: 48vh !important;
     }
-    .cards-container{
+    .cards-container-resources{
         gap: 5rem !important;
     }
-    .genre{
+    .genre-resources{
         font-size: 1rem !important;
     }
-    .title{
+    .title-resources{
         font-size: 1.2rem !important;
     }
-    .description{
+    .description-resources{
         font-size: 1rem !important;
     }
 }

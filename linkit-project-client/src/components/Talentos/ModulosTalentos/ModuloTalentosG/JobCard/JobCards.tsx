@@ -1,17 +1,16 @@
 // JobCardList.tsx
 import { FunctionComponent, useEffect, useState } from 'react';
 import JobCard, {JobCardProps} from './JobCard';
-import { getJobOffers } from '../../../Services/jobOffers.service';
+import { getJobOffers } from '../../../../Services/jobOffers.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobOffers } from '../../../../../redux/features/JobCardsSlice';
+import { motion } from 'framer-motion';
 
 
 const JobCards: FunctionComponent = () => {
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(0);
-  const jobOffers = useSelector((state: any) => state.jobCard.allJobOffers as JobCardProps[]);
-  console.log(jobOffers)
-
+  const jobOffers = useSelector((state: any) => state.jobCard.jobOffers as JobCardProps[]);
   const jobsPerPage = 6;
   const maxPages = Math.ceil(jobOffers.length / jobsPerPage);
   const handlePrev = () => setCurrent(current === 0 ? maxPages - 1 : current - 1);
@@ -22,7 +21,11 @@ const JobCards: FunctionComponent = () => {
       // Fetch my job offers from backend api
       const fetchedJobOffers = await getJobOffers()
       // Set the job offers in the state
-      dispatch(setJobOffers(fetchedJobOffers))
+
+      const activeJobOffers = fetchedJobOffers.filter((jobOffer) => jobOffer.archived === false)
+      dispatch(setJobOffers(activeJobOffers))
+
+
     }
 
     fetchedJobOffers()
@@ -34,14 +37,28 @@ const JobCards: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex w-full h-[340px] space-x-6 items-center justify-center">
-      <button onClick={handlePrev} className="text-3xl ">{'<'}</button>
+    <div className="flex w-full h-[340px] space-x-6 items-center justify-center gap-[10%]">
+      <button onClick={handlePrev} className=""><img src="/Vectores/previus.png" alt="previus" /></button>
       <div className="w-4/6 grid grid-cols-3 grid-rows-2 gap-5">
-        {jobOffersToShow.map((jobDescription) => (
-          <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
-        ))}
+        {jobOffers.length === 0
+        ? (
+          <div className='flex flex-row justify-center items-center content-center w-full col-span-3 row-span-2'>
+            <motion.p 
+            className='font-montserrat font-[600] whitespace-nowrap'
+            initial={{ opacity: 0, x: -1000 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5, type: 'spring', bounce: 0.25 }}
+            >¡Ups! No se encontraron ofertas de trabajo
+            </motion.p>
+          </div>
+          
+        )
+        : jobOffersToShow.map((jobDescription) => (
+        <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
+        ))
+      }
       </div>
-      <button onClick={handleNext} className="text-3xl ">{'>'}</button>
+      <button onClick={handleNext} className=""><img src="/Vectores/next.png" alt="next" /></button>
     </div>
   );
 };

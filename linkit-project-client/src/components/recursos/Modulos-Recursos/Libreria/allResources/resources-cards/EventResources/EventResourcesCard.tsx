@@ -1,4 +1,5 @@
 import { motion, Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import './EventResourcesCard.css'
 
 type EventCardProps = {
@@ -40,7 +41,7 @@ function EventResourceCard({
   description,
   link,
 }: EventCardProps) {
-
+  const {t} = useTranslation();
   const videoToThumbnail = (link: string) => {
     const videoId = link.split("v=")[1];
     return `https://img.youtube.com/vi/${videoId}/0.jpg`;
@@ -73,7 +74,7 @@ function EventResourceCard({
           <h2 className="mt-[1rem] font-bold text-[1.1rem] title">{title}</h2>
           <p className="mt-[2rem] font-[500] description-resources">{description}</p>
           <a href={link} target="_blank" className="mt-[2rem] font-bold">
-            Ver Grabación
+            {t('Ver Grabación')}
           </a>
         </div>
       </motion.div>

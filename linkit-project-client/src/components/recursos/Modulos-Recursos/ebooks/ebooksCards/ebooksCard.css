@@ -1,3 +1,16 @@
+
+
+@media screen and (min-width: 1366px){
+    .container-ebook{
+        height: 42vh !important;
+        padding-bottom: 22% !important;
+    }
+    .link-ebook{
+        margin-top: 15% !important;
+        
+    }
+}
+
 @media screen and (min-width: 1440px){
     .container-ebook{
         width: 27rem !important;
@@ -11,6 +24,12 @@
     }
     .description{
         font-size: 1rem !important;
+    }
+    .next{
+        width: 3rem !important;
+    }
+    .previus{
+        width: 3rem !important;
     }
 }
 
@@ -62,26 +81,6 @@
     }
     .cards-container{
         gap: 4rem !important;
-    }
-    .category{
-        font-size: 1rem !important;
-    }
-    .title{
-        font-size: 1.2rem !important;
-    }
-    .description{
-        font-size: 1rem !important;
-    }
-}
-
-@media screen and (min-width: 1800px){
-    .container-ebook{
-        width: 27rem !important;
-        height: 29vh !important;
-        margin: 0 auto !important;
-    }
-    .cards-container{
-        gap: 6rem !important;
     }
     .category{
         font-size: 1rem !important;

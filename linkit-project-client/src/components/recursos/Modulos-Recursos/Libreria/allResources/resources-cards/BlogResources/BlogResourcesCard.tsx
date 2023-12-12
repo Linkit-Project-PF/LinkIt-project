@@ -1,7 +1,10 @@
 import { motion, Variants } from "framer-motion";
 import "./BlogResources.css";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 type BlogsCardProps = {
+  _id: string;
   image: string;
   title: string;
   description: string;
@@ -34,10 +37,12 @@ const blogsCardVariants: Variants = {
   
 }
 
-function BlogsResourceCard({ image, title, description, link, genre }: BlogsCardProps) {
+function BlogsResourceCard({ image, title, description, genre, _id }: BlogsCardProps) {
+  const {t} = useTranslation();
+  const navigate = useNavigate();
   return (
     <motion.div 
-    className="flex flex-col border-[0.13rem] w-full rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[30rem] lg:h-[70vh] items-center justify-center bg-white card-container container"
+    className="flex flex-col border-[0.13rem] w-full rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[30rem] lg:h-[70vh] items-center justify-center bg-white card-container-resources container-resources"
     variants={blogsCardVariants}
     initial="hidden"
     whileInView={"visible"}
@@ -51,26 +56,25 @@ function BlogsResourceCard({ image, title, description, link, genre }: BlogsCard
           title.length > 20 ? "xl:-mt-4" : ""
         } image`}
       />
-      <div className="p-[3rem] flex flex-col flex-grow justify-between lg:w-full lg:p-[1rem] xl:p-[1.8rem] content-container">
+      <div className="p-[3rem] flex flex-col flex-grow justify-between lg:w-full lg:p-[1rem] xl:p-[1.8rem] content-container-resources">
         <div>
-          <p className="border-[2px] text-[0.8rem] mb-[10px] xl:mb-[1.5rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] genre">
+          <p className="border-[2px] text-[0.8rem] mb-[10px] xl:mb-[1.5rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] genre-resources">
             {genre}
           </p>
-          <h1 className="font-bold w-full text-[1.3rem] lg:text-[1rem] xl:w-[17rem] title">
+          <h1 className="font-bold w-full text-[1.3rem] lg:text-[1rem] xl:w-[17rem] title-resources">
             {title}
           </h1>
-          <p className="font-semibold text-[0.9rem] w-full mt-[15px] xl:mb-[1rem] description">
+          <p className="font-semibold text-[0.9rem] w-full mt-[15px] xl:mb-[1rem] description-resources">
             {description}
           </p>
         </div>
         <motion.a
-          href={link}
-          target="_blank"
-          className="text-[1rem] font-bold link"
+          className="text-[1rem] font-bold link-resources"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
+          onClick={()=>{navigate(`/blog/${_id}`)}}
         >
-          Leer Nota
+          {t('Leer Nota')}
         </motion.a>
       </div>
     </motion.div>

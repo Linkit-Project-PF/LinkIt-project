@@ -5,14 +5,18 @@ import Events from "./Modulos-Recursos/eventos/Events";
 import CV from "./Modulos-Recursos/cv/CV";
 import FAQ from "./Modulos-Recursos/FAQ/FAQ";
 import Footer from "../../Utils/Footer/Footer";
-
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 export default function Recursos() {
-  
+  const {t} = useTranslation(); 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <section id="moduloA">
-        <div className="bg-linkIt-200 h-[60vh] flex justify-center items-center content-center">
-          <h1 className="font-bold font-manrope text-white text-[3rem] mt-[4rem]">Recursos de LinkIT</h1>
+        <div className="bg-linkIt-200 h-[40vh] flex justify-center items-center content-center">
+          <h1 className="font-bold font-manrope text-white text-[3rem] mt-[4rem]">{t('Recursos de LinkIT')}</h1>
         </div>
       </section>
       <section id="blogs">

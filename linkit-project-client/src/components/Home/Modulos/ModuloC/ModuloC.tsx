@@ -1,31 +1,33 @@
+import { useTranslation } from "react-i18next"
 import './ModuloC.css'
 
 export default function ModuloC() {
+    const {t}= useTranslation()
     return (
         <div className="pb-1 m-2 lg:m-4 2xl:mx-12 xl:px-32">
-            <h1 className="flex justify-center font-semibold text-sm m-6 md:text-2xl lg:text-3xl lg:my-12 xl:text-4xl xl:m-6 2xl:text-5xl 2xl:m-24">¿Qué nos hace diferentes?</h1>
+            <h1 className="flex justify-center font-semibold text-sm m-6 md:text-2xl lg:text-3xl lg:my-12 xl:text-4xl xl:m-6 2xl:text-5xl 2xl:m-24">{t('¿Qué nos hace diferentes?')}</h1>
             <div>
                 <ul className="grid grid-cols-4 gap-2 md:gap-4 2xl:my-10 2xl:gap-10">
                     <div className="flex  flex-col text-center items-center 2xl:px-6">
-                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">Sin riesgos</li>
-                        <p className="text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.</p>
+                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">{t('Sin riesgos')}</li>
+                        <p className="text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">{t('Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.')}</p>
                         <br />
                     </div>
                     <div className="flex flex-col text-center items-center 2xl:px-6">
-                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">Fee a medida</li>
-                        <p className=" text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.</p>
+                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">{t('Fee a medida')}</li>
+                        <p className=" text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">{t('Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.')}</p>
                         <br />
 
                     </div>
                     <div className="flex flex-col text-center items-center 2xl:px-6">
-                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">Garantía</li>
-                        <p className="text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">Garantía de por vida contratando a través de LinkIT.</p>
+                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">{t('Garantía')}</li>
+                        <p className="text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">{t('Garantía de por vida contratando a través de LinkIT.')}</p>
                         <br />
 
                     </div>
                     <div className="flex flex-col text-center items-center 2xl:px-6 ">
-                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">Seguimiento continuo</li>
-                        <p className="text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">Asignamos un equipo de trabajo específico proporcionando un servicio integral y personalizado durante todo el proceso.</p>
+                        <li className="font-bold text-xs p-2 md:text-base lg:text-lg xl:text-xl xl:m-4 2xl:text-2xl">{t('Seguimiento continuo')}</li>
+                        <p className="text-center text-[10px] p-1 md:text-[13px] lg:text-sm xl:text-base xl:py-4 2xl:text-lg">{t('Asignamos un equipo de trabajo específico proporcionando un servicio integral y personalizado durante todo el proceso.')}</p>
                         <br />
                     </div>
                 </ul>

@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import TestimonialCard, { TestimonialCardProps } from './TestimonialCard'; 
-import { getReviews } from '../../../Services/reviews.service';
+import { getReviews } from '../../../../Services/reviews.service';
 
 const TestimonialCards: FunctionComponent = () => {
   const [current, setCurrent] = useState(0);
@@ -20,7 +20,10 @@ const TestimonialCards: FunctionComponent = () => {
       // Fetch my reviews from backend api
       const fetchedReviews = await getReviews()
       // Set the reviews in the state
-      setReviews(fetchedReviews)
+
+      const activeReviews = fetchedReviews.filter((review) => review.archived === false)
+      setReviews(activeReviews);
+
     }
 
     fetchReviews()

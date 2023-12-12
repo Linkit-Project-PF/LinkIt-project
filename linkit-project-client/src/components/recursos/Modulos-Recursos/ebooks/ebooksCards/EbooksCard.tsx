@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import "./ebooksCard.css";
 
 type EbooksCardProps = {
@@ -40,7 +41,7 @@ function EbooksCard({
   category,
 }: EbooksCardProps): JSX.Element {
   const [key, setKey] = useState(Math.random());
-
+  const {t} = useTranslation();
   useEffect(() => {
     setKey(Math.random()); // change key to force re-render
   }, [title, description, link, category]); // re-render when these props change
@@ -48,7 +49,7 @@ function EbooksCard({
   return (
     <motion.div
       key={key}
-      className="bg-white w-full border-[2px] border-linkIt-500 h-[50vh] xl:h-[17rem] font-montserrat rounded-[0.75rem] flex flex-col justify-between p-[2rem] lg:p-[1.5rem] lg:h-[55vh] container-ebook"
+      className="bg-white w-full border-[2px] border-linkIt-500 h-[10vh] xl:h-[45vh] font-montserrat rounded-[0.75rem] flex flex-col justify-between p-[2rem] lg:p-[1.5rem] lg:h-[55vh] container-ebook"
       variants={cardVariants}
       initial={"initial"}
       animate={"animate"}
@@ -63,10 +64,10 @@ function EbooksCard({
       </div>
       <motion.a 
       href={link} 
-      className="font-bold underlineLink" 
+      className="font-bold link-ebook" 
       target="_blank"
       >
-        Descargar
+        {t('Descargar')}
       </motion.a>
     </motion.div>
   );
