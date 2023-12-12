@@ -10,6 +10,7 @@ import Footer from "../../../../Utils/Footer/Footer";
 import UsersAdmin from "../Usuarios/UsersAdmin";
 import Statistics from "./AdminStatistics/Statistics";
 import { useTranslation } from "react-i18next";
+import Vacancies2 from "./AdminVacantes/Vacancies2";
 
 type userInfoProps = {
   _id: string;
@@ -22,7 +23,7 @@ type userInfoProps = {
 };
 
 export default function AdminPanel() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const token = useSelector((state: any) => state.Authentication.token);
 
   const [userData, setUserData] = useState<Partial<userInfoProps>>({});
@@ -56,6 +57,11 @@ export default function AdminPanel() {
       <h1 className="text-5xl pt-6 pl-16 font-bold">{t('Hola')} {userData.name}!</h1>
       <NavPanelAdmin />
       <Routes>
+        <Route path="vacantes" element={
+          <div>
+            <Vacancies /> <Vacancies2 />
+          </div>
+        } />
         <Route path="vacantes" element={<Vacancies />} />
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
