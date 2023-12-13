@@ -14,7 +14,7 @@ import Vacancies2 from "./AdminVacantes/Vacancies2";
 
 type userInfoProps = {
   _id: string;
-  name: string;
+  firstName: string;
   email: string;
   phone: string;
   country: string;
@@ -54,14 +54,10 @@ export default function AdminPanel() {
 
   return (
     <div className="pt-32">
-      <h1 className="text-5xl pt-6 pl-16 font-bold">{t('Hola')} {userData.name}!</h1>
+      <h1 className="text-5xl pt-6 pl-16 font-bold">{t('Hola')} {userData.firstName}!</h1>
       <NavPanelAdmin />
       <Routes>
-        <Route path="vacantes" element={
-          <div>
-            <Vacancies /> <Vacancies2 />
-          </div>
-        } />
+        <Route path="vacantes" element={<Vacancies2 />} />
         <Route path="vacantes" element={<Vacancies />} />
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
