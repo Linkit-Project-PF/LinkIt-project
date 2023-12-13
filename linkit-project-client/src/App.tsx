@@ -31,6 +31,7 @@ import BlogView from "./components/recursos/Modulos-Recursos/blogs/blogs-view/Bl
 import TopButton from "./Utils/TopButton.tsx";
 import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
 import Error from "./components/Errores/Error.tsx";
+import ReactGA from "react-ga4";
 
 type registerLoginState = {
   registerLogin: {
@@ -102,6 +103,19 @@ function App() {
     (state: registerLoginState) => state.registerLogin.pressLoginCompany
   );
 
+  //* GOOGLE ANALYTICS IN PROGRESS
+  useEffect(() => {
+    const googleAnalytics = async () => {
+      try {
+        const ga4react = ReactGA.initialize("G-M6F6EHLMX7")
+        console.log('Google Analytics', ga4react)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    googleAnalytics()
+  }, []);
+
   useEffect(() => {
     /**
      * Fetches data from the server and sets the job offers in the state.
@@ -114,11 +128,11 @@ function App() {
         );
 
         const responseTechnologies = await axios.get("https://linkit-server.onrender.com/resources/stackList",
-        {
-          headers:{
-            Authorization: `Bearer ${SUPERADMN_ID}`
-          }
-        })
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`
+            }
+          })
         dispatch(setStackTechnologies(responseTechnologies.data))
         dispatch(setResources(responseResources.data));
         dispatch(setEvents());
