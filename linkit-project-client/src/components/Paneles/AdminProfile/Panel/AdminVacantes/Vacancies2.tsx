@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
+import { UserPostulations } from "./userPostulations";
 
 
 type stateProps = {
@@ -18,8 +19,11 @@ export default function Vacancies2() {
 
     const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
     const token = useSelector((state: any) => state.Authentication.token);
-    const [saveStatus, setSaveStatus] = useState(false);
+    const [saveStatus, /*setSaveStatus*/] = useState(false); //* Estado que actualiza la info de la tabla
     const dispatch = useDispatch();
+
+    const [viewPostul, setViewPostul] = useState(false);
+    const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
 
     const [viewCol, setViewCol] = useState({
         title: true,
@@ -41,7 +45,7 @@ export default function Vacancies2() {
         archived: true,
     })
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 15;
     const [currentPage, setCurrentPage] = useState(0);
 
     const startIndex = currentPage * itemsPerPage;
@@ -50,6 +54,18 @@ export default function Vacancies2() {
     const dataToShow = data.slice(startIndex, endIndex);
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
+
+    const hidePostul = () => {
+        setViewPostul(false);
+    };
+
+    const handlePostul = (id: string): void => {
+        const activeRow = data.find((v) => v._id === id);
+        if (activeRow) {
+            setPostulData(activeRow);
+            setViewPostul(true);
+        }
+    };
 
     const handleNext = () => {
         setCurrentPage(currentPage + 1);
@@ -74,7 +90,6 @@ export default function Vacancies2() {
         loadData();
     }, [saveStatus]);
 
-    console.log(data)
 
     const hideCol = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target
@@ -87,10 +102,13 @@ export default function Vacancies2() {
     return (
         <div className='bg-scroll bg-linkIt-500'>
 
-            <HeadVacancy hideCol={hideCol} viewCol={viewCol} />
+
+            <HeadVacancy
+                hideCol={hideCol}
+                viewCol={viewCol}
+            />
 
             <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-t-lg'>
-
                 {viewCol.title &&
                     <div className=''>
                         <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
@@ -107,7 +125,7 @@ export default function Vacancies2() {
                         </div>
                         <div className=''>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.title}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.title}</p>
                             ))}
                         </div>
                     </div>
@@ -121,7 +139,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.description}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.description}</p>
                             ))}
                         </div>
                     </div>
@@ -144,7 +162,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.type}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.type}</p>
                             ))}
                         </div>
                     </div>
@@ -157,7 +175,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.location}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.location}</p>
                             ))}
                         </div>
                     </div>
@@ -179,7 +197,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.modality}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.modality}</p>
                             ))}
                         </div>
                     </div>
@@ -192,7 +210,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack}</p>
                             ))}
                         </div>
                     </div>
@@ -205,7 +223,9 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 text-center border-b-2 border-r-2 border-linkIt-50'>{v.users.length}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 text-center border-b-2 border-r-2 border-linkIt-50'>
+                                    <a className='cursor-pointer hover:text-linkIt-300' onClick={() => handlePostul(v._id)}>{v.users.length}</a>
+                                    </p>
                             ))}
                         </div>
                     </div>
@@ -218,7 +238,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.aboutUs}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.aboutUs}</p>
                             ))}
                         </div>
                     </div>
@@ -231,7 +251,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.aboutClient}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.aboutClient}</p>
                             ))}
                         </div>
                     </div>
@@ -244,7 +264,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.responsabilities}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.responsabilities}</p>
                             ))}
                         </div>
                     </div>
@@ -257,7 +277,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.requirements}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.requirements}</p>
                             ))}
                         </div>
                     </div>
@@ -270,7 +290,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.niceToHave}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.niceToHave}</p>
                             ))}
                         </div>
                     </div>
@@ -283,7 +303,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.benefits}</p>
+                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.benefits}</p>
                             ))}
                         </div>
                     </div>
@@ -305,7 +325,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.company}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.company}</p>
                             ))}
                         </div>
                     </div>
@@ -327,7 +347,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.status}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.status}</p>
                             ))}
                         </div>
                     </div>
@@ -341,7 +361,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.code}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.code}</p>
                             ))}
                         </div>
                     </div>
@@ -363,7 +383,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? "Oculta" : "Visible"}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? "Oculta" : "Visible"}</p>
                             ))}
                         </div>
                     </div>
@@ -371,6 +391,31 @@ export default function Vacancies2() {
 
 
             </div>
+            <div className="flex flex-row justify-around">
+                <button
+                    className=""
+                    onClick={handlePrevius}
+                    disabled={currentPage === 0}
+                >
+                    Anterior
+                </button>
+                <span className='text-center'>
+                    Pagina {currentPage + 1} de {totalPages}
+                </span>
+                <button
+                    className=""
+                    onClick={handleNext}
+                    disabled={endIndex >= data.length}
+                >
+                    Siguiente
+                </button>
+            </div>
+            {viewPostul && (
+                <UserPostulations
+                    onClose={hidePostul}
+                    jdId={postulData._id as string}
+                />
+            )}
         </div>
     )
 }
