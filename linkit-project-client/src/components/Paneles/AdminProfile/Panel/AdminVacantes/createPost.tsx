@@ -70,7 +70,7 @@ export function CreatePostulation(props: propsInterface) {
 
       alert(t("Se ha creado una nueva vacante exitosamente."));
     } catch (error: any) {
-      alert(error.response);
+      alert(error.response.data);
     }
   }
 

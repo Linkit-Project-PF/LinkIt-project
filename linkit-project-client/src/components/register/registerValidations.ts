@@ -2,17 +2,17 @@ import { Error, User } from "./register.types"
 
 function validations(user: User) {
     const errors: Error = {
-        name: "",
+        firstName: "",
         lastname: "",
         email: "",
         password: "",
         confirm_password: ""
     }
 
-    if(user.name.trim() === ""){
-        errors.name = "Debes escribir un nombre"
-    }else if(/[\d]/.test(user.name)){
-        errors.name = "El nombre no debe contener numeros"
+    if(user.firstName.trim() === ""){
+        errors.firstName = "Debes escribir un nombre"
+    }else if(/[\d]/.test(user.firstName)){
+        errors.firstName = "El nombre no debe contener numeros"
     }
 
     if(user.lastname.trim() === ""){
