@@ -247,7 +247,7 @@ function NavBar() {
          </div>
         
           <motion.button
-            className={` border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300" : " border-b-transparent"}`}
+            className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300" : " border-b-transparent"}`}
             onClick={() => goHome()}
           >
             {t('Inicio')}

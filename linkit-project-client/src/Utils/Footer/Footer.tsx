@@ -244,7 +244,6 @@ export default function Footer() {
         </div>
       </div >
       <br />
-      <hr />
       <br />
     </div >
   )
