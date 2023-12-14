@@ -31,6 +31,7 @@ import BlogView from "./components/recursos/Modulos-Recursos/blogs/blogs-view/Bl
 import TopButton from "./Utils/TopButton.tsx";
 import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
 import Error from "./components/Errores/Error.tsx";
+import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
 import ReactGA from "react-ga4";
 
 type registerLoginState = {
@@ -201,6 +202,7 @@ function App() {
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
+        <Route path="/soyTalento/Joboffer/:id/application" element={<JobForm/>} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />

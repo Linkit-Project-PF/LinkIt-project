@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./JobDescription.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { SUPERADMN_ID } from "../../../../../../env";
 import { JobDescriptionProps } from "./typesJobs";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import TopButton from "../../../../../../Utils/TopButton";
+import JobForm from "./job-form/JobForm";
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
@@ -45,7 +46,7 @@ function JobDescription() {
   return (
     <>
       <article className="mt-[10rem] mx-[5%] font-montserrat text-linkIt-400 flex flex-col relative">
-        <div className="flex flex-row w-full relative h-[500vh]">
+        <div className="flex flex-row w-full relative mb-[10%]">
           <div>
             <header className="mb-[3%]">
                 <motion.button
@@ -148,30 +149,17 @@ function JobDescription() {
                 })}
               </ul>
             </section>
-            <section className=" mt-[10%] mb-[10%] flex flex-row content-center items-center">
+            <section className=" mt-[10%] flex flex-row content-center items-center">
               <img
                 src="/Vectores/complete-form.svg"
                 alt="complete-form"
                 className="w-[4.5rem] mr-[1.5%]"
               />
               <h3 className="font-bold text-black text-2xl">
-                Para aplicar por favor completa <br /> el siguiente formulario
+                Para aplicar por favor completa <br /> el siguiente <Link to={`/soyTalento/Joboffer/${id}/application`}>formulario</Link>
               </h3>
             </section>
           </div>
-          <section className="relative mb-[3%] right-[-5%] ">
-            <iframe
-              className="airtable-embed"
-              src="https://airtable.com/embed/appPc8zZP29ez9V2O/shrDb6l9hbaByBAcX?backgroundColor=gray"
-              style={{
-                background: "transparent",
-                width: "40vw",
-                border: "1px solid #ccc",
-                height: "100%",
-                borderRadius: "8px",
-              }}
-            ></iframe>
-          </section>
         </div>
         <section className="bg-linkIt-300 mx-[-6%] text-white text-center h-[50vh] flex flex-row justify-center content-center items-center">
           <h3 className="font-bold">NEWSLETTER</h3>
@@ -179,7 +167,6 @@ function JobDescription() {
         <footer className="mx-[-6%] ">
           <Footer />
         </footer>
-        <TopButton />
       </article>
     </>
   );
