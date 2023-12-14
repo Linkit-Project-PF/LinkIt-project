@@ -7,7 +7,7 @@ import {
 import { JobCardProps } from "../JobCard/JobCard";
 import "./JobFilter.css";
 import { useTranslation } from "react-i18next";
-import { SUPERADMN_ID } from "../../../../../env";
+import { SUPERADMN_ID } from '../../../../../env';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { applyFilters } from "../../../../../redux/features/JobCardsSlice";
@@ -37,49 +37,48 @@ const JobFilters = () => {
   const [typeValue, setTypeValue] = useState<string>("");
   const [modalityValue, setModalityValue] = useState<string>("");
 
-  const [stackOpen, setStackOpen] = useState<string>("closed");
-  const [typeOpen, setTypeOpen] = useState<string>("closed");
-  const [modalityOpen, setModalityOpen] = useState<string>("closed");
+  const [stackOpen, setStackOpen] = useState<boolean>(false);
+  const [typeOpen, setTypeOpen] = useState<boolean>(false);
+  const [modalityOpen, setModalityOpen] = useState<boolean>(false);
 
-  const stackRef = useRef<HTMLUListElement | null>(null);
-  const typeRef = useRef<HTMLUListElement | null>(null);
-  const modalityRef = useRef<HTMLUListElement | null>(null);
+  const stackRef = useRef<HTMLButtonElement | null>(null);
+  const typeRef = useRef<HTMLButtonElement | null>(null);
+  const modalityRef = useRef<HTMLButtonElement | null>(null);
 
   const [country, setCountry] = useState<OptionType>({ value: "", label: "" });
 
 
   const handleFilters = async () => {
+    const url = `https://linkit-server.onrender.com/jds/find?${
+      stackValue.length >= 1 ? `stack=${stackValue.map((tech) => `${tech}`)}` : ""
+    }${
+      language === "en"
+        ? `${
+            type !== "Type" ? `&type=${typeValue.toLocaleLowerCase()}` : ``
+          }`
+        : `${
+            type !== "Tipo" ? `&type=${typeValue.toLocaleLowerCase()}` : ``
+          }`
+    }${
+      language === "en"
+        ? `${
+            modality !== "Modality"
+              ? `&modality=${modalityValue.toLocaleLowerCase()}`
+              : ``
+          }`
+        : `${
+            modality !== "Modalidad"
+              ? `&modality=${modalityValue.toLocaleLowerCase()}`
+              : ``
+          }`
+    }${country.value !== "" ? `&location=${country.value}` : ""}`
+
     try {
-      const response = await axios.get(
-        `https://linkit-server.onrender.com/jds/find?${
-          stack !== "Stack" ? `stack=${stackValue}` : ""
-        }${
-          language === "en"
-            ? `${
-                type !== "Type" ? `&type=${typeValue.toLocaleLowerCase()}` : ``
-              }`
-            : `${
-                type !== "Tipo" ? `&type=${typeValue.toLocaleLowerCase()}` : ``
-              }`
-        }${
-          language === "en"
-            ? `${
-                modality !== "Modality"
-                  ? `&modality=${modalityValue.toLocaleLowerCase()}`
-                  : ``
-              }`
-            : `${
-                modality !== "Modalidad"
-                  ? `&modality=${modalityValue.toLocaleLowerCase()}`
-                  : ``
-              }`
-        }${country.value !== "" ? `&location=${country.value}` : ""}`,
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-          },
+      const response = await axios.get(url, {
+        headers:{
+          Authorization: `Bearer ${SUPERADMN_ID}`
         }
-      );
+      })
       dispatch(applyFilters(response.data));
     } catch (error) {
       console.log(error);
@@ -108,18 +107,31 @@ const JobFilters = () => {
   }, [language]);
 
   useEffect(() => {
-    console.log(stackValue)
-  },[stackValue])
+    console.log(stack)
+    let handler = (event: any) =>{
+      if(!stackRef.current?.contains(event.target) && !event.target.matches('.dropdown-stack *')){
+        setStackOpen(false)
+      }
+      if(!typeRef.current?.contains(event.target) && !event.target.matches('.dropdown-type *')){
+        setTypeOpen(false)
+      }
+      if(!modalityRef.current?.contains(event.target) && !event.target.matches('.dropdown-modality *')){
+        setModalityOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handler);
+  },[])
 
   return (
     <div className="flex w-[90%] justify-between items-center bg-white font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[3.5rem]">
       <section className="relative">
         <button
           className="flex flex-row justify-center items-center gap-[1rem]"
+          ref={stackRef}
           onClick={() => {
-            setStackOpen(stackOpen === "closed" ? "open" : "closed");
-            setTypeOpen("closed");
-            setModalityOpen("closed");
+            setStackOpen(!stackOpen);
+            setTypeOpen(false);
+            setModalityOpen(false);
           }}
         >
           {stack}
@@ -127,19 +139,21 @@ const JobFilters = () => {
             src="/Vectores/dropdown.png"
             alt="dropdown-arrow"
             className={`w-[1.1rem] ml-[30%] mr-[-10%] ${
-              stackOpen === "open" ? "rotate" : "normal"
+              stackOpen  ? "rotate" : "normal"
             }`}
           />
           <hr className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" />
         </button>
         <motion.ul
           className={`bg-white ${
-            stackOpen === "open" ? "dropdown-stack" : "hidden"
+            stackOpen ? "dropdown-stack" : "hidden"
           } rounded-b-[8px] z-[10]`}
           variants={dropdownVariants}
           initial="closed"
           animate={stackOpen}
-          ref={stackRef}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           {allStackTechnologies?.map((stack: any, index: number) => {
             return (
@@ -171,31 +185,31 @@ const JobFilters = () => {
         <button
           className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
           onClick={() => {
-            setTypeOpen(typeOpen === "closed" ? "open" : "closed");
-            setStackOpen("closed");
-            setModalityOpen("closed");
+            setTypeOpen(!typeOpen);
+            setStackOpen(false);
+            setModalityOpen(false);
           }}
+          ref={typeRef}
         >
           {type}
           <img
             src="/Vectores/dropdown.png"
             alt="dropdown-arrow"
             className={`w-[1.1rem] ml-[30%] mr-[-10%] ${
-              typeOpen === "open" ? "rotate" : "normal"
+              typeOpen ? "rotate" : "normal"
             }`}
           />
           <hr className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" />
         </button>
         <motion.ul
           className={`bg-white ${
-            typeOpen === "open" ? "dropdown-type" : "hidden"
+            typeOpen ? "dropdown-type" : "hidden"
           } rounded-b-[8px] z-[10]`}
           variants={dropdownVariants}
           initial="closed"
           animate={typeOpen}
-          ref={typeRef}
           onClick={() => {
-            setTypeOpen("closed");
+            setTypeOpen(false);
           }}
         >
           <li
@@ -244,31 +258,31 @@ const JobFilters = () => {
         <button
           className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
           onClick={() => {
-            setModalityOpen(modalityOpen === "closed" ? "open" : "closed");
-            setTypeOpen("closed");
-            setStackOpen("closed");
+            setModalityOpen(!modalityOpen);
+            setTypeOpen(false);
+            setStackOpen(false);
           }}
+          ref={modalityRef}
         >
           {modality}
           <img
             src="/Vectores/dropdown.png"
             alt="dropdown-arrow"
             className={`w-[1.1rem] ml-[30%] mr-[-10%] ${
-              modalityOpen === "open" ? "rotate" : "normal"
+              modalityOpen  ? "rotate" : "normal"
             }`}
           />
           <hr className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" />
         </button>
         <motion.ul
           className={`bg-white ${
-            modalityOpen === "open" ? "dropdown-modality" : "hidden"
+            modalityOpen  ? "dropdown-modality" : "hidden"
           } rounded-b-[8px] z-[10]`}
           variants={dropdownVariants}
           initial="closed"
           animate={modalityOpen}
-          ref={modalityRef}
           onClick={() => {
-            setModalityOpen("closed");
+            setModalityOpen(false);
           }}
         >
           {language === "en" ? (

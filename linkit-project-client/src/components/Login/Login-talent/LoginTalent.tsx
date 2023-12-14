@@ -136,6 +136,7 @@ function LoginTalent() {
           if (usersData.data.length) {
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
+            console.log(authUser)
             Swal.fire({
               title: t("Bienvenido de vuelta", {name:authUser.name}),
               text: t("Has ingresado correctamente"),

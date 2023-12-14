@@ -37,7 +37,8 @@ export type UserProps = {
   _id: string;
   airTableId: string;
   image: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   country: string;
   phone: string;
@@ -61,4 +62,24 @@ export type ReviewProps = {
   country: string
   detail: string
   archived: boolean,
+}
+
+export interface ViewCol {
+  title: boolean;
+  description: boolean;
+  type: boolean;
+  location: boolean;
+  modality: boolean;
+  stack: boolean;
+  users: boolean;
+  AboutUs: boolean;
+  AboutClient: boolean;
+  responsabilities: boolean;
+  requiriments: boolean;
+  niceToHave: boolean;
+  benefits: boolean;
+  company: boolean;
+  status: boolean;
+  code: boolean;
+  archived: boolean;
 }
