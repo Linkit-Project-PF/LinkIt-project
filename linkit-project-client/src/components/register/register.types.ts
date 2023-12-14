@@ -1,5 +1,5 @@
 export type User = {
-  name: string,
+  firstName: string,
   lastname: string,
   email: string,
   password: string,
@@ -7,7 +7,7 @@ export type User = {
 }
 
 export type Error = {
-  name: string,
+  firstName: string,
   lastname: string,
   email: string,
   password: string,
