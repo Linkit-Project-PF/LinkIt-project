@@ -59,7 +59,7 @@ function Register() {
   };
 
   const [user, setUser] = useState({
-    name: "",
+    firstName: "",
     companyName: "",
     lastname: "",
     email: "",
@@ -68,7 +68,7 @@ function Register() {
     role: sessionStorage.getItem("RegisterType"),
   });
   const [errors, setErrors] = useState({
-    name: "",
+    firstName: "",
     lastname: "",
     email: "",
     password: "",
@@ -130,8 +130,7 @@ function Register() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
       try {
-      if (user.role === "user") user.name = user.name + " " + user.lastname;
-      if (user.role === 'company') user.companyName = user.name;
+      if (user.role === 'company') user.companyName = user.firstName;
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
         user
@@ -140,7 +139,7 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: t("Bienvenido a LinkIT",{name:user.name}),
+          text: t("Bienvenido a LinkIT",{name:user.firstName}),
           confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
@@ -205,7 +204,6 @@ function Register() {
         // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
           //* In case trying to register with google but user already exists
-          console.log(import.meta.env);
           const result = await axios.get(
             `https://linkit-server.onrender.com/users/find?email=${response.user.email}`,
             {
@@ -239,9 +237,9 @@ function Register() {
           title: t("¡Registro exitoso!"),
           text: t("welcomeToLinkIT", {
             name:
-              DBresponse.name === "undefined"
+              DBresponse.firstName === "undefined"
                 ? DBresponse.companyName
-                : DBresponse.name,
+                : DBresponse.firstName,
           }),
           confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
@@ -368,11 +366,11 @@ function Register() {
               className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
               placeholder={user.role === "user" ? t("Nombre") : t("Nombre de la empresa")}
               name="name"
-              value={user.name}
+              value={user.firstName}
               onChange={handleInputChange}
             />
             {
-              errors.name && ( <p className="text-red-500 text-xs italic">{errors.name}</p> )
+              errors.firstName && ( <p className="text-red-500 text-xs italic">{errors.firstName}</p> )
             }
             {
               user.role === "user" &&
@@ -455,25 +453,25 @@ function Register() {
               type="submit"
               disabled={
                 user.role === "user"
-                  ? errors.name ||
+                  ? errors.firstName ||
                     errors.email ||
                     errors.password ||
                     errors.confirm_password ||
                     user.confirm_password !== user.password ||
                     user.password.length < 8 ||
-                    user.name === "" ||
+                    user.firstName === "" ||
                     user.email === "" ||
                     user.password === "" ||
                     user.confirm_password === ""
                     ? true
                     : false
-                  : errors.name ||
+                  : errors.firstName ||
                     errors.email ||
                     errors.password ||
                     errors.confirm_password ||
                     user.confirm_password !== user.password ||
                     user.password.length < 8 ||
-                    user.name === "" ||
+                    user.firstName === "" ||
                     user.email === "" ||
                     user.password === "" ||
                     user.confirm_password === ""
