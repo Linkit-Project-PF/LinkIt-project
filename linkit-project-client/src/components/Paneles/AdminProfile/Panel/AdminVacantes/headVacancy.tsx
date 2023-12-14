@@ -2,8 +2,9 @@
 
 import React, { useState } from "react"
 import { ViewCol } from "../../../admin.types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
+import { setsearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,6 +16,11 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
 
     const [options, setOptions] = useState(false)
     const [viewForm, setViewForm] = useState(false);
+    const dispatch = useDispatch();
+
+    const handleSearch = (searchTerm: string) =>{
+        dispatch(setsearchJobOffers(searchTerm))
+    }
 
     const showForm = () => {
         setViewForm(true);
@@ -50,22 +56,20 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                     </div>
                     <div>
                         <select placeholder='Ordenar' className="ml-2">
-                            <option value=""></option>
-                            <option value="A-Z">A-Z</option>
-                            <option value="Z-A">Z-A</option>
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
                     </div>
                 </div>
-                <div className="flex flex-row">
-                    <div>
-                        <button onClick={hideOptions}>Columnas</button>
+
+                <div className="relative">
+                    <div className="flex flex-row">
+                        <div>
+                            <button onClick={hideOptions}>Columnas</button>
+                        </div>
                     </div>
-                </div>
-                <div className="">
                     {options &&
-                        <div className="flex flex-col">
+                        <div className="flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-52 pl-2 absolute bg-linkIt-500">
                             <label>
                                 <input type="checkbox" name="title" checked={viewCol.title} onChange={hideCol} />
                                 Título
@@ -137,9 +141,12 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                         </div>
                     }
                 </div>
-
                 <div>
-                    <input type="text" placeholder="Buscar" />
+                    <input 
+                    type="text" 
+                    placeholder="Buscar"
+                    onChange={(e)=>handleSearch(e.target.value)} 
+                    />
                 </div>
             </div>
             {viewForm && <FormVacancie onClose={noShowForm} token={token} />}

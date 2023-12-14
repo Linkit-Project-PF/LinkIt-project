@@ -70,7 +70,7 @@ export function CreatePostulation(props: propsInterface) {
 
       alert(t("Se ha creado una nueva vacante exitosamente."));
     } catch (error: any) {
-      alert(error.response.data);
+      console.error(error);
     }
   }
 
@@ -89,6 +89,7 @@ export function CreatePostulation(props: propsInterface) {
       <form onSubmit={handleSubmit} className="min-w-full divide-y divide-gray-200 grid grid-cols-6">
         <label className="">{t('ID de la vacante:')} </label>
         <input
+          className="appearance-none"
           name="jd"
           value={info.jd}
           type="text"
