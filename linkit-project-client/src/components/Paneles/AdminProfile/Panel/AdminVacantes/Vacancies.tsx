@@ -63,8 +63,8 @@ export default function Vacancies() {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         dispatch(setJobOffers(response.data));
-      } catch (error) {
-        console.error("Error al cargar las ofertas de trabajo", error);
+      } catch (error: any) {
+        console.error("Error al cargar las ofertas de trabajo", error.response.data);
       }
     };
     loadData();

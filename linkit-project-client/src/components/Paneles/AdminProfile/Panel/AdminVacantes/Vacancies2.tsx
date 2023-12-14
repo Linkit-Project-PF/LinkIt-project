@@ -210,7 +210,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack.join(",")}</p>
                             ))}
                         </div>
                     </div>

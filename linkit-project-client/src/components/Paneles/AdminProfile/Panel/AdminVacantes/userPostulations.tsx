@@ -28,6 +28,7 @@ export function UserPostulations(props: propsInterface) {
   const [error, setError] = useState("");
   const [saving, isSaving] = useState(false);
 
+
   const token = useSelector((state: any) => state.Authentication.token);
 
   useEffect(() => {
@@ -56,8 +57,8 @@ export function UserPostulations(props: propsInterface) {
           newArr.push(newObj);
         }
         setUserList(newArr);
-      } catch (error) {
-        console.error(error);
+      } catch (error:any) {
+        console.error(error.response.data);
       }
     };
     getUsers();
@@ -102,6 +103,7 @@ export function UserPostulations(props: propsInterface) {
       } catch (error: any) {
         alert(error.response);
       }
+      isSaving(!saving)
     }
   }
 
@@ -120,8 +122,8 @@ export function UserPostulations(props: propsInterface) {
           { user, jd, status, operation: "status" },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        isSaving(!saving);
         alert("Se ha cambiado el estado existosamente");
+        isSaving(!saving);
       } catch (error: any) {
         alert(error.response);
       }
@@ -129,6 +131,7 @@ export function UserPostulations(props: propsInterface) {
       setStatus("");
       setPrevStatus("");
       setError("");
+      isSaving(!saving)
     }
   }
 
@@ -151,6 +154,7 @@ export function UserPostulations(props: propsInterface) {
           <tr className="">
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">ID</th>
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Nombre')}</th>
+            <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Apellido')}</th>
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Correo')}</th>
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Ubicacion')}</th>
             <th className="px-6 py-3 text-left text-[0.7vw] font-medium tracking-wider font-montserrat">{t('Tecnologias')}</th>
@@ -163,7 +167,8 @@ export function UserPostulations(props: propsInterface) {
           {userList.map((obj) => (
             <tr key={obj?.user._id} className="">
               <td className="px-6 py-4 text-[0.8vw]">{obj?.user._id}</td>
-              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.name}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.firstName}</td>
+              <td className="px-6 py-4 text-[0.8vw]">{obj?.user.lastName}</td>
               <td className="px-6 py-4 text-[0.8vw]">{obj?.user.email}</td>
               <td className="px-6 py-4 text-[0.8vw]">{obj?.user.country}</td>
               <td className="px-6 py-4 text-[0.8vw]">{obj?.user.technologies.join(", ")}</td>
