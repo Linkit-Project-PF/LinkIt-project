@@ -15,6 +15,7 @@ import Vacancies2 from "./AdminVacantes/Vacancies2";
 type userInfoProps = {
   _id: string;
   firstName: string;
+  lastaName: string;
   email: string;
   phone: string;
   country: string;
@@ -28,6 +29,7 @@ export default function AdminPanel() {
 
   const [userData, setUserData] = useState<Partial<userInfoProps>>({});
   const nav = useNavigate();
+
 
   useEffect(() => {
     const infoUser = async () => {
