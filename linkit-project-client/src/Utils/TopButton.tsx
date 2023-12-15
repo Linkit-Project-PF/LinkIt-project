@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import arrowImage from '../../public/Vectores/white-arrow.png'
+import arrowImage from '/Vectores/white-arrow.png'
 import "./topButton.css"
 
 export default function TopButton() {

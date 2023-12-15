@@ -4,6 +4,7 @@ import arrow from "/Vectores/arrow.png";
 import axios from "axios";
 
 interface VacancyFirstState {
+  [key: string]: string;
   positionV: string;
   englishLevel: string;
   seniorityV: string;
@@ -69,7 +70,8 @@ function useMenuAnimation(isOpen: boolean) {
       frameworks: [],
       others: [],
     });
-
+    
+    
     const [price, setPrice] = useState({
       min: "$0",
       max: "$0"
@@ -77,12 +79,51 @@ function useMenuAnimation(isOpen: boolean) {
   
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value} = e.target;
+      const { name, value, checked} = e.target;
+
+      if (name === 'positionV') {
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[name="positionV"]');
+        
+        
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.value !== value) {
+            checkbox.checked = false;
+          }
+        });
+      }
+      if (name === 'englishLevel') {
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[name="englishLevel"]');
+        
+        
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.value !== value) {
+            checkbox.checked = false;
+          }
+        });
+      }
+      if (name === 'seniorityV') {
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[name="seniorityV"]');
+        
+        
+        checkboxes.forEach((checkbox) => {
+          if (checkbox.value !== value) {
+            checkbox.checked = false;
+          }
+        });
+      }
       if (vacancyFirst.hasOwnProperty(name)) {
-        setVacancyFirst((prevVacancyFirst) => ({
-          ...prevVacancyFirst,
-          [name]: value,
-        }));
+        if (!checked) {
+          setVacancyFirst((prevVacancyFirst) => {
+            const updatedVacancyFirst = { ...prevVacancyFirst };
+            updatedVacancyFirst[name] = "";
+            return updatedVacancyFirst;
+          });
+        } else {
+          setVacancyFirst((prevVacancyFirst) => ({
+            ...prevVacancyFirst,
+            [name]: value,
+          }));
+        }
       } else {
         setVacancySecond((prevVacancySecond) => ({
           ...prevVacancySecond,
@@ -97,7 +138,22 @@ function useMenuAnimation(isOpen: boolean) {
       try {
         const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond)
         if(response.status === 200) {
-          console.log(response)
+          const data = response.data
+          setPrice(data)
+          setVacancyFirst({
+            positionV: "",
+            englishLevel: "",
+            seniorityV: "",
+          })
+          setVacancySecond({
+            technologies: [],
+            frameworks: [],
+            others: [],
+          })
+          const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+          });
         }
       } catch (error) {
         console.log(error)
@@ -290,8 +346,8 @@ function useMenuAnimation(isOpen: boolean) {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((tech: string) => (
-                    <li> 
+              {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((tech: string, index: number) => (
+                    <li key={index}> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="technologies" value={tech} id={tech} onChange={handleChange} />
                     <label htmlFor={tech} className="cursor-pointer">{tech}</label>
                     </li>
@@ -324,8 +380,8 @@ function useMenuAnimation(isOpen: boolean) {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string) => (
-                    <li> 
+              {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
+                    <li key={index}> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
                     <label htmlFor={frameworks} className="cursor-pointer">{frameworks}</label>
                     </li>
@@ -358,9 +414,9 @@ function useMenuAnimation(isOpen: boolean) {
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string) => (
-                    <li> 
-                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="others" value={others} id={others} onChange={handleChange} />
+              {othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
+                    <li key={index}> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="others"  value={others} id={others} onChange={handleChange} />
                     <label htmlFor={others} className="cursor-pointer">{others}</label>
                     </li>
                 ))}
@@ -369,7 +425,17 @@ function useMenuAnimation(isOpen: boolean) {
             </ul>{" "}
           </motion.nav>
           </div>
-          <button className="bg-linkIt-300 rounded-[7px] text-white p-2 flex items-center self-center text-[1vw]" onClick={CalculatePrice}>Calcular</button>
+          <button className="bg-linkIt-300 rounded-[7px] text-white p-2 flex items-center self-center text-[1vw] disabled:cursor-not-allowed disabled:bg-gray-300" onClick={CalculatePrice}
+           disabled={
+            vacancyFirst.englishLevel === "" ||
+            vacancyFirst.positionV === ""  ||
+            vacancyFirst.seniorityV === "" ||
+            vacancySecond.frameworks.length === 0 ||
+            vacancySecond.others.length === 0 ||
+            vacancySecond.technologies.length === 0
+            ? true
+          : false
+          } >Calcular</button>
           
           </div>
           <div className="grid grid-cols-2">
@@ -379,6 +445,7 @@ function useMenuAnimation(isOpen: boolean) {
                 <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Maximo</span>{price.max}</h2>
             </div>
             <hr className="bg-black h-1 col-span-full"/>
+            <p className="font-medium mt-3 font-manrope text-[0.8vw] w-[65%]">Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo</p>
           </div>
         </div>
     )
