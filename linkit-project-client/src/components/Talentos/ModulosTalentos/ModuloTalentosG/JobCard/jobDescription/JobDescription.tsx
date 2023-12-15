@@ -8,7 +8,6 @@ import Footer from "../../../../../../Utils/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import TopButton from "../../../../../../Utils/TopButton";
 import JobForm from "./job-form/JobForm";
 
 function JobDescription() {
@@ -46,8 +45,8 @@ function JobDescription() {
   return (
     <>
       <article className="mt-[10rem] mx-[5%] font-montserrat text-linkIt-400 flex flex-col relative">
-        <div className="flex flex-row w-full relative mb-[10%]">
-          <div>
+        <div className="flex flex-row relative mb-[10%] w-full">
+          <div className="w-[60%]">
             <header className="mb-[3%]">
                 <motion.button
                 className="flex flex-row gap-[.5rem] items-center content-center mb-[5%] font-bold text-[1rem]"
@@ -160,6 +159,9 @@ function JobDescription() {
               </h3>
             </section>
           </div>
+          <section className="">
+            <JobForm />
+          </section>
         </div>
         <section className="bg-linkIt-300 mx-[-6%] text-white text-center h-[50vh] flex flex-row justify-center content-center items-center">
           <h3 className="font-bold">NEWSLETTER</h3>
