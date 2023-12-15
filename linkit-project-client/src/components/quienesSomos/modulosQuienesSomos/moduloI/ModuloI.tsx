@@ -108,7 +108,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
       if(response.status === 200) {
         Swal.fire({ 
-          title: "Gracias por contactarnos!",
+          title: "¡Gracias por contactarnos!",
           text: "Nos estaremos comunicando a la brevedad",
           icon: "success" })
 

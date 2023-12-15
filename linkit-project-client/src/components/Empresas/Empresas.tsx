@@ -10,6 +10,7 @@ import ModuloH from "./modulosEmpresas/moduloH/ModuloH"
 import ModuloI from "./modulosEmpresas/moduloI/ModuloI"
 import { useEffect } from "react";
 import './Empresas.css'
+import Calculadora from "./modulosEmpresas/calculadora/calculadora"
 
 
 function Empresas() {
@@ -31,6 +32,9 @@ function Empresas() {
       <ModuloG />
       <section id='procesoE'>
       <ModuloH />
+      </section>
+      <section id="calculadora">
+        <Calculadora/>
       </section>
       <section id="contactanosE">
       <ModuloI />
