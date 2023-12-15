@@ -79,17 +79,17 @@ export default function Footer() {
 
   const {t} = useTranslation();
   return (
-    <div className="bg-linkIt-200 text-white">
+    <div className="bg-linkIt-200 text-white font-montserrat">
       <div className="grid grid-cols-3 gap-1 mx-1">
 
         <div className="flex flex-col">
           <img className="w-[75%] ml-[10%]" src="/Linkit-logo/linkit-logos-web_2-logo-ppal-blanco.svg" alt="" />
           <div className="ml-[10%]">
             <h1 className="font-semibold my-1">Link IT</h1>
-            <p className="w-full text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">{t('Conectando al talento mas destacado con los mejores proyectos IT')}</p>
-            <div className="flex flex-row flex-wrap">
-              <a href="" className="w-[10%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
-              <a href="https://www.linkedin.com/company/linkit-hr/" target="_blank" className="w-[10%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" /></a>
+            <p className="text-[0.8vw] w-[50%] font-manrope">{t('Conectando al talento mas destacado con los mejores proyectos IT')}</p>
+            <div className="flex flex-row flex-wrap mt-2">
+              <a href="" className="w-[7%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
+              <a href="https://www.linkedin.com/company/linkit-hr/" target="_blank" className="w-[7%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" /></a>
             </div>
           </div>
         </div>
@@ -232,20 +232,18 @@ export default function Footer() {
             </div>
           </ul>
           <div className="flex justify-evenly font-semibold lg:mt-20 xl:mt-32 2xl:mt-60">
-            <p>
-              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> ©2023 | {t('Todos los derechos reservados')}</NavLink>
+            <p className=" text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> ©2023 | {t('Todos los derechos reservados')}
             </p>
             <p>
-              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Politica de Privacidad')}</NavLink>
+              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> {t('Politica de Privacidad')}</NavLink>
             </p>
             <p>
-              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> {t('Terminos y condiciones')}</NavLink>
+              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> {t('Terminos y condiciones')}</NavLink>
             </p>
           </div>
         </div>
       </div >
       <br />
-      <hr />
       <br />
     </div >
   )

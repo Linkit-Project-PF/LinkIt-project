@@ -6,6 +6,7 @@ const initialState = {
     ebooks: [],
     events: [],
     blogs: [],
+    stackTechnologies: [],
 }
 
 type Resource = {
@@ -81,9 +82,12 @@ const ResourcesSlice = createSlice({
             state.ebooks = state.allresources.filter((resource: Resource) => resource.type === "ebook" && resource.title.toLowerCase().includes(action.payload.toLowerCase()) && resource.archived === false);
             state.events = state.allresources.filter((resource: Resource) => resource.type === "social" && resource.title.toLowerCase().includes(action.payload.toLowerCase()) && resource.archived === false);
         
+        },
+        setStackTechnologies: (state, action) => {
+            state.stackTechnologies = action.payload;
         }
     },
 });
 
-export const { setResources, setEbooks, setEvents, setBlogs, setFilterResources, setSearchResources} = ResourcesSlice.actions;
+export const { setResources, setEbooks, setEvents, setBlogs, setFilterResources, setSearchResources, setStackTechnologies} = ResourcesSlice.actions;
 export default ResourcesSlice.reducer;

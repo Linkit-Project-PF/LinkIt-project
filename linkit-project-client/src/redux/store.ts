@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import registerLoginSlice from "./features/registerLoginSlice"
 import JobCardSlice from "./features/JobCardsSlice"
 import ResourcesSlice from "./features/ResourcesSlice";
+import ApplicationSlice from "./features/ApplicationSlice";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
@@ -24,7 +25,7 @@ const rootReducer = combineReducers({
   resources: ResourcesSlice,
   reviews: ReviewsSlice,
   users: UsersSlice,
-
+  application: ApplicationSlice,
 })
 
 

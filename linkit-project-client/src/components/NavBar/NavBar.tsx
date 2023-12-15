@@ -69,9 +69,6 @@ function NavBar() {
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
 
 
-  const [isHoveredContrata, setIsHoveredContrata] = useState(false);
-  const [isHoveredVacantes, setIsHoveredVacantes] = useState(false);
-
   const scopeQS = useMenuAnimation(isOpenQS);
   const scopeUser = useMenuAnimation(isOpenUser);
   const scopeRecursos = useMenuAnimation(isOpenRecursos);
@@ -113,12 +110,13 @@ function NavBar() {
     }, 0);
     }
 
-  // const navigatetoQuoteCompany = () => {
-  //   navigate('/quienesSomos')
-  //   setTimeout(() => {
-  //     window.location.href = '#cotiza';
-  //   }, 1000);
-  //   }
+
+  const navigatetoQuoteCompany = () => {
+    navigate('/SoyEmpresa')
+    setTimeout(() => {
+      window.location.href = '#calculadora';
+    }, 1000);
+    }
   
   const goSoyTalento = () => {
     navigate("/SoyTalento");
@@ -250,8 +248,7 @@ function NavBar() {
          </div>
         
           <motion.button
-            className={`border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300" : ""
-              }`}
+            className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300" : " border-b-transparent"}`}
             onClick={() => goHome()}
           >
             {t('Inicio')}
@@ -264,7 +261,7 @@ function NavBar() {
             onMouseLeave={() => setIsOpenEmpresa(false)}
           >
             <motion.button
-              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveEmpresa ? "text-linkIt-300 border-b-linkIt-300" : ""
+              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveEmpresa ? "text-linkIt-300 border-b-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyEmpresa()}
@@ -275,22 +272,23 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenEmpresa ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className={`hover:text-linkIt-300 `}>
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
+              <li className={`hover:text-linkIt-300`}>
                 <button onClick={navigatetoServicesCompany} >{t('Servicios')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className=" hover:text-linkIt-300">
                 <button onClick={navigatetoProcessCompany}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className=" hover:text-linkIt-300">
-                <button>{t('Cotiza')}</button> </li>
+                <button  onClick={navigatetoQuoteCompany}>{t('Cotiza')}</button> </li>
             </ul>{" "}
           </motion.nav>
 
@@ -302,7 +300,7 @@ function NavBar() {
             onMouseLeave={() => setIsOpenSoyTalento(false)}
           >
             <motion.button
-              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveTalento ? "text-linkIt-300 border-b-linkIt-300" : ""
+              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveTalento ? "text-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyTalento()}
@@ -313,22 +311,24 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenSoyTalento ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
+              <li className="hover:text-linkIt-300">
+                <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button>
+              </li>
+              <hr className="w-[100%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoServicesTalent}>{t('Servicios')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoProcessTalent}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90%]" />
-              <li className="hover:text-linkIt-300">
-                <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button></li>
             </ul>
           </motion.nav>
 
@@ -340,7 +340,7 @@ function NavBar() {
             onMouseLeave={() => setIsOpenRecursos(false)}
           >
             <motion.button
-              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveRecursos ? "text-linkIt-300 border-b-linkIt-300" : ""
+              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveRecursos ? "text-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goRecursos()}
@@ -351,30 +351,31 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] pr-[1.4vw] font-semibold items-center space-y-[1vh]"
+              className="bg-white relative rounded-b-[7px] w-full h-fit p-[0.5vw] pr-[1.4vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenRecursos ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoBlogs}>{t('Blogs')}</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoEbooks}>{t('Ebooks')}</button></li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoWebinars}>{t('Webinars')}</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoFAQ}>FAQ</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Libreria')}</a>
@@ -390,7 +391,7 @@ function NavBar() {
             onMouseLeave={() => setIsOpenQS(false)}
           >
             <motion.button
-              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveQS ? "text-linkIt-300 border-b-linkIt-300" : ""
+              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveQS ? "text-linkIt-300" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goQS()}
@@ -401,29 +402,30 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenQS ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoMission} >{t('Misión')}</button></li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoVision} >{t('Visión')}</button></li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoValues}>{t('Valores')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoHistory} >{t('Historia')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoInternalTalent} >{t('Talento interno')}</button>
@@ -436,21 +438,17 @@ function NavBar() {
         <div className="containerBtnsNavbar">
           <Languaje />
           <motion.button
-            className={`contrataBtnNavB ${isHoveredVacantes ? ' border-linkIt-300 bg-transparent text-black' : 'bg-linkIt-300 text-white'}`}
+            className={`contrataBtnNavB`}
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
-            onHoverStart={() => setIsHoveredContrata(true)}
-            onHoverEnd={() => setIsHoveredContrata(false)}
           >
 
             {t('Contrata Talento')}
           </motion.button>
           <motion.button
-            className={`vacanteBtnNavB ${isHoveredContrata ? 'bg-linkIt-300 text-white' : 'border-linkIt-300 bg-transparent text-black'}`}
+            className={`vacanteBtnNavB`}
             onClick={() => goSoyTalento()}
             whileTap={{ scale: 0.9 }}
-            onHoverStart={() => setIsHoveredVacantes(true)}
-            onHoverEnd={() => setIsHoveredVacantes(false)}
           >
             {t('Vacantes disponibles')}
           </motion.button>

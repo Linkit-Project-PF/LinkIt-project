@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import arrowImage from '/Vectores/white-arrow.png'
 import "./topButton.css"
 
 export default function TopButton() {
@@ -17,7 +18,7 @@ export default function TopButton() {
       const threshold = 200
       setIsVisible(currentScrollY > threshold)
     }
-    window.addEventListener("scroll", handleScroll )
+    window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -27,18 +28,21 @@ export default function TopButton() {
       {
         isVisible &&
         <motion.button
-        onClick={navigateToTop}
-        initial={{y: -30 }}
-        animate={{y: 0 }}
-        className="top-button"
-        transition={{
-          repeat: Infinity,
-          repeatType: "reverse",
-          duration: 0.5,
-        }}
-      >
-          <div className="arrow-up"></div>
-      </motion.button>
+          onClick={navigateToTop}
+          initial={{ y: -30 }}
+          animate={{ y: 0 }}
+          className="top-button"
+          transition={{
+            repeat: Infinity,
+            repeatType: "reverse",
+            duration: 0.5,
+          }}
+        >
+          <img
+            className="arrow-image"
+            src={arrowImage}
+            alt="" />
+        </motion.button>
       }
     </div>
   )
