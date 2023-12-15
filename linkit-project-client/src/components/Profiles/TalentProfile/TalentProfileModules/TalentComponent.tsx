@@ -10,9 +10,10 @@ import { useTranslation } from "react-i18next";
 
 interface IComponentProps {
   user: IUser
+  setSelectedOptions: React.Dispatch<React.SetStateAction<string>>
 }
 
-const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
+const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedOptions}) => {
   const {t} = useTranslation()
   const dispatch = useDispatch()
   const [filePublicId, setFilePublicId] = useState("")
@@ -25,7 +26,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
       isFirstRender.current = false
       return
     }
-    const updatedCompany= async ()=>{
+    const updatedUser= async ()=>{
       try {
         const editedUser = await editUser({...user, image: filePublicId})
         dispatch(setUser(editedUser))
@@ -48,7 +49,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
         })
       }
     }
-    updatedCompany()
+    updatedUser()
   },[filePublicId])
 
 
@@ -64,10 +65,10 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user}) => {
         <div className="flex flex-col justify-between w-1/2">
           <h1 className="text-4xl font-bold mt-6">{t('Hola')} {user.name}!</h1>
           <div className="flex space-x-6">
-            <button className="text-xl font-semibold hover:text-linkIt-300">
+            <button onClick={() => setSelectedOptions('MyInfo')} className="text-xl font-semibold hover:text-linkIt-300">
               {t('Mis Datos')}
             </button>
-            <button className="text-xl font-semibold hover:text-linkIt-300">
+            <button onClick={() => setSelectedOptions('MyApps')} className="text-xl font-semibold hover:text-linkIt-300">
               {t('Mis Postulaciones')}
             </button>
           </div>
