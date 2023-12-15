@@ -33,6 +33,7 @@ import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
 import Error from "./components/Errores/Error.tsx";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
 import ReactGA from "react-ga4";
+import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 
 type registerLoginState = {
   registerLogin: {
@@ -134,11 +135,19 @@ function App() {
               Authorization: `Bearer ${SUPERADMN_ID}`
             }
           })
+          const responseAdmins = await axios.get("https://linkit-server.onrender.com/admins/find",
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`
+            }
+          })
         dispatch(setStackTechnologies(responseTechnologies.data))
         dispatch(setResources(responseResources.data));
         dispatch(setEvents());
         dispatch(setBlogs());
         dispatch(setEbooks());
+        dispatch(setAdmins(responseAdmins.data))
+        
       } catch (error) {
         if (error instanceof AxiosError) console.log({ error: error.message });
       }
@@ -202,7 +211,6 @@ function App() {
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
-        <Route path="/soyTalento/Joboffer/:id/application" element={<JobForm/>} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />

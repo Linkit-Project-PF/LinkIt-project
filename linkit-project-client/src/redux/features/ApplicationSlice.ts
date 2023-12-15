@@ -25,15 +25,8 @@ const initialState = {
             title: "Step Three",
             completed: false,
         },
-        {
-            title: "Step Four",
-            completed: false,
-        },
-        {
-            title: "Step Five",
-            completed: false,
-        },
-    ]
+    ],
+    admins: []
 }
 
 const applicationSlice = createSlice({
@@ -45,9 +38,12 @@ const applicationSlice = createSlice({
         },
         setUncompletedStep: (state, action) => {
             state.steps[action.payload-1].completed = false;
+        },
+        setAdmins: (state, action) => {
+            state.admins = action.payload;
         }
     }
 })
 
-export const { setCompletedStep, setUncompletedStep } = applicationSlice.actions;
+export const { setCompletedStep, setUncompletedStep, setAdmins } = applicationSlice.actions;
 export default applicationSlice.reducer;
