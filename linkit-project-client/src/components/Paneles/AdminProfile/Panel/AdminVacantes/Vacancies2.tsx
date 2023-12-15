@@ -12,12 +12,15 @@ import { UserPostulations } from "./userPostulations";
 type stateProps = {
     jobCard: {
         allJobOffers: VacancyProps[];
+        searchJobOffers: VacancyProps[];
     };
 };
 
 export default function Vacancies2() {
 
     const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
+    const searchData = useSelector((state: stateProps) => state.jobCard.searchJobOffers);
+
     const token = useSelector((state: any) => state.Authentication.token);
     const [saveStatus, /*setSaveStatus*/] = useState(false); //* Estado que actualiza la info de la tabla
     const dispatch = useDispatch();
@@ -51,9 +54,9 @@ export default function Vacancies2() {
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
-    const dataToShow = data.slice(startIndex, endIndex);
+    const dataToShow = searchData.slice(startIndex, endIndex);
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const totalPages = Math.ceil(searchData.length / itemsPerPage);
 
     const hidePostul = () => {
         setViewPostul(false);
@@ -108,7 +111,7 @@ export default function Vacancies2() {
                 viewCol={viewCol}
             />
 
-            <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-t-lg'>
+            <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
                 {viewCol.title &&
                     <div className=''>
                         <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
@@ -154,8 +157,9 @@ export default function Vacancies2() {
                             <div className='ml-6'>
                                 <select name="sort" className='border-b-2 border-r-2 -none outline-none'>
                                     <option value=""></option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                                    <option value="">Full-time</option>
+                                    <option value="">Part-time</option>
+                                    <option value="">Freelance</option>
                                 </select>
                             </div>
                         </div>
@@ -190,8 +194,10 @@ export default function Vacancies2() {
                             <div className='ml-6'>
                                 <select name="sort" className='border-none outline-none'>
                                     <option value=""></option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                                    <option value="">Remote</option>
+                                    <option value="">Specific-remote</option>
+                                    <option value="">On-Site</option>
+                                    <option value="">Hybrid</option>
                                 </select>
                             </div>
                         </div>
@@ -210,7 +216,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack.join(",")}</p>
                             ))}
                         </div>
                     </div>
@@ -225,7 +231,7 @@ export default function Vacancies2() {
                             {dataToShow.map((v: VacancyProps) => (
                                 <p key={v._id} className='pl-3 h-8 pt-1 text-center border-b-2 border-r-2 border-linkIt-50'>
                                     <a className='cursor-pointer hover:text-linkIt-300' onClick={() => handlePostul(v._id)}>{v.users.length}</a>
-                                    </p>
+                                </p>
                             ))}
                         </div>
                     </div>
@@ -340,8 +346,10 @@ export default function Vacancies2() {
                             <div className='ml-6'>
                                 <select name="sort" className='border-none outline-none'>
                                     <option value=""></option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                                    <option value="">Open</option>
+                                    <option value="">First-interview</option>
+                                    <option value="">Second-interview</option>
+                                    <option value="">Closed</option>
                                 </select>
                             </div>
                         </div>
@@ -375,15 +383,14 @@ export default function Vacancies2() {
                             </div>
                             <div className='ml-6'>
                                 <select name="sort" className='border-b-2 border-r-2 -none outline-none'>
-                                    <option value=""></option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                                    <option value="">Visible</option>
+                                    <option value="">Hidden</option>
                                 </select>
                             </div>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? "Oculta" : "Visible"}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? "Hidden" : "Visible"}</p>
                             ))}
                         </div>
                     </div>
@@ -393,7 +400,7 @@ export default function Vacancies2() {
             </div>
             <div className="flex flex-row justify-around">
                 <button
-                    className=""
+                    className="cursor-pointer hover:text-linkIt-300"
                     onClick={handlePrevius}
                     disabled={currentPage === 0}
                 >
@@ -403,9 +410,9 @@ export default function Vacancies2() {
                     Pagina {currentPage + 1} de {totalPages}
                 </span>
                 <button
-                    className=""
+                    className="cursor-pointer hover:text-linkIt-300"
                     onClick={handleNext}
-                    disabled={endIndex >= data.length}
+                    disabled={endIndex >= searchData.length}
                 >
                     Siguiente
                 </button>

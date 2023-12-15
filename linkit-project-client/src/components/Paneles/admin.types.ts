@@ -37,7 +37,8 @@ export type UserProps = {
   _id: string;
   airTableId: string;
   image: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   country: string;
   phone: string;
