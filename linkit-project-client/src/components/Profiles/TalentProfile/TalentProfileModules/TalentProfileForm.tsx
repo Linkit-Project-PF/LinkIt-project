@@ -66,6 +66,14 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           />
 
           <input
+            // defaultValue={user.name}
+            // onChange={(event) => setName(event.target.value)}
+            type="text"
+            placeholder={t("Apellido")}
+            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+          />
+
+          <input
             defaultValue={user.email}
             onChange={(event) => setEmail(event.target.value)}
             className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
