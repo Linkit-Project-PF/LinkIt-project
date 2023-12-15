@@ -1,10 +1,19 @@
-import { useAnimate, stagger, motion } from "framer-motion";
+import { useAnimate, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import arrow from "/Vectores/arrow.png";
 import axios from "axios";
 
+interface VacancyFirstState {
+  positionV: string;
+  englishLevel: string;
+  seniorityV: string;
+}
 
-const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
+interface VacancySecondState {
+  technologies: string[];
+  frameworks: string[];
+  others: string[];
+}
 
 function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
@@ -21,17 +30,6 @@ function useMenuAnimation(isOpen: boolean) {
         type: "spring",
         bounce: 0,
         duration: 0.5,
-      }
-    );
-
-    animate(
-      "li",
-      isOpen
-        ? { opacity: 1, scale: 1, filter: "blur(0px)" }
-        : { opacity: 0, scale: 0.3, filter: "blur(20px)" },
-      {
-        duration: 0.1,
-        delay: isOpen ? staggerMenuItems : 0,
       }
     );
   }, [isOpen]);
@@ -60,6 +58,52 @@ function useMenuAnimation(isOpen: boolean) {
 
     const [renderedFilters, setRenderedFilters] = useState(Object)
 
+    const [vacancyFirst, setVacancyFirst] = useState<VacancyFirstState>({
+      positionV: "",
+      englishLevel: "",
+      seniorityV: "",
+    });
+  
+    const [vacancySecond, setVacancySecond] = useState<VacancySecondState>({
+      technologies: [],
+      frameworks: [],
+      others: [],
+    });
+
+    const [price, setPrice] = useState({
+      min: "$0",
+      max: "$0"
+    })
+  
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value} = e.target;
+      if (vacancyFirst.hasOwnProperty(name)) {
+        setVacancyFirst((prevVacancyFirst) => ({
+          ...prevVacancyFirst,
+          [name]: value,
+        }));
+      } else {
+        setVacancySecond((prevVacancySecond) => ({
+          ...prevVacancySecond,
+          [name]: vacancySecond[name as keyof VacancySecondState].includes(value)
+            ? vacancySecond[name as keyof VacancySecondState].filter((item) => item !== value)
+            : [...vacancySecond[name as keyof VacancySecondState], value],
+        }));
+      }
+    };
+
+    const CalculatePrice  = async () => {
+      try {
+        const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond)
+        if(response.status === 200) {
+          console.log(response)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     useEffect(() => {
         axios
           .get('https://linkit-server.onrender.com/resources/googleSheet/DinamicTitles')
@@ -74,22 +118,31 @@ function useMenuAnimation(isOpen: boolean) {
      
       let tech1 = []
       let tech2 = []
-      let frameworks = []
-      let others = []
+      let frameworksToRender = []
+      let othersToRender = []
+      let positionsToRender = []
 
     for (const key in renderedFilters) {
-        if (key === "techTier1" ) {
-             tech1 = renderedFilters[key];
-        }
-        else if (key === "techTier2") {
-             tech2 = renderedFilters[key];
-        }
-        else if (key === "frameworksTier1"){
-        frameworks = renderedFilters[key];
-    }
-        else if (key === "othersTier1") {
-            others = renderedFilters[key];
-        }
+      switch (key) {
+        case "techTier1":
+          tech1 = renderedFilters[key]
+          break
+        case "techTier2":
+          tech2 = renderedFilters[key]
+          break
+        case "frameworksTier1":
+          frameworksToRender = renderedFilters[key]
+          break
+        case "othersTier1":
+          othersToRender = renderedFilters[key]
+          break
+        case "allPositions":
+          positionsToRender = renderedFilters[key]
+          break
+      
+        default:
+          break;
+      }
     }
     const tech: [] = tech1.concat(tech2)
 
@@ -97,18 +150,18 @@ function useMenuAnimation(isOpen: boolean) {
 
         <div className="bg-linkIt-500 grid justify-center p-[7%]">
             <h1 className="text-black text-[3vw] font-manrope font-bold text-center">Calculadora</h1>
-            <div className="bg-white rounded-[7px] flex justify-around whitespace-nowrap gap-[2vw] px-6 py-1 my-7">
+            <div className="bg-white rounded-[7px] p-4 my-7 h-[7vh] items-center flex whitespace-nowrap justify-around">
+              <div className="grid grid-cols-6 gap-[0.5vw] h-full font-montserrat font-semibold text-[1vw]">
             <motion.nav
-            className=""
+            className="w-[80%] mt-1"
             ref={scopePosicion}
-            onClick={(e) => { 
-                e.preventDefault();
-                setIsOpenPosicion(!isOpenPosicion);
-            }}
+            onMouseEnter={() => setIsOpenPosicion(true)}
+            onMouseLeave={() => setIsOpenPosicion(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300`}
+              className={`flex items-center hover:text-linkIt-300`}
               whileTap={{ scale: 0.97 }}
+              
               
             >
               Posicion
@@ -117,26 +170,30 @@ function useMenuAnimation(isOpen: boolean) {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-28 overflow-y-scroll p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-full h-28 overflow-y-scroll space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-1 mt-3"
               style={{
                 pointerEvents: isOpenPosicion ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
-              onClick={(e) => e.stopPropagation()}
-              onMouseLeave={() => setIsOpenPosicion(false)}
             >
+            {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
+                    <li className="flex" key={index}> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
+                    <label htmlFor={position} className="cursor-pointer">{position}</label>
+                    </li>
+                ))}
                 <li></li>
             </ul>{" "}
           </motion.nav>
 
             <motion.nav
-            className=""
+            className="mt-1"
             ref={scopeIngles}
             onMouseEnter={() => setIsOpenIngles(true)}
             onMouseLeave={() => setIsOpenIngles(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300`}
+              className={`flex items-center hover:text-linkIt-300`}
               whileTap={{ scale: 0.97 }}
               
             >
@@ -146,33 +203,36 @@ function useMenuAnimation(isOpen: boolean) {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-fit h-fit items-center space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-2 mt-3"
               style={{
                 pointerEvents: isOpenIngles ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className={`hover:text-linkIt-300`}>
-                <button>Basico</button>
-              </li>
-              <li className={`hover:text-linkIt-300`}>
-                <button>Intermedio</button>
-              </li>
-              <li className={`hover:text-linkIt-300`}>
-                <button>Avanzado</button>
-              </li>
+              <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
+                    <label htmlFor="Basico" className="cursor-pointer">Basico </label>
+                    </li>
+                    <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
+                    <label htmlFor="Intermedio" className="cursor-pointer">Intermedio</label>
+                    </li>
+                    <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
+                    <label htmlFor="Avanzado" className="cursor-pointer">Avanzado</label>
+                    </li>
               
             </ul>{" "}
           </motion.nav>
 
             <motion.nav
-            className=""
+            className="mt-1"
             ref={scopeSeniority}
             onMouseEnter={() => setIsOpenSeniority(true)}
             onMouseLeave={() => setIsOpenSeniority(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300`}
+              className={`flex items-center hover:text-linkIt-300`}
               whileTap={{ scale: 0.97 }}
               
             >
@@ -182,27 +242,39 @@ function useMenuAnimation(isOpen: boolean) {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-fit h-fit items-center space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-2 mt-3"
               style={{
                 pointerEvents: isOpenSeniority ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className={`hover:text-linkIt-300`}>
-                <button  >epa</button>
-              </li>
-              
+              <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
+                    <label htmlFor="Junior" className="cursor-pointer">Junior</label>
+                    </li>
+              <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
+                    <label htmlFor="Semi-senior" className="cursor-pointer">Semi-senior</label>
+                    </li>
+              <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
+                    <label htmlFor="Senior Advance" className="cursor-pointer">Senior Advance</label>
+                    </li>
+              <li className="flex"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
+                    <label htmlFor="Manager/Lead" className="cursor-pointer">Manager/Lead</label>
+                    </li>
             </ul>{" "}
           </motion.nav>
 
             <motion.nav
-            className=""
+            className="mt-1"
             ref={scopeTecnologias}
             onMouseEnter={() => setIsOpenTecnologias(true)}
             onMouseLeave={() => setIsOpenTecnologias(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300`}
+              className={`flex items-center hover:text-linkIt-300`}
               whileTap={{ scale: 0.97 }}
               
             >
@@ -212,15 +284,15 @@ function useMenuAnimation(isOpen: boolean) {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
               style={{
                 pointerEvents: isOpenTecnologias ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {tech?.filter((items: string | null) => ( items !== null)).map((tech: string) => (
+              {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((tech: string) => (
                     <li> 
-                    <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name={tech} value={tech} id={tech} />
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="technologies" value={tech} id={tech} onChange={handleChange} />
                     <label htmlFor={tech} className="cursor-pointer">{tech}</label>
                     </li>
                 ))}
@@ -230,13 +302,13 @@ function useMenuAnimation(isOpen: boolean) {
           </motion.nav>
 
             <motion.nav
-            className=""
+            className="mt-1"
             ref={scopeFrameworks}
             onMouseEnter={() => setIsOpenFrameworks(true)}
             onMouseLeave={() => setIsOpenFrameworks(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300`}
+              className={`flex items-center hover:text-linkIt-300`}
               whileTap={{ scale: 0.97 }}
               
             >
@@ -246,15 +318,15 @@ function useMenuAnimation(isOpen: boolean) {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
               style={{
                 pointerEvents: isOpenFrameworks ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {frameworks?.filter((items: string | null) => ( items !== null)).map((frameworks: string) => (
+              {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string) => (
                     <li> 
-                    <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name={frameworks} value={frameworks} id={frameworks} />
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
                     <label htmlFor={frameworks} className="cursor-pointer">{frameworks}</label>
                     </li>
                 ))}
@@ -264,13 +336,13 @@ function useMenuAnimation(isOpen: boolean) {
           </motion.nav>
 
             <motion.nav
-            className=""
+            className="mt-1"
             ref={scopeOtros}
             onMouseEnter={() => setIsOpenOtros(true)}
             onMouseLeave={() => setIsOpenOtros(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300`}
+              className={`flex items-center hover:text-linkIt-300`}
               whileTap={{ scale: 0.97 }}
               
             >
@@ -280,15 +352,15 @@ function useMenuAnimation(isOpen: boolean) {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
               style={{
                 pointerEvents: isOpenOtros ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {others?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string) => (
+              {othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string) => (
                     <li> 
-                    <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name={others} value={others} id={others} />
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="others" value={others} id={others} onChange={handleChange} />
                     <label htmlFor={others} className="cursor-pointer">{others}</label>
                     </li>
                 ))}
@@ -296,13 +368,15 @@ function useMenuAnimation(isOpen: boolean) {
               
             </ul>{" "}
           </motion.nav>
-          <button className="bg-linkIt-300 rounded-[7px] text-white p-5 h-[50%] flex items-center self-center">Calcular</button>
+          </div>
+          <button className="bg-linkIt-300 rounded-[7px] text-white p-2 flex items-center self-center text-[1vw]" onClick={CalculatePrice}>Calcular</button>
+          
           </div>
           <div className="grid grid-cols-2">
             <h2 className="text-[2vw] font-semibold">Princing</h2>
             <div className="grid grid-cols-2">
-                <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Minimo</span> $99</h2>
-                <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Maximo</span> $200</h2>
+                <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Minimo</span>{price.min}</h2>
+                <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Maximo</span>{price.max}</h2>
             </div>
             <hr className="bg-black h-1 col-span-full"/>
           </div>

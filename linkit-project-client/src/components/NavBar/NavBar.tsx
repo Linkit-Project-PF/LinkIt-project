@@ -110,12 +110,13 @@ function NavBar() {
     }, 0);
     }
 
-  // const navigatetoQuoteCompany = () => {
-  //   navigate('/quienesSomos')
-  //   setTimeout(() => {
-  //     window.location.href = '#cotiza';
-  //   }, 1000);
-  //   }
+
+  const navigatetoQuoteCompany = () => {
+    navigate('/SoyEmpresa')
+    setTimeout(() => {
+      window.location.href = '#calculadora';
+    }, 1000);
+    }
   
   const goSoyTalento = () => {
     navigate("/SoyTalento");
@@ -281,13 +282,13 @@ function NavBar() {
               <li className={`hover:text-linkIt-300`}>
                 <button onClick={navigatetoServicesCompany} >{t('Servicios')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className=" hover:text-linkIt-300">
                 <button onClick={navigatetoProcessCompany}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className=" hover:text-linkIt-300">
-                <button>{t('Cotiza')}</button> </li>
+                <button  onClick={navigatetoQuoteCompany}>{t('Cotiza')}</button> </li>
             </ul>{" "}
           </motion.nav>
 
@@ -320,11 +321,11 @@ function NavBar() {
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoServicesTalent}>{t('Servicios')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoProcessTalent}>{t('Proceso')}</button>
               </li>
@@ -360,21 +361,21 @@ function NavBar() {
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoBlogs}>{t('Blogs')}</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoEbooks}>{t('Ebooks')}</button></li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoWebinars}>{t('Webinars')}</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoFAQ}>FAQ</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Libreria')}</a>
@@ -410,21 +411,21 @@ function NavBar() {
               <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoMission} >{t('Misión')}</button></li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoVision} >{t('Visión')}</button></li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoValues}>{t('Valores')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoHistory} >{t('Historia')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoInternalTalent} >{t('Talento interno')}</button>
