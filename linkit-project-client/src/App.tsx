@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import VerifyUser from "./Utils/Verify/VerifyUser.tsx";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -108,8 +109,7 @@ function App() {
   useEffect(() => {
     const googleAnalytics = async () => {
       try {
-        const ga4react = ReactGA.initialize("G-M6F6EHLMX7")
-        console.log('Google Analytics', ga4react)
+        ReactGA.initialize("G-M6F6EHLMX7")
       } catch (error) {
         console.log(error)
       }
@@ -215,7 +215,8 @@ function App() {
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/profile/*" element={<Profile />} />
-        <Route path="/blog/:id" element={<BlogView />} />
+        <Route path="/verify/:id" element={<VerifyUser/>} />
+        <Route path="/blog/:id&:role" element={<BlogView />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<Error />} />
       </Routes>
