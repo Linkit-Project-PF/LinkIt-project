@@ -151,7 +151,7 @@ export const i18nOptions: InitOptions = {
         "Soy Empresa":"I am a company",
 
         //!NavBar
-        "Contrata y gestiona talentos de forma global con LinkIt":"Hire and manage talent globally with LinkIt",
+        "Contrata y gestiona talentos de forma global con LinkIT":"Hire and manage talent globally with LinkIT",
         "Comienza ahora!":"Start now!",
         "Inicio":"Home",
         "Servicios":"Services",
@@ -162,7 +162,7 @@ export const i18nOptions: InitOptions = {
         "Blogs":"Blogs",
         "Ebooks":"Ebooks",
         "Webinars":"Webinars",
-        "Libreria":"Library",
+        "Librería":"Library",
         "Quiénes Somos":"About us",
         "Misión":"Mission",
         "Visión":"Vision",
@@ -290,8 +290,8 @@ export const i18nOptions: InitOptions = {
         "En España":"In Spain",
         "En LATAM":"In LATAM",
         "Todos los derechos reservados":"All rights reserved",
-        "Politica de Privacidad":"Privacy Policy",
-        "Terminos y condiciones":"Terms and Conditions",
+        "Política de Privacidad":"Privacy Policy",
+        "Términos y condiciones":"Terms and Conditions",
         //!Quienes Somos modulo A
         "En LinkIT buscamos conectar al talento más destacado con los mejores proyectos de tecnología de manera global.":"At LinkIT we seek to connect the most outstanding talent with the best technology projects globally.",
         "Tenemos el compromiso de generar un mundo más inclusivo, democratizando oportunidades, y facilitando la adquisición y gestión de los equipos.":"We are committed to generating a more inclusive world, democratizing opportunities, and facilitating the acquisition and management of equipment.",

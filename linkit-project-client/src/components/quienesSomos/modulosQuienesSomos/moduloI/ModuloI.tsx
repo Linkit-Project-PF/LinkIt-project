@@ -132,7 +132,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
     }
 }
   return (
-    <div className="bg-linkIt-300 text-white grid grid-cols-2 p-[4vw]">
+    <div className="bg-linkIt-300 text-white grid grid-cols-2 p-[4vw] dark:bg-linkIt-400">
       <h1 className="font-semibold text-[3.5vw]">{t('Contáctanos')}</h1>
       <form className="grid grid-cols-2 gap-[1vw] -ml-[15vw] mr-[10vw] mt-[1.8vh] xl:mt-[3.8vh] text-[1.1vw] xl:text-[0.9vw]" onSubmit={contactsBtn}>
         <div>

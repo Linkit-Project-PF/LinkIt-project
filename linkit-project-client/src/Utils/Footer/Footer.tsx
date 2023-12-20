@@ -235,10 +235,10 @@ export default function Footer() {
             <p className=" text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> ©2023 | {t('Todos los derechos reservados')}
             </p>
             <p>
-              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> {t('Politica de Privacidad')}</NavLink>
+              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> {t('Política de Privacidad')}</NavLink>
             </p>
             <p>
-              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> {t('Terminos y condiciones')}</NavLink>
+              <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base font-manrope"> {t('Términos y condiciones')}</NavLink>
             </p>
           </div>
         </div>

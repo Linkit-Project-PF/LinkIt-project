@@ -25,3 +25,12 @@ html{
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+
+
+  .transparent-background-button {
+    @apply font-manrope relative z-10 border border-linkIt-300 rounded-[7px] p-3 px-5 text-[0.8vw] shadow-md hover:border-linkIt-200 font-bold dark:hover:border-white dark:hover:text-linkIt-300
+}
+
+.background-button {
+    @apply font-manrope relative z-10 border border-linkIt-300 text-white bg-linkIt-300 rounded-[7px] p-3 px-5 text-[0.8vw] shadow-md hover:bg-linkIt-200 hover:border-linkIt-200  transition-all duration-300 ease-in-out font-bold dark:hover:border-white dark:hover:bg-white dark:hover:text-linkIt-300 }

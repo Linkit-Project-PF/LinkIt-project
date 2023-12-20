@@ -10,7 +10,7 @@ export default function NavSoluciones() {
       }
 
       return (
-        <div className="grid grid-cols-2 mx-[5vw]">
+        <div className="grid grid-cols-2">
         <nav className="grid grid-col justify-center mb-[15vh] font-manrope font-bold">
             <button className={`text-start text-[2vw] ${activeButton === 1 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(1)}>1. {t('Rol asignado')}</button>
             <button className={`text-start text-[2vw] ${activeButton === 2 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(2)}>2. {t('Pre-alineamiento')}</button>
