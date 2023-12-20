@@ -107,7 +107,6 @@ const JobFilters = () => {
   }, [language]);
 
   useEffect(() => {
-    console.log(stack)
     let handler = (event: any) =>{
       if(!stackRef.current?.contains(event.target) && !event.target.matches('.dropdown-stack *')){
         setStackOpen(false)

@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 
 export interface localState {
+  _id: string
   user: UserProps;
   status: string;
 }
@@ -35,29 +36,34 @@ export function UserPostulations(props: propsInterface) {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const { data } = await axios.get(
-          `https://linkit-server.onrender.com/jds/find?id=${props.jdId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const users = data.users;
-        const newArr = [];
-        for (let i = 0; i < users.length; i++) {
-          const { data } = await axios.get(
-            `https://linkit-server.onrender.com/users/find?id=${users[i].user}`,
-            {
+        // const { data } = await axios.get(
+        //   `https://linkit-server.onrender.com/jds/find?id=${props.jdId}`,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+        // const users = data.users;
+        // const newArr = [];
+        // for (let i = 0; i < users.length; i++) {
+        //   const { data } = await axios.get(
+        //     `https://linkit-server.onrender.com/postulations/find?id=${users[i].user}`,
+        //     {
+        //       headers: {
+        //         Authorization: `Bearer ${token}`,
+        //       },
+        //     }
+        //   );
+        //   const newObj = { user: data, status: users[i].status };
+        //   newArr.push(newObj);
+        // }
+        const {data} = await axios.get(`https://linkit-server.onrender.com/postulations/find?jd=${props.jdId}`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            }
-          );
-          const newObj = { user: data, status: users[i].status };
-          newArr.push(newObj);
-        }
-        setUserList(newArr);
+            })
+        setUserList(data);
       } catch (error: any) {
         console.error(error.response.data);
       }
@@ -122,21 +128,21 @@ export function UserPostulations(props: propsInterface) {
     }
   }
 
-  async function handleEdit(event: any, jd?: string, user?: string) {
+  async function handleEdit(event: any, user?: string) {
     if (event.target.id === "edit") {
       setEditing(true);
     } else if (event.target.id === "save") {
       try {
         await axios.put(
-          "https://linkit-server.onrender.com/jds/userRelation",
-          { user, jd, status, operation: "status" },
+          `https://linkit-server.onrender.com/postulations/update/${user}`,
+          { status },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        await axios.put(
-          "https://linkit-server.onrender.com/users/jdRelation",
-          { user, jd, status, operation: "status" },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        // await axios.put(
+        //   "https://linkit-server.onrender.com/users/jdRelation",
+        //   { user, jd, status, operation: "status" },
+        //   { headers: { Authorization: `Bearer ${token}` } }
+        // );
         alert("Se ha cambiado el estado existosamente");
         isSaving(!saving);
       } catch (error: any) {
@@ -217,7 +223,7 @@ export function UserPostulations(props: propsInterface) {
                       className="whitespace-nowrap text-[0.8vw] cursor-pointer hover:text-linkIt-300 mx-1 py-4"
                       type="button"
                       onClick={(event) =>
-                        handleEdit(event, props.jdId, obj?.user._id)
+                       handleEdit(event, obj?._id)
                       }
                       id="save"
                       disabled={error ? true : false}
