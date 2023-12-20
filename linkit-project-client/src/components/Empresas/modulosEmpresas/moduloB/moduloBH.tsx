@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import './ModuloB.css'
+import './ModuloBH.css'
 
 
 export default function ModuloB() {
@@ -7,8 +7,8 @@ export default function ModuloB() {
     const { t } = useTranslation();
         return (
             <div>
-                <div className="skewed-borderB pb-[20vh]">
-                    <div className="contentB flex flex-col">
+                <div className="skewed-borderBH pb-[20vh] dark:bg-white">
+                    <div className="contentBH flex flex-col ">
                         <h1 className="font-manrope font-bold mt-[10vh] mb-[10vh] text-[2.5vw] self-center text-white">{t('Nuestros servicios')}</h1>
                             <div className="grid grid-cols-3 gap-[6vh]">
                                 <div className='flex justify-end mr-[4vw]'>
