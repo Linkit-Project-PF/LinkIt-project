@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 export default function ModuloG () {
     const { t } = useTranslation();
         return ( 
-            <div className="bg-linkIt-500 grid grid-cols-4 px-[10vw]">
+            <div className="bg-linkIt-500 grid grid-cols-4 px-[10vw] dark:bg-linkIt-200 dark:text-white">
                 <h1 className="font-bold grid col-span-4 text-[2vw] text-center mt-[7vh] mb-[5vh]">{t('¿Por qué elegir LinkIT?')}</h1>
                     <h2 className="font-semibold mb-3 text-center text-[1.2vw]">
                     {t('Hasta 5 días')}

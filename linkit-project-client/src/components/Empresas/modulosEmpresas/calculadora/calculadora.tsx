@@ -204,8 +204,8 @@ function useMenuAnimation(isOpen: boolean) {
 
     return (
 
-        <div className="bg-linkIt-500 grid justify-center p-[7%]">
-            <h1 className="text-black text-[3vw] font-manrope font-bold text-center">Calculadora</h1>
+        <div className="bg-linkIt-500 grid justify-center p-[7%] dark:bg-linkIt-200 ">
+            <h1 className="text-black text-[3vw] font-manrope font-bold text-center dark:text-white">Calculadora</h1>
             <div className="bg-white rounded-[7px] p-4 my-7 h-[7vh] items-center flex whitespace-nowrap justify-around">
               <div className="grid grid-cols-6 gap-[0.5vw] h-full font-montserrat font-semibold text-[1vw]">
             <motion.nav
@@ -438,7 +438,7 @@ function useMenuAnimation(isOpen: boolean) {
           } >Calcular</button>
           
           </div>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 dark:text-white">
             <h2 className="text-[2vw] font-semibold">Princing</h2>
             <div className="grid grid-cols-2">
                 <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Minimo</span>{price.min}</h2>
