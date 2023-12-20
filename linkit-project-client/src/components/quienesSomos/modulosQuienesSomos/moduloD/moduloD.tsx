@@ -8,7 +8,7 @@ export default function ModuloD() {
     const handleClick = () => { setShow(!show) }
     return ( 
     <div>
-<div className="grid grid-cols-2 p-[6vw] gap-x-[28vw] gap-y-[15vh] bg-linkIt-300">
+<div className="grid grid-cols-2 p-[6vw] gap-x-[28vw] gap-y-[15vh] bg-linkIt-300 dark:bg-linkIt-400">
 <h1 className="text-white text-[2.6vw] font-manrope font-extrabold leading-[7.5vh] w-[60vw]">
 {t('Todo nace luego de la pandemia, más precisamente allí por mediados del 2021, luego de reiteradas conversaciones de unos amigos hablando de encontrar')} <span className="bg-neutral-100 bg-opacity-[0.2]">{t('el lugar ideal')}</span> {t('para trabajar, si el mismo existiera, cómo hacer para sentirse')} <span className="bg-neutral-100 bg-opacity-[0.2]">{t('pleno y realmente feliz')}</span> {t('en el trabajo, no cómodo o contento... desde ese entonces nace LinkIT.')}
 </h1>
@@ -28,8 +28,8 @@ export default function ModuloD() {
 
 </p>
 </div> 
-<div className="bg-linkIt-500 w-screen h-[8vh] grid grid-cols-2 items-center px-32">
-    <button className={`text-linkIt-300 text-[2vw] font-bold text-start  ${show ? 'self-start relative 2xl:bottom-2' : ''}`} onClick={handleClick}>{show ? (<a href="#historia">_</a>) : "+"}</button>
-    <button className='text-linkIt-300 text-[1.4vw] font-bold text-end' onClick={handleClick}>{show ? (<a href="#historia">{t('Leer menos')}</a>) : "Leer más"}</button>
+<div className="bg-linkIt-500 w-screen h-[8vh] grid grid-cols-2 items-center px-32 dark:bg-linkIt-700">
+    <button className={`text-linkIt-300 dark:text-white text-[2vw] font-bold text-start  ${show ? 'self-start relative 2xl:bottom-2' : ''}`} onClick={handleClick}>{show ? (<a href="#historia">_</a>) : "+"}</button>
+    <button className='text-linkIt-300 dark:text-white text-[1.4vw] font-bold text-end' onClick={handleClick}>{show ? (<a href="#historia">{t('Leer menos')}</a>) : "Leer más"}</button>
 </div>
 </div>) }
