@@ -1,6 +1,6 @@
 import Footer from "../../Utils/Footer/Footer"
 import ModuloA from "./modulosEmpresas/moduloA/ModuloA"
-import ModuloB from "./modulosEmpresas/moduloB/moduloB"
+import ModuloB from "./modulosEmpresas/moduloB/moduloBH"
 import ModuloC from "./modulosEmpresas/moduloC/ModuloC"
 import ModuloD from "./modulosEmpresas/moduloD/ModuloD"
 import ModuloE from "./modulosEmpresas/moduloE/ModuloE"
@@ -10,6 +10,7 @@ import ModuloH from "./modulosEmpresas/moduloH/ModuloH"
 import ModuloI from "./modulosEmpresas/moduloI/ModuloI"
 import { useEffect } from "react";
 import './Empresas.css'
+import Calculadora from "./modulosEmpresas/calculadora/calculadora"
 
 
 function Empresas() {
@@ -31,6 +32,9 @@ function Empresas() {
       <ModuloG />
       <section id='procesoE'>
       <ModuloH />
+      </section>
+      <section id="calculadora">
+        <Calculadora/>
       </section>
       <section id="contactanosE">
       <ModuloI />

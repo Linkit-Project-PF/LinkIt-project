@@ -9,9 +9,10 @@ import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 interface IComponentProps {
   company: ICompany
+  setSelectedOptions: React.Dispatch<React.SetStateAction<string>>
 }
 
-const CompanyComponent: FunctionComponent<IComponentProps> = ({company}) => {
+const CompanyComponent: FunctionComponent<IComponentProps> = ({company, setSelectedOptions}) => {
   const {t}=useTranslation()
   const dispatch = useDispatch()
   const [filePublicId, setFilePublicId] = useState("")
@@ -62,10 +63,10 @@ const CompanyComponent: FunctionComponent<IComponentProps> = ({company}) => {
         <div className="flex flex-col justify-between w-1/2">
           <h1 className="text-4xl font-bold mt-6">{t("Hola")} {company.companyName}!</h1>
           <div className="flex space-x-6">
-            <button className="text-xl font-semibold hover:text-linkIt-300">
+            <button onClick={() => setSelectedOptions('MyInfo')} className="text-xl font-semibold hover:text-linkIt-300">
               {t('Mis Datos')}
             </button>
-            <button className="text-xl font-semibold hover:text-linkIt-300">
+            <button onClick={() => setSelectedOptions('MyPosts')} className="text-xl font-semibold hover:text-linkIt-300">
               {t('Mis Vacantes')}
             </button>
           </div>

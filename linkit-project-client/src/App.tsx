@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import VerifyUser from "./Utils/Verify/VerifyUser.tsx";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -32,6 +33,7 @@ import TopButton from "./Utils/TopButton.tsx";
 import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
 import Error from "./components/Errores/Error.tsx";
 import ReactGA from "react-ga4";
+import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 
 type registerLoginState = {
   registerLogin: {
@@ -107,8 +109,7 @@ function App() {
   useEffect(() => {
     const googleAnalytics = async () => {
       try {
-        const ga4react = ReactGA.initialize("G-M6F6EHLMX7")
-        console.log('Google Analytics', ga4react)
+        ReactGA.initialize("G-M6F6EHLMX7")
       } catch (error) {
         console.log(error)
       }
@@ -133,11 +134,19 @@ function App() {
               Authorization: `Bearer ${SUPERADMN_ID}`
             }
           })
+          const responseAdmins = await axios.get("https://linkit-server.onrender.com/admins/find",
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`
+            }
+          })
         dispatch(setStackTechnologies(responseTechnologies.data))
         dispatch(setResources(responseResources.data));
         dispatch(setEvents());
         dispatch(setBlogs());
         dispatch(setEbooks());
+        dispatch(setAdmins(responseAdmins.data))
+        
       } catch (error) {
         if (error instanceof AxiosError) console.log({ error: error.message });
       }
@@ -206,7 +215,8 @@ function App() {
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/profile/*" element={<Profile />} />
-        <Route path="/blog/:id" element={<BlogView />} />
+        <Route path="/verify/:id" element={<VerifyUser/>} />
+        <Route path="/blog/:id&:role" element={<BlogView />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<Error />} />
       </Routes>

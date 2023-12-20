@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     jobOffers: [],
     allJobOffers: [],
+    searchJobOffers: [],
 }
 
 type JobOffer = {
@@ -24,14 +25,22 @@ const JobCardSlice = createSlice({
         applyFilters: (state, action) => {
             state.jobOffers = action.payload.filter((jobOffer: JobOffer) => jobOffer.archived === false)
         },
-        setJobOffers: (state, action) =>{
+        setJobOffers: (state, action) => {
             state.jobOffers = action.payload;
             state.allJobOffers = action.payload;
+            state.searchJobOffers = action.payload;
+        },
+        setsearchJobOffers: (state, action) => {
+            const searchTerm = action.payload.toLowerCase();
+            const filterdeJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>
+                (jobOffer.title.toLowerCase().includes(searchTerm))
+            )
+            return { ...state, searchJobOffers: filterdeJobOffers }
         }
     }
 })
 
-export const { applyFilters, setJobOffers } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers, setsearchJobOffers } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 

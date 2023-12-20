@@ -36,6 +36,7 @@ export type ResourceProps = {
 export type UserProps = {
   _id: string;
   airTableId: string;
+  name: string;
   image: string;
   firstName: string;
   lastName: string;

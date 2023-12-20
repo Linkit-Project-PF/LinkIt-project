@@ -1,6 +1,8 @@
 import "./NavBar.css";
-import Logo from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg";
+import LogoBlue from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg";
+import LogoWhite from "/Linkit-logo/linkit-logos-web_5-logo-horizontal-blanco.svg";
 import arrow from "/Vectores/arrow.png";
+import whiteArrow from "/Vectores/white-arrow.png";
 import Languaje from "../../Utils/Language";
 import iconUser from "/Vectores/iconUser.png";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
@@ -15,6 +17,7 @@ import {
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../redux/types";
+
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -67,7 +70,7 @@ function NavBar() {
   const [isOpenQS, setIsOpenQS] = useState(false);  
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
-
+  const [toggleDarkMode, setToggleDarkMode] = useState(false);
 
   const scopeQS = useMenuAnimation(isOpenQS);
   const scopeUser = useMenuAnimation(isOpenUser);
@@ -110,12 +113,13 @@ function NavBar() {
     }, 0);
     }
 
-  // const navigatetoQuoteCompany = () => {
-  //   navigate('/quienesSomos')
-  //   setTimeout(() => {
-  //     window.location.href = '#cotiza';
-  //   }, 1000);
-  //   }
+
+  const navigatetoQuoteCompany = () => {
+    navigate('/SoyEmpresa')
+    setTimeout(() => {
+      window.location.href = '#calculadora';
+    }, 1000);
+    }
   
   const goSoyTalento = () => {
     navigate("/SoyTalento");
@@ -222,11 +226,21 @@ function NavBar() {
     }, 0);
   }
 
+  const darkMode = () => { 
+    setToggleDarkMode(!toggleDarkMode)
+  }
+  useEffect(() => {
+    if (toggleDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+   }, [toggleDarkMode])
   return (
     <div>
       <div className="preNavbar">
         <span className="">
-          {t('Contrata y gestiona talentos de forma global con LinkIt')} |{" "}
+          {t('Contrata y gestiona talentos de forma global con LinkIT')} |{" "}
         </span>
         <NavLink
           to="https://calendly.com/linkit-project-henry/30min"
@@ -236,18 +250,18 @@ function NavBar() {
           {t('Comienza ahora!')} →
         </NavLink>
       </div>
-      <nav className="navBar">
+      <nav className="navBar ">
         <div className="h-full w-[8vw]">
         <img
-          src={Logo}
+          src={!toggleDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
-          alt=""
+          alt="LinkIT-logo"
           className="h-full w-full object-cover hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
          </div>
         
           <motion.button
-            className={` border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300" : " border-b-transparent"}`}
+            className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 dark:hover:border-b-white dark:hover:text-white  ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300 dark:border-b-white dark:text-white" : "border-b-transparent"}`}
             onClick={() => goHome()}
           >
             {t('Inicio')}
@@ -260,34 +274,34 @@ function NavBar() {
             onMouseLeave={() => setIsOpenEmpresa(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveEmpresa ? "text-linkIt-300 border-b-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${isActiveEmpresa ? "text-linkIt-300 dark:text-white " : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyEmpresa()}
             >
               {t('Soy Empresa')}
               <div className="arrow w-[0.7vw] ml-[0.3vw]">
-                <img src={arrow} alt="arrow" />
+                <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white dark:bg-linkIt-400 rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenEmpresa ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 dark:after:bg-white after:absolute"></div>
               <li className={`hover:text-linkIt-300`}>
                 <button onClick={navigatetoServicesCompany} >{t('Servicios')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className=" hover:text-linkIt-300">
                 <button onClick={navigatetoProcessCompany}>{t('Proceso')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className=" hover:text-linkIt-300">
-                <button>{t('Cotiza')}</button> </li>
+                <button  onClick={navigatetoQuoteCompany}>{t('Cotiza')}</button> </li>
             </ul>{" "}
           </motion.nav>
 
@@ -299,32 +313,32 @@ function NavBar() {
             onMouseLeave={() => setIsOpenSoyTalento(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveTalento ? "text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${isActiveTalento ? "text-linkIt-300 dark:text-white" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goSoyTalento()}
             >
               {t('Soy Talento')}
               <div className="arrow w-[0.7vw] ml-[0.3vw]">
-                <img src={arrow} alt="arrow" />
+                <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] dark:bg-linkIt-400 w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenSoyTalento ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoServicesTalent}>{t('Servicios')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoProcessTalent}>{t('Proceso')}</button>
               </li>
@@ -339,45 +353,45 @@ function NavBar() {
             onMouseLeave={() => setIsOpenRecursos(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveRecursos ? "text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${isActiveRecursos ? "text-linkIt-300 dark:text-white" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goRecursos()}
             >
               {t('Recursos')}
               <div className="arrow w-[0.7vw] ml-[0.3vw]">
-                <img src={arrow} alt="arrow" />
+                <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="bg-white relative rounded-b-[7px] w-full h-fit p-[0.5vw] pr-[1.4vw] font-semibold items-center space-y-[1vh]"
+              className="bg-white relative rounded-b-[7px] dark:bg-linkIt-400 w-full h-fit p-[0.5vw] pr-[1.4vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenRecursos ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoBlogs}>{t('Blogs')}</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoEbooks}>{t('Ebooks')}</button></li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoWebinars}>{t('Webinars')}</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoFAQ}>FAQ</button>
               </li>
-              <hr className="w-[110%]" />
+              <hr className="w-[120%]" />
 
               <li className="hover:text-linkIt-300">
-                <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Libreria')}</a>
+                <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Librería')}</a>
               </li>
             </ul>
           </motion.nav>
@@ -390,41 +404,41 @@ function NavBar() {
             onMouseLeave={() => setIsOpenQS(false)}
           >
             <motion.button
-              className={`flex h-full items-center hover:text-linkIt-300 ${isActiveQS ? "text-linkIt-300" : ""
+              className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${isActiveQS ? "text-linkIt-300 dark:text-white" : ""
                 }`}
               whileTap={{ scale: 0.97 }}
               onClick={() => goQS()}
             >
               {t('Quiénes Somos')}
               <div className="arrow w-[0.7vw] ml-[0.3vw]">
-                <img src={arrow} alt="arrow" />
+                <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative bg-white rounded-b-[7px] dark:bg-linkIt-400 w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenQS ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute"></div>
+              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoMission} >{t('Misión')}</button></li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoVision} >{t('Visión')}</button></li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoValues}>{t('Valores')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoHistory} >{t('Historia')}</button>
               </li>
-              <hr className="w-[90%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoInternalTalent} >{t('Talento interno')}</button>
@@ -435,9 +449,26 @@ function NavBar() {
 
 
         <div className="containerBtnsNavbar">
+        <div className="flex items-center justify-center h-full">
+        <label className="toggle text-white dark:bg-linkIt-200 dark:hover:bg-linkIt-300 " htmlFor="switch">
+            <input id="switch" className="input" type="checkbox" checked={toggleDarkMode} onChange={darkMode} />
+            <div className="icon icon--moon flex items-center justify-center">
+                <svg className="w-[60%]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" fill-rule="evenodd"></path>
+                </svg>
+            </div>
+        
+            <div className="icon icon--sun flex items-center justify-center">
+                <svg className="w-[60%]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path>
+                </svg>
+            </div>
+        </label>
+
+    </div>
           <Languaje />
           <motion.button
-            className={`contrataBtnNavB`}
+            className={`background-button`}
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
           >
@@ -445,7 +476,7 @@ function NavBar() {
             {t('Contrata Talento')}
           </motion.button>
           <motion.button
-            className={`vacanteBtnNavB`}
+            className={`transparent-background-button`}
             onClick={() => goSoyTalento()}
             whileTap={{ scale: 0.9 }}
           >
@@ -464,10 +495,10 @@ function NavBar() {
               alt="inconUser"
             />
             <div className="arrow w-3 relative left-10 2xl:left-12 bottom-4 xl:bottom-[19px] 2xl:bottom-[22px]">
-              <img src={arrow} alt="arrow" />
+              <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
             </div>
             <ul
-              className="bg-white relative bottom-3 rounded-b-[7px] w-fit h-fit pr-4 pb-4"
+              className="bg-white dark:bg-linkIt-400 relative bottom-3 rounded-b-[7px] w-fit h-fit pr-4 pb-4"
               style={{
                 pointerEvents: isOpenUser ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
