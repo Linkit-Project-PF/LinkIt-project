@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
   const {t} = useTranslation();
 
         return (
-            <div className="relative bg-linkIt-200 z-10 px-[6vw] grid grid-cols-4 before:absolute before:bg-linkIt-500 before:w-[90vh] xl:before:w-[75vh] before:top-[35vh] xl:before:top-[26vh] 2xl:before:w-[60vh] before:h-[75vh] xl:before:h-[65vh] 2xl:before:h-[60vh] before:-z-[1] before:skew-y-[40deg] before:left-0 2xl:before:top-[20vh] gap-x-4">
+            <div className="relative bg-linkIt-200 z-10 px-[6vw] grid grid-cols-4 before:absolute before:bg-linkIt-500 dark:before:bg-linkIt-700 before:w-[50%] before:h-[100%]  before:-z-[1] before:rotate-[40deg] before:left-[-19%] before:top-[20%] gap-x-4 dark:bg-linkIt-400">
                 <img src="/people-LinkIt/ary-perfil.png" alt="ary-perfil" className="relative bottom-0 col-start-1 row-start-1" />
                 <div className="grid grid-cols-2 mb-3">
                 <img src="/Vectores/comillas-blancas.svg" alt="Comillas" className="w-1/4 object-contain mt-[8vh] 2xl:mt-[10vh] col-start-1" />
