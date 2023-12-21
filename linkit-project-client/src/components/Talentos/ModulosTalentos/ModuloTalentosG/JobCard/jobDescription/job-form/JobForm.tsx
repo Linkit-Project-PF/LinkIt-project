@@ -12,21 +12,11 @@ import CloudinaryUploadWidget from '../../../../../../Services/cloudinaryWidget'
 import { motion } from "framer-motion";
 import { Stack } from "./technicalStacks";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { SUPERADMN_ID } from "../../../../../../../env";
 import Swal from "sweetalert2";
 
 
 function JobForm() {
-  const { id } = useParams<{ id: string }>();
-
   const dispatch = useDispatch();
-
-  const allJobOffers = useSelector((state: any)=> state.jobCard.allJobOffers)
-  const jobOffer = allJobOffers.find((job: any) => job.code === id)
-
-  const jobOfferId = jobOffer?._id
-
   
   const admins = useSelector((state: any) => state.application.admins);
   
@@ -106,7 +96,6 @@ function JobForm() {
     }
     console.log(userApplicationObject)
     try {
-      console.log(userApplicationObject)
       const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
         Swal.fire({
