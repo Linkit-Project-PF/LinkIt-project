@@ -53,7 +53,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
   const {t} = useTranslation()
 
   return (
-    <div className="flex justify-center items-center content-center absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[7rem] bg-linkIt-500 p-[3rem] rounded-[20px]">
+    <div className="flex justify-center items-center content-center absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[20%] bg-linkIt-500 p-[3rem] rounded-[20px]">
 
       <form action="" onSubmit={handleSubmit} className="flex flex-col">
         <div className="grid grid-cols-3 grid-rows-3 gap-x-5 gap-y-3 font-montserrat">
@@ -132,10 +132,10 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
         </div>
 
         <div className="flex flex-row justify-self-end place-self-end mt-8 gap-2"> 
-          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">{t('Descartar cambios')}</button>
+          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white font-montserrat font-[500] hover:border-linkIt-200 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">{t('Descartar cambios')}</button>
           <button
             type="submit"
-            className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
+            className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 font-montserrat font-[500] hover:border-linkIt-200 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
           >
             {t('Guardar cambios')}
           </button>
