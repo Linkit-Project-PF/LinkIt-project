@@ -21,7 +21,7 @@ function JobFormProgress() {
   return (
     <>
     
-      <div className="p-[.00001rem] max-h-[.1rem] bg-linkIt-500 flex flex-row items-center content-center justify-between relative bottom-[3rem]">
+      <div className="p-[.00001rem] max-h-[.001rem] bg-linkIt-500 flex flex-row items-center content-center justify-between">
         {
             formSteps.map((step, index) => {
                 return (
