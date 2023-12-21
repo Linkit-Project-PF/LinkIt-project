@@ -74,7 +74,12 @@ function LoginTalent() {
     event.preventDefault();
     try {
       const response = await axios.get<IUser>(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`, {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
       )
       const loggedUser = response.data
 
@@ -95,7 +100,7 @@ function LoginTalent() {
     } catch (error: any) {
       Swal.fire({
         title: "Error",
-        text: t("Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",

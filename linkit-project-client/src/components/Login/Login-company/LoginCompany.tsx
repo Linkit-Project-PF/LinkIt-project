@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./LoginCompany.css";
 import { setPressLoginCompany, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import { motion } from "framer-motion";
@@ -78,10 +77,14 @@ function LoginCompany() {
     event.preventDefault()
     try {
       const response = await axios.get<ICompany>(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`, {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
       )
       const loggedCompany = response.data
-      console.log(loggedCompany)
       if (response.status === 200) {
         
         Swal.fire({
@@ -98,9 +101,10 @@ function LoginCompany() {
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
+      console.log(error)
       Swal.fire({
         title: "Error",
-        text: t("Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
