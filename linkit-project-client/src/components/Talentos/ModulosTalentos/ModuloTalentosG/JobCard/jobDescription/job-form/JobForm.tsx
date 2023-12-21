@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   setUncompletedStep,
   setCompletedStep,
+  resetForm
 } from "../../../../../../../redux/features/ApplicationSlice";
 import "./JobForm.css";
 import JobFormProgress from "./jobForm-progress/jobForm-progress";
@@ -19,6 +20,7 @@ import {
 } from "./job-form-types-handlers/jobFormHandlers";
 import Select from "react-select";
 import FormTransition from "./job-form-types-handlers/FormTransition";
+import { useTranslation } from "react-i18next";
 
 const formVariants: Variants = {
   hidden: {
@@ -47,6 +49,8 @@ function JobForm() {
   const isFormVisible = useSelector(
     (state: any) => state.application.isFormVisible
   );
+
+  const { t } = useTranslation();
 
   const admins = useSelector((state: any) => state.application.admins);
 
@@ -127,7 +131,7 @@ function JobForm() {
       email: user.email,
       reason: user.reason,
       availability: user.availability,
-      salary: user.salary,
+      salary: Number(user.salary),
       country: user.country,
       linkedin: user.linkedin,
       stack: user.technologies,
@@ -135,7 +139,6 @@ function JobForm() {
       firstName: user.name,
       lastName: user.lastName,
     }
-    console.log(userApplicationObject)
     try {
       const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
@@ -203,6 +206,32 @@ function JobForm() {
     document.addEventListener("mousedown", handler);
   }, []);
 
+  const handleGoBack = () => {
+    Swal.fire({
+      title: t('¿Estás seguro/a?'),
+      text: t('Si vuelves atrás perderás todo el progreso'),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: t('Volver atrás'),
+      cancelButtonText: t('Seguir postulando'),
+      confirmButtonColor: '#01A28B',
+      cancelButtonColor: '#173951',
+      iconColor: '#F87171',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(resetForm())
+        navigate(-1)
+      }else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          t('Cancelado'),
+          t('Tu postulación sigue en curso'),
+          'info'
+        )
+      }
+    })
+  }
+
   return (
     <AnimatePresence mode="wait">
       {isFormVisible && (
@@ -219,14 +248,14 @@ function JobForm() {
             <button
               type="button"
               className="font-montserrat font-[500] text-linkIt-400 text-[1.3rem] absolute top-[5%] left-[1rem] hover:cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out flex flex-row justify-center items-center gap-[.5rem]"
-              onClick={() => navigate(-1)}
+              onClick={() => handleGoBack()}
             >
               <img
                 src="/Vectores/left-arrow.svg"
                 alt="go-back"
                 className="w-[1.5rem]"
               />{" "}
-              Volver
+              {t('Volver')}
             </button>
             <section className="absolute top-[8%] left-[50%] translate-x-[-50%] ">
               <JobFormProgress />
@@ -237,14 +266,14 @@ function JobForm() {
             {currentStep === 1 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                  Información Personal
+                  {t('Información Personal')}
                 </h2>
                 <label
                   htmlFor="name"
                   className="font-montserrat font-[500] relative  text-[1.3rem] w-full flex flex-col"
                 >
                   <div className="flex">
-                    Nombre<span className=" text-red-400">*</span>
+                    {t('Nombre')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -264,7 +293,7 @@ function JobForm() {
                   className="font-montserrat font-[500] relative text-[1.3rem] w-full "
                 >
                   <div className="flex">
-                    Apellido<span className=" text-red-400">*</span>
+                    {t('Apellido')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -303,7 +332,7 @@ function JobForm() {
                   htmlFor=""
                   className="font-montserrat font-[500] relative text-[1.3rem] w-full"
                 >
-                  País<span className="text-red-400 ">*</span>
+                  {t('País')}<span className="text-red-400 ">*</span>
                   <SelectCountryFormEs
                     setCountry={setCountry}
                     country={country}
@@ -342,7 +371,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </button>
                 </div>
               </section>
@@ -353,7 +382,7 @@ function JobForm() {
             {currentStep === 2 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                  Información Profesional
+                  {t('Información Profesional')}
                 </h2>
 
                 <label
@@ -372,7 +401,7 @@ function JobForm() {
                       name="cv"
                       className="border-linkIt-50 border-[2px] text-opacity-75 text-linkIt-400 font-[500] w-full h-[2.5rem] focus:border-linkIt-200 rounded-[5px]"
                     >
-                      {fileName === "" ? "Subir CV" : fileName.split(".")[0]}
+                      {fileName === "" ? t("Subir CV") : fileName.split(".")[0]}
                     </button>
                   </CloudinaryUploadWidget>
                 </label>
@@ -407,7 +436,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    Nivel de inglés<span className=" text-red-400">*</span>
+                    {t('Nivel de inglés')}<span className=" text-red-400">*</span>
                   </div>
                   <button
                     type="button"
@@ -418,7 +447,7 @@ function JobForm() {
                     }}
                     ref={englishLevelRef}
                   >
-                    {englishLevel === "" ? "Seleccionar" : englishLevel}
+                    {englishLevel === "" ? t("Seleccionar") : englishLevel}
                   </button>
 
                   <motion.ul
@@ -488,7 +517,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    Expectativa Salarial<span className=" text-red-400">*</span>
+                    {t('Expectativa Salarial')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="number"
@@ -513,7 +542,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    Anterior
+                    {t('Anterior')}
                   </button>
 
                   <button
@@ -537,7 +566,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </button>
                 </div>
               </section>
@@ -548,14 +577,14 @@ function JobForm() {
             {currentStep === 3 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                  Información Profesional
+                  {t('Información Profesional')}
                 </h2>
 
                 <label
                   htmlFor="technologies"
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
-                  Selecciona Tus Tecnologías<span className=" text-red-400">*</span>
+                  {t('Selecciona Tus Tecnologías')}<span className=" text-red-400">*</span>
                <Select 
                   options={technologies}
                   isMulti={true}
@@ -578,7 +607,11 @@ function JobForm() {
                     control: (provided) => ({
                       ...provided,
                       maxHeight: "6rem",
-                      overflowY: "scroll"
+                      overflowY: "scroll",
+                      border: "2px solid #CBDAE8",
+                      ":hover": {
+                        border: "2px solid #173951",
+                      }
                     }),
                   }}
                   onChange={(e) => {
@@ -594,7 +627,7 @@ function JobForm() {
                   htmlFor="technologies"
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
-                  Selecciona Stack Técnico<span className=" text-red-400">*</span>
+                  {t('Selecciona Stack Técnico')}<span className=" text-red-400">*</span>
                <Select 
                   options={technicalStack}
                   isMulti={true}
@@ -617,7 +650,14 @@ function JobForm() {
                     control: (provided) => ({
                       ...provided,
                       maxHeight: "6rem",
-                      overflowY: "scroll"
+                      overflowY: "scroll",
+                      border: "2px solid #CBDAE8",
+                      ":hover":{
+                        border: "2px solid #173951",
+                      },
+                      ":focus": {
+                        border: "2px solid #173951",
+                      }
                     }),
                   }}
                   onChange={(e) => {
@@ -634,7 +674,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    Reclutador/a<span className=" text-red-400">*</span>
+                    {t('Reclutador/a')}<span className=" text-red-400">*</span>
                   </div>
 
                   <button
@@ -647,7 +687,7 @@ function JobForm() {
                     }}
                     ref={recruiterRef}
                   >
-                    {recruiter === "" ? "Seleccionar" : recruiter}
+                    {recruiter === "" ? t("Seleccionar") : recruiter}
                   </button>
 
                   <motion.ul
@@ -711,7 +751,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    Anterior
+                    {t('Anterior')}
                   </button>
 
                   <button
@@ -731,7 +771,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </button>
                 </div>
               </section>
@@ -742,14 +782,14 @@ function JobForm() {
             {currentStep === 4 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                  Información Profesional
+                  {t('Información Profesional')}
                 </h2>
                 <label
                   htmlFor="availability"
                   className="font-montserrat relative  text-[1.3rem] w-full flex flex-col "
                 >
                   <div className="flex">
-                    Periodo de aviso<span className=" text-red-400">*</span>
+                    {t('Periodo de aviso')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -771,7 +811,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    ¿Por qué estás buscando una nueva oportunidad laboral?
+                    {t('¿Por qué estás buscando una nueva oportunidad laboral?')}
                   </div>
                   <textarea
                     name="reason"
@@ -779,7 +819,7 @@ function JobForm() {
                     cols={10}
                     rows={10}
                     value={user.reason}
-                    placeholder="Escribe aquí tu respuesta"
+                    placeholder={t("Escribe aquí tu respuesta")}
                     onChange={handleInputChange}
                     className=" resize-none border-linkIt-50 border-[2px] w-full h-[10rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
                   ></textarea>
@@ -798,7 +838,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    Anterior
+                    {t('Anterior')}
                   </button>
 
                   <button
@@ -816,7 +856,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Enviar
+                    {t('Enviar')}
                   </button>
                 </div>
               </section>
