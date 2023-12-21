@@ -8,10 +8,12 @@ import Footer from "../../../../../../Utils/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import JobForm from "./job-form/JobForm";
+import { useDispatch } from "react-redux";
+import { setFormVisible } from "../../../../../../redux/features/ApplicationSlice";
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch();
   const [jobData, setJobData] = useState<JobDescriptionProps>(
     {} as JobDescriptionProps
   );
@@ -46,7 +48,7 @@ function JobDescription() {
     <>
       <article className="mt-[10rem] mx-[5%] font-montserrat text-linkIt-400 flex flex-col relative">
         <div className="flex flex-row relative mb-[10%] w-full">
-          <div className="w-[60%]">
+          <div className="w-full">
             <header className="mb-[3%]">
                 <motion.button
                 className="flex flex-row gap-[.5rem] items-center content-center mb-[5%] font-bold text-[1rem]"
@@ -155,13 +157,10 @@ function JobDescription() {
                 className="w-[4.5rem] mr-[1.5%]"
               />
               <h3 className="font-bold text-black text-2xl">
-                Para aplicar por favor completa <br /> el siguiente <Link to={`/soyTalento/Joboffer/${id}/application`}>formulario</Link>
+                Para aplicar por favor completa <br /> el siguiente <Link to={`/soyTalento/Joboffer/${id}/application`} onClick={()=> dispatch(setFormVisible(true))}>formulario</Link>
               </h3>
             </section>
           </div>
-          <section className="">
-            <JobForm />
-          </section>
         </div>
         <section className="bg-linkIt-300 mx-[-6%] text-white text-center h-[50vh] flex flex-row justify-center content-center items-center">
           <h3 className="font-bold">NEWSLETTER</h3>
