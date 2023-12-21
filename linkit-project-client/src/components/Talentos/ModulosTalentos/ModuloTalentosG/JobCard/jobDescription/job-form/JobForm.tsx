@@ -13,8 +13,6 @@ import CloudinaryUploadWidget from "../../../../../../Services/cloudinaryWidget"
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { Stack } from "./technicalStacks";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { SUPERADMN_ID } from "../../../../../../../env";
 import Swal from "sweetalert2";
 import {
   handleRecruiterChange,
@@ -44,18 +42,11 @@ const formVariants: Variants = {
 };
 
 function JobForm() {
-  const { id } = useParams<{ id: string }>();
-
   const dispatch = useDispatch();
 
   const isFormVisible = useSelector(
     (state: any) => state.application.isFormVisible
   );
-
-  const allJobOffers = useSelector((state: any) => state.jobCard.allJobOffers);
-  const jobOffer = allJobOffers.find((job: any) => job.code === id);
-
-  const jobOfferId = jobOffer?._id;
 
   const admins = useSelector((state: any) => state.application.admins);
 
@@ -132,42 +123,35 @@ function JobForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    let userApplicationObject = {
+    const userApplicationObject = {
+      email: user.email,
       reason: user.reason,
       availability: user.availability,
       salary: user.salary,
       country: user.country,
-      techStack: user.technicalStack,
+      linkedin: user.linkedin,
       stack: user.technologies,
-      recruiter: user.recruiter,
-      jd: jobOfferId,
-      user: userData._id,
-      status: "open",
-    };
+      english: user.englishLevel,
+      firstName: user.name,
+      lastName: user.lastName,
+    }
     console.log(userApplicationObject)
     try {
-      const response = await axios.post(
-        "https://linkit-server.onrender.com/postulations/create",
-        userApplicationObject,
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-          },
-        }
-      );
-      if (response.status > 200 && response.status < 300) {
+      const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
+      if(response.status > 200 && response.status < 300){
+
         Swal.fire({
           icon: "success",
           title: "¡Postulación enviada!",
           text: "Tu postulación ha sido enviada exitosamente",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Algo salió mal, por favor intentalo de nuevo",
-      });
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data,
+      })
     }
   };
 
@@ -202,7 +186,7 @@ function JobForm() {
   }, [filePublicId]);
 
   useEffect(() => {
-    let handler = (event: any) => {
+    const handler = (event: any) => {
       if (
         !englishLevelRef.current?.contains(event.target) &&
         !event.target.matches(".englishDropdown *")

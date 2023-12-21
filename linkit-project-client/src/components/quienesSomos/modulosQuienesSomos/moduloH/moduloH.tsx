@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 const {t} = useTranslation();
 
     return (
-        <div className="bg-linkIt-200 grid  p-[6vw] px-[15vw] gap-[3vw]">
+        <div className="relative bg-linkIt-200 grid  p-[6vw] px-[15vw] gap-[3vw] z-20">
         <h1 className="text-white text-[2.6vw] font-manrope text-center"> {t('Conoce a nuestros desarrolladores')}</h1>
         <div className="grid grid-cols-4 justify-items-center gap-6">
                     <img src="/people-LinkIt/samuel-henry.png" className="bg-linkIt-500 rounded-lg w-[18vw] 2xl:w-[15vw] h-[30vh] object-cover" alt="Samuel-Rodriguez" />
