@@ -129,7 +129,6 @@ function JobForm() {
       salary: user.salary,
       linkedin: user.linkedin,
       stack: user.technologies,
-
       english: user.englishLevel,
       firstName: user.name,
       lastName: user.lastName,
