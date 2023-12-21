@@ -13,8 +13,6 @@ import CloudinaryUploadWidget from "../../../../../../Services/cloudinaryWidget"
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { Stack } from "./technicalStacks";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { SUPERADMN_ID } from "../../../../../../../env";
 import Swal from "sweetalert2";
 import {
   handleDeleteStack,
@@ -47,18 +45,11 @@ const formVariants: Variants = {
 };
 
 function JobForm() {
-  const { id } = useParams<{ id: string }>();
-
   const dispatch = useDispatch();
 
   const isFormVisible = useSelector(
     (state: any) => state.application.isFormVisible
   );
-
-  const allJobOffers = useSelector((state: any) => state.jobCard.allJobOffers);
-  const jobOffer = allJobOffers.find((job: any) => job.code === id);
-
-  const jobOfferId = jobOffer?._id;
 
   const admins = useSelector((state: any) => state.application.admins);
 
@@ -138,14 +129,12 @@ function JobForm() {
       salary: user.salary,
       linkedin: user.linkedin,
       stack: user.technologies,
-
       english: user.englishLevel,
       firstName: user.name,
       lastName: user.lastName,
       country: user.country
     }
     try {
-      console.log(userApplicationObject)
       const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
 
@@ -195,7 +184,7 @@ function JobForm() {
   }, [filePublicId]);
 
   useEffect(() => {
-    let handler = (event: any) => {
+    const handler = (event: any) => {
       if (
         !englishLevelRef.current?.contains(event.target) &&
         !event.target.matches(".englishDropdown *")
