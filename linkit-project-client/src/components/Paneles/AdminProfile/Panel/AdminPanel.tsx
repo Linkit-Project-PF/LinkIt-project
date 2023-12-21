@@ -64,7 +64,7 @@ export default function AdminPanel() {
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
         <Route path="usuarios" element={<UsersAdmin />} />
-        <Route path="estadisticas" element={<Statistics />} />
+        <Route path="" element={<Statistics />} />
       </Routes>
       <br />
       <Footer />

@@ -15,7 +15,6 @@ export type VacancyProps = {
   archived: boolean;
   company: string;
   status: string;
-  users: string[];
   createdDate: string; //! ver si recibe un string o un date
   __v: number;
   _id: string;

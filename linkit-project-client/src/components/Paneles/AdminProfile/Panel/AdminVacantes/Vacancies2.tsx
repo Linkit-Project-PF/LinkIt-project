@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
-import { UserPostulations } from "./userPostulations";
 
 
 type stateProps = {
@@ -18,15 +17,13 @@ type stateProps = {
 
 export default function Vacancies2() {
 
-    const data = useSelector((state: stateProps) => state.jobCard.allJobOffers);
+
     const searchData = useSelector((state: stateProps) => state.jobCard.searchJobOffers);
 
     const token = useSelector((state: any) => state.Authentication.token);
     const [saveStatus, /*setSaveStatus*/] = useState(false); //* Estado que actualiza la info de la tabla
     const dispatch = useDispatch();
 
-    const [viewPostul, setViewPostul] = useState(false);
-    const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
 
     const allStackTechnologies = useSelector(
         (state: any) => state.resources.stackTechnologies as string[]
@@ -71,37 +68,30 @@ export default function Vacancies2() {
 
     const [viewStatus, setViewStatus] = useState('Visible')
 
-    
+    const [select, setSelect] = useState(false)
 
-    const handleView = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+    const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
     }
 
 
 
-    const hidePostul = () => {
-        setViewPostul(false);
-    };
-
-    const handlePostul = (id: string): void => {
-        const activeRow = data.find((v) => v._id === id);
-        if (activeRow) {
-            setPostulData(activeRow);
-            setViewPostul(true);
-        }
-    };
-
-    const handleNext = () => {
+    const handleNext = (): void => {
         setCurrentPage(currentPage + 1);
     };
 
-    const handlePrevius = () => {
+    const handlePrevius = (): void => {
         setCurrentPage(currentPage - 1);
     };
 
+    const handleEdit = (): void =>{
+        setSelect(!select)
+    }
+
     useEffect(() => {
-        const loadData = async () => {
+        const loadData = async (): Promise<void> => {
             try {
                 const response = await axios(
                     "https://linkit-server.onrender.com/jds/find",
@@ -116,7 +106,7 @@ export default function Vacancies2() {
     }, [saveStatus]);
 
 
-    const hideCol = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const hideCol = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name } = e.target
         setViewCol((prevViewCol) => ({
             ...prevViewCol,
@@ -134,6 +124,7 @@ export default function Vacancies2() {
             />
 
             <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
+
                 {viewCol.title &&
                     <div className=''>
                         <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
@@ -150,7 +141,10 @@ export default function Vacancies2() {
                         </div>
                         <div className=''>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.title}</p>
+                                <div className='flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>
+                                    <input type="checkbox" name='edit' onChange={handleEdit} checked={select}/>
+                                    <p key={v._id} className='pl-2'>{v.title}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -258,20 +252,6 @@ export default function Vacancies2() {
                     </div>
                 }
 
-                {viewCol.users &&
-                    <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
-                            <h1>Postulados</h1>
-                        </div>
-                        <div>
-                            {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 text-center border-b-2 border-r-2 border-linkIt-50'>
-                                    <a className='cursor-pointer hover:text-linkIt-300' onClick={() => handlePostul(v._id)}>{v.users.length}</a>
-                                </p>
-                            ))}
-                        </div>
-                    </div>
-                }
 
                 {viewCol.AboutUs &&
                     <div className=''>
@@ -373,30 +353,6 @@ export default function Vacancies2() {
                     </div>
                 }
 
-                {viewCol.status &&
-                    <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
-                            <div>
-                                <h1>Estado</h1>
-                            </div>
-                            <div className='ml-6'>
-                                <select name="sort" className='border-none outline-none'>
-                                    <option value=""></option>
-                                    <option value="">Open</option>
-                                    <option value="">First-interview</option>
-                                    <option value="">Second-interview</option>
-                                    <option value="">Closed</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.status}</p>
-                            ))}
-                        </div>
-                    </div>
-                }
-
                 {viewCol.code &&
                     <div className=''>
                         <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
@@ -430,7 +386,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{viewStatus === "Visible" ? v.archived === true : v.archived === false }{viewStatus}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? 'Hidden' : 'Visible'}</p>
                             ))}
                         </div>
                     </div>
@@ -457,12 +413,6 @@ export default function Vacancies2() {
                     Siguiente
                 </button>
             </div>
-            {viewPostul && (
-                <UserPostulations
-                    onClose={hidePostul}
-                    jdId={postulData._id as string}
-                />
-            )}
         </div>
     )
 }
