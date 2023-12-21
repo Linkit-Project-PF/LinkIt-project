@@ -94,6 +94,7 @@ const customStyles = {
     height: '2.5rem',
     paddingRight: '2rem',
     paddingLeft: '.5rem',
+    borderRadius: '5px',
   }),
 
   valueContainer: (provided: any) => ({
