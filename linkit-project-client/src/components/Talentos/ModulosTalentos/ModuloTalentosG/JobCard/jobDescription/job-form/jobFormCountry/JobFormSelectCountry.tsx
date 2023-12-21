@@ -84,7 +84,8 @@ const customStyles = {
   }),
 };
 
-export function SelectCountryFormEs({setCountry, country}: any) {
+export function SelectCountryFormEs({setCountry, country, setUser}: any) {
+
   const { t } = useTranslation();
 
   const countryOptionsEs: OptionType[] = [
@@ -116,6 +117,10 @@ export function SelectCountryFormEs({setCountry, country}: any) {
   
   const handleChange = (selectedOption: OptionType|null) => {
     setCountry(selectedOption as OptionType)
+    setUser((prevUser: any) => ({
+      ...prevUser,
+      country: selectedOption?.value
+    }))
   }
   
   return (
