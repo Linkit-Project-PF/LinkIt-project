@@ -11,6 +11,9 @@ export default function NavPanelAdmin() {
           <NavLink to="/AdminDashboard/vacantes">{t('Vacantes')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
+          <NavLink to="/AdminDashboard/clientsfollowup">{t('Seguimiento')}</NavLink>
+        </li>
+        <li className="text-2xl mr-16">
           <NavLink to="/AdminDashboard/recursos">{t('Recursos')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
@@ -23,7 +26,7 @@ export default function NavPanelAdmin() {
           <NavLink to="/AdminDashboard/mis-datos">{t('Mis datos')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/estadisticas">{t('Estadisticas')}</NavLink>
+          <NavLink to="/AdminDashboard">{t('Estadisticas')}</NavLink>
         </li>
       </ul>
     </nav>

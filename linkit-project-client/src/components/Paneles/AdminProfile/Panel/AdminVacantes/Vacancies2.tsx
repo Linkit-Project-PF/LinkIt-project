@@ -28,6 +28,17 @@ export default function Vacancies2() {
     const [viewPostul, setViewPostul] = useState(false);
     const [postulData, setPostulData] = useState<Partial<VacancyProps>>({});
 
+    const allStackTechnologies = useSelector(
+        (state: any) => state.resources.stackTechnologies as string[]
+    );
+
+    const [tehcs, setTehcs] = useState(false)
+
+    const hideTehcs = () => {
+        setTehcs(!tehcs)
+    }
+
+
     const [viewCol, setViewCol] = useState({
         title: true,
         description: true,
@@ -57,6 +68,17 @@ export default function Vacancies2() {
     const dataToShow = searchData.slice(startIndex, endIndex);
 
     const totalPages = Math.ceil(searchData.length / itemsPerPage);
+
+    const [viewStatus, setViewStatus] = useState('Visible')
+
+    
+
+    const handleView = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        setViewStatus(value)
+    }
+
+
 
     const hidePostul = () => {
         setViewPostul(false);
@@ -103,7 +125,7 @@ export default function Vacancies2() {
     }
 
     return (
-        <div className='bg-scroll bg-linkIt-500'>
+        <div className=' bg-scroll bg-linkIt-500'>
 
 
             <HeadVacancy
@@ -210,9 +232,23 @@ export default function Vacancies2() {
                 }
 
                 {viewCol.stack &&
-                    <div className=''>
+                    <div className='relative'>
                         <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
-                            <h1>Tecnologías</h1>
+                            <div>
+                                <button onClick={hideTehcs}>Tecnologías</button>
+                            </div>
+                        </div>
+                        <div className='absolute mt-6 border-2  border-black'>
+                            {tehcs && allStackTechnologies?.map((stack: any, index: number) => {
+                                return (
+                                    <div key={index} className='pl-6 flex flex-row'>
+                                        <label className=''>
+                                            <input className='' type="checkbox" name={stack.name} />
+                                            {stack.name}
+                                        </label>
+                                    </div>
+                                );
+                            })}
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
@@ -382,15 +418,19 @@ export default function Vacancies2() {
                                 <h1>Vista</h1>
                             </div>
                             <div className='ml-6'>
-                                <select name="sort" className='border-b-2 border-r-2 -none outline-none'>
-                                    <option value="">Visible</option>
-                                    <option value="">Hidden</option>
+                                <select
+                                    name="view"
+                                    className='border-b-2 border-r-2 -none outline-none'
+                                    onChange={handleView}
+                                >
+                                    <option value="Visible">Visible</option>
+                                    <option value="Hidden">Hidden</option>
                                 </select>
                             </div>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? "Hidden" : "Visible"}</p>
+                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{viewStatus === "Visible" ? v.archived === true : v.archived === false }{viewStatus}</p>
                             ))}
                         </div>
                     </div>
