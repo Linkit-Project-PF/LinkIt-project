@@ -131,40 +131,36 @@ function JobForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    let userApplicationObject = {
+    const userApplicationObject = {
+      email: user.email,
       reason: user.reason,
       availability: user.availability,
       salary: user.salary,
-      techStack: user.technicalStack,
+      linkedin: user.linkedin,
       stack: user.technologies,
-      recruiter: user.recruiter,
-      jd: jobOfferId,
-      user: userData._id,
-      status: "open",
-    };
+
+      english: user.englishLevel,
+      firstName: user.name,
+      lastName: user.lastName,
+      country: user.country
+    }
     try {
-      const response = await axios.post(
-        "https://linkit-server.onrender.com/postulations/create",
-        userApplicationObject,
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-          },
-        }
-      );
-      if (response.status > 200 && response.status < 300) {
+      console.log(userApplicationObject)
+      const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
+      if(response.status > 200 && response.status < 300){
+
         Swal.fire({
           icon: "success",
           title: "¡Postulación enviada!",
           text: "Tu postulación ha sido enviada exitosamente",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Algo salió mal, por favor intentalo de nuevo",
-      });
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data,
+      })
     }
   };
 
