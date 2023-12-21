@@ -546,6 +546,13 @@ export const i18nOptions: InitOptions = {
         'Volver atrás':'Go back',
         'Cancelado':'Cancelled',
         'Tu postulación sigue en curso':'Your application is still in progress',
+        'República Dominicana':'Dominican Republic',
+        'España': 'Spain',
+        'México': 'Mexico',
+        'Panamá': 'Panama',
+        'Perú': 'Peru',
+        'Estados Unidos': 'United States',
+        'Canadá': 'Canada',
       },
     }
   },

@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { setFormVisible } from "../../../../../../redux/features/ApplicationSlice";
 import Swal from "sweetalert2";
+import { setPressLogin } from "../../../../../../redux/features/registerLoginSlice";
 
 
 function JobDescription() {
@@ -60,7 +61,17 @@ function JobDescription() {
         title: '¡Ups!',
         text: 'Debes iniciar sesión para poder aplicar a esta vacante',
         icon: 'warning',
-        confirmButtonText: 'Ok'
+        iconColor: '#FBBF24',
+        cancelButtonText: 'cancelar',
+        confirmButtonText: 'iniciar sesión',
+        showCancelButton: true,
+        reverseButtons: true,
+        cancelButtonColor:'#173951',
+        confirmButtonColor: '#01A28B',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(setPressLogin('visible'))
+        }
       })
     }else{
       navigate(`application`)
