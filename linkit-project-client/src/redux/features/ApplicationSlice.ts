@@ -49,9 +49,15 @@ const applicationSlice = createSlice({
         },
         setFormVisible: (state, action) => {
             state.isFormVisible = action.payload;
+        },
+        resetForm: (state) => {
+            state.isFormVisible = false;
+            state.steps.forEach((step) => {
+                step.completed = false;
+            })
         }
     }
 })
 
-export const { setCompletedStep, setUncompletedStep, setAdmins, setFormVisible } = applicationSlice.actions;
+export const { setCompletedStep, setUncompletedStep, setAdmins, setFormVisible, resetForm } = applicationSlice.actions;
 export default applicationSlice.reducer;

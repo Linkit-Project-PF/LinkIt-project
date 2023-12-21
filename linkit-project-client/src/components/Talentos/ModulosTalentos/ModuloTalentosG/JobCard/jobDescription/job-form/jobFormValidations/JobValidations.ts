@@ -104,6 +104,8 @@ export function JobValidations(User: IUserJob) {
 
     if(User.salary === 0){
         errors.salary = "Expected salary is required"
+    }else if(User.salary.toString().startsWith("0")){
+        errors.salary = "Expected salary must be greater than 0"
     }else if(User.salary > 1000000){
         errors.salary = "Expected salary must be less than 1000000"
     }else if(User.salary > 0 && User.salary < 100){

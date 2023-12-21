@@ -17,3 +17,9 @@ export type JobDescriptionProps = {
     company: string
     status: string
 }
+
+export type State = {
+    Authentication: {
+        isAuthenticated: boolean
+    }
+}

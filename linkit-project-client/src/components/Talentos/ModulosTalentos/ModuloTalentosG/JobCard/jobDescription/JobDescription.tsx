@@ -1,25 +1,36 @@
 import { useEffect, useState } from "react";
 import "./JobDescription.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { SUPERADMN_ID } from "../../../../../../env";
-import { JobDescriptionProps } from "./typesJobs";
+import { JobDescriptionProps, State } from "./typesJobs";
 import Footer from "../../../../../../Utils/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setFormVisible } from "../../../../../../redux/features/ApplicationSlice";
+import Swal from "sweetalert2";
+import { setPressLogin } from "../../../../../../redux/features/registerLoginSlice";
+
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
+
+  const dispatch = useDispatch()
+
+  const isAuthenticated = useSelector((state: State)=> state.Authentication.isAuthenticated)
+
   const [jobData, setJobData] = useState<JobDescriptionProps>(
     {} as JobDescriptionProps
   );
   const { i18n } = useTranslation();
   const { language } = i18n;
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -42,6 +53,31 @@ function JobDescription() {
 
   const handleGoBack = () => {
     navigate("/soyTalento");
+  }
+
+  const handleApply = () => {
+    if(!isAuthenticated){
+      Swal.fire({
+        title: '¡Ups!',
+        text: 'Debes iniciar sesión para poder aplicar a esta vacante',
+        icon: 'warning',
+        iconColor: '#FBBF24',
+        cancelButtonText: 'cancelar',
+        confirmButtonText: 'iniciar sesión',
+        showCancelButton: true,
+        reverseButtons: true,
+        cancelButtonColor:'#173951',
+        confirmButtonColor: '#01A28B',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(setPressLogin('visible'))
+        }
+      })
+    }else{
+      navigate(`application`)
+      dispatch(setFormVisible(true))
+
+    }
   }
 
   return (
@@ -75,25 +111,25 @@ function JobDescription() {
             </header>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Descripción
+                {t('Descripción')}
               </h3>
               <p className="font-[600] max-w-[50%]">{jobData.description}</p>
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Acerca de nosotros
+                {t("Acerca de nosotros")}
               </h3>
               <p className="font-[600] max-w-[50%]">{jobData.aboutUs}</p>
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Acerca de nuestro cliente
+                {t("Acerca de nuestro cliente")}
               </h3>
               <p className="font-[600] max-w-[50%]">{jobData.aboutClient}</p>
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Responsabilidades
+                {t('Responsabilidades')}
               </h3>
               <p className="font-[600] max-w-[50%]">
                 {jobData.responsabilities}
@@ -101,7 +137,7 @@ function JobDescription() {
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Requerimientos
+                {t('Requerimientos')}
               </h3>
               <ul className="flex flex-col list">
                 {jobData.requirements?.map((requirement, index) => {
@@ -118,7 +154,7 @@ function JobDescription() {
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Deseable
+                {t('Deseable')}
               </h3>
               <ul className="flex flex-col list">
                 {jobData.niceToHave?.map((desirable, index) => {
@@ -135,7 +171,7 @@ function JobDescription() {
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
-                Beneficios
+                {t('Beneficios')}
               </h3>
               <ul className="flex flex-col list">
                 {jobData.benefits?.map((benefit, index) => {
@@ -157,12 +193,21 @@ function JobDescription() {
                 className="w-[4.5rem] mr-[1.5%]"
               />
               <h3 className="font-bold text-black text-2xl">
-                Para aplicar por favor completa <br /> el siguiente <Link to={`/soyTalento/Joboffer/${id}/application`} onClick={()=> dispatch(setFormVisible(true))}>formulario</Link>
+                {t('Para aplicar por favor completa')} <br /> {t('el siguiente formulario')}
               </h3>
             </section>
           </div>
+          <section className="w-[50%] flex flex-col justify-center items-center gap-[1rem]">
+            <img src="/Linkit-logo/linkit-logo-blue.svg" alt="linkIt-logo" className="w-full sticky top-[10%] mb-[10%]"/>
+            <button 
+            className="inline-flex border-[2px] border-linkIt-300  p-[.5rem] font-montserrat font-[600] text-white bg-linkIt-300 sticky top-[70%] whitespace-nowrap rounded-[5px] hover:bg-white hover:text-linkIt-300 transition-all duration-150 ease-out"
+            onClick={() => handleApply()}
+            >
+              {t('Aplicar a esta vacante')}
+            </button>
+          </section>
         </div>
-        <section className="bg-linkIt-300 mx-[-6%] text-white text-center h-[50vh] flex flex-row justify-center content-center items-center">
+        <section className="bg-linkIt-300 mx-[-6%] text-white text-center h-[50vh] flex flex-row justify-center content-center items-center ">
           <h3 className="font-bold">NEWSLETTER</h3>
         </section>
         <footer className="mx-[-6%] ">

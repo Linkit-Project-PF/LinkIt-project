@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   setUncompletedStep,
   setCompletedStep,
+  resetForm
 } from "../../../../../../../redux/features/ApplicationSlice";
 import "./JobForm.css";
 import JobFormProgress from "./jobForm-progress/jobForm-progress";
@@ -15,13 +16,11 @@ import { Stack } from "./technicalStacks";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  handleDeleteStack,
-  handleDeleteTech,
   handleRecruiterChange,
-  handleStackChange,
-  handleTechChange,
 } from "./job-form-types-handlers/jobFormHandlers";
+import Select from "react-select";
 import FormTransition from "./job-form-types-handlers/FormTransition";
+import { useTranslation } from "react-i18next";
 
 const formVariants: Variants = {
   hidden: {
@@ -51,13 +50,23 @@ function JobForm() {
     (state: any) => state.application.isFormVisible
   );
 
+  const { t } = useTranslation();
+
   const admins = useSelector((state: any) => state.application.admins);
 
   const userData = useSelector((state: any) => state.Authentication.user);
 
-  const technologies = useSelector(
+  const objectsTechnologies = useSelector(
     (state: any) => state.resources.stackTechnologies
   );
+
+  const technologies = objectsTechnologies.map((tech: any) => {
+    return { value: tech.name, label: tech.name}
+  })
+
+  const technicalStack = Stack.map((tech: any) => {
+    return { value: tech, label: tech}
+  })
 
   const navigate = useNavigate();
 
@@ -71,17 +80,13 @@ function JobForm() {
     userData ? userData.englishLevel : ""
   );
   const [openEnglishLevel, setOpenEnglishLevel] = useState<boolean>(false);
-  const [openStack, setOpenStack] = useState<boolean>(false);
   const [userStack, setUserStack] = useState<string[]>([]);
   const [openRecruiter, setOpenRecruiter] = useState<boolean>(false);
   const [recruiter, setRecruiter] = useState<string>("");
-  const [openTechnologies, setOpenTechnologies] = useState<boolean>(false);
   const [userTechnologies, setUserTechnologies] = useState<string[]>([]);
 
   const englishLevelRef = useRef<HTMLButtonElement>(null);
-  const stackRef = useRef<HTMLDivElement>(null);
   const recruiterRef = useRef<HTMLButtonElement>(null);
-  const technologiesRef = useRef<HTMLDivElement>(null);
 
   const [user, setUser] = useState({
     name: userData ? userData.firstName : "",
@@ -126,13 +131,13 @@ function JobForm() {
       email: user.email,
       reason: user.reason,
       availability: user.availability,
-      salary: user.salary,
+      salary: Number(user.salary),
+      country: user.country,
       linkedin: user.linkedin,
       stack: user.technologies,
       english: user.englishLevel,
       firstName: user.name,
       lastName: user.lastName,
-      country: user.country
     }
     try {
       const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
@@ -192,26 +197,40 @@ function JobForm() {
         setOpenEnglishLevel(false);
       }
       if (
-        !stackRef.current?.contains(event.target) &&
-        !event.target.matches(".technicalDropdown *")
-      ) {
-        setOpenStack(false);
-      }
-      if (
         !recruiterRef.current?.contains(event.target) &&
         !event.target.matches(".recruiterDropdown *")
       ) {
         setOpenRecruiter(false);
       }
-      if (
-        !technologiesRef.current?.contains(event.target) &&
-        !event.target.matches(".techDropdown *")
-      ) {
-        setOpenTechnologies(false);
-      }
     };
     document.addEventListener("mousedown", handler);
   }, []);
+
+  const handleGoBack = () => {
+    Swal.fire({
+      title: t('¿Estás seguro/a?'),
+      text: t('Si vuelves atrás perderás todo el progreso'),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: t('Volver atrás'),
+      cancelButtonText: t('Seguir postulando'),
+      confirmButtonColor: '#01A28B',
+      cancelButtonColor: '#173951',
+      iconColor: '#F87171',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(resetForm())
+        navigate(-1)
+      }else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          t('Cancelado'),
+          t('Tu postulación sigue en curso'),
+          'info'
+        )
+      }
+    })
+  }
 
   return (
     <AnimatePresence mode="wait">
@@ -229,16 +248,16 @@ function JobForm() {
             <button
               type="button"
               className="font-montserrat font-[500] text-linkIt-400 text-[1.3rem] absolute top-[5%] left-[1rem] hover:cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out flex flex-row justify-center items-center gap-[.5rem]"
-              onClick={() => navigate(-1)}
+              onClick={() => handleGoBack()}
             >
               <img
                 src="/Vectores/left-arrow.svg"
                 alt="go-back"
                 className="w-[1.5rem]"
               />{" "}
-              Volver
+              {t('Volver')}
             </button>
-            <section className="absolute top-[10%] left-[50%] translate-x-[-50%] ">
+            <section className="absolute top-[8%] left-[50%] translate-x-[-50%] ">
               <JobFormProgress />
             </section>
 
@@ -247,14 +266,14 @@ function JobForm() {
             {currentStep === 1 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                  Información Personal
+                  {t('Información Personal')}
                 </h2>
                 <label
                   htmlFor="name"
                   className="font-montserrat font-[500] relative  text-[1.3rem] w-full flex flex-col"
                 >
                   <div className="flex">
-                    Nombre<span className=" text-red-400">*</span>
+                    {t('Nombre')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -274,7 +293,7 @@ function JobForm() {
                   className="font-montserrat font-[500] relative text-[1.3rem] w-full "
                 >
                   <div className="flex">
-                    Apellido<span className=" text-red-400">*</span>
+                    {t('Apellido')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -313,7 +332,7 @@ function JobForm() {
                   htmlFor=""
                   className="font-montserrat font-[500] relative text-[1.3rem] w-full"
                 >
-                  País<span className="text-red-400 ">*</span>
+                  {t('País')}<span className="text-red-400 ">*</span>
                   <SelectCountryFormEs
                     setCountry={setCountry}
                     country={country}
@@ -352,7 +371,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </button>
                 </div>
               </section>
@@ -363,7 +382,7 @@ function JobForm() {
             {currentStep === 2 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                  Información Profesional
+                  {t('Información Profesional')}
                 </h2>
 
                 <label
@@ -382,7 +401,7 @@ function JobForm() {
                       name="cv"
                       className="border-linkIt-50 border-[2px] text-opacity-75 text-linkIt-400 font-[500] w-full h-[2.5rem] focus:border-linkIt-200 rounded-[5px]"
                     >
-                      {fileName === "" ? "Subir CV" : fileName.split(".")[0]}
+                      {fileName === "" ? t("Subir CV") : fileName.split(".")[0]}
                     </button>
                   </CloudinaryUploadWidget>
                 </label>
@@ -417,7 +436,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    Nivel de inglés<span className=" text-red-400">*</span>
+                    {t('Nivel de inglés')}<span className=" text-red-400">*</span>
                   </div>
                   <button
                     type="button"
@@ -425,11 +444,10 @@ function JobForm() {
                     className="border-linkIt-50 flex flex-row justify-center items-center border-[2px] w-full h-[2.5rem] focus:border-linkIt-200 p-[.5rem] rounded-[5px]"
                     onClick={() => {
                       setOpenEnglishLevel(!openEnglishLevel);
-                      setOpenStack(false);
                     }}
                     ref={englishLevelRef}
                   >
-                    {englishLevel === "" ? "Seleccionar" : englishLevel}
+                    {englishLevel === "" ? t("Seleccionar") : englishLevel}
                   </button>
 
                   <motion.ul
@@ -499,7 +517,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    Expectativa Salarial<span className=" text-red-400">*</span>
+                    {t('Expectativa Salarial')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="number"
@@ -524,7 +542,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    Anterior
+                    {t('Anterior')}
                   </button>
 
                   <button
@@ -548,7 +566,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </button>
                 </div>
               </section>
@@ -559,184 +577,104 @@ function JobForm() {
             {currentStep === 3 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                  Información Profesional
+                  {t('Información Profesional')}
                 </h2>
 
                 <label
-                  htmlFor="technical-stack"
-                  className="font-montserrat relative text-[1.3rem] min-w-[100%] max-w-[100%]"
+                  htmlFor="technologies"
+                  className="font-montserrat relative text-[1.3rem] w-full"
                 >
-                  <div className="flex">
-                    Stack Técnico<span className=" text-red-400">*</span>
-                  </div>
-
-                  <div
-                    id="technical-stack"
-                    ref={stackRef}
-                    className={` border-[2px] text-[1rem] flex justify-center items-center content-center gap-[.5rem] text-center rounded-[5px] w-full h-[4rem] overflow-x-scroll hover:cursor-pointer ${
-                      openStack ? "border-linkIt-200" : "border-linkIt-50"
-                    }`}
-                    onClick={() => {
-                      setOpenStack(!openStack);
-                      setOpenEnglishLevel(false);
-                    }}
-                  >
-                    <div className="w-full h-full flex flex-row items-center text-center gap-[1rem] relative px-[.5rem] ">
-                      {user.technicalStack.length === 0 ? (
-                        <span className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-                          Seleccionar
-                        </span>
-                      ) : (
-                        user.technicalStack?.map((stack, index) => {
-                          return (
-                            <button
-                              type="button"
-                              key={index}
-                              className="text-white bg-linkIt-300 rounded-[8px] p-[.5rem] h-[70%] inline-flex whitespace-nowrap gap-[1rem]"
-                            >
-                              {stack}{" "}
-                              <span
-                                className="font-manrope relative bottom-[1px]"
-                                onClick={() => {
-                                  handleDeleteStack(
-                                    stack,
-                                    userStack,
-                                    setUserStack,
-                                    setUser
-                                  );
-                                }}
-                              >
-                                x
-                              </span>
-                            </button>
-                          );
-                        })
-                      )}
-                    </div>
-                  </div>
-                  <ul
-                    className={`${
-                      !openStack ? "hidden" : "technicalDropdown"
-                    } font-montserrat`}
-                  >
-                    {Stack.map((stack, index) => {
-                      return (
-                        <li
-                          key={index}
-                          onClick={() =>
-                            handleStackChange(
-                              stack,
-                              userStack,
-                              setUserStack,
-                              setUser
-                            )
-                          }
-                          className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        >
-                          {stack}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  {t('Selecciona Tus Tecnologías')}<span className=" text-red-400">*</span>
+               <Select 
+                  options={technologies}
+                  isMulti={true}
+                  name="technologies"
+                  closeMenuOnSelect={false}
+                  value={user.technologies.map((tech: any) => ({value: tech, label: tech}))}
+                  styles={{
+                    multiValue: (provided) => ({
+                      ...provided,
+                      backgroundColor: "#01A28B",
+                      color: "#FFF",
+                      borderRadius: "5px",
+                      height: "1.3rem",
+                      fontSize: ".8rem",
+                    }),
+                    multiValueLabel: (provided) => ({
+                      ...provided,
+                      color: "#FFF",
+                    }),
+                    control: (provided) => ({
+                      ...provided,
+                      maxHeight: "6rem",
+                      overflowY: "scroll",
+                      border: "2px solid #CBDAE8",
+                      ":hover": {
+                        border: "2px solid #173951",
+                      }
+                    }),
+                  }}
+                  onChange={(e) => {
+                    setUserTechnologies(e?.map((tech: any) => tech.value));
+                    setUser((prevUser)=> {
+                      return {...prevUser, technologies: e?.map((tech: any) => tech.value)}
+                    })
+                  }}
+               />
                 </label>
-
-                {errors.technicalStack && (
-                  <p className="text-red-500 text-[.8rem]">
-                    {errors.technicalStack}
-                  </p>
-                )}
 
                 <label
-                  htmlFor="technical-stack"
-                  className="font-montserrat relative text-[1.3rem] min-w-[100%] max-w-[100%]"
+                  htmlFor="technologies"
+                  className="font-montserrat relative text-[1.3rem] w-full"
                 >
-                  <div className="flex">
-                    Stack de tecnologías<span className=" text-red-400">*</span>
-                  </div>
-                  <div
-                    id="technical-stack"
-                    ref={technologiesRef}
-                    className={` border-[2px] text-[1rem] flex justify-center items-center content-center gap-[.5rem] text-center  w-full h-[4rem] overflow-x-scroll hover:cursor-pointer ${
-                      openTechnologies
-                        ? "border-linkIt-200"
-                        : "border-linkIt-50"
-                    } rounded-[5px]`}
-                    onClick={() => {
-                      setOpenTechnologies(!openTechnologies);
-                      setOpenEnglishLevel(false);
-                    }}
-                  >
-                    <div className="w-full h-full flex flex-row items-center text-center gap-[1rem] relative px-[.5rem]">
-                      {user.technologies.length === 0 ? (
-                        <span className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-                          Seleccionar
-                        </span>
-                      ) : (
-                        user.technologies?.map((tech: any, index) => {
-                          return (
-                            <button
-                              type="button"
-                              key={index}
-                              className="text-white bg-linkIt-300 rounded-[8px] p-[.5rem] h-[70%] inline-flex whitespace-nowrap gap-[1rem]"
-                            >
-                              {tech}{" "}
-                              <span
-                                className="font-manrope relative bottom-[1px]"
-                                onClick={() => {
-                                  handleDeleteTech(
-                                    tech,
-                                    userTechnologies,
-                                    setUserTechnologies,
-                                    setUser
-                                  );
-                                }}
-                              >
-                                x
-                              </span>
-                            </button>
-                          );
-                        })
-                      )}
-                    </div>
-                  </div>
-                  <ul
-                    className={`${
-                      !openTechnologies ? "hidden" : "techDropdown"
-                    } font-montserrat`}
-                  >
-                    {technologies.map((tech: any, index: number) => {
-                      return (
-                        <li
-                          key={index}
-                          onClick={() =>
-                            handleTechChange(
-                              tech.name,
-                              userTechnologies,
-                              setUserTechnologies,
-                              setUser
-                            )
-                          }
-                          className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        >
-                          {tech.name}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  {t('Selecciona Stack Técnico')}<span className=" text-red-400">*</span>
+               <Select 
+                  options={technicalStack}
+                  isMulti={true}
+                  name="technicaStack"
+                  value={user.technicalStack.map((tech: any) => ({value: tech, label: tech}))}
+                  closeMenuOnSelect={false}
+                  styles={{
+                    multiValue: (provided) => ({
+                      ...provided,
+                      backgroundColor: "#01A28B",
+                      color: "#FFF",
+                      borderRadius: "5px",
+                      height: "1.3rem",
+                      fontSize: ".8rem",
+                    }),
+                    multiValueLabel: (provided) => ({
+                      ...provided,
+                      color: "#FFF",
+                    }),
+                    control: (provided) => ({
+                      ...provided,
+                      maxHeight: "6rem",
+                      overflowY: "scroll",
+                      border: "2px solid #CBDAE8",
+                      ":hover":{
+                        border: "2px solid #173951",
+                      },
+                      ":focus": {
+                        border: "2px solid #173951",
+                      }
+                    }),
+                  }}
+                  onChange={(e) => {
+                    setUserStack(e?.map((tech: any) => tech.value));
+                    setUser((prevUser)=> {
+                      return {...prevUser, technicalStack: e?.map((tech: any) => tech.value)}
+                    })
+                  }}
+               />
                 </label>
-
-                {errors.technologies && (
-                  <p className="text-red-500 text-[.8rem]">
-                    {errors.technologies}
-                  </p>
-                )}
 
                 <label
                   htmlFor="Recruiter"
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    Reclutador/a<span className=" text-red-400">*</span>
+                    {t('Reclutador/a')}<span className=" text-red-400">*</span>
                   </div>
 
                   <button
@@ -745,12 +683,11 @@ function JobForm() {
                     className="border-linkIt-50 flex flex-row justify-center items-center border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
                     onClick={() => {
                       setOpenRecruiter(!openRecruiter);
-                      setOpenStack(false);
                       setOpenEnglishLevel(false);
                     }}
                     ref={recruiterRef}
                   >
-                    {recruiter === "" ? "Seleccionar" : recruiter}
+                    {recruiter === "" ? t("Seleccionar") : recruiter}
                   </button>
 
                   <motion.ul
@@ -814,7 +751,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    Anterior
+                    {t('Anterior')}
                   </button>
 
                   <button
@@ -828,14 +765,13 @@ function JobForm() {
                       errors.technicalStack ||
                       errors.technologies ||
                       errors.recruiter ||
-                      user.technicalStack[0] === undefined ||
                       user.technologies[0] === undefined ||
                       !recruiter
                         ? true
                         : false
                     }
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </button>
                 </div>
               </section>
@@ -846,14 +782,14 @@ function JobForm() {
             {currentStep === 4 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                  Información Profesional
+                  {t('Información Profesional')}
                 </h2>
                 <label
                   htmlFor="availability"
                   className="font-montserrat relative  text-[1.3rem] w-full flex flex-col "
                 >
                   <div className="flex">
-                    Periodo de aviso<span className=" text-red-400">*</span>
+                    {t('Periodo de aviso')}<span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -875,7 +811,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    ¿Por qué estás buscando una nueva oportunidad laboral?
+                    {t('¿Por qué estás buscando una nueva oportunidad laboral?')}
                   </div>
                   <textarea
                     name="reason"
@@ -883,7 +819,7 @@ function JobForm() {
                     cols={10}
                     rows={10}
                     value={user.reason}
-                    placeholder="Escribe aquí tu respuesta"
+                    placeholder={t("Escribe aquí tu respuesta")}
                     onChange={handleInputChange}
                     className=" resize-none border-linkIt-50 border-[2px] w-full h-[10rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
                   ></textarea>
@@ -902,7 +838,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    Anterior
+                    {t('Anterior')}
                   </button>
 
                   <button
@@ -920,7 +856,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    Enviar
+                    {t('Enviar')}
                   </button>
                 </div>
               </section>
