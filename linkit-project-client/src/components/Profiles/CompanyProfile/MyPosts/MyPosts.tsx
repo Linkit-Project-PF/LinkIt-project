@@ -64,7 +64,7 @@ function MyPosts() {
   if (!companyPosts) return null
   
   return (
-    <div className="flex absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[6rem] px-6 py-5 bg-linkIt-500 rounded-[20px] overflow-x-auto max-w-6xl">
+    <div className="flex absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[6rem] px-6 py-5 bg-linkIt-500 rounded-[20px] overflow-x-scroll max-w-6xl">
 
       <CompanyPosts posts={companyPosts}/>
 

@@ -7,18 +7,19 @@ interface IComponentProps {
 
 const CLIENT_STATUS = 'Client int.';
 const OFFERED_STATUS = 'Offered';
-// const PRE_ALIGNMENT_STATUS = 'Pre-alignment';
-// const SOURCING_STATUS = 'Sourcing';
-// const RECRUITER_STATUS = 'Recruiter int.';
-// const ENDORSED_STATUS = 'Endorsed';
-// const PENDING_INVOICE_STATUS = 'Pending invoice/ contract';
-// const PARTIAL_PAYMENT_STATUS = 'Partial Payment';
-// const STALLED_STATUS = 'Stalled';
-// const WON_AND_REPLACED_STATUS = 'Won and Replaced';
-// const WON_STATUS = 'Won';
-// const LOST_STATUS = 'Lost';
-// const ALIGNMENT_STATUS = 'Alignment';
-// const NEVER_WORKED_STATUS = 'Never Worked';   
+
+const PRE_ALIGNMENT_STATUS = 'Pre-alignment';
+const SOURCING_STATUS = 'Sourcing';
+const RECRUITER_STATUS = 'Recruiter int.';
+const ENDORSED_STATUS = 'Endorsed';
+const PENDING_INVOICE_STATUS = 'Pending invoice/ contract';
+const PARTIAL_PAYMENT_STATUS = 'Partial Payment';
+const STALLED_STATUS = 'Stalled';
+const WON_AND_REPLACED_STATUS = 'Won and Replaced';
+const WON_STATUS = 'Won';
+const LOST_STATUS = 'Lost';
+const ALIGNMENT_STATUS = 'Alignment';
+const NEVER_WORKED_STATUS = 'Never Worked';   
 
 function CompanyPosts({posts}: IComponentProps) {
   const filterPostsByStatus = (status: string): ICompanyPost[] => {
@@ -50,7 +51,7 @@ function CompanyPosts({posts}: IComponentProps) {
         </div>
       </div>
 
-      {/* <div className="w-1/5">
+      <div className="w-1/5">
         <div className="bg-gray-100 p-3 rounded">
           <h2 className="font-bold mb-2">Pre-alignment</h2>
           {filterPostsByStatus(PRE_ALIGNMENT_STATUS).map((post) => (
@@ -165,7 +166,7 @@ function CompanyPosts({posts}: IComponentProps) {
             <CompanyPost key={post._id} post={post} />
           ))}
         </div>
-      </div> */}
+      </div>
 
     </div>
   );
