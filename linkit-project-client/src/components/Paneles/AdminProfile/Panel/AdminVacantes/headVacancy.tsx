@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
-import { setsearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +19,7 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
     const dispatch = useDispatch();
 
     const handleSearch = (searchTerm: string) => {
-        dispatch(setsearchJobOffers(searchTerm))
+        dispatch(setfilterJobOffers(searchTerm))
     }
 
     const showForm = () => {

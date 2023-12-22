@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     jobOffers: [],
     allJobOffers: [],
-    searchJobOffers: [],
+    filterJobOffers: [],
 }
 
 type JobOffer = {
@@ -15,7 +15,6 @@ type JobOffer = {
     salary: number,
     archived: boolean,
     created_at: string,
-
 }
 
 const JobCardSlice = createSlice({
@@ -28,19 +27,31 @@ const JobCardSlice = createSlice({
         setJobOffers: (state, action) => {
             state.jobOffers = action.payload;
             state.allJobOffers = action.payload;
-            state.searchJobOffers = action.payload;
+            state.filterJobOffers = action.payload;
         },
-        setsearchJobOffers: (state, action) => {
+        setfilterJobOffers: (state, action) => {
             const searchTerm = action.payload.toLowerCase();
             const filterdeJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>
-                (jobOffer.title.toLowerCase().includes(searchTerm))
+            (jobOffer.title.toLowerCase().includes(searchTerm))
             )
-            return { ...state, searchJobOffers: filterdeJobOffers }
+            return { ...state, filterJobOffers: filterdeJobOffers }
+        },
+        setViewJobOffers:(state, action) =>{
+            const visibility = action.payload;
+            
+            if (visibility === 'Visible'){
+                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>(jobOffer.archived === false))
+            } else if (visibility === 'Hidden'){
+                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>(jobOffer.archived === true))
+            } else {
+                state.filterJobOffers = state.allJobOffers
+            }
         }
     }
 })
 
-export const { applyFilters, setJobOffers, setsearchJobOffers } = JobCardSlice.actions;
+
+export const { applyFilters, setJobOffers, setfilterJobOffers, setViewJobOffers } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 

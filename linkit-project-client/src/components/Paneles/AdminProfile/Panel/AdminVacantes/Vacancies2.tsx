@@ -4,21 +4,23 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
-import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setJobOffers, setViewJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 
 
 type stateProps = {
     jobCard: {
         allJobOffers: VacancyProps[];
-        searchJobOffers: VacancyProps[];
+        filterJobOffers: VacancyProps[];
+        viewJobOffers: VacancyProps[];
     };
 };
 
 export default function Vacancies2() {
 
 
-    const searchData = useSelector((state: stateProps) => state.jobCard.searchJobOffers);
+    const filteredJobData = useSelector((state: stateProps) => state.jobCard.filterJobOffers);
+
 
     const token = useSelector((state: any) => state.Authentication.token);
     const [saveStatus, /*setSaveStatus*/] = useState(false); //* Estado que actualiza la info de la tabla
@@ -62,9 +64,9 @@ export default function Vacancies2() {
     const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
-    const dataToShow = searchData.slice(startIndex, endIndex);
+    const dataToShow = filteredJobData.slice(startIndex, endIndex);
 
-    const totalPages = Math.ceil(searchData.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredJobData.length / itemsPerPage);
 
     const [viewStatus, setViewStatus] = useState('Visible')
 
@@ -74,6 +76,7 @@ export default function Vacancies2() {
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
+        dispatch(setViewJobOffers(value))
     }
 
 
@@ -378,6 +381,7 @@ export default function Vacancies2() {
                                     name="view"
                                     className='border-b-2 border-r-2 -none outline-none'
                                     onChange={handleView}
+                                    value={viewStatus}
                                 >
                                     <option value="Visible">Visible</option>
                                     <option value="Hidden">Hidden</option>
@@ -408,7 +412,7 @@ export default function Vacancies2() {
                 <button
                     className="cursor-pointer hover:text-linkIt-300"
                     onClick={handleNext}
-                    disabled={endIndex >= searchData.length}
+                    disabled={endIndex >= filteredJobData.length}
                 >
                     Siguiente
                 </button>
