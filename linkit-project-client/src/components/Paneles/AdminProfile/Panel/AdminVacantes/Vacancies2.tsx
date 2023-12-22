@@ -74,6 +74,7 @@ export default function Vacancies2() {
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
+        console.log(viewStatus)
     }
 
 
