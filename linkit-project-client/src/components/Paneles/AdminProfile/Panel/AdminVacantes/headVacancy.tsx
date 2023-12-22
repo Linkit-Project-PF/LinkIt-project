@@ -1,14 +1,14 @@
 // import React from 'react'
 
 import React, { useState } from "react"
-import { ViewCol } from "../../../admin.types";
+import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
 import { setsearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    viewCol: ViewCol
+    viewCol: ViewColVacancy
 }
 
 export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
@@ -18,7 +18,7 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
     const [viewForm, setViewForm] = useState(false);
     const dispatch = useDispatch();
 
-    const handleSearch = (searchTerm: string) =>{
+    const handleSearch = (searchTerm: string) => {
         dispatch(setsearchJobOffers(searchTerm))
     }
 
@@ -95,10 +95,6 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                                 Tecnologías
                             </label>
                             <label>
-                                <input type="checkbox" name="users" checked={viewCol.users} onChange={hideCol} />
-                                Postulados
-                            </label>
-                            <label>
                                 <input type="checkbox" name="AboutUs" checked={viewCol.AboutUs} onChange={hideCol} />
                                 Acerca de Nosotros
                             </label>
@@ -127,10 +123,6 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                                 Empresa
                             </label>
                             <label>
-                                <input type="checkbox" name="status" checked={viewCol.status} onChange={hideCol} />
-                                Estado
-                            </label>
-                            <label>
                                 <input type="checkbox" name="code" checked={viewCol.code} onChange={hideCol} />
                                 Código
                             </label>
@@ -142,10 +134,10 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                     }
                 </div>
                 <div>
-                    <input 
-                    type="text" 
-                    placeholder="Buscar"
-                    onChange={(e)=>handleSearch(e.target.value)} 
+                    <input
+                        type="text"
+                        placeholder="Buscar"
+                        onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
             </div>

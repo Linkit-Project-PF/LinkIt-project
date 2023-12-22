@@ -1,6 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import NavPanelAdmin from "./NavPanelAdmin";
-import Vacancies from "./AdminVacantes/Vacancies";
 import AdminRecursos from "./AdminRecursos/AdminRecursos";
 import AdminReviews from "./AdminReviews/AdminReviews";
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import UsersAdmin from "../Usuarios/UsersAdmin";
 import Statistics from "./AdminStatistics/Statistics";
 import { useTranslation } from "react-i18next";
 import Vacancies2 from "./AdminVacantes/Vacancies2";
+import ClientsFollowUp from "./ClientsFollowUp/ClientsFollowUp";
 
 type userInfoProps = {
   _id: string;
@@ -60,11 +60,11 @@ export default function AdminPanel() {
       <NavPanelAdmin />
       <Routes>
         <Route path="vacantes" element={<Vacancies2 />} />
-        <Route path="vacantes" element={<Vacancies />} />
+        <Route path="clientsfollowup" element={<ClientsFollowUp />} />
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
         <Route path="usuarios" element={<UsersAdmin />} />
-        <Route path="estadisticas" element={<Statistics />} />
+        <Route path="" element={<Statistics />} />
       </Routes>
       <br />
       <Footer />
