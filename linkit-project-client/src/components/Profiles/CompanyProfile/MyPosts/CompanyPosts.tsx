@@ -7,6 +7,7 @@ interface IComponentProps {
 
 const CLIENT_STATUS = 'Client int.';
 const OFFERED_STATUS = 'Offered';
+
 const PRE_ALIGNMENT_STATUS = 'Pre-alignment';
 const SOURCING_STATUS = 'Sourcing';
 const RECRUITER_STATUS = 'Recruiter int.';
