@@ -60,7 +60,7 @@ export default function AdminPanel() {
       <NavPanelAdmin />
       <Routes>
         <Route path="vacantes" element={<Vacancies2 />} />
-        <Route path="seguimiento" element={<ClientsFollowUp />} />
+        <Route path="clientsfollowup" element={<ClientsFollowUp />} />
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
         <Route path="usuarios" element={<UsersAdmin />} />

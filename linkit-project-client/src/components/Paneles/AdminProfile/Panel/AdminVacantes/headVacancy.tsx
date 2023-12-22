@@ -1,14 +1,14 @@
 // import React from 'react'
 
 import React, { useState } from "react"
-import { ViewCol } from "../../../admin.types";
+import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
 import { setsearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    viewCol: ViewCol
+    viewCol: ViewColVacancy
 }
 
 export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
