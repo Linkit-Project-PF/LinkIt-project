@@ -147,6 +147,16 @@ function JobForm() {
           icon: "success",
           title: "¡Postulación enviada!",
           text: "Tu postulación ha sido enviada exitosamente",
+          confirmButtonText: "Seguir viendo vacantes",
+          confirmButtonColor: "#01A28B",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            dispatch(resetForm())
+            navigate("/soyTalento");
+            setTimeout(()=>{
+              window.location.href = '#vacantes'
+            })
+          }
         });
       }
     } catch (error: any) {
@@ -336,6 +346,7 @@ function JobForm() {
                   <SelectCountryFormEs
                     setCountry={setCountry}
                     country={country}
+                    setUser={setUser}
                   />
                 </label>
 
