@@ -16,7 +16,7 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
         <div>
 
             <div>
-                <h1 className="text-4xl pl-16 py-6">Gestión de vacantes</h1>
+                <h1 className="text-4xl pl-16 py-6">Clients Follow Up</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
                 <div className="flex flex-row">
