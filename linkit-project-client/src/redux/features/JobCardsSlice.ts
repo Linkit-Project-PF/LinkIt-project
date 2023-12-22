@@ -36,7 +36,7 @@ const JobCardSlice = createSlice({
             )
             return { ...state, filterJobOffers: filterdeJobOffers }
         },
-        setViewJobOffers:(state, action) =>{
+        setFilterJobOffers:(state, action) =>{
             const visibility = action.payload;
             
             if (visibility === 'Visible'){
@@ -51,7 +51,7 @@ const JobCardSlice = createSlice({
 })
 
 
-export const { applyFilters, setJobOffers, setfilterJobOffers, setViewJobOffers } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers, setfilterJobOffers, setFilterJobOffers } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 

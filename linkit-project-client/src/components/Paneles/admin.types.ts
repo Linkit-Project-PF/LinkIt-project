@@ -18,6 +18,7 @@ export type VacancyProps = {
   createdDate: string; //! ver si recibe un string o un date
   __v: number;
   _id: string;
+  users: any[];
 };
 
 export type ResourceProps = {

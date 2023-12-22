@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
-import { setJobOffers, setViewJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setFilterJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 
 
@@ -12,7 +12,6 @@ type stateProps = {
     jobCard: {
         allJobOffers: VacancyProps[];
         filterJobOffers: VacancyProps[];
-        viewJobOffers: VacancyProps[];
     };
 };
 
@@ -76,7 +75,7 @@ export default function Vacancies2() {
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
-        dispatch(setViewJobOffers(value))
+        dispatch(setFilterJobOffers(value))
     }
 
 
