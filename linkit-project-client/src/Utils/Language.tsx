@@ -16,11 +16,11 @@ export default function Language() {
     <>
     <input onChange={handleClick} type="checkbox" id="checkbox" /><label className="switch" htmlFor="checkbox">
       <div className="en-lang">
-      <p className={i18n.language === 'en' ? 'text-linkIt-300' : ''}>EN</p>
+      <p className={i18n.language === 'en' ? 'text-linkIt-300' : 'text-black dark:text-white'}>EN</p>
       </div>
-      <span>|</span>
+      <span className="dark:text-white">|</span>
       <div className="es-lang">
-      <p className={i18n.language === 'es' ? 'text-linkIt-300' : ''}>ES</p>
+      <p className={i18n.language === 'es' ? 'text-linkIt-300' : 'text-black dark:text-white'}>ES</p>
       </div>
     </label>
     </>

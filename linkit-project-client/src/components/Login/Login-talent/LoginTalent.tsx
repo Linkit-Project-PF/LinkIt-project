@@ -74,7 +74,12 @@ function LoginTalent() {
     event.preventDefault();
     try {
       const response = await axios.get<IUser>(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`, {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
       )
       const loggedUser = response.data
 
@@ -95,7 +100,7 @@ function LoginTalent() {
     } catch (error: any) {
       Swal.fire({
         title: "Error",
-        text: t("Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
@@ -247,7 +252,7 @@ function LoginTalent() {
               />
               <input
                 type="text"
-                placeholder={t("Email corporativo")}
+                placeholder={t("Email")}
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
@@ -297,6 +302,20 @@ function LoginTalent() {
               />
               {t('Ingresa con Google')}
             </button>
+            <motion.button
+              className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
+              onClick={() => handleAuthClick("github")}
+              type="button"
+              whileHover={{ scale: 1.05 }}
+            >
+              {" "}
+              <img
+                src="/images/github.png"
+                alt="sign-in with github"
+                className="w-[1.2rem]"
+              />
+              {t(' Ingresa con Github')}
+            </motion.button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
             {t('¿Aún no tienes cuenta?')} {" "}

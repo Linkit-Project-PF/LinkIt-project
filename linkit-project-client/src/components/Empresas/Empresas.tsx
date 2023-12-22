@@ -1,6 +1,6 @@
 import Footer from "../../Utils/Footer/Footer"
 import ModuloA from "./modulosEmpresas/moduloA/ModuloA"
-import ModuloB from "./modulosEmpresas/moduloB/moduloB"
+import ModuloB from "./modulosEmpresas/moduloB/moduloBH"
 import ModuloC from "./modulosEmpresas/moduloC/ModuloC"
 import ModuloD from "./modulosEmpresas/moduloD/ModuloD"
 import ModuloE from "./modulosEmpresas/moduloE/ModuloE"

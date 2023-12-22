@@ -187,7 +187,7 @@ function Register() {
         })
         if (
           error.response?.data ===
-          "Register error: That email is already on use"
+          "This email is already registered" || error.response?.data === "El email ya esta registrado"
         )
           setErrors({ ...errors, email: "Email en uso" });
       } else console.log(error);

@@ -9,20 +9,12 @@
   }
 
 .division {
-    height: 4px;
-    margin: none;
-    background-color: #A9C1D9;
-    z-index: 1;
+  @apply h-[4px] bg-linkIt-600  z-10 m-0
 }
 
 
 .division::before {
-    position: absolute;
-    content: "";
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #A9C1D9;
-    transform: translateY(-40%);
+  content: "";
+  @apply absolute w-[15px] h-[15px] rounded-full bg-linkIt-600 dark:bg-white transform -translate-y-1/2 z-10
 }
 

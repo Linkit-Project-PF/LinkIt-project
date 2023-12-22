@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./LoginCompany.css";
 import { setPressLoginCompany, setPressSignUp } from "../../../redux/features/registerLoginSlice.ts";
 import { motion } from "framer-motion";
@@ -78,10 +77,14 @@ function LoginCompany() {
     event.preventDefault()
     try {
       const response = await axios.get<ICompany>(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`
+        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`, {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
       )
       const loggedCompany = response.data
-      console.log(loggedCompany)
       if (response.status === 200) {
         
         Swal.fire({
@@ -98,9 +101,10 @@ function LoginCompany() {
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
+      console.log(error)
       Swal.fire({
         title: "Error",
-        text: t("Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
@@ -284,7 +288,7 @@ function LoginCompany() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] mb-[-5%] font-manrope">
+            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
               <motion.a
                 href="_blank"
                 whileHover={{ textDecoration: "underline" }}
@@ -314,6 +318,24 @@ function LoginCompany() {
               />
               {t('Ingresa con Google')}
             </motion.button>
+
+            <motion.button
+              className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
+              onClick={() => handleAuthClick("github")}
+              type="button"
+              whileHover={{ scale: 1.05 }}
+            >
+              {" "}
+              <img
+                src="/images/github.png"
+                alt="sign-in with github"
+                className="w-[1.2rem]"
+              />
+              {t(' Ingresa con Github')}
+            </motion.button>
+            
+
+            
           </div>
           <Link 
           className="flex flex-row border-[2px] border-linkIt-300 rounded-[8px] p-[.5rem] bg-white w-[90%] justify-center items-center content-center gap-[.5rem] hover:scale-105 transition-all duration-300 ease-in-out"

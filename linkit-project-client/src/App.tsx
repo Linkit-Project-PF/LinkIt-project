@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import VerifyUser from "./Utils/Verify/VerifyUser.tsx";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -33,6 +34,7 @@ import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
 import Error from "./components/Errores/Error.tsx";
 import ReactGA from "react-ga4";
 import { setAdmins } from "./redux/features/ApplicationSlice.ts";
+import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -108,8 +110,7 @@ function App() {
   useEffect(() => {
     const googleAnalytics = async () => {
       try {
-        const ga4react = ReactGA.initialize("G-M6F6EHLMX7")
-        console.log('Google Analytics', ga4react)
+        ReactGA.initialize("G-M6F6EHLMX7")
       } catch (error) {
         console.log(error)
       }
@@ -210,12 +211,14 @@ function App() {
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
+        <Route path="/soyTalento/Joboffer/:id/application" element={<JobForm />} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/profile/*" element={<Profile />} />
-        <Route path="/blog/:id" element={<BlogView />} />
+        <Route path="/verify/:id" element={<VerifyUser/>} />
+        <Route path="/blog/:id&:role" element={<BlogView />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<Error />} />
       </Routes>

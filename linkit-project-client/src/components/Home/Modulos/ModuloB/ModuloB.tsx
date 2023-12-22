@@ -11,7 +11,7 @@ export default function ModuloB() {
 
     return (
         <div>
-            <div className="skewed-borderB p-[7%] ">
+            <div className="skewed-borderB p-[7%] dark:bg-linkIt-200">
                 <div className="contentB grid grid-cols-3 my-[3%] gap-5">
                     <h1 className="text-white text-[3vw] col-span-3 text-center justify-center font-manrope mb-[5%]">{t('Nuestros servicios')}</h1>
                             <img className="bg-white rounded-full w-1/4 justify-self-center mb-[5%]" src="/Vectores/linkit-web-vectores-03.svg" alt="reclutamiento" />
@@ -23,9 +23,9 @@ export default function ModuloB() {
                             <p className="text-white px-[15%] text-center text-[1vw] font-montserrat">{t('Identificamos a profesionales con el stack, habilidades y experiencia adecuada para tus proyectos y así lograr construir un equipo de alto desempeño.')}</p>
                             <p className=" text-white px-[15%] text-center text-[1vw] font-montserrat">{t('Realizamos la gestión contractual y de pagos del talento. Refuerza tu equipo y aumenta la capacidad productiva sin riesgos.')}</p>
                             <p className="text-white px-[15%] text-center text-[1vw] font-montserrat">{t('Facilitamos planes de beneficios, asesoramiento en la retención y elaboración de informes y mucho más.')}</p>
-                            <button className="font-montserrat text-[0.8vw] bg-linkIt-300 rounded-[7px] p-3 w-[25%] font-medium text-white justify-self-center hover:bg-white hover:text-black transition-all duration-300 ease-in-out" onClick={goSoyEmpresa}>{t('Ver más')}</button>
-                            <button className="font-montserrat text-[0.8vw] bg-linkIt-300 rounded-[7px] p-3 w-[25%] font-medium text-white justify-self-center hover:bg-white hover:text-black transition-all duration-300 ease-in-out" onClick={goSoyEmpresa}>{t('Ver más')}</button>
-                            <button className="font-montserrat text-[0.8vw] bg-linkIt-300 rounded-[7px] p-3 w-[25%] font-medium text-white justify-self-center hover:bg-white hover:text-black transition-all duration-300 ease-in-out" onClick={goSoyEmpresa}>{t('Ver más')}</button>
+                            <button className="background-button justify-self-center " onClick={goSoyEmpresa}>{t('Ver más')}</button>
+                            <button className="background-button justify-self-center" onClick={goSoyEmpresa}>{t('Ver más')}</button>
+                            <button className="background-button justify-self-center" onClick={goSoyEmpresa}>{t('Ver más')}</button>
                         </div>
                 </div>
             </div>
