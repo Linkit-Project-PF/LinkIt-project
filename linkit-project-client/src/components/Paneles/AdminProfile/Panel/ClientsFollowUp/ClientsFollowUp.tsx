@@ -117,13 +117,14 @@ export default function ClientsFollowUp() {
   };
 
   const renderSectionBasic = <K extends keyof ClientFollowUpProps>(title: string, key: K,) => (
+    
     <div>
       <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
-        {dataToShow.map((r: ClientFollowUpProps) => (
-          <p key={String(r[key])} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{String(r[key])}</p>
+        {dataToShow.map((r: ClientFollowUpProps, index) => (
+          <p key={`${key}-${index}`} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{String(r[key] === undefined || NaN ? '' :r[key])}</p>
         ))}
       </div>
     </div>
