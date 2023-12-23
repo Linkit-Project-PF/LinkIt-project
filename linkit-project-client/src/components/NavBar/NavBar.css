@@ -7,7 +7,7 @@ body {
         @apply fixed top-0 w-screen bg-linkIt-400 hover:bg-linkIt-300 h-[4vh] transition duration-300 ease-in-out  text-white text-sm flex items-center justify-center z-50 dark:bg-linkIt-700
     }
     .navBar{
-@apply fixed top-[4vh] h-[8vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold shadow-sm dark:bg-linkIt-400 dark:text-white
+@apply fixed top-[4vh] h-[8.5vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold shadow-sm dark:bg-linkIt-400 dark:text-white
 }
 
     .containerBtnsNavbar {
@@ -17,30 +17,113 @@ body {
   
 
 
-    .toggle {
-      @apply relative bg-linkIt-300 hover:bg-linkIt-200 rounded-full w-8 h-8 xl:w-10 xl:h-10 grid place-items-center cursor-pointer transition duration-300 ease-in-out shadow-lg
-      }
-      
-      .input {
-        @apply hidden
-      }
-      
-      .icon {
-        @apply col-start-1 col-end-2 row-start-1 row-end-2 transition-transform duration-500
-      }
-      
-      .icon--moon {
-        @apply delay-200
-      }
-      
-      .icon--sun {
-        @apply transform scale-0
-      }
-      
-      #switch:checked + .icon--moon {
-        @apply transform rotate-[360deg] scale-0
-      }
-      
-      #switch:checked ~ .icon--sun {
-        @apply delay-200 transform rotate-[360deg] scale-100
-      }
+    .cl-toggle-switch {
+      position: relative;
+     }
+     
+     .cl-switch {
+      position: relative;
+      display: inline-block;
+     }
+     /* Input */
+     .cl-switch > input {
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      z-index: -1;
+      position: absolute;
+      right: 6px;
+      top: -8px;
+      display: block;
+      margin: 0;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background-color: rgb(0, 0, 0, 0.38);
+      outline: none;
+      opacity: 0;
+      transform: scale(1);
+      pointer-events: none;
+      transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
+     }
+     /* Track */
+     .cl-switch > span::before {
+      content: "";
+      float: right;
+      display: inline-block;
+      margin: 5px 0 5px 10px;
+      border-radius: 50px;
+      width: 43px;
+      height: 25px;
+      background-color: rgb(0, 0, 0, 0.38);
+      vertical-align: top;
+      transition: background-color 0.2s, opacity 0.2s;
+     }
+     /* Thumb */
+     .cl-switch > span::after {
+      content: "";
+      position: absolute;
+      top: 9px;
+      right: 16px;
+      border-radius: 50%;
+      width: 17px;
+      height: 17px;
+      background-color: #fff;
+      transition: background-color 0.2s, transform 0.2s;
+     }
+     /* Checked */
+     .cl-switch > input:checked {
+      right: -10px;
+      background-color: #85b8b7;
+     }
+     
+     .cl-switch > input:checked + span::before {
+      background-color: #85b8b7;
+     }
+     
+     .cl-switch > input:checked + span::after {
+      background-color: #018786;
+      transform: translateX(16px);
+     }
+     /* Hover, Focus */
+     .cl-switch:hover > input {
+      opacity: 0.04;
+     }
+     
+     .cl-switch > input:focus {
+      opacity: 0.12;
+     }
+     
+     .cl-switch:hover > input:focus {
+      opacity: 0.16;
+     }
+     /* Active */
+     .cl-switch > input:active {
+      opacity: 1;
+      transform: scale(0);
+      transition: transform 0s, opacity 0s;
+     }
+     
+     .cl-switch > input:active + span::before {
+      background-color: #8f8f8f;
+     }
+     
+     .cl-switch > input:checked:active + span::before {
+      background-color: #85b8b7;
+     }
+     /* Disabled */
+     .cl-switch > input:disabled {
+      opacity: 0;
+     }
+     
+     .cl-switch > input:disabled + span::before {
+      background-color: #ddd;
+     }
+     
+     .cl-switch > input:checked:disabled + span::before {
+      background-color: #bfdbda;
+     }
+     
+     .cl-switch > input:checked:disabled + span::after {
+      background-color: #61b5b4;
+     }
