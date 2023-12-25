@@ -4,25 +4,18 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-
 interface UsersState {
   users: any[];
   companies: any[];
 }
 
-interface jdState {
-  jds: any[];
-}
-
 export default function Statistics() {
-  const {t}=useTranslation();
+  const { t } = useTranslation();
   const [allusers, setUsers] = useState<UsersState>({
     users: [],
     companies: [],
   });
-  const [allJDS, setAllJDS] = useState<jdState>({
-    jds: [],
-  });
+
   const token = useSelector((state: any) => state.Authentication.token);
 
   useEffect(() => {
@@ -36,16 +29,9 @@ export default function Statistics() {
           "https://linkit-server.onrender.com/companies/find",
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        const jds = await axios.get(
-          "https://linkit-server.onrender.com/jds/find",
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
         setUsers({
           users: users.data,
           companies: companies.data,
-        });
-        setAllJDS({
-          jds: jds.data,
         });
       } catch (error: any) {
         alert(error.response);
@@ -53,28 +39,6 @@ export default function Statistics() {
     };
     getUsersInfo();
   }, []);
-
-  console.log(allJDS);
-  const jdsStatus = {
-    open: 0,
-    firstInterview: 0,
-    secondInterview: 0,
-    closed: 0,
-  };
-  allJDS.jds.forEach((jd) => {
-    if (jd.status === "open") jdsStatus.open++;
-    if (jd.status === "first-interview") jdsStatus.firstInterview++;
-    if (jd.status === "second-interview") jdsStatus.secondInterview++;
-    if (jd.status === "closed") jdsStatus.closed++;
-  });
-  console.log(jdsStatus);
-
-  const jdStatusData = [
-    { status: "Abiertas", count: jdsStatus.open },
-    { status: "Primera entrevista", count: jdsStatus.firstInterview },
-    { status: "Segunda entrevista", count: jdsStatus.secondInterview },
-    { status: "Cerradas", count: jdsStatus.closed },
-  ];
 
   const dataUsersLength = {
     datasets: [
@@ -92,31 +56,28 @@ export default function Statistics() {
         responsive: false,
       },
     });
-    new Chart(document.getElementById("jdsStatusChart") as ChartItem, {
-      type: "bar",
-      data: {
-        labels: jdStatusData.map((row) => row.status),
-        datasets: [
-          {
-            label: "Vacantes por estado",
-            data: jdStatusData.map((row) => row.count),
-          },
-        ],
-      },
-      options: {
-        responsive: false,
-      },
-    });
   }
 
   return (
     <div className="mb-32">
       <div className="bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-auto">
-        <h1 className="text-4xl pl-16 py-6">{t('Estadisticas')}</h1>
-        <div className="w-1/3">
-          <canvas id="allUsersChart"></canvas>
-          <canvas id="jdsStatusChart"></canvas>
-        </div>
+        <h1 className="text-4xl pl-16 py-6">{t("Estadisticas")}</h1>
+        <section className="px-5">
+          <div className="w-[300px]">
+            <h2 className="text-2xl font-bold py-5">Registros de pagina web</h2>
+            <canvas id="allUsersChart"></canvas>
+            <div className="flex flex-row flex-wrap py-2 justify-center">
+              <label className="px-2">Usuarios registrados: </label>
+              <p>
+                <b>{allusers.users.length}</b>
+              </p>
+              <label className="px-2">Empresas registradas: </label>
+              <p>
+                <b>{allusers.companies.length}</b>
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

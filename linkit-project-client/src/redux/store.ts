@@ -1,22 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import registerLoginSlice from "./features/registerLoginSlice"
-import JobCardSlice from "./features/JobCardsSlice"
+import registerLoginSlice from "./features/registerLoginSlice";
+import JobCardSlice from "./features/JobCardsSlice";
 import ResourcesSlice from "./features/ResourcesSlice";
 import ApplicationSlice from "./features/ApplicationSlice";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import thunk from 'redux-thunk'
+import thunk from "redux-thunk";
 import AuthSlice from "./features/AuthSlice";
 import ReviewsSlice from "./features/ReviewsSlice";
-import UsersSlice from "./features/UsersSlice";
+import ClientsFollowUpSlice from "./features/ClientsFollowUpSlice";
 
-const persistConfig ={
+const persistConfig = {
   key: "root",
   storage,
-}
+};
 
-const persistedAuthReducer = persistReducer(persistConfig, AuthSlice)
+const persistedAuthReducer = persistReducer(persistConfig, AuthSlice);
 
 const rootReducer = combineReducers({
   Authentication: persistedAuthReducer,
@@ -24,16 +24,16 @@ const rootReducer = combineReducers({
   jobCard: JobCardSlice,
   resources: ResourcesSlice,
   reviews: ReviewsSlice,
-  users: UsersSlice,
   application: ApplicationSlice,
-})
-
+  jobData: ClientsFollowUpSlice,
+});
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }).concat(thunk),
-})
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(thunk),
+});
 
 export default store;
