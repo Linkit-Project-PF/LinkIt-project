@@ -4,19 +4,27 @@ import React, { useState } from "react"
 import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
-import { setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setJobOffers, setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import swal from "sweetalert";
+import { t } from "i18next";
+import axios from "axios";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    viewCol: ViewColVacancy
+    viewCol: ViewColVacancy;
+    selectedRows: Set<string>;
 }
 
-export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
+export default function HeadVacancy({ hideCol, viewCol, selectedRows }: HeadVacancyProps) {
     const token = useSelector((state: any) => state.Authentication.token);
+
+    const arraySelectedRows = [...selectedRows]
 
     const [options, setOptions] = useState(false)
     const [viewForm, setViewForm] = useState(false);
     const dispatch = useDispatch();
+
+    console.log(selectedRows)
 
     const handleSearch = (searchTerm: string) => {
         dispatch(setfilterJobOffers(searchTerm))
@@ -34,10 +42,38 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
         setOptions(!options)
     }
 
+    const deleteVacancie = async () => {
+        swal({
+            title: t("¿Deseas ocultar la vacante?"),
+            icon: "warning",
+            buttons: [t("Cancelar"), t("Aceptar")],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/jds/delete/${id}`,
+                            {
+                                headers: { Authorization: `Bearer ${token}` },
+                            }
+                        );
+                        dispatch(setJobOffers(response.data));
+                        swal(t("Vacante ocultada"), { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        t("Error al enviar la solicitud:"),
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+    };
+
 
     return (
         <div>
-
             <div>
                 <h1 className="text-4xl pl-16 py-6">Gestión de vacantes</h1>
             </div>
@@ -142,6 +178,20 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                 </div>
             </div>
             {viewForm && <FormVacancie onClose={noShowForm} token={token} />}
+            <div className="flex flex-row pb-6">
+                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                    {selectedRows.size > 0 &&
+                        <div>
+                            <button className="pl-6 hover:text-linkIt-300">{selectedRows.size <= 1 ? 'Editar vacante' : 'Editar vacantes'}</button>
+                            <button
+                                onClick={deleteVacancie}
+                                className="pl-6 hover:text-red-600">
+                                {selectedRows.size <= 1 ? 'Cerrar vacante' : 'Cerrar vacantes'}
+                            </button>
+                        </div>
+                    }
+                </span>
+            </div>
         </div>
     )
 }

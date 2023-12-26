@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
-import { VacancyProps, ViewColVacancy } from "../../../admin.types";
+import { VacancyProps } from "../../../admin.types";
 import { setFilterJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 
@@ -69,8 +69,7 @@ export default function Vacancies2() {
 
     const [viewStatus, setViewStatus] = useState('Visible')
 
-    const [select, setSelect] = useState(false)
-
+    const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
 
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
@@ -87,39 +86,20 @@ export default function Vacancies2() {
     const handlePrevius = (): void => {
         setCurrentPage(currentPage - 1);
     };
-
-    const [editing, setEditing] = useState<ViewColVacancy>({
-        title: false,
-        description: false,
-        type: false,
-        location: false,
-        modality: false,
-        stack: false,
-        users: false,
-        AboutUs: false,
-        AboutClient: false,
-        responsabilities: false,
-        requiriments: false,
-        niceToHave: false,
-        benefits: false,
-        company: false,
-        status: false,
-        code: false,
-        archived: false,
-    });
-
-    const [editRow, setEditRow] = useState<string | null>(null);
+    
 
 
-    const handleEdit = (e: React.ChangeEvent<HTMLInputElement>, id: string): void => {
-        const {name, value} = e.target
-        const rowToEdit = filteredJobData.find((v: VacancyProps) => v._id === id)
-        setSelect(!select)
-        if (rowToEdit) {
-            setEditRow(id);
-            setEditing(!editing);
+    const handleEdit = ( id: string): void => {
+        const updateSelectedRows = new Set (selectedRows);
+        if (updateSelectedRows.has(id)){
+            updateSelectedRows.delete(id)
+        }else {
+            updateSelectedRows.add(id)
         }
+        setSelectedRows(updateSelectedRows)
+
     }
+    
 
     useEffect(() => {
         const loadData = async (): Promise<void> => {
@@ -148,8 +128,8 @@ export default function Vacancies2() {
     return (
         <div className=' bg-scroll bg-linkIt-500'>
 
-
             <HeadVacancy
+                selectedRows = {selectedRows}
                 hideCol={hideCol}
                 viewCol={viewCol}
             />
@@ -172,8 +152,8 @@ export default function Vacancies2() {
                         </div>
                         <div className=''>
                             {dataToShow.map((v: VacancyProps) => (
-                                <div className='flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>
-                                    <input type="checkbox" name='edit' onChange={(e) => handleEdit(e, v._id)} />
+                                <div className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>
+                                    <input type="checkbox" name='edit' onChange={() => handleEdit( v._id)} checked={selectedRows.has(v._id)} />
                                     <p key={v._id} className='pl-2'>{v.title}</p>
                                 </div>
                             ))}
@@ -189,7 +169,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={editing && editRow === v._id ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.description}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.description}</p>
                             ))}
                         </div>
                     </div>
@@ -213,7 +193,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.type}</p>
+                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.type}</p>
                             ))}
                         </div>
                     </div>
@@ -226,7 +206,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.location}</p>
+                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.location}</p>
                             ))}
                         </div>
                     </div>
@@ -250,7 +230,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.modality}</p>
+                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.modality}</p>
                             ))}
                         </div>
                     </div>
@@ -277,7 +257,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.stack.join(",")}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.stack.join(" - ")}</p>
                             ))}
                         </div>
                     </div>
@@ -291,7 +271,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.aboutUs}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.aboutUs}</p>
                             ))}
                         </div>
                     </div>
@@ -304,7 +284,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.aboutClient}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.aboutClient}</p>
                             ))}
                         </div>
                     </div>
@@ -317,7 +297,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.responsabilities}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.responsabilities}</p>
                             ))}
                         </div>
                     </div>
@@ -330,7 +310,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.requirements}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.requirements}</p>
                             ))}
                         </div>
                     </div>
@@ -343,7 +323,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.niceToHave}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.niceToHave}</p>
                             ))}
                         </div>
                     </div>
@@ -356,7 +336,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.benefits}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.benefits}</p>
                             ))}
                         </div>
                     </div>
@@ -378,7 +358,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.company}</p>
+                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.company}</p>
                             ))}
                         </div>
                     </div>
@@ -392,7 +372,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.code}</p>
+                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.code}</p>
                             ))}
                         </div>
                     </div>
@@ -418,7 +398,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>{v.archived ? 'Hidden' : 'Visible'}</p>
+                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.archived ? 'Hidden' : 'Visible'}</p>
                             ))}
                         </div>
                     </div>
