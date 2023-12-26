@@ -9,7 +9,7 @@ import {
 } from "../../redux/features/registerLoginSlice";
 import axios, { AxiosError } from "axios";
 import { auth } from "../../helpers/authentication/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup,GithubAuthProvider } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 import { FirebaseError } from "firebase/app";
 import { SUPERADMN_ID } from "../../env";
@@ -197,9 +197,11 @@ function Register() {
   const handleAuthLogin = async (prov: string) => {
     try {
       let provider;
-      if (prov === "google") {
+      if (prov === "github" || prov=== "google") {
         setThirdParty(true);
-        provider = new GoogleAuthProvider();
+        if (prov==="github"){
+          provider = new GithubAuthProvider();
+        } else provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
         // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
@@ -493,6 +495,19 @@ function Register() {
                 className="w-[1.2rem]"
               />
               {t('Registrate con Google')}
+            </button>
+            <button
+              className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
+              onClick={() => handleAuthLogin("github")}
+              type="button"
+            >
+              {" "}
+              <img
+                src="/images/github.png"
+                alt="sign-in with github"
+                className="w-[1.2rem]"
+              />
+              {t('Registrate con Github')}
             </button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
