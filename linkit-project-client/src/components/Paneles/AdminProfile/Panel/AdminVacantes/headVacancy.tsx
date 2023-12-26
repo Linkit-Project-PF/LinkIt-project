@@ -13,9 +13,13 @@ interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
     viewCol: ViewColVacancy;
     selectedRows: Set<string>;
+    setSaveStatus: (status: boolean) => void;
+    editJDS: () => void
+    editing: boolean
+    handleSave: (arrayProps:string[])=>void
 }
 
-export default function HeadVacancy({ hideCol, viewCol, selectedRows }: HeadVacancyProps) {
+export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveStatus, editJDS, editing, handleSave }: HeadVacancyProps) {
     const token = useSelector((state: any) => state.Authentication.token);
 
     const arraySelectedRows = [...selectedRows]
@@ -24,7 +28,6 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows }: HeadVaca
     const [viewForm, setViewForm] = useState(false);
     const dispatch = useDispatch();
 
-    console.log(selectedRows)
 
     const handleSearch = (searchTerm: string) => {
         dispatch(setfilterJobOffers(searchTerm))
@@ -69,7 +72,11 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows }: HeadVaca
                 }
             }
         });
+        setSaveStatus(true)
     };
+
+    
+
 
 
     return (
@@ -177,15 +184,44 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows }: HeadVaca
                     />
                 </div>
             </div>
-            {viewForm && <FormVacancie onClose={noShowForm} token={token} />}
+            {viewForm && <FormVacancie
+                onClose={noShowForm}
+                token={token}
+                setSaveStatus={setSaveStatus}
+            />}
             <div className="flex flex-row pb-6">
                 <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
                     {selectedRows.size > 0 &&
-                        <div>
-                            <button className="pl-6 hover:text-linkIt-300">{selectedRows.size <= 1 ? 'Editar vacante' : 'Editar vacantes'}</button>
+                        <div className="flex flex-row">
+                            {editing ?
+                                <div>
+                                    <button
+                                        onClick={() => handleSave(arraySelectedRows)}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        Guardar
+                                    </button>
+                                    <button
+                                        onClick={editJDS}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                                :
+                                <div>
+                                    <button
+                                        onClick={editJDS}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        {selectedRows.size <= 1 ? 'Editar vacante' : 'Editar vacantes'}
+                                    </button>
+                                </div>
+                            }
                             <button
                                 onClick={deleteVacancie}
-                                className="pl-6 hover:text-red-600">
+                                className="pl-6 hover:text-red-600"
+                            >
                                 {selectedRows.size <= 1 ? 'Cerrar vacante' : 'Cerrar vacantes'}
                             </button>
                         </div>

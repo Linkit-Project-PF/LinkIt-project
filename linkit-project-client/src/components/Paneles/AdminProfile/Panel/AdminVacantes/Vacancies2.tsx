@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
 import { setFilterJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
+import { t } from 'i18next';
 
 
 type stateProps = {
@@ -16,14 +17,13 @@ type stateProps = {
 };
 
 export default function Vacancies2() {
-
-
+    //
     const filteredJobData = useSelector((state: stateProps) => state.jobCard.filterJobOffers);
-
-
     const token = useSelector((state: any) => state.Authentication.token);
-    const [saveStatus, /*setSaveStatus*/] = useState(false); //* Estado que actualiza la info de la tabla
     const dispatch = useDispatch();
+
+
+    const [saveStatus, setSaveStatus] = useState<boolean>(false); //* Estado que actualiza la info de la tabla
 
 
     const allStackTechnologies = useSelector(
@@ -69,7 +69,20 @@ export default function Vacancies2() {
 
     const [viewStatus, setViewStatus] = useState('Visible')
 
+
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+    const [editing, setEditing] = useState(false)
+    const [editedData, setEditedData] = useState<Partial<VacancyProps>>({
+        title: "",
+        company: "",
+        description: "",
+        location: "",
+        modality: "",
+        type: "",
+        requirements: [],
+        stack: [],
+    });
+console.log(editedData)
 
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
@@ -86,20 +99,10 @@ export default function Vacancies2() {
     const handlePrevius = (): void => {
         setCurrentPage(currentPage - 1);
     };
-    
 
 
-    const handleEdit = ( id: string): void => {
-        const updateSelectedRows = new Set (selectedRows);
-        if (updateSelectedRows.has(id)){
-            updateSelectedRows.delete(id)
-        }else {
-            updateSelectedRows.add(id)
-        }
-        setSelectedRows(updateSelectedRows)
 
-    }
-    
+
 
     useEffect(() => {
         const loadData = async (): Promise<void> => {
@@ -109,6 +112,7 @@ export default function Vacancies2() {
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 dispatch(setJobOffers(response.data));
+                dispatch(setFilterJobOffers('Visible'));
             } catch (error) {
                 console.error("Error al cargar las ofertas de trabajo", error);
             }
@@ -125,13 +129,68 @@ export default function Vacancies2() {
         }))
     }
 
+
+    const editJDS = () => {
+        setEditing(!editing)
+    }
+
+    const handleEdit = (id: string): void => {
+        const updateSelectedRows = new Set(selectedRows);
+        if (updateSelectedRows.has(id)) {
+            updateSelectedRows.delete(id)
+        } else {
+            updateSelectedRows.add(id)
+        }
+        setSelectedRows(updateSelectedRows)
+        setEditing(false)
+    }
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+        const { name, value } = e.target;
+        if (name === "requirements" || name === "stack") {
+            const valuesArray = value.split(",").map((i) => i.trim());
+            setEditedData({
+                ...editedData,
+                [name]: valuesArray,
+            });
+        } else {
+            setEditedData({
+                ...editedData,
+                [name]: value,
+            });
+        }
+    };
+
+    const handleSave = async (arrayProps: string[]) => {
+        try {
+            arrayProps.forEach(async (id: string) => {
+                const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
+                await axios.put(endPoint, editedData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+            })
+        } catch (error: any) {
+            console.error(error.response.data);
+            console.error(t("Error al enviar la solicitud: "), (error as Error).message);
+        }
+        setEditing(false);
+        setEditedData({});
+        setSaveStatus(!saveStatus);
+    };
+
     return (
         <div className=' bg-scroll bg-linkIt-500'>
 
             <HeadVacancy
-                selectedRows = {selectedRows}
+                selectedRows={selectedRows}
                 hideCol={hideCol}
                 viewCol={viewCol}
+                setSaveStatus={setSaveStatus}
+                editJDS={editJDS}
+                editing={editing}
+                handleSave={handleSave}
             />
 
             <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
@@ -152,9 +211,19 @@ export default function Vacancies2() {
                         </div>
                         <div className=''>
                             {dataToShow.map((v: VacancyProps) => (
-                                <div className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>
-                                    <input type="checkbox" name='edit' onChange={() => handleEdit( v._id)} checked={selectedRows.has(v._id)} />
-                                    <p key={v._id} className='pl-2'>{v.title}</p>
+                                <div
+                                    key={v._id}
+                                    className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
+                                    <input type="checkbox" name='edit' onChange={() => handleEdit(v._id)} checked={selectedRows.has(v._id)} />
+                                    <p key={v._id} className='pl-2'>
+                                        {selectedRows.has(v._id) && editing ?
+                                            <input
+                                                name='title'
+                                                type="text"
+                                                onChange={handleChange}
+                                                placeholder={v.title}
+                                                className="bg-linkIt-300 text-black"
+                                            /> : v.title}</p>
                                 </div>
                             ))}
                         </div>
@@ -193,7 +262,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.type}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.type}</p>
                             ))}
                         </div>
                     </div>
@@ -206,7 +275,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.location}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.location}</p>
                             ))}
                         </div>
                     </div>
@@ -230,7 +299,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.modality}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.modality}</p>
                             ))}
                         </div>
                     </div>
@@ -358,7 +427,7 @@ export default function Vacancies2() {
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.company}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.company}</p>
                             ))}
                         </div>
                     </div>
@@ -372,7 +441,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.code}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.code}</p>
                             ))}
                         </div>
                     </div>
@@ -393,12 +462,13 @@ export default function Vacancies2() {
                                 >
                                     <option value="Visible">Visible</option>
                                     <option value="Hidden">Hidden</option>
+                                    <option value="All">All</option>
                                 </select>
                             </div>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id)?'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300':'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'}>{v.archived ? 'Hidden' : 'Visible'}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.archived ? 'Hidden' : 'Visible'}</p>
                             ))}
                         </div>
                     </div>

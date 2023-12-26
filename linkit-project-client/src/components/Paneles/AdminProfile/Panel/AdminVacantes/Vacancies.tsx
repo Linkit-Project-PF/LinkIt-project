@@ -465,7 +465,11 @@ export default function Vacancies() {
           jdId={postulData._id as string}
         />
       )}
-      {viewForm && <FormVacancie onClose={noShowForm} token={token} />}
+      {viewForm && <FormVacancie
+
+        setSaveStatus={setSaveStatus}
+        onClose={noShowForm}
+        token={token} />}
     </div>
   );
 }

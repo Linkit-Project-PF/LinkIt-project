@@ -38,7 +38,6 @@ const JobCardSlice = createSlice({
         },
         setFilterJobOffers:(state, action) =>{
             const visibility = action.payload;
-            
             if (visibility === 'Visible'){
                 state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>(jobOffer.archived === false))
             } else if (visibility === 'Hidden'){
