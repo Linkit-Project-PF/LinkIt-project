@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
-import { VacancyProps } from "../../../admin.types";
+import { VacancyProps, ViewColVacancy } from "../../../admin.types";
 import { setFilterJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 
@@ -88,8 +88,37 @@ export default function Vacancies2() {
         setCurrentPage(currentPage - 1);
     };
 
-    const handleEdit = (): void =>{
+    const [editing, setEditing] = useState<ViewColVacancy>({
+        title: false,
+        description: false,
+        type: false,
+        location: false,
+        modality: false,
+        stack: false,
+        users: false,
+        AboutUs: false,
+        AboutClient: false,
+        responsabilities: false,
+        requiriments: false,
+        niceToHave: false,
+        benefits: false,
+        company: false,
+        status: false,
+        code: false,
+        archived: false,
+    });
+
+    const [editRow, setEditRow] = useState<string | null>(null);
+
+
+    const handleEdit = (e: React.ChangeEvent<HTMLInputElement>, id: string): void => {
+        const {name, value} = e.target
+        const rowToEdit = filteredJobData.find((v: VacancyProps) => v._id === id)
         setSelect(!select)
+        if (rowToEdit) {
+            setEditRow(id);
+            setEditing(!editing);
+        }
     }
 
     useEffect(() => {
@@ -144,7 +173,7 @@ export default function Vacancies2() {
                         <div className=''>
                             {dataToShow.map((v: VacancyProps) => (
                                 <div className='flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>
-                                    <input type="checkbox" name='edit' onChange={handleEdit} checked={select}/>
+                                    <input type="checkbox" name='edit' onChange={(e) => handleEdit(e, v._id)} />
                                     <p key={v._id} className='pl-2'>{v.title}</p>
                                 </div>
                             ))}
@@ -160,7 +189,7 @@ export default function Vacancies2() {
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{v.description}</p>
+                                <p key={v._id} className={editing && editRow === v._id ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.description}</p>
                             ))}
                         </div>
                     </div>
