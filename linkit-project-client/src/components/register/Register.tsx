@@ -61,7 +61,7 @@ function Register() {
   const [user, setUser] = useState({
     firstName: "",
     companyName: "",
-    lastname: "",
+    lastName: "",
     email: "",
     password: "",
     confirm_password: "",
@@ -69,7 +69,7 @@ function Register() {
   });
   const [errors, setErrors] = useState({
     firstName: "",
-    lastname: "",
+    lastName: "",
     email: "",
     password: "",
     confirm_password: "",
@@ -133,7 +133,13 @@ function Register() {
       if (user.role === 'company') user.companyName = user.firstName;
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
-        user
+        user,
+        {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
       );
       if (response.data._id)
         Swal.fire({
@@ -367,7 +373,7 @@ function Register() {
               type="text"
               className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
               placeholder={user.role === "user" ? t("Nombre") : t("Nombre de la empresa")}
-              name="name"
+              name="firstName"
               value={user.firstName}
               onChange={handleInputChange}
             />
@@ -380,13 +386,13 @@ function Register() {
               type="text"
               className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
               placeholder={t("Apellido")}
-              name="lastname"
-              value={user.lastname}
+              name="lastName"
+              value={user.lastName}
               onChange={handleInputChange}
             />
             }
             {
-              errors.lastname && ( <p className="text-red-500 text-xs italic">{errors.lastname}</p> )
+              errors.lastName && ( <p className="text-red-500 text-xs italic">{errors.lastName}</p> )
             }
             <div className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem]">
               <img
