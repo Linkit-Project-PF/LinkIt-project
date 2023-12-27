@@ -9,7 +9,7 @@
   }
 
 .division {
-  @apply h-[4px] bg-linkIt-600  z-10 m-0
+  @apply h-[4px] bg-linkIt-600  z-10 m-0 rounded-sm
 }
 
 

@@ -147,8 +147,8 @@ export const i18nOptions: InitOptions = {
         //!Login pre-login
         "Conectando al talento más destacado":"Connecting the most outstanding talent",
         "con los mejores proyectos IT.":"with the best IT projects.",
-        "Soy Talento":"I am a Talent",
-        "Soy Empresa":"I am a company",
+        "Soy Talento":"For Talent",
+        "Soy Empresa":"For Company",
 
         //!NavBar
         "Contrata y gestiona talentos de forma global con LinkIT":"Hire and manage talent globally with LinkIT",
@@ -163,7 +163,7 @@ export const i18nOptions: InitOptions = {
         "Ebooks":"Ebooks",
         "Webinars":"Webinars",
         "Librería":"Library",
-        "Quiénes Somos":"About us",
+        "Quiénes Somos":"About Us",
         "Misión":"Mission",
         "Visión":"Vision",
         "Valores":"Values",
