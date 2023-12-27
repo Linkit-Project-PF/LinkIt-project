@@ -4,7 +4,6 @@ import LogoWhite from "/Linkit-logo/linkit-logos-web_5-logo-horizontal-blanco.sv
 import arrow from "/Vectores/arrow.png";
 import whiteArrow from "/Vectores/white-arrow.png";
 import Languaje from "../../Utils/Language";
-import iconUser from "/Vectores/iconUser.png";
 import userGreen from "/Vectores/user-green.svg";
 import userWhite from "/Vectores/user-white.svg";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
@@ -27,6 +26,7 @@ function useMenuAnimation(isOpen: boolean) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
+    if (window.innerWidth >= 1024) {
     animate(".arrow", { rotate: isOpen ? 180 : 0 }, { duration: 0.2 });
 
     animate(
@@ -51,7 +51,7 @@ function useMenuAnimation(isOpen: boolean) {
         delay: isOpen ? staggerMenuItems : 0,
       }
     );
-  }, [isOpen]);
+  }}, [isOpen]);
 
   return scope;
 }
@@ -239,6 +239,15 @@ function NavBar() {
     }
    }, [toggleDarkMode])
 
+
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+useEffect(() => {
+  const handleResize = () => setWindowWidth(window.innerWidth);
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+
   return (
     <div>
 
@@ -261,15 +270,14 @@ function NavBar() {
           src={!toggleDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
           alt="LinkIT-logo"
-          className="w-1/4 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+          className="w-1/4 lg:w-1/6 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
 
 
+          {windowWidth >= 1024 
 
-         <motion.div className={`container-navigation ${burgerMenu ? "block" : "hidden"}`}
-           initial={{ opacity: 0, scale: 0, y: "-50%" }}
-           animate={{ opacity: burgerMenu ? 1 : 0, scale: burgerMenu ? 1 : 0, y: burgerMenu ? "0%" : "-50%" }}
-           transition={{ duration: 0.3, ease: "easeInOut" }}
+          ? (
+         <motion.div className={`container-navigation bg-transparent`}
            >
           <motion.button
             className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 dark:hover:border-b-white dark:hover:text-white  ${isActiveHome ? "text-linkIt-300 border-b-linkIt-300 dark:border-b-white dark:text-white" : "border-b-transparent"}`}
@@ -296,13 +304,13 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white hidden lg:block dark:bg-linkIt-400 rounded-b-[7px] w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative right-[10%] bg-white dark:bg-linkIt-400 rounded-b-[7px] w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenEmpresa ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 dark:after:bg-white after:absolute"></div>
+              <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 dark:after:bg-white after:absolute"></div>
               <li className={`hover:text-linkIt-300`}>
                 <button onClick={navigatetoServicesCompany} >{t('Servicios')}</button>
               </li>
@@ -335,13 +343,13 @@ function NavBar() {
               </div>
             </motion.button>
             <ul
-              className="relative bg-white hidden lg:block rounded-b-[7px] dark:bg-linkIt-400 w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative right-[10%] bg-white rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenSoyTalento ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
+              <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button>
               </li>
@@ -370,36 +378,36 @@ function NavBar() {
               onClick={() => goRecursos()}
             >
               {t('Recursos')}
-              <div className="arrow w-[0.7vw] ml-[0.3vw] hidden lg:block">
+              <div className="arrow w-[0.7vw] ml-[0.3vw]">
                 <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="bg-white relative hidden lg:block rounded-b-[7px] dark:bg-linkIt-400 w-full h-fit p-[0.5vw] pr-[1.4vw] font-semibold items-center space-y-[1vh]"
+              className="bg-white right-[10%] relative rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenRecursos ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
+              <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoBlogs}>{t('Blogs')}</button>
               </li>
-              <hr className="w-[120%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoEbooks}>{t('Ebooks')}</button></li>
-              <hr className="w-[120%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoWebinars}>{t('Webinars')}</button>
               </li>
-              <hr className="w-[120%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoFAQ}>FAQ</button>
               </li>
-              <hr className="w-[120%]" />
+              <hr className="w-[100%]" />
 
               <li className="hover:text-linkIt-300">
                 <a onClick={() => navigate("/recursos/libreria")} className="cursor-pointer">{t('Librería')}</a>
@@ -421,18 +429,18 @@ function NavBar() {
               onClick={() => goQS()}
             >
               {t('Quiénes Somos')}
-              <div className="arrow w-[0.7vw] ml-[0.3vw] hidden lg:block">
+              <div className="arrow w-[0.7vw] ml-[0.3vw]">
                 <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="relative bg-white hidden lg:block rounded-b-[7px] dark:bg-linkIt-400 w-full h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+              className="relative right-[10%] bg-white rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
               style={{
                 pointerEvents: isOpenQS ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <div className="absolute w-[80%] left-[10%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
+              <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
               <li className="hover:text-linkIt-300">
                 <button onClick={navigatetoMission} >{t('Misión')}</button></li>
               <hr className="w-[100%]" />
@@ -456,14 +464,31 @@ function NavBar() {
               </li>
             </ul>
           </motion.nav>
-          </motion.div>
+          </motion.div> ) 
+          : (
+            <motion.ul className={`container-navigation ${burgerMenu ? "block" : "hidden"}`}
+            initial={{  opacity: 0, scale: 0, y: "-50%" }}
+           animate={{ 
+            opacity: burgerMenu ? 1 : 0, scale: burgerMenu ? 1 : 0, y: burgerMenu ? "0%" : "-50%" }}
+           transition={{ duration: 0.3, ease: "easeInOut" }}>
+            <li className={`flex cursor-pointer items-center mt-[0.3%] hover:text-linkIt-300 dark:hover:text-white  ${isActiveHome ? "text-linkIt-300 dark:text-white" : ""}`} onClick={() => goHome()}>{t('Inicio')}</li>
+            <li className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${isActiveEmpresa ? "text-linkIt-300 dark:text-white " : ""
+                }`} onClick={() => goSoyEmpresa()} >{t('Soy Empresa')}</li>
+            <li className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${isActiveTalento ? "text-linkIt-300 dark:text-white" : ""
+                }`}  onClick={() => goSoyTalento()}> {t('Soy Talento')}</li>
+            <li className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${isActiveRecursos ? "text-linkIt-300 dark:text-white" : ""
+                }`} onClick={() => goRecursos()} > {t('Recursos')}</li>
+            <li className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${isActiveQS ? "text-linkIt-300 dark:text-white" : ""
+                }`} onClick={() => goQS()}> {t('Quiénes Somos')}</li>
+            </motion.ul>
+          )}
 
 
           <div className="containerBtnsNavbar">
 
           {/* toggleDarkMode */}
 
-          <div className="cl-toggle-switch top-[1px] hidden">
+          <div className="cl-toggle-switch top-[1px] hidden lg:block">
             <label className="cl-switch">
             <input type="checkbox" onChange={darkMode}/>
           <span></span>
@@ -471,7 +496,7 @@ function NavBar() {
           </div>
 
           <motion.button
-            className={`background-button mr-2`}
+            className={`background-button`}
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
           >
@@ -485,21 +510,23 @@ function NavBar() {
           >
             {t('Vacantes disponibles')}
           </motion.button>
-
-            <Languaje />
-            <div className="relative flex flex-col w-[10%] justify-start bg-black"
+          <div className="relative hidden lg:block 2xl:ml-3">
+          <Languaje />
+            </div>
+            <div className="relative flex flex-col w-[3rem] h-[2rem] justify-start right-[8%] pt-[1.3%] 2xl:ml-6"
             >
-              <motion.div className={`relative z-30 h-[1.6rem] rounded-t-[7px] w-[50%] ml-2 cursor-pointer ${userIsOpen ? "bg-linkIt-300 right-[65%] w-fit" : "bg-transparent"}`}
+              <motion.div className={`user-container ${userIsOpen ? "bg-linkIt-300 right-[65%] w-[5rem] lg:w-[8rem]" : "bg-transparent w-[50%] lg:w-[75%]"} lg:bottom-2`}
               onClick={() => setUserIsOpen(true)}
+              onMouseLeave={() => setUserIsOpen(false)}
               >
-              <img className={`relative rounded-full border-linkIt-300 p-0.5 ${userIsOpen ? 'w-1/4' : 'w-[50%] border'}`} src={userIsOpen ? userWhite : userGreen} alt="userIcon" />
+              <motion.img className={`relative rounded-full border-linkIt-300 p-0.5 ${userIsOpen ? 'w-1/4' : 'border left-[100%]'}`} src={userIsOpen ? userWhite : userGreen} alt="userIcon" />
             <motion.ul
-              className={` bg-white dark:bg-linkIt-400 rounded-b-[7px] w-full h-fit mt-0.5 p-[7%] ${userIsOpen ? "block" : "hidden"}`}
+              className={` bg-white dark:bg-linkIt-400 rounded-b-[7px] w-full h-fit mt-[5%] p-[7%] ${userIsOpen ? "block" : "hidden"}`}
               onMouseLeave={() => setUserIsOpen(false)}
             > 
               {isAuthenticated && role === 'user' ? (
                 <div>
-                  <li className="text-[0.6rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="profile hover:text-linkIt-300"
                       onClick={() => { navigate("/profile") }}
@@ -508,7 +535,7 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[100%]" />
-                  <li className="text-[0.6rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="profile hover:text-linkIt-300"
                     >
@@ -516,7 +543,7 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[100%]" />
-                  <li className="text-[0.6rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
@@ -527,7 +554,7 @@ function NavBar() {
                 </div>
               ) : isAuthenticated && role === 'admin' ? (
                 <div>
-                  <li className="text-[0.6rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       onClick={goAdminDashboard}
                       className="profile hover:text-linkIt-300"
@@ -536,7 +563,7 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[100%]" />
-                  <li className="text-[0.6rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
@@ -547,7 +574,7 @@ function NavBar() {
                 </div>
               ) : isAuthenticated && role === 'company' ? (
                 <div>
-                  <li className="text-[0.6rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="profile hover:text-linkIt-300"
                       onClick={() => { navigate("/profile") }}
@@ -556,7 +583,7 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[100%]" />
-                  <li className="text-[0.6rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="profile hover:text-linkIt-300"
                     >
@@ -564,7 +591,7 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[100%]" />
-                  <li className="text-[0.6rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className="logout hover:text-linkIt-300"
                       onClick={handleLogout}
@@ -575,7 +602,7 @@ function NavBar() {
                 </div>
               ) : (
                 <div>
-                  <li className="text-[0.6rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out xl:text-xs">
+                  <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className=" hover:text-linkIt-300"
                       onClick={() => {
@@ -589,7 +616,7 @@ function NavBar() {
                     </button>
                   </li>
                   <hr className="w-[100%]" />
-                  <li className=" text-[0.6rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
+                  <li className=" text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                     <button
                       className=" hover:text-linkIt-300"
                       onClick={() => {
@@ -609,7 +636,10 @@ function NavBar() {
             </motion.ul>{" "}
             </motion.div>
             </div>
-  <button className="relative group" onClick={ () => setBurgerMenu(!burgerMenu)}>
+
+            {/* burguerMenu */}
+
+  <button className="relative group right-[5%] lg:hidden" onClick={ () => setBurgerMenu(!burgerMenu)}>
     <div className={`relative flex overflow-hidden items-center justify-center transform transition-all`}>
       <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
         <div className={`bg-linkIt-300 h-[2px] w-7 transform transition-all duration-300 origin-left ${burgerMenu ? "translate-x-10" : ""}`}></div>

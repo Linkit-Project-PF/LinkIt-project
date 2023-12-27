@@ -29,11 +29,11 @@ html{
 
 
   .transparent-background-button {
-    @apply font-manrope relative z-10 border border-linkIt-300 rounded-[7px] p-1.5 px-3 text-[0.5rem]  hover:border-linkIt-200 font-bold dark:hover:border-white dark:hover:text-linkIt-300 transition-all duration-300 ease-in-out
+    @apply font-manrope relative z-10 border border-linkIt-300 rounded-[7px] p-1.5 lg:p-3 px-2 lg:px-5 text-[0.5rem] lg:text-[0.8vw]  hover:border-linkIt-200 font-bold dark:hover:border-white dark:hover:text-linkIt-300 transition-all duration-300 ease-in-out
 }
   /* .transparent-background-button {
     @apply font-manrope relative z-10 border border-linkIt-300 rounded-[7px] p-3 px-5 text-[0.8vw]  hover:border-linkIt-200 font-bold dark:hover:border-white dark:hover:text-linkIt-300 transition-all duration-300 ease-in-out
 } */
 
 .background-button {
-    @apply font-manrope relative z-10 border border-linkIt-300 text-white bg-linkIt-300 rounded-[7px] p-1.5 px-3 text-[0.5rem] hover:bg-linkIt-200 hover:border-linkIt-200  transition-all duration-300 ease-in-out font-bold dark:hover:border-white dark:hover:bg-white dark:hover:text-linkIt-300 }
+    @apply font-manrope relative z-10 border border-linkIt-300 text-white bg-linkIt-300 rounded-[7px] p-1.5 lg:p-3 px-2 lg:px-5 text-[0.5rem] lg:text-[0.8vw] hover:bg-linkIt-200 hover:border-linkIt-200  transition-all duration-300 ease-in-out font-bold dark:hover:border-white dark:hover:bg-white dark:hover:text-linkIt-300 }
