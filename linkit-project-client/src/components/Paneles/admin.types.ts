@@ -18,7 +18,7 @@ export type VacancyProps = {
   createdDate: string; //! ver si recibe un string o un date
   __v: number;
   _id: string;
-  users: any[];
+  users: string[];
 };
 
 export type ResourceProps = {
@@ -36,34 +36,27 @@ export type ResourceProps = {
 export type UserProps = {
   _id: string;
   airTableId: string;
-  name: string;
   image: string;
   firstName: string;
   lastName: string;
   email: string;
   country: string;
-  phone: string;
   role: string;
   linkedin: string;
   cv: string;
   technologies: string[];
   active: boolean;
-  postulations: postulations[];
+  registeredDate: Date;
 };
-
-interface postulations {
-  jd: string;
-  status: string;
-}
 
 export type ReviewProps = {
   _id: string;
-  name: string,
-  rol: string
-  country: string
-  detail: string
-  archived: boolean,
-}
+  name: string;
+  rol: string;
+  country: string;
+  detail: string;
+  archived: boolean;
+};
 
 export interface ViewColVacancy {
   title: boolean;
@@ -85,7 +78,7 @@ export interface ViewColVacancy {
   archived: boolean;
 }
 
-export interface ClientFollowUpProps{
+export interface ClientFollowUpProps {
   "1st Client interview": string;
   "1st Offer": string;
   "1st endorsement": string;

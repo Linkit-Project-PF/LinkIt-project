@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
@@ -112,9 +112,14 @@ function LoginTalent() {
   const handleAuthClick = async (prov: string) => {
     try {
       let provider;
-      if (prov === "google") {
+  
+      if (prov === "github" || prov=== "google") {
         setThirdParty(true);
-        provider = new GoogleAuthProvider();
+
+          if (prov==="github"){
+            provider = new GithubAuthProvider();
+          } else provider = new GoogleAuthProvider();
+
         const response = await signInWithPopup(auth, provider);
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist

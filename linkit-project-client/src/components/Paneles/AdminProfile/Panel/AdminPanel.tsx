@@ -11,25 +11,15 @@ import Statistics from "./AdminStatistics/Statistics";
 import { useTranslation } from "react-i18next";
 import Vacancies2 from "./AdminVacantes/Vacancies2";
 import ClientsFollowUp from "./ClientsFollowUp/ClientsFollowUp";
-
-type userInfoProps = {
-  _id: string;
-  firstName: string;
-  lastaName: string;
-  email: string;
-  phone: string;
-  country: string;
-  active: boolean;
-  role: string;
-};
+import { IAdmin } from "../../../Profiles/types";
+// import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
 export default function AdminPanel() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const token = useSelector((state: any) => state.Authentication.token);
 
-  const [userData, setUserData] = useState<Partial<userInfoProps>>({});
+  const [userData, setUserData] = useState<Partial<IAdmin>>({});
   const nav = useNavigate();
-
 
   useEffect(() => {
     const infoUser = async () => {
@@ -46,7 +36,7 @@ export default function AdminPanel() {
           nav("/unauthorized");
           return;
         }
-        setUserData(response.data);
+        setUserData(response.data as IAdmin);
       } catch (error) {
         nav("/unauthorized");
       }
@@ -54,9 +44,12 @@ export default function AdminPanel() {
     infoUser();
   }, []);
 
+  // TODO SuperAdminProfile is damaged, It does not edit admin but user, and the DOM rendering is weird
   return (
     <div className="pt-32">
-      <h1 className="text-5xl pt-6 pl-16 font-bold">{t('Hola')} {userData.firstName}!</h1>
+      <h1 className="text-5xl pt-6 pl-16 font-bold">
+        {t("Hola")} {userData.firstName}!
+      </h1>
       <NavPanelAdmin />
       <Routes>
         <Route path="vacantes" element={<Vacancies2 />} />
@@ -64,6 +57,7 @@ export default function AdminPanel() {
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
         <Route path="usuarios" element={<UsersAdmin />} />
+        {/* <Route path="mis-datos" element={<SuperAdminProfile />} /> */}
         <Route path="" element={<Statistics />} />
       </Routes>
       <br />

@@ -14,6 +14,7 @@ type OnCloseFunction = () => void;
 interface FormVacancieProps {
   onClose: OnCloseFunction;
   token: string;
+  setSaveStatus:(status: boolean) => void; 
 }
 
 interface InfoList {
@@ -22,7 +23,7 @@ interface InfoList {
 
 export default function FormVacancie(props: FormVacancieProps) {
   const { t } = useTranslation()
-  
+
   const token = useSelector((state: any) => state.Authentication.token);
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
@@ -89,7 +90,6 @@ export default function FormVacancie(props: FormVacancieProps) {
     getCompanies();
     return () => setCompanies([]);
   }, []);
-  console.log(allCompanies);
 
   const addToList = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -213,12 +213,12 @@ export default function FormVacancie(props: FormVacancieProps) {
         company: "",
       });
       props.onClose();
+      props.setSaveStatus(true)
       return response.data;
     } catch (error) {
       console.error((error as Error).message);
       throw new ValidationError(
-        `${t('Error al ingresar los datos en el formulario')}: ${
-          (error as Error).message
+        `${t('Error al ingresar los datos en el formulario')}: ${(error as Error).message
         }`
       );
     }
@@ -536,8 +536,8 @@ export default function FormVacancie(props: FormVacancieProps) {
               </div>
             ) : null}
             {infoList &&
-            infoList.requirements &&
-            infoList.requirements.length > 0 ? (
+              infoList.requirements &&
+              infoList.requirements.length > 0 ? (
               <div className="mx-4">
                 <h3 className="text-md font-bold text-linkIt-200">
                   {t('Requisitos agregados')}
@@ -560,8 +560,8 @@ export default function FormVacancie(props: FormVacancieProps) {
               </div>
             ) : null}
             {infoList &&
-            infoList.niceToHave &&
-            infoList.niceToHave.length > 0 ? (
+              infoList.niceToHave &&
+              infoList.niceToHave.length > 0 ? (
               <div className="mx-4">
                 <h3 className="text-md font-bold text-linkIt-200">
                   {t('Deseables agregados')}
@@ -607,12 +607,12 @@ export default function FormVacancie(props: FormVacancieProps) {
             ) : null}
           </div>
           {errors.code ||
-          errors.title ||
-          errors.company ||
-          errors.location ||
-          errors.stack ||
-          errors.requirements ||
-          errors.description ? (
+            errors.title ||
+            errors.company ||
+            errors.location ||
+            errors.stack ||
+            errors.requirements ||
+            errors.description ? (
             <span className="text-red-500">
               {t('Los campos marcados con * son obligatiorios')}
             </span>
