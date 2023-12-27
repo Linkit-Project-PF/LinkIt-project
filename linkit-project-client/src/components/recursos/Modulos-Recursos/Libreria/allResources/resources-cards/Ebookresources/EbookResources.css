@@ -1,0 +1,76 @@
+@media screen and (min-width: 1440px){
+    .container-ebook-resources{
+        width: 20rem !important;
+        height: 33vh !important;
+    }
+    .category-resources{
+        font-size: 1rem !important;
+    }
+    .title-resources{
+        font-size: 1.2rem !important;
+    }
+    .description-resources{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1620px){
+    .container-ebook-resources{
+        width: 19rem !important;
+        height: 29vh !important;
+        margin: 0 auto !important;
+    }
+    .cards-container-resources{
+        gap: -1rem !important;
+    }
+    .category-resources{
+        font-size: 1rem !important;
+    }
+    .title-resources{
+        font-size: 1.2rem !important;
+    }
+    .description-resources{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1720px){
+    .container-ebook-resources{
+        width: 20rem !important;
+        height: 29vh !important;
+        margin: 0 auto !important;
+    }
+    .cards-container-resources{
+        gap: 2rem !important;
+    }
+    .category-resources{
+        font-size: 1rem !important;
+    }
+    .title-resources{
+        font-size: 1.2rem !important;
+    }
+    .description-resources{
+        font-size: 1rem !important;
+    }
+}
+
+@media screen and (min-width: 1800px) and (max-width: 1920px){
+    .container-ebook-resources{
+        width: 20rem !important;
+        height: 32vh !important;
+        margin: 0 auto !important;
+    }
+    .cards-container-resources{
+        gap: 4rem !important;
+    }
+    .category-resources{
+        font-size: 1rem !important;
+    }
+    .title-resources{
+        font-size: 1.2rem !important;
+    }
+    .description-resources{
+        font-size: 1rem !important;
+    }
+}
+

@@ -1,178 +1,232 @@
 [
     {
+        "id": 1,
         "name": "Android",
         "logo": "Technologies-logo/android.svg"
     },
     {
+        "id": 2,
         "name": "Angular",
         "logo": "Technologies-logo/angular-seeklogo.com 2.svg"
     },
     {
+        "id": 3,
         "name": "AWS",
-        "logo": "-"
+        "logo": "Technologies-logo/AWS_Logo.png"
     },
     {
+        "id": 4,
         "name": "AZURE",
         "logo": "Technologies-logo/microsoft-azure-seeklogo.com.svg"
     },
     {
-        "name": "C/CSS/C++",
-        "logo": "-"
+        "id": 5.0,
+        "name": "C",
+        "logo": "Technologies-logo/C_Logo.png"
     },
     {
+        "id": 5.1,
+        "name": "CSS",
+        "logo": "Technologies-logo/CSS_Logo.png"
+    },
+    {
+        "id": 5.2,
+        "name": "C++",
+        "logo": "Technologies-logo/C++_Logo.png"
+    },
+    {
+        "id": 6,
         "name": "C#: .NET",
-        "logo": "-"
+        "logo": "Technologies-logo/Cnum_Logo.png"
     },
     {
+        "id": 7,
         "name": "DevOps",
         "logo": "Technologies-logo/devops-seeklogo.com.svg"
     },
     {
+        "id": 8,
         "name": "Docker",
         "logo": "Technologies-logo/01-primary-blue-docker-logo.svg"
     },
     {
+        "id": 9,
         "name": "GCP",
-        "logo": "-"
+        "logo": "Technologies-logo/GCP_Logo.png"
     },
     {
+        "id": 10,
         "name": "Go",
         "logo": "Technologies-logo/go-programming-language-seeklogo.com.svg"
     },
     {
+        "id": 11,
         "name": "HTML",
-        "logo": "-"
+        "logo": "Technologies-logo/HTML_Logo.png"
     },
     {
+        "id": 12,
         "name": "iOS",
         "logo": "Technologies-logo/ios-seeklogo.com.svg"
     },
     {
+        "id": 13,
         "name": "Java",
-        "logo": "-"
+        "logo": "Technologies-logo/Java_Logo.png"
     },
     {
+        "id": 14,
         "name": "Javascript",
         "logo": "Technologies-logo/javascript-js-seeklogo.com.svg"
     },
     {
+        "id": 15,
         "name": "Jenkins",
-        "logo": "-"
+        "logo": "Technologies-logo/Jenkins_Logo.png"
     },
     {
+        "id": 16,
         "name": "Kubernetes",
         "logo": "Technologies-logo/kubernetes-seeklogo.com-3.svg"
     },
     {
+        "id": 17,
         "name": "PHP",
-        "logo": "-"
+        "logo": "Technologies-logo/PHP_Logo.png"
     },
     {
+        "id": 18,
         "name": "SQL",
-        "logo": "-"
+        "logo": "Technologies-logo/SQL_Logo.png"
     },
     {
+        "id": 19,
         "name": "MONGO",
         "logo": "Technologies-logo/mongodb-seeklogo.com.svg"
     },
     {
+        "id": 20,
         "name": "Next.JS",
         "logo": "Technologies-logo/next-js-seeklogo.com.svg"
     },
     {
+        "id": 21,
         "name": "Node",
-        "logo": "-"
+        "logo": "Technologies-logo/Node_Logo.png"
     },
     {
+        "id": 22,
         "name": "Oracle",
-        "logo": "-"
+        "logo": "Technologies-logo/Oracle_Logo.png"
     },
     {
+        "id": 23,
         "name": "Power BI",
-        "logo": "-"
+        "logo": "Technologies-logo/PowerBi_Logo.png"
     },
     {
+        "id": 24,
         "name": "Python",
-        "logo": "-"
+        "logo": "Technologies-logo/Python_Logo.png"
     },
     {
+        "id": 25,
         "name": "QA Automation",
-        "logo": "-"
+        "logo": "Technologies-logo/QA Automation_Logo.png"
     },
     {
+        "id": 26,
         "name": "QA Manual",
-        "logo": "-"
+        "logo": "Technologies-logo/QA Manual_Logo.png"
     },
     {
+        "id": 27,
         "name": "React",
         "logo": "Technologies-logo/react-seeklogo.com.svg"
     },
     {
+        "id": 28,
         "name": "React Native",
-        "logo": "-"
+        "logo": "Technologies-logo/React Native_Logo.png"
     },
     {
+        "id": 29,
         "name": "Ruby on Rails",
         "logo": "Technologies-logo/rails-seeklogo.com.svg"
     },
     {
+        "id": 30,
         "name": "SAP",
-        "logo": "-"
+        "logo": "Technologies-logo/SAP_Logo.png"
     },
     {
+        "id": 31,
         "name": "SOLIDITY",
         "logo": "Technologies-logo/solidity-seeklogo.com.svg"
     },
     {
+        "id": 32,
         "name": "Tableau",
-        "logo": "-"
+        "logo": "Technologies-logo/Tableau_Logo.png"
     },
     {
+        "id": 33,
         "name": "Terraform",
         "logo": "Technologies-logo/terraform-seeklogo.com.svg"
     },
     {
+        "id": 34,
         "name": "Typescript",
         "logo": "Technologies-logo/typescript-seeklogo.com.svg"
     },
     {
+        "id": 35,
         "name": "UX/UI",
-        "logo": "-"
+        "logo": "Technologies-logo/UX-UI_Logo.png"
     },
     {
+        "id": 36,
         "name": "Objective-C",
-        "logo": "-"
+        "logo": "Technologies-logo/Objetive C.png"
     },
     {
+        "id": 37,
         "name": "Unity",
-        "logo": "-"
+        "logo": "Technologies-logo/unity_Logo.png"
     },
     {
+        "id": 38,
         "name": "Web3",
-        "logo": "-"
+        "logo": "Technologies-logo/WEB 3_Logo.png"
     },
     {
+        "id": 39,
         "name": "Solidity",
-        "logo": "-"
+        "logo": "Technologies-logo/Solidity.png"
     },
     {
+        "id": 40,
         "name": "Firewall",
-        "logo": "-"
+        "logo": "Technologies-logo/Firewall_Logo.png"
     },
     {
+        "id": 41,
         "name": "Nessus",
-        "logo": "-"
+        "logo": "Technologies-logo/Nessus_Logo.png"
     },
     {
+        "id": 42,
         "name": "Cisco",
-        "logo": "-"
+        "logo": "Technologies-logo/Cisco_Logo.png"
     },
     {
+        "id": 43,
         "name": "Linux",
-        "logo": "-"
+        "logo": "Technologies-logo/Linux_Logo.png"
     },
     {
+        "id": 44,
         "name": "McAfee",
-        "logo": "-"
+        "logo": "Technologies-logo/Mc Afee_Logo.png"
     }
 ]

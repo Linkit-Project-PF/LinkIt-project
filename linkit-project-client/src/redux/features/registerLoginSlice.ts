@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     pressLogin: 'hidden',
+    pressLoginTalent: 'hidden',
+    pressLoginCompany: 'hidden',
     pressSignUp: 'hidden',
-    pressCompany: 'hidden',
-    pressTalent: 'hidden',
+    pressRegister: "hidden"
 }
 
 const registerLoginSlice = createSlice({
@@ -17,14 +18,17 @@ const registerLoginSlice = createSlice({
         setPressSignUp: (state, action) => {
             state.pressSignUp = action.payload;
         },
-        setPressCompany: (state, action) => {
-            state.pressCompany = action.payload;
-        },  
-        setPressTalent: (state, action) => {
-            state.pressTalent = action.payload;
+        setPressRegister: (state, action) => {
+            state.pressRegister = action.payload;
         },
+        setPressLoginTalent: (state, action) => {
+            state.pressLoginTalent = action.payload;
+        },
+        setPressLoginCompany: (state, action) => {
+            state.pressLoginCompany = action.payload;
+        }
     }
 })
 
 export default registerLoginSlice.reducer;
-export const { setPressLogin, setPressSignUp, setPressCompany, setPressTalent } = registerLoginSlice.actions;
+export const { setPressLogin, setPressSignUp, setPressRegister, setPressLoginCompany, setPressLoginTalent } = registerLoginSlice.actions; 

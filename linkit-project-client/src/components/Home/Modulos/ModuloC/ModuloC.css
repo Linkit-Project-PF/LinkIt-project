@@ -1,33 +1,15 @@
 .line {
-    position: absolute;
-    left: 3%;
-    width: 90%;
-    height: 4px;
-    margin: 2.5rem;
-    background-color: #A9C1D9;
-    z-index: -1;
+  @apply absolute w-[95%] h-[4px] bg-linkIt-200 dark:bg-white z-[1];
+  
   }
   /*puntos*/
   
   .line::after {
-    content: "";
-    position: absolute;
-    width: 15px; /* Diámetro de las bolas */
-    height: 15px;
-    border-radius: 50%;
-    background-color: #A9C1D9;
-    top: 50%;
-    transform: translateY(-50%);
-    
+    content: ""; 
+    @apply absolute w-[15px] h-[15px] rounded-full bg-linkIt-200 dark:bg-white transform -translate-y-1/2 right-0 top-[50%] z-[-1] 
   }
   
   .line::before{
-    position: absolute;
     content: "";
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #A9C1D9;
-    transform: translateY(-40%);
-    right: -2px;
+    @apply absolute w-[15px] h-[15px] rounded-full bg-linkIt-200 dark:bg-white transform -translate-y-1/2 left-0 top-[50%] z-[-1]
   }

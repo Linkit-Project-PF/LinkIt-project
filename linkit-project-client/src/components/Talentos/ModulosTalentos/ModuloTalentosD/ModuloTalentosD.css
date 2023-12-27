@@ -1,0 +1,39 @@
+
+.skewed-borderC {
+    position: relative;
+    overflow: hidden;
+    background: #ECEEF0;
+}
+
+.skewed-borderC::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    /* Ajusta la distancia entre el borde inferior y la línea aquí */
+    left: 0;
+    width: 100%;
+    height: 10px;
+    /* Grosor de la línea */
+    background: #ECEEF0;
+    transform-origin: bottom left;
+    transform: skewY(-3deg);
+    z-index: 2;
+}
+
+.skewed-borderC::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #173951;
+    transform-origin: bottom left;
+    transform: skewY(-3deg);
+    z-index: 1;
+}
+
+.contentC {
+    position: relative;
+    z-index: 2;
+}

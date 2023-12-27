@@ -4,24 +4,58 @@ body {
 
   
   .preNavbar{
-        @apply fixed top-0 w-[100%] bg-linkIt-400 h-[30px] text-linkIt-50 text-sm flex items-center justify-center z-50
+        @apply fixed flex items-center justify-center z-50 top-0 w-screen h-[4%] bg-linkIt-400 dark:bg-linkIt-700 hover:bg-linkIt-300 text-white text-[58%] font-montserrat transition duration-300 ease-in-out 
     }
     .navBar{
-@apply fixed top-7 h-[3.938rem] bg-white flex justify-start items-center px-4 w-[100%] z-50
+@apply fixed flex items-center top-[4vh] h-[8.5vh] gap-x-2 w-screen justify-between z-50 bg-white dark:bg-linkIt-400 text-[1vw] dark:text-white font-montserrat font-bold whitespace-nowrap 
 }
 
-    .containerLinksNavBar {
-        @apply flex items-center gap-[25px] xl:gap-[35px] 2xl:gap-[60px] text-[10px] xl:text-sm whitespace-nowrap font-montserrat font-semibold h-12
-    }
     .containerBtnsNavbar {
-        @apply flex ml-6 xl:ml-5 2xl:ml-14 items-center justify-center space-x-4 whitespace-nowrap font-montserrat font-semibold h-12
+        @apply flex items-center font-montserrat font-semibold justify-around gap-x-2 mr-3
     }
+    .container-navigation {
+        @apply absolute lg:relative lg:flex lg:gap-x-5 xl:gap-x-10 top-[100%] lg:top-0 bg-white w-full lg:w-fit h-fit lg:h-[100%] p-[5%] lg:p-0 space-y-[10%] lg:space-y-0 text-[1.5rem] lg:text-[1vw]
+    }
+ .user-container{
+     @apply relative z-30 h-[1.5rem] lg:h-[4.5rem] rounded-t-[7px] cursor-pointer
+ }
+    .cl-toggle-switch {
+      @apply relative
+     }
+     
+     .cl-switch {
+        @apply relative inline-block cursor-pointer
+     }
+     /* Input */
 
-    .contrataBtnNavB{
-    @apply bg-linkIt-300 flex items-center rounded-[7px] p-2 h-8 text-white text-[10px] xl:text-xs shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out
-    }
+     .cl-switch > input {
+         -moz-appearance: none;
+         -webkit-appearance: none;
+        @apply appearance-none z-[-1] absolute opacity-0 cursor-pointer
+     }
+     /* Track */
+     .cl-switch > span::before {
+      content: "";
+      @apply float-right w-[2.5rem] h-[1.5rem] rounded-2xl m-[10%] transition-all ease-in-out duration-300
+     }
 
-    .vacanteBtnNavB{
-        @apply border-linkIt-300 flex items-center border rounded-[7px] p-2 h-8 text-[10px] xl:text-xs shadow-md hover:bg-linkIt-300 hover:shadow-md hover:text-white transition-all duration-300 ease-in-out
-    }
-    
+     /* Thumb */
+     .cl-switch > span::after {
+      content: "";
+      @apply absolute top-[25%] bg-linkIt-600 w-[15px] h-[15px] rounded-full transition-all ease-in-out duration-300
+     }
+     /* Checked */
+   
+     .cl-switch > input:checked + span::before {
+        @apply bg-linkIt-300 
+     }
+     
+     .cl-switch > input:checked + span::after {
+      @apply bg-white transform translate-x-[110%]
+     }
+     
+     
+     .cl-switch > span::before {
+      @apply bg-linkIt-700
+     }
+     

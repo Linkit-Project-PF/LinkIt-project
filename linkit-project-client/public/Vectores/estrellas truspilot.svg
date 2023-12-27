@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d7dbdf;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #eaecee;
+      }
+
+      .cls-3 {
+        fill: #043a53;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle" class="cls-3" x="106.12" y="263.51" width="72.99" height="72.99"/>
+  <rect id="Rectangle-2" data-name="Rectangle" class="cls-3" x="184.44" y="263.51" width="72.99" height="72.99"/>
+  <rect id="Rectangle-3" data-name="Rectangle" class="cls-3" x="263.51" y="263.51" width="72.99" height="72.99"/>
+  <rect id="Rectangle-4" data-name="Rectangle" class="cls-3" x="341.82" y="263.51" width="72.99" height="72.99"/>
+  <rect id="Rectangle-5" data-name="Rectangle" class="cls-1" x="420.89" y="263.51" width="72.99" height="72.99"/>
+  <polygon id="Rectangle-6" data-name="Rectangle" class="cls-3" points="420.89 263.51 457.38 263.51 457.38 335.73 420.89 335.73 420.89 263.51"/>
+  <g>
+    <path id="Shape" class="cls-2" d="M141.86,312.16l11.4-3.04,4.56,14.45-15.97-11.4ZM167.71,293.92h-19.77l-6.08-18.25-6.08,18.25h-19.01l15.97,11.4-6.08,18.25,15.97-11.4,9.88-6.84,15.21-11.4h0Z"/>
+    <path id="Shape-2" data-name="Shape" class="cls-2" d="M220.93,312.16l11.4-3.04,4.56,14.45-15.97-11.4ZM246.02,293.92h-19.77l-6.08-18.25-6.08,18.25h-19.77l15.97,11.4-6.08,18.25,15.97-11.4,9.88-6.84,15.97-11.4h0Z"/>
+    <path id="Shape-3" data-name="Shape" class="cls-2" d="M300,312.16l11.4-3.04,4.56,14.45-15.97-11.4ZM325.09,293.92h-19.77l-6.08-18.25-6.08,18.25h-19.77l15.97,11.4-5.32,18.25,15.97-11.4,9.88-6.84,15.21-11.4h0Z"/>
+    <path id="Shape-4" data-name="Shape" class="cls-2" d="M378.31,312.16l11.4-3.04,4.56,14.45-15.97-11.4ZM404.16,293.92h-19.77l-6.08-18.25-6.08,18.25h-19.77l15.97,11.4-6.08,18.25,15.97-11.4,9.88-6.84,15.97-11.4h0Z"/>
+    <path id="Shape-5" data-name="Shape" class="cls-2" d="M457.38,312.16l11.4-3.04,4.56,14.45-15.97-11.4ZM482.47,293.92h-19.77l-6.08-18.25-5.32,18.25h-19.77l15.97,11.4-6.08,18.25,15.97-11.4,9.88-6.84,15.21-11.4h0Z"/>
+  </g>
+</svg>
