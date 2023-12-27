@@ -23,9 +23,9 @@ export default function ModuloB() {
                             <p className="text-white px-[15%] text-center text-[1vw] font-montserrat">{t('Identificamos a profesionales con el stack, habilidades y experiencia adecuada para tus proyectos y así lograr construir un equipo de alto desempeño.')}</p>
                             <p className=" text-white px-[15%] text-center text-[1vw] font-montserrat">{t('Realizamos la gestión contractual y de pagos del talento. Refuerza tu equipo y aumenta la capacidad productiva sin riesgos.')}</p>
                             <p className="text-white px-[15%] text-center text-[1vw] font-montserrat">{t('Facilitamos planes de beneficios, asesoramiento en la retención y elaboración de informes y mucho más.')}</p>
-                            <button className="background-button justify-self-center " onClick={goSoyEmpresa}>{t('Ver más')}</button>
-                            <button className="background-button justify-self-center" onClick={goSoyEmpresa}>{t('Ver más')}</button>
-                            <button className="background-button justify-self-center" onClick={goSoyEmpresa}>{t('Ver más')}</button>
+                            <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
+                            <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
+                            <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
                         </div>
                 </div>
             </div>
