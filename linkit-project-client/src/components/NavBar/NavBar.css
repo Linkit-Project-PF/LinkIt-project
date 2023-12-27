@@ -4,126 +4,57 @@ body {
 
   
   .preNavbar{
-        @apply fixed top-0 w-screen bg-linkIt-400 hover:bg-linkIt-300 h-[4vh] transition duration-300 ease-in-out  text-white text-sm flex items-center justify-center z-50 dark:bg-linkIt-700
+        @apply fixed flex items-center justify-center z-50 top-0 w-screen h-[4%] bg-linkIt-400 dark:bg-linkIt-700 hover:bg-linkIt-300 text-white text-[58%] font-montserrat transition duration-300 ease-in-out 
     }
     .navBar{
-@apply fixed top-[4vh] h-[8.5vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold shadow-sm dark:bg-linkIt-400 dark:text-white
+@apply fixed flex items-center top-[4vh] h-[8.5vh] w-screen justify-between z-50 bg-white dark:bg-linkIt-400 text-[1vw] dark:text-white font-montserrat font-bold whitespace-nowrap 
 }
 
     .containerBtnsNavbar {
-        @apply flex items-center justify-center gap-[1.3vw] whitespace-nowrap font-montserrat font-semibold
+        @apply flex items-center whitespace-nowrap font-montserrat font-semibold
     }
-
-  
+    .container-navigation {
+        @apply absolute top-[100%] bg-white w-full h-fit p-[5%] space-y-[10%] text-[3vh]
+    }
 
 
     .cl-toggle-switch {
-      position: relative;
+      @apply relative
      }
      
      .cl-switch {
-      position: relative;
-      display: inline-block;
+        @apply relative inline-block cursor-pointer
      }
      /* Input */
+
      .cl-switch > input {
-      appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      z-index: -1;
-      position: absolute;
-      right: 6px;
-      top: -8px;
-      display: block;
-      margin: 0;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      background-color: rgb(0, 0, 0, 0.38);
-      outline: none;
-      opacity: 0;
-      transform: scale(1);
-      pointer-events: none;
-      transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
+         -moz-appearance: none;
+         -webkit-appearance: none;
+        @apply appearance-none z-[-1] absolute opacity-0 cursor-pointer
      }
      /* Track */
      .cl-switch > span::before {
       content: "";
-      float: right;
-      display: inline-block;
-      margin: 5px 0 5px 10px;
-      border-radius: 50px;
-      width: 43px;
-      height: 25px;
-      background-color: rgb(0, 0, 0, 0.38);
-      vertical-align: top;
-      transition: background-color 0.2s, opacity 0.2s;
+      @apply float-right w-[2rem] h-[1.3rem] rounded-2xl m-[10%] transition-all ease-in-out duration-300
      }
+
      /* Thumb */
      .cl-switch > span::after {
       content: "";
-      position: absolute;
-      top: 9px;
-      right: 16px;
-      border-radius: 50%;
-      width: 17px;
-      height: 17px;
-      background-color: #fff;
-      transition: background-color 0.2s, transform 0.2s;
+      @apply absolute top-[23%] bg-linkIt-600 w-[15px] h-[15px] rounded-full transition-all ease-in-out duration-300
      }
      /* Checked */
-     .cl-switch > input:checked {
-      right: -10px;
-      background-color: #85b8b7;
-     }
-     
+   
      .cl-switch > input:checked + span::before {
-      background-color: #85b8b7;
+        @apply bg-linkIt-300 
      }
      
      .cl-switch > input:checked + span::after {
-      background-color: #018786;
-      transform: translateX(16px);
-     }
-     /* Hover, Focus */
-     .cl-switch:hover > input {
-      opacity: 0.04;
+      @apply bg-white transform translate-x-[70%]
      }
      
-     .cl-switch > input:focus {
-      opacity: 0.12;
+     
+     .cl-switch > span::before {
+      @apply bg-linkIt-700
      }
      
-     .cl-switch:hover > input:focus {
-      opacity: 0.16;
-     }
-     /* Active */
-     .cl-switch > input:active {
-      opacity: 1;
-      transform: scale(0);
-      transition: transform 0s, opacity 0s;
-     }
-     
-     .cl-switch > input:active + span::before {
-      background-color: #8f8f8f;
-     }
-     
-     .cl-switch > input:checked:active + span::before {
-      background-color: #85b8b7;
-     }
-     /* Disabled */
-     .cl-switch > input:disabled {
-      opacity: 0;
-     }
-     
-     .cl-switch > input:disabled + span::before {
-      background-color: #ddd;
-     }
-     
-     .cl-switch > input:checked:disabled + span::before {
-      background-color: #bfdbda;
-     }
-     
-     .cl-switch > input:checked:disabled + span::after {
-      background-color: #61b5b4;
-     }
