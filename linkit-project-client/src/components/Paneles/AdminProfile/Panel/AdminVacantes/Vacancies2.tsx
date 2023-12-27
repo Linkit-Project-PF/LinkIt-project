@@ -82,14 +82,12 @@ export default function Vacancies2() {
         requirements: [],
         stack: [],
     });
-console.log(editedData)
 
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
         dispatch(setFilterJobOffers(value))
     }
-
 
 
     const handleNext = (): void => {
@@ -99,9 +97,6 @@ console.log(editedData)
     const handlePrevius = (): void => {
         setCurrentPage(currentPage - 1);
     };
-
-
-
 
 
     useEffect(() => {
