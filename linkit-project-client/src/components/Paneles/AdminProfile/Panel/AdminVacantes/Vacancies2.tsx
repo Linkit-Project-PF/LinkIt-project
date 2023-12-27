@@ -23,7 +23,9 @@ export default function Vacancies2() {
     const dispatch = useDispatch();
 
 
-    const [saveStatus, setSaveStatus] = useState<boolean>(false); //* Estado que actualiza la info de la tabla
+
+    const [saveStatus, setSaveStatus] = useState<boolean>(true); //* Estado que actualiza la info de la tabla
+
 
 
     const allStackTechnologies = useSelector(
@@ -72,24 +74,14 @@ export default function Vacancies2() {
 
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
     const [editing, setEditing] = useState(false)
-    const [editedData, setEditedData] = useState<Partial<VacancyProps>>({
-        title: "",
-        company: "",
-        description: "",
-        location: "",
-        modality: "",
-        type: "",
-        requirements: [],
-        stack: [],
-    });
-console.log(editedData)
+    const [editedData, setEditedData] = useState<Partial<VacancyProps>>({});
+
 
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
         dispatch(setFilterJobOffers(value))
     }
-
 
 
     const handleNext = (): void => {
@@ -99,9 +91,6 @@ console.log(editedData)
     const handlePrevius = (): void => {
         setCurrentPage(currentPage - 1);
     };
-
-
-
 
 
     useEffect(() => {
@@ -119,6 +108,7 @@ console.log(editedData)
         };
         loadData();
     }, [saveStatus]);
+
 
 
     const hideCol = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -146,7 +136,7 @@ console.log(editedData)
     }
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
         if (name === "requirements" || name === "stack") {
@@ -155,6 +145,7 @@ console.log(editedData)
                 ...editedData,
                 [name]: valuesArray,
             });
+
         } else {
             setEditedData({
                 ...editedData,
@@ -193,11 +184,11 @@ console.log(editedData)
                 handleSave={handleSave}
             />
 
-            <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
+            <div className='capitalize flex flex-row  mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
 
                 {viewCol.title &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div className='justify-start'>
                                 <h1>Titulo</h1>
                             </div>
@@ -213,7 +204,7 @@ console.log(editedData)
                             {dataToShow.map((v: VacancyProps) => (
                                 <div
                                     key={v._id}
-                                    className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
+                                    className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
                                     <input type="checkbox" name='edit' onChange={() => handleEdit(v._id)} checked={selectedRows.has(v._id)} />
                                     <p key={v._id} className='pl-2'>
                                         {selectedRows.has(v._id) && editing ?
@@ -221,8 +212,8 @@ console.log(editedData)
                                                 name='title'
                                                 type="text"
                                                 onChange={handleChange}
-                                                placeholder={v.title}
-                                                className="bg-linkIt-300 text-black"
+                                                defaultValue={v.title}
+                                                className="bg-linkIt-500 text-black"
                                             /> : v.title}</p>
                                 </div>
                             ))}
@@ -232,13 +223,23 @@ console.log(editedData)
 
                 {viewCol.description &&
                     <div className=''>
-                        <div className='flex flex-row px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+                        <div className='flex flex-row  px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
                             <h1>Descipción</h1>
                         </div>
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.description}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='description'
+                                                onChange={handleChange}
+                                                defaultValue={v.description}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.description}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -246,7 +247,7 @@ console.log(editedData)
 
                 {viewCol.type &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div>
                                 <h1>Tipo</h1>
                             </div>
@@ -262,7 +263,22 @@ console.log(editedData)
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.type}</p>
+                                <div key={v._id}>
+                                    <p className={selectedRows.has(v._id) ? 'capitalize  flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap justify-center items-center' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 justify-center items-center'}>
+                                        {selectedRows.has(v._id) && editing ?
+                                            <select
+                                                defaultValue={v.type}
+                                                name='type'
+                                                onChange={handleChange}
+                                                className=" bg-linkIt-500 text-black"
+                                            >
+                                                <option value="full-time">Full-time</option>
+                                                <option value="part-time">Part-time</option>
+                                                <option value="freelance">Freelance</option>
+                                            </select>
+                                            : v.type}
+                                    </p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -270,12 +286,24 @@ console.log(editedData)
 
                 {viewCol.location &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <h1>Locación</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.location}</p>
+                                <div
+                                    key={v._id}
+                                    className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
+                                    <p className=''>
+                                        {selectedRows.has(v._id) && editing ?
+                                            <input
+                                                name='location'
+                                                type="text"
+                                                onChange={handleChange}
+                                                defaultValue={v.location}
+                                                className="bg-linkIt-500 text-black"
+                                            /> : v.location}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -283,7 +311,7 @@ console.log(editedData)
 
                 {viewCol.modality &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div>
                                 <h1>Modalidad</h1>
                             </div>
@@ -299,7 +327,23 @@ console.log(editedData)
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.modality}</p>
+                                <div key={v._id}>
+                                    <p className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap justify-center items-center' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 justify-center items-center'}>
+                                        {selectedRows.has(v._id) && editing ?
+                                            <select
+                                                defaultValue={v.modality}
+                                                name='modality'
+                                                onChange={handleChange}
+                                                className="bg-linkIt-500 text-black"
+                                            >
+                                                <option value="remote">Remote</option>
+                                                <option value="specific-remote">Specific-remote</option>
+                                                <option value="on-Site">On-Site</option>
+                                                <option value="hybrid">Hybrid</option>
+                                            </select>
+                                            : v.modality}
+                                    </p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -307,7 +351,7 @@ console.log(editedData)
 
                 {viewCol.stack &&
                     <div className='relative'>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div>
                                 <button onClick={hideTehcs}>Tecnologías</button>
                             </div>
@@ -315,7 +359,7 @@ console.log(editedData)
                         <div className='absolute mt-6 border-2  border-black'>
                             {tehcs && allStackTechnologies?.map((stack: any, index: number) => {
                                 return (
-                                    <div key={index} className='pl-6 flex flex-row'>
+                                    <div key={index} className='pl-6 capitalize flex flex-row '>
                                         <label className=''>
                                             <input className='' type="checkbox" name={stack.name} />
                                             {stack.name}
@@ -326,7 +370,19 @@ console.log(editedData)
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.stack.join(" - ")}</p>
+                                <div
+                                    key={v._id}
+                                    className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
+                                    <p className=''>
+                                        {selectedRows.has(v._id) && editing ?
+                                            <input
+                                                name='stack'
+                                                type="text"
+                                                onChange={handleChange}
+                                                defaultValue={v.stack.join(', ')}
+                                                className="bg-linkIt-500 text-black"
+                                            /> : v.stack.join(', ')}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -335,12 +391,22 @@ console.log(editedData)
 
                 {viewCol.AboutUs &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200 whitespace-nowrap'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200 whitespace-nowrap'>
                             <h1>Acerca de Nosotros</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.aboutUs}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='aboutUs'
+                                                onChange={handleChange}
+                                                defaultValue={v.aboutUs}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.aboutUs}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -348,12 +414,22 @@ console.log(editedData)
 
                 {viewCol.AboutClient &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200 whitespace-nowrap'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200 whitespace-nowrap'>
                             <h1>Acerca de la Empresa</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.aboutClient}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='aboutClient'
+                                                onChange={handleChange}
+                                                defaultValue={v.aboutClient}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.aboutClient}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -361,12 +437,22 @@ console.log(editedData)
 
                 {viewCol.responsabilities &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <h1>Responsabilidades</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.responsabilities}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='responsabilities'
+                                                onChange={handleChange}
+                                                defaultValue={v.responsabilities}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.responsabilities}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -374,12 +460,22 @@ console.log(editedData)
 
                 {viewCol.requiriments &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <h1>Requerimientos</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.requirements}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='requirements'
+                                                onChange={handleChange}
+                                                defaultValue={v.requirements}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.requirements}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -387,12 +483,22 @@ console.log(editedData)
 
                 {viewCol.niceToHave &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <h1>Deseable</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.niceToHave}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='niceToHave'
+                                                onChange={handleChange}
+                                                defaultValue={v.niceToHave}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.niceToHave}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -400,12 +506,22 @@ console.log(editedData)
 
                 {viewCol.benefits &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <h1>Beneficios</h1>
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300' : 'pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'}>{v.benefits}</p>
+                                <div key={v._id}
+                                    className={selectedRows.has(v._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}>
+                                    <p >
+                                        {selectedRows.has(v._id) && editing ?
+                                            <textarea
+                                                name='benefits'
+                                                onChange={handleChange}
+                                                defaultValue={v.benefits}
+                                                className="bg-linkIt-500 text-black w-full h-6"
+                                            /> : v.benefits}</p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -413,7 +529,7 @@ console.log(editedData)
 
                 {viewCol.company &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div>
                                 <h1>Empresa</h1>
                             </div>
@@ -427,7 +543,11 @@ console.log(editedData)
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.company}</p>
+                                <div key={v._id}>
+                                    <p className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap justify-center items-center' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 justify-center items-center'}>
+                                        {v.company}
+                                    </p>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -435,13 +555,13 @@ console.log(editedData)
 
                 {viewCol.code &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <h1>Código</h1>
                         </div>
 
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.code}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? ' flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : ' flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.code}</p>
                             ))}
                         </div>
                     </div>
@@ -449,7 +569,7 @@ console.log(editedData)
 
                 {viewCol.archived &&
                     <div className=''>
-                        <div className='flex flex-row px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div>
                                 <h1>Vista</h1>
                             </div>
@@ -468,7 +588,7 @@ console.log(editedData)
                         </div>
                         <div>
                             {dataToShow.map((v: VacancyProps) => (
-                                <p key={v._id} className={selectedRows.has(v._id) ? 'flex flex-row pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.archived ? 'Hidden' : 'Visible'}</p>
+                                <p key={v._id} className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>{v.archived ? 'Hidden' : 'Visible'}</p>
                             ))}
                         </div>
                     </div>
@@ -476,7 +596,7 @@ console.log(editedData)
 
 
             </div>
-            <div className="flex flex-row justify-around">
+            <div className="capitalize flex flex-row  justify-around">
                 <button
                     className="cursor-pointer hover:text-linkIt-300"
                     onClick={handlePrevius}

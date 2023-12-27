@@ -391,9 +391,9 @@ export default function Vacancies() {
               </td>
 
               <td className="px-1 border-b-2 border-black"></td>
-              <td className="border-b-2 border-black h-fit min-w-max">
+              {/* <td className="border-b-2 border-black h-fit min-w-max">
                 <a onClick={() => handlePostul(v._id)}>{v.users.length}</a>
-              </td>
+              </td> */}
               <td className="px-1 border-b-2 border-black"></td>
               <td className="border-b-2 border-black h-fit min-w-max">
                 {!editing && editRow !== v._id ? (

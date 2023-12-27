@@ -14,7 +14,7 @@ type OnCloseFunction = () => void;
 interface FormVacancieProps {
   onClose: OnCloseFunction;
   token: string;
-  setSaveStatus:(status: boolean) => void; 
+  setSaveStatus: (status: boolean) => void;
 }
 
 interface InfoList {

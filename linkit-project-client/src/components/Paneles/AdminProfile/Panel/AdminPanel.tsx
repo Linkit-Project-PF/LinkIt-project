@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import Vacancies2 from "./AdminVacantes/Vacancies2";
 import ClientsFollowUp from "./ClientsFollowUp/ClientsFollowUp";
 import { IAdmin } from "../../../Profiles/types";
+// import Vacancies from "./AdminVacantes/Vacancies";
 // import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
 export default function AdminPanel() {
