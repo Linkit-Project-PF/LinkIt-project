@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
-import { setFilterJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setFilterDateJobOffers, setFilterViewJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 import { t } from 'i18next';
 
@@ -19,6 +19,7 @@ type stateProps = {
 export default function Vacancies2() {
     //
     const filteredJobData = useSelector((state: stateProps) => state.jobCard.filterJobOffers);
+    console.log(filteredJobData)
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch();
 
@@ -80,7 +81,7 @@ export default function Vacancies2() {
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
         setViewStatus(value)
-        dispatch(setFilterJobOffers(value))
+        dispatch(setFilterViewJobOffers(value))
     }
 
 
@@ -101,7 +102,8 @@ export default function Vacancies2() {
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 dispatch(setJobOffers(response.data));
-                dispatch(setFilterJobOffers('Visible'));
+                dispatch(setFilterViewJobOffers('Visible'));
+                dispatch(setFilterDateJobOffers('recent'))
             } catch (error) {
                 console.error("Error al cargar las ofertas de trabajo", error);
             }
