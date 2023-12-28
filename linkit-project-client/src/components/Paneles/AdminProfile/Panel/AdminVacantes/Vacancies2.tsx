@@ -578,7 +578,7 @@ export default function Vacancies2() {
                                     name="view"
                                     className='border-b-2 border-r-2 -none outline-none'
                                     onChange={handleView}
-                                    value={viewStatus}
+                                    defaultValue={viewStatus}
                                 >
                                     <option value="Visible">Visible</option>
                                     <option value="Hidden">Hidden</option>
