@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
-import { setJobOffers, setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setFilterDateJobOffers, setJobOffers, setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
 import { t } from "i18next";
 import axios from "axios";
@@ -16,7 +16,7 @@ interface HeadVacancyProps {
     setSaveStatus: (status: boolean) => void;
     editJDS: () => void
     editing: boolean
-    handleSave: (arrayProps:string[])=>void
+    handleSave: (arrayProps: string[]) => void
 }
 
 export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveStatus, editJDS, editing, handleSave }: HeadVacancyProps) {
@@ -75,7 +75,11 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
         setSaveStatus(true)
     };
 
-    
+    const handleDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        dispatch(setFilterDateJobOffers(value))
+        console.log(value)
+    }
 
 
 
@@ -98,7 +102,11 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         <h1>Ordenar:</h1>
                     </div>
                     <div>
-                        <select placeholder='Ordenar' className="ml-2">
+                        <select
+                            placeholder='Ordenar'
+                            className="ml-2"
+                            onChange={handleDate}
+                        >
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
@@ -112,7 +120,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         </div>
                     </div>
                     {options &&
-                        <div className="flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-52 pl-2 absolute bg-linkIt-500">
+                        <div className="flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-52 pl-2 absolute bg-linkIt-500 z-20">
                             <label>
                                 <input type="checkbox" name="title" checked={viewCol.title} onChange={hideCol} />
                                 Título
