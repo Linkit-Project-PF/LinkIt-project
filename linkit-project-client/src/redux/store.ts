@@ -10,6 +10,7 @@ import thunk from "redux-thunk";
 import AuthSlice from "./features/AuthSlice";
 import ReviewsSlice from "./features/ReviewsSlice";
 import ClientsFollowUpSlice from "./features/ClientsFollowUpSlice";
+import UsersSlice from "./features/UsersSlice";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   reviews: ReviewsSlice,
   application: ApplicationSlice,
   jobData: ClientsFollowUpSlice,
+  users: UsersSlice
 });
 
 const store = configureStore({
