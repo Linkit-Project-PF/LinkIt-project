@@ -471,6 +471,16 @@ useEffect(() => {
            animate={{ 
             opacity: burgerMenu ? 1 : 0, scale: burgerMenu ? 1 : 0, y: burgerMenu ? "0%" : "-50%" }}
            transition={{ duration: 0.3, ease: "easeInOut" }}>
+            <div className="flex justify-between items-center">
+          <Languaje />
+            <div className="cl-toggle-switch top-[1px]">
+            <label className="cl-switch">
+            <input type="checkbox" onChange={darkMode}/>
+          <span></span>
+          </label>
+          </div>
+          
+          </div>
             <li className={`flex cursor-pointer items-center mt-[0.3%] hover:text-linkIt-300 dark:hover:text-white  ${isActiveHome ? "text-linkIt-300 dark:text-white" : ""}`} onClick={() => goHome()}>{t('Inicio')}</li>
             <li className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${isActiveEmpresa ? "text-linkIt-300 dark:text-white " : ""
                 }`} onClick={() => goSoyEmpresa()} >{t('Soy Empresa')}</li>
