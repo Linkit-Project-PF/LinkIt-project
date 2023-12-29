@@ -59,78 +59,91 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
 
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
-          <input
-            defaultValue={user.firstName}
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            placeholder={t("Nombre")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
-          />
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Nombre")}</label>
+            <input
+              defaultValue={user.firstName}
+              onChange={(event) => setName(event.target.value)}
+              type="text"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Apellido")}</label>
+            <input
+              defaultValue={user.lastName}
+              onChange={(event) => setName(event.target.value)}
+              type="text"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Email")}</label>
+            <input
+              defaultValue={user.email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              type="text"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("País")}</label>
+            <input
+              defaultValue={user.country}
+              onChange={(event) => setCountry(event.target.value)}
+              className="flex border-[.125rem] border-linkIt-400 bg-transparent px-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              type="text"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Perfil de LinkedIn")}</label>
+            <input
+              defaultValue={user.linkedin}
+              onChange={(event) => setLinkedin(event.target.value)}
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]" 
+              type="text"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Stack tecnológico")}</label>
+            <input
+              defaultValue={user.technologies.join(", ")}
+              onChange={(event) => setTechnologies(event.target.value.split(","))}
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              placeholder={t("Stack tecnológico")}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Nivel de Ingles")}</label>
+            <select
+              onChange={(event) => setEnglishLevel(event.target.value as EnglishLevelEnum)}
+              defaultValue={user.englishLevel}
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+            >
+              <option value={EnglishLevelEnum.LOW}>{t('Bajo')}</option>
+              <option value={EnglishLevelEnum.MEDIUM}>{t('Medio')}</option>
+              <option value={EnglishLevelEnum.HIGH}>{t('Alto')}</option>
+              <option value={EnglishLevelEnum.BILINGUAL}>{t('Bilingue')}</option>
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Carga tu CV")}</label>
+            <CloudinaryUploadWidget
+              className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
+              setFilePublicId={setCv}
+              setFileName={setFileName}
+            >
+              {fileName ? fileName : (
+                <>
+                  <span className="font-[500] text-opacity-80 text-linkIt-400">
+                    {t('Subir')}
+                  </span>
+                </>
+              )}
+              <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
+            </CloudinaryUploadWidget>
+          </div>
 
-          <input
-            defaultValue={user.lastName}
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            placeholder={t("Apellido")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
-          />
-
-          <input
-            defaultValue={user.email}
-            onChange={(event) => setEmail(event.target.value)}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
-            type="text"
-            placeholder={t("Email corporativo")}
-          />
-
-          <input
-            defaultValue={user.country}
-            onChange={(event) => setCountry(event.target.value)}
-            className="flex border-[.125rem] border-linkIt-400 bg-transparent px-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
-            type="text"
-            placeholder={t("País")}
-          />
-            
-          <input
-            defaultValue={user.linkedin}
-            onChange={(event) => setLinkedin(event.target.value)}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]" 
-            type="text"
-            placeholder={t("Perfil de LinkedIn")}
-          />
-
-          <input
-            defaultValue={user.technologies.join(", ")}
-            onChange={(event) => setTechnologies(event.target.value.split(","))}
-            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
-            placeholder={t("Stack tecnológico")}
-          />
-
-          <select
-            onChange={(event) => setEnglishLevel(event.target.value as EnglishLevelEnum)}
-            defaultValue={user.englishLevel}
-            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
-          >
-            <option value={EnglishLevelEnum.LOW}>{t('Bajo')}</option>
-            <option value={EnglishLevelEnum.MEDIUM}>{t('Medio')}</option>
-            <option value={EnglishLevelEnum.HIGH}>{t('Alto')}</option>
-            <option value={EnglishLevelEnum.BILINGUAL}>{t('Bilingue')}</option>
-          </select>
-
-          <CloudinaryUploadWidget
-            className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
-            setFilePublicId={setCv}
-            setFileName={setFileName}
-          >
-            {fileName ? fileName : (
-              <>
-                <span className="font-[500] text-opacity-80 text-linkIt-400">
-                  {t('Carga tu CV')}
-                </span>
-              </>
-            )}
-            <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
-          </CloudinaryUploadWidget>
         </div>
 
         <div className="flex flex-row justify-center mt-8 gap-5"> 
