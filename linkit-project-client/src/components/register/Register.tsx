@@ -243,12 +243,7 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: t("welcomeToLinkIT", {
-            name:
-              DBresponse.firstName === "undefined"
-                ? DBresponse.companyName
-                : DBresponse.firstName,
-          }),
+          text: t("Bienvenido a LinkIT ") + DBresponse.role === 'company' ? DBresponse.companyName : DBresponse.firstName,
           confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
