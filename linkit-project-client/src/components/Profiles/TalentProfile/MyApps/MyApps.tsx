@@ -49,6 +49,7 @@ function MyApps() {
     const fetchApps = async () => {
       const postulArray: any[] = []
       for (const postul of user.postulations) {
+        console.log(user.postulations)
         const response = await axios.get(`https://linkit-server.onrender.com/resources/companyjds?code=${postul}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`, 'Accept-Language': sessionStorage.getItem('lang')}})
         postulArray.push(response.data)
         console.log(postulArray)
