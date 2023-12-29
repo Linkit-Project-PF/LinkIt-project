@@ -166,7 +166,8 @@ function JobForm() {
             })
           }
         });
-        const {data} = await axios.get(`http://localhost:3000/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
+        const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
+        //const {data} = await axios.get(`http://localhost:3000/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
         dispatch(setUser(data))
       }
     } catch (error: any) {
