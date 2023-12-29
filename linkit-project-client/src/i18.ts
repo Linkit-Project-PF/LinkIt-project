@@ -426,7 +426,7 @@ export const i18nOptions: InitOptions = {
         "Usuario":"User",
         "Los campos marcados con * son obligatiorios":"Fields marked with * are mandatory.",
         //!Profiles
-        "Hola":"Hi",
+        "Hola ":"Hi",
         "Mis Datos":"My Data",
         "Mis Vacantes":"My Vacancies",
         "Cambiar Contraseña":"Change Password",
