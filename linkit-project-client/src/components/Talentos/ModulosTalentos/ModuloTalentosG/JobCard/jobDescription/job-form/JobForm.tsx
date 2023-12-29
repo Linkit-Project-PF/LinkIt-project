@@ -138,9 +138,10 @@ function JobForm() {
       english: user.englishLevel,
       firstName: user.name,
       lastName: user.lastName,
+      code: window.location.href.split('Joboffer/').splice(1, 1)[0].replace('/application', '')
     }
     try {
-      const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
+      const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
 
         Swal.fire({
