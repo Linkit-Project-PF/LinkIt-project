@@ -83,7 +83,7 @@ function NavBar() {
   const {isAuthenticated, role} = useSelector((state: RootState) => state.Authentication)
 
   const goAdminDashboard = () => {
-    navigate("/AdminDashboard")
+    navigate("/AdminDashboard/statistics/OKRs")
   }
   const goHome = () => {
     navigate("/");
@@ -270,7 +270,7 @@ useEffect(() => {
           src={!toggleDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
           alt="LinkIT-logo"
-          className="w-1/4 lg:w-1/6 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+          className="w-[120px] pl-5 md:w-[150px] 2xl:w-[200px] hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
 
 

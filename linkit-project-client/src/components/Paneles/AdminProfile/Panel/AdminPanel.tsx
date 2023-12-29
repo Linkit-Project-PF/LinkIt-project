@@ -48,7 +48,7 @@ export default function AdminPanel() {
   // TODO SuperAdminProfile is damaged, It does not edit admin but user, and the DOM rendering is weird
   return (
     <div className="pt-32">
-      <h1 className="text-5xl pt-6 pl-16 font-bold">
+      <h1 className="mt-[80px] text-5xl pt-6 pl-16 font-bold">
         {t("Hola")} {userData.firstName}!
       </h1>
       <NavPanelAdmin />

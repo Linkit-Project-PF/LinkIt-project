@@ -13,11 +13,11 @@ export default function Statistics() {
             <h1 className="text-4xl pl-16 py-6">{t("Estadísticas")}</h1>
             <HeadStatitics />
             <Routes>
-                <Route path="/" element={<StatisticsWeb />} />
+                <Route path="statistics/OKRs" element={<StatisticsOKRs />} />
                 <Route path="statistics/postulaciones" element={<StatisticsPostulaciones />} />
                 <Route path="statistics/followUps" element={<StatisticsFollowUps />} />
                 <Route path="statistics/presentation" element={<StatisticsPresentation />} />
-                <Route path="statistics/OKRs" element={<StatisticsOKRs />} />
+                <Route path="statistics/Web" element={<StatisticsWeb />} />
             </Routes>
             <br />
         </div>
