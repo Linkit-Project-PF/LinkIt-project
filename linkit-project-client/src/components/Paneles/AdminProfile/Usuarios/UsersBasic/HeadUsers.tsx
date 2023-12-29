@@ -16,7 +16,7 @@ export default function HeadUsers({ hideCol, viewCol }:HeadUsers) {
         <div>
 
             <div>
-                <h1 className="text-4xl pl-16 py-6">Empresas</h1>
+                <h1 className="text-4xl pl-16 py-6">Talentos</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
                 <div className="flex flex-row">
