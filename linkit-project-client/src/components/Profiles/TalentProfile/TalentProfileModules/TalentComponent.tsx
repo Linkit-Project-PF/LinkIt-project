@@ -63,7 +63,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
       <div className="flex justify-between w-11/12 p-3">
 
         <div className="flex flex-col justify-between w-1/2">
-          <h1 className="text-4xl font-bold mt-6">{t('Hola')} {user.name}!</h1>
+          <h1 className="text-4xl font-bold mt-6">{t('Hola')} {user.lastName}!</h1>
           <div className="flex space-x-6">
             <button onClick={() => setSelectedOptions('MyInfo')} className="text-xl font-semibold hover:text-linkIt-300">
               {t('Mis Datos')}
