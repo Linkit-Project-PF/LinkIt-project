@@ -1,14 +1,16 @@
-import { ITalentApp } from "./MyApps"
+// import { ITalentApp } from "./MyApps"
 import TalentApp from "./TalentApp"
 
 interface IComponentProps {
-  apps: ITalentApp[]
+  // apps: ITalentApp[]
+  apps: any[]
 }
 
 function TalentApps({apps}: IComponentProps) {
+  let auxKey = 1;
   return (
-    <div>
-      {apps.map((app) => <TalentApp app={app} key={`app-${app._id}`}/>)}
+    <div className="flex flex-col gap-8 w-full">
+      {apps.map((app) => <TalentApp app={app} key={auxKey++}/>)}
     </div>
   )
   }

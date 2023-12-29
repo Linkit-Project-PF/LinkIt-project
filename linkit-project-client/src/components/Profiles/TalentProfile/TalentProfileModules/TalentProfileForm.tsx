@@ -22,7 +22,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
   const [country, setCountry] = useState(user.country)
   const [linkedin, setLinkedin] = useState(user.linkedin)
   const [email, setEmail] = useState(user.email)
-  const [name, setName] = useState(user.name)
+  const [name, setName] = useState(user.firstName)
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,30 +53,30 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
   const {t} = useTranslation()
 
   return (
-    <div className="flex justify-center items-center content-center absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[20%] bg-linkIt-500 p-[3rem] rounded-[20px]">
+    <div className="bg-linkIt-500 p-10 rounded-[20px] md:mx-10 md:p-20">
 
-      <form action="" onSubmit={handleSubmit} className="flex flex-col">
-        <div className="grid grid-cols-3 grid-rows-3 gap-x-5 gap-y-3 font-montserrat">
+      <form action="" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
           <input
-            defaultValue={user.name}
+            defaultValue={user.firstName}
             onChange={(event) => setName(event.target.value)}
             type="text"
             placeholder={t("Nombre")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
           />
 
           <input
-            // defaultValue={user.name}
-            // onChange={(event) => setName(event.target.value)}
+            defaultValue={user.lastName}
+            onChange={(event) => setName(event.target.value)}
             type="text"
             placeholder={t("Apellido")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
           />
 
           <input
             defaultValue={user.email}
             onChange={(event) => setEmail(event.target.value)}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
             type="text"
             placeholder={t("Email corporativo")}
           />
@@ -84,7 +84,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           <input
             defaultValue={user.country}
             onChange={(event) => setCountry(event.target.value)}
-            className="flex border-[.125rem] border-linkIt-400 bg-transparent px-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
+            className="flex border-[.125rem] border-linkIt-400 bg-transparent px-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
             type="text"
             placeholder={t("País")}
           />
@@ -92,7 +92,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           <input
             defaultValue={user.linkedin}
             onChange={(event) => setLinkedin(event.target.value)}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]" 
+            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]" 
             type="text"
             placeholder={t("Perfil de LinkedIn")}
           />
@@ -100,14 +100,14 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           <input
             defaultValue={user.technologies.join(", ")}
             onChange={(event) => setTechnologies(event.target.value.split(","))}
-            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
+            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
             placeholder={t("Stack tecnológico")}
           />
 
           <select
             onChange={(event) => setEnglishLevel(event.target.value as EnglishLevelEnum)}
             defaultValue={user.englishLevel}
-            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
+            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
           >
             <option value={EnglishLevelEnum.LOW}>{t('Bajo')}</option>
             <option value={EnglishLevelEnum.MEDIUM}>{t('Medio')}</option>
@@ -116,7 +116,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           </select>
 
           <CloudinaryUploadWidget
-            className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
+            className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
             setFilePublicId={setCv}
             setFileName={setFileName}
           >
@@ -131,7 +131,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           </CloudinaryUploadWidget>
         </div>
 
-        <div className="flex flex-row justify-self-end place-self-end mt-8 gap-2"> 
+        <div className="flex flex-row justify-center mt-8 gap-5"> 
           <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white font-montserrat font-[500] hover:border-linkIt-200 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">{t('Descartar cambios')}</button>
           <button
             type="submit"
