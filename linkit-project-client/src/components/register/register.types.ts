@@ -1,6 +1,6 @@
 export type User = {
   firstName: string,
-  lastname: string,
+  lastName: string,
   email: string,
   password: string,
   confirm_password: string
@@ -8,7 +8,7 @@ export type User = {
 
 export type Error = {
   firstName: string,
-  lastname: string,
+  lastName: string,
   email: string,
   password: string,
   confirm_password: string

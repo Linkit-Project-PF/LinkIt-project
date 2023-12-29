@@ -140,15 +140,15 @@ export const i18nOptions: InitOptions = {
         "INGRESO PARA TALENTOS":"TALENT LOGIN",
         "Espera un momento":"Wait a moment",
         "Estamos autenticando tu cuenta":"We are authenticating your account",
-        "Bienvenido de vuelta":"Welcome back, {{name}}",
+        "Bienvenido de vuelta ":"Welcome back ",
         "Se ha creado una nueva cuenta para ti":"A new account has been created for you.",
         
 
         //!Login pre-login
         "Conectando al talento más destacado":"Connecting the most outstanding talent",
         "con los mejores proyectos IT.":"with the best IT projects.",
-        "Soy Talento":"I am a Talent",
-        "Soy Empresa":"I am a company",
+        "Soy Talento":"For Talent",
+        "Soy Empresa":"For Company",
 
         //!NavBar
         "Contrata y gestiona talentos de forma global con LinkIT":"Hire and manage talent globally with LinkIT",
@@ -163,7 +163,7 @@ export const i18nOptions: InitOptions = {
         "Ebooks":"Ebooks",
         "Webinars":"Webinars",
         "Librería":"Library",
-        "Quiénes Somos":"About us",
+        "Quiénes Somos":"About Us",
         "Misión":"Mission",
         "Visión":"Vision",
         "Valores":"Values",
@@ -240,6 +240,7 @@ export const i18nOptions: InitOptions = {
         "TALENTOS":"TALENTS",
         "EMPRESAS":"COMPANIES",
         "REGISTRO PARA": "REGISTER FOR",
+        "Bienvenido a LinkIT ": "Welcome to LinkIT ",
         
 
         //!Talentos modulo A
@@ -425,7 +426,7 @@ export const i18nOptions: InitOptions = {
         "Usuario":"User",
         "Los campos marcados con * son obligatiorios":"Fields marked with * are mandatory.",
         //!Profiles
-        "Hola":"Hi",
+        "Hola ":"Hi",
         "Mis Datos":"My Data",
         "Mis Vacantes":"My Vacancies",
         "Cambiar Contraseña":"Change Password",

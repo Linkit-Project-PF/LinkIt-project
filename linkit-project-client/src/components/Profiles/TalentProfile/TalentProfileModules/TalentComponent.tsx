@@ -3,6 +3,8 @@ import { useState, useEffect, FunctionComponent, useRef } from "react";
 import { IUser } from "../../types";
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
+import { SUPERADMN_ID } from "../../../../env";
+import axios from "axios";
 import { logout, setUser } from "../../../../redux/features/AuthSlice";
 import Swal from "sweetalert2";
 import { editUser } from "../../api";
@@ -26,6 +28,9 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
       isFirstRender.current = false
       return
     }
+
+
+
     const updatedUser= async ()=>{
       try {
         const editedUser = await editUser({...user, image: filePublicId})
@@ -52,6 +57,22 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
     updatedUser()
   },[filePublicId])
 
+  const changePassword = async (e: any) => {
+    try {
+      const response = await axios.put<IUser>(
+        `https://linkit-server.onrender.com/users/update/${user._id}`,{"email": user.email, "password": true}, {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
+      )
+      if(response) alert('Revisa tu correo electronico')
+    } catch (error: any) {
+      throw new Error(error.code)
+    }
+    e.preventDefault()
+  }
 
   const handleLogout = () => {
     dispatch(logout())
@@ -59,12 +80,13 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
   }
 
   return (
-    <div className="flex w-full mt-[20%] h-[22vh] justify-center">
-      <div className="flex justify-between w-11/12 p-3">
+    <div className="flex w-full pt-5 justify-center">
+      <div className="flex p-3 flex-col md:flex-row w-full">
 
-        <div className="flex flex-col justify-between w-1/2">
-          <h1 className="text-4xl font-bold mt-6">{t('Hola')} {user.name}!</h1>
-          <div className="flex space-x-6">
+
+        <div className="flex flex-col w-full text-center md:justify-evenly">
+          <h1 className="text-4xl font-bold mb-8">{t('Hola ') + user.firstName}!</h1>
+          <div className="flex justify-evenly mb-8">
             <button onClick={() => setSelectedOptions('MyInfo')} className="text-xl font-semibold hover:text-linkIt-300">
               {t('Mis Datos')}
             </button>
@@ -74,11 +96,11 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
           </div>
         </div>
 
-        <div className="flex space-x-4 w-1/2 justify-end items-end">
-          <button className="text-black">{t('Cambiar Contraseña')}</button>
-          <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
-          <div className={`relative rounded-full w-[250px] h-[250px] bg-gray-300 ${user.image ? "flex flex-col justify-center items-center content-center" : ''}`}>
-            <div className="relative w-full h-full">
+
+        <div className="flex flex-col md:flex-row w-full pt-10 md:justify-evenly md:pt-0">
+          <div className="relative w-full flex justify-center md:w-[50%]">
+            <div className={`relative rounded-full w-[250px] h-[250px] bg-gray-300 ${user.image ? "flex flex-col justify-center items-center content-center" : ''}`}>
+
               <CloudinaryUploadWidget
                 setFilePublicId={setFilePublicId}
                 setFileName={setFileName}
@@ -89,9 +111,13 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
               {
                 user.image && (
                   <img src={`https://res.cloudinary.com/dquhriqz3/image/upload/${user.image}`} alt="" className=" h-full w-full rounded-full"/>
-                ) 
-              }
+                  ) 
+                }
             </div>
+          </div>
+          <div className="flex flex-col pt-5 gap-3 self-center place-self-center">
+            <button className="text-black" onClick={changePassword}>{t('Cambiar Contraseña')}</button>
+            <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
           </div>
         </div>
 

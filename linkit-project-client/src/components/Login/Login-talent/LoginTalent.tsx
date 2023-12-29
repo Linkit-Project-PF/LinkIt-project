@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
@@ -85,7 +85,7 @@ function LoginTalent() {
 
       if (response.status === 200) {
         Swal.fire({
-          title: t("Bienvenido de vuelta", {name:response.data.name}),
+          title: t("Bienvenido de vuelta ") + response.data.firstName,
           text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
@@ -112,9 +112,14 @@ function LoginTalent() {
   const handleAuthClick = async (prov: string) => {
     try {
       let provider;
-      if (prov === "google") {
+  
+      if (prov === "github" || prov=== "google") {
         setThirdParty(true);
-        provider = new GoogleAuthProvider();
+
+          if (prov==="github"){
+            provider = new GithubAuthProvider();
+          } else provider = new GoogleAuthProvider();
+
         const response = await signInWithPopup(auth, provider);
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
@@ -135,6 +140,7 @@ function LoginTalent() {
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
+                'Accept-Language': sessionStorage.getItem('lang')
               },
             }
           );
@@ -143,7 +149,7 @@ function LoginTalent() {
             dispatch(loginSuccess(authUser));
             console.log(authUser)
             Swal.fire({
-              title: t("Bienvenido de vuelta", {name:authUser.name}),
+              title: t("Bienvenido de vuelta ") + authUser.firstName,
               text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
@@ -157,6 +163,7 @@ function LoginTalent() {
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
+                  'Accept-Language': sessionStorage.getItem('lang')
                 },
               }
             );
@@ -164,7 +171,7 @@ function LoginTalent() {
               const authAdmin = adminData.data[0];
               dispatch(loginSuccess(authAdmin))
               Swal.fire({
-                title: t("Bienvenido de vuelta", {name:authAdmin.name}),
+                title: t("Bienvenido de vuelta ") + authAdmin.firstName,
                 text: t("Has ingresado correctamente"),
                 icon: "success",
                 iconColor: "#173951",
@@ -185,7 +192,7 @@ function LoginTalent() {
       setThirdParty(false);
       Swal.fire({
         title: "Error",
-        text:t( "Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",

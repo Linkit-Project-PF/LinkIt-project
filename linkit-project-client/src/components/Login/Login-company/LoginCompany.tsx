@@ -88,7 +88,7 @@ function LoginCompany() {
       if (response.status === 200) {
         
         Swal.fire({
-          title: t("Bienvenido de vuelta",{ name: response.data.companyName }),
+          title: t("Bienvenido de vuelta ") + loggedCompany.companyName,
           text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
@@ -141,6 +141,7 @@ function LoginCompany() {
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
+                'Accept-Language': sessionStorage.getItem('lang')
               },
             }
           );
@@ -149,7 +150,7 @@ function LoginCompany() {
             dispatch(companyLogin(authUser));
             console.log(authUser)
             Swal.fire({
-              title: t("Bienvenido de vuelta", {name:authUser.companyName}),
+              title: t("Bienvenido de vuelta ") + authUser.companyName,
               text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
@@ -163,6 +164,7 @@ function LoginCompany() {
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
+                  'Accept-Language': sessionStorage.getItem('lang')
                 },
               }
             );
@@ -171,7 +173,7 @@ function LoginCompany() {
               dispatch(companyLogin(authCompany));
               Swal.fire({
                 
-                title: t("Bienvenido de vuelta", {name:authCompany.companyName}),
+                title: t("Bienvenido de vuelta") + authCompany.companyName,
                 text: t("Has ingresado correctamente"),
                 icon: "success",
                 iconColor: "#173951",
@@ -192,7 +194,7 @@ function LoginCompany() {
       setThirdParty(false);
       Swal.fire({
         title: "Error",
-        text: t("Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",
@@ -318,24 +320,7 @@ function LoginCompany() {
               />
               {t('Ingresa con Google')}
             </motion.button>
-
-            <motion.button
-              className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
-              onClick={() => handleAuthClick("github")}
-              type="button"
-              whileHover={{ scale: 1.05 }}
-            >
-              {" "}
-              <img
-                src="/images/github.png"
-                alt="sign-in with github"
-                className="w-[1.2rem]"
-              />
-              {t(' Ingresa con Github')}
-            </motion.button>
-            
-
-            
+                        
           </div>
           <Link 
           className="flex flex-row border-[2px] border-linkIt-300 rounded-[8px] p-[.5rem] bg-white w-[90%] justify-center items-center content-center gap-[.5rem] hover:scale-105 transition-all duration-300 ease-in-out"

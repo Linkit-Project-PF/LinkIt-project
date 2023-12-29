@@ -8,25 +8,25 @@ export default function NavPanelAdmin() {
     <nav>
       <ul className="flex flex-row p-6 pl-16 pb-0">
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/vacantes">{t('Vacantes')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard">{t('Estadísticas')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/clientsfollowup">{t('Seguimiento')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/vacantes">{t('Vacantes')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/recursos">{t('Recursos')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/clientsfollowup">{t('Seguimiento')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/reviews">{t('Reseñas')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/recursos">{t('Recursos')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/usuarios">{t('Usuarios')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/reviews">{t('Reseñas')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard/mis-datos">{t('Mis datos')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/users">{t('Usuarios')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink to="/AdminDashboard">{t('Estadisticas')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/mis-datos">{t('Mis datos')}</NavLink>
         </li>
       </ul>
     </nav>

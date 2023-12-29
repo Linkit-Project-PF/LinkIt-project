@@ -1,18 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    allUsers: []
+    talents: [], 
+    companies:[],
+    admins:[],
 }
 
-const UsersSlice = createSlice ({ 
-    name: "users",
+const UsersSlice = createSlice({
+    name: 'users',
     initialState,
-    reducers: {
-        setUsers: (state, action) =>{
-            state.allUsers = action.payload;
-        }
+    reducers:{
+        setUsersTalent: (state, action)=>{
+            state.talents = action.payload
+        },
+        setUsersCompanies: (state, action)=>{
+            state.companies = action.payload
+        },
+        setUsersAdmins: (state, action)=>{
+            state.admins = action.payload
+        },
     }
 })
 
-export const { setUsers } = UsersSlice.actions;
-export default UsersSlice.reducer;
+export const { setUsersTalent, setUsersCompanies, setUsersAdmins } = UsersSlice.actions
+export default UsersSlice.reducer

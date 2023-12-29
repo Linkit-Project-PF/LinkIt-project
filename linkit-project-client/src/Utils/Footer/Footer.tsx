@@ -85,7 +85,7 @@ export default function Footer() {
         <div className="flex flex-col">
           <img className="w-[75%] ml-[10%]" src="/Linkit-logo/linkit-logos-web_2-logo-ppal-blanco.svg" alt="" />
           <div className="ml-[10%]">
-            <h1 className="font-semibold my-1">Link IT</h1>
+            <h1 className="font-semibold my-1">LinkIT</h1>
             <p className="text-[0.8vw] w-[50%] font-manrope">{t('Conectando al talento mas destacado con los mejores proyectos IT')}</p>
             <div className="flex flex-row flex-wrap mt-2">
               <a href="" className="w-[7%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>

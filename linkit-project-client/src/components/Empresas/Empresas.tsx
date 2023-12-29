@@ -7,10 +7,10 @@ import ModuloE from "./modulosEmpresas/moduloE/ModuloE"
 import ModuloF from "./modulosEmpresas/moduloF/ModuloF"
 import ModuloG from "./modulosEmpresas/moduloG/ModuloG"
 import ModuloH from "./modulosEmpresas/moduloH/ModuloH"
-import ModuloI from "./modulosEmpresas/moduloI/ModuloI"
 import { useEffect } from "react";
 import './Empresas.css'
 import Calculadora from "./modulosEmpresas/calculadora/calculadora"
+import ContactUs from "../../Utils/contactUs/contactUs"
 
 
 function Empresas() {
@@ -37,7 +37,7 @@ function Empresas() {
         <Calculadora/>
       </section>
       <section id="contactanosE">
-      <ModuloI />
+      <ContactUs />
       </section>
       <Footer />
       </>
