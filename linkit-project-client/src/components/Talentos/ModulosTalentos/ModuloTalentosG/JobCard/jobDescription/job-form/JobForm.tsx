@@ -21,6 +21,8 @@ import {
 import Select from "react-select";
 import FormTransition from "./job-form-types-handlers/FormTransition";
 import { useTranslation } from "react-i18next";
+import { SUPERADMN_ID } from "../../../../../../../env";
+import { setUser } from "../../../../../../../redux/features/AuthSlice";
 
 const formVariants: Variants = {
   hidden: {
@@ -88,7 +90,9 @@ function JobForm() {
   const englishLevelRef = useRef<HTMLButtonElement>(null);
   const recruiterRef = useRef<HTMLButtonElement>(null);
 
-  const [user, setUser] = useState({
+    console.log(userData)
+
+  const [user, setLocalUser] = useState({
     name: userData ? userData.firstName : "",
     lastName: userData ? userData.lastName : "",
     email: userData ? userData.email : "",
@@ -144,9 +148,9 @@ function JobForm() {
     }
     console.log(userApplicationObject)
     try {
-      const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
+      // const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
+      const response = await axios.post(`http://localhost:3000/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
-
         Swal.fire({
           icon: "success",
           title: "¡Postulación enviada!",
@@ -162,6 +166,8 @@ function JobForm() {
             })
           }
         });
+        const {data} = await axios.get(`http://localhost:3000/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
+        dispatch(setUser(data))
       }
     } catch (error: any) {
       Swal.fire({
@@ -179,13 +185,13 @@ function JobForm() {
 
   const handleEnglishLevelChange = (level: string) => {
     setEnglishLevel(level);
-    setUser((prevUser) => ({ ...prevUser, englishLevel: level }));
+    setLocalUser((prevUser) => ({ ...prevUser, englishLevel: level }));
   };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setUser((prevUser) => {
+    setLocalUser((prevUser) => {
       const updatedUser = { ...prevUser, [e.target.name]: e.target.value };
       const fieldErrors = JobValidations(updatedUser);
 
@@ -199,7 +205,7 @@ function JobForm() {
   };
 
   useEffect(() => {
-    setUser((prevUser) => ({ ...prevUser, cv: filePublicId }));
+    setLocalUser((prevUser) => ({ ...prevUser, cv: filePublicId }));
   }, [filePublicId]);
 
   useEffect(() => {
@@ -350,7 +356,7 @@ function JobForm() {
                   <SelectCountryFormEs
                     setCountry={setCountry}
                     country={country}
-                    setUser={setUser}
+                    setUser={setLocalUser}
                   />
                 </label>
 
@@ -631,7 +637,7 @@ function JobForm() {
                   }}
                   onChange={(e) => {
                     setUserTechnologies(e?.map((tech: any) => tech.value));
-                    setUser((prevUser)=> {
+                    setLocalUser((prevUser)=> {
                       return {...prevUser, technologies: e?.map((tech: any) => tech.value)}
                     })
                   }}
@@ -677,7 +683,7 @@ function JobForm() {
                   }}
                   onChange={(e) => {
                     setUserStack(e?.map((tech: any) => tech.value));
-                    setUser((prevUser)=> {
+                    setLocalUser((prevUser)=> {
                       return {...prevUser, technicalStack: e?.map((tech: any) => tech.value)}
                     })
                   }}
@@ -713,7 +719,7 @@ function JobForm() {
                       setOpenRecruiter(!openRecruiter);
                     }}
                   >
-                    <li className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer" onClick={() => handleRecruiterChange('-', setRecruiter, setUser)}>Ninguno</li>
+                    <li className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer" onClick={() => handleRecruiterChange('-', setRecruiter, setLocalUser)}>Ninguno</li>
                     {admins?.map((admin: any, index: number) => {
                       if (index === 0 || index === admins.length - 1) {
                         return (
@@ -723,7 +729,7 @@ function JobForm() {
                               handleRecruiterChange(
                                 `${admin.firstName}`,
                                 setRecruiter,
-                                setUser
+                                setLocalUser
                               )
                             }
                           >
@@ -739,7 +745,7 @@ function JobForm() {
                               handleRecruiterChange(
                                 `${admin.firstName}`,
                                 setRecruiter,
-                                setUser
+                                setLocalUser
                               )
                             }
                           >
