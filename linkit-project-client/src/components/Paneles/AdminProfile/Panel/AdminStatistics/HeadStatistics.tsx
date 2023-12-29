@@ -6,7 +6,7 @@ export default function HeadStatitics() {
             <nav>
                 <ul className="flex flex-row pl-16 pb-0">
                     <li className="text-2xl mr-16">
-                        <NavLink className="hover:text-linkIt-300" to="/AdminDashboard">Web</NavLink>
+                        <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/statistics/web">Web</NavLink>
                     </li>
                     <li className="text-2xl mr-16">
                         <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/statistics/postulaciones">Postulaciones</NavLink>
