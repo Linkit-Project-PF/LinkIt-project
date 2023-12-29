@@ -116,7 +116,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
             </div>
           </div>
           <div className="flex flex-col pt-5 gap-3 self-center place-self-center">
-            <button className="text-black">{t('Cambiar Contraseña')}</button>
+            <button className="text-black" onClick={changePassword}>{t('Cambiar Contraseña')}</button>
             <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
           </div>
         </div>
