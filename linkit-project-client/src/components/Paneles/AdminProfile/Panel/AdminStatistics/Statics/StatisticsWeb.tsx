@@ -2,7 +2,7 @@ import axios from "axios";
 import Chart, { ChartItem } from "chart.js/auto";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 interface UsersState {
   users: any[];
@@ -10,7 +10,7 @@ interface UsersState {
 }
 
 export default function StatisticsWeb() {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [allusers, setUsers] = useState<UsersState>({
     users: [],
     companies: [],
