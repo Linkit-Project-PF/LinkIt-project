@@ -1,6 +1,6 @@
 import "./NavBar.css";
-import LogoBlue from "/Linkit-logo/linkit-logos-web_4-logo-horizontal-azul.svg";
-import LogoWhite from "/Linkit-logo/linkit-logos-web_5-logo-horizontal-blanco.svg";
+import LogoBlue from "/Linkit-logo/linkit-logo-2024-blue.svg";
+import LogoWhite from "/Linkit-logo/linkit-logo-2024-white.svg";
 import arrow from "/Vectores/arrow.png";
 import whiteArrow from "/Vectores/white-arrow.png";
 import Languaje from "../../Utils/Language";
@@ -249,7 +249,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <div>
+    <div className="h-fit w-screen p-0 m-0">
 
       <div className="preNavbar">
         <span className="">
@@ -265,12 +265,12 @@ useEffect(() => {
       </div>
 
 
-      <nav className="navBar">
+      <div className="navBar">
         <img
           src={!toggleDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
           alt="LinkIT-logo"
-          className="w-1/4 lg:w-1/6 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+          className="relative w-[15%] md:w-[10%] lg:w-[6%] xs:left-2 md:left-10 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
 
 
@@ -471,8 +471,10 @@ useEffect(() => {
            animate={{ 
             opacity: burgerMenu ? 1 : 0, scale: burgerMenu ? 1 : 0, y: burgerMenu ? "0%" : "-50%" }}
            transition={{ duration: 0.3, ease: "easeInOut" }}>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center text-[0.8rem] xs:text-[1rem] md:text-[1.3rem]">
+
           <Languaje />
+
             <div className="cl-toggle-switch top-[1px]">
             <label className="cl-switch">
             <input type="checkbox" onChange={darkMode}/>
@@ -523,9 +525,9 @@ useEffect(() => {
           <div className="relative hidden lg:block 2xl:ml-3">
           <Languaje />
             </div>
-            <div className="relative flex flex-col w-[3rem] h-[2rem] justify-start right-[8%] pt-[1.3%] 2xl:ml-6"
+            <div className="relative flex flex-col w-[3rem] h-[2rem] justify-start right-[8%] pt-[2.5%] xs:pt-[1.3%] 2xl:ml-6"
             >
-              <motion.div className={`user-container ${userIsOpen ? "bg-linkIt-300 right-[65%] w-[5rem] lg:w-[8rem]" : "bg-transparent w-[50%] lg:w-[75%]"} lg:bottom-2`}
+              <motion.div className={`user-container ${userIsOpen ? "bg-linkIt-300 right-[65%] w-[5rem] lg:w-[8rem]" : "bg-transparent w-[40%] xs:w-[50%] lg:w-[75%]"} lg:bottom-2`}
               onClick={() => setUserIsOpen(true)}
               onMouseLeave={() => setUserIsOpen(false)}
               >
@@ -649,7 +651,7 @@ useEffect(() => {
 
             {/* burguerMenu */}
 
-  <button className="relative group right-[5%] lg:hidden" onClick={ () => setBurgerMenu(!burgerMenu)}>
+  <button className="relative right-[10%] xs:right-[5%] lg:hidden" onClick={ () => setBurgerMenu(!burgerMenu)}>
     <div className={`relative flex overflow-hidden items-center justify-center transform transition-all`}>
       <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
         <div className={`bg-linkIt-300 h-[2px] w-7 transform transition-all duration-300 origin-left ${burgerMenu ? "translate-x-10" : ""}`}></div>
@@ -666,7 +668,7 @@ useEffect(() => {
 
         </div>
 
-      </nav >
+      </div >
     </div >
   );
 }

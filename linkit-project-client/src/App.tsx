@@ -156,7 +156,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="w-screen h-full">
       <NavBar />
 
       <motion.div
@@ -223,7 +223,7 @@ function App() {
         <Route path="*" element={<Error />} />
       </Routes>
       <TopButton />
-    </>
+      </div>
   );
 }
 
