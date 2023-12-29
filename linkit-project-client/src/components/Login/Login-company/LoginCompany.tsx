@@ -88,7 +88,7 @@ function LoginCompany() {
       if (response.status === 200) {
         
         Swal.fire({
-          title: t("Bienvenido de vuelta",{ name: response.data.companyName }),
+          title: t("Bienvenido de vuelta ") + loggedCompany.companyName,
           text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
@@ -141,6 +141,7 @@ function LoginCompany() {
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
+                'Accept-Language': sessionStorage.getItem('lang')
               },
             }
           );
@@ -149,7 +150,7 @@ function LoginCompany() {
             dispatch(companyLogin(authUser));
             console.log(authUser)
             Swal.fire({
-              title: t("Bienvenido de vuelta", {name:authUser.companyName}),
+              title: t("Bienvenido de vuelta ") + authUser.companyName,
               text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
@@ -163,6 +164,7 @@ function LoginCompany() {
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
+                  'Accept-Language': sessionStorage.getItem('lang')
                 },
               }
             );
@@ -171,7 +173,7 @@ function LoginCompany() {
               dispatch(companyLogin(authCompany));
               Swal.fire({
                 
-                title: t("Bienvenido de vuelta", {name:authCompany.companyName}),
+                title: t("Bienvenido de vuelta") + authCompany.companyName,
                 text: t("Has ingresado correctamente"),
                 icon: "success",
                 iconColor: "#173951",
@@ -192,7 +194,7 @@ function LoginCompany() {
       setThirdParty(false);
       Swal.fire({
         title: "Error",
-        text: t("Usuario o contraseña incorrectos"),
+        text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",

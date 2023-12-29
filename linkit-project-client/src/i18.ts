@@ -140,7 +140,7 @@ export const i18nOptions: InitOptions = {
         "INGRESO PARA TALENTOS":"TALENT LOGIN",
         "Espera un momento":"Wait a moment",
         "Estamos autenticando tu cuenta":"We are authenticating your account",
-        "Bienvenido de vuelta":"Welcome back, {{name}}",
+        "Bienvenido de vuelta ":"Welcome back ",
         "Se ha creado una nueva cuenta para ti":"A new account has been created for you.",
         
 
@@ -240,6 +240,7 @@ export const i18nOptions: InitOptions = {
         "TALENTOS":"TALENTS",
         "EMPRESAS":"COMPANIES",
         "REGISTRO PARA": "REGISTER FOR",
+        "Bienvenido a LinkIT ": "Welcome to LinkIT ",
         
 
         //!Talentos modulo A

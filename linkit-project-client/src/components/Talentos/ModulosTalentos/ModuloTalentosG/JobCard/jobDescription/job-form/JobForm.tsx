@@ -135,11 +135,14 @@ function JobForm() {
       country: user.country,
       linkedin: user.linkedin,
       stack: user.technologies,
+      techStack: user.technicalStack,
       english: user.englishLevel,
       firstName: user.name,
       lastName: user.lastName,
+      recruiter: user.recruiter !== '-' ? user.recruiter : undefined,
       code: window.location.href.split('Joboffer/').splice(1, 1)[0].replace('/application', '')
     }
+    console.log(userApplicationObject)
     try {
       const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
@@ -686,7 +689,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    {t('Reclutador/a')}<span className=" text-red-400">*</span>
+                    {t('¿Estás haciendo el proceso con algun reclutador/a?')}<span className=" text-red-400">*</span>
                   </div>
 
                   <button
@@ -710,6 +713,7 @@ function JobForm() {
                       setOpenRecruiter(!openRecruiter);
                     }}
                   >
+                    <li className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer" onClick={() => handleRecruiterChange('-', setRecruiter, setUser)}>Ninguno</li>
                     {admins?.map((admin: any, index: number) => {
                       if (index === 0 || index === admins.length - 1) {
                         return (
