@@ -140,7 +140,7 @@ function JobForm() {
       lastName: user.lastName,
     }
     try {
-      const response = await axios.post('https://linkit-server.onrender.com/postulations/create', userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
+      const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
 
         Swal.fire({
