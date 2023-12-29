@@ -61,7 +61,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
           <div className="flex flex-col">
             <label htmlFor="" className="ml-2">{t("Nombre")}</label>
             <input
-              defaultValue={user.lastName}
+              defaultValue={user.firstName}
               onChange={(event) => setName(event.target.value)}
               type="text"
               className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
