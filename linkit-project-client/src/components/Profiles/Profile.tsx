@@ -18,7 +18,7 @@ const Profile = () => {
 
   // Render based on role
   return (
-    <div>
+    <div className="mt-[120px] md:mt-[180px] h-full">
       {role === 'company' ? <CompanyProfile /> : <TalentProfile />}
     </div>
   );

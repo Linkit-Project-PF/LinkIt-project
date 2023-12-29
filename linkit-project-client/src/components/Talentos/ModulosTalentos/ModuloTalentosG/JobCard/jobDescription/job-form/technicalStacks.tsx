@@ -1,17 +1,17 @@
 export const Stack = [
-    "Front-End web development",
-	"Back-End Development",
-	"FullStack web development",
+    "Front-end WEB development",
+	"Back-end Development",
+	"Full-stack WEB development",
 	"Mobile development",
-	"digital/product design",
-	"testing",
-	"product management",
-	"marketing",
-	"sales",
+	"Digital/Product design",
+	"Testing",
+	"Product Management",
+	"Marketing",
+	"Sales",
 	"HR",
-	"operations",
-	"administrative",
-	"finance",
+	"Operations",
+	"Administrative",
+	"Finance",
 ]
 
 

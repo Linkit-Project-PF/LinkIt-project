@@ -33,6 +33,7 @@ export interface IUser {
   technologies: string[];
   active: boolean;
   password?: string;
+  postulations: string[];
 }
 
 export interface ICompany {

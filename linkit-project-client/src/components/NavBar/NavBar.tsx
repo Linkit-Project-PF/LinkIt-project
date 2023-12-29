@@ -83,7 +83,7 @@ function NavBar() {
   const {isAuthenticated, role} = useSelector((state: RootState) => state.Authentication)
 
   const goAdminDashboard = () => {
-    navigate("/AdminDashboard")
+    navigate("/AdminDashboard/statistics/OKRs")
   }
   const goHome = () => {
     navigate("/");

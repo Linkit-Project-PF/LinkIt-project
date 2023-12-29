@@ -17,6 +17,9 @@ body {
 html{
     scroll-behavior: smooth;
 }
+#root {
+  height: 100vh;
+}
 
 /* Cambia el ancho de la barra de desplazamiento */
 ::-webkit-scrollbar {

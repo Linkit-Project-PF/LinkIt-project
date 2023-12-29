@@ -7,7 +7,7 @@ export type VacancyProps = {
   modality: string;
   stack: string[];
   aboutUs: string;
-  aboutClient?: string | null;
+  aboutClient?: any;
   responsabilities: string;
   requirements: string[];
   niceToHave: string[];
@@ -186,4 +186,106 @@ export interface ViewColClientsFollowUp {
   "To today": boolean;
   "Total candidates endorsed": boolean;
   created: boolean;
+}
+
+export interface CompaniesProps {
+  active: boolean;
+  airTableId: string;
+  companyName: string;
+  country: string;
+  email: string;
+  firebaseId: string;
+  image: string;
+  interested: string;
+  linkedin: string;
+  registeredDate: string;
+  repName: string;
+  role: string;
+  __v: number;
+  _id: string;
+}
+
+export interface ViewColHeadCompaniesU {
+  rol: boolean;
+  empresa: boolean;
+  pais: boolean;
+  correo: boolean;
+  linkedin: boolean;
+  representante: boolean;
+  imágen: boolean;
+  "Fecha de registro": boolean;
+  interesado: boolean;
+  "AirTable Id": boolean;
+  "Firebase Id": boolean;
+  estado: boolean;
+}
+
+
+export interface Admin {
+  role: string;
+  firstName: string;
+  lastName: string;
+  country: string;
+  email: string;
+  createdDate: string;
+  image: string;
+  firebaseId: string;
+  active: boolean;
+  permissions: {
+    get: string[];
+    create: string[];
+    update: string[];
+    delete: string[];
+    special: string[];
+  };
+  __v: number;
+  _id: string;
+}
+
+export interface ViewColHeadAdmins {
+  rol: boolean;
+  nombre: boolean;
+  apellido: boolean;
+  pais: boolean;
+  correo: boolean;
+  'Fecha de creación': boolean;
+  imágen: boolean;
+  'Firebase Id': boolean;
+  Estado: boolean;
+}
+
+export interface TalentProps {
+  active: boolean;
+  airTableId: string;
+  country: string;
+  cv: string;
+  email: string;
+  englishLevel: string;
+  firebaseId: string;
+  firstName: string;
+  image: string;
+  lastName: string;
+  linkedin: string;
+  postulations: any[]; //* Revisar si se puede más específico
+  registeredDate: string;
+  role: string;
+  technologies: any[]; //* Revisar si se puede más específico
+  __v: number;
+  _id: string;
+}
+
+export interface ViewColHeadTalent {
+  rol: boolean;
+  nombre: boolean;
+  apellido: boolean;
+  pais: boolean;
+  correo: boolean;
+  curriculum:boolean;
+  linkedin: boolean;
+  tecnologías: boolean;
+  'Fecha de creación': boolean;
+  postulaciones: boolean;
+  'Nivel de inglés': boolean;
+  imágen: boolean; 
+  estado: boolean; 
 }
