@@ -3,6 +3,8 @@ import { useState, useEffect, FunctionComponent, useRef } from "react";
 import { IUser } from "../../types";
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
+import { SUPERADMN_ID } from "../../../../env";
+import axios from "axios";
 import { logout, setUser } from "../../../../redux/features/AuthSlice";
 import Swal from "sweetalert2";
 import { editUser } from "../../api";
@@ -26,6 +28,9 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
       isFirstRender.current = false
       return
     }
+
+
+
     const updatedUser= async ()=>{
       try {
         const editedUser = await editUser({...user, image: filePublicId})
@@ -52,6 +57,22 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
     updatedUser()
   },[filePublicId])
 
+  const changePassword = async (e: any) => {
+    try {
+      const response = await axios.put<IUser>(
+        `https://linkit-server.onrender.com/users/update/${user._id}`,{"email": user.email, "password": true}, {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          },
+        }
+      )
+      if(response) alert('Revisa tu correo electronico')
+    } catch (error: any) {
+      throw new Error(error.code)
+    }
+    e.preventDefault()
+  }
 
   const handleLogout = () => {
     dispatch(logout())
@@ -75,7 +96,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
         </div>
 
         <div className="flex space-x-4 w-1/2 justify-end items-end">
-          <button className="text-black">{t('Cambiar Contraseña')}</button>
+          <button className="text-black" onClick={changePassword}>{t('Cambiar Contraseña')}</button>
           <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
           <div className={`relative rounded-full w-[250px] h-[250px] bg-gray-300 ${user.image ? "flex flex-col justify-center items-center content-center" : ''}`}>
             <div className="relative w-full h-full">
