@@ -47,36 +47,47 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({company}) => {
 
       <form action="" onSubmit={handleSubmit} className="flex flex-col">
         <div className="grid grid-cols-3 grid-rows-3 gap-x-5 gap-y-3 font-montserrat">
-          <input
-            defaultValue={company.repName}
-            onChange={(event) => setRepName(event.target.value)}
-            type="text"
-            placeholder={t("Nombre")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
-          />
 
-          <input
-            // defaultValue={company.repName}
-            // onChange={(event) => setRepName(event.target.value)}
-            type="text"
-            placeholder={t("Apellido")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
-          />
+        <div className="flex flex-col">
+          <label htmlFor="" className="ml-2">{t("Nombre")}</label>
+            <input
+              defaultValue={company.repName}
+              onChange={(event) => setRepName(event.target.value)}
+              type="text"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+            />
+          </div>
 
-          <input
-            defaultValue={company.companyName}
-            onChange={(event) => setCompanyName(event.target.value)}
-            type="text"
-            placeholder={t("Empresa")}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
-          />
-          <input
-            defaultValue={company.email}
-            onChange={(event) => setEmail(event.target.value)}
-            className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
-            type="text"
-            placeholder={t("Email corporativo")}
-          />
+        <div className="flex flex-col">
+          <label htmlFor="" className="ml-2">{t("Apellido")}</label>
+            <input
+              // defaultValue={company.repName}
+              // onChange={(event) => setRepName(event.target.value)}
+              type="text"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+            />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="" className="ml-2">{t("Empresa")}</label>
+            <input
+              defaultValue={company.companyName}
+              onChange={(event) => setCompanyName(event.target.value)}
+              type="text"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+            />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="" className="ml-2">{t("Email corporativo")}</label>
+            <input
+              defaultValue={company.email}
+              onChange={(event) => setEmail(event.target.value)}
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+              type="text"
+              placeholder={t("Email corporativo")}
+            />
+        </div>
 
           {/* <input
             defaultValue={user.technologies.join(", ")}

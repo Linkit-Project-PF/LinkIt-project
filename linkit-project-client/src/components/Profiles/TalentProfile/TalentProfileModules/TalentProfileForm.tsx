@@ -25,6 +25,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
   const [name, setName] = useState(user.firstName)
 
 
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault()
@@ -54,6 +55,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({user}) => {
 
   return (
     <div className="bg-linkIt-500 p-10 rounded-[20px] md:mx-10 md:p-20">
+
 
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
