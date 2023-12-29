@@ -23,7 +23,7 @@ export default function NavPanelAdmin() {
           <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/reviews">{t('Reseñas')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
-          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/usuarios">{t('Usuarios')}</NavLink>
+          <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/users">{t('Usuarios')}</NavLink>
         </li>
         <li className="text-2xl mr-16">
           <NavLink className="hover:text-linkIt-300" to="/AdminDashboard/mis-datos">{t('Mis datos')}</NavLink>

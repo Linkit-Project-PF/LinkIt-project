@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Footer from "../../../../Utils/Footer/Footer";
-import UsersAdmin from "../Usuarios/UsersAdmin";
 import { useTranslation } from "react-i18next";
 import Vacancies2 from "./AdminVacantes/Vacancies2";
 import ClientsFollowUp from "./ClientsFollowUp/ClientsFollowUp";
 import { IAdmin } from "../../../Profiles/types";
 import Statistics from "./AdminStatistics/Statistics";
+import UsersAdmin2 from "../Usuarios/UsersAdmin2";
 // import Vacancies from "./AdminVacantes/Vacancies";
 // import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
@@ -58,7 +58,7 @@ export default function AdminPanel() {
         <Route path="clientsfollowup" element={<ClientsFollowUp />} />
         <Route path="recursos" element={<AdminRecursos />} />
         <Route path="reviews" element={<AdminReviews />} />
-        <Route path="usuarios" element={<UsersAdmin />} />
+        <Route path="users/*" element={<UsersAdmin2 />} />
         {/* <Route path="mis-datos" element={<SuperAdminProfile />} /> */}
       </Routes>
       <br />
