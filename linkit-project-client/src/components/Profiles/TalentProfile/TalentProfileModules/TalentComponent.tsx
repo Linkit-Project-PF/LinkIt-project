@@ -1,12 +1,13 @@
 import CloudinaryUploadWidget from "../../../Services/cloudinaryWidget";
 import { useState, useEffect, FunctionComponent, useRef } from "react";
 import { IUser } from "../../types";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { SUPERADMN_ID } from "../../../../env";
 import axios from "axios";
 import { logout, setUser } from "../../../../redux/features/AuthSlice";
 import Swal from "sweetalert2";
+import { RootState } from "../../../../redux/types";
 import { editUser } from "../../api";
 import { useTranslation } from "react-i18next";
 
@@ -22,6 +23,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
   const [fileName, setFileName] = useState("")
   const navigate = useNavigate()
   const isFirstRender = useRef(true)
+  const {token} = useSelector((state: RootState) => state.Authentication)
 
   useEffect(()=>{
     if(isFirstRender.current) {
@@ -60,7 +62,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
   const changePassword = async (e: any) => {
     try {
       const response = await axios.put<IUser>(
-        `https://linkit-server.onrender.com/users/update/${user._id}`,{"email": user.email, "password": true}, {
+        `https://linkit-server.onrender.com/users/update/${token}`,{"email": user.email, "password": true}, {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
             'Accept-Language': sessionStorage.getItem('lang')
@@ -116,7 +118,7 @@ const TalentComponent: FunctionComponent<IComponentProps> = ({user, setSelectedO
             </div>
           </div>
           <div className="flex flex-col pt-5 gap-3 self-center place-self-center">
-            <button className="text-black" onClick={changePassword}>{t('Cambiar Contraseña')}</button>
+            {user.provider === "email" && <button className="text-black" onClick={changePassword}>{t('Cambiar Contraseña')}</button>}
             <button className="text-black" onClick={handleLogout}>{t('Cerrar Sesión')}</button>
           </div>
         </div>
