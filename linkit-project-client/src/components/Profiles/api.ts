@@ -23,7 +23,7 @@ export const editUser = async (user: IUser): Promise<IUser> => {
   const result = response.data.filter(
     (users: UserProps) => users._id === user._id
   );
-  return result;
+  return result[0];
 };
 
 export const editAdmin = async (admin: IAdmin): Promise<IAdmin> => {
