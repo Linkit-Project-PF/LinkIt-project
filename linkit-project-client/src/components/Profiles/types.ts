@@ -34,6 +34,7 @@ export interface IUser {
   active: boolean;
   password?: string;
   postulations: string[];
+  provider?: string;
 }
 
 export interface ICompany {

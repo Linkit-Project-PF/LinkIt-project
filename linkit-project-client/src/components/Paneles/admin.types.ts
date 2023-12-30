@@ -7,7 +7,7 @@ export type VacancyProps = {
   modality: string;
   stack: string[];
   aboutUs: string;
-  aboutClient?: any;
+  aboutClient?: string;
   responsabilities: string;
   requirements: string[];
   niceToHave: string[];

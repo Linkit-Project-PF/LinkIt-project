@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
-import { setFilterDateJobOffers, setFilterViewJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 import { t } from 'i18next';
+import { RootState } from '../../../../../redux/types';
 
 
 type stateProps = {
@@ -19,7 +20,8 @@ type stateProps = {
 export default function Vacancies2() {
     //
     const filteredJobData = useSelector((state: stateProps) => state.jobCard.filterJobOffers);
-    console.log(filteredJobData)
+    const selectSortView = (state: RootState) => state.jobCard.sortValues.sortView
+    const selectSortAlfa = (state: RootState) => state.jobCard.sortValues.sortAlfa
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch();
 
@@ -70,7 +72,10 @@ export default function Vacancies2() {
 
     const totalPages = Math.ceil(filteredJobData.length / itemsPerPage);
 
-    const [viewStatus, setViewStatus] = useState('Visible')
+
+
+    const sortView = useSelector(selectSortView)
+    const sortAlfa = useSelector(selectSortAlfa)
 
 
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -80,8 +85,7 @@ export default function Vacancies2() {
 
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
-        setViewStatus(value)
-        dispatch(setFilterViewJobOffers(value))
+        dispatch(setSortJobOffers(value))
     }
 
 
@@ -102,8 +106,8 @@ export default function Vacancies2() {
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 dispatch(setJobOffers(response.data));
-                dispatch(setFilterViewJobOffers('Visible'));
-                dispatch(setFilterDateJobOffers('recent'))
+                dispatch(setSortJobOffers('Visible'));
+                dispatch(setSortJobOffers('recent'))
             } catch (error) {
                 console.error("Error al cargar las ofertas de trabajo", error);
             }
@@ -173,6 +177,11 @@ export default function Vacancies2() {
         setSaveStatus(!saveStatus);
     };
 
+    const handleAlfa = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        dispatch(setSortJobOffers(value))
+    }
+
     return (
         <div className=' bg-scroll bg-linkIt-500'>
 
@@ -195,10 +204,15 @@ export default function Vacancies2() {
                                 <h1>Titulo</h1>
                             </div>
                             <div className='ml-6 justify-end'>
-                                <select name="sort" className='border-none outline-none'>
-                                    <option value=""></option>
-                                    <option value="">A-Z</option>
-                                    <option value="">Z-A</option>
+                                <select
+                                    name="sortAlfa"
+                                    className='border-none outline-none'
+                                    onChange={handleAlfa}
+                                    value={sortAlfa}
+                                >
+                                    <option value="">-</option>
+                                    <option value="A-Z">A-Z</option>
+                                    <option value="Z-A">Z-A</option>
                                 </select>
                             </div>
                         </div>
@@ -580,7 +594,7 @@ export default function Vacancies2() {
                                     name="view"
                                     className='border-b-2 border-r-2 -none outline-none'
                                     onChange={handleView}
-                                    defaultValue={viewStatus}
+                                    defaultValue={sortView}
                                 >
                                     <option value="Visible">Visible</option>
                                     <option value="Hidden">Hidden</option>
