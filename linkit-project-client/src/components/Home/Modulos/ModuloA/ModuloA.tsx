@@ -35,10 +35,10 @@ export default function ModuloA() {
         </div>
         <div className="relative flex top-3">
           <img className="w-1/3 lg:w-1/4 " src="Vectores/Stars-Trustpilot.svg" alt="stars" />
-          <h4 className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reviews')}</Link></h4>
+          <h4 className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></h4>
         </div>
         </div>
-        <img className="relative self-end bottom-2 xs:bottom-0 xs:left-5 xs:top-3 md:top-16 lg:top-14" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with persons" />
+        <img className="relative self-end bottom-2 xs:bottom-0 xs:left-5 xs:top-3 md:top-16 lg:top-14" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with people" />
       </div>
   )
 }
