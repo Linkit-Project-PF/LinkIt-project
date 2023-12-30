@@ -4,7 +4,12 @@ const initialState = {
     jobOffers: [],
     allJobOffers: [],
     filterJobOffers: [],
-    historyJobOffers: [],
+    sortJobOffers: [],
+    sortValues: {
+        sortAlfa: '-',
+        sortDate: 'recent',
+        sortView: 'Visible'
+    }
 }
 
 type JobOffer = {
@@ -29,7 +34,7 @@ const JobCardSlice = createSlice({
             state.jobOffers = action.payload;
             state.allJobOffers = action.payload;
             state.filterJobOffers = action.payload;
-            state.historyJobOffers = action.payload;
+            state.sortJobOffers = action.payload;
         },
         setfilterJobOffers: (state, action) => {
             const searchTerm = action.payload.toLowerCase();
@@ -38,32 +43,49 @@ const JobCardSlice = createSlice({
             )
             return { ...state, filterJobOffers: filterdeJobOffers }
         },
-        setFilterViewJobOffers: (state, action) => {
-            const visibility = action.payload;
-            if (visibility === 'Visible') {
-                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => (jobOffer.archived === false))
-            } else if (visibility === 'Hidden') {
-                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => (jobOffer.archived === true))
-            } else {
-                state.filterJobOffers = state.allJobOffers
-            }
-        },
-        setFilterDateJobOffers: (state, action) => {
+        setSortJobOffers: (state, action) => {
             const value = action.payload;
             if (value === 'recent') {
-                state.historyJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const dateA = new Date(a.createdDate)
                     const dateB = new Date(b.createdDate)
+                    state.sortValues.sortDate = 'recent'
+                    state.sortValues.sortAlfa = '-'
                     return dateB.getTime() - dateA.getTime()
                 })
             } else if (value === 'old') {
-                state.historyJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const dateA = new Date(a.createdDate)
                     const dateB = new Date(b.createdDate)
+                    state.sortValues.sortDate = 'old'
+                    state.sortValues.sortAlfa = '-'
                     return dateA.getTime() - dateB.getTime()
                 })
-            } else {
-                state.historyJobOffers = state.filterJobOffers
+            } else if (value === 'A-Z') {
+                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                    const titleA = a.title.toLowerCase();
+                    const titleB = b.title.toLowerCase();
+                    state.sortValues.sortDate = '-'
+                    state.sortValues.sortAlfa = 'A-Z'
+                    return titleA.localeCompare(titleB)
+                })
+            } else if (value === 'Z-A') {
+                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                    const titleA = a.title.toLowerCase();
+                    const titleB = b.title.toLowerCase();
+                    state.sortValues.sortDate = '-'
+                    state.sortValues.sortAlfa = 'Z-A'
+                    return titleB.localeCompare(titleA)
+                })
+            } else if (value === 'Visible') {
+                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => (jobOffer.archived === false))
+                state.sortValues.sortView = 'Visible'
+            } else if (value === 'Hidden') {
+                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => (jobOffer.archived === true))
+                state.sortValues.sortView = 'Hidden'
+            } else if (value === 'All') {
+                state.filterJobOffers = state.allJobOffers
+                state.sortValues.sortView = 'All'
             }
         }
 
@@ -71,7 +93,7 @@ const JobCardSlice = createSlice({
 })
 
 
-export const { applyFilters, setJobOffers, setfilterJobOffers, setFilterViewJobOffers, setFilterDateJobOffers } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers, setfilterJobOffers, setSortJobOffers } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 
