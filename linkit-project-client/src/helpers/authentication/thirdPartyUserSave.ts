@@ -19,6 +19,7 @@ export default async function saveUserThirdAuth(user: any, role: string) {
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
           },
         }
       );
@@ -29,6 +30,7 @@ export default async function saveUserThirdAuth(user: any, role: string) {
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
           },
         }
       );

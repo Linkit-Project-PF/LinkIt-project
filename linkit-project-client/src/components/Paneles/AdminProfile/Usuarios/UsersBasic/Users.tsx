@@ -38,7 +38,8 @@ export default function Users() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/users/find",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang') } }
         );
         console.log(response.data)
         dispatch(setUsersTalent(response.data));

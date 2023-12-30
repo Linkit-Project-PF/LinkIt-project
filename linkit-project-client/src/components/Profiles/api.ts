@@ -18,7 +18,8 @@ export const editUser = async (user: IUser): Promise<IUser> => {
     active: user.active,
   };
   const response = await axios.put(`${URL}/users/update/${user._id}`, userObj, {
-    headers: { Authorization: `Bearer ${SUPERADMN_ID}` },
+    headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
+    'Accept-Language': sessionStorage.getItem('lang') },
   });
   const result = response.data.filter(
     (users: UserProps) => users._id === user._id
@@ -37,7 +38,8 @@ export const editAdmin = async (admin: IAdmin): Promise<IAdmin> => {
     `${URL}/admins/update/${admin._id}`,
     adminObj,
     {
-      headers: { Authorization: `Bearer ${SUPERADMN_ID}` },
+      headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
+      'Accept-Language': sessionStorage.getItem('lang') },
     }
   );
   return data;
@@ -59,7 +61,8 @@ export const editCompany = async (company: ICompany): Promise<ICompany> => {
     `${URL}/companies/update/${company._id}`,
     companyObj,
     {
-      headers: { Authorization: `Bearer ${SUPERADMN_ID}` },
+      headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
+      'Accept-Language': sessionStorage.getItem('lang') },
     }
   );
   console.log(response);

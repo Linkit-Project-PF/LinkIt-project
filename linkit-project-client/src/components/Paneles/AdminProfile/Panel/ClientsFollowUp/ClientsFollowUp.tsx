@@ -78,7 +78,8 @@ export default function ClientsFollowUp() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/resources/companyjds",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang') } }
         );
         dispatch(setJobData(response.data));
       } catch (error) {

@@ -7,9 +7,11 @@ import { setReviews } from "../../../../../redux/features/ReviewsSlice";
 import swal from 'sweetalert';
 import FormReview from "./FormReviews";
 import { useTranslation } from "react-i18next";
+import { IUser } from "../../../../Profiles/types";
 
 
 type stateProps = {
+  Authentication: {user: IUser},
   reviews: {
     allReviews: ReviewProps[]
   }
@@ -19,7 +21,7 @@ export default function AdminReviews() {
   const {t}=useTranslation();
   const dispatch = useDispatch();
   const data = useSelector((state: stateProps) => state.reviews.allReviews);
-  // const token = useSelector((state:any) => state.Authentication.authState.token) //* token de usuario para autenticación de protección de rutas
+  const token = useSelector((state:stateProps) => state.Authentication.user._id)
   const [saveStatus, setSaveStatus] = useState(false);
   const [viewForm, setViewForm] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -58,8 +60,8 @@ export default function AdminReviews() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/reviews/find",
-          { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } }
-          //headers: { Authorization: `Bearer ${token}` }//* descomentar cuando se tenga  creado el logeo de admin
+          {headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang')}}
         );
         dispatch(setReviews(response.data));
       } catch (error) {
@@ -86,8 +88,8 @@ export default function AdminReviews() {
       try {
         const response = await axios.delete(
           `https://linkit-server.onrender.com/reviews/delete/${id}`,
-          { headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` } }
-          // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+          {headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang')}}
         );
         dispatch(setReviews(response.data));
         setSaveStatus(!saveStatus)
@@ -120,8 +122,8 @@ export default function AdminReviews() {
     try {
       const endPoint = `https://linkit-server.onrender.com/reviews/update/${id}`;
       await axios.put(endPoint, editedData, {
-        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
-        // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+        headers: { Authorization: `Bearer ${token}`,
+        'Accept-Language': sessionStorage.getItem('lang') }
       });
     } catch (error) {
       console.error("Error al enviar la solicitud: ", (error))
