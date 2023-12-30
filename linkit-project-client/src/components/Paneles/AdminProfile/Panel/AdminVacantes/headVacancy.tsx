@@ -63,7 +63,8 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         const response = await axios.delete(
                             `https://linkit-server.onrender.com/jds/delete/${id}`,
                             {
-                                headers: { Authorization: `Bearer ${token}` },
+                                headers: { Authorization: `Bearer ${token}`,
+                                'Accept-Language': sessionStorage.getItem('lang') },
                             }
                         );
                         dispatch(setJobOffers(response.data));

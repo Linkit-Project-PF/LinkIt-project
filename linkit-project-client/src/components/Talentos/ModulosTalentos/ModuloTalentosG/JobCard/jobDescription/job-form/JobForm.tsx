@@ -67,7 +67,7 @@ function JobForm() {
   })
 
   const technicalStack = Stack.map((tech: any) => {
-    return { value: tech, label: tech}
+    return { value: tech.name, label: tech.name}
   })
 
   const navigate = useNavigate();
@@ -149,7 +149,6 @@ function JobForm() {
     console.log(userApplicationObject)
     try {
       const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
-      // const response = await axios.post(`http://localhost:3000/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
       if(response.status > 200 && response.status < 300){
         Swal.fire({
           icon: "success",
@@ -166,8 +165,8 @@ function JobForm() {
             })
           }
         });
-        const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
-        //const {data} = await axios.get(`http://localhost:3000/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
+        const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID},
+        'Accept-Language': sessionStorage.getItem('lang')`}})
         dispatch(setUser(data))
       }
     } catch (error: any) {
@@ -834,7 +833,7 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    {t('¿Por qué estás buscando una nueva oportunidad laboral?')}
+                    {t('¿Por qué estás buscando una nueva oportunidad laboral?')}<span className=" text-red-400">*</span>
                   </div>
                   <textarea
                     name="reason"

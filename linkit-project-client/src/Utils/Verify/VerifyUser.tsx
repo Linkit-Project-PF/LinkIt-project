@@ -9,7 +9,8 @@ export default function VerifyUser() {
     try {
       await axios.get(`https://linkit-server.onrender.com/auth/verify?id=${params.id}&role=user`, {
         headers: {
-          Authorization: `Bearer ${SUPERADMN_ID}`
+          Authorization: `Bearer ${SUPERADMN_ID}`,
+          'Accept-Language': sessionStorage.getItem('lang')
         }
       })
       nagivate('/')
