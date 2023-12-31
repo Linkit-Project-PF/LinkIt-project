@@ -103,7 +103,8 @@ export default function Vacancies2() {
             try {
                 const response = await axios(
                     "https://linkit-server.onrender.com/jds/find",
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    { headers: { Authorization: `Bearer ${token}`,
+                    'Accept-Language': sessionStorage.getItem('lang') } }
                 );
                 dispatch(setJobOffers(response.data));
                 dispatch(setSortJobOffers('Visible'));
@@ -165,7 +166,8 @@ export default function Vacancies2() {
             arrayProps.forEach(async (id: string) => {
                 const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
                 await axios.put(endPoint, editedData, {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { Authorization: `Bearer ${token}`,
+                    'Accept-Language': sessionStorage.getItem('lang') },
                 });
             })
         } catch (error: any) {

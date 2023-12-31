@@ -219,6 +219,7 @@ function Register() {
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
+                'Accept-Language': sessionStorage.getItem('lang')
               },
             }
           );
@@ -230,6 +231,7 @@ function Register() {
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
+                  'Accept-Language': sessionStorage.getItem('lang')
                 },
               }
             );

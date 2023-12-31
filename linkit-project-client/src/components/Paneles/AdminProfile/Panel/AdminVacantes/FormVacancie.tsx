@@ -79,6 +79,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           {
             headers: {
               Authorization: `Bearer ${token}`,
+              'Accept-Language': sessionStorage.getItem('lang')
             },
           }
         );
@@ -192,7 +193,8 @@ export default function FormVacancie(props: FormVacancieProps) {
       validateVacancy(information as VacancyProps);
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
-        headers: { Authorization: `Bearer ${props.token}` },
+        headers: { Authorization: `Bearer ${props.token}`,
+        'Accept-Language': sessionStorage.getItem('lang')}
       });
 
       swal(t("La vacante fue creada con éxito"));

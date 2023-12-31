@@ -35,7 +35,8 @@ export default function Admins() {
           try {
               const response = await axios(
                   "https://linkit-server.onrender.com/admins/find",
-                  { headers: { Authorization: `Bearer ${token}` } }
+                  { headers: { Authorization: `Bearer ${token}`,
+                  'Accept-Language': sessionStorage.getItem('lang') } }
               );
               dispatch(setUsersAdmins(response.data));
           } catch (error) {
