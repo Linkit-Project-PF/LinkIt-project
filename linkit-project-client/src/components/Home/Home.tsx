@@ -23,7 +23,6 @@ function Home() {
             <ModuloF />
             <ModuloG />
             <TopButton />
-            <Footer />
         </div>
 
     )

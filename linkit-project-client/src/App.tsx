@@ -35,6 +35,7 @@ import Error from "./components/Errores/Error.tsx";
 import ReactGA from "react-ga4";
 import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
+import Footer from "./Utils/Footer/Footer.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -223,6 +224,7 @@ function App() {
         <Route path="*" element={<Error />} />
       </Routes>
       <TopButton />
+      <Footer />
       </div>
   );
 }
