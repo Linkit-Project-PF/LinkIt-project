@@ -5,7 +5,7 @@ function AccordionStatisticsOKRsLinkIt(){
         <div>
             <Accordion transition transitionTimeout={250}>
 
-                <h2>Mercado: Posicionamiento a nivel LATAM y España</h2>
+                <h2 className="text-2xl py-4">Mercado: Posicionamiento a nivel LATAM y España</h2>
                 <AccordionItem header=" + Resultado Clave 1: Expandirnos por país" className="accordion-item">
                 - Nuevos clientes = 13 <br />
                 - Uruguay: 3 <br />
@@ -31,7 +31,7 @@ function AccordionStatisticsOKRsLinkIt(){
                 - Colombia + Perú + Ecuador + Centroamérica: 50<br />
                 </AccordionItem>
 
-                <h2>Negocio: Aumentar el revenue en un 10% vs el primer semestre</h2>
+                <h2 className="text-2xl py-4">Negocio: Aumentar el revenue en un 10% vs el primer semestre</h2>
                 <AccordionItem header=" + Resultado Clave 1: Roles por cliente">
                 - Aumentar los roles por cliente a 1,5<br />
                 </AccordionItem>
@@ -56,7 +56,7 @@ function AccordionStatisticsOKRsLinkIt(){
                 - Apuntar a USD 1.8k por mes llevándolo a un promedio anual de USD 3.5k<br />
                 </AccordionItem>
 
-                <h4>Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h4> 
+                <h2 className="text-2xl py-4">Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h2 > 
                 <AccordionItem header=" + Resultado Clave 1: Equipo de alto desempeño, súper comprometido y que performe de manera eficiente">
                 - NPS del equipo {'>'} 70%
                 </AccordionItem>
@@ -92,7 +92,7 @@ function AccordionStatisticsOKRsSales(){
         <div>
             <Accordion transition transitionTimeout={250}>
 
-                <h4>Mercado: Posicionamiento a nivel LATAM y España</h4> 
+                <h2 className="text-2xl py-4">Mercado: Posicionamiento a nivel LATAM y España</h2> 
                 <AccordionItem header=" + Resultado Clave 1: Expandirnos por país">
                 - Nuevos clientes = 13<br/>
                 - Uruguay: 3<br/>
@@ -118,7 +118,7 @@ function AccordionStatisticsOKRsSales(){
                 - Colombia + Perú + Ecuador + Centroamérica: 10<br/>
                 </AccordionItem>
           
-                <h4>Negocio: Aumentar el revenue en un 10% vs el primer semestre</h4>
+                <h2 className="text-2xl py-4">Negocio: Aumentar el revenue en un 10% vs el primer semestre</h2>
                 <AccordionItem header=" + Resultado Clave 1: Roles por cliente">
                 - Aumentar los roles por cliente a 1,5<br/>
                 </AccordionItem>
@@ -141,7 +141,7 @@ function AccordionStatisticsOKRsSales(){
                 - El 70% de los roles cerrados deben venir del cliente tipo A <br/>
                 </AccordionItem>
 
-                <h4>Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h4>
+                <h2 className="text-2xl py-4">Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h2>
                 <AccordionItem header=" + Resultado Clave 1: Equipo de alto desempeño, súper comprometido y que performe de manera eficiente">
                 - NPS del equipo{'>'}70% <br/>
                 </AccordionItem>
@@ -167,7 +167,7 @@ function AccordionStatisticsOKRsQ4Recruiting(){
         <div>
             <Accordion transition transitionTimeout={250}>
 
-                <h4>Mercado: Posicionamiento a nivel LATAM y España</h4> 
+                <h2 className="text-2xl py-4">Mercado: Posicionamiento a nivel LATAM y España</h2 > 
                 <AccordionItem header=" + Resultado Clave 1: Aumentar un 70% el talent pool por todo LATAM (Escalabilidad)">
                 - Nuevos talentos entrevistados en AIRTABLE = 640 (Inicio 879)<br/>
                 - Nuevos Argentina: 100 mínimo<br/>
@@ -175,7 +175,7 @@ function AccordionStatisticsOKRsQ4Recruiting(){
                 - Nuevos Chile: 100 mínimo<br/>
                 - Nuevos resto LATAM: 100 mínimo<br/>
                 </AccordionItem>
-                <h4>Negocio: Aumentar el revenue en un 10% vs el primer semestre</h4> 
+                <h2 className="text-2xl py-4">Negocio: Aumentar el revenue en un 10% vs el primer semestre</h2> 
                 <AccordionItem header=" + Resultado Clave 1: Cantidad de talento endorsado (Cantidad)">
                 - Mantener un promedio de 4 candidatos endorsados por posicion<br/>
                 - 4 candidatos promedio<br/>
@@ -195,7 +195,7 @@ function AccordionStatisticsOKRsQ4Recruiting(){
                 -  Offer<br/>
                 - Start date/Won<br/>
                 </AccordionItem>
-                <h4>Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h4>
+                <h2 className="text-2xl py-4">Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h2>
                 <AccordionItem header=" + Resultado Clave 1: Desarrollar un punto de información para entender el mercado con el que trabajamos (Mejora de procesos)">
                 - Conseguir un total de 200 respuestas sobre experiencia de talento entrevistado<br/>
                 - Entender 3 puntos de mejora para el proceso de selección según la experiencia de talento<br/>
@@ -213,7 +213,7 @@ function AccordionStatisticsRecruiting(){
         <div>
             <Accordion transition transitionTimeout={250}>
 
-                <h4>Mercado: Posicionamiento a nivel LATAM y España</h4> 
+                <h2 className="text-2xl py-4">Mercado: Posicionamiento a nivel LATAM y España</h2> 
                 <AccordionItem header=" + Resultado Clave 1: Aumentar un 70% el talent pool por todo LATAM">
                 - Nuevos talentos entrevistados en AIRTABLE = 640 (Inicio 879)<br/>
                 - Nuevos Argentina: 100 mínimo (Inicio 490)<br/>
@@ -221,7 +221,7 @@ function AccordionStatisticsRecruiting(){
                 -  Nuevos Chile: 100 mínimo (Inicio 73)<br/>
                 - Nuevos resto LATAM: 100 mínimo (Inicio 200)<br/>
                 </AccordionItem>
-                <h4>Negocio: Aumentar el revenue en un 10% vs el primer semestre</h4> 
+                <h2 className="text-2xl py-4">Negocio: Aumentar el revenue en un 10% vs el primer semestre</h2> 
                 <AccordionItem header="Resultado Clave 1: Cantidad de talento endorsado">
                 - Mantener un promedio de al menos 3.5 talentos endosados por posición<br/>
                 -  3.5 candidatos promedio<br/>
@@ -241,7 +241,7 @@ function AccordionStatisticsRecruiting(){
                 -  Offer: 18%<br/>
                 -  Start date/Won: 18%<br/>
                 </AccordionItem>
-                <h4>Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h4> 
+                <h2 className="text-2xl py-4">Equipo y experiencias: Cumplir con nuestra misión de forma extraordinaria</h2> 
                 <AccordionItem header=" + Resultado Clave 1: Desarrollar un punto de información para entender el mercado con el que trabajamos">
                 -  Conseguir un total de 200 respuestas sobre experiencia de talento entrevistado<br/>
                 -  Entender 3 puntos de mejora para el proceso de selección según la experiencia de talento<br/>

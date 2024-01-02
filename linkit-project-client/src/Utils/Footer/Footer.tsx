@@ -38,6 +38,13 @@ export default function Footer() {
       window.location.href = '#blogs';
     }, 0);
     }
+
+  const navigatetoFAQ = () => {
+    navigate('/recursos')
+    setTimeout(() => {
+      window.location.href = '#FAQ';
+    }, 0);
+  }
   const navigatetoEbooks = () => {
     navigate('/recursos')
     setTimeout(() => {
@@ -76,6 +83,30 @@ export default function Footer() {
       window.location.href = '#talento-Interno';
     }, 0);
     }
+  // const navigatetoChile = () => {
+  //    navigate('/quienesSomos')
+  //   setTimeout(() => {
+  //      window.location.href = '/quienesSomos?filtroMision=valor';
+  //   }, 0);
+  //   }
+    // const navigatetColombia = () => {
+  //    navigate('/quienesSomos')
+  //   setTimeout(() => {
+  //      window.location.href = '/quienesSomos?filtroMision=valor';
+  //   }, 0);
+  //   }
+    // const navigatetoEspana = () => {
+  //    navigate('/quienesSomos')
+  //   setTimeout(() => {
+  //     window.location.href = '/quienesSomos?filtroMision=valor';
+  //   }, 0);
+  //   }
+    // const navigatetoLATAM = () => {
+  //    navigate('/quienesSomos')
+  //   setTimeout(() => {
+  //     window.location.href = '/quienesSomos?filtroMision=valor';
+  //   }, 0);
+  //   }
 
   const {t} = useTranslation();
   return (
@@ -107,9 +138,7 @@ export default function Footer() {
                 <li>
                   <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoSuccessStories}>{t('Casos de éxito')} </button>
                 </li>
-                <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base">FAQ</NavLink>
-                </li>
+                
                 <li>
                   <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"  onClick={() => {
                         pressSignUp === "visible"
@@ -136,7 +165,7 @@ export default function Footer() {
               <ul>
                 <br />
                 <li>
-                  <NavLink to='' className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base"> FAQ </NavLink>
+                  <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={navigatetoFAQ}> FAQ </button>
                 </li>
                 <li>
                   <button className="hover:underline text-[8px] md:text-[10px] lg:text-xs xl:text-sm 2xl:text-base" onClick={() => {
