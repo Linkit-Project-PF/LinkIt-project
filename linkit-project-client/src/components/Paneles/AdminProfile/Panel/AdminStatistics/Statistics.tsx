@@ -3,7 +3,7 @@ import HeadStatitics from './HeadStatistics'
 import StatisticsWeb from './Statics/StatisticsWeb'
 import StatisticsPostulaciones from './Statics/StatisticsPostulaciones'
 import StatisticsPresentation from './Statics/StatisticsPresentation'
-import StatisticsOKRs from './Statics/StatisticsOKRs'
+import StatisticsOKRs from './Statics/statisticsOKRs/StatisticsOKRs'
 import StatisticsFollowUps from './Statics/StatisticsFollowUps'
 import { t } from 'i18next'
 
