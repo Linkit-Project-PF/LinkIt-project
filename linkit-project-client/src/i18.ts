@@ -18,6 +18,7 @@ export const i18nOptions: InitOptions = {
         "Conectando al talento más destacado con los mejores proyectos IT":"Connecting the most outstanding talent with the best IT projects",
         "Contrata y gestiona al mejor talento de manera global":"Hire and manage the best talent globally",
         "Vacantes disponibles":"Available vacancies",
+        "Leer reseñas":"Read reviews",
         //Home module B
         "Reclutamiento y selección":"Recruitment and selection",
         "Identificamos a profesionales con el stack, habilidades y experiencia adecuada para tus proyectos y así lograr construir un equipo de alto desempeño.":"We identify professionals with the appropriate stack, skills and experience for your projects and thus build a high-performance team.",
@@ -34,6 +35,7 @@ export const i18nOptions: InitOptions = {
         "Te asesoramos desde el perfil ideal, los presupuestos idóneos y procesos de contratación hasta planes de beneficios, retención y mucho más.":"We advise you from the ideal profile, the ideal budgets and hiring processes to benefit plans, retention and much more.",
         //Home module F
         "Talento y empresas en más de 50 países":"Talent and companies in more than 50 countries",
+        "Y mucho más":"And much more",
    
         //!Company module A
         "Contrata y escala": "Hire and scale",
