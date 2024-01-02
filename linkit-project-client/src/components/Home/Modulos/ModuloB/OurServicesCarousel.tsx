@@ -6,7 +6,6 @@ import letterIcon from "/Vectores/linkit-web-vectores-04.svg";
 import checkedIcon from "/Vectores/linkit-web-vectores-05.svg";
 import whiteArrow from "/Vectores/white-arrow.png";
 import { useTranslation } from "react-i18next"
-import { useEffect } from "react";
 
 export default function OurServicesCarousel() {
     const{t}=useTranslation()
@@ -27,12 +26,11 @@ export default function OurServicesCarousel() {
   const [secondIcon, setSecondIcon] = useState(iconsToRender[1]);
   const [thirdIcon, setThirdIcon] = useState(iconsToRender[2]);
   const [IconActive, setIconActive] = useState('peopleIcon');
-  const [side, setSide] = useState('' as 'right' | 'left');
 
 
   
   const buttonToTheRight = () => {
-    setSide('right');
+
 
     const updatedIconsToRender = [...iconsToRender];
     const newFirstIcon = updatedIconsToRender.pop();
@@ -59,7 +57,7 @@ export default function OurServicesCarousel() {
   }
   const buttonToTheLeft = () => {
 
-    setSide('left');
+
 
     const updatedIconsToRender = [...iconsToRender];
     const newLastIcon = updatedIconsToRender.shift();
