@@ -76,7 +76,8 @@ const JobFilters = () => {
     try {
       const response = await axios.get(url, {
         headers:{
-          Authorization: `Bearer ${SUPERADMN_ID}`
+          Authorization: `Bearer ${SUPERADMN_ID}`,
+          'Accept-Language': sessionStorage.getItem('lang')
         }
       })
       dispatch(applyFilters(response.data));
@@ -107,7 +108,7 @@ const JobFilters = () => {
   }, [language]);
 
   useEffect(() => {
-    let handler = (event: any) =>{
+    const handler = (event: any) =>{
       if(!stackRef.current?.contains(event.target) && !event.target.matches('.dropdown-stack *')){
         setStackOpen(false)
       }

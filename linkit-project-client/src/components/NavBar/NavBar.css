@@ -1,46 +1,58 @@
-body {
-    @apply overflow-x-hidden;
-}
 
   
   .preNavbar{
-        @apply fixed top-0 w-screen bg-linkIt-400 hover:bg-linkIt-300 h-[4vh] transition duration-300 ease-in-out  text-white text-sm flex items-center justify-center z-50 dark:bg-linkIt-700
+        @apply fixed flex items-center justify-center z-50 top-0 w-screen h-[4%] bg-linkIt-400 dark:bg-linkIt-700 hover:bg-linkIt-300 text-white text-[0.4rem] xs:text-[0.47rem] sm:text-[0.6rem] lg:text-[0.8rem] 2xl:text-[1rem] font-montserrat transition duration-300 ease-in-out 
     }
     .navBar{
-@apply fixed top-[4vh] h-[8vh] whitespace-nowrap text-[1vw] bg-white flex justify-around w-screen z-50 font-montserrat font-bold shadow-sm dark:bg-linkIt-400 dark:text-white
+@apply fixed flex items-center top-[4%] h-[9%] md:h-[8%] lg:h-[10%] gap-x-2 w-screen justify-between z-50 bg-white dark:bg-linkIt-400 dark:text-white font-montserrat font-bold whitespace-nowrap p-1
 }
 
     .containerBtnsNavbar {
-        @apply flex items-center justify-center gap-[1.3vw] whitespace-nowrap font-montserrat font-semibold
+        @apply flex items-center font-montserrat font-semibold justify-around gap-x-2 mr-0 lg:mr-3
     }
+    .container-navigation {
+        @apply absolute left-0 lg:relative lg:flex lg:gap-x-5 xl:gap-x-10 top-[100%] lg:top-0 bg-white w-full lg:w-fit h-fit lg:h-[100%] p-[5%] lg:p-0 space-y-[10%] md:space-y-[5%] lg:space-y-0 xs:text-[1.5rem] lg:text-[0.6rem] xl:text-[0.8rem] 2xl:text-[1.3rem]
+    }
+ .user-container{
+     @apply relative z-30 h-[1.5rem] lg:h-[4.5rem] rounded-t-[7px] cursor-pointer
+ }
+    .cl-toggle-switch {
+      @apply relative
+     }
+     
+     .cl-switch {
+        @apply relative inline-block cursor-pointer
+     }
+     /* Input */
 
-  
+     .cl-switch > input {
+         -moz-appearance: none;
+         -webkit-appearance: none;
+        @apply appearance-none z-[-1] absolute opacity-0 cursor-pointer
+     }
+     /* Track */
+     .cl-switch > span::before {
+      content: "";
+      @apply float-right w-[2.5rem] h-[1.5rem] rounded-2xl m-[10%] transition-all ease-in-out duration-300
+     }
 
-
-    .toggle {
-      @apply relative bg-linkIt-300 hover:bg-linkIt-200 rounded-full w-8 h-8 xl:w-10 xl:h-10 grid place-items-center cursor-pointer transition duration-300 ease-in-out shadow-lg
-      }
-      
-      .input {
-        @apply hidden
-      }
-      
-      .icon {
-        @apply col-start-1 col-end-2 row-start-1 row-end-2 transition-transform duration-500
-      }
-      
-      .icon--moon {
-        @apply delay-200
-      }
-      
-      .icon--sun {
-        @apply transform scale-0
-      }
-      
-      #switch:checked + .icon--moon {
-        @apply transform rotate-[360deg] scale-0
-      }
-      
-      #switch:checked ~ .icon--sun {
-        @apply delay-200 transform rotate-[360deg] scale-100
-      }
+     /* Thumb */
+     .cl-switch > span::after {
+      content: "";
+      @apply absolute top-[25%] bg-linkIt-600 w-[15px] h-[15px] rounded-full transition-all ease-in-out duration-300
+     }
+     /* Checked */
+   
+     .cl-switch > input:checked + span::before {
+        @apply bg-linkIt-300 
+     }
+     
+     .cl-switch > input:checked + span::after {
+      @apply bg-white transform translate-x-[110%]
+     }
+     
+     
+     .cl-switch > span::before {
+      @apply bg-linkIt-700
+     }
+     

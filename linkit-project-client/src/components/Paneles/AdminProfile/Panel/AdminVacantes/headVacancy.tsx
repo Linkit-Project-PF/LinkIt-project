@@ -4,29 +4,45 @@ import React, { useState } from "react"
 import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
-import { setsearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers, setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import swal from "sweetalert";
+import { t } from "i18next";
+import axios from "axios";
+import { RootState } from "../../../../../redux/types";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    viewCol: ViewColVacancy
+    viewCol: ViewColVacancy;
+    selectedRows: Set<string>;
+    setSaveStatus: (status: boolean) => void;
+    editJDS: () => void
+    editing: boolean
+    handleSave: (arrayProps: string[]) => void
 }
 
-export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
+export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveStatus, editJDS, editing, handleSave }: HeadVacancyProps) {
     const token = useSelector((state: any) => state.Authentication.token);
+    const selectSortDate = (state: RootState) => state.jobCard.sortValues.sortDate
+    const sortDate = useSelector(selectSortDate)
+
+
+
+    const arraySelectedRows = [...selectedRows]
 
     const [options, setOptions] = useState(false)
     const [viewForm, setViewForm] = useState(false);
     const dispatch = useDispatch();
 
+
     const handleSearch = (searchTerm: string) => {
-        dispatch(setsearchJobOffers(searchTerm))
+        dispatch(setfilterJobOffers(searchTerm))
     }
 
     const showForm = () => {
         setViewForm(true);
     };
 
-    const noShowForm = () => {
+    const noShowForm = () => {  
         setViewForm(false);
     };
 
@@ -34,10 +50,46 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
         setOptions(!options)
     }
 
+    const deleteVacancie = async () => {
+        swal({
+            title: t("¿Deseas ocultar la vacante?"),
+            icon: "warning",
+            buttons: [t("Cancelar"), t("Aceptar")],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/jds/delete/${id}`,
+                            {
+                                headers: { Authorization: `Bearer ${token}`,
+                                'Accept-Language': sessionStorage.getItem('lang') },
+                            }
+                        );
+                        dispatch(setJobOffers(response.data));
+                        swal(t("Vacante ocultada"), { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        t("Error al enviar la solicitud:"),
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
+
+    const handleDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        dispatch(setSortJobOffers(value))
+    }
+
+
 
     return (
         <div>
-
             <div>
                 <h1 className="text-4xl pl-16 py-6">Gestión de vacantes</h1>
             </div>
@@ -55,7 +107,13 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                         <h1>Ordenar:</h1>
                     </div>
                     <div>
-                        <select placeholder='Ordenar' className="ml-2">
+                        <select
+                            placeholder='sortDate'
+                            className="ml-2"
+                            onChange={handleDate}
+                            value={sortDate}
+                        >
+                            <option value="-">-</option>
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
@@ -69,7 +127,7 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                         </div>
                     </div>
                     {options &&
-                        <div className="flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-52 pl-2 absolute bg-linkIt-500">
+                        <div className="flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-52 pl-2 absolute bg-linkIt-500 z-20">
                             <label>
                                 <input type="checkbox" name="title" checked={viewCol.title} onChange={hideCol} />
                                 Título
@@ -141,7 +199,50 @@ export default function HeadVacancy({ hideCol, viewCol }: HeadVacancyProps) {
                     />
                 </div>
             </div>
-            {viewForm && <FormVacancie onClose={noShowForm} token={token} />}
+            {viewForm && <FormVacancie
+                onClose={noShowForm}
+                token={token}
+                setSaveStatus={setSaveStatus}
+            />}
+            <div className="flex flex-row pb-6">
+                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                    {selectedRows.size > 0 &&
+                        <div className="flex flex-row">
+                            {editing ?
+                                <div>
+                                    <button
+                                        onClick={() => handleSave(arraySelectedRows)}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        Guardar
+                                    </button>
+                                    <button
+                                        onClick={editJDS}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                                :
+                                <div>
+                                    <button
+                                        onClick={editJDS}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        {selectedRows.size <= 1 ? 'Editar vacante' : 'Editar vacantes'}
+                                    </button>
+                                </div>
+                            }
+                            <button
+                                onClick={deleteVacancie}
+                                className="pl-6 hover:text-red-600"
+                            >
+                                {selectedRows.size <= 1 ? 'Cerrar vacante' : 'Cerrar vacantes'}
+                            </button>
+                        </div>
+                    }
+                </span>
+            </div>
         </div>
     )
 }

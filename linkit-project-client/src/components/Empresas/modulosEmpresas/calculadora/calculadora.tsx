@@ -206,7 +206,7 @@ function useMenuAnimation(isOpen: boolean) {
 
         <div className="bg-linkIt-500 grid justify-center p-[7%]">
             <h1 className="text-black text-[3vw] font-manrope font-bold text-center">Calculadora</h1>
-            <div className="bg-white rounded-[7px] p-4 my-7 h-[7vh] items-center flex whitespace-nowrap justify-around">
+            <div className="bg-white rounded-[7px] p-4 my-7 h-[8vh] items-center flex whitespace-nowrap justify-around">
               <div className="grid grid-cols-6 gap-[0.5vw] h-full font-montserrat font-semibold text-[1vw]">
             <motion.nav
             className="w-[80%] mt-1"
@@ -220,7 +220,7 @@ function useMenuAnimation(isOpen: boolean) {
               
               
             >
-              Posicion
+              Posición
               <div className="arrow w-[0.7vw] ml-[1vw]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -253,7 +253,7 @@ function useMenuAnimation(isOpen: boolean) {
               whileTap={{ scale: 0.97 }}
               
             >
-              Nivel de ingles
+              Nivel de inglés
               <div className="arrow w-[0.7vw] ml-[1vw]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -267,7 +267,7 @@ function useMenuAnimation(isOpen: boolean) {
             >
               <li className="flex"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
-                    <label htmlFor="Basico" className="cursor-pointer">Basico </label>
+                    <label htmlFor="Basico" className="cursor-pointer">Básico </label>
                     </li>
                     <li className="flex"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
@@ -334,7 +334,7 @@ function useMenuAnimation(isOpen: boolean) {
               whileTap={{ scale: 0.97 }}
               
             >
-              Tecnologias
+              Tecnologías
               <div className="arrow w-[0.7vw] ml-[1vw]">
                 <img src={arrow} alt="arrow" />
               </div>
@@ -425,7 +425,7 @@ function useMenuAnimation(isOpen: boolean) {
             </ul>{" "}
           </motion.nav>
           </div>
-          <button className="bg-linkIt-300 rounded-[7px] text-white p-2 flex items-center self-center text-[1vw] disabled:cursor-not-allowed disabled:bg-gray-300" onClick={CalculatePrice}
+          <button className="background-button" onClick={CalculatePrice}
            disabled={
             vacancyFirst.englishLevel === "" ||
             vacancyFirst.positionV === ""  ||
@@ -439,13 +439,13 @@ function useMenuAnimation(isOpen: boolean) {
           
           </div>
           <div className="grid grid-cols-2">
-            <h2 className="text-[2vw] font-semibold">Princing</h2>
-            <div className="grid grid-cols-2">
-                <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Minimo</span>{price.min}</h2>
-                <h2 className="text-[2vw] font-bold font-manrope text-end"><span className="font-light text-[0.9vw]">Maximo</span>{price.max}</h2>
+            <h2 className="text-[2vw] font-semibold pl-[2%]">Pricing</h2>
+            <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%]">
+                <h2 className="text-[2vw] font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 text-[0.9vw] font-montserrat mr-[2%]">Mínimo USD</span>{price.min}</h2>
+                <h2 className="text-[2vw] font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 text-[0.9vw] font-montserrat mr-[2%]">Máximo USD</span>{price.max}</h2>
             </div>
-            <hr className="bg-black h-1 col-span-full"/>
-            <p className="font-medium mt-3 font-manrope text-[0.8vw] w-[65%]">Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo</p>
+            <hr className="bg-black h-1 col-span-full mt-[1%]"/>
+            <p className=" col-start-2 font-medium mt-3 font-manrope text-[0.8vw] w-[75%] justify-self-end">Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo</p>
           </div>
         </div>
     )

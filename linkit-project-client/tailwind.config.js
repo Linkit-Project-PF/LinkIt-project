@@ -25,6 +25,9 @@ module.exports = {
         montserrat: ["Montserrat", "sans-serif"],
         manrope: ["Manrope", "sans-serif"],
       },
+      screens: {
+        "ssm":'540px',
+      }
     },
   },
   plugins: [require("tw-elements/dist/plugin.cjs")],

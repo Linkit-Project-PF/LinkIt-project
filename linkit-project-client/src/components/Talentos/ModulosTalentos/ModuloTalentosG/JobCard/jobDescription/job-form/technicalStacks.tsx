@@ -1,19 +1,7 @@
-export const Stack = [
-    "Front-End web development",
-	"Back-End Development",
-	"FullStack web development",
-	"Mobile development",
-	"digital/product design",
-	"testing",
-	"product management",
-	"marketing",
-	"sales",
-	"HR",
-	"operations",
-	"administrative",
-	"finance",
-]
+import axios from "axios"
 
+const {data} = await axios.get('https://linkit-server.onrender.com/resources/techStack')
+export const Stack = data
 
 export const StackBulletPoint = (stack: string)=> {
 	return (

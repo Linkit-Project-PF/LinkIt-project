@@ -53,7 +53,8 @@ function MyPosts() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`https://linkit-server.onrender.com/resources/companyjds?company=${companyName}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`}})
+      const response = await axios.get(`https://linkit-server.onrender.com/resources/companyjds?company=${companyName}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID},
+      'Accept-Language': sessionStorage.getItem('lang')`}})
       setCompanyPosts(response.data)
     }
     fetchPosts();

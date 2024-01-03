@@ -26,7 +26,8 @@ function BlogInfo() {
       const { data } = await axios.get(
         `https://linkit-server.onrender.com/posts/find?id=${id}`,
         {
-          headers: { Authorization: `Bearer ${SUPERADMN_ID}` },
+          headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
+          'Accept-Language': sessionStorage.getItem('lang') },
         }
       );
       setBlog(data);

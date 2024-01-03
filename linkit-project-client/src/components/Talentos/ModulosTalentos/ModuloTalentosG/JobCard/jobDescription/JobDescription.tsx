@@ -39,6 +39,7 @@ function JobDescription() {
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
           },
         }
       );

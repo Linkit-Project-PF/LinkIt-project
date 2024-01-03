@@ -23,7 +23,7 @@ export default function ModuloF() {
                         <motion.button className="transparent-background-button" onClick={goSoyTalento} whileTap={{ scale: 0.9 }}>{t('Vacantes disponibles')}</motion.button>
                     </div>
                     </div>
-                        <img className="absolute z-10 top-[-10.5%] w-[70%] left-[31%]" src="/Vectores/linkit-web-vectores-11.svg" alt="world map" />
+                        <img className="absolute z-10 top-[-10.5%] w-[70%] left-[3%]" src="/Vectores/linkit-web-vectores-11.svg" alt="world map" />
         </div>
     )
 }

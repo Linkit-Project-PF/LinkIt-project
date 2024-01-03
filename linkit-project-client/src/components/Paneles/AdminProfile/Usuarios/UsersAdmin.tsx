@@ -47,7 +47,8 @@ export default function UsersAdmin() {
         if (!userList.length) {
           const response = await axios(
             "https://linkit-server.onrender.com/users/find",
-            { headers: { Authorization: `Bearer ${token}` } }
+            { headers: { Authorization: `Bearer ${token}`,
+            'Accept-Language': sessionStorage.getItem('lang') } }
           );
           setUserList(response.data);
         }
@@ -65,7 +66,8 @@ export default function UsersAdmin() {
         const response = await axios.delete(
           `https://linkit-server.onrender.com/users/delete/${id}`,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}`,
+            'Accept-Language': sessionStorage.getItem('lang') },
           }
         );
         setUserList(response.data);
@@ -99,7 +101,8 @@ export default function UsersAdmin() {
     try {
       const endPoint = `https://linkit-server.onrender.com/users/update/${id}`;
       const result = await axios.put(endPoint, editedData, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`,
+        'Accept-Language': sessionStorage.getItem('lang') },
       });
       setUserList(result.data);
     } catch (error) {

@@ -3,12 +3,12 @@ import { SUPERADMN_ID } from "../../env";
 
 export default async function saveUserThirdAuth(user: any, role: string) {
   const userToSave = {
+    firebaseId: user.uid,
     companyName: user.displayName,
     firstName: user.displayName.split(' ')[0],
     lastName: user.displayName.split(' ')[1] ?? '',
     email: user.email,
-    image: user.photoURL,
-    role: role ?? "user",
+    image: user.photoURL
   };
   let result;
   try {
@@ -19,6 +19,7 @@ export default async function saveUserThirdAuth(user: any, role: string) {
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
           },
         }
       );
@@ -29,6 +30,7 @@ export default async function saveUserThirdAuth(user: any, role: string) {
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
           },
         }
       );

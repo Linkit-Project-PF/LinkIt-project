@@ -3,7 +3,7 @@ import { Error, User } from "./register.types"
 function validations(user: User) {
     const errors: Error = {
         firstName: "",
-        lastname: "",
+        lastName: "",
         email: "",
         password: "",
         confirm_password: ""
@@ -15,10 +15,10 @@ function validations(user: User) {
         errors.firstName = "El nombre no debe contener numeros"
     }
 
-    if(user.lastname.trim() === ""){
-        errors.lastname = "Debes escribir un apellido"
-    }else if(/[\d]/.test(user.lastname)){
-        errors.lastname = "El apellido no debe contener numeros"
+    if(user.lastName.trim() === ""){
+        errors.lastName = "Debes escribir un apellido"
+    }else if(/[\d]/.test(user.lastName)){
+        errors.lastName = "El apellido no debe contener numeros"
     }
 
     if(user.email.trim() === ""){
