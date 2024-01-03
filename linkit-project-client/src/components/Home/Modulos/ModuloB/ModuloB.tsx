@@ -20,7 +20,7 @@ export default function ModuloB() {
     }, []);
 
     return (
-        <div className="overflow-hidden">
+        <div className="overflow-hidden w-screen">
             { windowWidth >= 1024 ? (
             <div className="skewed-borderB p-[7%] dark:bg-linkIt-200">
                 <div className="contentB grid grid-cols-3 my-[3%] gap-5">
