@@ -1,6 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import NavPanelAdmin from "./NavPanelAdmin";
-import AdminRecursos from "./AdminRecursos/AdminRecursos";
 import AdminReviews from "./AdminReviews/AdminReviews";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,7 +11,7 @@ import ClientsFollowUp from "./ClientsFollowUp/ClientsFollowUp";
 import { IAdmin } from "../../../Profiles/types";
 import Statistics from "./AdminStatistics/Statistics";
 import UsersAdmin2 from "../Usuarios/UsersAdmin2";
-// import Vacancies from "./AdminVacantes/Vacancies";
+import Resources from "./AdminRecursos/Resources";
 // import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
 export default function AdminPanel() {
@@ -57,7 +56,7 @@ export default function AdminPanel() {
         <Route path="/*" element={<Statistics />} />
         <Route path="vacantes" element={<Vacancies2 />} />
         <Route path="clientsfollowup" element={<ClientsFollowUp />} />
-        <Route path="recursos" element={<AdminRecursos />} />
+        <Route path="recursos" element={<Resources />} />
         <Route path="reviews" element={<AdminReviews />} />
         <Route path="users/*" element={<UsersAdmin2 />} />
         {/* <Route path="mis-datos" element={<SuperAdminProfile />} /> */}
