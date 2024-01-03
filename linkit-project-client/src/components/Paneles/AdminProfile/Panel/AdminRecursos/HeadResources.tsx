@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ViewResourceProps } from "../../../admin.types";
+import FormResource from "./FormResource";
 
 interface HeadResources {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,17 +9,36 @@ interface HeadResources {
 
 export default function HeadResources({ hideCol, viewCol }: HeadResources) {
     const [options, setOptions] = useState(false)
+    const [viewForm, setViewForm] = useState(false);
+
+
 
     const hideOptions = () => {
         setOptions(!options)
     }
 
+    const showForm = () => {
+        setViewForm(true);
+    };
+
+    const noShowForm = () => {  
+        setViewForm(false);
+    };
+
     return (
         <div>
             <div>
-                <h1 className="text-4xl pl-16 py-6">Talentos</h1>
+                <h1 className="text-4xl pl-16 py-6">Gestión de recursos</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
+                <div>
+                    <button
+                        className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
+                        onClick={showForm}
+                    >
+                        Crear recurso
+                    </button>
+                </div>
                 <div className="flex flex-row">
                     <div>
                         <h1>Ordenar:</h1>
@@ -62,6 +82,9 @@ export default function HeadResources({ hideCol, viewCol }: HeadResources) {
                     // onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
+                {viewForm && <FormResource
+                    onClose={noShowForm}
+                />}
             </div>
         </div>
     )

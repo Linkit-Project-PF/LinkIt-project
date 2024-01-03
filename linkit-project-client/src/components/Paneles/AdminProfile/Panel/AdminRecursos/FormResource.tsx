@@ -16,7 +16,7 @@ interface FormResourceProps {
 }
 
 
-export default function FormResource({ onClose }: FormResourceProps) {
+export default function FormResource({ onClose,   }: FormResourceProps) {
   const token = useSelector((state: stateProps) => state.Authentication.user._id)
   const {t} = useTranslation()
   const [information, setInformation] = useState<Partial<ResourceProps>>({
