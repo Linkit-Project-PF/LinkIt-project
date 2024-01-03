@@ -12,6 +12,8 @@ const initialState = {
     }
 }
 
+
+
 type JobOffer = {
     id: number,
     title: string,
@@ -35,13 +37,16 @@ const JobCardSlice = createSlice({
             state.allJobOffers = action.payload;
             state.filterJobOffers = action.payload;
             state.sortJobOffers = action.payload;
+            state.sortValues.sortView = 'All'
         },
-        setfilterJobOffers: (state, action) => {
+        
+        setSearchJobOffers: (state, action) => {
+            state.sortValues.sortView = 'All'
             const searchTerm = action.payload.toLowerCase();
-            const filterdeJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>
+            const filteredJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>
                 (jobOffer.title.toLowerCase().includes(searchTerm))
             )
-            return { ...state, filterJobOffers: filterdeJobOffers }
+            state.filterJobOffers = filteredJobOffers
         },
         setSortJobOffers: (state, action) => {
             const value = action.payload;
@@ -93,7 +98,7 @@ const JobCardSlice = createSlice({
 })
 
 
-export const { applyFilters, setJobOffers, setfilterJobOffers, setSortJobOffers } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers, setSearchJobOffers, setSortJobOffers } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 
