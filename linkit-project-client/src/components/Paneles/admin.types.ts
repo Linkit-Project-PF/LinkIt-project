@@ -79,6 +79,7 @@ export interface ViewColVacancy {
 }
 
 export interface ClientFollowUpProps {
+  "Recruitment role code": number;
   "1st Client interview": string;
   "1st Offer": string;
   "1st endorsement": string;
@@ -112,7 +113,6 @@ export interface ClientFollowUpProps {
   "Nombre talento": string;
   "On-site / Remote": string;
   "Prospect type": string;
-  "Recruitment role code": number;
   "Reasons closed lost": string;
   Recruiter: string;
   Responsable: string;
@@ -133,7 +133,16 @@ export interface ClientFollowUpProps {
   created: string;
 }
 
-export interface ViewColClientsFollowUp {
+export interface ViewColClientsFollowUps {
+  "Recruitment role code": boolean;
+  Client: boolean;
+  "Role Name": boolean;
+  "Tipo de cliente": boolean;
+  "Lider de la búsqueda": boolean;
+  Status: boolean;
+  "Tipo de oportunidad": boolean;
+  "Role Code": boolean;
+  JD: boolean;
   "1st Client interview": boolean;
   "1st Offer": boolean;
   "1st endorsement": boolean;
@@ -146,7 +155,6 @@ export interface ViewColClientsFollowUp {
   "BUDGET in USD": boolean;
   "Cantidad de vacantes": boolean;
   "Cl. Interview time": boolean;
-  Client: boolean;
   "Contact Name": boolean;
   "Contact mail": boolean;
   Comments: boolean;
@@ -159,30 +167,22 @@ export interface ViewColClientsFollowUp {
   "English Level": boolean;
   "Fee acordado": boolean;
   "Hourly Type": boolean;
-  JD: boolean;
   "Last Modified": boolean;
-  "Lider de la búsqueda": boolean;
   "Mes fecha cierre": boolean;
   "Modalidad de empleo": boolean;
   "Nombre talento": boolean;
   "On-site / Remote": boolean;
   "Prospect type": boolean;
-  "Recruitment role code": boolean;
   "Reasons closed lost": boolean;
   Recruiter: boolean;
   Responsable: boolean;
-  "Role Code": boolean;
-  "Role Name": boolean;
   "Role Closed date": boolean;
   "Sales code": boolean;
   Seniority: boolean;
-  Status: boolean;
   "Talent Pool Stack": boolean;
   "Talent Start Date": boolean;
   "Time to fill": boolean;
   "Time to offer": boolean;
-  "Tipo de cliente": boolean;
-  "Tipo de oportunidad": boolean;
   "To today": boolean;
   "Total candidates endorsed": boolean;
   created: boolean;

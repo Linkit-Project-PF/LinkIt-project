@@ -52,7 +52,7 @@ const JobCardSlice = createSlice({
         setSortJobOffers: (state, action) => {
             const value = action.payload;
             if (value === 'recent') {
-                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const dateA = new Date(a.createdDate)
                     const dateB = new Date(b.createdDate)
                     state.sortValues.sortDate = 'recent'
@@ -60,7 +60,7 @@ const JobCardSlice = createSlice({
                     return dateB.getTime() - dateA.getTime()
                 })
             } else if (value === 'old') {
-                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const dateA = new Date(a.createdDate)
                     const dateB = new Date(b.createdDate)
                     state.sortValues.sortDate = 'old'
@@ -68,7 +68,7 @@ const JobCardSlice = createSlice({
                     return dateA.getTime() - dateB.getTime()
                 })
             } else if (value === 'A-Z') {
-                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const titleA = a.title.toLowerCase();
                     const titleB = b.title.toLowerCase();
                     state.sortValues.sortDate = '-'
@@ -76,7 +76,7 @@ const JobCardSlice = createSlice({
                     return titleA.localeCompare(titleB)
                 })
             } else if (value === 'Z-A') {
-                state.sortJobOffers = state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const titleA = a.title.toLowerCase();
                     const titleB = b.title.toLowerCase();
                     state.sortValues.sortDate = '-'
