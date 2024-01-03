@@ -33,6 +33,7 @@ import TopButton from "./Utils/TopButton.tsx";
 import ReactGA from "react-ga4";
 import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
+import Footer from "./Utils/Footer/Footer.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -157,7 +158,7 @@ function App() {
   }, []);
 
   return (
-    <div className="w-screen h-full">
+    <div className="w-screen h-full overflow-x-hidden">
       <NavBar />
 
       <motion.div
@@ -224,6 +225,7 @@ function App() {
         <Route path="*" element={<Home Unauth={false} error={true} />} />
       </Routes>
       <TopButton />
+      <Footer />
       </div>
   );
 }
