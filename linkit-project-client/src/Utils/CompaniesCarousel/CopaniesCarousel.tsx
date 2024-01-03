@@ -11,9 +11,11 @@ export default function CompaniesCarousel() {
 
   useEffect(() => {
     const ul = carouselRef.current;
-    ul.insertAdjacentHTML("afterend", ul.outerHTML);
-    ul.nextSibling.setAttribute("aria-hidden", "true");
-    
+    ul?.insertAdjacentHTML("afterend", ul.outerHTML);
+    const nextElement = ul?.nextElementSibling;
+    if (nextElement) {
+      nextElement.setAttribute("aria-hidden", "true");
+    }
   }, []);
 
   return (
