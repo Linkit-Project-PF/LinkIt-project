@@ -33,6 +33,18 @@ export type ResourceProps = {
   archived: boolean;
 };
 
+export type ViewResourceProps = {
+  _id: boolean;
+  title: boolean;
+  description: boolean;
+  link: boolean;
+  type: boolean;
+  createdDate: boolean;
+  image: boolean;
+  category: boolean;
+  archived: boolean;
+};
+
 export type UserProps = {
   _id: string;
   airTableId: string;

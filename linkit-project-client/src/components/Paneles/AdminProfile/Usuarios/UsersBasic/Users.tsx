@@ -88,7 +88,6 @@ export default function Users() {
         ))}
       </div>
     </div>
-
   )
 
   const renderSectionBasic = <K extends keyof TalentProps>(title: string, key: K,) => (
