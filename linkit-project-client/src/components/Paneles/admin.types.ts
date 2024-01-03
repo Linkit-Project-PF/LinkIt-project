@@ -69,6 +69,14 @@ export type ReviewProps = {
   detail: string;
   archived: boolean;
 };
+export type ViewReviewProps = {
+  _id: boolean;
+  name: boolean;
+  rol: boolean;
+  country: boolean;
+  detail: boolean;
+  archived: boolean;
+};
 
 export interface ViewColVacancy {
   title: boolean;

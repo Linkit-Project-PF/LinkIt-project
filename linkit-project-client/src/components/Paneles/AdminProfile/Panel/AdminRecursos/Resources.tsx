@@ -115,7 +115,7 @@ export default function Resources() {
     
     return (
 
-        <div>
+        <div className="bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-auto">
             <HeadResources 
              hideCol={hideCol}
              viewCol={viewCol}
@@ -123,10 +123,10 @@ export default function Resources() {
             <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
             {viewCol._id && renderSectionBasic("ID", "_id")}
             {viewCol.title && renderSectionBasicCap("Título", "title")}
-            {viewCol.link && renderSectionBasicCap("Link", "link")}
+            {viewCol.link && renderSectionBasic("Link", "link")}
             {viewCol.type && renderSectionBasicCap("Tipo", "type")}
-            {viewCol.createdDate && renderSectionBasicCap("Fecha de Creación", "createdDate")}
-            {viewCol.image && renderSectionBasicCap("URL Imágen", "image")}
+            {viewCol.createdDate && renderSectionBasic("Fecha de Creación", "createdDate")}
+            {viewCol.image && renderSectionBasic("URL Imágen", "image")}
             {viewCol.category && renderSectionBasicCap("Categoría", "category")}
             {viewCol.archived && renderSectionActive("Estado", "archived")}
 

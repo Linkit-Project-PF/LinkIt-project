@@ -1,6 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import NavPanelAdmin from "./NavPanelAdmin";
-import AdminReviews from "./AdminReviews/AdminReviews";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -11,6 +10,7 @@ import { IAdmin } from "../../../Profiles/types";
 import Statistics from "./AdminStatistics/Statistics";
 import UsersAdmin2 from "../Usuarios/UsersAdmin2";
 import Resources from "./AdminRecursos/Resources";
+import Reviews from "./AdminReviews/Reviews";
 // import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
 export default function AdminPanel() {
@@ -56,7 +56,7 @@ export default function AdminPanel() {
         <Route path="vacantes" element={<Vacancies2 />} />
         <Route path="clientsfollowup" element={<ClientsFollowUp />} />
         <Route path="recursos" element={<Resources />} />
-        <Route path="reviews" element={<AdminReviews />} />
+        <Route path="reviews" element={<Reviews />} />
         <Route path="users/*" element={<UsersAdmin2 />} />
         {/* <Route path="mis-datos" element={<SuperAdminProfile />} /> */}
       </Routes>
