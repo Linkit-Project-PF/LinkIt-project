@@ -152,7 +152,7 @@ export default function Users() {
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
-          disabled={endIndex >= dataToShow.length}
+          disabled={endIndex >= data.length}
         >
           Siguiente
         </button>

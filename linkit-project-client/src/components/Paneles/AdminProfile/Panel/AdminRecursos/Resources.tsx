@@ -49,7 +49,6 @@ export default function Resources() {
                         }
                     }
                 );
-                console.log(response.data)
                 dispatch(setResources(response.data));
             } catch (error) {
                 console.error("Error al cargar las información", error);
@@ -108,7 +107,7 @@ export default function Resources() {
           </div>
           <div>
             {dataToShow.map((r: ResourceProps, index) => (
-              <p key={`${key}-${index}`} className='capitalize pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{String(r[key] === true ? 'Activo' : 'Inactivo')}</p>
+              <p key={`${key}-${index}`} className='capitalize pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{String(r[key] === true ? 'Oculto' : 'Visible')}</p>
             ))}
           </div>
         </div>
@@ -146,7 +145,7 @@ export default function Resources() {
                 <button
                     className="cursor-pointer hover:text-linkIt-300"
                     onClick={handleNext}
-                    disabled={endIndex >= dataToShow.length}
+                    disabled={endIndex >= data.length}
                 >
                     Siguiente
                 </button>

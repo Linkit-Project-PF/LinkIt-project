@@ -4,7 +4,6 @@ import AdminReviews from "./AdminReviews/AdminReviews";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import Footer from "../../../../Utils/Footer/Footer";
 import { useTranslation } from "react-i18next";
 import Vacancies2 from "./AdminVacantes/Vacancies2";
 import ClientsFollowUp from "./ClientsFollowUp/ClientsFollowUp";
@@ -62,7 +61,6 @@ export default function AdminPanel() {
         {/* <Route path="mis-datos" element={<SuperAdminProfile />} /> */}
       </Routes>
       <br />
-      <Footer />
     </div>
   );
 }

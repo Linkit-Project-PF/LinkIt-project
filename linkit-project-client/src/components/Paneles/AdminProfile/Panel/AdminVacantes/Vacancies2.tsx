@@ -235,9 +235,9 @@ export default function Vacancies2() {
         <div className=' bg-scroll bg-linkIt-500'>
 
             <HeadVacancy
-                selectedRows={selectedRows}
                 hideCol={hideCol}
                 viewCol={viewCol}
+                selectedRows={selectedRows}
                 setSaveStatus={setSaveStatus}
                 editJDS={editJDS}
                 editing={editing}
