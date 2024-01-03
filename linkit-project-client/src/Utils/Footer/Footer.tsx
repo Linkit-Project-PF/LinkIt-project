@@ -110,7 +110,7 @@ export default function Footer() {
 
   const {t} = useTranslation();
   return (
-    <div className="bg-linkIt-200 text-white font-montserrat">
+    <div className="bg-linkIt-200 text-white font-montserrat overflow-hidden w-screen">
       <div className="grid grid-cols-3 gap-1 mx-1">
 
         <div className="flex flex-col">

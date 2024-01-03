@@ -47,7 +47,6 @@ function Home({error, Unauth}: {error: boolean, Unauth: boolean}) {
             <ModuloF />
             <ModuloG />
             <TopButton />
-            <Footer />
         </div>
 
     )
