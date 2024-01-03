@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import Footer from "../../Utils/Footer/Footer"
 import TopButton from "../../Utils/TopButton"
 import Error from "../Errores/Error"
 import Unauthorized from "../Errores/SinAutorizacion"
