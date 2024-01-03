@@ -23,6 +23,7 @@ type JobOffer = {
     salary: number,
     archived: boolean,
     createdDate: Date,
+    code:string,
 }
 
 const JobCardSlice = createSlice({
@@ -44,7 +45,7 @@ const JobCardSlice = createSlice({
             state.sortValues.sortView = 'All'
             const searchTerm = action.payload.toLowerCase();
             const filteredJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) =>
-                (jobOffer.title.toLowerCase().includes(searchTerm))
+                (jobOffer.title.toLowerCase().includes(searchTerm)) || (jobOffer.code.toLocaleLowerCase().includes(searchTerm))
             )
             state.filterJobOffers = filteredJobOffers
         },
