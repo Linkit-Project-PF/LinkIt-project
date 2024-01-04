@@ -41,7 +41,6 @@ export default function Users() {
           { headers: { Authorization: `Bearer ${token}`,
           'Accept-Language': sessionStorage.getItem('lang') } }
         );
-        console.log(response.data)
         dispatch(setUsersTalent(response.data));
       } catch (error) {
         console.error("Error al cargar las información", error);

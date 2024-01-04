@@ -1,5 +1,9 @@
 import { useState } from "react"
 import { ViewColHeadAdmins } from "../../../admin.types";
+import swal from "sweetalert";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { searchUsersAdmins, setUsersAdmins, sortUsersAdmins } from "../../../../../redux/features/UsersSlice";
 
 interface HeadAdmins {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,17 +12,67 @@ interface HeadAdmins {
     editing: boolean
     editAdmin: () => void
     handleSave: (arrayProps: string[]) => void
+    setSaveStatus: (status: boolean) => void;
 }
 
-export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, editAdmin, handleSave }: HeadAdmins) {
-
-    const [options, setOptions] = useState(false)
-
+export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, editAdmin, handleSave, setSaveStatus }: HeadAdmins) {
     const arraySelectedRows = [...selectedRows]
+    const token = useSelector((state: any) => state.Authentication.token);
+    const dispatch = useDispatch();
 
+
+    //? OPTIONS COLUMNS
+    const [options, setOptions] = useState(false)
     const hideOptions = () => {
         setOptions(!options)
     }
+    //?
+
+    //?BUSCAR
+    const handleSearch = (searchTerm: string): void => {
+        dispatch(searchUsersAdmins(searchTerm))
+    }
+    //?
+
+    //?ORDENAR
+    const handleSort = (e:React.ChangeEvent<HTMLSelectElement>): void =>{
+        const {value} = e.target;
+        dispatch(sortUsersAdmins(value))
+    }
+    //?
+
+    const deleteUser = async () => {
+        swal({
+            title: "¿Deseas eliminar el Usuario?",
+            icon: "warning",
+            buttons: ["Cancelar", "Aceptar"],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/users/delete/${id}`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                    'Accept-Language': sessionStorage.getItem('lang')
+                                },
+                            }
+                        );
+                        dispatch(setUsersAdmins(response.data));
+                        swal("Usuario eliminado", { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        "Error al enviar la solicitud:",
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
 
     return (
         <div>
@@ -32,7 +86,10 @@ export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, ed
                         <h1>Ordenar:</h1>
                     </div>
                     <div>
-                        <select placeholder='Ordenar' className="ml-2">
+                        <select 
+                        onChange={handleSort} 
+                        className="ml-2"
+                        >
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
@@ -67,7 +124,7 @@ export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, ed
                     <input
                         type="text"
                         placeholder="Buscar"
-                    // onChange={(e) => handleSearch(e.target.value)}
+                        onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
             </div>
@@ -102,7 +159,7 @@ export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, ed
                                 </div>
                             }
                             <button
-                                // onClick={deleteVacancie}
+                                onClick={deleteUser}
                                 className="pl-6 hover:text-red-600"
                             >
                                 {selectedRows.size && 'Eliminar'}

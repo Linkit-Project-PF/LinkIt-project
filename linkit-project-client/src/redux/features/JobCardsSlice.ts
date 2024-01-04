@@ -12,8 +12,6 @@ const initialState = {
     }
 }
 
-
-
 type JobOffer = {
     id: number,
     title: string,
