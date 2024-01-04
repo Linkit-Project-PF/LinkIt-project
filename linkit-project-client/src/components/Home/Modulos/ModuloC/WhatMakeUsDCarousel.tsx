@@ -41,17 +41,17 @@ export default function WhatMakeUsDCarousel() {
             </div>
             <img className="relative top-5 w-[20px] cursor-pointer" onClick={handleNext} src={grayArrow} alt="gray-Arrow" />
             </div>
-            <motion.div className="relative w-[335vw] before:bg-linkIt-200 before:w-full before:h-[2px] before:absolute before:rounded-full before:top-[45%]"
+            <motion.div className="relative w-[335vw] before:bg-linkIt-200 before:dark:bg-white before:w-full before:h-[2px] before:absolute before:rounded-full before:top-[45%]"
             initial={{x: position + '%'}}
             animate={{ x: position + '%' }}>
-                <div className="before:bg-linkIt-200 before:w-[0.5rem] before:h-[0.5rem] before:absolute before:rounded-full before:top-[35%] before:xs:top-[39%] before:ssm:top-[40%]"></div>
+                <div className="before:bg-linkIt-200 before:dark:bg-white before:w-[0.5rem] before:h-[0.5rem] before:absolute before:rounded-full before:top-[35%] before:xs:top-[39%] before:ssm:top-[40%]"></div>
                 <ul className="grid grid-cols-4 justify-items-center relative mt-[2vh] font-manrope col-span-4 text-white dark:text-linkIt-200">
                 <li className="flex bg-linkIt-200 dark:bg-white rounded-full xs:text-[1.3rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] font-bold h-[2rem] xs:h-[3rem] ssm:w-[4rem] w-[2rem] xs:w-[3rem] ssm:h-[4rem] justify-center items-center">1</li>
                 <li className="flex bg-linkIt-200 dark:bg-white rounded-full xs:text-[1.3rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] font-bold h-[2rem] xs:h-[3rem] ssm:w-[4rem] w-[2rem] xs:w-[3rem] ssm:h-[4rem] justify-center items-center">2</li>
                 <li className="flex bg-linkIt-200 dark:bg-white rounded-full xs:text-[1.3rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] font-bold h-[2rem] xs:h-[3rem] ssm:w-[4rem] w-[2rem] xs:w-[3rem] ssm:h-[4rem] justify-center items-center">3</li>
                 <li className="flex bg-linkIt-200 dark:bg-white rounded-full xs:text-[1.3rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] font-bold h-[2rem] xs:h-[3rem] ssm:w-[4rem] w-[2rem] xs:w-[3rem] ssm:h-[4rem] justify-center items-center">4</li>
                 </ul>
-                <div className="before:bg-linkIt-200 before:w-[0.5rem] before:h-[0.5rem] before:absolute before:rounded-full before:left-[100%] before:top-[35%] before:xs:top-[39%] before:ssm:top-[40%]"></div>
+                <div className="before:bg-linkIt-200 before:dark:bg-white before:w-[0.5rem] before:h-[0.5rem] before:absolute before:rounded-full before:left-[100%] before:top-[35%] before:xs:top-[39%] before:ssm:top-[40%]"></div>
                 </motion.div>
         </div>
     )
