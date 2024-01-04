@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import VerifyUser from "./Utils/Verify/VerifyUser.tsx";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -219,7 +218,6 @@ function App() {
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/profile/*" element={<Profile />} />
-        <Route path="/verify/:id" element={<VerifyUser/>} />
         <Route path="/blog/:id&:role" element={<BlogView />} />
         <Route path="/unauthorized" element={<Home Unauth={true} error={false} />} />
         <Route path="*" element={<Home Unauth={false} error={true} />} />
