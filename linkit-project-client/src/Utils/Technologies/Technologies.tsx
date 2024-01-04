@@ -69,6 +69,7 @@ export default function Technologies() {
         <div className="p-[7%] dark:bg-linkIt-400">
              <h1 className="flex justify-center font-bold font-manrope text-[1rem] xs:text-[1.1rem] ssm:text-[2.2rem] xs:px-[9%] md:px-[12%] lg:px-[20%] xl:px-[27%] 1xl:px-[28%] 2xl:px-[34%] mb-[5%] dark:text-white text-center">{t('Talento especializado en más de 100 tecnologías')}</h1>
              { windowWidth >= 1024 ? (
+                <div className="grid">
              <div className="flex flex-row flex-wrap justify-center items-center 2xl:px-[7%]">
                     {
                         technologies.map(({ name, logo, id }: Technology) => {
@@ -82,7 +83,11 @@ export default function Technologies() {
                             )
                         })
                     }
-                </div> ) : (
+                
+                </div>
+                <span className="flex justify-self-center font-bold"></span>
+                </div>
+                 ) : (
                     <div className="flex justify-center ">
                         <img className="relative rotate-180 w-[20px] cursor-pointer" onClick={handlePrev} src={grayArrow} alt="gray-Arrow" />
                         <div className="flex flex-row flex-wrap justify-center items-center w-[100%] px-2 ssm:w-[83%] ssm:mx-4 md:w-[76%] ">
