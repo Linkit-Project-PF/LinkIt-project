@@ -271,7 +271,7 @@ export default function Vacancies2() {
                                     key={v._id}
                                     className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
                                     <input type="checkbox" name='edit' onChange={() => handleEdit(v._id)} checked={selectedRows.has(v._id)} />
-                                    <p key={v._id} className='pl-2'>
+                                    <p className='pl-2'>
                                         {selectedRows.has(v._id) && editing ?
                                             <input
                                                 name='title'
