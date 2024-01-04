@@ -11,7 +11,7 @@
         @apply flex items-center font-montserrat font-semibold justify-around gap-x-2 mr-0 lg:mr-3
     }
     .container-navigation {
-        @apply absolute left-0 lg:relative lg:flex lg:gap-x-5 xl:gap-x-10 top-[100%] lg:top-0 bg-white dark:bg-linkIt-400 w-full lg:w-fit h-fit lg:h-[100%] p-[5%] lg:p-0 space-y-[10%] md:space-y-[5%] lg:space-y-0 xs:text-[1.5rem] lg:text-[0.6rem] xl:text-[0.8rem] 2xl:text-[1.3rem]
+        @apply absolute left-0 lg:relative lg:flex lg:gap-x-5 xl:gap-x-10 top-[100%] lg:top-0 bg-white dark:bg-linkIt-400 w-full lg:w-fit h-fit lg:h-[100%] p-[5%] lg:p-0 space-y-[10%] md:space-y-[5%] lg:space-y-0 xs:text-[1.5rem] lg:text-[0.7rem] xl:text-[0.8rem] 2xl:text-[1rem]
     }
  .user-container{
      @apply relative z-30 h-[1.5rem] lg:h-[4.5rem] rounded-t-[7px] cursor-pointer
