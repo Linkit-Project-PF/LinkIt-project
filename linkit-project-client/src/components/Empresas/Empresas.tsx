@@ -39,7 +39,6 @@ function Empresas() {
       <section id="contactanosE">
       <ContactUs />
       </section>
-      <Footer />
       </>
   )
 }
