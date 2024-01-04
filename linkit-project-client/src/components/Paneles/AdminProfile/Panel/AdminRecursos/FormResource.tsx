@@ -6,8 +6,16 @@ import { ResourceProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
 import { validations } from "./Validation";
 import { useSelector } from "react-redux";
-import { stateProps } from "./AdminRecursos";
+import { IUser } from "../../../../Profiles/types";
 
+export type stateProps = {
+  Authentication: {
+    user: IUser
+  }
+  resources: {
+    allresources: ResourceProps[];
+  };
+}
 
 type OnCloseFunction = () => void;
 
@@ -15,8 +23,7 @@ interface FormResourceProps {
   onClose: OnCloseFunction;
 }
 
-
-export default function FormResource({ onClose }: FormResourceProps) {
+export default function FormResource({ onClose,   }: FormResourceProps) {
   const token = useSelector((state: stateProps) => state.Authentication.user._id)
   const {t} = useTranslation()
   const [information, setInformation] = useState<Partial<ResourceProps>>({

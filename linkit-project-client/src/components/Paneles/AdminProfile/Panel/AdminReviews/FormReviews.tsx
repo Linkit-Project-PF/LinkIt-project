@@ -5,10 +5,10 @@ import swal from 'sweetalert';
 import { validations } from "./Validation";
 import { ValidationError } from "../../../errors/errors";
 import { validateReview } from "../../../errors/validation";
-import { ReviewProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { stateProps } from "../AdminRecursos/AdminRecursos";
+import { IUser } from "../../../../Profiles/types";
+import { ReviewProps } from "../../../admin.types";
 
 
 type OnCloseFunction = () => void;
@@ -17,6 +17,11 @@ interface FormReviewProps {
     onClose: OnCloseFunction;
 }
 
+export type stateProps = {
+    Authentication: {
+      user: IUser
+    }
+  }
 
 export default function FormReview({ onClose }: FormReviewProps) {
     

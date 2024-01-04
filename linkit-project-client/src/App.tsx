@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import VerifyUser from "./Utils/Verify/VerifyUser.tsx";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -33,6 +32,7 @@ import ReactGA from "react-ga4";
 import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
 import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
+import Footer from "./Utils/Footer/Footer.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -237,7 +237,8 @@ function App() {
         <Route path="*" element={<Home Unauth={false} error={true} />} />
       </Routes>
       <TopButton />
-    </div>
+      <Footer />
+      </div>
   );
 }
 

@@ -125,9 +125,15 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       return response
     } catch (error) {
       Swal.fire({ 
-        title: "Faltan datos del formulario!",
-        text: "Por favor, completa todos los campos",
-        icon: 'error' })
+        customClass: {
+          confirmButton: 'background-button'
+        },
+        title: "<h1 style='color: black; font-family: Manrope'>Faltan datos del formulario!</h1>",
+        html: "<span style='font-family: Montserrat'>Por favor, completa todos los campos</span>",
+        icon: 'error',
+        showConfirmButton: true,
+        buttonsStyling: false,
+       })
         
       throw new ValidationError(`Faltan datos del formulario: ${(error as Error).message}`);
     }

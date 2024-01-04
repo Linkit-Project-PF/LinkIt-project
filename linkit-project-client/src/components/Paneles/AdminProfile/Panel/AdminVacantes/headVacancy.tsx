@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
-import { setSortJobOffers, setJobOffers, setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers, setSearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
 import { t } from "i18next";
 import axios from "axios";
@@ -27,6 +27,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
 
 
+
     const arraySelectedRows = [...selectedRows]
 
     const [options, setOptions] = useState(false)
@@ -35,7 +36,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
 
     const handleSearch = (searchTerm: string) => {
-        dispatch(setfilterJobOffers(searchTerm))
+        dispatch(setSearchJobOffers(searchTerm))
     }
 
     const showForm = () => {
@@ -108,7 +109,6 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                     </div>
                     <div>
                         <select
-                            placeholder='sortDate'
                             className="ml-2"
                             onChange={handleDate}
                             value={sortDate}
