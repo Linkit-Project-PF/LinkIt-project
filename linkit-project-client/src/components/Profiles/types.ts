@@ -11,6 +11,13 @@ export enum EnglishLevelEnum {
   BILINGUAL = "bilingual",
 }
 
+enum Providers {
+  google = 'google',
+  credentials = 'email',
+  github = 'github'
+}
+
+
 type permissons = {
   get: string[];
   create: string[];
@@ -19,43 +26,43 @@ type permissons = {
   special: string[];
 };
 
-export interface IUser {
-  _id: string;
-  image?: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  country: string;
-  linkedin: string;
-  englishLevel: EnglishLevelEnum;
-  role: UserRoleEnum;
-  cv: string;
-  technologies: string[];
-  active: boolean;
-  password?: string;
-  postulations: string[];
-  provider?: string;
+export interface IUser extends WebUser {
+  firstName: string
+  lastName: string
+  linkedin: string
+  airTableId: string
+  englishLevel: EnglishLevelEnum
+  cv: string
+  technologies: string[]
+  postulations: string[]
 }
 
-export interface ICompany {
-  _id: string;
-  image?: string;
+export interface ICompany extends WebUser {
+  airTableId: string
   companyName: string;
   repName?: string;
-  country?: string;
-  email: string;
-  password?: string;
-  role: UserRoleEnum;
   linkedin?: string;
-  active: boolean;
+  interested?: string
 }
 
-export interface IAdmin {
-  _id: string;
-  image: string;
+export interface IAdmin extends WebUser {
   firstName: string;
   lastName: string;
-  email: string;
-  country: string;
   permissions: permissons;
 }
+
+
+interface WebUser {
+  _id: string
+  firebaseId: string
+  image?: string
+  email: string
+  country?: string
+  active: string
+  createdDate: Date
+  role: UserRoleEnum
+  provider: Providers
+  password?: string
+}
+
+export type WebsiteUser = IAdmin  | IUser | ICompany

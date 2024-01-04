@@ -31,8 +31,12 @@ export default function AdminPanel() {
         }
         const response = await axios(
           `https://linkit-server.onrender.com/admins/find?id=${token}`,
-          { headers: { Authorization: `Bearer ${token}`,
-          'Accept-Language': sessionStorage.getItem('lang')} }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
         );
         if (!response.data) {
           nav("/unauthorized");

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "../../../../redux/types"
-import axios from "axios"
-import { SUPERADMN_ID } from "../../../../env"
-import TalentApps from "./TalentApps"
-import { IUser } from "../../types"
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
+import axios from "axios";
+import { SUPERADMN_ID } from "../../../../env";
+import TalentApps from "./TalentApps";
+import { IUser } from "../../types";
 
 export interface ITalentApp {
   // jd: {
@@ -41,30 +41,42 @@ export interface ITalentApp {
 }
 
 function MyApps() {
+  const [talentApps, setTalentApps] = useState<ITalentApp[]>();
 
-  const [talentApps, setTalentApps] = useState<ITalentApp[]>()
-
-  const user = useSelector((state: RootState) => state.Authentication.user) as IUser
+  const user = useSelector(
+    (state: RootState) => state.Authentication.user
+  ) as IUser;
   useEffect(() => {
     const fetchApps = async () => {
-      const postulArray: any[] = []
+      const postulArray: any[] = [];
       for (const postul of user.postulations) {
-        console.log(user.postulations)
-        const response = await axios.get(`https://linkit-server.onrender.com/resources/companyjds?code=${postul}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID}`, 'Accept-Language': sessionStorage.getItem('lang')}})
-        postulArray.push(response.data)
-        console.log(postulArray)
+        const response = await axios.get(
+          `https://linkit-server.onrender.com/resources/companyjds?code=${postul}`,
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        postulArray.push(response.data);
+        console.log(postulArray);
       }
-      setTalentApps(postulArray)
-    }
+      setTalentApps(postulArray);
+    };
     fetchApps();
-  }, [])
+  }, []);
 
-  if (!talentApps) return null
+  if (!talentApps) return null;
   return (
     <div className="flex bg-linkIt-500 p-[1rem] rounded-[20px] md:mx-16 mx-5">
-    <TalentApps apps={talentApps}/>
-  </div>
-  )
+      {user.postulations.length ? (
+        <TalentApps apps={talentApps} />
+      ) : (
+        <h1>No tienes postulaciones </h1>
+      )}
+    </div>
+  );
 }
 
-export default MyApps
+export default MyApps;

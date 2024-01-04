@@ -1,13 +1,13 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "../../../../redux/types"
-import { SUPERADMN_ID } from "../../../../env"
-import CompanyPosts from "./CompanyPosts"
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
+import { SUPERADMN_ID } from "../../../../env";
+import CompanyPosts from "./CompanyPosts";
+import { ICompany } from "../../types";
 
 export interface ICompanyPost {
-  _id: string
+  _id: string;
   contactMail: string;
   BUDGET: string;
   EnglishLevel: string;
@@ -45,33 +45,37 @@ export interface ICompanyPost {
 }
 
 function MyPosts() {
+  const [companyPosts, setCompanyPosts] = useState<ICompanyPost[]>();
 
-
-  const [companyPosts, setCompanyPosts] = useState<ICompanyPost[]>()
-
-  const companyName = useSelector((state: RootState) => state.Authentication.company?.companyName)
+  const companyName = useSelector(
+    (state: RootState) => (state.Authentication.user as ICompany).companyName
+  );
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`https://linkit-server.onrender.com/resources/companyjds?company=${companyName}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID},
-      'Accept-Language': sessionStorage.getItem('lang')`}})
-      setCompanyPosts(response.data)
-    }
+      const response = await axios.get(
+        `https://linkit-server.onrender.com/resources/companyjds?company=${companyName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID},
+      'Accept-Language': sessionStorage.getItem('lang')`,
+          },
+        }
+      );
+      setCompanyPosts(response.data);
+    };
     fetchPosts();
-  }, [])
+  }, []);
 
   console.log(companyPosts);
 
-  if (!companyPosts) return null
-  
+  if (!companyPosts) return null;
+
   return (
     <div className="flex absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[6rem] px-6 py-5 bg-linkIt-500 rounded-[20px] overflow-x-scroll max-w-6xl">
-
-      <CompanyPosts posts={companyPosts}/>
-
+      <CompanyPosts posts={companyPosts} />
     </div>
-    
-  )
+  );
 }
 
-export default MyPosts
+export default MyPosts;
