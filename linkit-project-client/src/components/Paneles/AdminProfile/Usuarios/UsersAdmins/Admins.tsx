@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import HeadAdmins from "./HeadAdmins";
 import { useEffect, useState } from "react";
-import { setUsersAdmins } from "../../../../../redux/features/UsersSlice";
+import { setUsersAdmins, sortUsersAdmins } from "../../../../../redux/features/UsersSlice";
 import axios from "axios";
 import { Admin } from "../../../admin.types";
 
 type stateProps = {
   users: {
-    admins: Admin[];
+    filteredAdmins: Admin[];
   };
 };
 
@@ -15,7 +15,7 @@ export default function Admins() {
 
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch()
-  const data = useSelector((state: stateProps) => state.users.admins)
+  const data = useSelector((state: stateProps) => state.users.filteredAdmins);
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ export default function Admins() {
           }
         );
         dispatch(setUsersAdmins(response.data));
+        dispatch(sortUsersAdmins('recent'))
       } catch (error) {
         console.error("Error al cargar las información", error);
       }
@@ -239,6 +240,7 @@ export default function Admins() {
         editing={editing}
         editAdmin={editAdmin}
         handleSave={handleSave}
+        setSaveStatus= {setSaveStatus}
       />
       <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
         {viewCol.rol && renderSectionSelect("Rol", "role")}

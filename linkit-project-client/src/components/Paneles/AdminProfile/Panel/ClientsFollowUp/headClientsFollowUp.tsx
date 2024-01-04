@@ -16,8 +16,8 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
 
     const handleSearch = (searchTerm: string): void => {
         dispatch(filterJobData(searchTerm))
-        console.log(searchTerm)
     }
+    
     const handleSort = (e:React.ChangeEvent<HTMLSelectElement>): void =>{
         const {value} = e.target;
         dispatch(sortJobData(value))
