@@ -31,7 +31,6 @@ function Home({error, Unauth}: {error: boolean, Unauth: boolean}) {
         window.scrollTo(0, 0);
       }, []);
 
-      console.log(errorVisible)
 
 
     return (

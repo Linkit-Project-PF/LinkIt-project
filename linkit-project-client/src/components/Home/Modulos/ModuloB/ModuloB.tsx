@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import './ModuloB.css'
 import { useTranslation } from "react-i18next"
-import { useEffect, useState } from "react"
+import useWindowWidth from "../../../../Utils/WindowWidth/WindowWidth"
 import OurServicesCarousel from "./OurServicesCarousel";
 
 export default function ModuloB() {
@@ -10,15 +10,8 @@ export default function ModuloB() {
     const goSoyEmpresa = () => {
         navigate("/SoyEmpresa")
     }
-
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    useEffect(() => {
-      const handleResize = () => setWindowWidth(window.innerWidth);
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
+    const windowWidth = useWindowWidth();
+     
     return (
         <div className="overflow-hidden w-screen">
             { windowWidth >= 1024 ? (

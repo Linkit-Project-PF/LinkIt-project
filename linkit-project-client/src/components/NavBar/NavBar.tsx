@@ -659,8 +659,8 @@ useEffect(() => {
         <div className={`bg-linkIt-300 h-[2px] w-7 transform transition-all duration-300 origin-left ${burgerMenu ? "translate-x-10 delay-150" : ""}`}></div>
 
         <div className={`absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 flex  ${burgerMenu ? " w-12 translate-x-0" : " w-0"} `}>
-          <div className={`absolute bg-black h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 ${burgerMenu ? "rotate-45" : ""}`}></div>
-          <div className={`absolute bg-black h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 ${burgerMenu ? "-rotate-45" : ""}`}></div>
+          <div className={`absolute bg-black dark:bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 ${burgerMenu ? "rotate-45" : ""}`}></div>
+          <div className={`absolute bg-black dark:bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 ${burgerMenu ? "-rotate-45" : ""}`}></div>
         </div>
       </div>
     </div>
