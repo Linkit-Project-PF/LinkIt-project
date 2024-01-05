@@ -4,10 +4,11 @@ import React, { useState } from "react"
 import { ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
-import { setFilterDateJobOffers, setJobOffers, setfilterJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers, setSearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
 import { t } from "i18next";
 import axios from "axios";
+import { RootState } from "../../../../../redux/types";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -21,6 +22,11 @@ interface HeadVacancyProps {
 
 export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveStatus, editJDS, editing, handleSave }: HeadVacancyProps) {
     const token = useSelector((state: any) => state.Authentication.token);
+    const selectSortDate = (state: RootState) => state.jobCard.sortValues.sortDate
+    const sortDate = useSelector(selectSortDate)
+
+
+
 
     const arraySelectedRows = [...selectedRows]
 
@@ -30,14 +36,14 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
 
     const handleSearch = (searchTerm: string) => {
-        dispatch(setfilterJobOffers(searchTerm))
+        dispatch(setSearchJobOffers(searchTerm))
     }
 
     const showForm = () => {
         setViewForm(true);
     };
 
-    const noShowForm = () => {
+    const noShowForm = () => {  
         setViewForm(false);
     };
 
@@ -58,7 +64,8 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         const response = await axios.delete(
                             `https://linkit-server.onrender.com/jds/delete/${id}`,
                             {
-                                headers: { Authorization: `Bearer ${token}` },
+                                headers: { Authorization: `Bearer ${token}`,
+                                'Accept-Language': sessionStorage.getItem('lang') },
                             }
                         );
                         dispatch(setJobOffers(response.data));
@@ -77,8 +84,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
     const handleDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target
-        dispatch(setFilterDateJobOffers(value))
-        console.log(value)
+        dispatch(setSortJobOffers(value))
     }
 
 
@@ -103,10 +109,11 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                     </div>
                     <div>
                         <select
-                            placeholder='Ordenar'
                             className="ml-2"
                             onChange={handleDate}
+                            value={sortDate}
                         >
+                            <option value="-">-</option>
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>

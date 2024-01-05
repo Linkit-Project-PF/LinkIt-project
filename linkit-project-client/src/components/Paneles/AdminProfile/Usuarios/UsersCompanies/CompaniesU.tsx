@@ -38,7 +38,8 @@ export default function CompaniesU() {
             try {
                 const response = await axios(
                     "https://linkit-server.onrender.com/companies/find",
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    { headers: { Authorization: `Bearer ${token}`,
+                    'Accept-Language': sessionStorage.getItem('lang') } }
                 );
                 dispatch(setUsersCompanies(response.data));
             } catch (error) {
@@ -151,7 +152,7 @@ export default function CompaniesU() {
                 <button
                     className="cursor-pointer hover:text-linkIt-300"
                     onClick={handleNext}
-                    disabled={endIndex >= dataToShow.length}
+                    disabled={endIndex >= data.length}
                 >
                     Siguiente
                 </button>

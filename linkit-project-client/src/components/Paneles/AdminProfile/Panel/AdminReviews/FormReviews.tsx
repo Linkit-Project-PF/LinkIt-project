@@ -5,8 +5,10 @@ import swal from 'sweetalert';
 import { validations } from "./Validation";
 import { ValidationError } from "../../../errors/errors";
 import { validateReview } from "../../../errors/validation";
-import { ReviewProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { IUser } from "../../../../Profiles/types";
+import { ReviewProps } from "../../../admin.types";
 
 
 type OnCloseFunction = () => void;
@@ -15,11 +17,16 @@ interface FormReviewProps {
     onClose: OnCloseFunction;
 }
 
+export type stateProps = {
+    Authentication: {
+      user: IUser
+    }
+  }
 
 export default function FormReview({ onClose }: FormReviewProps) {
     
     const {t}=useTranslation();
-    
+    const token = useSelector((state: stateProps) => state.Authentication.user._id )
     const [information, setInformation] = useState<Partial<ReviewProps>>({
         name: "",
         rol: "",
@@ -68,9 +75,9 @@ export default function FormReview({ onClose }: FormReviewProps) {
             validateReview(information as ReviewProps) //* errors from console
             const endPoint = "https://linkit-server.onrender.com/reviews/create";
             const response = await axios.post(endPoint, information, {
-                headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
-                // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
-            });
+                headers: { Authorization: `Bearer ${token}`,
+                'Accept-Language': sessionStorage.getItem('lang') }
+              });
 
             swal(t("El post fue creado con éxito"));
             setInformation({

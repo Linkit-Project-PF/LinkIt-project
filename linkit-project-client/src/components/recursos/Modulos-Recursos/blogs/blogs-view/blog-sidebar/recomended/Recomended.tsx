@@ -28,7 +28,8 @@ function Recomended() {
             const response = await axios.get("https://linkit-server.onrender.com/posts/find?type=blog",
             {
                 headers: {
-                    Authorization: `Bearer ${SUPERADMN_ID}`
+                    Authorization: `Bearer ${SUPERADMN_ID}`,
+                    'Accept-Language': sessionStorage.getItem('lang')
                 }
             }
             )

@@ -5,7 +5,17 @@ import swal from 'sweetalert';
 import { ResourceProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
 import { validations } from "./Validation";
+import { useSelector } from "react-redux";
+import { IUser } from "../../../../Profiles/types";
 
+export type stateProps = {
+  Authentication: {
+    user: IUser
+  }
+  resources: {
+    allresources: ResourceProps[];
+  };
+}
 
 type OnCloseFunction = () => void;
 
@@ -13,9 +23,8 @@ interface FormResourceProps {
   onClose: OnCloseFunction;
 }
 
-
-export default function FormResource({ onClose }: FormResourceProps) {
-
+export default function FormResource({ onClose,   }: FormResourceProps) {
+  const token = useSelector((state: stateProps) => state.Authentication.user._id)
   const {t} = useTranslation()
   const [information, setInformation] = useState<Partial<ResourceProps>>({
     title: "",
@@ -41,7 +50,6 @@ export default function FormResource({ onClose }: FormResourceProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
     setInformation({
       ...information,
       [name]: value,
@@ -65,8 +73,8 @@ export default function FormResource({ onClose }: FormResourceProps) {
     try {
       const endPoint = "https://linkit-server.onrender.com/posts/create";
       const response = await axios.post(endPoint, information, {
-        headers: { Authorization: `Bearer 6564e8c0e53b0475ffe277f2` },
-        // headers: { Authorization: `Bearer ${token}` } //* descomentar cuando se tenga  creado el logeo de admin
+        headers: { Authorization: `Bearer ${token}`,
+        'Accept-Language': sessionStorage.getItem('lang')}
       });
 
       swal(t("El post fue creado con éxito"));

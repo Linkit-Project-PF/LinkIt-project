@@ -65,6 +65,7 @@ function Register() {
     email: "",
     password: "",
     confirm_password: "",
+    provider: "",
     role: sessionStorage.getItem("RegisterType"),
   });
   const [errors, setErrors] = useState({
@@ -131,6 +132,7 @@ function Register() {
     event.preventDefault();
       try {
       if (user.role === 'company') user.companyName = user.firstName;
+      user.provider = "email"
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
         user,
@@ -217,6 +219,7 @@ function Register() {
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
+                'Accept-Language': sessionStorage.getItem('lang')
               },
             }
           );
@@ -228,6 +231,7 @@ function Register() {
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
+                  'Accept-Language': sessionStorage.getItem('lang')
                 },
               }
             );

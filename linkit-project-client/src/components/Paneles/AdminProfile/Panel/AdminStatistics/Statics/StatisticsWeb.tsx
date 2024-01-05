@@ -23,11 +23,13 @@ export default function StatisticsWeb() {
       try {
         const users = await axios.get(
           "https://linkit-server.onrender.com/users/find",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang') } }
         );
         const companies = await axios.get(
           "https://linkit-server.onrender.com/companies/find",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang') } }
         );
         setUsers({
           users: users.data,

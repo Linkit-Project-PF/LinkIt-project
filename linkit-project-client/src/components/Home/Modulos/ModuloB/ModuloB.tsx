@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import './ModuloB.css'
 import { useTranslation } from "react-i18next"
+import useWindowWidth from "../../../../Utils/WindowWidth/WindowWidth"
+import OurServicesCarousel from "./OurServicesCarousel";
 
 export default function ModuloB() {
     const navigate = useNavigate();
@@ -8,9 +10,11 @@ export default function ModuloB() {
     const goSoyEmpresa = () => {
         navigate("/SoyEmpresa")
     }
-
+    const windowWidth = useWindowWidth();
+     
     return (
-        <div>
+        <div className="overflow-hidden w-screen">
+            { windowWidth >= 1024 ? (
             <div className="skewed-borderB p-[7%] dark:bg-linkIt-200">
                 <div className="contentB grid grid-cols-3 my-[3%] gap-5">
                     <h1 className="text-white text-[3vw] col-span-3 text-center justify-center font-manrope mb-[5%]">{t('Nuestros servicios')}</h1>
@@ -27,7 +31,12 @@ export default function ModuloB() {
                             <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
                             <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
                         </div>
-                </div>
+                </div> )
+                : (
+                    <div className="grid justify-center bg-linkIt-200 dark:bg-linkIt-400 text-white text-[2rem] p-[10%] font-manrope">
+                    <h1 className="text-[1.3rem] xs:text-[1.5rem] ssm:text-[2rem] justify-self-center font-bold">{t('Nuestros servicios')}</h1>
+                    <OurServicesCarousel />
+                    </div> )} 
             </div>
 
     )

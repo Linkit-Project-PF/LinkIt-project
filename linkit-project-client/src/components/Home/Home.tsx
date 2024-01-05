@@ -1,5 +1,7 @@
-import Footer from "../../Utils/Footer/Footer"
+import { useNavigate } from "react-router-dom"
 import TopButton from "../../Utils/TopButton"
+import Error from "../Errores/Error"
+import Unauthorized from "../Errores/SinAutorizacion"
 import ModuloA from "./Modulos/ModuloA/ModuloA"
 import ModuloB from "./Modulos/ModuloB/ModuloB"
 import ModuloC from "./Modulos/ModuloC/ModuloC"
@@ -7,14 +9,34 @@ import ModuloD from "./Modulos/ModuloD/ModuloD"
 import ModuloE from "./Modulos/ModuloE/ModuloE"
 import ModuloF from "./Modulos/ModuloF/ModuloF"
 import ModuloG from "./Modulos/ModuloG/ModuloG"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-function Home() {
+function Home({error, Unauth}: {error: boolean, Unauth: boolean}) {
+    const nav = useNavigate()
+    const [errorVisible, setErrorVisible] = useState(false)
+    const [unauthVisible, setUnauthVisible] = useState(false)
+    
+    if (errorVisible || unauthVisible) {
+        document.body.style.overflow = "hidden"
+    } else document.body.style.overflow = "visible"
+
     useEffect(() => {
+        if (error) {
+            setErrorVisible(true)
+            setTimeout(() => {setErrorVisible(false); nav('/')}, 2000)
+        } else if (Unauth) {
+            setUnauthVisible(true)
+            setTimeout(() => {setUnauthVisible(false); nav('/')}, 2000)
+        }
         window.scrollTo(0, 0);
       }, []);
+
+
+
     return (
         <div className="flex flex-col">
+            {errorVisible && <Error />}
+            {unauthVisible && <Unauthorized />}
             <ModuloA />
             <ModuloB />
             <ModuloC />
@@ -23,7 +45,6 @@ function Home() {
             <ModuloF />
             <ModuloG />
             <TopButton />
-            <Footer />
         </div>
 
     )

@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import VerifyUser from "./Utils/Verify/VerifyUser.tsx";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -30,11 +29,10 @@ import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
 import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx";
 import BlogView from "./components/recursos/Modulos-Recursos/blogs/blogs-view/BlogView.tsx";
 import TopButton from "./Utils/TopButton.tsx";
-import Unauthorized from "./components/Errores/SinAutorizacion.tsx";
-import Error from "./components/Errores/Error.tsx";
 import ReactGA from "react-ga4";
 import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
+import Footer from "./Utils/Footer/Footer.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -126,19 +124,22 @@ function App() {
       try {
         const responseResources = await axios.get(
           "https://linkit-server.onrender.com/posts/find",
-          { headers: { Authorization: `Bearer ${SUPERADMN_ID}` } }
+          { headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
+          'Accept-Language': sessionStorage.getItem('lang')} }
         );
 
         const responseTechnologies = await axios.get("https://linkit-server.onrender.com/resources/stackList",
           {
             headers: {
-              Authorization: `Bearer ${SUPERADMN_ID}`
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              'Accept-Language': sessionStorage.getItem('lang')
             }
           })
           const responseAdmins = await axios.get("https://linkit-server.onrender.com/admins/find",
           {
             headers: {
-              Authorization: `Bearer ${SUPERADMN_ID}`
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
             }
           })
         dispatch(setStackTechnologies(responseTechnologies.data))
@@ -156,7 +157,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="w-screen h-full overflow-x-hidden">
       <NavBar />
 
       <motion.div
@@ -207,7 +208,7 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home Unauth={false} error={false} />} />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
@@ -217,13 +218,13 @@ function App() {
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/profile/*" element={<Profile />} />
-        <Route path="/verify/:id" element={<VerifyUser/>} />
         <Route path="/blog/:id&:role" element={<BlogView />} />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="*" element={<Error />} />
+        <Route path="/unauthorized" element={<Home Unauth={true} error={false} />} />
+        <Route path="*" element={<Home Unauth={false} error={true} />} />
       </Routes>
       <TopButton />
-    </>
+      <Footer />
+      </div>
   );
 }
 

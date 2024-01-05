@@ -1,15 +1,26 @@
 import { useState } from "react";
-import { ViewColClientsFollowUp } from "../../../admin.types";
+import { ViewColClientsFollowUps } from "../../../admin.types";
+import { useDispatch } from "react-redux";
+import { filterJobData, sortJobData } from "../../../../../redux/features/ClientsFollowUpSlice";
 
 interface HeadClientsFollowUp {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    viewCol: ViewColClientsFollowUp
+    viewCol: ViewColClientsFollowUps
 }
 export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFollowUp) {
     const [options, setOptions] = useState(false)
-
+    const dispatch = useDispatch()
     const hideOptions = () => {
         setOptions(!options)
+    }
+
+    const handleSearch = (searchTerm: string): void => {
+        dispatch(filterJobData(searchTerm))
+    }
+    
+    const handleSort = (e:React.ChangeEvent<HTMLSelectElement>): void =>{
+        const {value} = e.target;
+        dispatch(sortJobData(value))
     }
 
     return (
@@ -24,7 +35,10 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
                         <h1>Ordenar:</h1>
                     </div>
                     <div>
-                        <select placeholder='Ordenar' className="ml-2">
+                        <select 
+                        className="ml-2"
+                        onChange={handleSort}
+                        >
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
@@ -57,7 +71,7 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
                     <input
                         type="text"
                         placeholder="Buscar"
-                    // onChange={(e) => handleSearch(e.target.value)}
+                        onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
             </div>

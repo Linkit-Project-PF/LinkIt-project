@@ -38,9 +38,9 @@ export default function Users() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/users/find",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { Authorization: `Bearer ${token}`,
+          'Accept-Language': sessionStorage.getItem('lang') } }
         );
-        console.log(response.data)
         dispatch(setUsersTalent(response.data));
       } catch (error) {
         console.error("Error al cargar las información", error);
@@ -87,7 +87,6 @@ export default function Users() {
         ))}
       </div>
     </div>
-
   )
 
   const renderSectionBasic = <K extends keyof TalentProps>(title: string, key: K,) => (
@@ -152,7 +151,7 @@ export default function Users() {
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
-          disabled={endIndex >= dataToShow.length}
+          disabled={endIndex >= data.length}
         >
           Siguiente
         </button>

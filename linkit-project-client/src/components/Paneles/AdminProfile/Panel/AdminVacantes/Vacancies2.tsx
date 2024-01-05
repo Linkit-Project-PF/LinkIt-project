@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { VacancyProps } from "../../../admin.types";
-import { setFilterDateJobOffers, setFilterViewJobOffers, setJobOffers } from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers, applyFilters } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 import { t } from 'i18next';
+import { RootState } from '../../../../../redux/types';
 
 
 type stateProps = {
@@ -19,9 +20,15 @@ type stateProps = {
 export default function Vacancies2() {
     //
     const filteredJobData = useSelector((state: stateProps) => state.jobCard.filterJobOffers);
-    console.log(filteredJobData)
+    const selectSortView = (state: RootState) => state.jobCard.sortValues.sortView
+    const selectSortAlfa = (state: RootState) => state.jobCard.sortValues.sortAlfa
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch();
+
+    const [stackValue, setStackValue] = useState<string[]>([]);
+    const [typeValue, setTypeValue] = useState<string>("");
+    const [modalityValue, setModalityValue] = useState<string>("");
+
 
 
 
@@ -38,6 +45,8 @@ export default function Vacancies2() {
     const hideTehcs = () => {
         setTehcs(!tehcs)
     }
+
+
 
 
     const [viewCol, setViewCol] = useState({
@@ -70,7 +79,10 @@ export default function Vacancies2() {
 
     const totalPages = Math.ceil(filteredJobData.length / itemsPerPage);
 
-    const [viewStatus, setViewStatus] = useState('Visible')
+
+
+    const sortView = useSelector(selectSortView)
+    const sortAlfa = useSelector(selectSortAlfa)
 
 
     const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -80,8 +92,7 @@ export default function Vacancies2() {
 
     const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target
-        setViewStatus(value)
-        dispatch(setFilterViewJobOffers(value))
+        dispatch(setSortJobOffers(value))
     }
 
 
@@ -99,17 +110,56 @@ export default function Vacancies2() {
             try {
                 const response = await axios(
                     "https://linkit-server.onrender.com/jds/find",
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token} `,
+                            'Accept-Language': sessionStorage.getItem('lang')
+                        }
+                    }
                 );
                 dispatch(setJobOffers(response.data));
-                dispatch(setFilterViewJobOffers('Visible'));
-                dispatch(setFilterDateJobOffers('recent'))
+                dispatch(setSortJobOffers('Visible'));
+                dispatch(setSortJobOffers('recent'))
             } catch (error) {
                 console.error("Error al cargar las ofertas de trabajo", error);
             }
         };
         loadData();
     }, [saveStatus]);
+
+    const handleStack = (stack: string) => {
+        if (stackValue.includes(stack)) {
+            setStackValue(stackValue.filter((item) => item !== stack))
+        } else {
+            setStackValue([...stackValue, stack])
+        }
+    }
+
+    const handleFilters = async () => {
+        const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1 ? `stack=${stackValue.map((tech) => `${tech}`)}` : ""}${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}`
+        try {
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token} `,
+                    'Accept-Language': sessionStorage.getItem('lang')
+                }
+            })
+            dispatch(applyFilters(response.data));
+            dispatch(setJobOffers(response.data));
+        } catch (error: any) {
+            console.log(error.response.data);
+        }
+    };
+
+    const handleType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        setTypeValue(value)
+    }
+    const handleModality = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        setModalityValue(value)
+    }
+    
 
 
 
@@ -161,7 +211,10 @@ export default function Vacancies2() {
             arrayProps.forEach(async (id: string) => {
                 const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
                 await axios.put(endPoint, editedData, {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Accept-Language': sessionStorage.getItem('lang')
+                    },
                 });
             })
         } catch (error: any) {
@@ -173,13 +226,18 @@ export default function Vacancies2() {
         setSaveStatus(!saveStatus);
     };
 
+    const handleAlfa = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = e.target
+        dispatch(setSortJobOffers(value))
+    }
+
     return (
         <div className=' bg-scroll bg-linkIt-500'>
 
             <HeadVacancy
-                selectedRows={selectedRows}
                 hideCol={hideCol}
                 viewCol={viewCol}
+                selectedRows={selectedRows}
                 setSaveStatus={setSaveStatus}
                 editJDS={editJDS}
                 editing={editing}
@@ -195,10 +253,15 @@ export default function Vacancies2() {
                                 <h1>Titulo</h1>
                             </div>
                             <div className='ml-6 justify-end'>
-                                <select name="sort" className='border-none outline-none'>
-                                    <option value=""></option>
-                                    <option value="">A-Z</option>
-                                    <option value="">Z-A</option>
+                                <select
+                                    name="sortAlfa"
+                                    className='border-none outline-none'
+                                    onChange={handleAlfa}
+                                    value={sortAlfa}
+                                >
+                                    <option value="">-</option>
+                                    <option value="A-Z">A-Z</option>
+                                    <option value="Z-A">Z-A</option>
                                 </select>
                             </div>
                         </div>
@@ -208,7 +271,7 @@ export default function Vacancies2() {
                                     key={v._id}
                                     className={selectedRows.has(v._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}>
                                     <input type="checkbox" name='edit' onChange={() => handleEdit(v._id)} checked={selectedRows.has(v._id)} />
-                                    <p key={v._id} className='pl-2'>
+                                    <p className='pl-2'>
                                         {selectedRows.has(v._id) && editing ?
                                             <input
                                                 name='title'
@@ -254,11 +317,16 @@ export default function Vacancies2() {
                                 <h1>Tipo</h1>
                             </div>
                             <div className='ml-6'>
-                                <select name="sort" className='border-b-2 border-r-2 -none outline-none'>
+                                <select
+                                    name="sort"
+                                    className='border-b-2 border-r-2 -none outline-none'
+                                    onChange={handleType}
+                                    onClick={handleFilters}
+                                >
                                     <option value=""></option>
-                                    <option value="">Full-time</option>
-                                    <option value="">Part-time</option>
-                                    <option value="">Freelance</option>
+                                    <option value="full-time" >Full-time</option>
+                                    <option value="part-time">Part-time</option>
+                                    <option value="freelance">Freelance</option>
                                 </select>
                             </div>
                         </div>
@@ -318,12 +386,17 @@ export default function Vacancies2() {
                                 <h1>Modalidad</h1>
                             </div>
                             <div className='ml-6'>
-                                <select name="sort" className='border-none outline-none'>
+                                <select 
+                                name="sort" 
+                                className='border-none outline-none'
+                                onChange={handleModality}
+                                onClick={handleFilters}
+                                >
                                     <option value=""></option>
-                                    <option value="">Remote</option>
-                                    <option value="">Specific-remote</option>
-                                    <option value="">On-Site</option>
-                                    <option value="">Hybrid</option>
+                                    <option value="remote">Remote</option>
+                                    <option value="specific-remote">Specific-remote</option>
+                                    <option value="on-Site">On-Site</option>
+                                    <option value="hybrid">Hybrid</option>
                                 </select>
                             </div>
                         </div>
@@ -358,12 +431,19 @@ export default function Vacancies2() {
                                 <button onClick={hideTehcs}>Tecnologías</button>
                             </div>
                         </div>
-                        <div className='absolute mt-6 border-2  border-black'>
+                        <div className='absolute mt-6 border-2 border-linkIt-300'>
                             {tehcs && allStackTechnologies?.map((stack: any, index: number) => {
                                 return (
-                                    <div key={index} className='pl-6 capitalize flex flex-row '>
+                                    <div key={index} className='pl-6 capitalize flex flex-row bg-linkIt-500'>
                                         <label className=''>
-                                            <input className='' type="checkbox" name={stack.name} />
+                                            <input
+                                                className=''
+                                                type="checkbox"
+                                                onClick={() => handleStack(stack.name)}
+                                                name={stack.name}
+                                                onChange={handleFilters}
+                                                checked={stackValue.includes(stack.name)}
+                                            />
                                             {stack.name}
                                         </label>
                                     </div>
@@ -580,7 +660,7 @@ export default function Vacancies2() {
                                     name="view"
                                     className='border-b-2 border-r-2 -none outline-none'
                                     onChange={handleView}
-                                    defaultValue={viewStatus}
+                                    value={sortView}
                                 >
                                     <option value="Visible">Visible</option>
                                     <option value="Hidden">Hidden</option>
