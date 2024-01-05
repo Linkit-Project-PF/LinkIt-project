@@ -9,7 +9,7 @@ async function fetchTechStack() {
 
 fetchTechStack();
 
-export const getStack = () => data;
+export const getStack = data;
 
 export const StackBulletPoint = (stack: string) => {
   return (
