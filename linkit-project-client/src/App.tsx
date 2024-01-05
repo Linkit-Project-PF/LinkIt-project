@@ -228,7 +228,7 @@ function App() {
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/dashboard" element={<ProfileContainer />} />
-        <Route path="/verify/:id" element={<VerifyUser />} />
+        {/* <Route path="/verify/:id" element={<VerifyUser />} /> */}
         <Route path="/blog/:id&:role" element={<BlogView />} />
         <Route
           path="/unauthorized"

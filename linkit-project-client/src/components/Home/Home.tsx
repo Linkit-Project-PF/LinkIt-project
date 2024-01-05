@@ -26,13 +26,13 @@ function Home({ error, Unauth }: { error: boolean; Unauth: boolean }) {
       setTimeout(() => {
         setErrorVisible(false);
         nav("/");
-      }, 2000);
+      }, 2500);
     } else if (Unauth) {
       setUnauthVisible(true);
       setTimeout(() => {
         setUnauthVisible(false);
         nav("/");
-      }, 2000);
+      }, 2500);
     }
     window.scrollTo(0, 0);
   }, []);

@@ -613,7 +613,7 @@ function NavBar() {
                       <button
                         className="profile hover:text-linkIt-300"
                         onClick={() => {
-                          navigate("/profile");
+                          navigate("/dashboard");
                         }}
                       >
                         {t("Mis datos")}
@@ -621,8 +621,11 @@ function NavBar() {
                     </li>
                     <hr className="w-[100%]" />
                     <li className="text-[0.6rem] lg:text-[0.9rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button className="profile hover:text-linkIt-300">
-                        {t("Mis búsquedas")}
+                      <button
+                        className="profile hover:text-linkIt-300"
+                        onClick={() => navigate("/dashboard#postulations")}
+                      >
+                        {t("Mis postulaciones")}
                       </button>
                     </li>
                     <hr className="w-[100%]" />

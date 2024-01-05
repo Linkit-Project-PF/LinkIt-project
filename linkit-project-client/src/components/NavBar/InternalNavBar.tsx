@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type statusHandler = (value: boolean) => void;
 
@@ -12,6 +12,11 @@ const InternalNavBar: React.FC<InternalNavProps> = ({
   statusHandler,
 }) => {
   const [activeIndex, setActicveIndex] = useState(0);
+  useEffect(() => {
+    if (window.location.toString().split("#")[1]) {
+      setActicveIndex(1);
+    }
+  }, []);
   return (
     <div className="h-[10%] z-0">
       <div className="ml-20 h-full flex flex-row">

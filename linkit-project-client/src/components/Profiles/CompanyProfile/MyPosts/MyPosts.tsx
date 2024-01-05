@@ -57,11 +57,12 @@ function MyPosts() {
         `https://linkit-server.onrender.com/resources/companyjds?company=${companyName}`,
         {
           headers: {
-            Authorization: `Bearer ${SUPERADMN_ID},
-      'Accept-Language': sessionStorage.getItem('lang')`,
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            "Accept-Language": sessionStorage.getItem("lang"),
           },
         }
       );
+      console.log(response);
       setCompanyPosts(response.data);
     };
     fetchPosts();

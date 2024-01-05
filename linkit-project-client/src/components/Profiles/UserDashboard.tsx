@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InternalNavBar from "../NavBar/InternalNavBar";
 import { UserRoleEnum } from "./types";
 import { useTranslation } from "react-i18next";
@@ -13,9 +13,16 @@ interface dashBoardProps {
 export default function UserDashboard({ role }: dashBoardProps) {
   const { t } = useTranslation();
   const user: string[] = [t("Mis datos"), t("Mis postulaciones")];
-  const company: string[] = [t("Mis dagtos"), t("Mis vacantes")];
+  const company: string[] = [t("Mis datos"), t("Mis vacantes")];
   const [profileVisible, setProfileVisible] = useState(true);
   const [auxVisible, setAuxVisible] = useState(false);
+
+  useEffect(() => {
+    if (window.location.toString().split("#")[1]) {
+      setProfileVisible(false);
+      setAuxVisible(true);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col pt-5 md:w-full">

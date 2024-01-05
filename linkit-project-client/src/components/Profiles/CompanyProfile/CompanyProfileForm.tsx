@@ -39,12 +39,12 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
   };
 
   return (
-    <div className="flex justify-center items-center content-center absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[7rem] bg-linkIt-500 p-[3rem] rounded-[20px]">
-      <form action="" onSubmit={handleSubmit} className="flex flex-col">
-        <div className="grid grid-cols-3 grid-rows-3 gap-x-5 gap-y-3 font-montserrat">
+    <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
+      <form action="" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
           <div className="flex flex-col">
             <label htmlFor="" className="ml-2">
-              {t("Nombre")}
+              {t("Nombre de la empresa")}
             </label>
             <input
               defaultValue={company.repName}
@@ -56,7 +56,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
 
           <div className="flex flex-col">
             <label htmlFor="" className="ml-2">
-              {t("Apellido")}
+              {t("Representante")}
             </label>
             <input
               defaultValue={company.repName}
