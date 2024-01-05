@@ -24,7 +24,6 @@ import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
 import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
-import Profile from "./components/Profiles/Profile.tsx";
 import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
 import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx";
 import BlogView from "./components/recursos/Modulos-Recursos/blogs/blogs-view/BlogView.tsx";
@@ -33,6 +32,7 @@ import ReactGA from "react-ga4";
 import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
 import Footer from "./Utils/Footer/Footer.tsx";
+import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -108,12 +108,12 @@ function App() {
   useEffect(() => {
     const googleAnalytics = async () => {
       try {
-        ReactGA.initialize("G-M6F6EHLMX7")
+        ReactGA.initialize("G-M6F6EHLMX7");
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    googleAnalytics()
+    };
+    googleAnalytics();
   }, []);
 
   useEffect(() => {
@@ -124,31 +124,38 @@ function App() {
       try {
         const responseResources = await axios.get(
           "https://linkit-server.onrender.com/posts/find",
-          { headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
-          'Accept-Language': sessionStorage.getItem('lang')} }
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
         );
 
-        const responseTechnologies = await axios.get("https://linkit-server.onrender.com/resources/stackList",
+        const responseTechnologies = await axios.get(
+          "https://linkit-server.onrender.com/resources/stackList",
           {
             headers: {
               Authorization: `Bearer ${SUPERADMN_ID}`,
-              'Accept-Language': sessionStorage.getItem('lang')
-            }
-          })
-          const responseAdmins = await axios.get("https://linkit-server.onrender.com/admins/find",
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        const responseAdmins = await axios.get(
+          "https://linkit-server.onrender.com/admins/find",
           {
             headers: {
               Authorization: `Bearer ${SUPERADMN_ID}`,
-            'Accept-Language': sessionStorage.getItem('lang')
-            }
-          })
-        dispatch(setStackTechnologies(responseTechnologies.data))
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        dispatch(setStackTechnologies(responseTechnologies.data));
         dispatch(setResources(responseResources.data));
         dispatch(setEvents());
         dispatch(setBlogs());
         dispatch(setEbooks());
-        dispatch(setAdmins(responseAdmins.data))
-        
+        dispatch(setAdmins(responseAdmins.data));
       } catch (error) {
         if (error instanceof AxiosError) console.log({ error: error.message });
       }
@@ -212,19 +219,26 @@ function App() {
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
-        <Route path="/soyTalento/Joboffer/:id/application" element={<JobForm />} />
+        <Route
+          path="/soyTalento/Joboffer/:id/application"
+          element={<JobForm />}
+        />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
-        <Route path="/profile/*" element={<Profile />} />
+        <Route path="/dashboard" element={<ProfileContainer />} />
+        {/* <Route path="/verify/:id" element={<VerifyUser />} /> */}
         <Route path="/blog/:id&:role" element={<BlogView />} />
-        <Route path="/unauthorized" element={<Home Unauth={true} error={false} />} />
+        <Route
+          path="/unauthorized"
+          element={<Home Unauth={true} error={false} />}
+        />
         <Route path="*" element={<Home Unauth={false} error={true} />} />
       </Routes>
       <TopButton />
       <Footer />
-      </div>
+    </div>
   );
 }
 

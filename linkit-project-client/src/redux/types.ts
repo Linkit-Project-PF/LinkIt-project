@@ -1,10 +1,9 @@
-import { IUser, ICompany } from "../components/Profiles/types";
+import { WebsiteUser } from "../components/Profiles/types";
 
 export interface IAuthState {
   isAuthenticated: boolean;
   role: string;
-  user: IUser | null;
-  company: ICompany | null;
+  user: WebsiteUser | null;
   token: string | null;
 }
 

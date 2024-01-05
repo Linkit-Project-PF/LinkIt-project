@@ -13,8 +13,8 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { useTranslation } from "react-i18next";
-import { companyLogin} from "../../../redux/features/AuthSlice.ts";
 import { ICompany } from "../../Profiles/types.ts";
+import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 
 
 
@@ -97,7 +97,7 @@ function LoginCompany() {
           confirmButtonText: t("Continuar"),
         });
         
-        dispatch(companyLogin(loggedCompany));
+        dispatch(loginSuccess(loggedCompany));
         dispatch(setPressLoginCompany("hidden"));
       }
     } catch (error: any) {
@@ -147,7 +147,7 @@ function LoginCompany() {
           );
           if (getCompanyResponse.data.length) {
             const authUser = getCompanyResponse.data[0];
-            dispatch(companyLogin(authUser));
+            dispatch(loginSuccess(authUser));
             console.log(authUser)
             Swal.fire({
               title: t("Bienvenido de vuelta ") + authUser.companyName,
@@ -170,7 +170,7 @@ function LoginCompany() {
             );
             if (companyData.data.length) {
               const authCompany = companyData.data[0];
-              dispatch(companyLogin(authCompany));
+              dispatch(loginSuccess(authCompany));
               Swal.fire({
                 
                 title: t("Bienvenido de vuelta") + authCompany.companyName,

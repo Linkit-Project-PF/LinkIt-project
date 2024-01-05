@@ -1,27 +1,27 @@
-import CompanyPost from "./CompanyPost"
-import { ICompanyPost } from "./MyPosts"
+import CompanyPost from "./CompanyPost";
+import { ICompanyPost } from "./MyPosts";
 
 interface IComponentProps {
-  posts: ICompanyPost[]
+  posts: ICompanyPost[];
 }
 
-const CLIENT_STATUS = 'Client int.';
-const OFFERED_STATUS = 'Offered';
+const CLIENT_STATUS = "Client int.";
+const OFFERED_STATUS = "Offered";
 
-const PRE_ALIGNMENT_STATUS = 'Pre-alignment';
-const SOURCING_STATUS = 'Sourcing';
-const RECRUITER_STATUS = 'Recruiter int.';
-const ENDORSED_STATUS = 'Endorsed';
-const PENDING_INVOICE_STATUS = 'Pending invoice/ contract';
-const PARTIAL_PAYMENT_STATUS = 'Partial Payment';
-const STALLED_STATUS = 'Stalled';
-const WON_AND_REPLACED_STATUS = 'Won and Replaced';
-const WON_STATUS = 'Won';
-const LOST_STATUS = 'Lost';
-const ALIGNMENT_STATUS = 'Alignment';
-const NEVER_WORKED_STATUS = 'Never Worked';   
+const PRE_ALIGNMENT_STATUS = "Pre-alignment";
+const SOURCING_STATUS = "Sourcing";
+const RECRUITER_STATUS = "Recruiter int.";
+const ENDORSED_STATUS = "Endorsed";
+const PENDING_INVOICE_STATUS = "Pending invoice/ contract";
+const PARTIAL_PAYMENT_STATUS = "Partial Payment";
+const STALLED_STATUS = "Stalled";
+const WON_AND_REPLACED_STATUS = "Won and Replaced";
+const WON_STATUS = "Won";
+const LOST_STATUS = "Lost";
+const ALIGNMENT_STATUS = "Alignment";
+const NEVER_WORKED_STATUS = "Never Worked";
 
-function CompanyPosts({posts}: IComponentProps) {
+function CompanyPosts({ posts }: IComponentProps) {
   const filterPostsByStatus = (status: string): ICompanyPost[] => {
     return posts.filter((post) => post.Status === status);
   };
@@ -167,13 +167,11 @@ function CompanyPosts({posts}: IComponentProps) {
           ))}
         </div>
       </div>
-
     </div>
   );
-};
+}
 
-
-export default CompanyPosts
+export default CompanyPosts;
 
 // return (
 //   <div>
