@@ -31,7 +31,6 @@ function Home({error, Unauth}: {error: boolean, Unauth: boolean}) {
         window.scrollTo(0, 0);
       }, []);
 
-
     return (
         <div className="flex flex-col">
             {errorVisible && <Error />}

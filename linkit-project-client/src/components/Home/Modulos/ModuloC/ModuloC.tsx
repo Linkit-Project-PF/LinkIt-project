@@ -1,18 +1,11 @@
 import { useTranslation } from "react-i18next"
-import { useEffect, useState } from "react"
 import './ModuloC.css'
 import WhatMakeUsDCarousel from "./WhatMakeUsDCarousel";
+import useWindowWidth from "../../../../Utils/WindowWidth/WindowWidth";
 
 export default function ModuloC() {
     const {t}= useTranslation()
-
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    useEffect(() => {
-      const handleResize = () => setWindowWidth(window.innerWidth);
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const windowWidth = useWindowWidth();
 
 
 
