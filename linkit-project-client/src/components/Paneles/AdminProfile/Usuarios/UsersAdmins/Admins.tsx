@@ -177,7 +177,7 @@ export default function Admins() {
             <input
             name={key}
             type="text"
-            defaultValue={r[key]}
+            defaultValue={r[key] as any}
             onChange={handleChange}
             className="bg-linkIt-500 text-black w-full" 
             />
@@ -202,7 +202,7 @@ export default function Admins() {
               <input
                 name={key}
                 type="text"
-                defaultValue={r[key]}
+                defaultValue={r[key] as any}
                 onChange={handleChange}
                 className="bg-linkIt-500 text-black"
               />
