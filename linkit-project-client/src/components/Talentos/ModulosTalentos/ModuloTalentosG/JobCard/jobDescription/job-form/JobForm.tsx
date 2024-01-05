@@ -12,7 +12,7 @@ import { SelectCountryFormEs } from "./jobFormCountry/JobFormSelectCountry";
 import { JobValidations } from "./jobFormValidations/JobValidations";
 import CloudinaryUploadWidget from "../../../../../../Services/cloudinaryWidget";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import { getStack, StackBulletPoint } from "./technicalStacks";
+import { getStack } from "./technicalStacks";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
