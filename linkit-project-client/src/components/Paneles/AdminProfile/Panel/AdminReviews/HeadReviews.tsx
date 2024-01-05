@@ -1,44 +1,48 @@
 import { useState } from "react";
-import { ViewColClientsFollowUps } from "../../../admin.types";
-import { useDispatch } from "react-redux";
-import { filterJobData, sortJobData } from "../../../../../redux/features/ClientsFollowUpSlice";
+import { ViewReviewProps } from "../../../admin.types";
+import FormReview from "./FormReviews";
 
-interface HeadClientsFollowUp {
+interface HeadReviews {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    viewCol: ViewColClientsFollowUps
+    viewCol: ViewReviewProps
 }
-export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFollowUp) {
+
+export default function HeadReviews({ hideCol, viewCol }: HeadReviews) {
     const [options, setOptions] = useState(false)
-    const dispatch = useDispatch()
+    const [viewForm, setViewForm] = useState(false);
+
     const hideOptions = () => {
         setOptions(!options)
     }
 
-    const handleSearch = (searchTerm: string): void => {
-        dispatch(filterJobData(searchTerm))
-    }
-    
-    const handleSort = (e:React.ChangeEvent<HTMLSelectElement>): void =>{
-        const {value} = e.target;
-        dispatch(sortJobData(value))
-    }
+    const showForm = () => {
+        setViewForm(true);
+    };
+
+    const noShowForm = () => {  
+        setViewForm(false);
+    };
 
     return (
         <div>
-
-            <div>
-                <h1 className="text-4xl pl-16 py-6">Clients Follow Up</h1>
+                       <div>
+                <h1 className="text-4xl pl-16 py-6">Gestión de reseñas</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
+                <div>
+                    <button
+                        className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
+                        onClick={showForm}
+                    >
+                        Crear reseña
+                    </button>
+                </div>
                 <div className="flex flex-row">
                     <div>
                         <h1>Ordenar:</h1>
                     </div>
                     <div>
-                        <select 
-                        className="ml-2"
-                        onChange={handleSort}
-                        >
+                        <select placeholder='Ordenar' className="ml-2">
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
@@ -48,11 +52,13 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
                 <div className="relative">
                     <div className="flex flex-row">
                         <div>
-                            <button onClick={hideOptions}>Columnas</button>
+                            <button
+                                onClick={hideOptions}
+                            >Columnas</button>
                         </div>
                     </div>
                     {options && (
-                        <div className="flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-60 pl-2 absolute bg-linkIt-500">
+                        <div className="capitalize flex flex-col border-2 border-linkIt-300 rounded-lg mt-6 w-60 pl-2 absolute bg-linkIt-500">
                             {Object.entries(viewCol).map(([key, value]) => (
                                 <label key={key}>
                                     <input
@@ -71,9 +77,12 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
                     <input
                         type="text"
                         placeholder="Buscar"
-                        onChange={(e) => handleSearch(e.target.value)}
+                    // onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
+                {viewForm && <FormReview
+                    onClose={noShowForm}
+                />}
             </div>
         </div>
     )

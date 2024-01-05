@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import HeadClientsFollowUp from "./headClientsFollowUp";
 import { useDispatch, useSelector } from "react-redux";
 import { ClientFollowUpProps } from "../../../admin.types";
-import { setJobData } from "../../../../../redux/features/ClientsFollowUpSlice";
+import { setJobData, sortJobData } from "../../../../../redux/features/ClientsFollowUpSlice";
 import axios from "axios";
 
 type stateProps = {
   jobData: {
     allJobData: ClientFollowUpProps[];
+    filteredJobData: ClientFollowUpProps[];
   };
 };
 
@@ -69,7 +70,7 @@ export default function ClientsFollowUp() {
     "Total candidates endorsed": true,
     created: true,
   })
-  const data = useSelector((state: stateProps) => state.jobData.allJobData)
+  const data = useSelector((state: stateProps) => state.jobData.filteredJobData)
   const dispatch = useDispatch()
 
 
@@ -78,10 +79,15 @@ export default function ClientsFollowUp() {
       try {
         const response = await axios(
           "https://linkit-server.onrender.com/resources/companyjds",
-          { headers: { Authorization: `Bearer ${token}`,
-          'Accept-Language': sessionStorage.getItem('lang') } }
-        );
-        dispatch(setJobData(response.data));
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Accept-Language': sessionStorage.getItem('lang')
+            }
+          }
+          );
+          dispatch(setJobData(response.data));
+          dispatch(sortJobData('recent'))
       } catch (error) {
         console.error("Error al cargar las información", error);
       }
@@ -118,14 +124,14 @@ export default function ClientsFollowUp() {
   };
 
   const renderSectionBasic = <K extends keyof ClientFollowUpProps>(title: string, key: K,) => (
-    
+
     <div>
       <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: ClientFollowUpProps, index) => (
-          <p key={`${key}-${index}`} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{String(r[key] === undefined || NaN ? '' :r[key])}</p>
+          <p key={`${key}-${index}`} className='pl-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50'>{String(r[key] === undefined || NaN ? '' : r[key])}</p>
         ))}
       </div>
     </div>
@@ -144,24 +150,7 @@ export default function ClientsFollowUp() {
 
         <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
 
-          {viewCol["Recruitment role code"] &&
-            <div className=''>
-              <div className='flex flex-row whitespace-nowrap px-16 border-b-2 border-r-2  border-linkIt-200'>
-                <div className='justify-start'>
-                  <h1>Recruitment Role Code</h1>
-                </div>
-              </div>
-              <div className=''>
-                {dataToShow.map((c: ClientFollowUpProps) => (
-                  <div key={c["Recruitment role code"]} className='flex flex-row pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50'>
-                    <input type="checkbox" name='edit' />
-                    <p className='pl-2'>{c["Recruitment role code"]}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          }
-
+          {viewCol["Recruitment role code"] && renderSectionBasic("Recruitment role code", "Recruitment role code")}
           {viewCol.Client && renderSectionBasic("Client", "Client")}
           {viewCol["Role Name"] && renderSectionBasic("Role Name", "Role Name")}
           {viewCol["Tipo de cliente"] && renderSectionBasic("Tipo de cliente", "Tipo de cliente")}
@@ -227,7 +216,7 @@ export default function ClientsFollowUp() {
           <button
             className="cursor-pointer hover:text-linkIt-300"
             onClick={handleNext}
-            disabled={endIndex >= dataToShow.length}
+            disabled={endIndex >= data.length}
           >
             Siguiente
           </button>

@@ -9,12 +9,12 @@
   }
 
 .division {
-  @apply h-[4px] bg-linkIt-600  z-10 m-0 rounded-sm
+  @apply h-[2px] bg-linkIt-600 z-10 m-0 rounded-sm
 }
 
 
 .division::before {
   content: "";
-  @apply absolute w-[15px] h-[15px] rounded-full bg-linkIt-600 dark:bg-white transform -translate-y-1/2 z-10
+  @apply absolute rounded-full bg-linkIt-600 dark:bg-white w-[0.5rem] h-[0.5rem]
 }
 

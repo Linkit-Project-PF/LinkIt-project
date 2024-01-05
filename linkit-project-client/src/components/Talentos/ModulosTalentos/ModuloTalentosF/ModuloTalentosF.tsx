@@ -1,4 +1,4 @@
-import CardTech from "../../../Home/Modulos/ModuloG/CardTech/CardTech";
+import CardTech from "../../../../Utils/Technologies/CardTech/CardTech";
 import tecnologies from "../../../../Utils/technologies.json"
 import { useTranslation } from "react-i18next";
 

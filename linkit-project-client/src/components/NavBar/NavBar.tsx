@@ -275,7 +275,7 @@ function NavBar() {
         {windowWidth >= 1024 ? (
           <motion.div className={`container-navigation bg-transparent`}>
             <motion.button
-              className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 dark:hover:border-b-white dark:hover:text-white   ${
+              className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 dark:hover:border-b-white dark:hover:text-white  ${
                 isActiveHome
                   ? "text-linkIt-300 border-b-linkIt-300 dark:border-b-white dark:text-white"
                   : "border-b-transparent"
@@ -613,7 +613,7 @@ function NavBar() {
                       <button
                         className="profile hover:text-linkIt-300"
                         onClick={() => {
-                          navigate("/dashboard");
+                          navigate("/profile");
                         }}
                       >
                         {t("Mis datos")}
@@ -621,13 +621,8 @@ function NavBar() {
                     </li>
                     <hr className="w-[100%]" />
                     <li className="text-[0.6rem] lg:text-[0.9rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="profile hover:text-linkIt-300"
-                        onClick={() => {
-                          navigate("/");
-                        }}
-                      >
-                        {t("Mis postulaciones")}
+                      <button className="profile hover:text-linkIt-300">
+                        {t("Mis búsquedas")}
                       </button>
                     </li>
                     <hr className="w-[100%]" />
@@ -757,12 +752,12 @@ function NavBar() {
                   } `}
                 >
                   <div
-                    className={`absolute bg-black h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 ${
+                    className={`absolute bg-black dark:bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 ${
                       burgerMenu ? "rotate-45" : ""
                     }`}
                   ></div>
                   <div
-                    className={`absolute bg-black h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 ${
+                    className={`absolute bg-black dark:bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 ${
                       burgerMenu ? "-rotate-45" : ""
                     }`}
                   ></div>

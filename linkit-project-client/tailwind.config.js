@@ -9,6 +9,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'infinite-scroll': 'infinite-scroll 10000s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
+      },
       colors: {
         linkIt: {
           50: "#CBDAE8",
@@ -27,6 +36,7 @@ module.exports = {
       },
       screens: {
         "ssm":'540px',
+        "1xl": "1440px",
       }
     },
   },
