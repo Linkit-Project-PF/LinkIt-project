@@ -1,4 +1,4 @@
-import Footer from "../../Utils/Footer/Footer"
+
 import ModuloA from "./modulosEmpresas/moduloA/ModuloA"
 import ModuloB from "./modulosEmpresas/moduloB/moduloBH"
 import ModuloC from "./modulosEmpresas/moduloC/ModuloC"
