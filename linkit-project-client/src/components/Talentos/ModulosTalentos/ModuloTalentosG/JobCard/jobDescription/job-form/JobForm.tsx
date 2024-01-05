@@ -12,7 +12,7 @@ import { SelectCountryFormEs } from "./jobFormCountry/JobFormSelectCountry";
 import { JobValidations } from "./jobFormValidations/JobValidations";
 import CloudinaryUploadWidget from "../../../../../../Services/cloudinaryWidget";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import { Stack } from "./technicalStacks";
+import { getStack } from "./technicalStacks";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -66,7 +66,7 @@ function JobForm() {
     return { value: tech.name, label: tech.name}
   })
 
-  const technicalStack = Stack.map((tech: any) => {
+  const technicalStack = getStack.map((tech: any) => {
     return { value: tech.name, label: tech.name}
   })
 
