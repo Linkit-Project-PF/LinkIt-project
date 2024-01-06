@@ -1,5 +1,6 @@
 // import { Cloudinary } from "@cloudinary/url-gen/index";
 import { createContext, useEffect, useState } from "react";
+import { Curriculum } from "../Profiles/types";
 
 declare global {
   interface Window {
@@ -9,8 +10,9 @@ declare global {
 
 interface IComponentProps {
   children: React.ReactNode;
-  setFilePublicId: (value: string) => void;
+  setFilePublicId?: (value: string) => void;
   setFileName: (value: string) => void;
+  setCv?: (value: Curriculum) => void;
   onUploadSuccess?: (value: string) => void;
   setReload?: (value: boolean) => void;
   className?: string;
@@ -34,6 +36,7 @@ const CloudinaryScriptContext = createContext({});
 function CloudinaryUploadWidget({
   children,
   setFilePublicId,
+  setCv,
   setFileName,
   className,
   setReload,
@@ -52,7 +55,12 @@ function CloudinaryUploadWidget({
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            setFilePublicId(result.info.public_id);
+            setFilePublicId && setFilePublicId(result.info.public_id);
+            setCv &&
+              setCv({
+                fileName: `${result.info.original_filename}.${result.info.format}`,
+                cloudinaryId: result.info.public_id,
+              });
             setFileName(
               `${result.info.original_filename}.${result.info.format}`
             );

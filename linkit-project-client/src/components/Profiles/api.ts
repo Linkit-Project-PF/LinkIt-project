@@ -29,11 +29,11 @@ export const editUser = async (user: IUser): Promise<responseType> => {
 
 export async function editWebUserImage(user: WebsiteUser, image: string): Promise<WebsiteUser> {
   const role = user.role === 'company' ? 'companies' : `${user.role}s`
-  const edited: WebsiteUser = await axios.put(`${URL}/${role}/update/${user._id}`, {image: image }, {headers: {
+  const {data} = await axios.put(`${URL}/${role}/update/${user._id}`, {image: image }, {headers: {
     Authorization: `Bearer ${SUPERADMN_ID}`,
     'Accept-Language': sessionStorage.getItem('lang')
   }})
-  return edited
+  return data
 }
 
 export async function changePassword(user: WebsiteUser): Promise<string> {

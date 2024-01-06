@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   setUncompletedStep,
   setCompletedStep,
-  resetForm
+  resetForm,
 } from "../../../../../../../redux/features/ApplicationSlice";
 import "./JobForm.css";
 import JobFormProgress from "./jobForm-progress/jobForm-progress";
@@ -15,14 +15,14 @@ import { AnimatePresence, Variants, motion } from "framer-motion";
 import { getStack } from "./technicalStacks";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {
-  handleRecruiterChange,
-} from "./job-form-types-handlers/jobFormHandlers";
+import { handleRecruiterChange } from "./job-form-types-handlers/jobFormHandlers";
 import Select from "react-select";
 import FormTransition from "./job-form-types-handlers/FormTransition";
 import { useTranslation } from "react-i18next";
 import { SUPERADMN_ID } from "../../../../../../../env";
 import { setUser } from "../../../../../../../redux/features/AuthSlice";
+import { RootState } from "../../../../../../../redux/types";
+import { IUser } from "../../../../../../Profiles/types";
 
 const formVariants: Variants = {
   hidden: {
@@ -56,30 +56,30 @@ function JobForm() {
 
   const admins = useSelector((state: any) => state.application.admins);
 
-  const userData = useSelector((state: any) => state.Authentication.user);
+  const userData = useSelector(
+    (state: RootState) => state.Authentication.user as IUser
+  );
 
   const objectsTechnologies = useSelector(
     (state: any) => state.resources.stackTechnologies
   );
 
   const technologies = objectsTechnologies.map((tech: any) => {
-    return { value: tech.name, label: tech.name}
-  })
+    return { value: tech.name, label: tech.name };
+  });
 
   const technicalStack = getStack.map((tech: any) => {
-    return { value: tech.name, label: tech.name}
-  })
+    return { value: tech.name, label: tech.name };
+  });
 
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [filePublicId, setFilePublicId] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
-  const [country, setCountry] = useState<string>(
-    userData ? userData.country : ""
-  );
+  const [country, setCountry] = useState<string>(userData.country ?? "");
   const [englishLevel, setEnglishLevel] = useState<string>(
-    userData ? userData.englishLevel : ""
+    userData.englishLevel ?? ""
   );
   const [openEnglishLevel, setOpenEnglishLevel] = useState<boolean>(false);
   const [userStack, setUserStack] = useState<string[]>([]);
@@ -90,15 +90,13 @@ function JobForm() {
   const englishLevelRef = useRef<HTMLButtonElement>(null);
   const recruiterRef = useRef<HTMLButtonElement>(null);
 
-    console.log(userData)
-
   const [user, setLocalUser] = useState({
-    name: userData ? userData.firstName : "",
+    firstName: userData ? userData.firstName : "",
     lastName: userData ? userData.lastName : "",
     email: userData ? userData.email : "",
     country: country,
-    cv: filePublicId ? filePublicId : "",
-    linkedin: "",
+    cv: userData ? userData.cv.fileName : "",
+    linkedin: userData.linkedin ?? "",
     englishLevel: englishLevel,
     salary: 0,
     technicalStack: userStack,
@@ -108,8 +106,11 @@ function JobForm() {
     reason: "",
   });
 
+  console.log(user);
+  console.log(userData);
+
   const [errors, setErrors] = useState({
-    name: "",
+    firstName: "",
     lastName: "",
     email: "",
     country: "",
@@ -141,15 +142,22 @@ function JobForm() {
       stack: user.technologies,
       techStack: user.technicalStack,
       english: user.englishLevel,
-      firstName: user.name,
+      firstName: user.firstName,
       lastName: user.lastName,
-      recruiter: user.recruiter !== '-' ? user.recruiter : undefined,
-      code: window.location.href.split('Joboffer/').splice(1, 1)[0].replace('/application', '')
-    }
-    console.log(userApplicationObject)
+      recruiter: user.recruiter !== "-" ? user.recruiter : undefined,
+      code: window.location.href
+        .split("Joboffer/")
+        .splice(1, 1)[0]
+        .replace("/application", ""),
+    };
+    console.log(userApplicationObject);
     try {
-      const response = await axios.post(`https://linkit-server.onrender.com/postulations/create?user=${userData._id}`, userApplicationObject, {headers: {'Accept-Language': sessionStorage.getItem('lang')}})
-      if(response.status > 200 && response.status < 300){
+      const response = await axios.post(
+        `https://linkit-server.onrender.com/postulations/create?user=${userData._id}`,
+        userApplicationObject,
+        { headers: { "Accept-Language": sessionStorage.getItem("lang") } }
+      );
+      if (response.status > 200 && response.status < 300) {
         Swal.fire({
           icon: "success",
           title: "¡Postulación enviada!",
@@ -158,23 +166,30 @@ function JobForm() {
           confirmButtonColor: "#01A28B",
         }).then((result) => {
           if (result.isConfirmed) {
-            dispatch(resetForm())
+            dispatch(resetForm());
             navigate("/soyTalento");
-            setTimeout(()=>{
-              window.location.href = '#vacantes'
-            })
+            setTimeout(() => {
+              window.location.href = "#vacantes";
+            });
           }
         });
-        const {data} = await axios.get(`https://linkit-server.onrender.com/users/find?id=${userData._id}`, {headers: {Authorization: `Bearer ${SUPERADMN_ID},
-        'Accept-Language': sessionStorage.getItem('lang')`}})
-        dispatch(setUser(data))
+        const { data } = await axios.get(
+          `https://linkit-server.onrender.com/users/find?id=${userData._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID},
+        'Accept-Language': sessionStorage.getItem('lang')`,
+            },
+          }
+        );
+        dispatch(setUser(data));
       }
     } catch (error: any) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: "error",
+        title: "Oops...",
         text: error.response.data,
-      })
+      });
     }
   };
 
@@ -228,29 +243,25 @@ function JobForm() {
 
   const handleGoBack = () => {
     Swal.fire({
-      title: t('¿Estás seguro/a?'),
-      text: t('Si vuelves atrás perderás todo el progreso'),
-      icon: 'warning',
+      title: t("¿Estás seguro/a?"),
+      text: t("Si vuelves atrás perderás todo el progreso"),
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: t('Volver atrás'),
-      cancelButtonText: t('Seguir postulando'),
-      confirmButtonColor: '#01A28B',
-      cancelButtonColor: '#173951',
-      iconColor: '#F87171',
-      reverseButtons: true
+      confirmButtonText: t("Volver atrás"),
+      cancelButtonText: t("Seguir postulando"),
+      confirmButtonColor: "#01A28B",
+      cancelButtonColor: "#173951",
+      iconColor: "#F87171",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(resetForm())
-        navigate(-1)
-      }else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          t('Cancelado'),
-          t('Tu postulación sigue en curso'),
-          'info'
-        )
+        dispatch(resetForm());
+        navigate(-1);
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(t("Cancelado"), t("Tu postulación sigue en curso"), "info");
       }
-    })
-  }
+    });
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -275,7 +286,7 @@ function JobForm() {
                 alt="go-back"
                 className="w-[1.5rem]"
               />{" "}
-              {t('Volver')}
+              {t("Volver")}
             </button>
             <section className="absolute top-[8%] left-[50%] translate-x-[-50%] ">
               <JobFormProgress />
@@ -286,26 +297,29 @@ function JobForm() {
             {currentStep === 1 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                  {t('Información Personal')}
+                  {t("Información Personal")}
                 </h2>
                 <label
-                  htmlFor="name"
+                  htmlFor="firstName"
                   className="font-montserrat font-[500] relative  text-[1.3rem] w-full flex flex-col"
                 >
                   <div className="flex">
-                    {t('Nombre')}<span className=" text-red-400">*</span>
+                    {t("Nombre")}
+                    <span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
-                    name="name"
-                    value={user.name}
+                    name="firstName"
+                    value={user.firstName}
                     onChange={handleInputChange}
                     className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
                   />
                 </label>
 
-                {errors.name && (
-                  <p className="text-red-500 text-[.8rem]">{errors.name}</p>
+                {errors.firstName && (
+                  <p className="text-red-500 text-[.8rem]">
+                    {errors.firstName}
+                  </p>
                 )}
 
                 <label
@@ -313,7 +327,8 @@ function JobForm() {
                   className="font-montserrat font-[500] relative text-[1.3rem] w-full "
                 >
                   <div className="flex">
-                    {t('Apellido')}<span className=" text-red-400">*</span>
+                    {t("Apellido")}
+                    <span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -352,7 +367,8 @@ function JobForm() {
                   htmlFor=""
                   className="font-montserrat font-[500] relative text-[1.3rem] w-full"
                 >
-                  {t('País')}<span className="text-red-400 ">*</span>
+                  {t("País")}
+                  <span className="text-red-400 ">*</span>
                   <SelectCountryFormEs
                     setCountry={setCountry}
                     country={country}
@@ -379,11 +395,11 @@ function JobForm() {
                       dispatch(setCompletedStep(currentStep));
                     }}
                     disabled={
-                      errors.name ||
+                      errors.firstName ||
                       errors.lastName ||
                       errors.email ||
                       errors.country ||
-                      user.name === "" ||
+                      user.firstName === "" ||
                       user.lastName === "" ||
                       user.email === "" ||
                       country === "" ||
@@ -392,7 +408,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    {t('Siguiente')}
+                    {t("Siguiente")}
                   </button>
                 </div>
               </section>
@@ -403,7 +419,7 @@ function JobForm() {
             {currentStep === 2 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                  {t('Información Profesional')}
+                  {t("Información Profesional")}
                 </h2>
 
                 <label
@@ -457,7 +473,8 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    {t('Nivel de inglés')}<span className=" text-red-400">*</span>
+                    {t("Nivel de inglés")}
+                    <span className=" text-red-400">*</span>
                   </div>
                   <button
                     type="button"
@@ -538,7 +555,8 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    {t('Expectativa Salarial')}<span className=" text-red-400">*</span>
+                    {t("Expectativa Salarial")}
+                    <span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="number"
@@ -563,7 +581,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    {t('Anterior')}
+                    {t("Anterior")}
                   </button>
 
                   <button
@@ -587,7 +605,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    {t('Siguiente')}
+                    {t("Siguiente")}
                   </button>
                 </div>
               </section>
@@ -598,96 +616,110 @@ function JobForm() {
             {currentStep === 3 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                  {t('Información Profesional')}
+                  {t("Información Profesional")}
                 </h2>
 
                 <label
                   htmlFor="technologies"
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
-                  {t('Selecciona Tus Tecnologías')}<span className=" text-red-400">*</span>
-               <Select 
-                  options={technologies}
-                  isMulti={true}
-                  name="technologies"
-                  closeMenuOnSelect={false}
-                  value={user.technologies.map((tech: any) => ({value: tech, label: tech}))}
-                  styles={{
-                    multiValue: (provided) => ({
-                      ...provided,
-                      backgroundColor: "#01A28B",
-                      color: "#FFF",
-                      borderRadius: "5px",
-                      height: "1.3rem",
-                      fontSize: ".8rem",
-                    }),
-                    multiValueLabel: (provided) => ({
-                      ...provided,
-                      color: "#FFF",
-                    }),
-                    control: (provided) => ({
-                      ...provided,
-                      maxHeight: "6rem",
-                      overflowY: "scroll",
-                      border: "2px solid #CBDAE8",
-                      ":hover": {
-                        border: "2px solid #173951",
-                      }
-                    }),
-                  }}
-                  onChange={(e) => {
-                    setUserTechnologies(e?.map((tech: any) => tech.value));
-                    setLocalUser((prevUser)=> {
-                      return {...prevUser, technologies: e?.map((tech: any) => tech.value)}
-                    })
-                  }}
-               />
+                  {t("Selecciona Tus Tecnologías")}
+                  <span className=" text-red-400">*</span>
+                  <Select
+                    options={technologies}
+                    isMulti={true}
+                    name="technologies"
+                    closeMenuOnSelect={false}
+                    value={user.technologies.map((tech: any) => ({
+                      value: tech,
+                      label: tech,
+                    }))}
+                    styles={{
+                      multiValue: (provided) => ({
+                        ...provided,
+                        backgroundColor: "#01A28B",
+                        color: "#FFF",
+                        borderRadius: "5px",
+                        height: "1.3rem",
+                        fontSize: ".8rem",
+                      }),
+                      multiValueLabel: (provided) => ({
+                        ...provided,
+                        color: "#FFF",
+                      }),
+                      control: (provided) => ({
+                        ...provided,
+                        maxHeight: "6rem",
+                        overflowY: "scroll",
+                        border: "2px solid #CBDAE8",
+                        ":hover": {
+                          border: "2px solid #173951",
+                        },
+                      }),
+                    }}
+                    onChange={(e) => {
+                      setUserTechnologies(e?.map((tech: any) => tech.value));
+                      setLocalUser((prevUser) => {
+                        return {
+                          ...prevUser,
+                          technologies: e?.map((tech: any) => tech.value),
+                        };
+                      });
+                    }}
+                  />
                 </label>
 
                 <label
                   htmlFor="technologies"
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
-                  {t('Selecciona Stack Técnico')}<span className=" text-red-400">*</span>
-               <Select 
-                  options={technicalStack}
-                  isMulti={true}
-                  name="technicaStack"
-                  value={user.technicalStack.map((tech: any) => ({value: tech, label: tech}))}
-                  closeMenuOnSelect={false}
-                  styles={{
-                    multiValue: (provided) => ({
-                      ...provided,
-                      backgroundColor: "#01A28B",
-                      color: "#FFF",
-                      borderRadius: "5px",
-                      height: "1.3rem",
-                      fontSize: ".8rem",
-                    }),
-                    multiValueLabel: (provided) => ({
-                      ...provided,
-                      color: "#FFF",
-                    }),
-                    control: (provided) => ({
-                      ...provided,
-                      maxHeight: "6rem",
-                      overflowY: "scroll",
-                      border: "2px solid #CBDAE8",
-                      ":hover":{
-                        border: "2px solid #173951",
-                      },
-                      ":focus": {
-                        border: "2px solid #173951",
-                      }
-                    }),
-                  }}
-                  onChange={(e) => {
-                    setUserStack(e?.map((tech: any) => tech.value));
-                    setLocalUser((prevUser)=> {
-                      return {...prevUser, technicalStack: e?.map((tech: any) => tech.value)}
-                    })
-                  }}
-               />
+                  {t("Selecciona Stack Técnico")}
+                  <span className=" text-red-400">*</span>
+                  <Select
+                    options={technicalStack}
+                    isMulti={true}
+                    name="technicaStack"
+                    value={user.technicalStack.map((tech: any) => ({
+                      value: tech,
+                      label: tech,
+                    }))}
+                    closeMenuOnSelect={false}
+                    styles={{
+                      multiValue: (provided) => ({
+                        ...provided,
+                        backgroundColor: "#01A28B",
+                        color: "#FFF",
+                        borderRadius: "5px",
+                        height: "1.3rem",
+                        fontSize: ".8rem",
+                      }),
+                      multiValueLabel: (provided) => ({
+                        ...provided,
+                        color: "#FFF",
+                      }),
+                      control: (provided) => ({
+                        ...provided,
+                        maxHeight: "6rem",
+                        overflowY: "scroll",
+                        border: "2px solid #CBDAE8",
+                        ":hover": {
+                          border: "2px solid #173951",
+                        },
+                        ":focus": {
+                          border: "2px solid #173951",
+                        },
+                      }),
+                    }}
+                    onChange={(e) => {
+                      setUserStack(e?.map((tech: any) => tech.value));
+                      setLocalUser((prevUser) => {
+                        return {
+                          ...prevUser,
+                          technicalStack: e?.map((tech: any) => tech.value),
+                        };
+                      });
+                    }}
+                  />
                 </label>
 
                 <label
@@ -695,7 +727,8 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    {t('¿Estás haciendo el proceso con algun reclutador/a?')}<span className=" text-red-400">*</span>
+                    {t("¿Estás haciendo el proceso con algun reclutador/a?")}
+                    <span className=" text-red-400">*</span>
                   </div>
 
                   <button
@@ -719,7 +752,14 @@ function JobForm() {
                       setOpenRecruiter(!openRecruiter);
                     }}
                   >
-                    <li className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer" onClick={() => handleRecruiterChange('-', setRecruiter, setLocalUser)}>Ninguno</li>
+                    <li
+                      className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
+                      onClick={() =>
+                        handleRecruiterChange("-", setRecruiter, setLocalUser)
+                      }
+                    >
+                      Ninguno
+                    </li>
                     {admins?.map((admin: any, index: number) => {
                       if (index === 0 || index === admins.length - 1) {
                         return (
@@ -773,7 +813,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    {t('Anterior')}
+                    {t("Anterior")}
                   </button>
 
                   <button
@@ -793,7 +833,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    {t('Siguiente')}
+                    {t("Siguiente")}
                   </button>
                 </div>
               </section>
@@ -804,14 +844,15 @@ function JobForm() {
             {currentStep === 4 && (
               <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
                 <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                  {t('Información Profesional')}
+                  {t("Información Profesional")}
                 </h2>
                 <label
                   htmlFor="availability"
                   className="font-montserrat relative  text-[1.3rem] w-full flex flex-col "
                 >
                   <div className="flex">
-                    {t('Periodo de aviso')}<span className=" text-red-400">*</span>
+                    {t("Periodo de aviso")}
+                    <span className=" text-red-400">*</span>
                   </div>
                   <input
                     type="text"
@@ -833,7 +874,10 @@ function JobForm() {
                   className="font-montserrat relative text-[1.3rem] w-full"
                 >
                   <div className="flex">
-                    {t('¿Por qué estás buscando una nueva oportunidad laboral?')}<span className=" text-red-400">*</span>
+                    {t(
+                      "¿Por qué estás buscando una nueva oportunidad laboral?"
+                    )}
+                    <span className=" text-red-400">*</span>
                   </div>
                   <textarea
                     name="reason"
@@ -860,7 +904,7 @@ function JobForm() {
                       handlePreviousStep(currentStep);
                     }}
                   >
-                    {t('Anterior')}
+                    {t("Anterior")}
                   </button>
 
                   <button
@@ -878,7 +922,7 @@ function JobForm() {
                         : false
                     }
                   >
-                    {t('Enviar')}
+                    {t("Enviar")}
                   </button>
                 </div>
               </section>

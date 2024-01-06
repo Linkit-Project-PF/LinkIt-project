@@ -69,7 +69,7 @@ function MyApps() {
 
   if (!talentApps) return null;
   return (
-    <div className="flex bg-linkIt-500 p-[1rem] rounded-[20px] md:mx-16 mx-5">
+    <div className="flex bg-linkIt-500 p-[1rem] rounded-[20px] mt-5 md:mx-16 mx-5">
       {user.postulations.length ? (
         <TalentApps apps={talentApps} />
       ) : (

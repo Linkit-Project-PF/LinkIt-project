@@ -49,6 +49,7 @@ export default function ProfileComponent() {
     };
     if (reload) {
       updateUserImage();
+      setReload(false);
     }
   }, [reload]);
 

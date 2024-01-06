@@ -1,7 +1,7 @@
 
 
 interface IUserJob {
-    name: string
+    firstName: string
     lastName: string
     email: string
     country: string
@@ -17,7 +17,7 @@ interface IUserJob {
 }
 
 export interface IErrors {
-    name: string
+    firstName: string
     lastName: string
     email: string
     country: string
@@ -36,14 +36,14 @@ export function JobValidations(User: IUserJob) {
 
     const errors = {} as IErrors
 
-    if (User.name === "") {
-        errors.name = "Name is required"
-    }else if(User.name.length < 2){
-        errors.name = "Name must be at least 3 characters long"
-    }else if(User.name.length > 30){
-        errors.name = "Name must be less than 30 characters long"
-    }else if(!/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/.test(User.name.trim())){
-        errors.name = "Name must contain only letters"
+    if (User.firstName === "") {
+        errors.firstName = "Name is required"
+    }else if(User.firstName.length < 2){
+        errors.firstName = "Name must be at least 3 characters long"
+    }else if(User.firstName.length > 30){
+        errors.firstName = "Name must be less than 30 characters long"
+    }else if(!/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/.test(User.firstName.trim())){
+        errors.firstName = "Name must contain only letters"
     }
 
     if(User.lastName === ""){
@@ -54,7 +54,7 @@ export function JobValidations(User: IUserJob) {
         errors.lastName = "Last name must be less than 30 characters long"
     }else if(!/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/.test(User.lastName)){
         errors.lastName = "Last name must contain only letters"
-    }else if(User.lastName === User.name){
+    }else if(User.lastName === User.firstName){
         errors.lastName = "Last name must be different from name"
     }
 
@@ -76,7 +76,7 @@ export function JobValidations(User: IUserJob) {
         errors.country = "Country must be less than 30 characters long"
     }else if(!/^[a-zA-Z]+$/.test(User.country)){
         errors.country = "Country must contain only letters"
-    }else if(User.country === User.name){
+    }else if(User.country === User.firstName){
         errors.country = "Country must be different from name"
     }else if(User.country === User.lastName){
         errors.country = "Country must be different from last name"
@@ -98,7 +98,7 @@ export function JobValidations(User: IUserJob) {
 
     if(User.linkedin === ""){
         errors.linkedin = "Linkedin is required"
-    }else if(!/^(https?:\/\/)?([\w\.]*)linkedin\.com\/in\/(.*)(\/)?$/i.test(User.linkedin)){
+    }else if(/^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/.test(User.linkedin)){
         errors.linkedin = "Not a valid Linkedin URL"
     }
 

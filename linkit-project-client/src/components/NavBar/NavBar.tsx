@@ -664,7 +664,7 @@ function NavBar() {
                       <button
                         className="profile hover:text-linkIt-300"
                         onClick={() => {
-                          navigate("/profile");
+                          navigate("/dashboard");
                         }}
                       >
                         {t("Mis datos")}
