@@ -142,7 +142,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col">
-            <label className="ml-2">{t("Nivel de Ingles")}</label>
+            <label className="ml-2">{t("Nivel de inglés")}</label>
             <select
               onChange={(event) =>
                 setEnglishLevel(event.target.value as EnglishLevelEnum)

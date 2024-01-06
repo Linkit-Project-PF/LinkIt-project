@@ -142,6 +142,7 @@ export const i18nOptions: InitOptions = {
         "Estamos autenticando tu cuenta":"We are authenticating your account",
         "Bienvenido de vuelta ":"Welcome back ",
         "Se ha creado una nueva cuenta para ti":"A new account has been created for you.",
+        "Validando credenciales":"Checking credentials",
         
 
         //!Login pre-login
@@ -241,6 +242,7 @@ export const i18nOptions: InitOptions = {
         "EMPRESAS":"COMPANIES",
         "REGISTRO PARA": "REGISTER FOR",
         "Bienvenido a LinkIT ": "Welcome to LinkIT ",
+        "Creando tu cuenta":"Creating your account",
         
 
         //!Talentos modulo A
@@ -539,6 +541,7 @@ export const i18nOptions: InitOptions = {
         "Periodo de aviso":"Notice period",
         "¿Por qué estás buscando una nueva oportunidad laboral?": "Why are you looking for a new job opportunity?",
         "Escribe aquí tu respuesta":"Write your answer here",
+        "Enviando tu postulación":"Sending your application",
         "Seleccionar": "Select",
         '¿Estás seguro/a?' : 'Are you sure?',
         'Si vuelves atrás perderás todo el progreso':'If you go back you will lose all progress',

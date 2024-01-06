@@ -6,46 +6,19 @@ import { SUPERADMN_ID } from "../../../../env";
 import TalentApps from "./TalentApps";
 import { IUser } from "../../types";
 
-export interface ITalentApp {
-  // jd: {
-  //   _id: string
-  //   code: string
-  //   title: string
-  //   description: string
-  //   type: string
-  //   location: string
-  //   modality: string
-  //   stack: string[]
-  //   aboutUs: string
-  //   aboutClient: string
-  //   responsabilities: string[]
-  //   requirements: string[]
-  //   niceToHave: string[]
-  //   benefits: string[]
-  //   company: string
-  //   status: string
-  //   users: string[]
-  //   createdDate: string
-  //   __v: number
-  //   recruiter: string
-  // }
-  // recruiter: string
-  // reason: string
-  // salary: string
-  // stack: string[]
-  // status: string
-  // techStack: string[]
-  // user: string
-  // __v: number
-  // _id: string
+interface ITalentApp {}
+
+interface componentProps {
+  loader: (value: boolean) => void;
 }
 
-function MyApps() {
+function MyApps({ loader }: componentProps) {
   const [talentApps, setTalentApps] = useState<ITalentApp[]>();
 
   const user = useSelector(
     (state: RootState) => state.Authentication.user
   ) as IUser;
+
   useEffect(() => {
     const fetchApps = async () => {
       const postulArray: any[] = [];
@@ -60,11 +33,12 @@ function MyApps() {
           }
         );
         postulArray.push(response.data);
-        console.log(postulArray);
       }
       setTalentApps(postulArray);
+      loader(false);
     };
     fetchApps();
+    return () => loader(true);
   }, []);
 
   if (!talentApps) return null;

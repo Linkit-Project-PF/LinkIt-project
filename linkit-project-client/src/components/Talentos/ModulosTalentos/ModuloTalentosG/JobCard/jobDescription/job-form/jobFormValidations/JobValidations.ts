@@ -5,7 +5,6 @@ interface IUserJob {
     lastName: string
     email: string
     country: string
-    cv: string
     englishLevel: string
     linkedin: string
     salary: number 
@@ -21,7 +20,6 @@ export interface IErrors {
     lastName: string
     email: string
     country: string
-    cv: string
     englishLevel: string
     linkedin: string
     salary: number | string
@@ -82,14 +80,6 @@ export function JobValidations(User: IUserJob) {
         errors.country = "Country must be different from last name"
     }else if(User.country === User.email){
         errors.country = "Country must be different from email"
-    }
-
-    if(User.cv === ""){
-        errors.cv = "CV is required"
-    }else if(User.cv.length > 200){
-        errors.cv = "CV must be less than 200 characters long"
-    }else if(User.cv.length < 5){
-        errors.cv = "CV must be at least 10 characters long"
     }
 
     if(User.englishLevel === ""){

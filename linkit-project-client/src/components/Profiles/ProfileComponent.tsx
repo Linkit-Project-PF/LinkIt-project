@@ -9,7 +9,12 @@ import { useNavigate } from "react-router-dom";
 import ProfileFormComponent from "./ProfileFormComponent";
 import { WebsiteUser } from "./types";
 
-export default function ProfileComponent() {
+interface componentProps {
+  loader: (value: boolean) => void;
+}
+
+export default function ProfileComponent({ loader }: componentProps) {
+  loader(false);
   const { t } = useTranslation();
   const [filePublicId, setFilePublicId] = useState("");
   const [fileName, setFileName] = useState("");
@@ -51,6 +56,7 @@ export default function ProfileComponent() {
       updateUserImage();
       setReload(false);
     }
+    return () => loader(true);
   }, [reload]);
 
   async function profileChangePassword() {
