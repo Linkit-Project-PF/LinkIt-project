@@ -16,7 +16,7 @@ interface IComponentProps {
 
 const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const dispatch = useDispatch();
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState(user.cv.fileName);
   const [cv, setCv] = useState(user.cv);
   const [englishLevel, setEnglishLevel] = useState(user.englishLevel);
   const [technologies, setTechnologies] = useState(user.technologies);
@@ -53,7 +53,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
       };
 
       const updatedUser = await editUser(newUser);
-      console.log(updatedUser);
       if (updatedUser.code >= 200 && updatedUser.code < 400) {
         dispatch(setUser(updatedUser.data));
         Swal.fire({
@@ -66,7 +65,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
     } catch (error: any) {
       Swal.fire({
         title: "Error",
-        text: error.message,
+        text: error.response.data,
         icon: "error",
       });
     }
@@ -111,12 +110,16 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
           </div>
           <div className="flex flex-col">
             <label className="ml-2">{t("País")}</label>
-            <input
-              defaultValue={user.country}
+            <select
               onChange={(event) => setCountry(event.target.value)}
-              className="flex border-[.125rem] border-linkIt-400 bg-transparent px-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
-              type="text"
-            />
+              value={country ?? "-"}
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+            >
+              <option value=""></option>
+              {countries.map((country, index) => (
+                <option key={index}>{country}</option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col">
             <label className="ml-2">{t("Perfil de LinkedIn")}</label>
@@ -139,7 +142,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col">
-            <label className="ml-2">{t("Nivel de Ingles")}</label>
+            <label className="ml-2">{t("Nivel de inglés")}</label>
             <select
               onChange={(event) =>
                 setEnglishLevel(event.target.value as EnglishLevelEnum)
@@ -159,7 +162,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             <label className="ml-2">{t("Carga tu CV")}</label>
             <CloudinaryUploadWidget
               className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
-              setFilePublicId={setCv}
+              setCv={setCv}
               setFileName={setFileName}
             >
               {fileName ? (

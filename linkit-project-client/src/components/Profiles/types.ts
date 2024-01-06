@@ -17,6 +17,10 @@ enum Providers {
   github = 'github'
 }
 
+export type Curriculum = {
+  fileName: string,
+  cloudinaryId: string
+}
 
 type permissons = {
   get: string[];
@@ -32,7 +36,7 @@ export interface IUser extends WebUser {
   linkedin: string
   airTableId: string
   englishLevel: EnglishLevelEnum
-  cv: string
+  cv: Curriculum
   technologies: string[]
   postulations: string[]
 }

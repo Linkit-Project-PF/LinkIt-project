@@ -229,6 +229,7 @@ function App() {
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/dashboard" element={<ProfileContainer />} />
         {/* <Route path="/verify/:id" element={<VerifyUser />} /> */}
+        {/* <Route path="/testing" element={<Loading text={"Hola"} />} /> */}
         <Route path="/blog/:id&:role" element={<BlogView />} />
         <Route
           path="/unauthorized"
