@@ -66,12 +66,10 @@ export const editAdmin = async (admin: IAdmin): Promise<IAdmin> => {
 
 export const editCompany = async (company: ICompany): Promise<ICompany> => {
   const companyObj = {
-    companyName: company.companyName,
     repName: company.repName,
     country: company.country,
-    email: company.email,
     linkedin: company.linkedin,
-    active: company.active,
+    interested: company.interested
   };
   const response = await axios.put(
     `${URL}/companies/update/${company._id}`,

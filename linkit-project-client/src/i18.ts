@@ -113,6 +113,11 @@ export const i18nOptions: InitOptions = {
          "Contáctanos":"Contact us",
          "¿Qué servicio te interesa?":"What service are you interested in?",
          "Enviar":"Send",
+         //Company - Profile - MyPosts
+         "Iniciados":"Started",
+         "En proceso":"Currently working",
+         "Finalizando":"Last steps",
+         "En pausa":"Stalled",
 
         //!Login - company
         "¡Te damos la bienvenida a LinkIT!":"Welcome to LinkIT!",
@@ -170,7 +175,7 @@ export const i18nOptions: InitOptions = {
         "Valores":"Values",
         "Talento interno":"Internal talent",
         "Mis datos":"My data",
-        "Mis postulaciones":"My postulations",
+        "Postulaciones":"Postulations",
         "Cerrar sesión":"Log out",
         "Panel":"Panel",
         "Mis vacantes":"My vacancies",
@@ -447,6 +452,13 @@ export const i18nOptions: InitOptions = {
         "Reseñas":"Reviews",
         "Usuarios":"Users",
         "Estadisticas":"Statistics",
+        "Datos actualizados":"Profile updated",
+        "Nómina/Pagos":"Payroll",
+        "Contratación directa":"Recruiting",
+        "Contratación intermediada":"Staff Augmentation",
+        "Interés principal":"Interested on",
+        "Si deseas cambiar el nombre de la empresa contáctanos para ayudarte":"Please contact us If you want to change the company name",
+
         //!Validations
         "Nombre requerido":"Name required",
         "Nombre inválido":"Invalid name",

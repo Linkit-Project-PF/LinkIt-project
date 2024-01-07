@@ -1,10 +1,11 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { ICompany } from "../types";
 import { editCompany } from "../api";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/types";
+import { useDispatch } from "react-redux";
 import { setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 interface IComponentProps {
   company: ICompany;
@@ -13,47 +14,60 @@ interface IComponentProps {
 const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { token } = useSelector((state: RootState) => state.Authentication);
+  const [country, setCountry] = useState(company.country);
   const [repName, setRepName] = useState(company.repName);
-  const [email, setEmail] = useState(company.email);
   const [companyName, setCompanyName] = useState(company.companyName);
+  const [interested, setInterests] = useState(company.interested);
+  const [linkedin, setLinkedin] = useState(company.linkedin);
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(
+        "https://linkit-server.onrender.com/resources/countries"
+      );
+      const countries = data.map((country: any) => country.name);
+      setCountries(countries);
+    };
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
 
-      if (!token) throw new Error("No token provided");
-
       const newCompany = {
         ...company,
         companyName,
         repName,
-        email,
+        linkedin,
+        interested,
+        country,
       };
 
       const updatedCompany = await editCompany(newCompany);
       dispatch(setUser(updatedCompany));
-    } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: t("Datos actualizados"),
+        icon: "success",
+      });
+    } catch (error: any) {
+      Swal.fire({
+        title: "Error",
+        text: error.response.data,
+        icon: "error",
+      });
     }
   };
 
+  function handleDiscard() {
+    window.location.reload();
+  }
+
   return (
-    <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
+    <div className="bg-linkIt-500 mx-5 my-5 p-10 rounded-[20px] md:mx-10 md:p-10">
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
-          <div className="flex flex-col">
-            <label htmlFor="" className="ml-2">
-              {t("Nombre de la empresa")}
-            </label>
-            <input
-              defaultValue={company.repName}
-              onChange={(event) => setRepName(event.target.value)}
-              type="text"
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
-            />
-          </div>
-
           <div className="flex flex-col">
             <label htmlFor="" className="ml-2">
               {t("Representante")}
@@ -62,7 +76,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
               defaultValue={company.repName}
               onChange={(event) => setRepName(event.target.value)}
               type="text"
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
             />
           </div>
 
@@ -74,8 +88,26 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
               defaultValue={company.companyName}
               onChange={(event) => setCompanyName(event.target.value)}
               type="text"
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] text-linkIt-400 text-opacity-80 hover:cursor-not-allowed"
+              title={t(
+                "Si deseas cambiar el nombre de la empresa contáctanos para ayudarte"
+              )}
+              disabled
             />
+          </div>
+
+          <div className="flex flex-col">
+            <label className="ml-2">{t("País")}</label>
+            <select
+              onChange={(event) => setCountry(event.target.value)}
+              value={country ?? "-"}
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+            >
+              <option value=""></option>
+              {countries.map((country, index) => (
+                <option key={index}>{country}</option>
+              ))}
+            </select>
           </div>
 
           <div className="flex flex-col">
@@ -84,28 +116,53 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
             </label>
             <input
               defaultValue={company.email}
-              onChange={(event) => setEmail(event.target.value)}
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] text-linkIt-400 text-opacity-80 hover:cursor-not-allowed"
               type="text"
-              placeholder={t("Email corporativo")}
+              disabled
             />
           </div>
 
-          {/* <input
-            defaultValue={user.technologies.join(", ")}
-            onChange={(event) => setTechnologies(event.target.value.split(","))}
-            className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] w-[24rem] h-[2.75rem] rounded-[10px]"
-            placeholder="Stack tecnológico"
-          /> */}
+          <div className="flex flex-col">
+            <label className="ml-2">{t("Interés principal")}</label>
+            <select
+              onChange={(event) => setInterests(event.target.value)}
+              defaultValue={company.interested}
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+            >
+              <option value="-"></option>
+              <option value="payroll">{t("Nómina/Pagos")}</option>
+              <option value="recruiting">{t("Contratación directa")}</option>
+              <option value="staff-aug">
+                {t("Contratación intermediada")}
+              </option>
+            </select>
+          </div>
+
+          <div className="flex flex-col">
+            <label htmlFor="" className="ml-2">
+              Linkedin
+            </label>
+            <input
+              defaultValue={company.linkedin}
+              onChange={(event) => setLinkedin(event.target.value)}
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              type="text"
+              placeholder={t("Linkedin")}
+            />
+          </div>
         </div>
 
-        <div className="flex flex-row justify-self-end place-self-end mt-8 gap-2">
-          <button className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid">
+        <div className="flex flex-row justify-center mt-8 gap-5">
+          <button
+            className="text-linkIt-400 border-[.125rem] border-linkIt-300 bg-white font-montserrat font-[500] hover:border-linkIt-200 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
+            type="button"
+            onClick={handleDiscard}
+          >
             {t("Descartar")}
           </button>
           <button
             type="submit"
-            className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
+            className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 font-montserrat font-[500] hover:border-linkIt-200 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
           >
             {t("Guardar")}
           </button>

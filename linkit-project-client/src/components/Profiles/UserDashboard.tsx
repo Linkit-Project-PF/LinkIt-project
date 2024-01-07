@@ -26,21 +26,26 @@ export default function UserDashboard({ role }: dashBoardProps) {
     }
   }, []);
 
+  console.log(loading);
+
   return (
     <div className="flex flex-col pt-5 md:w-full">
       <InternalNavBar
         items={role === "user" ? user : company}
         statusHandler={[setProfileVisible, setAuxVisible]}
       />
-      <div className="pb-5 md:py-10 mb-10 mx-5 md:mx-10 z-10 h-[80%] rounded-2xl bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+      <div className="pb-5 md:py-6 mb-10 mx-5 py-3 md:mx-10 z-10 h-[80%] rounded-2xl bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
         {loading && (
-          <img className="w-[150px] relative left-[45%]" src={loadingSpinner} />
+          <img
+            className="w-[150px] relative left-[37%] md:left-[45%]"
+            src={loadingSpinner}
+          />
         )}
         {profileVisible && <ProfileComponent loader={isLoading} />}
         {role === "user" ? (
           <>{auxVisible && <MyApps loader={isLoading} />}</>
         ) : (
-          <>{auxVisible && <MyPosts />}</>
+          <>{auxVisible && <MyPosts loader={isLoading} />}</>
         )}
       </div>
     </div>

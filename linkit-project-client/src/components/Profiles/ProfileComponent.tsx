@@ -148,11 +148,17 @@ export default function ProfileComponent({ loader }: componentProps) {
           </div>
           <div className="flex flex-col pt-5 gap-3 self-center place-self-center">
             {user?.provider === "email" && (
-              <button className="text-black" onClick={profileChangePassword}>
-                {t("Cambiar Contraseña")}
+              <button
+                className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
+                onClick={profileChangePassword}
+              >
+                {t("Cambiar contraseña")}
               </button>
             )}
-            <button className="text-black" onClick={handleLogOut}>
+            <button
+              className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
+              onClick={handleLogOut}
+            >
               {t("Cerrar Sesión")}
             </button>
           </div>
