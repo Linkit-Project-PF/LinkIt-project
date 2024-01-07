@@ -68,6 +68,7 @@ export type ReviewProps = {
   country: string;
   detail: string;
   archived: boolean;
+  createdDate: string;
 };
 export type ViewReviewProps = {
   _id: boolean;
