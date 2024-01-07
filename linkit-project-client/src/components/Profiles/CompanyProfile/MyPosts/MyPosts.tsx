@@ -44,7 +44,11 @@ export interface ICompanyPost {
   "Created By": string;
 }
 
-function MyPosts() {
+interface componentprops {
+  loader: (value: boolean) => void;
+}
+
+function MyPosts({ loader }: componentprops) {
   const [companyPosts, setCompanyPosts] = useState<ICompanyPost[]>();
 
   const companyName = useSelector(
@@ -62,18 +66,17 @@ function MyPosts() {
           },
         }
       );
-      console.log(response);
       setCompanyPosts(response.data);
+      loader(false);
     };
     fetchPosts();
+    return () => loader(true);
   }, []);
-
-  console.log(companyPosts);
 
   if (!companyPosts) return null;
 
   return (
-    <div className="flex absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] min-h-[30vh] min-w-[90%] mt-[6rem] px-6 py-5 bg-linkIt-500 rounded-[20px] overflow-x-scroll max-w-6xl">
+    <div className="flex left-1/2 top-1/2 mx-3 md:mx-6 p-5 bg-linkIt-500 rounded-[20px]">
       <CompanyPosts posts={companyPosts} />
     </div>
   );

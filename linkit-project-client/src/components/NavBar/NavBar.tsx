@@ -625,7 +625,7 @@ function NavBar() {
                         className="profile hover:text-linkIt-300"
                         onClick={() => navigate("/dashboard#postulations")}
                       >
-                        {t("Mis postulaciones")}
+                        {t("Postulaciones")}
                       </button>
                     </li>
                     <hr className="w-[100%]" />
