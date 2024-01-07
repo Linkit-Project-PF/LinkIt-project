@@ -52,7 +52,7 @@ export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, ed
                 try {
                     arraySelectedRows.forEach(async (id: string) => {
                         const response = await axios.delete(
-                            `https://linkit-server.onrender.com/users/delete/${id}`,
+                            `https://linkit-server.onrender.com/admins/delete/${id}`,
                             {
                                 headers: {
                                     Authorization: `Bearer ${token}`,
@@ -128,8 +128,8 @@ export default function HeadAdmins({ hideCol, viewCol, selectedRows, editing, ed
                     />
                 </div>
             </div>
+            
             <div>
-
                 <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
