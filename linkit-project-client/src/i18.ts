@@ -458,6 +458,7 @@ export const i18nOptions: InitOptions = {
         "Contratación intermediada":"Staff Augmentation",
         "Interés principal":"Interested on",
         "Si deseas cambiar el nombre de la empresa contáctanos para ayudarte":"Please contact us If you want to change the company name",
+        "Enviando los cambios":"Saving changes",
 
         //!Validations
         "Nombre requerido":"Name required",

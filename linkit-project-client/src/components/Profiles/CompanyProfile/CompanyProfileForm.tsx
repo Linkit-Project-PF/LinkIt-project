@@ -6,6 +6,7 @@ import { setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Loading from "../../Loading/Loading";
 
 interface IComponentProps {
   company: ICompany;
@@ -20,6 +21,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
   const [interested, setInterests] = useState(company.interested);
   const [linkedin, setLinkedin] = useState(company.linkedin);
   const [countries, setCountries] = useState([]);
+  const [loading, isLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,19 +46,21 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
         interested,
         country,
       };
-
+      isLoading(true);
       const updatedCompany = await editCompany(newCompany);
       dispatch(setUser(updatedCompany));
       Swal.fire({
         title: t("Datos actualizados"),
         icon: "success",
       });
+      isLoading(false);
     } catch (error: any) {
       Swal.fire({
         title: "Error",
         text: error.response.data,
         icon: "error",
       });
+      isLoading(false);
     }
   };
 
@@ -66,6 +70,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
 
   return (
     <div className="bg-linkIt-500 mx-5 my-5 p-10 rounded-[20px] md:mx-10 md:p-10">
+      {loading && <Loading text={t("Enviando los cambios")} />}
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
           <div className="flex flex-col">
