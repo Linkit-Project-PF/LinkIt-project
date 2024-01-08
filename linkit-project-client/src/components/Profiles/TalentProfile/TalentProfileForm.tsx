@@ -7,8 +7,9 @@ import { setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Loading from "../../Loading/Loading";
 
-//TODO Select on Technologies and countries.
+//TODO Bullet select on technologies
 
 interface IComponentProps {
   user: IUser;
@@ -25,6 +26,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [countries, setCountries] = useState([]);
+  const [loading, isLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +42,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-
+      isLoading(true);
       const newUser = {
         ...user,
         firstName,
@@ -59,8 +61,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
           title: t("Datos actualizados"), //!
           icon: "success",
         });
-      } else {
-        //TODO Here show the error.
+        isLoading(false);
       }
     } catch (error: any) {
       Swal.fire({
@@ -68,6 +69,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
         text: error.response.data,
         icon: "error",
       });
+      isLoading(false);
     }
   };
 
@@ -79,6 +81,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
 
   return (
     <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
+      {loading && <Loading text={t("Enviando los cambios")} />}
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
           <div className="flex flex-col">
