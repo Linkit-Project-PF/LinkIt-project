@@ -26,13 +26,13 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
     return { value: tech.name, label: tech.name };
   });
 
-  console.log(user.technologies)
 
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState(user.cv.fileName);
   const [cv, setCv] = useState(user.cv);
   const [englishLevel, setEnglishLevel] = useState(user.englishLevel);
   const [technologies, setTechnologies] = useState(user.technologies);
+  console.log(technologies)
   const [country, setCountry] = useState(user.country);
   const [linkedin, setLinkedin] = useState(user.linkedin);
   const [firstName, setFirstName] = useState(user.firstName);
@@ -90,6 +90,11 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   }
 
   const { t } = useTranslation();
+
+  const defaultValues = technologies.map((tech) => ({
+    value: tech,
+    label: tech,
+  }));
 
   return (
     <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
@@ -160,14 +165,16 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                   color: "#FFF",
                   borderRadius: "5px",
                   height: "1.3rem",
-                  fontSize: ".8rem",
+                  fontSize: "6rem",
                 }),
                 multiValueLabel: (provided) => ({
                   ...provided,
                   color: "#FFF",
+                  fontSize: "0.8rem"
                 }),
                 control: (provided) => ({
                   ...provided,
+                  color: "white",
                   maxHeight: "6rem",
                   width: "24rem",
                   borderRadius: "10px",
@@ -181,7 +188,8 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
               onChange={(event) =>
                 setTechnologies(event?.map((tech:any)=> tech.value))
               }
-              placeholder={user.technologies.join(", ")}
+              defaultValue={defaultValues}
+              placeholder={technologies.join(", ")}
             />
           </div>
           <div className="flex flex-col">
