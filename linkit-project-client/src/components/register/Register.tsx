@@ -281,7 +281,7 @@ function Register() {
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof FirebaseError) {
         Swal.fire({
           icon: "error",
@@ -332,7 +332,7 @@ function Register() {
         Swal.fire({
           icon: "error",
           title: "¡Error!",
-          text: `${error}`,
+          text: `${error.response?.data}`,
           confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
