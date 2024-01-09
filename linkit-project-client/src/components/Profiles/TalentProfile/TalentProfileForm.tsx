@@ -2,12 +2,14 @@ import { FunctionComponent, useEffect, useState } from "react";
 import CloudinaryUploadWidget from "../../Services/cloudinaryWidget";
 import { EnglishLevelEnum, IUser } from "../types";
 import { editUser } from "../api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
+import Select from "react-select";
+
 
 //TODO Bullet select on technologies
 
@@ -16,6 +18,16 @@ interface IComponentProps {
 }
 
 const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
+  const objectsTechnologies = useSelector(
+    (state: any) => state.resources.stackTechnologies
+  );
+
+  const selectTechnologies = objectsTechnologies.map((tech: any) => {
+    return { value: tech.name, label: tech.name };
+  });
+
+  console.log(user.technologies)
+
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState(user.cv.fileName);
   const [cv, setCv] = useState(user.cv);
@@ -134,14 +146,42 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col">
+
             <label className="ml-2">{t("Stack tecnológico")}</label>
-            <input
-              defaultValue={user.technologies.join(", ")}
+            <Select
+              options={selectTechnologies}
+              isMulti={true}
+              name="technologies"
+              closeMenuOnSelect={false}
+              styles={{
+                multiValue: (provided) => ({
+                  ...provided,
+                  backgroundColor: "#01A28B",
+                  color: "#FFF",
+                  borderRadius: "5px",
+                  height: "1.3rem",
+                  fontSize: ".8rem",
+                }),
+                multiValueLabel: (provided) => ({
+                  ...provided,
+                  color: "#FFF",
+                }),
+                control: (provided) => ({
+                  ...provided,
+                  maxHeight: "6rem",
+                  width: "24rem",
+                  borderRadius: "10px",
+                  overflowY: "scroll",
+                  border: "2px solid #000000",
+                  ":hover": {
+                    border: "2px solid #000000",
+                  },
+                }),
+              }}
               onChange={(event) =>
-                setTechnologies(event.target.value.split(","))
+                setTechnologies(event?.map((tech:any)=> tech.value))
               }
-              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
-              placeholder={t("Stack tecnológico")}
+              placeholder={user.technologies.join(", ")}
             />
           </div>
           <div className="flex flex-col">
