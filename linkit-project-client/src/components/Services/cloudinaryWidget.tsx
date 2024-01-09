@@ -1,6 +1,6 @@
 // import { Cloudinary } from "@cloudinary/url-gen/index";
 import { createContext, useEffect, useState } from "react";
-
+import { Curriculum } from "../Profiles/types";
 
 declare global {
   interface Window {
@@ -9,11 +9,13 @@ declare global {
 }
 
 interface IComponentProps {
-  children: React.ReactNode
-  setFilePublicId: (value: string) => void
-  setFileName: (value: string) => void
-  onUploadSuccess?: (value: string) => void
-  className?: string
+  children: React.ReactNode;
+  setFilePublicId?: (value: string) => void;
+  setFileName: (value: string) => void;
+  setCv?: (value: Curriculum) => void;
+  onUploadSuccess?: (value: string) => void;
+  setReload?: (value: boolean) => void;
+  className?: string;
 }
 
 // Create a context to manage the script loading state
@@ -24,14 +26,21 @@ const CloudinaryScriptContext = createContext({});
  * @param {children} React.ReactNode - The component children
  * @param {setFilePublicId} (value: string) => void - The function to set the file public id
  * @returns {JSX.Element} - The component JSX.Element
- * 
+ *
  * @example
  *  const [filePublicId, setFilePublicId] = useState("")
  *  <CloudinaryUploadWidget setFilePublicId={setFilePublicId}>
  *    <button>Upload</button>
  *  </CloudinaryUploadWidget>
-*/
-function CloudinaryUploadWidget({children, setFilePublicId, setFileName, className}: IComponentProps) {
+ */
+function CloudinaryUploadWidget({
+  children,
+  setFilePublicId,
+  setCv,
+  setFileName,
+  className,
+  setReload,
+}: IComponentProps) {
   const [loaded, setLoaded] = useState(false);
 
   const [uwConfig] = useState({
@@ -39,20 +48,28 @@ function CloudinaryUploadWidget({children, setFilePublicId, setFileName, classNa
     uploadPreset: "new-preset",
   });
 
-	const openCloudinaryWidget = () => {
+  const openCloudinaryWidget = () => {
     if (loaded) {
       // Create upload widget configuration
       const myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            setFilePublicId(result.info.public_id)
-            setFileName(`${result.info.original_filename}.${result.info.format}`)
+            setFilePublicId && setFilePublicId(result.info.public_id);
+            setCv &&
+              setCv({
+                fileName: `${result.info.original_filename}.${result.info.format}`,
+                cloudinaryId: result.info.public_id,
+              });
+            setFileName(
+              `${result.info.original_filename}.${result.info.format}`
+            );
+            setReload && setReload(true);
           }
         }
-      )
-			
-			myWidget.open()
+      );
+
+      myWidget.open();
     }
   };
 
@@ -68,7 +85,6 @@ function CloudinaryUploadWidget({children, setFilePublicId, setFileName, classNa
         script.src = "https://upload-widget.cloudinary.com/global/all.js";
         script.addEventListener("load", () => setLoaded(true));
         document.body.appendChild(script);
-
       } else {
         // If already loaded, update the state
         setLoaded(true);
@@ -76,12 +92,17 @@ function CloudinaryUploadWidget({children, setFilePublicId, setFileName, classNa
     }
   }, [loaded]);
 
-  
-
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
-      <script src="https://media-editor.cloudinary.com/all.js" type="text/javascript"></script>
-      <div className={className} onClick={openCloudinaryWidget} id="upload_widget">
+      <script
+        src="https://media-editor.cloudinary.com/all.js"
+        type="text/javascript"
+      ></script>
+      <div
+        className={className}
+        onClick={openCloudinaryWidget}
+        id="upload_widget"
+      >
         {children}
       </div>
     </CloudinaryScriptContext.Provider>

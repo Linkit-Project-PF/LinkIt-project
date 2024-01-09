@@ -68,6 +68,7 @@ export type ReviewProps = {
   country: string;
   detail: string;
   archived: boolean;
+  createdDate: string;
 };
 export type ViewReviewProps = {
   _id: boolean;
@@ -223,6 +224,7 @@ export interface CompaniesProps {
   role: string;
   __v: number;
   _id: string;
+  createdDate: string;
 }
 
 export interface ViewColHeadCompaniesU {
@@ -292,6 +294,7 @@ export interface TalentProps {
   technologies: any[]; //* Revisar si se puede más específico
   __v: number;
   _id: string;
+  createdDate: string;
 }
 
 export interface ViewColHeadTalent {

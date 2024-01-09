@@ -9,30 +9,37 @@ import {
 } from "../../redux/features/registerLoginSlice";
 import axios, { AxiosError } from "axios";
 import { auth } from "../../helpers/authentication/firebase";
-import { GoogleAuthProvider, signInWithPopup,GithubAuthProvider } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
+} from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 import { FirebaseError } from "firebase/app";
 import { SUPERADMN_ID } from "../../env";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
-import 'sweetalert2/dist/sweetalert2.min.css'
+import "sweetalert2/dist/sweetalert2.min.css";
+import Loading from "../Loading/Loading";
 
 function Register() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [thirdParty, setThirdParty] = useState<boolean | undefined>(false);
 
   const [visiblePassword, setVisiblePassword] = useState<string>("password");
-  const [visibleConfirmPassword, setVisibleConfirmPassword] = useState<string>("password")
+  const [visibleConfirmPassword, setVisibleConfirmPassword] =
+    useState<string>("password");
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [lockConfirm, setLockConfirm] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
   const [openConfirm, setOpenConfirm] = useState<string>("closed");
+  const [loading, isLoading] = useState(false);
 
   const handlePressAlreadyRegistered = () => {
     dispatch(setPressRegister("hidden"));
     dispatch(setPressLogin("visible"));
-  }
+  };
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -82,12 +89,12 @@ function Register() {
     };
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (thirdParty) {
       dispatch(setPressRegister("hidden"));
       Swal.fire({
         icon: "info",
-        title:t("Espera un momento"),
+        title: t("Espera un momento"),
         text: t("Estamos registrando tu cuenta"),
         confirmButtonText: t("Iniciar sesión"),
         confirmButtonColor: "#2D46B9",
@@ -99,15 +106,15 @@ function Register() {
         showDenyButton: false,
         showConfirmButton: true,
         didOpen: () => {
-          Swal.showLoading()
+          Swal.showLoading();
         },
         didClose: () => {
           dispatch(setPressRegister("hidden"));
           dispatch(setPressLogin("visible"));
-        }
-      })
+        },
+      });
     }
-  },[thirdParty])
+  }, [thirdParty]);
 
   const handleInputChange = ({
     target,
@@ -130,24 +137,26 @@ function Register() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-      try {
-      if (user.role === 'company') user.companyName = user.firstName;
-      user.provider = "email"
+    isLoading(true);
+    try {
+      if (user.role === "company") user.companyName = user.firstName;
+      user.provider = "email";
       const response = await axios.post(
         "https://linkit-server.onrender.com/auth/register",
         user,
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
-            'Accept-Language': sessionStorage.getItem('lang')
+            "Accept-Language": sessionStorage.getItem("lang"),
           },
         }
       );
-      if (response.data._id)
+      if (response.data._id) {
+        isLoading(false);
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: t("Bienvenido a LinkIT",{name:user.firstName}),
+          text: t("Bienvenido a LinkIT", { name: user.firstName }),
           confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
@@ -167,13 +176,15 @@ function Register() {
             dispatch(setPressLogin("visible"));
           },
         });
+      }
       dispatch(setPressRegister("hidden"));
       return response;
     } catch (error) {
+      isLoading(false);
       if (error instanceof AxiosError) {
         Swal.fire({
-          icon: 'error',
-          title: '¡Error!',
+          icon: "error",
+          title: "¡Error!",
           text: `${error.response?.data}`,
           confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
@@ -184,18 +195,15 @@ function Register() {
           showCancelButton: false,
           showDenyButton: false,
           showConfirmButton: true,
-          timer: 5000,
+          timer: 2500,
           timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading()
+            Swal.showLoading();
           },
-          didClose: () => {
-            dispatch(setPressRegister("hidden"));
-          }
-        })
+        });
         if (
-          error.response?.data ===
-          "This email is already registered" || error.response?.data === "El email ya esta registrado"
+          error.response?.data === "This email is already registered" ||
+          error.response?.data === "El email ya esta registrado"
         )
           setErrors({ ...errors, email: "Email en uso" });
       } else console.log(error);
@@ -205,9 +213,9 @@ function Register() {
   const handleAuthLogin = async (prov: string) => {
     try {
       let provider;
-      if (prov === "github" || prov=== "google") {
+      if (prov === "github" || prov === "google") {
         setThirdParty(true);
-        if (prov==="github"){
+        if (prov === "github") {
           provider = new GithubAuthProvider();
         } else provider = new GoogleAuthProvider();
         const response = await signInWithPopup(auth, provider);
@@ -219,7 +227,7 @@ function Register() {
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
-                'Accept-Language': sessionStorage.getItem('lang')
+                "Accept-Language": sessionStorage.getItem("lang"),
               },
             }
           );
@@ -231,7 +239,7 @@ function Register() {
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
-                  'Accept-Language': sessionStorage.getItem('lang')
+                  "Accept-Language": sessionStorage.getItem("lang"),
                 },
               }
             );
@@ -247,7 +255,10 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: t("Bienvenido a LinkIT ") + DBresponse.role === 'company' ? DBresponse.companyName : DBresponse.firstName,
+          text:
+            t("Bienvenido a LinkIT ") + DBresponse.role === "company"
+              ? DBresponse.companyName
+              : DBresponse.firstName,
           confirmButtonText: t("Iniciar sesión"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
@@ -260,13 +271,13 @@ function Register() {
           timer: 3000,
           timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading()
+            Swal.showLoading();
           },
           didClose: () => {
             dispatch(setPressRegister("hidden"));
             dispatch(setPressLogin("visible"));
-          }
-        })
+          },
+        });
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
       }
@@ -296,8 +307,8 @@ function Register() {
         });
       } else if (error instanceof AxiosError) {
         Swal.fire({
-          icon: 'error',
-          title: '¡Error!',
+          icon: "error",
+          title: "¡Error!",
           text: `${error.response?.data}`,
           confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
@@ -334,16 +345,15 @@ function Register() {
           timer: 5000,
           timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading()
+            Swal.showLoading();
           },
           didClose: () => {
             dispatch(setPressRegister("hidden"));
-          }
-        })
+          },
+        });
       }
     }
     dispatch(setPressRegister("hidden"));
-
   };
   return (
     <>
@@ -351,12 +361,12 @@ function Register() {
         className="bg-white bg-opacity-[85%] fixed top-0 left-0 w-screen h-screen"
         onClick={() => dispatch(setPressRegister("hidden"))}
       ></div>
+      {loading && <Loading text={t("Creando tu cuenta")} />}
       <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
         <form
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSubmit}
         >
-
           <img
             src="/Linkit-logo/linkit-logo-blue.svg"
             alt="linkIT-Logo"
@@ -364,35 +374,36 @@ function Register() {
           />
           <div className="flex flex-col justify-center items-center text-center">
             <h1 className="font-bold text-linkIt-400 text-[.9rem] 2xl:text-[1.4rem]">
-              {t('¡Te damos la bienvenida a LinkIT!')}
+              {t("¡Te damos la bienvenida a LinkIT!")}
             </h1>
           </div>
           <fieldset className="flex flex-col w-full content-center justify-center items-center gap-[.5rem]">
             <input
               type="text"
               className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
-              placeholder={user.role === "user" ? t("Nombre") : t("Nombre de la empresa")}
+              placeholder={
+                user.role === "user" ? t("Nombre") : t("Nombre de la empresa")
+              }
               name="firstName"
               value={user.firstName}
               onChange={handleInputChange}
             />
-            {
-              errors.firstName && ( <p className="text-red-500 text-xs italic">{errors.firstName}</p> )
-            }
-            {
-              user.role === "user" &&
-            <input
-              type="text"
-              className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
-              placeholder={t("Apellido")}
-              name="lastName"
-              value={user.lastName}
-              onChange={handleInputChange}
-            />
-            }
-            {
-              errors.lastName && ( <p className="text-red-500 text-xs italic">{errors.lastName}</p> )
-            }
+            {errors.firstName && (
+              <p className="text-red-500 text-xs italic">{errors.firstName}</p>
+            )}
+            {user.role === "user" && (
+              <input
+                type="text"
+                className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
+                placeholder={t("Apellido")}
+                name="lastName"
+                value={user.lastName}
+                onChange={handleInputChange}
+              />
+            )}
+            {errors.lastName && (
+              <p className="text-red-500 text-xs italic">{errors.lastName}</p>
+            )}
             <div className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem]">
               <img
                 src="/Vectores/email-icon.svg"
@@ -408,9 +419,9 @@ function Register() {
                 className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
               />
             </div>
-            {
-              errors.email && ( <p className="text-red-500 text-xs italic">{errors.email}</p> )
-            }
+            {errors.email && (
+              <p className="text-red-500 text-xs italic">{errors.email}</p>
+            )}
             <div className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem]">
               <img src={lock} alt="email" className="w-[.9rem]" />
               <input
@@ -429,9 +440,9 @@ function Register() {
                 />
               </button>
             </div>
-            {
-              errors.password && ( <p className="text-red-500 text-xs italic">{errors.password}</p> )
-            }
+            {errors.password && (
+              <p className="text-red-500 text-xs italic">{errors.password}</p>
+            )}
             <div className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem]">
               <img src={lockConfirm} alt="email" className="w-[.9rem]" />
               <input
@@ -450,9 +461,11 @@ function Register() {
                 />
               </button>
             </div>
-            {
-              errors.confirm_password && ( <p className="text-red-500 text-xs italic">{errors.confirm_password}</p> )
-            }
+            {errors.confirm_password && (
+              <p className="text-red-500 text-xs italic">
+                {errors.confirm_password}
+              </p>
+            )}
           </fieldset>
           <div className="flex flex-col w-full items-center gap-[.5rem]">
             <button
@@ -482,11 +495,11 @@ function Register() {
                     user.email === "" ||
                     user.password === "" ||
                     user.confirm_password === ""
-                    ? true
-                    : false
+                  ? true
+                  : false
               }
             >
-              {t('Crear Cuenta')}
+              {t("Crear Cuenta")}
             </button>
             <button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
@@ -499,7 +512,7 @@ function Register() {
                 alt="sign-in with google"
                 className="w-[1.2rem]"
               />
-              {t('Registrate con Google')}
+              {t("Registrate con Google")}
             </button>
             <button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
@@ -512,17 +525,22 @@ function Register() {
                 alt="sign-in with github"
                 className="w-[1.2rem]"
               />
-              {t('Registrate con Github')}
+              {t("Registrate con Github")}
             </button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
-            {t('¿Ya tienes una cuenta?')} {""}
-            <span className="text-linkIt-300 underline cursor-pointer" onClick={handlePressAlreadyRegistered}>
-              {t('Ingresa aquí')}
+            {t("¿Ya tienes una cuenta?")} {""}
+            <span
+              className="text-linkIt-300 underline cursor-pointer"
+              onClick={handlePressAlreadyRegistered}
+            >
+              {t("Ingresa aquí")}
             </span>
           </p>
           <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
-            {`${t("REGISTRO PARA")} ${user.role === "user" ?t ("TALENTOS") : t("EMPRESAS")}`}
+            {`${t("REGISTRO PARA")} ${
+              user.role === "user" ? t("TALENTOS") : t("EMPRESAS")
+            }`}
           </h3>
         </form>
       </div>
@@ -531,4 +549,3 @@ function Register() {
 }
 
 export default Register;
-
