@@ -148,6 +148,8 @@ export const i18nOptions: InitOptions = {
         "Bienvenido de vuelta ":"Welcome back ",
         "Se ha creado una nueva cuenta para ti":"A new account has been created for you.",
         "Validando credenciales":"Checking credentials",
+        "Usuario autenticado pero registro no encontrado, por favor inicia sesión desde la sección correspondiente. Si el error persiste contactános":
+        "User found but no register match, please log-in on the correct role section. If error persist, please contact us",
         
 
         //!Login pre-login
@@ -459,6 +461,7 @@ export const i18nOptions: InitOptions = {
         "Interés principal":"Interested on",
         "Si deseas cambiar el nombre de la empresa contáctanos para ayudarte":"Please contact us If you want to change the company name",
         "Enviando los cambios":"Saving changes",
+        "Fecha de creación":"Created date",
 
         //!Validations
         "Nombre requerido":"Name required",
