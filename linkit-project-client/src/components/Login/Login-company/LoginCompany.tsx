@@ -156,7 +156,6 @@ function LoginCompany() {
           if (getCompanyResponse.data.length) {
             const authUser = getCompanyResponse.data[0];
             dispatch(loginSuccess(authUser));
-            console.log(authUser);
             Swal.fire({
               title: t("Bienvenido de vuelta ") + authUser.companyName,
               text: t("Has ingresado correctamente"),

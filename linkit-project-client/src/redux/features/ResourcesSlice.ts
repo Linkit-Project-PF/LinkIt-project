@@ -9,6 +9,8 @@ const initialState = {
     events: [],
     blogs: [],
     stackTechnologies: [],
+    countries: [],
+    techStack: []
 }
 
 
@@ -110,9 +112,15 @@ const ResourcesSlice = createSlice({
         },
         setStackTechnologies: (state, action) => {
             state.stackTechnologies = action.payload;
+        },
+        setTechStack: (state, action) => {
+            state.techStack = action.payload
+        },
+        setCountries: (state, action) => {
+            state.countries = action.payload
         }
     },
 });
 
-export const { setResources, setEbooks, setEvents, setBlogs, setFilterResources, setSearchResources, setStackTechnologies, searchResource, sortResource} = ResourcesSlice.actions;
+export const { setTechStack, setCountries, setResources, setEbooks, setEvents, setBlogs, setFilterResources, setSearchResources, setStackTechnologies, searchResource, sortResource} = ResourcesSlice.actions;
 export default ResourcesSlice.reducer;
