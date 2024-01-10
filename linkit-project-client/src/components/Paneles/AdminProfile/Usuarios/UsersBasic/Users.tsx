@@ -16,7 +16,6 @@ export default function Users() {
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredTalents)
-  console.log(data)
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
   useEffect(() => {
