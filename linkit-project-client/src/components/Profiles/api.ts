@@ -1,13 +1,16 @@
 import axios from "axios";
-import { IUser, ICompany, IAdmin } from "./types";
+import { IUser, ICompany, IAdmin, WebsiteUser } from "./types";
 import { SUPERADMN_ID } from "../../env";
-import { UserProps } from "../Paneles/admin.types";
+
+interface responseType {
+  data: WebsiteUser
+  code: number
+}
 
 export const URL = `https://linkit-server.onrender.com`;
 
-export const editUser = async (user: IUser): Promise<IUser> => {
+export const editUser = async (user: IUser): Promise<responseType> => {
   const userObj = {
-    image: user.image,
     firstName: user.firstName,
     lastName: user.lastName,
     country: user.country,
@@ -21,18 +24,32 @@ export const editUser = async (user: IUser): Promise<IUser> => {
     headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
     'Accept-Language': sessionStorage.getItem('lang') },
   });
-  const result = response.data.filter(
-    (users: UserProps) => users._id === user._id
-  );
-  return result[0];
+  return {data: response.data, code: response.status};
 };
+
+export async function editWebUserImage(user: WebsiteUser, image: string): Promise<WebsiteUser> {
+  const role = user.role === 'company' ? 'companies' : `${user.role}s`
+  const {data} = await axios.put(`${URL}/${role}/update/${user._id}`, {image: image }, {headers: {
+    Authorization: `Bearer ${SUPERADMN_ID}`,
+    'Accept-Language': sessionStorage.getItem('lang')
+  }})
+  return data
+}
+
+export async function changePassword(user: WebsiteUser): Promise<string> {
+  const response: string = await axios.get(`${URL}/auth/resetPassword?email=${user.email}`, {headers: {
+    Authorization: `Bearer ${SUPERADMN_ID}`,
+    'Accept-Language': sessionStorage.getItem('lang')
+  }})
+  return response
+}
 
 export const editAdmin = async (admin: IAdmin): Promise<IAdmin> => {
   const adminObj = {
-    image: admin.image,
     country: admin.country,
     firstName: admin.firstName,
     lastName: admin.lastName,
+    active: admin.active
   };
   const { data } = await axios.put(
     `${URL}/admins/update/${admin._id}`,
@@ -49,13 +66,10 @@ export const editAdmin = async (admin: IAdmin): Promise<IAdmin> => {
 
 export const editCompany = async (company: ICompany): Promise<ICompany> => {
   const companyObj = {
-    image: company.image,
-    companyName: company.companyName,
     repName: company.repName,
     country: company.country,
-    email: company.email,
     linkedin: company.linkedin,
-    active: company.active,
+    interested: company.interested
   };
   const response = await axios.put(
     `${URL}/companies/update/${company._id}`,

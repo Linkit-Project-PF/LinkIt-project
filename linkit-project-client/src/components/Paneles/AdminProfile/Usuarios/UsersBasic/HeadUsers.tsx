@@ -1,17 +1,79 @@
 import { useState } from "react"
 import { ViewColHeadTalent } from "../../../admin.types";
+import { useDispatch, useSelector } from "react-redux";
+import { searchTalents, setUsersTalent, sortTalents } from "../../../../../redux/features/UsersSlice";
+import swal from "sweetalert";
+import axios from "axios";
 
 interface HeadUsers {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
     viewCol: ViewColHeadTalent
+    editTalent: () => void
+    handleSave: (arrayProps: string[]) => void
+    selectedRows: Set<string>;
+    editing: boolean
+    setSaveStatus: (status: boolean) => void;
 }
 
-export default function HeadUsers({ hideCol, viewCol }:HeadUsers) {
-    const [options, setOptions] = useState(false)
+export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, selectedRows, editing, setSaveStatus }: HeadUsers) {
+    const arraySelectedRows = [...selectedRows]
+    const token = useSelector((state: any) => state.Authentication.token);
+    const dispatch = useDispatch();
 
+    //? OPTIONS COLUMNS
+    const [options, setOptions] = useState(false)
     const hideOptions = () => {
         setOptions(!options)
     }
+    //?
+
+    //?BUSCAR
+    const handleSearch = (searchTerm: string): void => {
+        dispatch(searchTalents(searchTerm))
+    }
+    //?
+
+    //?ORDENAR
+    const handleSort = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+        const { value } = e.target;
+        dispatch(sortTalents(value))
+    }
+    //?
+
+    const deleteUser = async () => {
+        swal({
+            title: "¿Deseas eliminar el Usuario?",
+            icon: "warning",
+            buttons: ["Cancelar", "Aceptar"],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/users/delete/${id}`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                    'Accept-Language': sessionStorage.getItem('lang')
+                                },
+                            }
+                        );
+                        dispatch(setUsersTalent(response.data));
+                        swal("Usuario eliminado", { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        "Error al enviar la solicitud:",
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
+
+
     return (
         <div>
 
@@ -24,7 +86,10 @@ export default function HeadUsers({ hideCol, viewCol }:HeadUsers) {
                         <h1>Ordenar:</h1>
                     </div>
                     <div>
-                        <select placeholder='Ordenar' className="ml-2">
+                        <select
+                            onChange={handleSort}
+                            className="ml-2"
+                        >
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
                         </select>
@@ -59,9 +124,48 @@ export default function HeadUsers({ hideCol, viewCol }:HeadUsers) {
                     <input
                         type="text"
                         placeholder="Buscar"
-                    // onChange={(e) => handleSearch(e.target.value)}
+                        onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
+            </div>
+            <div>
+                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                    {selectedRows.size > 0 &&
+                        <div className="flex flex-row">
+                            {editing ?
+                                <div>
+                                    <button
+                                        onClick={() => handleSave(arraySelectedRows)}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        Guardar
+                                    </button>
+                                    <button
+                                        onClick={editTalent}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                                :
+                                <div>
+                                    <button
+                                        onClick={editTalent}
+                                        className="pl-6 hover:text-linkIt-300"
+                                    >
+                                        {selectedRows.size && 'Editar'}
+                                    </button>
+                                </div>
+                            }
+                            <button
+                                onClick={deleteUser}
+                                className="pl-6 hover:text-red-600"
+                            >
+                                {selectedRows.size && 'Eliminar'}
+                            </button>
+                        </div>
+                    }
+                </span>
             </div>
         </div>
     )

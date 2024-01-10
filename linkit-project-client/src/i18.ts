@@ -113,6 +113,11 @@ export const i18nOptions: InitOptions = {
          "Contáctanos":"Contact us",
          "¿Qué servicio te interesa?":"What service are you interested in?",
          "Enviar":"Send",
+         //Company - Profile - MyPosts
+         "Iniciados":"Started",
+         "En proceso":"Currently working",
+         "Finalizando":"Last steps",
+         "En pausa":"Stalled",
 
         //!Login - company
         "¡Te damos la bienvenida a LinkIT!":"Welcome to LinkIT!",
@@ -142,6 +147,7 @@ export const i18nOptions: InitOptions = {
         "Estamos autenticando tu cuenta":"We are authenticating your account",
         "Bienvenido de vuelta ":"Welcome back ",
         "Se ha creado una nueva cuenta para ti":"A new account has been created for you.",
+        "Validando credenciales":"Checking credentials",
         
 
         //!Login pre-login
@@ -169,7 +175,7 @@ export const i18nOptions: InitOptions = {
         "Valores":"Values",
         "Talento interno":"Internal talent",
         "Mis datos":"My data",
-        "Mis búsquedas":"My searches",
+        "Postulaciones":"Postulations",
         "Cerrar sesión":"Log out",
         "Panel":"Panel",
         "Mis vacantes":"My vacancies",
@@ -241,6 +247,7 @@ export const i18nOptions: InitOptions = {
         "EMPRESAS":"COMPANIES",
         "REGISTRO PARA": "REGISTER FOR",
         "Bienvenido a LinkIT ": "Welcome to LinkIT ",
+        "Creando tu cuenta":"Creating your account",
         
 
         //!Talentos modulo A
@@ -431,8 +438,7 @@ export const i18nOptions: InitOptions = {
         "Mis Vacantes":"My Vacancies",
         "Cambiar Contraseña":"Change Password",
         "Cerrar Sesión":"Logout",
-        "Descartar cambios":"Discard changes",
-        "Guardar cambios":"Save changes",
+        "Descartar":"Discard",
         "Imagen actualizada":"Updated image",
         "Hubo un error al actualizar la imagen":"There was an error updating the image",
         "Mis Postulaciones":"My Applications",
@@ -446,6 +452,14 @@ export const i18nOptions: InitOptions = {
         "Reseñas":"Reviews",
         "Usuarios":"Users",
         "Estadisticas":"Statistics",
+        "Datos actualizados":"Profile updated",
+        "Nómina/Pagos":"Payroll",
+        "Contratación directa":"Recruiting",
+        "Contratación intermediada":"Staff Augmentation",
+        "Interés principal":"Interested on",
+        "Si deseas cambiar el nombre de la empresa contáctanos para ayudarte":"Please contact us If you want to change the company name",
+        "Enviando los cambios":"Saving changes",
+
         //!Validations
         "Nombre requerido":"Name required",
         "Nombre inválido":"Invalid name",
@@ -540,6 +554,7 @@ export const i18nOptions: InitOptions = {
         "Periodo de aviso":"Notice period",
         "¿Por qué estás buscando una nueva oportunidad laboral?": "Why are you looking for a new job opportunity?",
         "Escribe aquí tu respuesta":"Write your answer here",
+        "Enviando tu postulación":"Sending your application",
         "Seleccionar": "Select",
         '¿Estás seguro/a?' : 'Are you sure?',
         'Si vuelves atrás perderás todo el progreso':'If you go back you will lose all progress',
