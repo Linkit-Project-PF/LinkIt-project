@@ -4,6 +4,7 @@ import { setUsersTalent, sortTalents } from "../../../../../redux/features/Users
 import axios from "axios";
 import HeadUsers from "./HeadUsers";
 import { TalentProps } from "../../../admin.types";
+import PDFViewer from "./PDFViewer";
 
 type stateProps = {
   users: {
@@ -15,6 +16,7 @@ export default function Users() {
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredTalents)
+  console.log(data)
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function Users() {
     }))
   }
   //?
-  
+
   //? PAGINADO
   const itemsPerPage = 15;
   const [currentPage, setCurrentPage] = useState(0);
@@ -77,6 +79,8 @@ export default function Users() {
     setCurrentPage(currentPage - 1);
   };
   //?
+
+
 
   //?EDITAR
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -175,15 +179,19 @@ export default function Users() {
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
-            <p>{selectedRows.has(r._id) && editing ?
-            <input
-            name={key}
-            type="text"
-            defaultValue={r[key] as any}
-            onChange={handleChange}
-            className="bg-linkIt-500 text-black w-full" 
-            />
-            :String(r[key] === undefined || NaN ? '' : r[key])}</p>
+            {key === 'cv' && r[key] !== ""  && Object.values(r[key]).some((value)=> value !== "") ?  (
+              <PDFViewer cv={r[key] as any} />
+            ) : (
+              <p>{selectedRows.has(r._id) && editing ? (
+                <input
+                  name={key}
+                  type="text"
+                  defaultValue={r[key] as any}
+                  onChange={handleChange}
+                  className="bg-linkIt-500 text-black w-full"
+                />
+              ) : String(r[key] === undefined || isNaN(r[key] as any) ? '' : r[key])}</p>
+            )}
           </div>
         ))}
       </div>
@@ -242,7 +250,7 @@ export default function Users() {
         handleSave={handleSave}
         selectedRows={selectedRows}
         editing={editing}
-        setSaveStatus= {setSaveStatus}
+        setSaveStatus={setSaveStatus}
       />
       <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
         {viewCol.rol && renderSectionSelect("Rol", "role")}

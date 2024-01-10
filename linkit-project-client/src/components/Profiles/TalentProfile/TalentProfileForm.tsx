@@ -188,7 +188,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 setTechnologies(event?.map((tech:any)=> tech.value))
               }
               defaultValue={defaultValues}
-              placeholder={technologies.join(", ")}
+              placeholder={t("Stack tecnológico")}
             />
           </div>
           <div className="flex flex-col">
