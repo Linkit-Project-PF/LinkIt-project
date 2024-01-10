@@ -26,7 +26,6 @@ export default function UserDashboard({ role }: dashBoardProps) {
     }
   }, []);
 
-  console.log(loading);
 
   return (
     <div className="flex flex-col pt-5 md:w-full">

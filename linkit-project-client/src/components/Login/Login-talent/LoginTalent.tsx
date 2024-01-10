@@ -159,7 +159,6 @@ function LoginTalent() {
           if (usersData.data.length) {
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
-            console.log(authUser);
             Swal.fire({
               title: t("Bienvenido de vuelta ") + authUser.firstName,
               text: t("Has ingresado correctamente"),
@@ -193,7 +192,7 @@ function LoginTalent() {
               });
             } else
               throw Error(
-                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+                t("Usuario autenticado pero registro no encontrado, por favor inicia sesión desde la sección correspondiente. Si el error persiste contactános")
               );
           }
         }
@@ -204,7 +203,7 @@ function LoginTalent() {
       setThirdParty(false);
       Swal.fire({
         title: "Error",
-        text: error.response.data,
+        text: error,
         icon: "error",
         background: "#ECEEF0",
         confirmButtonColor: "#01A28B",

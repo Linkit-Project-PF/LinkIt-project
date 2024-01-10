@@ -12,7 +12,6 @@ import { SelectCountryFormEs } from "./jobFormCountry/JobFormSelectCountry";
 import { JobValidations } from "./jobFormValidations/JobValidations";
 import CloudinaryUploadWidget from "../../../../../../Services/cloudinaryWidget";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import { getStack } from "./technicalStacks";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { handleRecruiterChange } from "./job-form-types-handlers/jobFormHandlers";
@@ -69,7 +68,9 @@ function JobForm() {
     return { value: tech.name, label: tech.name };
   });
 
-  const technicalStack = getStack.map((tech: any) => {
+  const technicalStack = useSelector(
+    (state: RootState) => state.resources.techStack
+  ).map((tech: any) => {
     return { value: tech.name, label: tech.name };
   });
 
@@ -87,7 +88,6 @@ function JobForm() {
   const [openRecruiter, setOpenRecruiter] = useState<boolean>(false);
   const [recruiter, setRecruiter] = useState<string>("");
   const [userTechnologies, setUserTechnologies] = useState<string[]>([]);
-  console.log(userTechnologies)
   const [loading, isLoading] = useState(false);
 
   const englishLevelRef = useRef<HTMLButtonElement>(null);
@@ -107,7 +107,7 @@ function JobForm() {
     technologies: userTechnologies,
     reason: "",
   });
-  console.log(user)
+  console.log(user);
 
   const [errors, setErrors] = useState({
     firstName: "",
