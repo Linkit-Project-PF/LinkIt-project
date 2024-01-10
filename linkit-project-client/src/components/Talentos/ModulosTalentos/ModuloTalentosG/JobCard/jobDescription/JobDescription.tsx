@@ -44,9 +44,6 @@ function JobDescription() {
       setJobData(response.data[0]);
     };
     fetchJob();
-  }, []);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
