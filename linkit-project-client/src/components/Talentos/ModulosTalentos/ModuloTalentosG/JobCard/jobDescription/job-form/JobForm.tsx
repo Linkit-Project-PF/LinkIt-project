@@ -87,12 +87,12 @@ function JobForm() {
   const [openRecruiter, setOpenRecruiter] = useState<boolean>(false);
   const [recruiter, setRecruiter] = useState<string>("");
   const [userTechnologies, setUserTechnologies] = useState<string[]>([]);
+  console.log(userTechnologies)
   const [loading, isLoading] = useState(false);
 
   const englishLevelRef = useRef<HTMLButtonElement>(null);
   const recruiterRef = useRef<HTMLButtonElement>(null);
 
-  console.log(fileName);
   const [user, setLocalUser] = useState({
     firstName: userData.firstName,
     lastName: userData.lastName ?? "",
@@ -107,6 +107,7 @@ function JobForm() {
     technologies: userTechnologies,
     reason: "",
   });
+  console.log(user)
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -149,14 +150,12 @@ function JobForm() {
         .splice(1, 1)[0]
         .replace("/application", ""),
     };
-    console.log(userApplicationObject);
     try {
       const response = await axios.post(
         `https://linkit-server.onrender.com/postulations/create?user=${userData._id}`,
         userApplicationObject,
         { headers: { "Accept-Language": sessionStorage.getItem("lang") } }
       );
-      console.log(response);
       if (response.status > 200 && response.status < 400) {
         dispatch(setUser(response.data));
         isLoading(false);

@@ -2,12 +2,14 @@ import { FunctionComponent, useEffect, useState } from "react";
 import CloudinaryUploadWidget from "../../Services/cloudinaryWidget";
 import { EnglishLevelEnum, IUser } from "../types";
 import { editUser } from "../api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
+import Select from "react-select";
+
 
 //TODO Bullet select on technologies
 
@@ -16,11 +18,21 @@ interface IComponentProps {
 }
 
 const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
+  const objectsTechnologies = useSelector(
+    (state: any) => state.resources.stackTechnologies
+  );
+
+  const selectTechnologies = objectsTechnologies.map((tech: any) => {
+    return { value: tech.name, label: tech.name };
+  });
+
+
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState(user.cv.fileName);
   const [cv, setCv] = useState(user.cv);
   const [englishLevel, setEnglishLevel] = useState(user.englishLevel);
   const [technologies, setTechnologies] = useState(user.technologies);
+  console.log(technologies)
   const [country, setCountry] = useState(user.country);
   const [linkedin, setLinkedin] = useState(user.linkedin);
   const [firstName, setFirstName] = useState(user.firstName);
@@ -79,6 +91,11 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
 
   const { t } = useTranslation();
 
+  const defaultValues = technologies.map((tech) => ({
+    value: tech,
+    label: tech,
+  }));
+
   return (
     <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
       {loading && <Loading text={t("Enviando los cambios")} />}
@@ -134,14 +151,45 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col">
+
             <label className="ml-2">{t("Stack tecnológico")}</label>
-            <input
-              defaultValue={user.technologies.join(", ")}
+            <Select
+              options={selectTechnologies}
+              isMulti={true}
+              name="technologies"
+              closeMenuOnSelect={false}
+              styles={{
+                multiValue: (provided) => ({
+                  ...provided,
+                  backgroundColor: "#01A28B",
+                  color: "#FFF",
+                  borderRadius: "5px",
+                  height: "1.3rem",
+                  fontSize: "6rem",
+                }),
+                multiValueLabel: (provided) => ({
+                  ...provided,
+                  color: "#FFF",
+                  fontSize: "0.8rem"
+                }),
+                control: (provided) => ({
+                  ...provided,
+                  color: "white",
+                  maxHeight: "6rem",
+                  width: "24rem",
+                  borderRadius: "10px",
+                  overflowY: "scroll",
+                  border: "2px solid #000000",
+                  ":hover": {
+                    border: "2px solid #000000",
+                  },
+                }),
+              }}
               onChange={(event) =>
-                setTechnologies(event.target.value.split(","))
+                setTechnologies(event?.map((tech:any)=> tech.value))
               }
-              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
-              placeholder={t("Stack tecnológico")}
+              defaultValue={defaultValues}
+              placeholder={technologies.join(", ")}
             />
           </div>
           <div className="flex flex-col">
