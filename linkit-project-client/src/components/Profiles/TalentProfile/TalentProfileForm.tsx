@@ -32,7 +32,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const [cv, setCv] = useState(user.cv);
   const [englishLevel, setEnglishLevel] = useState(user.englishLevel);
   const [technologies, setTechnologies] = useState(user.technologies);
-  console.log(technologies)
   const [country, setCountry] = useState(user.country);
   const [linkedin, setLinkedin] = useState(user.linkedin);
   const [firstName, setFirstName] = useState(user.firstName);
@@ -189,7 +188,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 setTechnologies(event?.map((tech:any)=> tech.value))
               }
               defaultValue={defaultValues}
-              placeholder={technologies.join(", ")}
+              placeholder={t("Stack tecnológico")}
             />
           </div>
           <div className="flex flex-col">
