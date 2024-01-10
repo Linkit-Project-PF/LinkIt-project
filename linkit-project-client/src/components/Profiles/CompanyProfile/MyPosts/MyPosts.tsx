@@ -5,6 +5,7 @@ import { RootState } from "../../../../redux/types";
 import { SUPERADMN_ID } from "../../../../env";
 import CompanyPosts from "./CompanyPosts";
 import { ICompany } from "../../types";
+import CompanyClosedPosts from "./CompanyClosedPosts";
 
 export interface ICompanyPost {
   _id: string;
@@ -50,6 +51,9 @@ interface componentprops {
 
 function MyPosts({ loader }: componentprops) {
   const [companyPosts, setCompanyPosts] = useState<ICompanyPost[]>();
+  const [closedPosts, setClosedPosts] = useState<ICompanyPost[]>();
+  const [activeSection, setActiveVisible] = useState(true);
+  const [closedSection, setClosedVisible] = useState(false);
 
   const companyName = useSelector(
     (state: RootState) => (state.Authentication.user as ICompany).companyName
@@ -57,6 +61,7 @@ function MyPosts({ loader }: componentprops) {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      const invalidStatus = ["Won and Replaced", "Never Worked", "Won", "Lost"];
       const response = await axios.get(
         `https://linkit-server.onrender.com/resources/companyjds?company=${companyName}`,
         {
@@ -66,7 +71,14 @@ function MyPosts({ loader }: componentprops) {
           },
         }
       );
-      setCompanyPosts(response.data);
+      const activePosts = response.data.filter(
+        (post: ICompanyPost) => !invalidStatus.includes(post.Status)
+      );
+      const closed = response.data.filter((post: ICompanyPost) =>
+        invalidStatus.includes(post.Status)
+      );
+      setCompanyPosts(activePosts);
+      setClosedPosts(closed);
       loader(false);
     };
     fetchPosts();
@@ -74,10 +86,36 @@ function MyPosts({ loader }: componentprops) {
   }, []);
 
   if (!companyPosts) return null;
+  if (!closedPosts) return null;
 
   return (
-    <div className="flex left-1/2 top-1/2 mx-3 md:mx-6 p-5 bg-linkIt-500 rounded-[20px]">
-      <CompanyPosts posts={companyPosts} />
+    <div className="flex flex-col left-1/2 top-1/2 mx-3 md:mx-6 p-5 bg-linkIt-500 rounded-[20px] gap-5">
+      <div className="flex flex-row gap-5 ml-5">
+        <h2
+          className={`font-bold mb-2 hover:cursor-pointer ${
+            activeSection && "underline"
+          }`}
+          onClick={() => {
+            setActiveVisible(true);
+            setClosedVisible(false);
+          }}
+        >
+          Activos
+        </h2>
+        <h2
+          className={`font-bold mb-2 hover:cursor-pointer ${
+            closedSection && "underline"
+          }`}
+          onClick={() => {
+            setActiveVisible(false);
+            setClosedVisible(true);
+          }}
+        >
+          Cerrados
+        </h2>
+      </div>
+      {activeSection && <CompanyPosts posts={companyPosts} />}
+      {closedSection && <CompanyClosedPosts posts={closedPosts} />}
     </div>
   );
 }
