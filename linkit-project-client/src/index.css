@@ -3,24 +3,22 @@
 @tailwind utilities;
 
 body {
-  width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
+
+
 }
 
 
 :root {
-  width: 100%;
   height: 100%;
-
+  overflow-x: hidden;
 }
 html{
     scroll-behavior: smooth;
 }
-#root {
-  height: 100vh;
-}
+
 
 /* Cambia el ancho de la barra de desplazamiento */
 ::-webkit-scrollbar {

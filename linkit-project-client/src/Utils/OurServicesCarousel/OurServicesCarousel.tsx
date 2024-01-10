@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion";
-import peopleIcon from "/Vectores/linkit-web-vectores-03.svg";
-import letterIcon from "/Vectores/linkit-web-vectores-04.svg";
-import checkedIcon from "/Vectores/linkit-web-vectores-05.svg";
+import peopleIcon_green from "/Vectores/linkit-web-vectores-03.svg";
+import letterIcon_green from "/Vectores/linkit-web-vectores-04.svg";
+import checkedIcon_green from "/Vectores/linkit-web-vectores-05.svg";
+import peopleIcon from "/Vectores/people_white.svg";
+import letterIcon from "/Vectores/letter_white.svg";
+import checkedIcon from "/Vectores/Checked_white.svg";
 import whiteArrow from "/Vectores/white-arrow.png";
 import { useTranslation } from "react-i18next"
 
@@ -23,9 +26,9 @@ export default function OurServicesCarousel() {
   ];
   const [iconsToRender, setIconsToRender] = useState(initialIconsToRender);
   const [firstIcon, setFirstIcon] = useState(iconsToRender[0]);
-  const [secondIcon, setSecondIcon] = useState(iconsToRender[1]);
   const [thirdIcon, setThirdIcon] = useState(iconsToRender[2]);
   const [IconActive, setIconActive] = useState('peopleIcon');
+  const [IconToRender, setIconToRender] = useState(peopleIcon_green);
 
 
   
@@ -37,19 +40,21 @@ export default function OurServicesCarousel() {
     updatedIconsToRender.unshift(newFirstIcon as any);
     setIconsToRender(updatedIconsToRender);
     setFirstIcon(updatedIconsToRender[0]);
-    setSecondIcon(updatedIconsToRender[1]);
     setThirdIcon(updatedIconsToRender[2]);
 
-    const newIconActive = updatedIconsToRender[1].toString().charAt(31);
+    const newIconActive = updatedIconsToRender[1].toString().charAt(10);
     switch (newIconActive) {
-        case '3':
+        case 'p':
             setIconActive('peopleIcon');
+            setIconToRender(peopleIcon_green);
             break;
-        case '4':
+        case 'l':
             setIconActive('letterIcon');
+            setIconToRender(letterIcon_green);
             break;
-        case '5':
+        case 'C':
             setIconActive('checkedIcon');
+            setIconToRender(checkedIcon_green);
             break;
         default:
             break;
@@ -64,19 +69,21 @@ export default function OurServicesCarousel() {
     updatedIconsToRender.push(newLastIcon as any);
     setIconsToRender(updatedIconsToRender);
     setFirstIcon(updatedIconsToRender[0]);
-    setSecondIcon(updatedIconsToRender[1]);
     setThirdIcon(updatedIconsToRender[2]);
 
-    const newIconActive = updatedIconsToRender[1].toString().charAt(31);
+    const newIconActive = updatedIconsToRender[1].toString().charAt(10);
     switch (newIconActive) {
-        case '3':
+        case 'p':
             setIconActive('peopleIcon');
+            setIconToRender(peopleIcon_green);
             break;
-        case '4':
+        case 'l':
             setIconActive('letterIcon');
+            setIconToRender(letterIcon_green);
             break;
-        case '5':
+        case 'C':
             setIconActive('checkedIcon');
+            setIconToRender(checkedIcon_green);
             break;
         default:
             break;
@@ -85,7 +92,8 @@ export default function OurServicesCarousel() {
 
 
   return (
-    <div className="grid ">
+    <div className="grid bg-linkIt-200 dark:bg-linkIt-400 text-white text-[2rem] p-[10%] font-manrope ">
+  <h1 className="text-[1.3rem] xs:text-[1.5rem] ssm:text-[2rem] justify-self-center font-bold font-manrope">{t('Nuestros servicios')}</h1>
     <div className="flex items-center my-5 ssm:my-10">
       <motion.button
          className="w-1/5"
@@ -100,7 +108,7 @@ export default function OurServicesCarousel() {
      <div className="col-start-2 w-1/5 px-2"><motion.img 
       className="border rounded-full" src={firstIcon} alt="" /></div>
      <div className="col-start-2 w-1/3 mx-3 ssm:mx-4"> <motion.img
-     className="border rounded-full bg-white" src={secondIcon} alt="" /></div>
+     className="border rounded-full bg-white" src={IconToRender} alt="" /></div>
      <div className="col-start-2 w-1/5 px-2"><motion.img 
 
      className="border rounded-full" src={thirdIcon} alt="" /></div>

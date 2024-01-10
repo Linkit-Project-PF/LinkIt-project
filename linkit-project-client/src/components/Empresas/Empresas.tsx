@@ -18,7 +18,7 @@ function Empresas() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <>
+    < div className="overflow-hidden">
       <ModuloA />
       <section id="serviciosE">
       <ModuloB />
@@ -39,7 +39,7 @@ function Empresas() {
       <section id="contactanosE">
       <ContactUs />
       </section>
-      </>
+      </ div>
   )
 }
 

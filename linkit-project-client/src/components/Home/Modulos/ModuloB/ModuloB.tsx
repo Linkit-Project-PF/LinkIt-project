@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import './ModuloB.css'
 import { useTranslation } from "react-i18next"
 import useWindowWidth from "../../../../Utils/WindowWidth/WindowWidth"
-import OurServicesCarousel from "./OurServicesCarousel";
+import OurServicesCarousel from "../../../../Utils/OurServicesCarousel/OurServicesCarousel";
 
 export default function ModuloB() {
     const navigate = useNavigate();
@@ -33,10 +33,9 @@ export default function ModuloB() {
                         </div>
                 </div> )
                 : (
-                    <div className="grid justify-center bg-linkIt-200 dark:bg-linkIt-400 text-white text-[2rem] p-[10%] font-manrope">
-                    <h1 className="text-[1.3rem] xs:text-[1.5rem] ssm:text-[2rem] justify-self-center font-bold">{t('Nuestros servicios')}</h1>
+
                     <OurServicesCarousel />
-                    </div> )} 
+                )}
             </div>
 
     )

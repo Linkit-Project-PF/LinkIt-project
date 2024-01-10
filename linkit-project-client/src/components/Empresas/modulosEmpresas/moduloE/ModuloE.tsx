@@ -4,7 +4,8 @@ import "./ModuloE.css";
 export default function ModuloE() {
   const { t } = useTranslation();
   return (
-      <div className="relative flex flex-col p-[6%] justify-center bg-linkIt-200 text-white h-full before:absolute before:w-full before:h-[18%] before:bg-linkIt-500 dark:before:bg-linkIt-400 before:top-[-8%] before:left-0 before:-skew-y-3 after:absolute after:w-full after:h-[5px] after:bg-linkIt-200 after:top-[8%] after:left-0 after:-skew-y-3">
+    <div>
+      <div className="relative flex flex-col p-[7%] justify-center bg-linkIt-200 text-white h-full before:absolute before:w-full before:h-[18%] before:bg-linkIt-500 dark:before:bg-linkIt-400 before:top-[-8%] before:left-0 before:-skew-y-3 after:absolute after:w-full after:h-[5px] after:bg-linkIt-200 after:top-[8%] after:left-0 after:-skew-y-3">
         <h1 className="flex font-bold text-[2.8vw] xl:text-[2vw] justify-center mt-[5%]">{t('¿Qué nos hace diferentes?')}</h1>
             <div>
                 <ul className="grid grid-cols-4 gap-[2vw] mt-[6vh]">
@@ -38,6 +39,7 @@ export default function ModuloE() {
                     <li className="flex items-center justify-center text-[2.3vw] xl:text-[1.8vw] text-linkIt-200 h-5 w-5 md:h-7 md:w-7 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16 font-bold  bg-white rounded-full z-20">3</li>
                     <li className="flex items-center justify-center text-[2.3vw] xl:text-[1.8vw] text-linkIt-200 h-5 w-5 md:h-7 md:w-7 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16 font-bold  bg-white rounded-full z-20">4</li>
                 </ul>
+            </div>
             </div>
         </div>
   );
