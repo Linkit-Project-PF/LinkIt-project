@@ -213,11 +213,16 @@ function Register() {
   const handleAuthLogin = async (prov: string) => {
     try {
       let provider;
+      let externalProvider;
       if (prov === "github" || prov === "google") {
         setThirdParty(true);
         if (prov === "github") {
           provider = new GithubAuthProvider();
-        } else provider = new GoogleAuthProvider();
+          externalProvider = "github";
+        } else {
+          provider = new GoogleAuthProvider();
+          externalProvider = "google";
+        }
         const response = await signInWithPopup(auth, provider);
         // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
@@ -250,7 +255,8 @@ function Register() {
         //* In case user does not exist enters here
         const DBresponse = await saveUserThirdAuth(
           response.user,
-          String(user.role)
+          String(user.role),
+          externalProvider
         );
         Swal.fire({
           icon: "success",
@@ -305,11 +311,11 @@ function Register() {
             dispatch(setPressRegister("hidden"));
           },
         });
-      } else if (error instanceof AxiosError) {
+      } else if (error.response) {
         Swal.fire({
           icon: "error",
           title: "¡Error!",
-          text: `${error.response?.data}`,
+          text: `${error.response.data}`,
           confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
@@ -332,7 +338,7 @@ function Register() {
         Swal.fire({
           icon: "error",
           title: "¡Error!",
-          text: `${error.response?.data}`,
+          text: error,
           confirmButtonText: t("Aceptar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: false,
