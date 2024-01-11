@@ -5,9 +5,10 @@ import axios from "axios";
 import { setUsersCompanies } from "../../../../../redux/features/UsersSlice";
 import { CompaniesProps } from "../../../admin.types";
 
-type stateProps = {
+export type statePropsCompanies = {
     users: {
         filteredCompanies: CompaniesProps[];
+        companies: CompaniesProps[];
     };
 };
 
@@ -15,7 +16,7 @@ export default function CompaniesU() {
 
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch()
-    const data = useSelector((state: stateProps) => state.users.filteredCompanies)
+    const data = useSelector((state: statePropsCompanies) => state.users.filteredCompanies)
     const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
 

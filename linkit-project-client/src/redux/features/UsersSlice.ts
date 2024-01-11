@@ -88,6 +88,7 @@ const UsersSlice = createSlice({
                 })
             }
         },
+
         setUsersAdmins: (state, action) => {
             state.admins = action.payload
             state.filteredAdmins = action.payload

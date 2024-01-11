@@ -21,7 +21,7 @@ type JobOffer = {
     salary: number,
     archived: boolean,
     createdDate: Date,
-    code:string,
+    code: string,
 }
 
 const JobCardSlice = createSlice({
@@ -38,7 +38,7 @@ const JobCardSlice = createSlice({
             state.sortJobOffers = action.payload;
             state.sortValues.sortView = 'All'
         },
-        
+
         setSearchJobOffers: (state, action) => {
             state.sortValues.sortView = 'All'
             const searchTerm = action.payload.toLowerCase();
@@ -91,13 +91,35 @@ const JobCardSlice = createSlice({
                 state.filterJobOffers = state.allJobOffers
                 state.sortValues.sortView = 'All'
             }
-        }
+        },
+        filterByCompany: (state, action) => {
+            const valueN = action.payload;
+            const value = valueN.toLowerCase();
+            if (value === 'all') {
+                return {
+                    ...state,
+                    sortValues: { ...state.sortValues, sortView: 'All' },
+                    filterJobOffers: state.allJobOffers,
+                };
+                
+            } else {
+                const filteredCompanies = state.allJobOffers.filter((c: JobOffer) => {
+                    const companyLower = c.company.toLowerCase()
+                    return companyLower === value;
+                });
+                return {
+                    ...state,
+                    sortValues: { ...state.sortValues, sortView: 'All' },
+                    filterJobOffers: filteredCompanies,
+                };
+            }
+        },
 
     }
 })
 
 
-export const { applyFilters, setJobOffers, setSearchJobOffers, setSortJobOffers } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers, setSearchJobOffers, setSortJobOffers, filterByCompany } = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 
