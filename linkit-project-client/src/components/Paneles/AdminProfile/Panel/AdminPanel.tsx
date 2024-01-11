@@ -11,13 +11,14 @@ import Statistics from "./AdminStatistics/Statistics";
 import UsersAdmin2 from "../Usuarios/UsersAdmin2";
 import Resources from "./AdminRecursos/Resources";
 import Reviews from "./AdminReviews/Reviews";
+import SuperAdminProfileForm from "../../../Profiles/SuperAdminProfile/SuperAdminProfileForm";
 // import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
 export default function AdminPanel() {
   const { t } = useTranslation();
   const token = useSelector((state: any) => state.Authentication.token);
 
-  const [userData, setUserData] = useState<Partial<IAdmin>>({});
+  const [userData, setUserData] = useState<IAdmin>();
   const nav = useNavigate();
 
   useEffect(() => {
@@ -48,11 +49,10 @@ export default function AdminPanel() {
     infoUser();
   }, []);
 
-  // TODO SuperAdminProfile is damaged, It does not edit admin but user, and the DOM rendering is weird
   return (
     <div className="pt-32">
       <h1 className="mt-[80px] text-5xl pt-6 pl-16 font-bold">
-        {t("Hola")} {userData.firstName}!
+        {t("Hola")} {userData?.firstName}!
       </h1>
       <NavPanelAdmin />
       <Routes>
@@ -62,7 +62,7 @@ export default function AdminPanel() {
         <Route path="recursos" element={<Resources />} />
         <Route path="reviews" element={<Reviews />} />
         <Route path="users/*" element={<UsersAdmin2 />} />
-        {/* <Route path="mis-datos" element={<SuperAdminProfile />} /> */}
+        <Route path="mis-datos" element={<SuperAdminProfileForm />} />
       </Routes>
       <br />
     </div>
