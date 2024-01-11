@@ -8,7 +8,7 @@ import { CompaniesProps } from "../../../admin.types";
 export type statePropsCompanies = {
     users: {
         filteredCompanies: CompaniesProps[];
-        allCompanies: CompaniesProps[];
+        companies: CompaniesProps[];
     };
 };
 

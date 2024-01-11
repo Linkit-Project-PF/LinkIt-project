@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { CompaniesProps, VacancyProps } from "../../../admin.types";
-import { setSortJobOffers, setJobOffers, applyFilters } from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers, applyFilters, filterByCompany} from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 import { t } from 'i18next';
 import { RootState } from '../../../../../redux/types';
-import { setUsersCompanies } from '../../../../../redux/features/UsersSlice';
 import { statePropsCompanies } from '../../Usuarios/UsersCompanies/CompaniesU';
+import { setUsersCompanies } from '../../../../../redux/features/UsersSlice';
 
 
 type stateProps = {
@@ -122,7 +122,8 @@ export default function Vacancies2() {
         loadCompanies();
     }, [dispatch])
 
-    const companies = useSelector((state: statePropsCompanies) => state.users.allCompanies)
+    const companies = useSelector((state: statePropsCompanies) => state.users.companies)
+
 
     const [viewCol, setViewCol] = useState({
         title: true,
@@ -235,9 +236,14 @@ export default function Vacancies2() {
 
 
     const handleAlfa = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const { value } = e.target
-        dispatch(setSortJobOffers(value))
-    }
+        const { value } = e.target;
+        dispatch(setSortJobOffers(value));
+    };
+    
+    const handleCompany = (e: React.ChangeEvent<HTMLSelectElement>)=>{
+        const { value } = e.target;
+        dispatch(filterByCompany(value))
+    };
 
     return (
         <div className=' bg-scroll bg-linkIt-500'>
@@ -624,7 +630,11 @@ export default function Vacancies2() {
                                 <h1>Empresa</h1>
                             </div>
                             <div className='ml-6'>
-                                <select name="sort" className='border-none outline-none'>
+                                <select 
+                                name="filterCompany" 
+                                onChange={handleCompany}
+                                className='border-none outline-none'>
+                                    <option value="all">All</option>
                                     {companies.map((c: CompaniesProps) => (
                                         <option
                                             key={c._id}
