@@ -417,6 +417,7 @@ export const i18nOptions: InitOptions = {
         "Editar":"Edit",
         "Guardar":"Save",
         "Cerrar":"Close",
+        "Si cambiaste tu foto recuerda guardar los cambios":"If you changed your profile image, remember to save",
         //!Paneles FormResource
         "El post fue creado con éxito":"The post was successfully created",
         "Nuevo Recurso":"New Resource",
