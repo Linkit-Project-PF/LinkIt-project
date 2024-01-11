@@ -312,3 +312,20 @@ export interface ViewColHeadTalent {
   imágen: boolean; 
   estado: boolean; 
 }
+
+export interface SpecificOKRsArea {
+  okrSpecificName: string
+  okrsSpecific: string[]
+}
+
+export interface Area {
+  name: string
+  specificOKRsArea: SpecificOKRsArea[]
+}
+
+export interface OKRsType {
+  map(arg0: (okr1: any) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode | Iterable<import("react").ReactNode>;
+  generalTitleOKR: string
+  areas: Area[]
+  archived: boolean
+}
