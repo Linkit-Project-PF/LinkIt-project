@@ -573,6 +573,8 @@ export const i18nOptions: InitOptions = {
         "Posteos":"Posts",
         "Consultar":"Retrieve",
         "Eliminar":"Delete",
+        "Enviado":"Saved",
+        "Permisos cambiados con éxito": "Successfully changed permissions"
       },
     }
   },
