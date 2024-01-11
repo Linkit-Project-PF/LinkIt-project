@@ -1,14 +1,15 @@
 import axios from "axios";
 import { SUPERADMN_ID } from "../../env";
 
-export default async function saveUserThirdAuth(user: any, role: string) {
+export default async function saveUserThirdAuth(user: any, role: string, provider: string) {
   const userToSave = {
     firebaseId: user.uid,
     companyName: user.displayName,
     firstName: user.displayName.split(' ')[0],
     lastName: user.displayName.split(' ')[1] ?? '',
     email: user.email,
-    image: user.photoURL
+    image: user.photoURL,
+    provider: provider
   };
   let result;
   try {
