@@ -4,9 +4,8 @@ import english from "i18n-iso-countries/langs/en.json";
 import espanish from "i18n-iso-countries/langs/es.json";
 import { components } from "react-select";
 import { useTranslation } from "react-i18next";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-import { countryList } from "../countries";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../../../../redux/types";
 
 interface OptionType {
   value: string;
@@ -88,6 +87,9 @@ const customStyles = {
 
 export function SelectCountryFormEs({ setCountry, country, setUser }: any) {
   const { t } = useTranslation();
+  const countryList = useSelector(
+    (state: RootState) => state.resources.countries
+  );
   const countryOptionsEs: OptionType[] = countryList.map(
     (country: { id: number; name: string }) => {
       return { label: country.name, value: country.name };

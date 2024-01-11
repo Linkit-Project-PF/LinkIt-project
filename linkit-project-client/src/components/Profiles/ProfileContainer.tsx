@@ -16,7 +16,7 @@ export default function ProfileContainer() {
   }, []);
 
   return (
-    <div className="mt-[120px]">
+    <div className="mt-[120px] lg:mt-[200px] sm:mt-[150px]">
       <UserDashboard role={user?.role} />
     </div>
   );

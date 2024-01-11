@@ -32,7 +32,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const [cv, setCv] = useState(user.cv);
   const [englishLevel, setEnglishLevel] = useState(user.englishLevel);
   const [technologies, setTechnologies] = useState(user.technologies);
-  console.log(technologies)
   const [country, setCountry] = useState(user.country);
   const [linkedin, setLinkedin] = useState(user.linkedin);
   const [firstName, setFirstName] = useState(user.firstName);
@@ -107,7 +106,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
               defaultValue={user.firstName}
               onChange={(event) => setFirstName(event.target.value)}
               type="text"
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] min-w-[15rem]"
             />
           </div>
           <div className="flex flex-col">
@@ -116,14 +115,14 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
               defaultValue={user.lastName}
               onChange={(event) => setLastName(event.target.value)}
               type="text"
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] min-w-[15rem]"
             />
           </div>
           <div className="flex flex-col">
             <label className="ml-2">{t("Email")}</label>
             <input
               defaultValue={user.email}
-              className="bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] text-linkIt-400 text-opacity-80 hover:cursor-not-allowed"
+              className="bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] text-linkIt-400 text-opacity-80 hover:cursor-not-allowed min-w-[15rem]"
               type="text"
               disabled
             />
@@ -133,7 +132,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             <select
               onChange={(event) => setCountry(event.target.value)}
               value={country ?? "-"}
-              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px] min-w-[15rem]"
             >
               <option value=""></option>
               {countries.map((country, index) => (
@@ -146,7 +145,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             <input
               defaultValue={user.linkedin}
               onChange={(event) => setLinkedin(event.target.value)}
-              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="placeholder:font-[500] placeholder:text-opacity-80 placeholder:text-linkIt-400 bg-transparent pl-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] min-w-[15rem]"
               type="text"
             />
           </div>
@@ -154,6 +153,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
 
             <label className="ml-2">{t("Stack tecnológico")}</label>
             <Select
+              className="md:w-[24rem] min-w-[15rem]"
               options={selectTechnologies}
               isMulti={true}
               name="technologies"
@@ -174,9 +174,8 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 }),
                 control: (provided) => ({
                   ...provided,
-                  color: "white",
+                  backgroundColor: "transparent",
                   maxHeight: "6rem",
-                  width: "24rem",
                   borderRadius: "10px",
                   overflowY: "scroll",
                   border: "2px solid #000000",
@@ -189,7 +188,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 setTechnologies(event?.map((tech:any)=> tech.value))
               }
               defaultValue={defaultValues}
-              placeholder={technologies.join(", ")}
+              placeholder={t("Stack tecnológico")}
             />
           </div>
           <div className="flex flex-col">
@@ -199,7 +198,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 setEnglishLevel(event.target.value as EnglishLevelEnum)
               }
               defaultValue={user.englishLevel}
-              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px]"
+              className="border-[.125rem] border-linkIt-400 bg-transparent pl-[1rem] md:w-[24rem] h-[2.75rem] rounded-[10px] min-w-[15rem]"
             >
               <option value={EnglishLevelEnum.LOW}>{t("Bajo")}</option>
               <option value={EnglishLevelEnum.MEDIUM}>{t("Medio")}</option>
@@ -212,7 +211,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
           <div className="flex flex-col">
             <label className="ml-2">{t("Carga tu CV")}</label>
             <CloudinaryUploadWidget
-              className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer"
+              className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer min-w-[15rem]"
               setCv={setCv}
               setFileName={setFileName}
             >

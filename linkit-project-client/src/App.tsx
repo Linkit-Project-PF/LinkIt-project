@@ -18,6 +18,8 @@ import {
   setEbooks,
   setEvents,
   setStackTechnologies,
+  setCountries,
+  setTechStack,
 } from "./redux/features/ResourcesSlice.ts";
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
@@ -141,6 +143,24 @@ function App() {
             },
           }
         );
+        const countries = await axios.get(
+          "https://linkit-server.onrender.com/resources/countries",
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        const techStack = await axios.get(
+          "https://linkit-server.onrender.com/resources/techStack",
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
         const responseAdmins = await axios.get(
           "https://linkit-server.onrender.com/admins/find",
           {
@@ -150,6 +170,8 @@ function App() {
             },
           }
         );
+        dispatch(setCountries(countries.data));
+        dispatch(setTechStack(techStack.data));
         dispatch(setStackTechnologies(responseTechnologies.data));
         dispatch(setResources(responseResources.data));
         dispatch(setEvents());
