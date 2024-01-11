@@ -44,18 +44,18 @@ export async function changePassword(user: WebsiteUser): Promise<string> {
   return response
 }
 
-export const editAdmin = async (admin: IAdmin): Promise<IAdmin> => {
+export const editAdmin = async (admin: Partial<IAdmin>, token: string): Promise<IAdmin> => {
   const adminObj = {
     country: admin.country,
     firstName: admin.firstName,
     lastName: admin.lastName,
-    active: admin.active
+    image: admin.image
   };
   const { data } = await axios.put(
     `${URL}/admins/update/${admin._id}`,
     adminObj,
     {
-      headers: { Authorization: `Bearer ${SUPERADMN_ID}`,
+      headers: { Authorization: `Bearer ${token}`,
       'Accept-Language': sessionStorage.getItem('lang') },
     }
   );
