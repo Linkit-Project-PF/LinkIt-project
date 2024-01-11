@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
-import { VacancyProps } from "../../../admin.types";
+import { CompaniesProps, VacancyProps } from "../../../admin.types";
 import { setSortJobOffers, setJobOffers, applyFilters } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 import { t } from 'i18next';
 import { RootState } from '../../../../../redux/types';
+import { setUsersCompanies } from '../../../../../redux/features/UsersSlice';
+import { statePropsCompanies } from '../../Usuarios/UsersCompanies/CompaniesU';
 
 
 type stateProps = {
@@ -33,77 +35,13 @@ export default function Vacancies2() {
 
 
     const [saveStatus, setSaveStatus] = useState<boolean>(true); //* Estado que actualiza la info de la tabla
-
-
-
     const allStackTechnologies = useSelector(
         (state: any) => state.resources.stackTechnologies as string[]
     );
-
     const [tehcs, setTehcs] = useState(false)
-
     const hideTehcs = () => {
         setTehcs(!tehcs)
     }
-
-
-
-
-    const [viewCol, setViewCol] = useState({
-        title: true,
-        description: true,
-        type: true,
-        location: true,
-        modality: true,
-        stack: true,
-        users: true,
-        AboutUs: true,
-        AboutClient: true,
-        responsabilities: true,
-        requiriments: true,
-        niceToHave: true,
-        benefits: true,
-        company: true,
-        status: true,
-        code: true,
-        archived: true,
-    })
-
-    const itemsPerPage = 15;
-    const [currentPage, setCurrentPage] = useState(0);
-
-    const startIndex = currentPage * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    const dataToShow = filteredJobData.slice(startIndex, endIndex);
-
-    const totalPages = Math.ceil(filteredJobData.length / itemsPerPage);
-
-
-
-    const sortView = useSelector(selectSortView)
-    const sortAlfa = useSelector(selectSortAlfa)
-
-
-    const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
-    const [editing, setEditing] = useState(false)
-    const [editedData, setEditedData] = useState<Partial<VacancyProps>>({});
-
-
-    const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        const { value } = e.target
-        dispatch(setSortJobOffers(value))
-    }
-
-
-    const handleNext = (): void => {
-        setCurrentPage(currentPage + 1);
-    };
-
-    const handlePrevius = (): void => {
-        setCurrentPage(currentPage - 1);
-    };
-
 
     useEffect(() => {
         const loadData = async (): Promise<void> => {
@@ -127,13 +65,6 @@ export default function Vacancies2() {
         loadData();
     }, [saveStatus]);
 
-    const handleStack = (stack: string) => {
-        if (stackValue.includes(stack)) {
-            setStackValue(stackValue.filter((item) => item !== stack))
-        } else {
-            setStackValue([...stackValue, stack])
-        }
-    }
 
     const handleFilters = async () => {
         const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1 ? `stack=${stackValue.map((tech) => `${tech}`)}` : ""}${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}`
@@ -151,6 +82,103 @@ export default function Vacancies2() {
         }
     };
 
+    const handleSave = async (arrayProps: string[]) => {
+        try {
+            arrayProps.forEach(async (id: string) => {
+                const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
+                await axios.put(endPoint, editedData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Accept-Language': sessionStorage.getItem('lang')
+                    },
+                });
+            })
+        } catch (error: any) {
+            console.error(error.response.data);
+            console.error(t("Error al enviar la solicitud: "), (error as Error).message);
+        }
+        setEditing(false);
+        setEditedData({});
+        setSaveStatus(!saveStatus);
+    };
+
+    useEffect(() => {
+        const loadCompanies = async (): Promise<void> => {
+            try {
+                const response = await axios(
+                    "https://linkit-server.onrender.com/companies/find",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Accept-Language': sessionStorage.getItem('lang')
+                        }
+                    }
+                );
+                dispatch(setUsersCompanies(response.data));
+            } catch (error) {
+                console.error("Error al cargar las información", error);
+            }
+        };
+        loadCompanies();
+    }, [dispatch])
+
+    const companies = useSelector((state: statePropsCompanies) => state.users.allCompanies)
+
+    const [viewCol, setViewCol] = useState({
+        title: true,
+        description: true,
+        type: true,
+        location: true,
+        modality: true,
+        stack: true,
+        users: true,
+        AboutUs: true,
+        AboutClient: true,
+        responsabilities: true,
+        requiriments: true,
+        niceToHave: true,
+        benefits: true,
+        company: true,
+        status: true,
+        code: true,
+        archived: true,
+    })
+
+    //? PAGINADO
+    const itemsPerPage = 15;
+    const [currentPage, setCurrentPage] = useState(0);
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const dataToShow = filteredJobData.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredJobData.length / itemsPerPage);
+    const sortView = useSelector(selectSortView)
+    const sortAlfa = useSelector(selectSortAlfa)
+    const handleNext = (): void => {
+        setCurrentPage(currentPage + 1);
+    };
+    const handlePrevius = (): void => {
+        setCurrentPage(currentPage - 1);
+    };
+    //?
+
+
+    const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+    const [editing, setEditing] = useState(false)
+    const [editedData, setEditedData] = useState<Partial<VacancyProps>>({});
+    const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+        const { value } = e.target
+        dispatch(setSortJobOffers(value))
+    }
+
+    const handleStack = (stack: string) => {
+        if (stackValue.includes(stack)) {
+            setStackValue(stackValue.filter((item) => item !== stack))
+        } else {
+            setStackValue([...stackValue, stack])
+        }
+    }
+
+
     const handleType = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target
         setTypeValue(value)
@@ -159,8 +187,6 @@ export default function Vacancies2() {
         const { value } = e.target
         setModalityValue(value)
     }
-    
-
 
 
     const hideCol = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -206,25 +232,7 @@ export default function Vacancies2() {
         }
     };
 
-    const handleSave = async (arrayProps: string[]) => {
-        try {
-            arrayProps.forEach(async (id: string) => {
-                const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
-                await axios.put(endPoint, editedData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Accept-Language': sessionStorage.getItem('lang')
-                    },
-                });
-            })
-        } catch (error: any) {
-            console.error(error.response.data);
-            console.error(t("Error al enviar la solicitud: "), (error as Error).message);
-        }
-        setEditing(false);
-        setEditedData({});
-        setSaveStatus(!saveStatus);
-    };
+
 
     const handleAlfa = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target
@@ -386,11 +394,11 @@ export default function Vacancies2() {
                                 <h1>Modalidad</h1>
                             </div>
                             <div className='ml-6'>
-                                <select 
-                                name="sort" 
-                                className='border-none outline-none'
-                                onChange={handleModality}
-                                onClick={handleFilters}
+                                <select
+                                    name="sort"
+                                    className='border-none outline-none'
+                                    onChange={handleModality}
+                                    onClick={handleFilters}
                                 >
                                     <option value=""></option>
                                     <option value="remote">Remote</option>
@@ -617,9 +625,12 @@ export default function Vacancies2() {
                             </div>
                             <div className='ml-6'>
                                 <select name="sort" className='border-none outline-none'>
-                                    <option value=""></option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                                    {companies.map((c: CompaniesProps) => (
+                                        <option
+                                            key={c._id}
+                                            value={c.companyName}
+                                        >{c.companyName}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
