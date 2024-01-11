@@ -84,7 +84,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
     const handleDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target
-        dispatch(setSortJobOffers(value))
+        dispatch(setSortJobOffers({date: value}))
     }
 
 
