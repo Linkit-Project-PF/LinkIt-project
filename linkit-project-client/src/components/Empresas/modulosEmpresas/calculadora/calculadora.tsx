@@ -2,6 +2,7 @@ import { useAnimate, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import arrow from "/Vectores/arrow.png";
 import axios from "axios";
+import "./calculadora.css";
 
 interface VacancyFirstState {
   [key: string]: string;
@@ -206,60 +207,71 @@ function useMenuAnimation(isOpen: boolean) {
 
         <div className="bg-linkIt-500 grid justify-center p-[7%]">
             <h1 className="text-black text-[3vw] font-manrope font-bold text-center">Calculadora</h1>
-            <div className="bg-white rounded-[7px] p-4 my-7 h-[8vh] items-center flex whitespace-nowrap justify-around">
-              <div className="grid grid-cols-6 gap-[0.5vw] h-full font-montserrat font-semibold text-[1vw]">
+
+
+
+            <div className="flex bg-white rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap justify-around">
+              <div className="grid grid-cols-6 justify-items-center w-full h-[200%] font-montserrat font-semibold">
+
+
             <motion.nav
-            className="w-[80%] mt-1"
+            className="style-Nav "
             ref={scopePosicion}
             onMouseEnter={() => setIsOpenPosicion(true)}
             onMouseLeave={() => setIsOpenPosicion(false)}
           >
+
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator  "
               whileTap={{ scale: 0.97 }}
-              
-              
             >
               Posición
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-28 overflow-y-scroll space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll left-[-70%] px-[25%] py-[20%] h-28"
               style={{
                 pointerEvents: isOpenPosicion ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
-                    <li className="flex" key={index}> 
+                    <li className="flex hover:text-linkIt-300" key={index}> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
                     <label htmlFor={position} className="cursor-pointer">{position}</label>
                     </li>
                 ))}
-                <li></li>
             </ul>{" "}
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeIngles}
             onMouseEnter={() => setIsOpenIngles(true)}
             onMouseLeave={() => setIsOpenIngles(false)}
           >
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator before:bg-linkIt-600 before:relative before:left-[-30%] before:w-[1px] before:h-[60%]"
               whileTap={{ scale: 0.97 }}
               
             >
               Nivel de inglés
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-fit items-center space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-2 mt-3"
+              className="menu-Calculator px-[10%] py-[10%] left-[-28%] h-fit w-[10rem]"
               style={{
                 pointerEvents: isOpenIngles ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -281,24 +293,31 @@ function useMenuAnimation(isOpen: boolean) {
             </ul>{" "}
           </motion.nav>
 
+
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeSeniority}
             onMouseEnter={() => setIsOpenSeniority(true)}
             onMouseLeave={() => setIsOpenSeniority(false)}
           >
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator before:bg-linkIt-600 before:relative before:left-[-30%] before:w-[1px] before:h-[60%]"
               whileTap={{ scale: 0.97 }}
               
             >
               Seniority
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-fit items-center space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-2 mt-3"
+              className="menu-Calculator overflow-y-scroll left-[-48%] px-[25%] py-[20%] h-28 w-[9rem]"
               style={{
                 pointerEvents: isOpenSeniority ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -323,24 +342,31 @@ function useMenuAnimation(isOpen: boolean) {
             </ul>{" "}
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeTecnologias}
             onMouseEnter={() => setIsOpenTecnologias(true)}
             onMouseLeave={() => setIsOpenTecnologias(false)}
           >
+
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator before:bg-linkIt-600 before:relative before:left-[-30%] before:w-[1px] before:h-[60%]"
               whileTap={{ scale: 0.97 }}
               
             >
               Tecnologías
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll left-[-38%] px-[25%] py-[20%] h-28 w-[9rem]"
               style={{
                 pointerEvents: isOpenTecnologias ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -352,29 +378,32 @@ function useMenuAnimation(isOpen: boolean) {
                     <label htmlFor={tech} className="cursor-pointer">{tech}</label>
                     </li>
                 ))}
-                <li></li>
-              
-            </ul>{" "}
+            </ul>
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeFrameworks}
             onMouseEnter={() => setIsOpenFrameworks(true)}
             onMouseLeave={() => setIsOpenFrameworks(false)}
           >
+
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator before:bg-linkIt-600 before:relative before:left-[-30%] before:w-[1px] before:h-[60%]"
               whileTap={{ scale: 0.97 }}
               
             >
               Frameworks
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll left-[-25%] px-[25%] py-[20%] h-28 w-[9rem]"
               style={{
                 pointerEvents: isOpenFrameworks ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -386,29 +415,34 @@ function useMenuAnimation(isOpen: boolean) {
                     <label htmlFor={frameworks} className="cursor-pointer">{frameworks}</label>
                     </li>
                 ))}
-                <li></li>
-              
-            </ul>{" "}
+            </ul>
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeOtros}
             onMouseEnter={() => setIsOpenOtros(true)}
             onMouseLeave={() => setIsOpenOtros(false)}
           >
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator before:bg-linkIt-600 before:relative before:left-[-60%] before:w-[1px] before:h-[60%]"
               whileTap={{ scale: 0.97 }}
               
             >
               Otros
-              <div className="arrow w-[0.7vw] ml-[3vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll left-[-48%] px-[25%] py-[20%] h-28 w-[9rem]"
               style={{
                 pointerEvents: isOpenOtros ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
@@ -422,9 +456,11 @@ function useMenuAnimation(isOpen: boolean) {
                 ))}
                 <li></li>
               
-            </ul>{" "}
+            </ul>
           </motion.nav>
           </div>
+
+
           <button className="background-button" onClick={CalculatePrice}
            disabled={
             vacancyFirst.englishLevel === "" ||
@@ -438,6 +474,11 @@ function useMenuAnimation(isOpen: boolean) {
           } >Calcular</button>
           
           </div>
+
+
+
+
+
           <div className="grid grid-cols-2">
             <h2 className="text-[2vw] font-semibold pl-[2%]">Pricing</h2>
             <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%]">

@@ -1,0 +1,15 @@
+.style-Nav {
+    @apply relative h-full items-center
+}
+
+.arrow-Style{
+    @apply w-[10px] h-[10px] left-2 relative
+}
+
+.button-Calculator {
+    @apply relative flex items-center h-full hover:text-linkIt-300 text-[0.7rem]
+}
+
+.menu-Calculator {
+    @apply absolute top-[90%] bg-white rounded-b-[7px] space-y-[10%] font-montserrat font-semibold text-[0.6rem] whitespace-break-spaces
+}
