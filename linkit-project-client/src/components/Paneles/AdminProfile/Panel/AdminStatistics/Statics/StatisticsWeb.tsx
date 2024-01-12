@@ -18,8 +18,13 @@ export default function StatisticsWeb() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [companies, setCompanies] = useState<ICompany[]>([]);
   const [jds, setJDs] = useState();
-  const [activeData, setActiveData] = useState<any>();
+  // const [activeData, setActiveData] = useState<any>();
   const currentDate = new Date();
+
+  //TODO Erase this once is used, only for deployment purposes
+  if (!jds) {
+    null;
+  }
 
   useEffect(() => {
     const fetchAllData = async () => {
