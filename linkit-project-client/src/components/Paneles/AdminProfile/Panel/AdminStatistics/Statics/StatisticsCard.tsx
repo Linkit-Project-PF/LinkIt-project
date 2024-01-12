@@ -7,7 +7,8 @@ interface componentProps {
 export default function StatisticsCard({ color, text, value }: componentProps) {
   return (
     <div
-      className={`flex flex-col w-[350px] bg-[${color}] p-5 font-manrope rounded-xl justify-center text-lg m-1`}
+      className={`flex flex-col w-[350px] p-5 font-manrope rounded-xl justify-center text-lg m-1`}
+      style={{ backgroundColor: `${color}` }}
     >
       <div className="flex flex-row gap-7 justify-between">
         <h1>{text}</h1>

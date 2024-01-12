@@ -4,7 +4,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../redux/types";
 import { ICompany, IUser } from "../../../../../Profiles/types";
 import StatisticsCard from "./StatisticsCard";
-import { PieChart, Pie, Cell } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  ResponsiveContainer,
+} from "recharts";
 import {
   mostRepeatedCountry,
   mostRepeatedInterest,
@@ -61,6 +71,30 @@ export default function StatisticsWeb() {
     };
     fetchAllData();
   }, []);
+
+  const registerData = [
+    {
+      label: "Email",
+      A:
+        users.filter((user) => user.provider === "email").length +
+        companies.filter((company) => company.provider === "email").length,
+      fullMark: users.length + companies.length,
+    },
+    {
+      label: "Google",
+      A:
+        users.filter((user) => user.provider === "google").length +
+        companies.filter((company) => company.provider === "google").length,
+      fullMark: users.length + companies.length,
+    },
+    {
+      label: "GitHub",
+      A:
+        users.filter((user) => user.provider === "github").length +
+        companies.filter((company) => company.provider === "github").length,
+      fullMark: users.length + companies.length,
+    },
+  ];
 
   const pieData = [
     { name: "Usuarios", value: users.length },
@@ -189,6 +223,21 @@ export default function StatisticsWeb() {
               <img key={x} src={graphIcon} className="hover:cursor-pointer" />
             ))}
           </div>
+        </div>
+        <div className="w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={registerData}>
+              <PolarGrid />
+              <PolarAngleAxis dataKey="label" />
+              <PolarRadiusAxis />
+              <Radar
+                name="RegisterType"
+                dataKey="A"
+                stroke="#8884d8"
+                fill="#8884d8"
+              />
+            </RadarChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>

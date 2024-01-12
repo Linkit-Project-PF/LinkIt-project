@@ -19,7 +19,7 @@ export default function CompaniesCarousel() {
   }, []);
 
   return (
-    <div className="flex flex-col p-[7%] dark:bg-linkIt-500">
+    <div className="flex flex-col p-[7%] ">
       <h1 className="flex relative justify-center left-[15%] xs:left-[20%] sm:left-[28%] md:left-[30%] font-bold text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] sm:text-[1.5rem] lg:text-[2rem] xl:text-[2.3rem] w-[60%] ssm:w-[50%] sm:w-[45%] md:w-[40%] lg:left-0 lg:w-full text-center font-manrope pb-3 ssm:pb-5">
         {t("Más de 500 empresas confían en LinkIT")}
       </h1>

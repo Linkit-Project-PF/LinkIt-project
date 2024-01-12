@@ -24,12 +24,20 @@ const JobDataSlice = createSlice({
             state.filteredJobData = action.payload;
         },
         filterJobData: (state, action) => {
-            const searchTerm = action.payload.toLowerCase();
+            const searchTerm = action.payload.toString().toLowerCase();
             if (searchTerm) {
-                const searchJobData = state.allJobData.filter((jobData: ClientsFUProps) => jobData["Recruitment role code"].toString().toLowerCase().includes(searchTerm) || jobData.Client.toLowerCase().includes(searchTerm) || jobData["Role Name"].toLowerCase().includes(searchTerm) || jobData["Lider de la búsqueda"].toString().toLowerCase().includes(searchTerm) || jobData.Responsable.toLowerCase().includes(searchTerm))
-                state.filteredJobData = searchJobData
+                const searchJobData = state.allJobData.filter((jobData: ClientsFUProps) => {
+                    const searchTerms = searchTerm.split(' ');
+                    return (
+                        searchTerms.every((term: string) =>
+                            jobData["Recruitment role code"]?.toString().toLowerCase().includes(term) ||
+                            jobData.Client?.toLowerCase().includes(term) || jobData["Role Name"]?.toLowerCase().includes(term) || jobData["Lider de la búsqueda"]?.toString().toLowerCase().includes(term) || jobData.Responsable?.toString().toLowerCase().includes(term)
+                        )
+                    );
+                });
+                state.filteredJobData = searchJobData;
             } else {
-                state.filteredJobData = state.allJobData
+                state.filteredJobData = state.allJobData;
             }
         },
         sortJobData: (state, action) => {
