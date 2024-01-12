@@ -26,6 +26,11 @@ const SuperAdminProfileForm: FunctionComponent = () => {
   const [filePublicId, setFilePublicId] = useState(admin.image ?? "");
   const [fileName, setFileName] = useState("");
 
+  //TODO Erase this once is used, only for deployment purposes
+  if (fileName) {
+    null;
+  }
+
   function profileChangePassword() {}
   function handleLogOut() {}
 
