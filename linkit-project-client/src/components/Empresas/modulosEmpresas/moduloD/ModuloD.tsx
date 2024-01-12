@@ -4,8 +4,8 @@ import CardTestionios from "./cardTestimonios"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import blackArrow from "/Vectores/arrow.png";
-import whiteArrow from "/Vectores/white-arrow.png";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 export default function ModuloA() {
 
 
