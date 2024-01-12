@@ -139,9 +139,9 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
     }
 }
   return (
-    <div className="bg-linkIt-300 text-white flex p-[5%] gap-[10%] dark:bg-linkIt-400">
-      <h1 className="font-semibold text-[3.5vw]">{t('Contáctanos')}</h1>
-      <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] text-[1.1vw] xl:text-[0.9vw] whitespace-nowrap w-full" onSubmit={contactsBtn}>
+    <div className="bg-linkIt-300 text-white grid lg:flex p-[7%] lg:gap-[10%] dark:bg-linkIt-400">
+      <h1 className="font-semibold text-[1rem] xs:text-[1.2rem] ssm:text-[1.8rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] justify-self-center font-montserrat">{t('Contáctanos')}</h1>
+      <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1.2rem] font-montserrat whitespace-nowrap w-full" onSubmit={contactsBtn}>
         <div>
         <input className={`${errors.name ? ' border-black' : ''} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
         {errors.name && (
@@ -154,6 +154,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               <p className="text-white ml-3 italic">{errors.lastName}</p>
             )}
         </div>
+
         <div>
         <input className={`${errors.company ? 'border-black' : '' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Empresa" name="company" value={contacts.company} onChange={handleChange} onBlur={handleChange} />
         {errors.company && (
@@ -162,7 +163,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         </div>
         <div>
         <motion.nav
-            className={`${errors.service ? 'border-black' : '' } placeholder-white bg-transparent outline-none w-full h-[5.8vh] xl:h-[4.3vh]`}
+            className={`${errors.service ? 'border-black' : '' } placeholder-white bg-transparent outline-none w-full relative`}
             ref={scope}
             onClick={(e) => { 
               e.preventDefault();
@@ -171,7 +172,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               
           >
             <motion.button
-              className={`text-white flex justify-between items-center text-center w-full border rounded-md p-2`}
+              className={`text-white flex justify-between items-center text-center w-full border rounded-md p-2 relative`}
               whileTap={{ scale: 0.97 }}
             >
               {t('¿Qué servicio te interesa?')}
@@ -180,30 +181,30 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               </div>
             </motion.button>
             <ul
-              className="relative z-[10] border-white border border-t-0 bg-white rounded-xl text-black p-1 placeholder-white w-full 2xl:text-xl rounded-t-none top-[-7%]"
+              className="absolute top-[86%] z-10 border-white border border-t-0 bg-white rounded-xl text-black p-1 h-fit placeholder-white w-full rounded-t-none items-center space-y-1.5"
               style={{
                 pointerEvents: isOpen ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
               onClick={(e) => e.stopPropagation()}
-              onMouseLeave={() => setIsOpen(false)}
+              
             >
-              <li className="my-2 text-base items-center">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
+              <li className="flex items-center">
+              <input className=" checked:bg-linkIt-300 rounded-sm  w-[8%] mr-1" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Recruiting" className="cursor-pointer">Recruiting</label>
+              <label htmlFor="Recruiting" className="cursor-pointer w-full hover:text-linkIt-300">Recruiting</label>
               </li>
               <hr className="w-[100%]" />
-              <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
+              <li className="flex items-center">
+              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Staff Augmentation" className="cursor-pointer">Staff Augmentation</label>
+              <label htmlFor="Staff Augmentation" className="cursor-pointer w-full hover:text-linkIt-300">Staff Augmentation</label>
               </li>
               <hr className="w-[100%]" />
-              <li className="my-2 text-base">
-              <input className="ml-4 mr-4 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
+              <li className="flex items-center">
+              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Payroll Management" className="cursor-pointer">Payroll Management</label>
+              <label htmlFor="Payroll Management" className="cursor-pointer w-full hover:text-linkIt-300">Payroll Management</label>
               </li>
             </ul>{" "}
           </motion.nav>
@@ -211,12 +212,13 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               <p className="text-white ml-3 italic">{errors.service}</p>
             )}
           </div>
-          <div className=" flex flex-col">
+          <div className="flex flex-col">
         <input className={`${errors.email ? 'border-black' : '' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
         {errors.email && (
               <p className="text-white ml-3 italic">{errors.email}</p>
             )}
-        <button className=" mt-[18%] bg-white text-linkIt-200 text-sm font-bold rounded-[7px] p-3 px-5 text-[0.8vw] w-[30%] disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
+            <div className="flex h-full items-end">
+        <button className="bg-white text-linkIt-200 font-bold rounded-[7px] p-1 ssm:p-2 xl:p-2.5 w-[50%] ssm:w-[40%] md:w-[30%] items-end disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
           errors.name ||
           errors.lastName ||
           errors.company ||
@@ -232,6 +234,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
           ? true
           : false
         }>{t('Enviar')}</button>
+        </div>
         </div>
         <div>
         <input className={`message-box ${errors.message ? 'border-black' : '' } `} type="textArea" placeholder="Mensaje" name="message" value={contacts.message} onChange={handleChange} onBlur={handleChange} />

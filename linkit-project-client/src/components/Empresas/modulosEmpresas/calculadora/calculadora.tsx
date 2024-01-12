@@ -2,6 +2,7 @@ import { useAnimate, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import arrow from "/Vectores/arrow.png";
 import axios from "axios";
+import "./calculadora.css";
 
 interface VacancyFirstState {
   [key: string]: string;
@@ -202,230 +203,292 @@ function useMenuAnimation(isOpen: boolean) {
     }
     const tech: [] = tech1.concat(tech2)
 
+
     return (
 
         <div className="bg-linkIt-500 grid justify-center p-[7%]">
-            <h1 className="text-black text-[3vw] font-manrope font-bold text-center">Calculadora</h1>
-            <div className="bg-white rounded-[7px] p-4 my-7 h-[8vh] items-center flex whitespace-nowrap justify-around">
-              <div className="grid grid-cols-6 gap-[0.5vw] h-full font-montserrat font-semibold text-[1vw]">
+            <h1 className="text-black text-[1.3rem] ssm:text-[1.8rem] xl:text-[2.5rem] font-manrope font-bold text-center">Calculadora</h1>
+
+            <div className="hidden lg:block">
+
+            <div className="flex bg-white rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap justify-around">
+              <div className=" grid grid-cols-6  w-full h-[200%] font-montserrat font-semibold">
+
+
             <motion.nav
-            className="w-[80%] mt-1"
+            className="style-Nav before:hidden"
             ref={scopePosicion}
-            onMouseEnter={() => setIsOpenPosicion(true)}
+            onTap={() => setIsOpenPosicion(true)}
             onMouseLeave={() => setIsOpenPosicion(false)}
           >
+
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator"
               whileTap={{ scale: 0.97 }}
-              
-              
             >
               Posición
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-full h-28 overflow-y-scroll space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll h-28"
               style={{
                 pointerEvents: isOpenPosicion ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
-                    <li className="flex" key={index}> 
+                    <div className="" key={index}>
+                    <li className="flex hover:text-linkIt-300  w-full" key={index}> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
-                    <label htmlFor={position} className="cursor-pointer">{position}</label>
+                    <label htmlFor={position} className="cursor-pointer w-full">{position}</label>
                     </li>
+                    { index !== positionsToRender.length - 1 && <hr className={`mt-[5%]`} /> }
+                    
+                    </div>
                 ))}
-                <li></li>
             </ul>{" "}
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeIngles}
-            onMouseEnter={() => setIsOpenIngles(true)}
+            onTap={() => setIsOpenIngles(true)}
             onMouseLeave={() => setIsOpenIngles(false)}
           >
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator"
               whileTap={{ scale: 0.97 }}
               
             >
               Nivel de inglés
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-fit items-center space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-2 mt-3"
+              className="menu-Calculator h-fit"
               style={{
                 pointerEvents: isOpenIngles ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="flex"> 
+              <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
-                    <label htmlFor="Basico" className="cursor-pointer">Básico </label>
+                    <label htmlFor="Basico" className="cursor-pointer w-full">Básico </label>
                     </li>
-                    <li className="flex"> 
+                    <hr className={`mt-[5%]`} />
+                    <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
-                    <label htmlFor="Intermedio" className="cursor-pointer">Intermedio</label>
+                    <label htmlFor="Intermedio" className="cursor-pointer w-full">Intermedio</label>
                     </li>
-                    <li className="flex"> 
+                    <hr className={`mt-[5%]`} />
+                    <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
-                    <label htmlFor="Avanzado" className="cursor-pointer">Avanzado</label>
+                    <label htmlFor="Avanzado" className="cursor-pointer w-full">Avanzado</label>
                     </li>
               
             </ul>{" "}
           </motion.nav>
 
+
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeSeniority}
-            onMouseEnter={() => setIsOpenSeniority(true)}
+            onTap={() => setIsOpenSeniority(true)}
             onMouseLeave={() => setIsOpenSeniority(false)}
           >
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator "
               whileTap={{ scale: 0.97 }}
               
             >
               Seniority
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-fit items-center space-y-[1vh] text-[0.7vw] whitespace-break-spaces px-3 p-2 mt-3"
+              className="menu-Calculator overflow-y-auto h-28"
               style={{
                 pointerEvents: isOpenSeniority ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              <li className="flex"> 
+              <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
-                    <label htmlFor="Junior" className="cursor-pointer">Junior</label>
+                    <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
                     </li>
-              <li className="flex"> 
+                    <hr className={`mt-[5%]`} />
+              <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
-                    <label htmlFor="Semi-senior" className="cursor-pointer">Semi-senior</label>
+                    <label htmlFor="Semi-senior" className="cursor-pointer w-full">Semi-senior</label>
                     </li>
-              <li className="flex"> 
+                    <hr className={`mt-[5%]`} />
+              <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
-                    <label htmlFor="Senior Advance" className="cursor-pointer">Senior Advance</label>
+                    <label htmlFor="Senior Advance" className="cursor-pointer w-full">Senior Advance</label>
                     </li>
-              <li className="flex"> 
+                    <hr className={`mt-[5%]`} />
+              <li className="flex hover:text-linkIt-300  w-full"> 
                     <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
-                    <label htmlFor="Manager/Lead" className="cursor-pointer">Manager/Lead</label>
+                    <label htmlFor="Manager/Lead" className="cursor-pointer w-full">Manager/Lead</label>
                     </li>
             </ul>{" "}
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeTecnologias}
-            onMouseEnter={() => setIsOpenTecnologias(true)}
+            onTap={() => setIsOpenTecnologias(true)}
             onMouseLeave={() => setIsOpenTecnologias(false)}
           >
+
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator"
               whileTap={{ scale: 0.97 }}
               
             >
               Tecnologías
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll h-28"
               style={{
                 pointerEvents: isOpenTecnologias ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((tech: string, index: number) => (
-                    <li key={index}> 
-                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="technologies" value={tech} id={tech} onChange={handleChange} />
-                    <label htmlFor={tech} className="cursor-pointer">{tech}</label>
+              {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
+                <div key={index}>
+                    <li key={index} className="flex hover:text-linkIt-300  w-full"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} />
+                    <label htmlFor={techs} className="cursor-pointer w-full">{techs}</label>
                     </li>
+                    { index !== tech.length - 1 && <hr className={`mt-[5%]`} /> }
+                    </div>
                 ))}
-                <li></li>
-              
-            </ul>{" "}
+            </ul>
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeFrameworks}
-            onMouseEnter={() => setIsOpenFrameworks(true)}
+            onTap={() => setIsOpenFrameworks(true)}
             onMouseLeave={() => setIsOpenFrameworks(false)}
           >
+
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator"
               whileTap={{ scale: 0.97 }}
               
             >
               Frameworks
-              <div className="arrow w-[0.7vw] ml-[1vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll h-28"
               style={{
                 pointerEvents: isOpenFrameworks ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
-                    <li key={index}> 
-                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
-                    <label htmlFor={frameworks} className="cursor-pointer">{frameworks}</label>
+                <div key={index}>
+                    <li key={index} className="flex hover:text-linkIt-300  w-full"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
+                    <label htmlFor={frameworks} className="cursor-pointer w-full">{frameworks}</label>
                     </li>
+                    { index !== frameworksToRender.length - 1 && <hr className={`mt-[5%]`} /> }
+                    </div>
                 ))}
-                <li></li>
-              
-            </ul>{" "}
+            </ul>
           </motion.nav>
 
+
+
+
             <motion.nav
-            className="mt-1"
+            className="style-Nav"
             ref={scopeOtros}
-            onMouseEnter={() => setIsOpenOtros(true)}
+            onTap={() => setIsOpenOtros(true)}
             onMouseLeave={() => setIsOpenOtros(false)}
           >
+
             <motion.button
-              className={`flex items-center hover:text-linkIt-300`}
+              className="button-Calculator"
               whileTap={{ scale: 0.97 }}
               
             >
               Otros
-              <div className="arrow w-[0.7vw] ml-[3vw]">
+              <div className="arrow arrow-Style">
                 <img src={arrow} alt="arrow" />
               </div>
             </motion.button>
+
+
+
             <ul
-              className="relative bg-white rounded-b-[7px] w-fit h-28 overflow-y-scroll items-center space-y-[1vh] text-[0.8vw] px-3 p-1 mt-3"
+              className="menu-Calculator overflow-y-scroll h-28"
               style={{
                 pointerEvents: isOpenOtros ? "auto" : "none",
                 clipPath: "inset(10% 50% 90% 50%)",
               }}
             >
-              {othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
-                    <li key={index}> 
-                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm" type="checkbox" name="others"  value={others} id={others} onChange={handleChange} />
-                    <label htmlFor={others} className="cursor-pointer">{others}</label>
-                    </li>
-                ))}
-                <li></li>
+              {
               
-            </ul>{" "}
+              othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
+                    <div key={index}>
+                    <li key={index} className="flex hover:text-linkIt-300  w-full"> 
+                    <input className="mr-3 checked:bg-linkIt-300 rounded-sm mx-[5%]" type="checkbox" name="others"  value={others} id={others} onChange={handleChange} />
+                    <label htmlFor={others} className="cursor-pointer w-full">{others}</label>
+                    </li>
+                    { index !== othersToRender.length -1 && <hr className={`mt-[5%]`} /> 
+                    }
+
+                    </div>
+                    
+                ))
+                
+                }
+                
+              
+            </ul>
           </motion.nav>
           </div>
-          <button className="background-button" onClick={CalculatePrice}
+          
+
+
+          <button className="background-button disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:" onClick={CalculatePrice}
            disabled={
             vacancyFirst.englishLevel === "" ||
             vacancyFirst.positionV === ""  ||
@@ -438,14 +501,323 @@ function useMenuAnimation(isOpen: boolean) {
           } >Calcular</button>
           
           </div>
-          <div className="grid grid-cols-2">
-            <h2 className="text-[2vw] font-semibold pl-[2%]">Pricing</h2>
-            <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%]">
-                <h2 className="text-[2vw] font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 text-[0.9vw] font-montserrat mr-[2%]">Mínimo USD</span>{price.min}</h2>
-                <h2 className="text-[2vw] font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 text-[0.9vw] font-montserrat mr-[2%]">Máximo USD</span>{price.max}</h2>
+
+        
+          </div>
+          <div className="lg:hidden">
+          <div className="flex bg-white rounded-[7px] p-1 mt-[5%] h-[3rem] items-center whitespace-nowrap justify-between">
+              <div className=" grid grid-cols-3 w-full h-[200%] font-montserrat font-semibold">
+
+
+            <motion.nav
+            className="style-Nav before:hidden"
+            ref={scopePosicion}
+            onTap={() => setIsOpenPosicion(!isOpenPosicion)}
+          >
+
+
+            <motion.button
+              className="button-Calculator"
+              whileTap={{ scale: 0.97 }}
+            >
+              Posición
+              <div className="arrow arrow-Style">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+
+            <ul
+              className="menu-Calculator overflow-y-scroll h-28"
+              style={{
+                pointerEvents: isOpenPosicion ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+            {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
+                    <div className="" key={index}>
+                    <li className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] w-full" key={index}> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
+                    <label htmlFor={position} className="cursor-pointer w-full">{position}</label>
+                    </li>
+                    { index !== positionsToRender.length - 1 && <hr className={`mt-[5%]`} /> }
+                    
+                    </div>
+                ))}
+            </ul>{" "}
+          </motion.nav>
+
+
+
+
+            <motion.nav
+            className="style-Nav"
+            ref={scopeIngles}
+            onTap={() => setIsOpenIngles(!isOpenIngles)}
+            
+          >
+
+            <motion.button
+              className="button-Calculator"
+              whileTap={{ scale: 0.97 }}
+              
+            >
+              Nivel de inglés
+              <div className="arrow arrow-Style">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+
+
+            <ul
+              className="menu-Calculator h-fit"
+              style={{
+                pointerEvents: isOpenIngles ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] w-full"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
+                    <label htmlFor="Basico" className="cursor-pointer w-full">Básico </label>
+                    </li>
+                    <hr className={`mt-[5%]`} />
+                    <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem] "> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
+                    <label htmlFor="Intermedio" className="cursor-pointer w-full">Intermedio</label>
+                    </li>
+                    <hr className={`mt-[5%]`} />
+                    <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
+                    <label htmlFor="Avanzado" className="cursor-pointer w-full">Avanzado</label>
+                    </li>
+              
+            </ul>{" "}
+          </motion.nav>
+
+
+
+
+
+            <motion.nav
+            className="style-Nav"
+            ref={scopeSeniority}
+            onTap={() => setIsOpenSeniority(!isOpenSeniority)}
+            
+          >
+
+            <motion.button
+              className="button-Calculator "
+              whileTap={{ scale: 0.97 }}
+              
+            >
+              Seniority
+              <div className="arrow arrow-Style">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+
+
+            <ul
+              className="menu-Calculator overflow-y-auto h-fit"
+              style={{
+                pointerEvents: isOpenSeniority ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
+                    <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
+                    </li>
+                    <hr className={`mt-[5%]`} />
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
+                    <label htmlFor="Semi-senior" className="cursor-pointer w-full">Semi-senior</label>
+                    </li>
+                    <hr className={`mt-[5%]`} />
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
+                    <label htmlFor="Senior Advance" className="cursor-pointer w-full">Senior Advance</label>
+                    </li>
+                    <hr className={`mt-[5%]`} />
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
+                    <label htmlFor="Manager/Lead" className="cursor-pointer w-full">Manager/Lead</label>
+                    </li>
+            </ul>{" "}
+          </motion.nav>
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+          <div className="flex bg-white rounded-[7px] p-1 my-[5%] h-[3rem] items-center whitespace-nowrap justify-around">
+              <div className=" grid grid-cols-3  w-full h-[200%] font-montserrat font-semibold">
+              <motion.nav
+            className="style-Nav before:hidden"
+            ref={scopeTecnologias}
+            onTap={() => setIsOpenTecnologias(!isOpenTecnologias)}
+         
+          >
+
+
+            <motion.button
+              className="button-Calculator"
+              whileTap={{ scale: 0.97 }}
+              
+            >
+              Tecnologías
+              <div className="arrow arrow-Style">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+
+
+            <ul
+              className="menu-Calculator overflow-y-scroll h-28"
+              style={{
+                pointerEvents: isOpenTecnologias ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+              {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
+                <div key={index}>
+                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} />
+                    <label htmlFor={techs} className="cursor-pointer w-full">{techs}</label>
+                    </li>
+                    { index !== tech.length - 1 && <hr className={`mt-[5%]`} /> }
+                    </div>
+                ))}
+            </ul>
+          </motion.nav>
+
+          <motion.nav
+            className="style-Nav"
+            ref={scopeFrameworks}
+            onTap={() => setIsOpenFrameworks(!isOpenFrameworks)}
+       
+          >
+
+
+            <motion.button
+              className="button-Calculator"
+              whileTap={{ scale: 0.97 }}
+              
+            >
+              Frameworks
+              <div className="arrow arrow-Style">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+            <ul
+              className="menu-Calculator overflow-y-scroll h-28"
+              style={{
+                pointerEvents: isOpenFrameworks ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+              {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
+                <div key={index}>
+                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className=" checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
+                    <label htmlFor={frameworks} className="cursor-pointer w-full">{frameworks}</label>
+                    </li>
+                    { index !== frameworksToRender.length - 1 && <hr className={`mt-[5%]`} /> }
+                    </div>
+                ))}
+            </ul>
+          </motion.nav>
+
+
+
+
+            <motion.nav
+            className="style-Nav"
+            ref={scopeOtros}
+            onTap={() => setIsOpenOtros(!isOpenOtros)}
+          
+          >
+
+            <motion.button
+              className="button-Calculator"
+              whileTap={{ scale: 0.97 }}
+              
+            >
+              Otros
+              <div className="arrow arrow-Style">
+                <img src={arrow} alt="arrow" />
+              </div>
+            </motion.button>
+
+
+
+            <ul
+              className="menu-Calculator overflow-y-scroll h-28"
+              style={{
+                pointerEvents: isOpenOtros ? "auto" : "none",
+                clipPath: "inset(10% 50% 90% 50%)",
+              }}
+            >
+              {
+              
+              othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
+                    <div key={index}>
+                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="others"  value={others} id={others} onChange={handleChange} />
+                    <label htmlFor={others} className="cursor-pointer w-full">{others}</label>
+                    </li>
+                    { index !== othersToRender.length -1 && <hr className={`mt-[5%]`} /> 
+                    }
+
+                    </div>
+                    
+                ))
+                
+                }
+                
+              
+            </ul>
+          </motion.nav>
+          </div>
+          
+
+
+          <button className="background-button disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:" onClick={CalculatePrice}
+           disabled={
+            vacancyFirst.englishLevel === "" ||
+            vacancyFirst.positionV === ""  ||
+            vacancyFirst.seniorityV === "" ||
+            vacancySecond.frameworks.length === 0 ||
+            vacancySecond.others.length === 0 ||
+            vacancySecond.technologies.length === 0
+            ? true
+          : false
+          } >Calcular</button>
+          
+          </div>
+          
+          
+          
+          </div>
+
+          <div className="grid grid-cols-2 items-end">
+            <h2 className="text-[1rem] ssm:text-[1.5rem] xl:text-[2rem] font-montserrat font-semibold pl-[2%]">Pricing</h2>
+            <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%] text-[1rem] ssm:text-[1.5rem] xl:text-[2rem]">
+                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1.2rem] font-montserrat mr-[2%]">Mínimo USD</span>{price.min}</h2>
+                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1.2rem] font-montserrat mr-[2%]">Máximo USD</span>{price.max}</h2>
             </div>
             <hr className="bg-black h-1 col-span-full mt-[1%]"/>
-            <p className=" col-start-2 font-medium mt-3 font-manrope text-[0.8vw] w-[75%] justify-self-end">Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo</p>
+            <p className={`lg:col-start-2 col-span-2 font-medium mt-3 font-manrope text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] justify-self-end ${price.min === "$0" && price.max === "$0" ? "opacity-0" : "opacity-100"}`}>Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo</p>
           </div>
         </div>
     )

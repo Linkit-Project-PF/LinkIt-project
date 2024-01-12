@@ -38,7 +38,7 @@ function Home({ error, Unauth }: { error: boolean; Unauth: boolean }) {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-hidden">
       {errorVisible && <Error />}
       {unauthVisible && <Unauthorized />}
       <ModuloA />

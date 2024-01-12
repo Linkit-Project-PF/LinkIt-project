@@ -186,7 +186,7 @@ function App() {
   }, []);
 
   return (
-    <div className="w-screen h-full overflow-x-hidden">
+    <div className="w-screen h-full">
       <NavBar />
 
       <motion.div
