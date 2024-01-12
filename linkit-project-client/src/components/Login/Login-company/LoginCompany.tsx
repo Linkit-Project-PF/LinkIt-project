@@ -131,7 +131,8 @@ function LoginCompany() {
           //* In case user tries to log in but account does not exist
           const DBresponse = await saveUserThirdAuth(
             firebaseAuthResponse.user,
-            "user"
+            "user",
+            "google"
           );
           Swal.fire({
             title: t("Bienvenido", { name: DBresponse.companyName }),

@@ -26,6 +26,11 @@ const SuperAdminProfileForm: FunctionComponent = () => {
   const [filePublicId, setFilePublicId] = useState(admin.image ?? "");
   const [fileName, setFileName] = useState("");
 
+  //TODO Erase this once is used, only for deployment purposes
+  if (fileName) {
+    null;
+  }
+
   function profileChangePassword() {}
   function handleLogOut() {}
 
@@ -73,7 +78,7 @@ const SuperAdminProfileForm: FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
+    <div className="flex flex-col bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10 lg:flex-row">
       <div className="flex p-3 flex-col md:flex-row w-full mb-5">
         <div className="flex flex-col md:flex-row w-full pt-10 md:justify-evenly md:pt-0">
           <div className="relative w-full flex justify-center md:w-[50%]">
@@ -202,9 +207,6 @@ const SuperAdminProfileForm: FunctionComponent = () => {
               {t("Guardar")}
             </button>
           </div>
-          {fileName && (
-            <p>*{t("Si cambiaste tu foto recuerda guardar los cambios")}</p>
-          )}
         </form>
       )}
     </div>

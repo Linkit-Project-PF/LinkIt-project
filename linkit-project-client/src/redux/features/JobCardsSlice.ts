@@ -48,78 +48,59 @@ const JobCardSlice = createSlice({
             state.filterJobOffers = filteredJobOffers
         },
         setSortJobOffers: (state, action) => {
-            const value = action.payload;
-            if (value === 'recent') {
-                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
-                    const dateA = new Date(a.createdDate)
-                    const dateB = new Date(b.createdDate)
-                    state.sortValues.sortDate = 'recent'
-                    state.sortValues.sortAlfa = '-'
-                    return dateB.getTime() - dateA.getTime()
-                })
-            } else if (value === 'old') {
-                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
-                    const dateA = new Date(a.createdDate)
-                    const dateB = new Date(b.createdDate)
-                    state.sortValues.sortDate = 'old'
-                    state.sortValues.sortAlfa = '-'
-                    return dateA.getTime() - dateB.getTime()
-                })
-            } else if (value === 'A-Z') {
-                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
-                    const titleA = a.title.toLowerCase();
-                    const titleB = b.title.toLowerCase();
-                    state.sortValues.sortDate = '-'
-                    state.sortValues.sortAlfa = 'A-Z'
-                    return titleA.localeCompare(titleB)
-                })
-            } else if (value === 'Z-A') {
-                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
-                    const titleA = a.title.toLowerCase();
-                    const titleB = b.title.toLowerCase();
-                    state.sortValues.sortDate = '-'
-                    state.sortValues.sortAlfa = 'Z-A'
-                    return titleB.localeCompare(titleA)
-                })
-            } else if (value === 'Visible') {
-                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => (jobOffer.archived === false))
-                state.sortValues.sortView = 'Visible'
-            } else if (value === 'Hidden') {
-                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => (jobOffer.archived === true))
-                state.sortValues.sortView = 'Hidden'
-            } else if (value === 'All') {
-                state.filterJobOffers = state.allJobOffers
-                state.sortValues.sortView = 'All'
-            }
-        },
-        filterByCompany: (state, action) => {
-            const valueN = action.payload;
-            const value = valueN.toLowerCase();
-            if (value === 'all') {
-                return {
-                    ...state,
-                    sortValues: { ...state.sortValues, sortView: 'All' },
-                    filterJobOffers: state.allJobOffers,
-                };
-                
-            } else {
-                const filteredCompanies = state.allJobOffers.filter((c: JobOffer) => {
-                    const companyLower = c.company.toLowerCase()
-                    return companyLower === value;
-                });
-                return {
-                    ...state,
-                    sortValues: { ...state.sortValues, sortView: 'All' },
-                    filterJobOffers: filteredCompanies,
-                };
-            }
-        },
+            const { visibility, date, sortA } = action.payload;
 
+
+            if (date === 'recent') {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                    const dateA = new Date(a.createdDate);
+                    const dateB = new Date(b.createdDate);
+                    state.sortValues.sortDate = 'recent';
+                    state.sortValues.sortAlfa = '-';
+
+                    return dateB.getTime() - dateA.getTime();
+                });
+            } else if (date === 'old') {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                    const dateA = new Date(a.createdDate);
+                    const dateB = new Date(b.createdDate);
+                    state.sortValues.sortDate = 'old';
+                    state.sortValues.sortAlfa = '-';
+
+                    return dateA.getTime() - dateB.getTime();
+                });
+            } else if (sortA === 'A-Z') {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                    const titleA = a.title.toLowerCase();
+                    const titleB = b.title.toLowerCase();
+                    state.sortValues.sortDate = '-';
+                    state.sortValues.sortAlfa = 'A-Z';
+                    return titleA.localeCompare(titleB);
+                });
+            } else if (sortA === 'Z-A') {
+                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
+                    const titleA = a.title.toLowerCase();
+                    const titleB = b.title.toLowerCase();
+                    state.sortValues.sortDate = '-';
+                    state.sortValues.sortAlfa = 'Z-A';
+                    return titleB.localeCompare(titleA);
+                });
+            } else if (visibility === 'Visible') {
+                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => !jobOffer.archived);
+                state.sortValues.sortView = 'Visible';
+            } else if (visibility === 'Hidden') {
+                state.filterJobOffers = state.allJobOffers.filter((jobOffer: JobOffer) => jobOffer.archived);
+                state.sortValues.sortView = 'Hidden';
+            } else if (visibility === 'All') {
+                state.filterJobOffers = state.allJobOffers;
+                state.sortValues.sortView = 'All';
+            } 
+        },
     }
 })
 
 
-export const { applyFilters, setJobOffers, setSearchJobOffers, setSortJobOffers, filterByCompany } = JobCardSlice.actions;
+export const { applyFilters, setJobOffers, setSearchJobOffers, setSortJobOffers} = JobCardSlice.actions;
 export default JobCardSlice.reducer;
 
 

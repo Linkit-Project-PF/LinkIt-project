@@ -1,7 +1,7 @@
 import CompanyForm from "./CompanyProfile/CompanyProfileForm";
 import SuperAdminProfileForm from "./SuperAdminProfile/SuperAdminProfileForm";
 import TalentForm from "./TalentProfile/TalentProfileForm";
-import { IAdmin, ICompany, IUser, WebsiteUser } from "./types";
+import { ICompany, IUser, WebsiteUser } from "./types";
 
 export default function ProfileFormComponent({ user }: { user: WebsiteUser }) {
   return (
@@ -12,9 +12,7 @@ export default function ProfileFormComponent({ user }: { user: WebsiteUser }) {
           {user.role === "company" && (
             <CompanyForm company={user as ICompany} />
           )}
-          {user.role === "admin" && (
-            <SuperAdminProfileForm admin={user as IAdmin} />
-          )}
+          {user.role === "admin" && <SuperAdminProfileForm />}
         </>
       ) : null}
     </>
