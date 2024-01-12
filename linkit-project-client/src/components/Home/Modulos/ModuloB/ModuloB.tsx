@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import './ModuloB.css'
 import { useTranslation } from "react-i18next"
-import useWindowWidth from "../../../../Utils/WindowWidth/WindowWidth"
 import OurServicesCarousel from "../../../../Utils/OurServicesCarousel/OurServicesCarousel";
 
 export default function ModuloB() {
@@ -10,12 +9,10 @@ export default function ModuloB() {
     const goSoyEmpresa = () => {
         navigate("/SoyEmpresa")
     }
-    const windowWidth = useWindowWidth();
      
     return (
-        <div className="overflow-hidden w-screen">
-            { windowWidth >= 1024 ? (
-            <div className="skewed-borderB p-[7%] dark:bg-linkIt-200">
+        <div className="overflow-hidden w-screen ">
+            <div className="skewed-borderB hidden lg:block p-[7%] dark:bg-linkIt-200">
                 <div className="contentB grid grid-cols-3 my-[3%] gap-5">
                     <h1 className="text-white text-[3vw] col-span-3 text-center justify-center font-manrope mb-[5%]">{t('Nuestros servicios')}</h1>
                             <img className="bg-white rounded-full w-1/4 justify-self-center mb-[5%]" src="/Vectores/linkit-web-vectores-03.svg" alt="reclutamiento" />
@@ -31,11 +28,10 @@ export default function ModuloB() {
                             <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
                             <button className="background-button justify-self-center hover:bg-white hover:text-linkIt-300" onClick={goSoyEmpresa}>{t('Ver más')}</button>
                         </div>
-                </div> )
-                : (
-
-                    <OurServicesCarousel />
-                )}
+                </div> 
+                <div className="lg:hidden">
+                    <OurServicesCarousel component="home" />
+                    </div>
             </div>
 
     )

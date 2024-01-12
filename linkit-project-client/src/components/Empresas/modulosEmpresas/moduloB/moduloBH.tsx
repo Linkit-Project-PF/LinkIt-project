@@ -1,19 +1,17 @@
 import { useTranslation } from 'react-i18next'
 import './ModuloBH.css'
-import useWindowWidth from '../../../../Utils/WindowWidth/WindowWidth';
 import OurServicesCarousel from '../../../../Utils/OurServicesCarousel/OurServicesCarousel';
 
 
 export default function ModuloB() {
 
     const { t } = useTranslation();
-    const windowWidth = useWindowWidth();
+
 
         return (
             <div className=''>
-                {windowWidth >= 1024 ? ( 
-                <div className="skewed-borderBH dark:bg-white">
-                    <div className="contentBH flex flex-col p-[7%] pb-[10%] ">
+                <div className="skewed-borderBH hidden lg:block dark:bg-white p-[7%]">
+                    <div className="contentBH flex flex-col pb-[10%] ">
                         <h1 className="font-manrope font-bold self-center text-[2.5rem] xl:text-[3rem] mb-[5%] text-white">{t('Nuestros servicios')}</h1>
                             <div className="">
                                 <div className='grid grid-cols-3 mb-[3%] ml-[10%]'>
@@ -43,9 +41,10 @@ export default function ModuloB() {
                             </div>
                             
                     </div>
-                </div> ) : (
-                    <OurServicesCarousel />
-                )}
+                </div> 
+                <div className='lg:hidden'>
+                    <OurServicesCarousel component='company' />
+                    </div>
             </div>
 
         )
