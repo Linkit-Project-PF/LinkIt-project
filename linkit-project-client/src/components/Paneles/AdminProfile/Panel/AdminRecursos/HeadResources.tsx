@@ -53,7 +53,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
 
     const deleteReview = async () => {
         swal({
-            title: "¿Deseas eliminar el Usuario?",
+            title: "¿Deseas eliminar el Recurso?",
             icon: "warning",
             buttons: ["Cancelar", "Aceptar"],
             dangerMode: true,
@@ -62,7 +62,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
                 try {
                     arraySelectedRows.forEach(async (id: string) => {
                         const response = await axios.delete(
-                            `https://linkit-server.onrender.com/reviews/delete/${id}`,
+                            `https://linkit-server.onrender.com/posts/delete/${id}`,
                             {
                                 headers: {
                                     Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
                             }
                         );
                         dispatch(setResources(response.data));
-                        swal("Usuario eliminado", { icon: "success" });
+                        swal("Recurso eliminado", { icon: "success" });
                     })
                 } catch (error) {
                     console.error(
