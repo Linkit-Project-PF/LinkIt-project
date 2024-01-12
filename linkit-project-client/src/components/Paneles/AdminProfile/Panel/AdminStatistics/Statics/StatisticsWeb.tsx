@@ -108,6 +108,7 @@ export default function StatisticsWeb() {
                   <Cell
                     key={`cell-${index}`}
                     fill={pieColors[index % pieColors.length]}
+                    name={entry.name}
                   />
                 ))}
               </Pie>
