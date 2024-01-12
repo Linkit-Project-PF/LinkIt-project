@@ -135,7 +135,11 @@ function LoginTalent() {
         const response = await signInWithPopup(auth, provider);
         if ((response as any)._tokenResponse.isNewUser) {
           //* In case user tries to log in but account does not exist
-          const DBresponse = await saveUserThirdAuth(response.user, "user");
+          const DBresponse = await saveUserThirdAuth(
+            response.user,
+            "user",
+            prov
+          );
           Swal.fire({
             title: t("Bienvenido", { name: DBresponse.name }),
             text: t("Se ha creado una nueva cuenta para ti"),
@@ -192,7 +196,9 @@ function LoginTalent() {
               });
             } else
               throw Error(
-                t("Usuario autenticado pero registro no encontrado, por favor inicia sesión desde la sección correspondiente. Si el error persiste contactános")
+                t(
+                  "Usuario autenticado pero registro no encontrado, por favor inicia sesión desde la sección correspondiente. Si el error persiste contactános"
+                )
               );
           }
         }
