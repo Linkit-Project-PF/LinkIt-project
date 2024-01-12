@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import HeadResources from "./HeadResources";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setResources } from "../../../../../redux/features/ResourcesSlice";
+import { setResources, sortResource } from "../../../../../redux/features/ResourcesSlice";
 import { ResourceProps, ViewResourceProps } from "../../../admin.types";
 
 export type stateProps = {
@@ -30,6 +30,7 @@ export default function Resources() {
           }
         );
         dispatch(setResources(response.data));
+        dispatch(sortResource('recent'))
       } catch (error) {
         console.error("Error al cargar las información", error);
       }
@@ -63,7 +64,7 @@ export default function Resources() {
   const [currentPage, setCurrentPage] = useState(0);
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const dataToShow = data.slice(startIndex, endIndex);
+  const dataToShow = data?.slice(startIndex, endIndex);
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const handleNext = (): void => {
     setCurrentPage(currentPage + 1);
@@ -127,7 +128,7 @@ export default function Resources() {
         <h1>{title}</h1>
       </div>
       <div>
-        {dataToShow.map((r: ResourceProps, index) => (
+        {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}
@@ -153,7 +154,7 @@ export default function Resources() {
         <h1>{title}</h1>
       </div>
       <div>
-        {dataToShow.map((r: ResourceProps, index) => (
+        {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
@@ -170,7 +171,7 @@ export default function Resources() {
         <h1>{title}</h1>
       </div>
       <div>
-        {dataToShow.map((r: ResourceProps, index) => (
+        {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
@@ -195,7 +196,7 @@ export default function Resources() {
         <h1>{title}</h1>
       </div>
       <div>
-        {dataToShow.map((r: ResourceProps, index) => (
+        {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
@@ -220,7 +221,7 @@ export default function Resources() {
         <h1>{title}</h1>
       </div>
       <div>
-        {dataToShow.map((r: ResourceProps, index) => (
+        {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
