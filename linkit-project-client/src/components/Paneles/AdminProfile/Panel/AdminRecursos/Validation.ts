@@ -5,7 +5,6 @@ export const validations = (resource: ResourceProps) => {
     title: "",
     description: "",
     link: "",
-    type: "",
     image: "",
     category: "",
   };
@@ -22,9 +21,9 @@ export const validations = (resource: ResourceProps) => {
     errors.link = "Link requerido";
   }
 
-  if (!resource.type) {
-    errors.type = "Tipo requerido";
-  }
+  // if (!resource.type) {
+  //   errors.type = "Tipo requerido";
+  // }
   if (!resource.image) {
     errors.image = "Imagen requerido";
   }

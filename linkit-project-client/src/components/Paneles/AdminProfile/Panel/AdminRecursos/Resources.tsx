@@ -226,7 +226,7 @@ export default function Resources() {
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
-            <p>{String(r[key] === true ? 'Activo' : 'Inactivo')}</p>
+            <p>{String(r[key] === true ? 'Inactivo' : 'Activo')}</p>
           </div>
         ))}
       </div>

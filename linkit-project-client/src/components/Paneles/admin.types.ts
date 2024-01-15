@@ -31,6 +31,7 @@ export type ResourceProps = {
   image: string;
   category: string;
   archived: boolean;
+  createdBy : string; 
 };
 
 export type ViewResourceProps = {
