@@ -5,9 +5,9 @@ export const validations = (resource: ResourceProps) => {
     title: "",
     description: "",
     link: "",
-    type: "",
     image: "",
     category: "",
+    headers: [],
   };
 
   if (!resource.title) {
@@ -22,14 +22,14 @@ export const validations = (resource: ResourceProps) => {
     errors.link = "Link requerido";
   }
 
-  if (!resource.type) {
-    errors.type = "Tipo requerido";
-  }
   if (!resource.image) {
     errors.image = "Imagen requerido";
   }
   if (!resource.category) {
     errors.category = "Categoría requerido";
+  }
+  if (resource.description.length > 150) {
+    errors.description = "La descripción debe ser menor a 150 caracteres"
   }
 
   return errors;
