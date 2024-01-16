@@ -437,6 +437,12 @@ export const i18nOptions: InitOptions = {
         "Nombre Cliente":"Customer Name",
         "Usuario":"User",
         "Los campos marcados con * son obligatiorios":"Fields marked with * are mandatory.",
+       //!Paneles FormOKRS
+        "El OKR fue creado con éxito":"OKR was successfully created.",
+        "Nuevo OKR":"New OKR",
+        "Título OKR principal":"Main OKR title",
+        "Resultados clave":"Key results",
+        "Resultados específicos":"Specific results",
         //!Profiles
         "Hola ":"Hi",
         "Mis Datos":"My Data",

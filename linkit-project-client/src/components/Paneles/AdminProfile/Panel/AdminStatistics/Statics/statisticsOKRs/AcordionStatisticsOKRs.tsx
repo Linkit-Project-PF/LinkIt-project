@@ -9,7 +9,7 @@ export type stateProps = {
         allresources: OKRsType;
     };
 }
-function AccordionStatisticsOKRMErcado(){
+function AccordionOKRs(){
         const token = useSelector((state: any) => state.Authentication.token);
         const [okrData, setOkrData] = useState<OKRsType[]>([]);
 
@@ -67,4 +67,4 @@ function AccordionStatisticsOKRMErcado(){
     
 }
 
-export {AccordionStatisticsOKRMErcado};
+export {AccordionOKRs};
