@@ -252,7 +252,7 @@ function App() {
         <Route path="/dashboard" element={<ProfileContainer />} />
         {/* <Route path="/verify/:id" element={<VerifyUser />} /> */}
         {/* <Route path="/testing" element={<Loading text={"Hola"} />} /> */}
-        <Route path="/blog/:id&:role" element={<BlogView />} />
+        <Route path="/blog/:id" element={<BlogView />} />
         <Route
           path="/unauthorized"
           element={<Home Unauth={true} error={false} />}
