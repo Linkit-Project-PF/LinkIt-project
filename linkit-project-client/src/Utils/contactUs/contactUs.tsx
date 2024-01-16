@@ -198,21 +198,21 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               
             >
               <li className="flex items-center">
-              <input className=" checked:bg-linkIt-300 rounded-sm  w-[8%] mr-1" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
+              <input className=" checked:bg-linkIt-300 rounded-sm  w-[8%] mr-1" type="checkbox" name="Gestión y beneficios" value='Gestión y beneficios' id="Gestión y beneficios" checked={contacts.service.includes('Gestión y beneficios')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Recruiting" className="cursor-pointer w-full hover:text-linkIt-300">Recruiting</label>
+              <label htmlFor="Gestión y beneficios" className="cursor-pointer w-full hover:text-linkIt-300">Gestión y beneficios</label>
               </li>
               <hr className="w-[100%]" />
               <li className="flex items-center">
-              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
+              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Reclutamiento y selección" value='Reclutamiento y selección' id="Reclutamiento y selección" checked={contacts.service.includes('Reclutamiento y selección')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Staff Augmentation" className="cursor-pointer w-full hover:text-linkIt-300">Staff Augmentation</label>
+              <label htmlFor="Reclutamiento y selección" className="cursor-pointer w-full hover:text-linkIt-300">Reclutamiento y selección</label>
               </li>
               <hr className="w-[100%]" />
               <li className="flex items-center">
-              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
+              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Contratación" value='Contratación' id="Contratación" checked={contacts.service.includes('Contratación')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Payroll Management" className="cursor-pointer w-full hover:text-linkIt-300">Payroll Management</label>
+              <label htmlFor="Contratación" className="cursor-pointer w-full hover:text-linkIt-300">Contratación</label>
               </li>
             </ul>{" "}
           </motion.nav>
