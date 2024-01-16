@@ -2,7 +2,7 @@ import { returnContactErrors } from "./returnErrors";
 import { contacts } from "../typeContacts";
 
 export const validateContact = (contacts: contacts): void => {
-  if(!contacts.name) returnContactErrors("Nombre requerido")
+  if(!contacts.firstName) returnContactErrors("Nombre requerido")
   if(!contacts.lastName) returnContactErrors("Apellido requerido")
   if(!contacts.company) returnContactErrors("Nombre de empresa requerida")
   if(contacts.service.length === 0) returnContactErrors("Selecciona al menos un servicio")

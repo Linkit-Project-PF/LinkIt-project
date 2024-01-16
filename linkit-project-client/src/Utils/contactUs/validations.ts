@@ -2,7 +2,7 @@ import { contacts } from "./typeContacts";
 
 export default function validations (contacts: contacts) {
     const errors = {
-        name: "",
+        firstName: "",
         lastName: "",
         company: "",
         service: "",
@@ -10,21 +10,21 @@ export default function validations (contacts: contacts) {
         message: ""
     }
     
-    if (!contacts.name) {
-        errors.name = "Nombre requerido"
+    if (contacts.firstName.length === 0) {
+        errors.firstName = "Nombre requerido"
     }
-    if (typeof contacts.name !== 'string') {
-        errors.name = "Nombre inválido"
+    if (typeof contacts.firstName !== 'string') {
+        errors.firstName = "Nombre inválido"
      }
 
-     if (!contacts.lastName) {
+     if (contacts.lastName.length === 0) {
         errors.lastName = "Apellido requerido"
         }
 
     if (typeof contacts.lastName !== 'string') {
         errors.lastName = "Apellido inválido"
         }
-    if (!contacts.company) {
+    if (contacts.company.length === 0) {
         errors.company = "Nombre de empresa requerida"
     }
     if (typeof contacts.company !== 'string') {
@@ -37,7 +37,7 @@ export default function validations (contacts: contacts) {
     } else if (!/\S+@\S+\.\S+/.test(contacts.email)) {
         errors.email = "Email inválido"
     }
-    if (!contacts.message) {
+    if (contacts.message.length === 0) {
         errors.message = "Mensaje requerido"
     }
     return errors 

@@ -4,10 +4,12 @@ import { useAnimate, stagger, motion } from "framer-motion";
 import validations from "./validations";
 import { validateContact } from "./errors/validation";
 import { ValidationError } from "./errors/errors";
+import { SUPERADMN_ID } from "../../env";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import "./contactUs.css"
+import { contacts } from "./typeContacts";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -51,17 +53,17 @@ const { t } = useTranslation();
 const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
 
-  const [contacts, setContacts] = useState({
-    name: "",
+  const [contacts, setContacts] = useState<contacts>({
+    firstName: "",
     lastName: "",
     company: "",
     service: [] as string[],
     email: "",
     message: "",
   });
-
+  console.log(contacts)
   const [errors, setErrors] = useState({
-    name: "",
+    firstName: "",
     lastName: "",
     company: "",
     service: "",
@@ -105,8 +107,14 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
     try {
-      await validateContact(contacts);
-      const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
+      validateContact(contacts);
+      const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts,
+      {
+        headers: {
+          Authorization: `Bearer ${SUPERADMN_ID}`,
+          "Accept-Language": sessionStorage.getItem("lang"),
+        },
+      })
       if(response.status === 200) {
         Swal.fire({ 
           title: "¡Gracias por contactarnos!",
@@ -114,7 +122,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
           icon: "success" })
 
         setContacts({
-          name: "",
+          firstName: "",
           lastName: "",
           company: "",
           service: [] as string[],
@@ -143,9 +151,9 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       <h1 className="font-semibold text-[1rem] xs:text-[1.2rem] ssm:text-[1.8rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] justify-self-center font-montserrat">{t('Contáctanos')}</h1>
       <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1.2rem] font-montserrat whitespace-nowrap w-full" onSubmit={contactsBtn}>
         <div>
-        <input className={`${errors.name ? ' border-black' : ''} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
-        {errors.name && (
-              <p className="text-white ml-3 italic">{errors.name}</p>
+        <input className={`${errors.firstName ? ' border-black' : ''} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Nombre"  name="firstName" value={contacts.firstName} onChange={handleChange} onBlur={handleChange} />
+        {errors.firstName && (
+              <p className="text-white ml-3 italic">{errors.firstName}</p>
             )}
         </div>
         <div>
@@ -219,13 +227,13 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             )}
             <div className="flex h-full items-end">
         <button className="bg-white text-linkIt-200 font-bold rounded-[7px] p-1 ssm:p-2 xl:p-2.5 w-[50%] ssm:w-[40%] md:w-[30%] items-end disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
-          errors.name ||
+          errors.firstName ||
           errors.lastName ||
           errors.company ||
           errors.service ||
           errors.email ||
           errors.message ||
-          contacts.name === "" ||
+          contacts.firstName === "" ||
           contacts.lastName === "" ||
           contacts.company === "" ||
           contacts.service.length === 0 ||
