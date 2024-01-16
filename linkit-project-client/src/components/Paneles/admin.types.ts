@@ -32,6 +32,10 @@ export type ResourceProps = {
   category: string;
   archived: boolean;
   createdBy : string; 
+  headers: [{
+    head: string;
+    body: string; 
+  }];
 };
 
 export type ViewResourceProps = {
