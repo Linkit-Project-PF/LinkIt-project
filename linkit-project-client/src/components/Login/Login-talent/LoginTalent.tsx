@@ -101,6 +101,7 @@ function LoginTalent() {
           icon: "success",
           iconColor: "#173951",
           background: "#ECEEF0",
+          allowOutsideClick: true,
           confirmButtonColor: "#01A28B",
           confirmButtonText: t("Continuar"),
         });
@@ -115,6 +116,7 @@ function LoginTalent() {
         text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
+        allowOutsideClick: true,
         confirmButtonColor: "#01A28B",
         confirmButtonText: t("Continuar"),
       });
@@ -146,6 +148,7 @@ function LoginTalent() {
             icon: "success",
             iconColor: "#173951",
             background: "#ECEEF0",
+            allowOutsideClick: true,
             confirmButtonColor: "#01A28B",
             confirmButtonText: t("Continuar"),
           });
@@ -169,6 +172,7 @@ function LoginTalent() {
               icon: "success",
               iconColor: "#173951",
               background: "#ECEEF0",
+              allowOutsideClick: true,
               confirmButtonColor: "#01A28B",
               confirmButtonText: t("Continuar"),
             });
@@ -191,6 +195,7 @@ function LoginTalent() {
                 icon: "success",
                 iconColor: "#173951",
                 background: "#ECEEF0",
+                allowOutsideClick: true,
                 confirmButtonColor: "#01A28B",
                 confirmButtonText: t("Continuar"),
               });
@@ -212,6 +217,7 @@ function LoginTalent() {
         text: error,
         icon: "error",
         background: "#ECEEF0",
+        allowOutsideClick: true,
         confirmButtonColor: "#01A28B",
         confirmButtonText: t("Continuar"),
       });
