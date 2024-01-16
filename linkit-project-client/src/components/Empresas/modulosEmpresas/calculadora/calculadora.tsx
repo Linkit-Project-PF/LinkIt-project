@@ -1,8 +1,12 @@
 import { useAnimate, motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import arrow from "/Vectores/arrow.png";
+import { Dropdown } from 'flowbite-react';
 import axios from "axios";
 import "./calculadora.css";
+
+
+
 
 interface VacancyFirstState {
   [key: string]: string;
@@ -203,9 +207,10 @@ function useMenuAnimation(isOpen: boolean) {
     }
     const tech: [] = tech1.concat(tech2)
 
-
+    
+    
     return (
-
+  
         <div className="bg-linkIt-500 grid justify-center p-[7%]">
             <h1 className="text-black text-[1.3rem] ssm:text-[1.8rem] xl:text-[2.5rem] font-manrope font-bold text-center">Calculadora</h1>
 
@@ -505,148 +510,72 @@ function useMenuAnimation(isOpen: boolean) {
         
           </div>
           <div className="lg:hidden">
-          <div className="flex bg-white rounded-[7px] p-1 mt-[5%] h-[3rem] items-center whitespace-nowrap justify-between">
-              <div className=" grid grid-cols-3 w-full h-[200%] font-montserrat font-semibold">
+          <div className="flex bg-white rounded-[7px] p-1 mt-[5%] h-[3rem] items-center whitespace-nowrap px-3">
+              <div className="grid grid-cols-3 w-full font-montserrat justify-items-center">
 
-
-            <motion.nav
-            className="style-Nav before:hidden"
-            ref={scopePosicion}
-            onTap={() => setIsOpenPosicion(!isOpenPosicion)}
-          >
-
-
-            <motion.button
-              className="button-Calculator"
-              whileTap={{ scale: 0.97 }}
-            >
-              Posición
-              <div className="arrow arrow-Style">
-                <img src={arrow} alt="arrow" />
-              </div>
-            </motion.button>
-
-            <ul
-              className="menu-Calculator overflow-y-scroll h-28"
-              style={{
-                pointerEvents: isOpenPosicion ? "auto" : "none",
-                clipPath: "inset(10% 50% 90% 50%)",
-              }}
-            >
+              <div className="relative w-full">
+              <Dropdown label="posicion" inline className="h-28 overflow-y-scroll shadow-none w-full">
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
                     <div className="" key={index}>
-                    <li className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] w-full" key={index}> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
+                    <li className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] my-2" key={index}> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 outline-none ring-0" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
                     <label htmlFor={position} className="cursor-pointer w-full">{position}</label>
                     </li>
-                    { index !== positionsToRender.length - 1 && <hr className={`mt-[5%]`} /> }
-                    
                     </div>
                 ))}
-            </ul>{" "}
-          </motion.nav>
-
-
-
-
-            <motion.nav
-            className="style-Nav"
-            ref={scopeIngles}
-            onTap={() => setIsOpenIngles(!isOpenIngles)}
             
-          >
-
-            <motion.button
-              className="button-Calculator"
-              whileTap={{ scale: 0.97 }}
-              
-            >
-              Nivel de inglés
-              <div className="arrow arrow-Style">
-                <img src={arrow} alt="arrow" />
-              </div>
-            </motion.button>
+          </Dropdown>
+          </div>
 
 
-            <ul
-              className="menu-Calculator h-fit"
-              style={{
-                pointerEvents: isOpenIngles ? "auto" : "none",
-                clipPath: "inset(10% 50% 90% 50%)",
-              }}
-            >
-              <li className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] w-full"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
+          <div className="relative w-full">
+          <Dropdown label="ingles" inline className="overflow-y-auto w-full">
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] w-full my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
                     <label htmlFor="Basico" className="cursor-pointer w-full">Básico </label>
                     </li>
-                    <hr className={`mt-[5%]`} />
-                    <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem] "> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
+                    
+                    <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]  my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
                     <label htmlFor="Intermedio" className="cursor-pointer w-full">Intermedio</label>
                     </li>
-                    <hr className={`mt-[5%]`} />
-                    <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
+                    
+                    <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]  my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
                     <label htmlFor="Avanzado" className="cursor-pointer w-full">Avanzado</label>
                     </li>
-              
-            </ul>{" "}
-          </motion.nav>
+                    </Dropdown>
+                    </div>
 
 
 
 
-
-            <motion.nav
-            className="style-Nav"
-            ref={scopeSeniority}
-            onTap={() => setIsOpenSeniority(!isOpenSeniority)}
-            
-          >
-
-            <motion.button
-              className="button-Calculator "
-              whileTap={{ scale: 0.97 }}
-              
-            >
-              Seniority
-              <div className="arrow arrow-Style">
-                <img src={arrow} alt="arrow" />
-              </div>
-            </motion.button>
-
-
-            <ul
-              className="menu-Calculator overflow-y-auto h-fit"
-              style={{
-                pointerEvents: isOpenSeniority ? "auto" : "none",
-                clipPath: "inset(10% 50% 90% 50%)",
-              }}
-            >
-              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
+                    <div className="relative w-full">
+          <Dropdown label="seniority" inline className=" overflow-y-auto w-full z-20">
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem] my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
                     <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
                     </li>
-                    <hr className={`mt-[5%]`} />
-              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
+                  
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem] my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
                     <label htmlFor="Semi-senior" className="cursor-pointer w-full">Semi-senior</label>
                     </li>
-                    <hr className={`mt-[5%]`} />
-              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
+                  
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem] my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
                     <label htmlFor="Senior Advance" className="cursor-pointer w-full">Senior Advance</label>
                     </li>
-                    <hr className={`mt-[5%]`} />
-              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
+                    
+              <li className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem] my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
                     <label htmlFor="Manager/Lead" className="cursor-pointer w-full">Manager/Lead</label>
                     </li>
-            </ul>{" "}
-          </motion.nav>
 
+    </Dropdown>
 
-
+          </div>
+          
 
 
 
@@ -660,134 +589,54 @@ function useMenuAnimation(isOpen: boolean) {
 
 
 
-          <div className="flex bg-white rounded-[7px] p-1 my-[5%] h-[3rem] items-center whitespace-nowrap justify-around">
-              <div className=" grid grid-cols-3  w-full h-[200%] font-montserrat font-semibold">
-              <motion.nav
-            className="style-Nav before:hidden"
-            ref={scopeTecnologias}
-            onTap={() => setIsOpenTecnologias(!isOpenTecnologias)}
-         
-          >
+          <div className="flex bg-white rounded-[7px] p-1 my-[5%] h-[3rem] items-center whitespace-nowrap justify-around px-3">
+              <div className="grid grid-cols-3 justify-around w-full font-montserrat">
 
-
-            <motion.button
-              className="button-Calculator"
-              whileTap={{ scale: 0.97 }}
-              
-            >
-              Tecnologías
-              <div className="arrow arrow-Style">
-                <img src={arrow} alt="arrow" />
-              </div>
-            </motion.button>
-
-
-            <ul
-              className="menu-Calculator overflow-y-scroll h-28"
-              style={{
-                pointerEvents: isOpenTecnologias ? "auto" : "none",
-                clipPath: "inset(10% 50% 90% 50%)",
-              }}
-            >
+              <div className="relative w-full">
+              <Dropdown label="tecnologia" inline className=" h-28 overflow-y-scroll shadow-none w-full">
               {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
-                <div key={index}>
-                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} />
+                
+                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] my-2"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} />
                     <label htmlFor={techs} className="cursor-pointer w-full">{techs}</label>
                     </li>
-                    { index !== tech.length - 1 && <hr className={`mt-[5%]`} /> }
-                    </div>
+                   
+                   
                 ))}
-            </ul>
-          </motion.nav>
+    </Dropdown>
+          </div>
+           
 
-          <motion.nav
-            className="style-Nav"
-            ref={scopeFrameworks}
-            onTap={() => setIsOpenFrameworks(!isOpenFrameworks)}
-       
-          >
-
-
-            <motion.button
-              className="button-Calculator"
-              whileTap={{ scale: 0.97 }}
-              
-            >
-              Frameworks
-              <div className="arrow arrow-Style">
-                <img src={arrow} alt="arrow" />
-              </div>
-            </motion.button>
-            <ul
-              className="menu-Calculator overflow-y-scroll h-28"
-              style={{
-                pointerEvents: isOpenFrameworks ? "auto" : "none",
-                clipPath: "inset(10% 50% 90% 50%)",
-              }}
-            >
+          <div className="relative w-full">
+          <Dropdown label="frameworks" inline className=" h-28 overflow-y-scroll shadow-none w-full">
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
-                <div key={index}>
-                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className=" checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
+              
+                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] my-2 "> 
+                    <input className=" checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
                     <label htmlFor={frameworks} className="cursor-pointer w-full">{frameworks}</label>
                     </li>
-                    { index !== frameworksToRender.length - 1 && <hr className={`mt-[5%]`} /> }
-                    </div>
+                    
+                    
                 ))}
-            </ul>
-          </motion.nav>
 
+    </Dropdown>
+    </div>
 
+    <div className="relative w-full">
+          <Dropdown label="otros" inline className=" h-28 overflow-y-scroll shadow-none w-full">
 
-
-            <motion.nav
-            className="style-Nav"
-            ref={scopeOtros}
-            onTap={() => setIsOpenOtros(!isOpenOtros)}
-          
-          >
-
-            <motion.button
-              className="button-Calculator"
-              whileTap={{ scale: 0.97 }}
-              
-            >
-              Otros
-              <div className="arrow arrow-Style">
-                <img src={arrow} alt="arrow" />
-              </div>
-            </motion.button>
-
-
-
-            <ul
-              className="menu-Calculator overflow-y-scroll h-28"
-              style={{
-                pointerEvents: isOpenOtros ? "auto" : "none",
-                clipPath: "inset(10% 50% 90% 50%)",
-              }}
-            >
-              {
+          {
               
               othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
-                    <div key={index}>
-                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] w-full ssm:text-[0.6rem]"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-1 w-[15%] ssm:w-[10%]" type="checkbox" name="others"  value={others} id={others} onChange={handleChange} />
-                    <label htmlFor={others} className="cursor-pointer w-full">{others}</label>
+                    <li key={index} className="flex hover:text-linkIt-300 text-[0.45rem] ssm:text-[0.6rem] cursor-pointer my-2 items-center"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-1" type="checkbox" name="others" value={others} id={others} onChange={handleChange} />
+                    <label htmlFor={others} className="cursor-pointer ">
+                    {others}</label>
                     </li>
-                    { index !== othersToRender.length -1 && <hr className={`mt-[5%]`} /> 
-                    }
-
-                    </div>
-                    
                 ))
-                
                 }
-                
-              
-            </ul>
-          </motion.nav>
+    </Dropdown>
+    </div>
           </div>
           
 
@@ -805,10 +654,10 @@ function useMenuAnimation(isOpen: boolean) {
           } >Calcular</button>
           
           </div>
-          
-          
-          
           </div>
+
+
+ 
 
           <div className="grid grid-cols-2 items-end">
             <h2 className="text-[1rem] ssm:text-[1.5rem] xl:text-[2rem] font-montserrat font-semibold pl-[2%]">Pricing</h2>
