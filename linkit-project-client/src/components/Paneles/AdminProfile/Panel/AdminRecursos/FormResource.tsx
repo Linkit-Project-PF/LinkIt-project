@@ -47,24 +47,20 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       body: "",
     }
   )
-  console.log(infoList)
 
-  const addToList = (e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLButtonElement>) => {
+  const addToList = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    const { name } = e.currentTarget;
-    const value = (e.target as HTMLInputElement).value;
-
-    const updatedInfoList: Header = {
-      ...infoList,
-      [name]: value,
-    };
-    setInfoList(updatedInfoList);
-
-
+    if (infoList.head.trim() !== '' || infoList.body.trim() !== '') {
+      setInformation((prevInformation: Partial<ResourceProps>): Partial<ResourceProps> => ({
+        ...prevInformation,
+        headers: [...(prevInformation.headers || []), infoList],
+      }))
+      setInfoList({
+        head: "",
+        body: "",
+      })
+    }
   };
-
-
 
 
   const [errors, setErrors] = useState({
@@ -76,8 +72,13 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     headers: [],
   });
 
-  // console.log(errors)
-
+  const handleChangeInfoList = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setInfoList((previusInfoList) => ({
+      ...previusInfoList,
+      [name]: value
+    }))
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -85,7 +86,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       ...information,
       [name]: value,
     });
-
     const validationError = validations(information as ResourceProps);
     setErrors(validationError);
   };
@@ -295,28 +295,27 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                 <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Encabezado')}</label>
                   <input
-                    className={errors.headers ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                    className='"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
                     type="text"
                     name="head"
-                    placeholder={errors.headers ? "*" : ""}
+                    placeholder={'Agrega un encabezado para el blog, puedes agregar varios'}
                     autoComplete="off"
-                    onChange={handleChange}
+                    onChange={handleChangeInfoList}
                     onBlur={handleBlurErrors}
-                    onKeyDown={addToList}
-
+                    value={infoList.head}
                   />
                 </div>
 
                 <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Cuerpo')}</label>
                   <textarea
-                    className={errors.headers ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                    className='"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
                     name="body"
                     autoComplete="off"
-                    placeholder={errors.headers ? "*" : ""}
-                    onChange={handleChange}
+                    placeholder={'Agrega la descripcion del encabezado'}
+                    onChange={handleChangeInfoList}
                     onBlur={handleBlurErrors}
-                    onKeyDown={addToList}
+                    value={infoList.body}
                   >
                   </textarea>
                   <div className="flex w-full justify-center">
