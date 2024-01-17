@@ -1,8 +1,8 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import swal from 'sweetalert';
-import { ResourceProps } from "../../../admin.types";
+import { Header, ResourceProps } from "../../../admin.types";
 import { useTranslation } from "react-i18next";
 import { validations } from "./Validation";
 import { useSelector } from "react-redux";
@@ -38,9 +38,30 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       head: "",
       body: "",
     }],
-    createdBy: user.firstName,
+    createdBy: user.firstName.concat(user.lastName),
   });
-  console.log(information)
+
+  const [infoList, setInfoList] = useState<Header>(
+    {
+      head: "",
+      body: "",
+    }
+  )
+
+  const addToList = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (infoList.head.trim() !== '' || infoList.body.trim() !== '') {
+      setInformation((prevInformation: Partial<ResourceProps>): Partial<ResourceProps> => ({
+        ...prevInformation,
+        headers: [...(prevInformation.headers || []), infoList],
+      }))
+      setInfoList({
+        head: "",
+        body: "",
+      })
+    }
+  };
+
 
   const [errors, setErrors] = useState({
     title: "",
@@ -51,8 +72,13 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     headers: [],
   });
 
-  // console.log(errors)
-
+  const handleChangeInfoList = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setInfoList((previusInfoList) => ({
+      ...previusInfoList,
+      [name]: value
+    }))
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -60,7 +86,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       ...information,
       [name]: value,
     });
-
     const validationError = validations(information as ResourceProps);
     setErrors(validationError);
   };
@@ -206,7 +231,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   </textarea>
                   <span className="text-xs text-red-600">{errors.description}</span>
                 </div>
-                <div className="flex justify-center items-center">
+                <div className="flex border-2 w-full justify-center">
                   {errors.title || errors.description || errors.link || errors.image || errors.category ? <span className="text-red-500">{t('Los campos marcados con * son obligatorios')}</span> : null}
                 </div>
               </div>
@@ -265,21 +290,47 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   <span className="text-xs text-red-600">{errors.description}</span>
                 </div>
 
-                <div>
+                <span className="flex w-full justify-center text-xl text-linkIt-300">Secciones</span>
+
+                <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Encabezado')}</label>
                   <input
-                    className={errors.headers ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                    className='"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
                     type="text"
-                    name="header"
-                    placeholder={errors.headers ? "*" : ""}
+                    name="head"
+                    placeholder={'Agrega un encabezado para el blog, puedes agregar varios'}
                     autoComplete="off"
-                    onChange={handleChange}
+                    onChange={handleChangeInfoList}
                     onBlur={handleBlurErrors}
+                    value={infoList.head}
                   />
                 </div>
 
-                <div className="flex justify-center items-center">
+                <div className="w-full mb-6">
+                  <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Cuerpo')}</label>
+                  <textarea
+                    className='"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                    name="body"
+                    autoComplete="off"
+                    placeholder={'Agrega la descripcion del encabezado'}
+                    onChange={handleChangeInfoList}
+                    onBlur={handleBlurErrors}
+                    value={infoList.body}
+                  >
+                  </textarea>
+                  <div className="flex w-full justify-center">
+                    <button
+                      className="background-button"
+                      onClick={addToList}
+                    >
+                      Agregar otra sección</button>
+                  </div>
+                </div>
+
+                <div className="flex border-2 w-full justify-center">
+
                   {errors.title || errors.image || errors.category ? <span className="text-red-500">{t('Los campos marcados con * son obligatorios')}</span> : null}
+
                 </div>
               </div>
             ) :
@@ -291,6 +342,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
           <div className="flex m-4">
             <button onClick={onClose}
               className={`background-button mr-2`}
+
             >
               {t('Volver')}
             </button>

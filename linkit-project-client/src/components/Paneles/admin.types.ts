@@ -21,6 +21,11 @@ export type VacancyProps = {
   users: string[];
 };
 
+export interface Header {
+  head: string;
+  body: string;
+}
+
 export type ResourceProps = {
   _id: string;
   title: string;
@@ -32,10 +37,7 @@ export type ResourceProps = {
   category: string;
   archived: boolean;
   createdBy : string; 
-  headers: [{
-    head: string;
-    body: string; 
-  }];
+  headers: Header[];
 };
 
 export type ViewResourceProps = {
