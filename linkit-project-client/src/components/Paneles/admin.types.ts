@@ -21,9 +21,9 @@ export type VacancyProps = {
   users: string[];
 };
 
-export type Header = {
-  title: string;
-  description: string;
+export interface Header {
+  head: string;
+  body: string;
 }
 
 export type ResourceProps = {

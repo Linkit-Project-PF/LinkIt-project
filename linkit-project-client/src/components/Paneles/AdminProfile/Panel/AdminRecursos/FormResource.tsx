@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import swal from 'sweetalert';
 import { Header, ResourceProps } from "../../../admin.types";
@@ -35,19 +35,37 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     image: "",
     category: "",
     headers: [{
-      title: "",
-      description: "",
+      head: "",
+      body: "",
     }],
     createdBy: user.firstName.concat(user.lastName),
   });
-  console.log(information)
 
-  const [infoList, setInfoList] =  useState<Header>(
+  const [infoList, setInfoList] = useState<Header>(
     {
-      title: "",
-      description: "",
+      head: "",
+      body: "",
     }
   )
+  console.log(infoList)
+
+  const addToList = (e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLTextAreaElement> | React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const { name } = e.currentTarget;
+    const value = (e.target as HTMLInputElement).value;
+
+    const updatedInfoList: Header = {
+      ...infoList,
+      [name]: value,
+    };
+    setInfoList(updatedInfoList);
+
+
+  };
+
+
+
 
   const [errors, setErrors] = useState({
     title: "",
@@ -272,16 +290,20 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   <span className="text-xs text-red-600">{errors.description}</span>
                 </div>
 
+                <span className="flex w-full justify-center text-xl text-linkIt-300">Secciones</span>
+
                 <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Encabezado')}</label>
                   <input
                     className={errors.headers ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                     type="text"
-                    name="header.title"
+                    name="head"
                     placeholder={errors.headers ? "*" : ""}
                     autoComplete="off"
                     onChange={handleChange}
                     onBlur={handleBlurErrors}
+                    onKeyDown={addToList}
+
                   />
                 </div>
 
@@ -289,13 +311,21 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Cuerpo')}</label>
                   <textarea
                     className={errors.headers ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                    name="headers.description"
+                    name="body"
                     autoComplete="off"
                     placeholder={errors.headers ? "*" : ""}
                     onChange={handleChange}
                     onBlur={handleBlurErrors}
+                    onKeyDown={addToList}
                   >
                   </textarea>
+                  <div className="flex w-full justify-center">
+                    <button
+                      className="background-button"
+                      onClick={addToList}
+                    >
+                      Agregar otra sección</button>
+                  </div>
                 </div>
 
                 <div className="flex border-2 w-full justify-center">
@@ -313,6 +343,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
           <div className="flex m-4">
             <button onClick={onClose}
               className={`background-button mr-2`}
+
             >
               {t('Volver')}
             </button>
