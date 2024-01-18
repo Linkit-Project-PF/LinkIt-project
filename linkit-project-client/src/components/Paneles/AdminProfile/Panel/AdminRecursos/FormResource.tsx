@@ -34,23 +34,22 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     type: "",
     image: "",
     category: "",
-    headers: [{
-      head: "",
-      body: "",
-    }],
+    headers: [],
     createdBy: user.firstName.concat(user.lastName),
   });
+  console.log(information.headers)
 
   const [infoList, setInfoList] = useState<Header>(
     {
       head: "",
       body: "",
+      sectionImage: "",
     }
   )
 
   const addToList = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (infoList.head.trim() !== '' || infoList.body.trim() !== '') {
+    if (infoList.head.trim() !== ' ' || infoList.body.trim() !== ' ') {
       setInformation((prevInformation: Partial<ResourceProps>): Partial<ResourceProps> => ({
         ...prevInformation,
         headers: [...(prevInformation.headers || []), infoList],
@@ -58,6 +57,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       setInfoList({
         head: "",
         body: "",
+        sectionImage: "",
       })
     }
   };
@@ -129,7 +129,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
 
 
   return (
-    <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
+    <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto font-manrope">
       <div className=" flex flex-col justify-center items-center bg-linkIt-500 w-fit h-fit rounded-[20px] border-[3px] border-linkIt-300  p-8">
         <div className="flex w-full justify-end ">
           <button
@@ -295,26 +295,38 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                 <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Encabezado')}</label>
                   <input
-                    className='"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                    className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                     type="text"
                     name="head"
                     placeholder={'Agrega un encabezado para el blog, puedes agregar varios'}
                     autoComplete="off"
                     onChange={handleChangeInfoList}
-                    onBlur={handleBlurErrors}
                     value={infoList.head}
+                  />
+                </div>
+
+                <div className="w-full mb-6">
+                  <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
+                  <input
+                    className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                    type="text"
+                    name="sectionImage"
+                    placeholder='Copia el link de la imágen (Opcional)'
+                    autoComplete="off"
+                    value={infoList.sectionImage}
+                    onChange={handleChangeInfoList}
+
                   />
                 </div>
 
                 <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Cuerpo')}</label>
                   <textarea
-                    className='"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                    className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                     name="body"
                     autoComplete="off"
                     placeholder={'Agrega la descripcion del encabezado'}
                     onChange={handleChangeInfoList}
-                    onBlur={handleBlurErrors}
                     value={infoList.body}
                   >
                   </textarea>
@@ -324,6 +336,16 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                       onClick={addToList}
                     >
                       Agregar otra sección</button>
+                  </div>
+                  <div>
+                    <h3 className="ml-6 text-md font-bold text-linkIt-200">Secciones agregadas: </h3>
+                    {information.headers?.map((header, index) => (
+                      <div key={index} className="ml-10">
+                        <ul className="list-disc">
+                          <li>{header.head}</li>
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
