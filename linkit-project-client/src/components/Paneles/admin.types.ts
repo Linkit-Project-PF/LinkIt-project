@@ -24,6 +24,7 @@ export type VacancyProps = {
 export interface Header {
   head: string;
   body: string;
+  sectionImage: string;
 }
 
 export type ResourceProps = {

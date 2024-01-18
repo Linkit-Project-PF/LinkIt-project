@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import { SUPERADMN_ID } from "../../../../../../env";
 
 interface Header {
-    title: string;
-    description: string;
+    head: string;
+    body: string;
+    sectionImage: string;
   }
   
   interface Blog {
@@ -48,8 +49,9 @@ function BlogInfo() {
               {index + 1}
             </div>
           <li key={index} className="flex flex-col w-full gap-[2%]">
-            <h3 className="text-linkIt-300 font-[600] text-2xl">{header.title}</h3>
-            <p className="text-linkIt-400 font-[500] max-w-[45%]">{header.description}</p>
+            <h3 className="text-linkIt-300 font-[600] text-2xl">{header.head}</h3>
+            <p className="text-linkIt-400 font-[500] max-w-[45%]">{header.body}</p>
+            <img src={header.sectionImage} alt="" />
           </li>
           </div>
         );
