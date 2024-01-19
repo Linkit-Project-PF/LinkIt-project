@@ -5,16 +5,12 @@ import { useTranslation } from "react-i18next";
 export default function ModuloTalentosG() {
   const {t} = useTranslation();
   return (
-    <div className="flex flex-col pb-32 bg-linkIt-500 p-[4rem]">
-      <h1 className="text-center text-5xl font-bold mt-[1rem] mb-[2rem]">{t('Vacantes disponibles')}</h1>
-      <div className="w-full flex justify-center mb-10">
+    <div className="bg-white p-[7%] grid justify-items-center items-center">
+      <h1 className="font-manrope font-bold text-[1.4rem] ssm:text-[1.8rem] xl:text-[2rem]">{t('Vacantes disponibles')}</h1>
         <JobFilters/>
-      </div>
-      <div className="w-full flex justify-center mb-10">
         <JobCards/>
-      </div>
       <p className="text-center text-3xl xl:whitespace-nowrap">{t('Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!')}</p>
-      <button className="border-[0.125rem] border-linkIt-300 p-[0.7rem] mt-[2rem] rounded-md self-center">{t('Contáctanos para futuras oportunidades')}</button>
+      <button className="transparent-background-button">{t('Contáctanos para futuras oportunidades')}</button>
     </div>
   )
 }

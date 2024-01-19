@@ -21,7 +21,7 @@ const {t} = useTranslation();
           <h4 className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></h4>
       </div>
       </div>
-      <img className="relative self-end bottom-2 xs:bottom-0 xs:left-5 xs:top-3 md:top-16 lg:top-14" src="/Vectores/linkit-web-vectores-14.svg" alt="computer with people" />
+      <img className="relative self-end bottom-2 xs:bottom-0 xs:left-5 xs:top-3 md:top-16 lg:top-14" src="/Vectores/linkit-ilustracion-soy-talento-SVG.svg" alt="computer" />
       </div>
   )
 }
