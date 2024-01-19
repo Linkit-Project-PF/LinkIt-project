@@ -140,6 +140,7 @@ export const i18nOptions: InitOptions = {
         "Bienvenido":"Welcome, {{name}}",
         "Usuario autenticado pero registro no encontrado, contacte a un administrador":"User authenticated but registration not found, contact an administrator.",
         "Usuario o contraseña incorrectos":"Incorrect username or password",
+        "Email no verificado, por favor revisa tu bandeja de entrada o spam":"Unverified email, please check your inbox or spam",
     
         //!Login - talents
         "Conéctate con los mejores proyectos y aplica":"Connect with the best projects and apply",

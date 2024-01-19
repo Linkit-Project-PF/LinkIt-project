@@ -15,6 +15,7 @@ export default function Resources() {
   const dispatch = useDispatch()
   const token = useSelector((state: any) => state.Authentication.token);
   const data = useSelector((state: stateProps) => state.resources.filteredResources);
+  console.log(data)
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
   useEffect(() => {

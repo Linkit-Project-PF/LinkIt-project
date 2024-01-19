@@ -119,7 +119,9 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         Swal.fire({ 
           title: "¡Gracias por contactarnos!",
           text: "Nos estaremos comunicando a la brevedad",
+          allowOutsideClick: true,
           icon: "success" })
+          
 
         setContacts({
           firstName: "",

@@ -137,6 +137,7 @@ export default function PermissionsForm({
         title: t("Enviado"),
         text: t("Permisos cambiados con éxito"),
         icon: "success",
+        allowOutsideClick: true
       });
       console.log(response);
       hideFunction(false);
@@ -145,6 +146,7 @@ export default function PermissionsForm({
         title: "Error",
         text: error.response.data,
         icon: "error",
+        allowOutsideClick: true
       });
     }
   }
