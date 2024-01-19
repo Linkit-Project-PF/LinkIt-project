@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -101,6 +101,7 @@ function LoginTalent() {
           icon: "success",
           iconColor: "#173951",
           background: "#ECEEF0",
+          allowOutsideClick: true,
           confirmButtonColor: "#01A28B",
           confirmButtonText: t("Continuar"),
         });
@@ -115,6 +116,7 @@ function LoginTalent() {
         text: error.response.data,
         icon: "error",
         background: "#ECEEF0",
+        allowOutsideClick: true,
         confirmButtonColor: "#01A28B",
         confirmButtonText: t("Continuar"),
       });
@@ -146,6 +148,7 @@ function LoginTalent() {
             icon: "success",
             iconColor: "#173951",
             background: "#ECEEF0",
+            allowOutsideClick: true,
             confirmButtonColor: "#01A28B",
             confirmButtonText: t("Continuar"),
           });
@@ -161,6 +164,7 @@ function LoginTalent() {
             }
           );
           if (usersData.data.length) {
+            if (!usersData.data[0].active) throw new Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
@@ -169,6 +173,7 @@ function LoginTalent() {
               icon: "success",
               iconColor: "#173951",
               background: "#ECEEF0",
+              allowOutsideClick: true,
               confirmButtonColor: "#01A28B",
               confirmButtonText: t("Continuar"),
             });
@@ -183,6 +188,7 @@ function LoginTalent() {
               }
             );
             if (adminData.data.length) {
+              if (!adminData.data[0].active) throw new Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
               const authAdmin = adminData.data[0];
               dispatch(loginSuccess(authAdmin));
               Swal.fire({
@@ -191,6 +197,7 @@ function LoginTalent() {
                 icon: "success",
                 iconColor: "#173951",
                 background: "#ECEEF0",
+                allowOutsideClick: true,
                 confirmButtonColor: "#01A28B",
                 confirmButtonText: t("Continuar"),
               });
@@ -207,14 +214,25 @@ function LoginTalent() {
       setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      Swal.fire({
-        title: "Error",
-        text: error,
-        icon: "error",
-        background: "#ECEEF0",
-        confirmButtonColor: "#01A28B",
-        confirmButtonText: t("Continuar"),
-      });
+      if (error instanceof AxiosError) {
+        Swal.fire({
+          title: "Error",
+          text: error?.response?.data,
+          icon: "error",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: error,
+          icon: "error",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+      }
     }
   };
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action

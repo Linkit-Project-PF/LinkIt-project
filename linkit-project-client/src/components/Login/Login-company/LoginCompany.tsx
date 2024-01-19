@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
@@ -155,6 +155,7 @@ function LoginCompany() {
             }
           );
           if (getCompanyResponse.data.length) {
+            if (!getCompanyResponse.data[0].active) throw Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
             const authUser = getCompanyResponse.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
@@ -167,28 +168,28 @@ function LoginCompany() {
               confirmButtonText: t("Continuar"),
             });
           } else {
-            const companyData = await axios.get(
-              `https://linkit-server.onrender.com/companies/find?email=${firebaseAuthResponse.user.email}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${SUPERADMN_ID}`,
-                  "Accept-Language": sessionStorage.getItem("lang"),
-                },
-              }
-            );
-            if (companyData.data.length) {
-              const authCompany = companyData.data[0];
-              dispatch(loginSuccess(authCompany));
-              Swal.fire({
-                title: t("Bienvenido de vuelta") + authCompany.companyName,
-                text: t("Has ingresado correctamente"),
-                icon: "success",
-                iconColor: "#173951",
-                background: "#ECEEF0",
-                confirmButtonColor: "#01A28B",
-                confirmButtonText: t("Continuar"),
-              });
-            } else
+            // const companyData = await axios.get(
+            //   `https://linkit-server.onrender.com/companies/find?email=${firebaseAuthResponse.user.email}`,
+            //   {
+            //     headers: {
+            //       Authorization: `Bearer ${SUPERADMN_ID}`,
+            //       "Accept-Language": sessionStorage.getItem("lang"),
+            //     },
+            //   }
+            // );
+            // if (companyData.data.length) {
+            //   const authCompany = companyData.data[0];
+            //   dispatch(loginSuccess(authCompany));
+            //   Swal.fire({
+            //     title: t("Bienvenido de vuelta") + authCompany.companyName,
+            //     text: t("Has ingresado correctamente"),
+            //     icon: "success",
+            //     iconColor: "#173951",
+            //     background: "#ECEEF0",
+            //     confirmButtonColor: "#01A28B",
+            //     confirmButtonText: t("Continuar"),
+            //   });
+            // } else
               throw Error(
                 t(
                   "Usuario autenticado pero registro no encontrado, contacte a un administrador"
@@ -201,14 +202,25 @@ function LoginCompany() {
       setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      Swal.fire({
-        title: "Error",
-        text: error.response.data,
-        icon: "error",
-        background: "#ECEEF0",
-        confirmButtonColor: "#01A28B",
-        confirmButtonText: t("Continuar"),
-      });
+      if (error instanceof AxiosError) {
+        Swal.fire({
+          title: "Error",
+          text: error?.response?.data,
+          icon: "error",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: error,
+          icon: "error",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+      }
     }
   };
 

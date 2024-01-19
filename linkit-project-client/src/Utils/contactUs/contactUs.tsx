@@ -4,10 +4,12 @@ import { useAnimate, stagger, motion } from "framer-motion";
 import validations from "./validations";
 import { validateContact } from "./errors/validation";
 import { ValidationError } from "./errors/errors";
+import { SUPERADMN_ID } from "../../env";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import "./contactUs.css"
+import { contacts } from "./typeContacts";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -51,17 +53,17 @@ const { t } = useTranslation();
 const [isOpen, setIsOpen] = useState(false);
 const scope = useMenuAnimation(isOpen);
 
-  const [contacts, setContacts] = useState({
-    name: "",
+  const [contacts, setContacts] = useState<contacts>({
+    firstName: "",
     lastName: "",
     company: "",
     service: [] as string[],
     email: "",
     message: "",
   });
-
+  console.log(contacts)
   const [errors, setErrors] = useState({
-    name: "",
+    firstName: "",
     lastName: "",
     company: "",
     service: "",
@@ -105,16 +107,24 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
     try {
-      await validateContact(contacts);
-      const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts)
+      validateContact(contacts);
+      const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts,
+      {
+        headers: {
+          Authorization: `Bearer ${SUPERADMN_ID}`,
+          "Accept-Language": sessionStorage.getItem("lang"),
+        },
+      })
       if(response.status === 200) {
         Swal.fire({ 
           title: "¡Gracias por contactarnos!",
           text: "Nos estaremos comunicando a la brevedad",
+          allowOutsideClick: true,
           icon: "success" })
+          
 
         setContacts({
-          name: "",
+          firstName: "",
           lastName: "",
           company: "",
           service: [] as string[],
@@ -143,9 +153,9 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       <h1 className="font-semibold text-[1rem] xs:text-[1.2rem] ssm:text-[1.8rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] justify-self-center font-montserrat">{t('Contáctanos')}</h1>
       <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1.2rem] font-montserrat whitespace-nowrap w-full" onSubmit={contactsBtn}>
         <div>
-        <input className={`${errors.name ? ' border-black' : ''} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Nombre"  name="name" value={contacts.name} onChange={handleChange} onBlur={handleChange} />
-        {errors.name && (
-              <p className="text-white ml-3 italic">{errors.name}</p>
+        <input className={`${errors.firstName ? ' border-black' : ''} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Nombre"  name="firstName" value={contacts.firstName} onChange={handleChange} onBlur={handleChange} />
+        {errors.firstName && (
+              <p className="text-white ml-3 italic">{errors.firstName}</p>
             )}
         </div>
         <div>
@@ -190,21 +200,21 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               
             >
               <li className="flex items-center">
-              <input className=" checked:bg-linkIt-300 rounded-sm  w-[8%] mr-1" type="checkbox" name="Recruiting" value='Recruiting' id="Recruiting" checked={contacts.service.includes('Recruiting')}
+              <input className=" checked:bg-linkIt-300 rounded-sm  w-[8%] mr-1" type="checkbox" name="Gestión y beneficios" value='Gestión y beneficios' id="Gestión y beneficios" checked={contacts.service.includes('Gestión y beneficios')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Recruiting" className="cursor-pointer w-full hover:text-linkIt-300">Recruiting</label>
+              <label htmlFor="Gestión y beneficios" className="cursor-pointer w-full hover:text-linkIt-300">Gestión y beneficios</label>
               </li>
               <hr className="w-[100%]" />
               <li className="flex items-center">
-              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Staff Augmentation" value='Staff Augmentation' id="Staff Augmentation" checked={contacts.service.includes('Staff Augmentation')}
+              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Reclutamiento y selección" value='Reclutamiento y selección' id="Reclutamiento y selección" checked={contacts.service.includes('Reclutamiento y selección')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Staff Augmentation" className="cursor-pointer w-full hover:text-linkIt-300">Staff Augmentation</label>
+              <label htmlFor="Reclutamiento y selección" className="cursor-pointer w-full hover:text-linkIt-300">Reclutamiento y selección</label>
               </li>
               <hr className="w-[100%]" />
               <li className="flex items-center">
-              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Payroll Management" value='Payroll Management' id="Payroll Management" checked={contacts.service.includes('Payroll Management')}
+              <input className=" checked:bg-linkIt-300 rounded-sm w-[8%] mr-1" type="checkbox" name="Contratación" value='Contratación' id="Contratación" checked={contacts.service.includes('Contratación')}
               onChange={handleChange} onBlur={handleChange} />
-              <label htmlFor="Payroll Management" className="cursor-pointer w-full hover:text-linkIt-300">Payroll Management</label>
+              <label htmlFor="Contratación" className="cursor-pointer w-full hover:text-linkIt-300">Contratación</label>
               </li>
             </ul>{" "}
           </motion.nav>
@@ -219,13 +229,13 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             )}
             <div className="flex h-full items-end">
         <button className="bg-white text-linkIt-200 font-bold rounded-[7px] p-1 ssm:p-2 xl:p-2.5 w-[50%] ssm:w-[40%] md:w-[30%] items-end disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
-          errors.name ||
+          errors.firstName ||
           errors.lastName ||
           errors.company ||
           errors.service ||
           errors.email ||
           errors.message ||
-          contacts.name === "" ||
+          contacts.firstName === "" ||
           contacts.lastName === "" ||
           contacts.company === "" ||
           contacts.service.length === 0 ||

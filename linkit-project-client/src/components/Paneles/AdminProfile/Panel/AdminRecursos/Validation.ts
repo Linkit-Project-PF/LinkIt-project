@@ -5,25 +5,19 @@ export const validations = (resource: ResourceProps) => {
     title: "",
     description: "",
     link: "",
-    type: "",
     image: "",
     category: "",
+    headers: [],
   };
 
   if (!resource.title) {
     errors.title = "Título requerido";
   }
-
   if (!resource.description) {
     errors.description = "Descripción requerida";
   }
-
   if (!resource.link) {
     errors.link = "Link requerido";
-  }
-
-  if (!resource.type) {
-    errors.type = "Tipo requerido";
   }
   if (!resource.image) {
     errors.image = "Imagen requerido";
@@ -31,6 +25,8 @@ export const validations = (resource: ResourceProps) => {
   if (!resource.category) {
     errors.category = "Categoría requerido";
   }
-
+  if (resource.description.length > 150) {
+    errors.description = "La descripción debe ser menor a 150 caracteres"
+  }
   return errors;
 }

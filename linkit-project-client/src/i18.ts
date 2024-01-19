@@ -140,6 +140,7 @@ export const i18nOptions: InitOptions = {
         "Bienvenido":"Welcome, {{name}}",
         "Usuario autenticado pero registro no encontrado, contacte a un administrador":"User authenticated but registration not found, contact an administrator.",
         "Usuario o contraseña incorrectos":"Incorrect username or password",
+        "Email no verificado, por favor revisa tu bandeja de entrada o spam":"Unverified email, please check your inbox or spam",
     
         //!Login - talents
         "Conéctate con los mejores proyectos y aplica":"Connect with the best projects and apply",
@@ -437,6 +438,12 @@ export const i18nOptions: InitOptions = {
         "Nombre Cliente":"Customer Name",
         "Usuario":"User",
         "Los campos marcados con * son obligatiorios":"Fields marked with * are mandatory.",
+       //!Paneles FormOKRS
+        "El OKR fue creado con éxito":"OKR was successfully created.",
+        "Nuevo OKR":"New OKR",
+        "Título OKR principal":"Main OKR title",
+        "Resultados clave":"Key results",
+        "Resultados específicos":"Specific results",
         //!Profiles
         "Hola ":"Hi",
         "Mis Datos":"My Data",

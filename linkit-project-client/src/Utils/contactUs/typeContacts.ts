@@ -1,5 +1,5 @@
 export type contacts = {
-    name: string,
+    firstName: string,
     lastName: string,
     company: string,
     service: string[],
