@@ -249,6 +249,8 @@ function NavBar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
+
   return (
     <div className="h-fit w-screen p-0 m-0">
       <div className="preNavbar">
@@ -489,7 +491,9 @@ function NavBar() {
             </motion.nav>
           </motion.div>
         ) : (
+          
           <motion.ul
+           
             className={`container-navigation ${
               burgerMenu ? "block" : "hidden"
             }`}
@@ -555,6 +559,7 @@ function NavBar() {
               {t("Quiénes Somos")}
             </li>
           </motion.ul>
+          
         )}
 
         <div className="containerBtnsNavbar">

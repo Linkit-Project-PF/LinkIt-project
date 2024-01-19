@@ -3,12 +3,12 @@ import TestimonialCard, { TestimonialCardProps } from './TestimonialCard';
 import { getReviews } from '../../../../Services/reviews.service';
 import blackArrow from "/Vectores/arrow.png"
 
-const TestimonialCards: FunctionComponent = () => {
+const TestimonialCardsMobile: FunctionComponent = () => {
   const [current, setCurrent] = useState(0);
   const [reviews, setReviews] = useState<TestimonialCardProps[]>([])
 
   // Display 3 testimonials at a time
-  const testimonialsPerPage = 3;
+  const testimonialsPerPage = 1;
   const maxPages = Math.ceil(reviews.length / testimonialsPerPage);
   const handlePrev = () => setCurrent(current === 0 ? maxPages - 1 : current - 1);
   const handleNext = () => setCurrent(current === maxPages - 1 ? 0 : current + 1);
@@ -37,9 +37,9 @@ const TestimonialCards: FunctionComponent = () => {
   );
   
   return (
-    <div className="my-[5%] w-full h-[20rem] flex space-x-6 items-center justify-center">
+    <div className="my-[5%] flex space-x-2 items-center justify-center">
       <img src={blackArrow} alt="prev" onClick={handlePrev} className='rotate-90 w-[20px] h-[20px] cursor-pointer' />
-      <div className="w-full h-full space-x-4 grid grid-cols-3">
+      <div className="w-full h-full space-x-4">
         {testimonialsToShow.map((testimonial, _id) => (
           <div className="" key={testimonial._id}>
             <TestimonialCard key={`card-${_id}`} {...testimonial} />
@@ -52,4 +52,4 @@ const TestimonialCards: FunctionComponent = () => {
   );
 };
 
-export default TestimonialCards;
+export default TestimonialCardsMobile;
