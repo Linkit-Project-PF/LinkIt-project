@@ -2,6 +2,8 @@ import axios from "axios";
 import { SUPERADMN_ID } from "../../env";
 
 export default async function saveUserThirdAuth(user: any, role: string, provider: string) {
+
+  // TODO Send info to airtable
   const userToSave = {
     firebaseId: user.uid,
     companyName: user.displayName,

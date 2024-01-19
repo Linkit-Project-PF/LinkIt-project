@@ -164,6 +164,7 @@ function LoginTalent() {
             }
           );
           if (usersData.data.length) {
+            if (!usersData.data[0].active) throw new Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
@@ -187,6 +188,7 @@ function LoginTalent() {
               }
             );
             if (adminData.data.length) {
+              if (!adminData.data[0].active) throw new Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
               const authAdmin = adminData.data[0];
               dispatch(loginSuccess(authAdmin));
               Swal.fire({

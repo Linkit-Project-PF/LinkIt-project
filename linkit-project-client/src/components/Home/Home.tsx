@@ -16,6 +16,7 @@ function Home({ error, Unauth }: { error: boolean; Unauth: boolean }) {
   const [errorVisible, setErrorVisible] = useState(false);
   const [unauthVisible, setUnauthVisible] = useState(false);
 
+
   if (errorVisible || unauthVisible) {
     document.body.style.overflow = "hidden";
   } else document.body.style.overflow = "visible";
