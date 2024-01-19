@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   SelectCountryEs,
   SelectCountryEn,
@@ -11,6 +10,7 @@ import { SUPERADMN_ID } from '../../../../../env';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { applyFilters } from "../../../../../redux/features/JobCardsSlice";
+import { Dropdown } from "flowbite-react";
 
 interface OptionType {
   value: string;
@@ -37,13 +37,6 @@ const JobFilters = () => {
   const [typeValue, setTypeValue] = useState<string>("");
   const [modalityValue, setModalityValue] = useState<string>("");
 
-  const [stackOpen, setStackOpen] = useState<boolean>(false);
-  const [typeOpen, setTypeOpen] = useState<boolean>(false);
-  const [modalityOpen, setModalityOpen] = useState<boolean>(false);
-
-  const stackRef = useRef<HTMLButtonElement | null>(null);
-  const typeRef = useRef<HTMLButtonElement | null>(null);
-  const modalityRef = useRef<HTMLButtonElement | null>(null);
 
   const [country, setCountry] = useState<OptionType>({ value: "", label: "" });
 
@@ -94,7 +87,6 @@ const JobFilters = () => {
     }
   }
 
-  const dropdownVariants = {};
 
   useEffect(() => {
     setType(language === "en" ? "Type" : "Tipo");
@@ -107,62 +99,22 @@ const JobFilters = () => {
     );
   }, [language]);
 
-  useEffect(() => {
-    const handler = (event: any) =>{
-      if(!stackRef.current?.contains(event.target) && !event.target.matches('.dropdown-stack *')){
-        setStackOpen(false)
-      }
-      if(!typeRef.current?.contains(event.target) && !event.target.matches('.dropdown-type *')){
-        setTypeOpen(false)
-      }
-      if(!modalityRef.current?.contains(event.target) && !event.target.matches('.dropdown-modality *')){
-        setModalityOpen(false)
-      }
-    }
-    document.addEventListener("mousedown", handler);
-  },[])
 
   return (
-    <div className="flex w-[90%] justify-between items-center bg-white font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[3.5rem]">
-      <section className="relative">
-        <button
-          className="flex flex-row justify-center items-center gap-[1rem]"
-          ref={stackRef}
-          onClick={() => {
-            setStackOpen(!stackOpen);
-            setTypeOpen(false);
-            setModalityOpen(false);
-          }}
-        >
-          {stack}
-          <img
-            src="/Vectores/dropdown.png"
-            alt="dropdown-arrow"
-            className={`w-[1.1rem] ml-[30%] mr-[-10%] ${
-              stackOpen  ? "rotate" : "normal"
-            }`}
-          />
-          <hr className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" />
-        </button>
-        <motion.ul
-          className={`bg-white ${
-            stackOpen ? "dropdown-stack" : "hidden"
-          } rounded-b-[8px] z-[10]`}
-          variants={dropdownVariants}
-          initial="closed"
-          animate={stackOpen}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
+    <div className=" flex justify-around items-center w-full bg-linkIt-500 font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[4rem]">
+      <div className="grid grid-cols-4 w-full">
+        <div className="w-full items-center flex">
+          <Dropdown label={stack} inline>
+
+          
           {allStackTechnologies?.map((stack: any, index: number) => {
             return (
-              <>
+            
                 <li
                   key={index}
                   className="flex flex-row justify-between items-center"
                   onClick={() => handleStack(stack.name)}
-                >
+                  >
                   {stack.name}
                   <div className="content">
                     <label className="checkBox">
@@ -170,48 +122,21 @@ const JobFilters = () => {
                         id={`ch-${index}`}
                         type="checkbox"
                         checked={stackValue.includes(stack.name)}
+                        readOnly
                         onClick={(e)=> e.stopPropagation()}
-                      />
+                        />
                       <div className="transition"></div>
                     </label>
                   </div>
                 </li>
-              </>
+              
             );
           })}
-        </motion.ul>
-      </section>
-      <section className="relative">
-        <button
-          className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
-          onClick={() => {
-            setTypeOpen(!typeOpen);
-            setStackOpen(false);
-            setModalityOpen(false);
-          }}
-          ref={typeRef}
-        >
-          {type}
-          <img
-            src="/Vectores/dropdown.png"
-            alt="dropdown-arrow"
-            className={`w-[1.1rem] ml-[30%] mr-[-10%] ${
-              typeOpen ? "rotate" : "normal"
-            }`}
-          />
-          <hr className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" />
-        </button>
-        <motion.ul
-          className={`bg-white ${
-            typeOpen ? "dropdown-type" : "hidden"
-          } rounded-b-[8px] z-[10]`}
-          variants={dropdownVariants}
-          initial="closed"
-          animate={typeOpen}
-          onClick={() => {
-            setTypeOpen(false);
-          }}
-        >
+          </Dropdown>
+          </div>
+
+          <div className="w-full items-center flex">
+         <Dropdown label={type} inline>
           <li
             onClick={() => {
               setType("Part-time"), setTypeValue("part-time");
@@ -233,58 +158,29 @@ const JobFilters = () => {
           >
             Freelance
           </li>
-        </motion.ul>
-      </section>
+      </Dropdown>
+      </div>
+
+
+      <div className="w-full items-center flex">
       <section>
         {language === "en" ? (
           <SelectCountryEn
             setCountry={setCountry}
             country={country}
-            setStackOpen={setStackOpen}
-            setModalityOpen={setModalityOpen}
-            setTypeOpen={setTypeOpen}
           />
         ) : (
           <SelectCountryEs
             setCountry={setCountry}
             country={country}
-            setStackOpen={setStackOpen}
-            setModalityOpen={setModalityOpen}
-            setTypeOpen={setTypeOpen}
           />
         )}
       </section>
-      <section className="relative">
-        <button
-          className="flex flex-row justify-center items-center gap-[1rem] whitespace-nowrap"
-          onClick={() => {
-            setModalityOpen(!modalityOpen);
-            setTypeOpen(false);
-            setStackOpen(false);
-          }}
-          ref={modalityRef}
-        >
-          {modality}
-          <img
-            src="/Vectores/dropdown.png"
-            alt="dropdown-arrow"
-            className={`w-[1.1rem] ml-[30%] mr-[-10%] ${
-              modalityOpen  ? "rotate" : "normal"
-            }`}
-          />
-          <hr className="w-[5vw] bg-linkIt-500 h-[2px] rotate-90 border-none" />
-        </button>
-        <motion.ul
-          className={`bg-white ${
-            modalityOpen  ? "dropdown-modality" : "hidden"
-          } rounded-b-[8px] z-[10]`}
-          variants={dropdownVariants}
-          initial="closed"
-          animate={modalityOpen}
-          onClick={() => {
-            setModalityOpen(false);
-          }}
-        >
+      </div>
+
+
+      <div className="w-full items-center flex">
+      <Dropdown label={modality} inline> 
           {language === "en" ? (
             <li
               onClick={() => {
@@ -319,16 +215,18 @@ const JobFilters = () => {
               Presencial
             </li>
           )}
-        </motion.ul>
-      </section>
+</Dropdown>
+   </div>
+
+</div>
       <button
-        className=" bg-linkIt-300 text-white rounded-[8px] py-[.4rem] px-[.8rem] border-[2px] border-linkIt-300 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out font-montserrat font-[500] ml-[3%]"
+        className="background-button whitespace-nowrap mr-3"
         onClick={() => handleFilters()}
       >
         Encontrar Vacante
       </button>
       <button
-        className="bg-linkIt-300 text-white rounded-[8px] py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
+        className="bg-linkIt-300 text-white rounded-full py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
         onClick={() => {
           dispatch(applyFilters(allJobOffers)),
             setStack("Stack"),
@@ -344,7 +242,7 @@ const JobFilters = () => {
         <img
           src="/Vectores/reset.svg"
           alt="reset-filters"
-          className="w-[1.4rem] hover:rotate-180 transition-all duration-300 ease-in-out"
+          className="w-[1.2rem] p-0.5 hover:rotate-180 transition-all duration-300 ease-in-out"
         />
       </button>
     </div>

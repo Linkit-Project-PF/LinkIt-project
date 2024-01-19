@@ -1,0 +1,40 @@
+[{
+    "id": 1,
+    "img": "/people-LinkIt/philo-perfil.png",
+    "name": "Philipe Saint-Hubert",
+    "position": "Co-Founder"
+}, {
+    "id": 2,
+    "img":"/people-LinkIt/ary-perfil.png",
+    "name": "Ary Molchadsky",
+    "position": "CEO & Co-Founder"
+}, {
+    "id": 3,
+    "img": "/people-LinkIt/gonza-perfil.png",
+    "name": "Gonzalo Lein",
+    "position": "Sales Development Representative"
+},
+{
+    "id": 4,
+    "img": "/people-LinkIt/juli-perfil.png",
+    "name": "Julieta Jasin",
+    "position": "Talent Acquisition Specialist"
+},
+{
+    "id": 5,
+    "img": "/people-LinkIt/shay-perfil.png",
+    "name": "Shayna Iskandarani",
+    "position": "Talent Acquisition Specialist"
+}
+, {
+    "id": 6,
+    "img": "/people-LinkIt/maca-perfil.png",
+    "name": "Macarena Cuadro",
+    "position": "Business Development Specialist"
+}, {
+    "id": 7,
+    "img": "/people-LinkIt/ju-perfil.png",
+    "name": "Julieta Radicich",
+    "position": "Growth Marketing Specialist"
+}]
+
