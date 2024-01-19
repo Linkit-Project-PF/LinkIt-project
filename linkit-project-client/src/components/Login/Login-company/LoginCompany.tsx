@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
@@ -202,14 +202,25 @@ function LoginCompany() {
       setThirdParty(false);
     } catch (error: any) {
       setThirdParty(false);
-      Swal.fire({
-        title: "Error",
-        text: error.response.data,
-        icon: "error",
-        background: "#ECEEF0",
-        confirmButtonColor: "#01A28B",
-        confirmButtonText: t("Continuar"),
-      });
+      if (error instanceof AxiosError) {
+        Swal.fire({
+          title: "Error",
+          text: error?.response?.data,
+          icon: "error",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: error,
+          icon: "error",
+          background: "#ECEEF0",
+          confirmButtonColor: "#01A28B",
+          confirmButtonText: t("Continuar"),
+        });
+      }
     }
   };
 
