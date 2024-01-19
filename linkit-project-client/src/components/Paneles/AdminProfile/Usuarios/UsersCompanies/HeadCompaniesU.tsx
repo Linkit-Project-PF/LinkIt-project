@@ -85,7 +85,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                     </div>
                     <div>
                         <select 
-                         className="ml-2"
+                         className={`styles-head ml-2`}
                          onChange={handleSort}
                          >
                             <option value="recent">Recientes</option>
@@ -123,6 +123,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                         type="text"
                         placeholder="Buscar"
                         onChange={(e) => handleSearch(e.target.value)}
+                        className={`styles-head`}
                     />
                 </div>
             </div>

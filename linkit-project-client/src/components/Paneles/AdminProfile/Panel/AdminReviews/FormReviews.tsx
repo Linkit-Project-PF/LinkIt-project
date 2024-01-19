@@ -97,9 +97,8 @@ export default function FormReview({ onClose }: FormReviewProps) {
 
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
-
-            <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300 ">
+        <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
+            <div className=" flex flex-col justify-center items-center bg-linkIt-500 m-32 rounded-[7px] border-[3px] border-linkIt-300 h-fit w-fit">
 
                 <div>
                     <h1 className="text-3xl my-12">{t('Nueva Reseña')}</h1>
@@ -112,7 +111,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
                 >
                     <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
 
-                        <div className="w-fit px-3 mb-6">
+                        <div className="w-fit  mb-6">
                             <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Nombre Cliente')}</label>
                             <input
                                 className={errors.name ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
@@ -155,10 +154,10 @@ export default function FormReview({ onClose }: FormReviewProps) {
                             />
                         </div>
 
-                        <div className="mb-6">
+                        <div className=" w-full mb-6">
                             <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Detalle')}</label>
                             <textarea
-                                className={errors.detail ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                                className={errors.detail ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 name="detail"
                                 autoComplete="off"
                                 placeholder={errors.detail ? "*" : ""}
