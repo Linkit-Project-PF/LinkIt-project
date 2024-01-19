@@ -100,7 +100,7 @@ export default function HeadAdmins({
             <h1>Ordenar:</h1>
           </div>
           <div>
-            <select onChange={handleSort} className="ml-2">
+            <select onChange={handleSort} className={`styles-head ml-2`}>
               <option value="recent">Recientes</option>
               <option value="old">Antiguos</option>
             </select>
@@ -134,6 +134,7 @@ export default function HeadAdmins({
             type="text"
             placeholder="Buscar"
             onChange={(e) => handleSearch(e.target.value)}
+            className={`styles-head`}
           />
         </div>
       </div>

@@ -129,8 +129,8 @@ export default function FormResource({ onClose, }: FormResourceProps) {
 
 
   return (
-    <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto font-manrope">
-      <div className=" flex flex-col justify-center items-center bg-linkIt-500 w-fit h-fit rounded-[20px] border-[3px] border-linkIt-300  p-8">
+    <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
+      <div className=" flex flex-col justify-center items-center bg-linkIt-500 w-fit h-fit rounded-[7px] border-[3px] border-linkIt-300  p-8">
         <div className="flex w-full justify-end ">
           <button
             className={`background-button m-2`}

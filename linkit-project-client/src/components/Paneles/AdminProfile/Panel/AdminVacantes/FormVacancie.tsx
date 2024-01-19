@@ -239,7 +239,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
-      <div className=" flex flex-col justify-center items-center bg-linkIt-500  mx-32 my-10  rounded-[20px] border-[3px] border-linkIt-300 ">
+      <div className=" flex flex-col justify-center items-center bg-linkIt-500  mx-32 my-10  rounded-[7px] border-[3px] border-linkIt-300 ">
         <div className="flex w-full justify-end ">
           <button
             className={`background-button m-2`}

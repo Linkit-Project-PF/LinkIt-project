@@ -264,14 +264,14 @@ export default function Vacancies2() {
 
                 {viewCol.title &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <div className='justify-start'>
                                 <h1>Titulo</h1>
                             </div>
                             <div className='ml-6 justify-end'>
                                 <select
                                     name="sortAlfa"
-                                    className='border-none outline-none'
+                                    className='border-none outline-none h-1'
                                     onChange={handleAlfa}
                                     value={sortAlfa}
                                 >
@@ -304,7 +304,7 @@ export default function Vacancies2() {
 
                 {viewCol.description &&
                     <div className=''>
-                        <div className='flex flex-row  px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+                        <div className='flex flex-row  px-20 border-b-2 border-r-2 h-7 w-80 border-linkIt-200'>
                             <h1>Descipción</h1>
                         </div>
 
@@ -328,14 +328,14 @@ export default function Vacancies2() {
 
                 {viewCol.type &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row h-7  px-16 border-b-2 border-r-2  border-linkIt-200'>
                             <div>
                                 <h1>Tipo</h1>
                             </div>
                             <div className='ml-6'>
                                 <select
                                     name="sort"
-                                    className='border-b-2 border-r-2 -none outline-none'
+                                    className='border-none outline-none h-1'
                                     onChange={handleType}
                                     onClick={handleFilters}
                                 >
@@ -372,7 +372,7 @@ export default function Vacancies2() {
 
                 {viewCol.location &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <h1>Locación</h1>
                         </div>
                         <div>
@@ -397,14 +397,14 @@ export default function Vacancies2() {
 
                 {viewCol.modality &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7  border-linkIt-200'>
                             <div>
                                 <h1>Modalidad</h1>
                             </div>
                             <div className='ml-6'>
                                 <select
                                     name="sort"
-                                    className='border-none outline-none'
+                                    className='border-none outline-none h-1'
                                     onChange={handleModality}
                                     onClick={handleFilters}
                                 >
@@ -442,7 +442,7 @@ export default function Vacancies2() {
 
                 {viewCol.stack &&
                     <div className='relative'>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7  border-linkIt-200'>
                             <div>
                                 <button onClick={hideTehcs}>Tecnologías</button>
                             </div>
@@ -489,7 +489,7 @@ export default function Vacancies2() {
 
                 {viewCol.AboutUs &&
                     <div className=''>
-                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200 whitespace-nowrap'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200 whitespace-nowrap'>
                             <h1>Acerca de Nosotros</h1>
                         </div>
                         <div>
@@ -512,7 +512,7 @@ export default function Vacancies2() {
 
                 {viewCol.AboutClient &&
                     <div className=''>
-                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200 whitespace-nowrap'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200 whitespace-nowrap'>
                             <h1>Acerca de la Empresa</h1>
                         </div>
                         <div>
@@ -535,7 +535,7 @@ export default function Vacancies2() {
 
                 {viewCol.responsabilities &&
                     <div className=''>
-                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <h1>Responsabilidades</h1>
                         </div>
                         <div>
@@ -558,7 +558,7 @@ export default function Vacancies2() {
 
                 {viewCol.requiriments &&
                     <div className=''>
-                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <h1>Requerimientos</h1>
                         </div>
                         <div>
@@ -581,7 +581,7 @@ export default function Vacancies2() {
 
                 {viewCol.niceToHave &&
                     <div className=''>
-                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <h1>Deseable</h1>
                         </div>
                         <div>
@@ -604,7 +604,7 @@ export default function Vacancies2() {
 
                 {viewCol.benefits &&
                     <div className=''>
-                        <div className='flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <h1>Beneficios</h1>
                         </div>
                         <div>
@@ -627,7 +627,7 @@ export default function Vacancies2() {
 
                 {viewCol.company &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <div>
                                 <h1>Empresa</h1>
                             </div>
@@ -636,7 +636,7 @@ export default function Vacancies2() {
                                     name="filterCompany"
                                     onChange={handleCompany}
                                     onClick={handleFilters}
-                                    className='border-none outline-none'>
+                                    className='border-none outline-none h-1'>
                                     <option value=" ">All</option>
                                     {companies.map((c: CompaniesProps) => (
                                         <option
@@ -661,7 +661,7 @@ export default function Vacancies2() {
 
                 {viewCol.code &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <h1>Código</h1>
                         </div>
 
@@ -675,14 +675,14 @@ export default function Vacancies2() {
 
                 {viewCol.archived &&
                     <div className=''>
-                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2  border-linkIt-200'>
+                        <div className='capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200'>
                             <div>
                                 <h1>Vista</h1>
                             </div>
                             <div className='ml-6'>
                                 <select
                                     name="view"
-                                    className='border-b-2 border-r-2 -none outline-none'
+                                    className='border-none outline-none h-1'
                                     onChange={handleView}
                                     value={sortView}
                                 >

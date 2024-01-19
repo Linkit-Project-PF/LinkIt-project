@@ -88,7 +88,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                     <div>
                         <select
                             onChange={handleSort}
-                            className="ml-2"
+                            className={`styles-head ml-2`}
                         >
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
@@ -125,6 +125,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                         type="text"
                         placeholder="Buscar"
                         onChange={(e) => handleSearch(e.target.value)}
+                        className={`styles-head`}
                     />
                 </div>
             </div>
