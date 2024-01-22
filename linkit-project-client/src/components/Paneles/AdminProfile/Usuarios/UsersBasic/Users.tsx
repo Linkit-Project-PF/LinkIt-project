@@ -17,7 +17,7 @@ export default function Users() {
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredTalents)
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
-
+  console.log(data)
   useEffect(() => {
     const loadData = async (): Promise<void> => {
       try {
