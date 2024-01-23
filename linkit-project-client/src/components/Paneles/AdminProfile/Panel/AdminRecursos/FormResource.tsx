@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { validations } from "./Validation";
 import { useSelector } from "react-redux";
 import { IUser } from "../../../../Profiles/types";
+import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
 
 export type stateProps = {
   Authentication: {
@@ -27,6 +28,8 @@ export default function FormResource({ onClose, }: FormResourceProps) {
   const token = useSelector((state: stateProps) => state.Authentication.user._id)
   const user = useSelector((state: stateProps) => state.Authentication.user)
   const { t } = useTranslation()
+  const [/* fileName */, setFileName] = useState("");
+
   const [information, setInformation] = useState<Partial<ResourceProps>>({
     title: "",
     description: "",
@@ -37,7 +40,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     headers: [],
     createdBy: user.firstName.concat(user.lastName),
   });
-  console.log(information.headers)
 
   const [infoList, setInfoList] = useState<Header>(
     {
@@ -252,16 +254,26 @@ export default function FormResource({ onClose, }: FormResourceProps) {
 
                 <div className="w-fit px-3 mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
-                  <input
-                    className={errors.image ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                    type="text"
-                    name="image"
-                    placeholder={errors.image ? "*" : ""}
-                    autoComplete="off"
-                    onChange={handleChange}
-                    onBlur={handleBlurErrors}
-                  />
+                  <div className={errors.image ? 'flex flex-row appearance-none items-center w-fit h-[50px] bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500' : 'flex flex-row  appearance-none  w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white'}>
+                    <input
+                    className="border-none active:outline-none"
+                      type="text"
+                      name="image"
+                      placeholder={errors.image ? "*" : ""}
+                      autoComplete="off"
+                      onChange={handleChange}
+                      onBlur={handleBlurErrors}
+                    />
+                    <CloudinaryUploadWidget
+                      setFileName={setFileName}
+                      className="ml-2"
+                    >
+                      <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
+                    </CloudinaryUploadWidget>
+                  </div>
                 </div>
+
+
 
                 <div className="w-fit px-3 mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Categoría')}</label>
