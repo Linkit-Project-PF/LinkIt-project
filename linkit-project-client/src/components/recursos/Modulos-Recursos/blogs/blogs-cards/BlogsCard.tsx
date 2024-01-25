@@ -51,7 +51,7 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
 
   return (
     <motion.div 
-    className="border-[2px] w-full h-full rounded-xl font-montserrat items-center justify-center bg-white"
+    className="border-[2px] w-full h-full rounded-xl font-montserrat  bg-white"
     variants={blogsCardVariants}
     initial="hidden"
     animate="visible"
@@ -61,7 +61,7 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
       <img
         src={image}
         alt={title}
-        className={`w-full rounded-xl ${
+        className={`w-full rounded-xl h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center ${
           title.length > 20 ? "xl:-mt-4" : ""
         } image`}
       />

@@ -181,7 +181,7 @@ interface VacancySecondState {
 
 
               <div className="button-style before:left-[75%]">
-              <Dropdown label="posicion" inline className="h-28 overflow-y-scroll dropdown-Calculator w-[75%]">
+              <Dropdown label="posicion" inline className="h-40 overflow-y-scroll dropdown-Calculator w-[75%]">
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
                     <li key={index}> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 ring-black cursor-pointer" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />

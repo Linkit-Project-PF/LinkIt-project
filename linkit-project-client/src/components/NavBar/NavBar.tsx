@@ -5,7 +5,6 @@ import arrow from "/Vectores/arrow.png";
 import whiteArrow from "/Vectores/white-arrow.png";
 import Languaje from "../../Utils/Language";
 import userGreen from "/Vectores/user-green.svg";
-import userWhite from "/Vectores/user-white.svg";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAnimate, stagger, motion } from "framer-motion";
@@ -18,6 +17,7 @@ import {
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../redux/types";
+import { Avatar, Dropdown, DropdownDivider } from "flowbite-react";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -72,7 +72,6 @@ function NavBar() {
   const [isOpenQS, setIsOpenQS] = useState(false);
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
   const [toggleDarkMode, setToggleDarkMode] = useState(false);
-  const [userIsOpen, setUserIsOpen] = useState(false);
   const [burgerMenu, setBurgerMenu] = useState(false);
 
   const scopeQS = useMenuAnimation(isOpenQS);
@@ -565,7 +564,7 @@ function NavBar() {
         <div className="containerBtnsNavbar">
           {/* toggleDarkMode */}
 
-          <div className="cl-toggle-switch top-[1px] hidden lg:block">
+          <div className="cl-toggle-switch hidden lg:flex">
             <label className="cl-switch">
               <input type="checkbox" onChange={darkMode} />
               <span></span>
@@ -589,127 +588,87 @@ function NavBar() {
           <div className="relative hidden lg:block 2xl:ml-3">
             <Languaje />
           </div>
-          <div className="relative flex flex-col w-[3rem] h-[2rem] justify-start right-[8%] pt-[2.5%] xs:pt-[1.3%] 2xl:ml-6">
-            <motion.div
-              className={`user-container ${
-                userIsOpen
-                  ? "bg-linkIt-300 right-[65%] w-[5rem] lg:w-[8rem]"
-                  : "bg-transparent w-[40%] xs:w-[50%] lg:w-[75%]"
-              } lg:bottom-2`}
-              onClick={() => setUserIsOpen(true)}
-              onMouseLeave={() => setUserIsOpen(false)}
-            >
-              <motion.img
-                className={`relative rounded-full border-linkIt-300 p-0.5 ${
-                  userIsOpen ? "w-1/4" : "border left-[100%]"
-                }`}
-                src={userIsOpen ? userWhite : userGreen}
-                alt="userIcon"
-              />
-              <motion.ul
-                className={` bg-white dark:bg-linkIt-400 rounded-b-[7px] w-full h-fit mt-[5%] p-[7%] ${
-                  userIsOpen ? "block" : "hidden"
-                }`}
-                onMouseLeave={() => setUserIsOpen(false)}
-              >
-                {isAuthenticated && role === "user" ? (
+          <Dropdown
+      label={<Avatar alt="User settings" img={userGreen} rounded className="border-[1px] rounded-full border-linkIt-300 p-1 w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] lg:w-[35px] lg:h-[35px]" />}
+      arrowIcon={false}
+      inline
+    >
+      {isAuthenticated && role === "user" ? (
                   <div>
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="profile hover:text-linkIt-300"
+                    <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={() => {
                           navigate("/dashboard");
                         }}
                       >
                         {t("Mis datos")}
-                      </button>
-                    </li>
-                    <hr className="w-[100%]" />
-                    <li className="text-[0.6rem] lg:text-[0.9rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="profile hover:text-linkIt-300"
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={() => navigate("/dashboard#postulations")}
                       >
                         {t("Postulaciones")}
-                      </button>
-                    </li>
-                    <hr className="w-[100%]" />
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="logout hover:text-linkIt-300"
+                    </Dropdown.Item>
+                    <DropdownDivider/>
+                    <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={handleLogout}
                       >
                         {t("Cerrar sesión")}
-                      </button>
-                    </li>
+                    </Dropdown.Item>
                   </div>
                 ) : isAuthenticated && role === "admin" ? (
                   <div>
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
+                     <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={goAdminDashboard}
-                        className="profile hover:text-linkIt-300"
                       >
                         {t("Panel")}
-                      </button>
-                    </li>
-                    <hr className="w-[100%]" />
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="logout hover:text-linkIt-300"
+                      
+                    </Dropdown.Item>
+                    <DropdownDivider/>
+                    <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={handleLogout}
                       >
                         {t("Cerrar sesión")}
-                      </button>
-                    </li>
+                    </Dropdown.Item>
                   </div>
                 ) : isAuthenticated && role === "company" ? (
                   <div>
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="profile hover:text-linkIt-300"
+                     <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={() => {
                           navigate("/dashboard");
                         }}
                       >
                         {t("Mis datos")}
-                      </button>
-                    </li>
-                    <hr className="w-[100%]" />
-                    <li className="text-[0.6rem] lg:text-[0.9rem] my-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button className="profile hover:text-linkIt-300">
+                    </Dropdown.Item>
+                    <Dropdown.Item className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out">
                         {t("Mis vacantes")}
-                      </button>
-                    </li>
-                    <hr className="w-[100%]" />
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className="logout hover:text-linkIt-300"
+                    </Dropdown.Item>
+                    <DropdownDivider />
+                    <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={handleLogout}
                       >
                         {t("Cerrar sesión")}
-                      </button>
-                    </li>
+                     
+                    </Dropdown.Item>
                   </div>
                 ) : (
                   <div>
-                    <li className="text-[0.6rem] lg:text-[0.9rem] mb-2 mt-0.5 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className=" hover:text-linkIt-300"
-                        onClick={() => {
+                    <Dropdown.Item className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
+                    onClick={() => {
                           pressLogin === "visible"
                             ? dispatch(setPressLogin("hidden"))
                             : dispatch(setPressLogin("visible")),
                             dispatch(setPressSignUp("hidden"));
-                        }}
-                      >
+                        }}>
                         {t("Inicia Sesión")}
-                      </button>
-                    </li>
-                    <hr className="w-[100%]" />
-                    <li className=" text-[0.6rem] lg:text-[0.9rem] mt-2 font-montserrat hover:text-linkIt-300 transition-all duration-200 ease-in-out">
-                      <button
-                        className=" hover:text-linkIt-300"
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                        className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={() => {
                           pressSignUp === "visible"
                             ? dispatch(setPressSignUp("hidden"))
@@ -720,18 +679,18 @@ function NavBar() {
                         }}
                       >
                         {t("Regístrate")}
-                      </button>
-                    </li>
+                      
+                    </Dropdown.Item>
                   </div>
                 )}
-              </motion.ul>{" "}
-            </motion.div>
+    </Dropdown>
+          <div className="relative flex-col w-[3rem] h-[2rem] justify-start right-[8%] pt-[2.5%] xs:pt-[1.3%] 2xl:ml-6 hidden">
           </div>
 
           {/* burguerMenu */}
 
           <button
-            className="relative right-[10%] xs:right-[5%] lg:hidden"
+            className="relative lg:hidden"
             onClick={() => setBurgerMenu(!burgerMenu)}
           >
             <div
