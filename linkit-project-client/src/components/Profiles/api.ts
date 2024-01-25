@@ -37,11 +37,11 @@ export async function editWebUserImage(user: WebsiteUser, image: string): Promis
 }
 
 export async function changePassword(user: WebsiteUser): Promise<string> {
-  const response: string = await axios.get(`${URL}/auth/resetPassword?email=${user.email}`, {headers: {
+  const {data} = await axios.get(`${URL}/auth/resetPassword?email=${user.email}`, {headers: {
     Authorization: `Bearer ${SUPERADMN_ID}`,
     'Accept-Language': sessionStorage.getItem('lang')
   }})
-  return response
+  return data
 }
 
 export const editAdmin = async (admin: Partial<IAdmin>, token: string): Promise<IAdmin> => {
