@@ -26,7 +26,7 @@ const blogsCardVariants: Variants = {
       type: "spring",
     },
   },
-  exit:{
+  exit: {
     x: -100,
     transition: {
       duration: 1,
@@ -34,28 +34,29 @@ const blogsCardVariants: Variants = {
       type: "spring",
     },
   }
-  
+
 }
 
 function BlogsResourceCard({ image, title, description, genre, _id }: BlogsCardProps) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
-    <motion.div 
-    className="flex flex-col border-[0.13rem] w-full rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[30rem] lg:h-[70vh] items-center justify-center bg-white card-container-resources container-resources"
-    variants={blogsCardVariants}
-    initial="hidden"
-    whileInView={"visible"}
-    viewport={{once: true}}
-    exit="exit"
+    <motion.div
+      className="flex flex-col border-[0.13rem] w-full rounded-[0.625rem] font-montserrat text-[1.5rem] h-screen xl:h-[30rem] lg:h-[70vh] items-center justify-center bg-white card-container-resources container-resources"
+      variants={blogsCardVariants}
+      initial="hidden"
+      whileInView={"visible"}
+      viewport={{ once: true }}
+      exit="exit"
     >
-      <img
-        src={image}
-        alt={title}
-        className={`w-full h-[12rem] rounded-[0.625rem] ${
-          title.length > 20 ? "xl:-mt-4" : ""
-        } image`}
-      />
+      {image && (
+        <img
+          src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
+          alt={title}
+          className={`w-full h-[12rem] rounded-[0.625rem] ${title.length > 20 ? "xl:-mt-4" : ""
+            } image`}
+        />
+      )}
       <div className="p-[3rem] flex flex-col flex-grow justify-between lg:w-full lg:p-[1rem] xl:p-[1.8rem] content-container-resources">
         <div>
           <p className="border-[2px] text-[0.8rem] mb-[10px] xl:mb-[1.5rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] genre-resources">
@@ -72,7 +73,7 @@ function BlogsResourceCard({ image, title, description, genre, _id }: BlogsCardP
           className="text-[1rem] font-bold link-resources"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
-          onClick={()=>{navigate(`/blog/${_id}`)}}
+          onClick={() => { navigate(`/blog/${_id}`) }}
         >
           {t('Leer Nota')}
         </motion.a>
