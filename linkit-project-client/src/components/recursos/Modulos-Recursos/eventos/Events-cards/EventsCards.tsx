@@ -33,7 +33,7 @@ function EventsCards() {
         </button>
 
         {
-            events.slice(startIndex, endIndex).map((event)=>{
+            events.slice(startIndex, endIndex).map((event, index)=>{
                 return(
                     <EventCard
                         image={event.image}
@@ -41,6 +41,7 @@ function EventsCards() {
                         category={event.category}
                         description={event.description}
                         link={event.link}
+                        key={index}
                     />
                 )
             })
