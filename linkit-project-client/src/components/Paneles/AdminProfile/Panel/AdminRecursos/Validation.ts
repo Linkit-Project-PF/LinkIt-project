@@ -25,8 +25,5 @@ export const validations = (resource: ResourceProps) => {
   if (!resource.category) {
     errors.category = "Categoría requerido";
   }
-  if (resource.description.length > 150) {
-    errors.description = "La descripción debe ser menor a 150 caracteres"
-  }
   return errors;
 }
