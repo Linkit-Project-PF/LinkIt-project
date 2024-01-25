@@ -15,7 +15,7 @@ export default function QuienesSomos() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
+    <div className="overflow-hidden">
       <section id="mision">
         <ModuloA />
       </section>

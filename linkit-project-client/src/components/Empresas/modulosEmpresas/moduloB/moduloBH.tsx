@@ -25,7 +25,7 @@ export default function ModuloB() {
                                 <div className='grid grid-cols-3 my-[3%] ml-[10%]'>
                                 <h2 className="text-white text-[1.5rem] xl:text-[2rem] font-manrope text-start ">{t('Contratación')}</h2>
 
-                                <p className="text-white text-[0.9rem] xl:text-[1.2rem] font-montserrat w-[150%] justify-self-center self-center ">{t('Agranda tu equipo y reduce tu costos de contratación con talento externo, aumentando la capacidad productiva, sin compromisos a largo plazo. Dedícate a lo que es realmente importante; elimina los tiempos administrativos y operativos de la gestión contractual y de pagos.')}</p>
+                                <p className="text-white text-[0.9rem] xl:text-[1.2rem] font-montserrat w-[150%] justify-self-center self-center ">{t('Agranda tu equipo y reduce tu costo de contratación con talento externo, aumentando la capacidad productiva, sin compromisos a largo plazo. Dedícate a lo que es realmente importante; elimina los tiempos administrativos y operativos de la gestión contractual y de pagos.')}</p>
                                 <img className="w-1/4 justify-self-center" src="/Vectores/paper-bg-green.png" alt="contratación" />
                                 </div>
 

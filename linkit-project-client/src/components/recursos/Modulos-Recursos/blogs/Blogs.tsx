@@ -7,18 +7,18 @@ function Blogs() {
   const navigate = useNavigate();
   const {t} = useTranslation()
   return (
-    <>
-      <div className="font-montserrat font-bold text-[2.5rem] text-center">
-        <h1 className="mt-[4rem] mb-[4rem]">{t('Descubre más sobre el mundo IT')}</h1>
-      </div>
+    <div className="p-[7%] flex flex-col justify-center justify-items-center">
+        <h1 className="mb-[5%] font-manrope font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[2rem] xl:text-[2.5rem] text-center">¿Quieres saber que está pasando <br className="lg:hidden" /> en el mundo IT?</h1>
       <BlogsCards />
+      <div className="flex justify-center mt-[5%]">
       <button 
-      className="bg-linkIt-300 text-white font-montserrat border-[0.125rem] hover:bg-white hover:text-linkIt-300 active:bg-linkIt-300 active:text-white border-linkIt-300 w-[7rem] mt-[6.25rem] relative bottom-[2.5rem] left-[45%] p-[0.45rem] rounded-[10px] transition-all duration-300 ease-in-out"
+      className="background-button justify-self-center "
       onClick={()=>navigate("/recursos/libreria")}
       >
         {t('Ver más')}
       </button>
-    </>
+      </div>
+    </div>
   );
 }
 

@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
                 <span className="text-white col-start-2 text-start font-manrope font-normal">CEO & Co-Founder</span></p>
                 <div className="flex ">
                 <img src={email} alt="email" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
-                <img src={linkedin} alt="linkedIn" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px" />
+                <img src={linkedin} alt="linkedIn" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
                 </div>
                 </div>
                 <div className="before:absolute before:bg-white before:dark:bg-linkIt-300 before:w-screen before:h-[20%] before:left-0 before:z-20 before:-skew-y-[3deg] before:top-[90%] after:left-0 after:z-20 after:bg-linkIt-200 dark:after:bg-white after:w-screen after:h-[4px] after:absolute after:-skew-y-[3deg] after:top-[93%]"></div>

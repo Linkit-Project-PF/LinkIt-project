@@ -61,7 +61,7 @@ const scope = useMenuAnimation(isOpen);
     email: "",
     message: "",
   });
-  console.log(contacts)
+
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -150,7 +150,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
 }
   return (
     <div className="bg-linkIt-300 text-white grid lg:flex p-[7%] lg:gap-[10%] dark:bg-linkIt-400">
-      <h1 className="font-semibold text-[1rem] xs:text-[1.2rem] ssm:text-[1.8rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] justify-self-center font-montserrat">{t('Contáctanos')}</h1>
+      <h1 className="font-semibold text-[1rem] xs:text-[1.2rem] ssm:text-[1.8rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] justify-self-center font-montserrat">Contáctanos para escalar tu equipo</h1>
       <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1.2rem] font-montserrat whitespace-nowrap w-full" onSubmit={contactsBtn}>
         <div>
         <input className={`${errors.firstName ? ' border-black' : ''} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full`} type="text" placeholder="Nombre"  name="firstName" value={contacts.firstName} onChange={handleChange} onBlur={handleChange} />
