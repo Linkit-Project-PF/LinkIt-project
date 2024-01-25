@@ -575,8 +575,7 @@ export const i18nOptions: InitOptions = {
         'Volver atrás':'Go back',
         'Cancelado':'Cancelled',
         'Tu postulación sigue en curso':'Your application is still in progress',
-
-
+        
         //! Permission Form
         "Administradores":"Admins",
         "Empresas":"Companies",
@@ -584,7 +583,10 @@ export const i18nOptions: InitOptions = {
         "Consultar":"Retrieve",
         "Eliminar":"Delete",
         "Enviado":"Saved",
-        "Permisos cambiados con éxito": "Successfully changed permissions"
+        "Permisos cambiados con éxito": "Successfully changed permissions",
+
+        //! MISC
+        
       },
     }
   },
@@ -592,7 +594,6 @@ export const i18nOptions: InitOptions = {
 
 i18n
   .use(initReactI18next)
-  // .use(LanguageDetector)
   .init(i18nOptions);
 
 export default i18n;
