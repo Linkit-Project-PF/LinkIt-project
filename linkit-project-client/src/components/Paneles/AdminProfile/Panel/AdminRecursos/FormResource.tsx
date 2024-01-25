@@ -30,7 +30,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
   const { t } = useTranslation()
   const [filePublicId, setFilePublicId] = useState("");
   const [filePublicIdSect, setFilePublicIdSect] = useState("");
-  console.log(filePublicIdSect)
 
   const [information, setInformation] = useState<Partial<ResourceProps>>({
     title: "",
@@ -42,6 +41,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     headers: [],
     createdBy: user.firstName.concat(user.lastName),
   });
+  console.log(information)
 
   const [infoList, setInfoList] = useState<Header>(
     {
@@ -50,7 +50,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       sectionImage: filePublicIdSect,
     }
   )
-  console.log(infoList.sectionImage)
 
   useEffect(() => {
     setInformation(prevInformation => ({ ...prevInformation, image: filePublicId }));
@@ -84,6 +83,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     category: "",
     headers: [],
   });
+  console.log(errors)
 
   const handleChangeInfoList = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -176,11 +176,11 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   <option value="">{t('Selecciona')}</option>
                   <option value="blog">Blog</option>
                   <option value="ebook">Ebook</option>
-                  <option value="social">Social</option>
+                  <option value="event">Event</option>
                 </select>
               </div>
             </div>
-            {information.type === 'social' || information.type === 'ebook' ? (
+            {information.type === 'event' || information.type === 'ebook' ? (
               <div className="flex flex-row flex-wrap w-[110vh]">
                 <div className="w-fit mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Título')}</label>
@@ -210,15 +210,13 @@ export default function FormResource({ onClose, }: FormResourceProps) {
 
                 <div className="w-fit px-3 mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
-                  <input
-                    className={errors.image ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                    type="text"
-                    name="image"
-                    placeholder={errors.image ? "*" : ""}
-                    autoComplete="off"
-                    onChange={handleChange}
-                    onBlur={handleBlurErrors}
-                  />
+                  <CloudinaryUploadWidget
+                    setFileName={setFileName}
+                    setFilePublicId={setFilePublicId}
+                    className="ml-2"
+                  >
+                    <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
+                  </CloudinaryUploadWidget>
                 </div>
 
                 <div className="w-fit px-3 mb-6">
