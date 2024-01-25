@@ -58,9 +58,8 @@ function EventCard({
   }, [title, description, link, category]);
 
   return (
-    <>
       <motion.div 
-      className="border-[2px] h-[35.7rem] rounded-[7px] w-[22rem] flex flex-col font-montserrat lg-card"
+      className="border-[2px] w-full h-full rounded-xl font-montserrat items-center justify-center bg-white"
       key={key}
       variants={eventCardVariants}
       initial="hidden"
@@ -69,26 +68,26 @@ function EventCard({
       >
         {image.includes("youtube") ? (
           <div
-            className="bg-center bg-cover h-[31rem] rounded-[7px] w-full card-thumbnail"
+            className="w-full rounded-xl h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center"
             style={{ backgroundImage: `url(${videoToThumbnail(image)})` }}
           />
         ) : (
-          <img src={image} alt="event image" className="h-[2rem] rounded-[7px] w-full" />
+          <img src={image} alt="event image" className="w-full rounded-xl h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center" />
         )}
-        <div className="flex flex-col h-[100%] p-[2rem] justify-between">
-          <div>
-            <p className="font-semibold text-[.9rem] border-[2px] border-linkIt-300 inline-flex p-[.3rem] rounded-[7px] category">
+        
+          <div className="flex flex-col justify-start h-full p-[7%]">
+            <p className="border-[1px] text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center w-fit">
               {category}
             </p>
-          </div>
-          <h2 className=" font-bold text-[1.4rem] title">{title}</h2>
-          <p className=" font-[500] description">{description}</p>
-          <a href={link} target="_blank" className=" font-bold">
+          
+          <h2 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.5rem] md:text-[1.8rem] lg:text-[1.5rem]">{title}</h2>
+          <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[1rem]">{description}</p>
+          <a href={link} target="_blank" className="text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] font-bold mt-2 xs:mt-3">
             {t('Ver Grabación')}
           </a>
         </div>
       </motion.div>
-    </>
+  
   );
 }
 

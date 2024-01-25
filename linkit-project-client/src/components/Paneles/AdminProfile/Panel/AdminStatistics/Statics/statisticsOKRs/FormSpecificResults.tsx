@@ -27,7 +27,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
   
     okrsSpecific: [],
   });
-// console.log(information)
+
   // const [errors, setErrors] = useState({
   //   okrsSpecific: "",
   // });
@@ -119,7 +119,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
     // const validationError = validations(information as VacancyProps);
     // setErrors(validationError);
   };
-
+  // console.log(information)
   // const handleBlurErrors = () => {
     // const validationError = validations(information as VacancyProps);
     // setErrors(validationError);
@@ -144,6 +144,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
     setInputClicked(true);
   };
 
+  
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
@@ -225,6 +226,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
               <button
                 onClick={props.onClose}
                 className={`background-button`}
+                type="button"
               >
                 {t('Volver')}
               </button>

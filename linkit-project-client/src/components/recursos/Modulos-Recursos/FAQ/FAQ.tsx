@@ -5,13 +5,10 @@ import { useTranslation } from "react-i18next";
 function FAQ() {
   const {t} = useTranslation();
   return (
-    <div className='w-full flex flex-col text-center  relative mb-[7rem]'>
-        <div className='bg-white h-[2rem] w-full skewed-top'></div>
-        <div className='bg-white h-[1rem] w-full relative bottom-[1.5rem] skewed-second'></div>
-        <div className=' w-full relative text-left'>
-        <h1 className='font-bold font-manrope text-[2rem] text-center'>{t('Preguntas Frecuentes')}</h1>
+    <div className='w-full flex flex-col text-center relative z-20 bg-white p-[7%]'>
+        <h1 className='font-bold font-manrope text-[0.9rem] xs:text-[1.2rem] ssm:text-[2rem] xl:text-[2.5rem] text-center mb-[5%]'>{t('Preguntas Frecuentes')}</h1>
         <AccordionFaqs/>
-        </div>
+        
     </div>
   )
 }
