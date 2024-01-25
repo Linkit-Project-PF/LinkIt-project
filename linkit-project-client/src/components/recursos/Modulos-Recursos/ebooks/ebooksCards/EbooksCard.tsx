@@ -60,7 +60,7 @@ function EbooksCard({
           {category}
         </p>
         <h1 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.5rem] md:text-[1.8rem] lg:text-[1.2rem] xl:text-[1.5rem]">{title}</h1>
-        <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.8rem xl:text-[1rem]]">{description}</p>
+        <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.8rem] xl:text-[1rem]">{description}</p>
       <motion.a 
       href={link} 
       className="text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] xl:text-[1rem] font-bold mt-2 xs:mt-3" 

@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import topLines from "/Vectores/linkit-linea-banner-recursos-superior.svg"
 import bottomLines from "/Vectores/linkit-linea-banner-recursos-inferior.svg"
+import Newsletter from "../../Utils/newsletter/newsletter";
 export default function Recursos() {
   const { t } = useTranslation();
   useEffect(() => {
@@ -41,9 +42,7 @@ export default function Recursos() {
         <FAQ />
       </section>
       <section id="form">
-        <div className="bg-linkIt-300 h-[40vh] text-white font-bold flex justify-center items-center content-center">
-          <h1 className="text-[2rem] text-center">EN ESPERA DEL DISEÑO</h1>
-        </div>
+        <Newsletter />
       </section>
       </div>
   );

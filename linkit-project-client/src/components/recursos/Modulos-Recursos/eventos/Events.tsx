@@ -10,13 +10,11 @@ function Events() {
   const {t} = useTranslation();
 
   return (
-    <>
-      <div className="flex flex-col">
-        <motion.div
-        className="p-[3rem] text-center font-manrope flex flex-col items-center justify-center"
-        >
+      <div
+        className="p-[7%] flex flex-col justify-center justify-items-center">
+        
           <motion.h1 
-          className="font-bold text-[2.5rem]"
+          className="mb-[2%] font-manrope font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[2rem] xl:text-[2.5rem] text-center"
           initial={{ opacity: 0, x: 100 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -25,7 +23,7 @@ function Events() {
           </motion.h1>
 
           <motion.p 
-          className="w-[43rem] text-[1.2rem] mt-[2rem] font-montserrat font-[500]" 
+          className="mb-[5%] font-montserrat text-[0.7rem] xs:text-[0.9rem] ssm:text-[1.1rem] md:text-[1.3rem] xl:text-[1.5rem] md:mx-[5vw] lg:mx-[10vw] text-center" 
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -33,16 +31,16 @@ function Events() {
           >
             {t('Hablamos de trabajo remoto, oportunidades IT, tus primeros pasos en el empleo, cómo contratar talento internacional y mucho más!')}
           </motion.p>
-        </motion.div>
+        
         <EventsCards />
-
-        <button className="bg-linkIt-300 text-white font-manrope p-[.5rem] rounded-[9px] w-[7rem] self-center mt-[3rem] mb-[5rem] hover:bg-white hover:text-linkIt-300 border-[2px] hover:border-linkIt-300 transition-all duration-300 ease-in-out "
+        <div className="flex justify-center">
+        <button className="background-button justify-self-center mt-[5%]"
         onClick={()=>navigate("/recursos/libreria")}
         >
           {t('Ver más')}
         </button>
+        </div>
       </div>
-    </>
   );
 }
 

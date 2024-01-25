@@ -6,7 +6,7 @@ import "./Accordion.css"
 function AccordionFaqs() {
   const {t} = useTranslation();
   return (
-    <div>
+    <div className="font-manrope font-bold text-start">
       <Accordion transition transitionTimeout={250}>
         <AccordionItem header={t("+ ¿Qué es LinkIT?")} className="accordion-item">
           {t('LinkIT es tu recruitment partner que, sin importar las distancias, conecta a las empresas con el mejor talento tech a lo largo del mundo.')}
@@ -16,7 +16,7 @@ function AccordionFaqs() {
           {t('Linkit no es una agencia de recursos humanos, es tu Partner que te ayudará a escalar en tu negocio. Nuestros pilares son Agilidad, Calidad y Excelencia tiro cualquier pilar porque da para pensar esto.')}
         </AccordionItem>
 
-        <AccordionItem header={t("+ ¿De qué parte del mundo encuentran talento?")} className="accordion-item">
+        <AccordionItem header={t("+ ¿De qué parte del mundo encuentran talento?")} className="accordion-item text-start">
           {t('LinkIT no tiene barrera, busca talento en todo el globo sin importar la ubicación ni la nacionalidad, el foco está en el talento, la experiencia y el match con los objetivos marcados.')}
         </AccordionItem>
 
