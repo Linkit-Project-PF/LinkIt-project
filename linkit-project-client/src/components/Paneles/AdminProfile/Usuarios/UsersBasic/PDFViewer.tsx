@@ -4,7 +4,7 @@ import { CLOUDINARY_ID } from "../../../../../env";
 export default function PDFViewer({ cv }: any) {
     const ID = cv.cloudinaryId;
     const NAME = cv.fileName.trim();
-    const pdfUrl = `https://res.cloudinary.com/${CLOUDINARY_ID}/a_${ID}/${NAME}`;
+    const pdfUrl = `https://res.cloudinary.com/${CLOUDINARY_ID}/image/upload/${ID}/${NAME}`;
 
     const handleOpenInNewTab = () => {
         window.open(pdfUrl, '_blank');
