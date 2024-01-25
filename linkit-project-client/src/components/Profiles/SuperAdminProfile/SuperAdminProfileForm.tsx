@@ -1,9 +1,9 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { IAdmin, UserRoleEnum } from "../types";
-import { editAdmin } from "../api";
+import { changePassword, editAdmin } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/types";
-import { setUser } from "../../../redux/features/AuthSlice";
+import { logout, setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
@@ -31,8 +31,31 @@ const SuperAdminProfileForm: FunctionComponent = () => {
     null;
   }
 
-  function profileChangePassword() {}
-  function handleLogOut() {}
+  async function profileChangePassword() {
+    try {
+      const response:string = await changePassword(admin);
+        Swal.fire({
+          title: t("Exitoso"),
+          text: response,
+          icon: "success",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#0098DA",
+        });
+    } catch (error: any) {
+      console.log(error);
+      Swal.fire({
+        title:"Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#0098DA",
+      });
+    }
+  }
+  function handleLogOut() {
+    dispatch(logout());
+    navigate("/");
+  }
 
   useEffect(() => {
     if (!token) navigate("/unauthorized");
@@ -129,12 +152,12 @@ const SuperAdminProfileForm: FunctionComponent = () => {
             </div>
           </div>
           <div className="flex flex-col pt-5 gap-3 self-center place-self-center">
-            <button
+            {admin.provider === "email" ? <button
               className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
               onClick={profileChangePassword}
             >
               {t("Cambiar contraseña")}
-            </button>
+            </button> : null}
             <button
               className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
               onClick={handleLogOut}
