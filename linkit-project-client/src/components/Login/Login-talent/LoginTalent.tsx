@@ -341,6 +341,7 @@ function LoginTalent() {
             <p className="text-[.8rem] self-start ml-[6%] font-manrope">
               <motion.a
                 href="_blank"
+                
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}

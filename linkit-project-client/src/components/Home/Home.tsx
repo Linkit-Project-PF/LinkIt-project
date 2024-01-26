@@ -10,14 +10,16 @@ import ModuloE from "./Modulos/ModuloE/ModuloE";
 import ModuloF from "./Modulos/ModuloF/ModuloF";
 import ModuloG from "./Modulos/ModuloG/ModuloG";
 import { useEffect, useState } from "react";
+import VerifyAlert from "../../Utils/verifyAlert/VerifyAlert";
 
-function Home({ error, Unauth }: { error: boolean; Unauth: boolean }) {
+function Home({ error, Unauth, Verify }: { error: boolean; Unauth: boolean; Verify: boolean }) {
   const nav = useNavigate();
   const [errorVisible, setErrorVisible] = useState(false);
   const [unauthVisible, setUnauthVisible] = useState(false);
+  const [verifyVisible, setVerifyVisible] = useState(false);
 
 
-  if (errorVisible || unauthVisible) {
+  if (errorVisible || unauthVisible || verifyVisible) {
     document.body.style.overflow = "hidden";
   } else document.body.style.overflow = "visible";
 
@@ -34,6 +36,12 @@ function Home({ error, Unauth }: { error: boolean; Unauth: boolean }) {
         setUnauthVisible(false);
         nav("/");
       }, 2500);
+    } else if (Verify) {
+      setVerifyVisible(true);
+      setTimeout(() => {
+        setVerifyVisible(false);
+        nav("/");
+      }, 2500);
     }
     window.scrollTo(0, 0);
   }, []);
@@ -42,6 +50,7 @@ function Home({ error, Unauth }: { error: boolean; Unauth: boolean }) {
     <div className="flex flex-col overflow-hidden">
       {errorVisible && <Error />}
       {unauthVisible && <Unauthorized />}
+      {verifyVisible && <VerifyAlert/>}
       <ModuloA />
       <ModuloB />
       <ModuloC />
