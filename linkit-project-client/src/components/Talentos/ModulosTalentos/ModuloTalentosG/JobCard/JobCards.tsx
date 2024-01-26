@@ -11,7 +11,7 @@ const JobCards: FunctionComponent = () => {
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(0);
   const jobOffers = useSelector((state: any) => state.jobCard.jobOffers as JobCardProps[]);
-  const jobsPerPage = 6;
+  const jobsPerPage = matchMedia('(max-width: 1023px)').matches ? 3 : 6;
   const maxPages = Math.ceil(jobOffers.length / jobsPerPage);
   const handlePrev = () => setCurrent(current === 0 ? maxPages - 1 : current - 1);
   const handleNext = () => setCurrent(current === maxPages - 1 ? 0 : current + 1);
@@ -37,14 +37,14 @@ const JobCards: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex w-full h-[340px] space-x-6 items-center justify-center gap-[10%]">
+    <div className="flex w-full h-full items-center justify-center space-x-[5%] my-[5%]">
       <button onClick={handlePrev} className=""><img src="/Vectores/previus.png" alt="previus" /></button>
-      <div className="w-4/6 grid grid-cols-3 grid-rows-2 gap-5">
+      <div className="grid lg:grid-cols-3 lg:grid-rows-2">
         {jobOffers.length === 0
         ? (
-          <div className='flex flex-row justify-center items-center content-center w-full col-span-3 row-span-2'>
+          <div className='flex flex-row justify-center items-center content-center w-full h-[20rem] col-span-3 row-span-2'>
             <motion.p 
-            className='font-montserrat font-[600] whitespace-nowrap'
+            className='font-montserrat text-[1rem] ssm:text-[1.5rem] xl:text-[1.5rem] whitespace-nowrap'
             initial={{ opacity: 0, x: -1000 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5, type: 'spring', bounce: 0.25 }}

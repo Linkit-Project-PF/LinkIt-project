@@ -22,8 +22,8 @@ export default function ModuloG () {
         }
     }
         return ( 
-            <div className="bg-linkIt-500  p-[7%] dark:bg-linkIt-200 dark:text-white">
-                <h1 className="font-bold grid col-span-4 text-[1.2rem] xs:text-[1.3rem] ssm:text-[1.7rem] md:text-[2.2rem] xl:text-[2.5rem] text-center mb-[5%] font-manrope">{t('¿Por qué elegir LinkIT?')}</h1>
+            <div className="bg-linkIt-500 p-[7%] dark:bg-linkIt-200 dark:text-white">
+                <h1 className="font-bold grid col-span-4 text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] sm:text-[1.5rem] lg:text-[2rem] xl:text-[2.3rem] text-center mb-[5%] font-manrope">{t('¿Por qué elegir LinkIT?')}</h1>
                 <div className="grid-cols-4 hidden lg:grid">
                     <h2 className="font-semibold mb-3 text-center text-[1.3rem] xl:text-[1.5rem] font-montserrat">
                     {t('Hasta 5 días')}
@@ -37,10 +37,10 @@ export default function ModuloG () {
                     <h2 className="font-semibold mb-3 text-center text-[1.3rem] xl:text-[1.5rem] font-montserrat">
                     {t('Más de ')} 10.000
                     </h2>
-                    <p className="text-center text-[1rem] xl:text-[1.2rem] font-montserrat">{t('para contactar a tu')} <br /> {t('próximo talento')}</p>
-                    <p className="text-center text-[1rem] xl:text-[1.2rem] font-montserrat">{t('para seleccionar ')}<br /> {t('talentos')}</p>
-                    <p className="text-center text-[1rem] xl:text-[1.2rem] font-montserrat">{t('tipos de lenguajes en los ')} <br />{t('que nos especializamos')}</p>
-                    <p className="text-center  text-[1rem] xl:text-[1.2rem] font-montserrat">{t('candidatos listos para')}<br /> {t('trabajar')}</p>
+                    <p className="text-center text-[0.8rem] xl:text-[1rem] font-montserrat">{t('para contactar a tu')} <br /> {t('próximo talento')}</p>
+                    <p className="text-center text-[0.8rem] xl:text-[1rem] font-montserrat">{t('para seleccionar ')}<br /> {t('talentos')}</p>
+                    <p className="text-center text-[0.8rem] xl:text-[1rem] font-montserrat">{t('tipos de lenguajes en los ')} <br />{t('que nos especializamos')}</p>
+                    <p className="text-center text-[0.8rem] xl:text-[1rem] font-montserrat">{t('candidatos listos para')}<br /> {t('trabajar')}</p>
                     </div>
 
                     <div className="lg:hidden flex justify-center items-center space-x-4 xs:space-x-10">

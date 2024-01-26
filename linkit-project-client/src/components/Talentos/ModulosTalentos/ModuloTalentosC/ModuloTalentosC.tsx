@@ -11,7 +11,7 @@ const ModuloTalentosG: React.FC = () => {
 
   return (
     <div className="grid justify-items-center bg-linkIt-500 p-[7%] dark:bg-linkIt-200 ">
-      <h2 className="text-[0.9rem] xs:text-[1rem] ssm:text-[1.5rem] sm:text-[1.8rem] md:text-[2rem] xl:text-[2.3rem] font-bold font-montserrat dark:text-white">{t('Lo que dicen nuestros talentos')}</h2>
+      <h1 className="text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] sm:text-[1.5rem] lg:text-[2rem] xl:text-[2.3rem] text-center justify-center font-manrope mb-[5%] font-bold dark:text-white">{t('Lo que dicen nuestros talentos')}</h1>
       <div className='hidden lg:block w-full'>
       <TestimonialCards/>
       </div>

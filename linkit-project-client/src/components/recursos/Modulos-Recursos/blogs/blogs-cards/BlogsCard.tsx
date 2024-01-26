@@ -50,23 +50,21 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
   }, [title, description, _id, genre]);
 
   return (
-    <motion.div
-      className="border-[2px] w-full h-full rounded-xl font-montserrat items-center justify-center bg-white"
-      variants={blogsCardVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      key={key}
+    <motion.div 
+    className="border-[2px] w-full h-full rounded-xl font-montserrat  bg-white"
+    variants={blogsCardVariants}
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    key={key}
     >
-      {image && (
-
-        <img
-          src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
-          alt={title}
-          className={`w-full rounded-xl ${title.length > 20 ? "xl:-mt-4" : ""
-            } image`}
-        />
-      )}
+      <img
+        src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
+        alt={title}
+        className={`w-full rounded-xl ${
+          title.length > 20 ? "xl:-mt-4" : ""
+        } image`}
+      />
       <div className="grid justify-items-start h-full p-[7%]">
 
         <p className="border-[1px] text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
