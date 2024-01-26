@@ -17,7 +17,7 @@ import {
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../redux/types";
-import { Avatar, Dropdown, DropdownDivider } from "flowbite-react";
+import { Avatar, Dropdown, DropdownDivider, DropdownHeader } from "flowbite-react";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -593,6 +593,9 @@ function NavBar() {
       arrowIcon={false}
       inline
     >
+      <DropdownHeader>
+        
+      </DropdownHeader>
       {isAuthenticated && role === "user" ? (
                   <div>
                     <Dropdown.Item

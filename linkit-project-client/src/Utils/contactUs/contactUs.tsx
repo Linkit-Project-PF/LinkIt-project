@@ -16,7 +16,7 @@ export default function ContactUs() {
 
   const customTheme: CustomFlowbiteTheme['dropdown'] = {
       "arrowIcon": "ml-2 h-4 w-4",
-      "content": "py-1 focus:outline-none",
+      "content": "py-1 focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
       "floating": {
         "animation": "transition-opacity",
         "arrow": {
@@ -28,24 +28,24 @@ export default function ContactUs() {
           },
           "placement": "-4px"
         },
-        "base": "z-10 w-fit rounded divide-y divide-gray-200 focus:outline-none",
-        "content": "py-1 text-sm text-gray-700 dark:text-gray-200",
+        "base": "z-10 w-fit rounded divide-y divide-gray-200 focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+        "content": "py-1 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
         "divider": "my-1 h-px bg-gray-100 dark:bg-gray-600",
-        "header": "block py-2 px-4 text-sm text-gray-700 dark:text-gray-200",
+        "header": "block py-2 px-4 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
         "hidden": "invisible opacity-0",
         "item": {
-          "container": "bg-white",
-          "base": "flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
+          "container": "text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+          "base": "text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem] flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
           "icon": "mr-2 h-4 w-4"
         },
         "style": {
           "dark": "bg-gray-900 text-white dark:bg-gray-700",
-          "light": "border border-red-200 bg-white text-gray-900",
-          "auto": "border border-gray-200 bg-white text-gray-900 dark:border-none dark:bg-gray-700 dark:text-white"
+          "light": "border border-red-200 text-gray-900",
+          "auto": "border border-gray-200 text-gray-900 dark:border-none dark:bg-gray-700 dark:text-white"
         },
-        "target": "w-fit bg-transparent border border-white w-full justify-start text-left focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
+        "target": "w-fit bg-transparent border border-white w-full justify-start text-left focus:outline-none text-[0.4rem] ssm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.4rem] xl:text-[1.6rem] 2xl:text-[2rem]"
       },
-      "inlineWrapper": "flex items-center bg-white"
+      "inlineWrapper": "flex items-center w-full h-fit rounded-md border border-white p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
   };
 const { t } = useTranslation();
 
@@ -148,7 +148,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
 }
   return (
     <div className="bg-linkIt-300 text-white grid lg:flex p-[7%] lg:gap-[10%] dark:bg-linkIt-400">
-      <h1 className="font-semibold text-[1rem] xs:text-[1.2rem] ssm:text-[1.8rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] justify-self-center font-montserrat">Contáctanos para escalar tu equipo</h1>
+      <h1 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.7rem] sm:text-[1.9rem] md:text-[2.3rem] xl:text-[2.5rem] leading-tight justify-self-center font-manrope">Contáctanos para escalar tu equipo</h1>
       <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] font-montserrat whitespace-nowrap w-full" onSubmit={contactsBtn}>
         <div>
         <input className={`${errors.firstName ? ' border-black' : 'border-white'} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full ring-0 focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Nombre"  name="firstName" value={contacts.firstName} onChange={handleChange} onBlur={handleChange} />
@@ -169,8 +169,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.company}</p>
             )}
         </div>
-        <div >
-          <Dropdown label={t('¿Qué servicio te interesa?')} theme={customTheme}> 
+          <Dropdown label={t('¿Qué servicio te interesa?')} theme={customTheme} inline> 
               <li className="flex items-center">
               <input className=" checked:bg-linkIt-300 rounded-sm mr-1 focus:ring-0" type="checkbox" name="Gestión y beneficios" value='Gestión y beneficios' id="Gestión y beneficios" checked={contacts.service.includes('Gestión y beneficios')}
               onChange={handleChange} onBlur={handleChange} />
@@ -192,7 +191,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
           {errors.service && (
               <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.service}</p>
             )}
-          </div>
+          
           <div className="flex flex-col">
         <input className={`${errors.email ? 'border-black' : 'border-white' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
         {errors.email && (

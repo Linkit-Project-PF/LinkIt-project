@@ -92,7 +92,6 @@ const customStyles = {
     ...provided,
     borderRight: '2px solid #ECEEF0',
     height: '2.4rem',
-    paddingRight: '2rem'
   }),
 
   valueContainer: (provided: any) => ({
@@ -119,7 +118,7 @@ const customStyles = {
     fontFamily: 'Montserrat',
     width: '150%',
     maxWidth: '150%',
-    marginLeft: '-40%'
+    paddingRight: '2',
   }),
   indicatorSeparator: () => ({
     display: 'none',
