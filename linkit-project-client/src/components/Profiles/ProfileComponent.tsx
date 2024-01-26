@@ -61,18 +61,17 @@ export default function ProfileComponent({ loader }: componentProps) {
 
   async function profileChangePassword() {
     try {
-      const response:string = await changePassword(user);
-        Swal.fire({
-          title: t("Exitoso"),
-          text: response,
-          icon: "success",
-          confirmButtonText: "Ok",
-          confirmButtonColor: "#0098DA",
-        });
-    } catch (error: any) {
-      console.log(error);
+      const response: string = await changePassword(user);
       Swal.fire({
-        title:"Error",
+        title: t("Exitoso"),
+        text: response,
+        icon: "success",
+        confirmButtonText: "Ok",
+        confirmButtonColor: "#0098DA",
+      });
+    } catch (error: any) {
+      Swal.fire({
+        title: "Error",
         text: error.message,
         icon: "error",
         confirmButtonText: "Ok",
