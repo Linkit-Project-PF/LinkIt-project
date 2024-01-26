@@ -83,15 +83,30 @@ function LoginTalent() {
     event.preventDefault();
     isLoading(true);
     try {
-      const response = await axios.get<IUser>(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`,
+      const response = await axios.post<IUser>(
+        'https://linkit-server.onrender.com/auth/login',
+        {
+          email: user.email,
+          password: user.password,
+          role: 'user'
+        },
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
+            'Accept-Language': sessionStorage.getItem('lang'),
+            'Content-Type': 'application/json' // Especifica el tipo de contenido como JSON
+          }
         }
       );
+      // const response = await axios.get<IUser>(
+      //   `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${SUPERADMN_ID}`,
+      //       "Accept-Language": sessionStorage.getItem("lang"),
+      //     },
+      //   }
+      // );
       const loggedUser = response.data;
 
       if (response.status === 200) {

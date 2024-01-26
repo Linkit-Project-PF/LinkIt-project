@@ -156,8 +156,8 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: t("Bienvenido a LinkIT", { name: user.firstName }),
-          confirmButtonText: t("Iniciar sesión"),
+          text: `${t("Bienvenido a LinkIT")}, ${ user.firstName }, ${t("Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación.")}`,
+          confirmButtonText: t("Confirmar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: true,
           allowEscapeKey: false,
@@ -168,13 +168,13 @@ function Register() {
           showConfirmButton: true,
           timer: 3000,
           timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-          didClose: () => {
-            dispatch(setPressRegister("hidden"));
-            dispatch(setPressLogin("visible"));
-          },
+          // didOpen: () => {
+          //   Swal.showLoading();
+          // },
+          // didClose: () => {
+          //   dispatch(setPressRegister("hidden"));
+          //   dispatch(setPressLogin("visible"));
+          // },
         });
       }
       dispatch(setPressRegister("hidden"));
@@ -263,11 +263,10 @@ function Register() {
           title: t("¡Registro exitoso!"),
           text:
             `${t("!Bienvenido a LinkIT¡")} ${DBresponse
-              
               .role === "company"
             ? DBresponse.companyName
             : DBresponse.firstName} ${"Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."}`,
-          confirmButtonText: t("Entendido"),
+          confirmButtonText: t("Confirmar"),
           confirmButtonColor: "#2D46B9",
           // didOpen: () => {
           //   Swal.showLoading();
