@@ -4,6 +4,7 @@ import { PostEntity } from "../types.blogs.ts";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import BlogsCard from "./BlogsCard.tsx";
+import blackArrow from "/Vectores/arrow.png";
 
 function BlogsCards() {
   const [currentBlog, setCurrentBlog] = useState(0);
@@ -23,25 +24,25 @@ function BlogsCards() {
     })();
   }, []);
 
+  
+  
+  
+  let blogsToShow = window.matchMedia("(max-width: 1023px)").matches ? 1 : 3;
+  
+  
+  const startIndex = currentBlog * blogsToShow;
+  const endIndex = startIndex + blogsToShow;
+  
+  let blogsToShowArray = blogs.slice(startIndex, endIndex);
+
+
   const handlePrev = () => {
-    if (currentBlog > 0) {
-      setCurrentBlog(currentBlog - 1);
-    }
+    setCurrentBlog(currentBlog === 0 ? Math.ceil(blogs.length / blogsToShow) - 1 : currentBlog - 1);
   };
 
   const handleNext = () => {
-    if (currentBlog < Math.ceil(blogs.length / 3) - 1) {
-      setCurrentBlog(currentBlog + 1);
-    } else {
-      setCurrentBlog(0);
-    }
+    setCurrentBlog(currentBlog === Math.ceil(blogs.length / blogsToShow) - 1 ? 0 : currentBlog + 1);
   };
-
-  const blogsToShow = 3;
-  const startIndex = currentBlog * blogsToShow;
-  const endIndex = startIndex + blogsToShow;
-
-  let blogsToShowArray = blogs.slice(startIndex, endIndex);
 
   if (blogsToShowArray.length < blogsToShow) {
     blogsToShowArray = [
@@ -50,12 +51,13 @@ function BlogsCards() {
     ];
   }
 
+
   return (
-    <div className="flex flex-row gap-[10rem] lg:gap-[2rem] justify-center cards-container">
-      <button onClick={handlePrev} className=" h-[3rem] self-center">
-        <img src="Vectores/previus.png" alt="previus-icon" />
-      </button>
+    <div className="flex w-full h-full justify-center items-center space-x-[5%]">
+        <img src={blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] h-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+        <div className='grid lg:grid-cols-3 items-end gap-2 w-full h-full'>
       {blogsToShowArray.map((blog, index) => {
+        console.log(blog)
         return (
           <motion.div
             key={index}
@@ -74,9 +76,9 @@ function BlogsCards() {
           </motion.div>
         );
       })}
-      <button onClick={handleNext} className=" h-[2rem] self-center">
-        <img src="Vectores/next.png" alt="next-icon" />
-      </button>
+    </div>
+        <img onClick={handleNext} src={blackArrow} alt="next-icon" className="-rotate-90 w-[20px] h-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+      
     </div>
   );
 }

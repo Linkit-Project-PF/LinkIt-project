@@ -38,6 +38,8 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const [lastName, setLastName] = useState(user.lastName);
   const [countries, setCountries] = useState([]);
   const [loading, isLoading] = useState(false);
+  const [filePublicId, setFilePublicId] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +64,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
         country,
         technologies,
         englishLevel,
+        filePublicId,
         cv,
       };
 
@@ -214,6 +217,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
               className="flex items-center justify-between bg-transparent px-[1rem] border-[.125rem] border-linkIt-400 md:w-[24rem] h-[2.75rem] rounded-[10px] cursor-pointer min-w-[15rem]"
               setCv={setCv}
               setFileName={setFileName}
+              setFilePublicId={setFilePublicId}
             >
               {fileName ? (
                 fileName

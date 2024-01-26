@@ -58,6 +58,7 @@ function AllResources() {
   const blogs = useSelector((state: resourcesState) => state.resources.blogs);
   const ebooks = useSelector((state: resourcesState) => state.resources.ebooks);
   const events = useSelector((state: resourcesState) => state.resources.events);
+  console.log(events)
   const {t} = useTranslation();
   return (
     <>

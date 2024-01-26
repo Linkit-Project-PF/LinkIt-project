@@ -101,46 +101,39 @@ const JobFilters = () => {
 
 
   return (
-    <div className=" flex justify-around items-center w-full bg-linkIt-500 font-montserrat text-linkIt-400 font-[500] shadow rounded-lg p-4 h-[4rem]">
-      <div className="grid grid-cols-4 w-full">
-        <div className="w-full items-center flex">
-          <Dropdown label={stack} inline>
-
-          
+    <div>
+    <div className="hidden lg:flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
+      <div className="grid grid-cols-4 w-full font-montserrat font-semibold justify-items-center items-center">
+          <Dropdown label={stack} inline className="h-40 overflow-y-scroll font-medium">
           {allStackTechnologies?.map((stack: any, index: number) => {
             return (
-            
                 <li
                   key={index}
-                  className="flex flex-row justify-between items-center"
                   onClick={() => handleStack(stack.name)}
                   >
-                  {stack.name}
-                  <div className="content">
-                    <label className="checkBox">
                       <input
+                      className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0 cursor-pointer font-normal"
                         id={`ch-${index}`}
                         type="checkbox"
                         checked={stackValue.includes(stack.name)}
                         readOnly
                         onClick={(e)=> e.stopPropagation()}
                         />
-                      <div className="transition"></div>
-                    </label>
-                  </div>
+                        <label htmlFor={stack.name} className="cursor-pointer w-full">
+                  {stack.name}</label>
                 </li>
               
             );
           })}
           </Dropdown>
-          </div>
+          
 
-          <div className="w-full items-center flex">
-         <Dropdown label={type} inline>
+         <Dropdown label={type} inline className=" font-medium">
           <li
             onClick={() => {
               setType("Part-time"), setTypeValue("part-time");
             }}
+            className="cursor-pointer w-full px-2"
           >
             Part-time
           </li>
@@ -148,6 +141,7 @@ const JobFilters = () => {
             onClick={() => {
               setType("Full-time"), setTypeValue("full-time");
             }}
+            className="cursor-pointer w-full px-2"
           >
             Full-time
           </li>
@@ -155,14 +149,14 @@ const JobFilters = () => {
             onClick={() => {
               setType("Freelance"), setTypeValue("freelance");
             }}
+            className="cursor-pointer w-full px-2"
           >
             Freelance
           </li>
       </Dropdown>
-      </div>
 
 
-      <div className="w-full items-center flex">
+      
       <section>
         {language === "en" ? (
           <SelectCountryEn
@@ -176,16 +170,17 @@ const JobFilters = () => {
           />
         )}
       </section>
-      </div>
+      
 
 
-      <div className="w-full items-center flex">
+
       <Dropdown label={modality} inline> 
           {language === "en" ? (
             <li
               onClick={() => {
                 setModality("Remote"), setModalityValue("remote");
               }}
+              className="cursor-pointer w-full px-2"
             >
               Remote
             </li>
@@ -194,6 +189,7 @@ const JobFilters = () => {
               onClick={() => {
                 setModality("Remoto"), setModalityValue("remote");
               }}
+              className="cursor-pointer w-full px-2"
             >
               Remoto
             </li>
@@ -203,6 +199,7 @@ const JobFilters = () => {
               onClick={() => {
                 setModality("Presential"), setModalityValue("on-site");
               }}
+              className="cursor-pointer w-full px-2"
             >
               Presential
             </li>
@@ -211,12 +208,13 @@ const JobFilters = () => {
               onClick={() => {
                 setModality("Presencial"), setModalityValue("on-site");
               }}
+              className="cursor-pointer w-full px-2"
             >
               Presencial
             </li>
           )}
 </Dropdown>
-   </div>
+  
 
 </div>
       <button
@@ -246,6 +244,153 @@ const JobFilters = () => {
         />
       </button>
     </div>
+  <div className="lg:hidden">
+<div className=" flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
+<div className="grid grid-cols-2 w-full font-montserrat font-semibold justify-items-center items-center">
+<Dropdown label={stack} inline className="h-40 overflow-y-scroll font-medium">
+          {allStackTechnologies?.map((stack: any, index: number) => {
+            return (
+                <li
+                  key={index}
+                  onClick={() => handleStack(stack.name)}
+                  >
+                      <input
+                      className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0 cursor-pointer font-normal"
+                        id={`ch-${index}`}
+                        type="checkbox"
+                        checked={stackValue.includes(stack.name)}
+                        readOnly
+                        onClick={(e)=> e.stopPropagation()}
+                        />
+                        <label htmlFor={stack.name} className="cursor-pointer w-full">
+                  {stack.name}</label>
+                </li>
+              
+            );
+          })}
+          </Dropdown>
+          
+
+         <Dropdown label={type} inline className=" font-medium">
+          <li
+            onClick={() => {
+              setType("Part-time"), setTypeValue("part-time");
+            }}
+            className="cursor-pointer w-full px-2"
+          >
+            Part-time
+          </li>
+          <li
+            onClick={() => {
+              setType("Full-time"), setTypeValue("full-time");
+            }}
+            className="cursor-pointer w-full px-2"
+          >
+            Full-time
+          </li>
+          <li
+            onClick={() => {
+              setType("Freelance"), setTypeValue("freelance");
+            }}
+            className="cursor-pointer w-full px-2"
+          >
+            Freelance
+          </li>
+      </Dropdown>
+  </div>
+  </div>
+<div className=" flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
+<div className="grid grid-cols-2 w-full font-montserrat font-semibold justify-items-center items-center">
+<section>
+        {language === "en" ? (
+          <SelectCountryEn
+            setCountry={setCountry}
+            country={country}
+          />
+        ) : (
+          <SelectCountryEs
+            setCountry={setCountry}
+            country={country}
+          />
+        )}
+      </section>
+      
+
+
+
+      <Dropdown label={modality} inline> 
+          {language === "en" ? (
+            <li
+              onClick={() => {
+                setModality("Remote"), setModalityValue("remote");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Remote
+            </li>
+          ) : (
+            <li
+              onClick={() => {
+                setModality("Remoto"), setModalityValue("remote");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Remoto
+            </li>
+          )}
+          {language === "en" ? (
+            <li
+              onClick={() => {
+                setModality("Presential"), setModalityValue("on-site");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Presential
+            </li>
+          ) : (
+            <li
+              onClick={() => {
+                setModality("Presencial"), setModalityValue("on-site");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Presencial
+            </li>
+          )}
+</Dropdown>
+  </div>
+  </div>
+<div className=" flex items-center justify-center whitespace-nowrap">
+  
+      <button
+        className="background-button whitespace-nowrap mr-3"
+        onClick={() => handleFilters()}
+      >
+        Encontrar Vacante
+      </button>
+      <button
+        className="bg-linkIt-300 text-white rounded-full py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
+        onClick={() => {
+          dispatch(applyFilters(allJobOffers)),
+            setStack("Stack"),
+            setType(language === "en" ? "Type" : "Tipo"),
+            setModality(language === "en" ? "Modality" : "Modalidad"),
+            setCountry(
+              language === "en"
+                ? { value: "", label: "Location" }
+                : { value: "", label: "Ubicación" }
+            );
+        }}
+      >
+        <img
+          src="/Vectores/reset.svg"
+          alt="reset-filters"
+          className="w-[1.2rem] p-0.5 hover:rotate-180 transition-all duration-300 ease-in-out"
+        />
+      </button>
+  </div>
+  </div>
+  </div>
   );
 };
 

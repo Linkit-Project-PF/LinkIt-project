@@ -36,7 +36,7 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
                     </div>
                     <div>
                         <select 
-                        className="ml-2"
+                        className={`ml-2 styles-head`}
                         onChange={handleSort}
                         >
                             <option value="recent">Recientes</option>
@@ -72,6 +72,7 @@ export default function HeadClientsFollowUp({ hideCol, viewCol }: HeadClientsFol
                         type="text"
                         placeholder="Buscar"
                         onChange={(e) => handleSearch(e.target.value)}
+                        className={`styles-head`}
                     />
                 </div>
             </div>

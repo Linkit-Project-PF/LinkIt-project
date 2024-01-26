@@ -1,4 +1,4 @@
-import { motion, Variants} from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 import "./EbookResources.css";
@@ -40,7 +40,7 @@ function EbookResourcesCard({
   link,
   category,
 }: EbooksCardProps): JSX.Element {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <motion.div
@@ -48,7 +48,7 @@ function EbookResourcesCard({
         variants={cardVariants}
         initial="hidden"
         whileInView={"visible"}
-        viewport={{once: true}}
+        viewport={{ once: true }}
         exit="exit"
       >
         <div>

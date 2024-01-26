@@ -12,7 +12,7 @@ export default function NavSoluciones() {
       return (
         <div>
         <div className="grid-cols-2 hidden lg:grid">
-        <nav className="grid grid-col justify-center font-manrope font-bold text-[1.5rem] xl:text-[2rem] 1xl:text-[2.3rem]">
+        <nav className="grid grid-col justify-center font-manrope font-bold text-[0.7rem] xs:text-[0.9rem] ssm:text-[1.2rem] sm:text-[1.4rem] lg:text-[1.9rem] xl:text-[2.2rem]">
             <button className={`text-start ${activeButton === 1 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(1)}>1. {t('Rol asignado')}</button>
             <button className={`text-start ${activeButton === 2 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(2)}>2. {t('Pre-alineamiento')}</button>
             <button className={`text-start ${activeButton === 3 ? " text-linkIt-300" : "hover:text-linkIt-300" }`} onClick={() => handleClick(3)}>3. {t('Alineamiento')}</button>

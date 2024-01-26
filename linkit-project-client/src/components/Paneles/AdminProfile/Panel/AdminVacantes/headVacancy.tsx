@@ -109,7 +109,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                     </div>
                     <div>
                         <select
-                            className="ml-2"
+                            className={`ml-2 styles-head`}
                             onChange={handleDate}
                             value={sortDate}
                         >
@@ -196,6 +196,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         type="text"
                         placeholder="Buscar"
                         onChange={(e) => handleSearch(e.target.value)}
+                        className={`styles-head`}
                     />
                 </div>
             </div>

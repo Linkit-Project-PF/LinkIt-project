@@ -24,7 +24,7 @@ const eventCardVariants: Variants = {
       type: "spring",
     },
   },
-  exit:{
+  exit: {
     x: -100,
     transition: {
       duration: 1,
@@ -41,7 +41,7 @@ function EventResourceCard({
   description,
   link,
 }: EventCardProps) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const videoToThumbnail = (link: string) => {
     const videoId = link.split("v=")[1];
     return `https://img.youtube.com/vi/${videoId}/0.jpg`;
@@ -49,13 +49,13 @@ function EventResourceCard({
 
   return (
     <>
-      <motion.div 
-      className="border-[2px] h-[30rem] rounded-[7px] w-full flex flex-col font-montserrat lg-card-resources"
-      variants={eventCardVariants}
-      initial="hidden"
-      whileInView={"visible"}
-      viewport={{once: true}}
-      exit="exit"
+      <motion.div
+        className="border-[2px] h-[30rem] rounded-[7px] w-full flex flex-col font-montserrat lg-card-resources"
+        variants={eventCardVariants}
+        initial="hidden"
+        whileInView={"visible"}
+        viewport={{ once: true }}
+        exit="exit"
       >
         {image.includes("youtube") ? (
           <div
@@ -63,7 +63,11 @@ function EventResourceCard({
             style={{ backgroundImage: `url(${videoToThumbnail(image)})` }}
           />
         ) : (
-          <img src={image} alt="event image" className="h-[20rem] rounded-[7px] w-full" />
+          <img
+            src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
+            alt={title}
+            className="h-[20rem] rounded-[7px] w-full"
+          />
         )}
         <div className="flex flex-col h-[100%] p-[2rem]">
           <div>

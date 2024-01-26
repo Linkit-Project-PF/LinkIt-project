@@ -105,7 +105,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
                     <div>
                         <select 
                         onChange={handleSort}
-                        className="ml-2"
+                        className={`styles-head ml-2`}
                         >
                             <option value="recent">Recientes</option>
                             <option value="old">Antiguos</option>
@@ -142,6 +142,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
                         type="text"
                         placeholder="Buscar"
                     onChange={(e) => handleSearch(e.target.value)}
+                    className={`styles-head`}
                     />
                 </div>
                 {viewForm && <FormResource

@@ -167,7 +167,7 @@ export default function Users() {
     </div>
   )
 
-  const renderSectionBasic = <K extends keyof TalentProps>(title: string, key: K,) => (
+  const renderSectionBasicCV = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
       <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
         <h1>{title}</h1>
@@ -197,6 +197,31 @@ export default function Users() {
     </div>
   )
   const renderSectionBasicCap = <K extends keyof TalentProps>(title: string, key: K,) => (
+    <div>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+        <h1>{title}</h1>
+      </div>
+      <div>
+        {dataToShow.map((r: TalentProps, index) => (
+          <div
+            key={`${key}-${index}`}
+            className={selectedRows.has(r._id) ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+          >
+            <p>{selectedRows.has(r._id) && editing ?
+              <input
+                name={key}
+                type="text"
+                defaultValue={r[key] as any}
+                onChange={handleChange}
+                className="bg-linkIt-500 text-black"
+              />
+              : String(r[key] === undefined || NaN ? '' : r[key])}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+  const renderSectionBasic = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
       <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
         <h1>{title}</h1>
@@ -257,10 +282,10 @@ export default function Users() {
         {viewCol.apellido && renderSectionBasicCap("Apellido", "lastName")}
         {viewCol.pais && renderSectionBasicCap("País", "country")}
         {viewCol.correo && renderSectionBasic("Correo", "email")}
-        {viewCol.curriculum && renderSectionBasic("Curriculum", "cv")}
+        {viewCol.curriculum && renderSectionBasicCV("Curriculum", "cv")}
         {viewCol.linkedin && renderSectionBasic("Linkedin", "linkedin")}
         {viewCol.tecnologías && renderSectionBasicNoEdit("Tecnologías", "technologies")}
-        {viewCol["Fecha de creación"] && renderSectionBasicNoEdit("Fecha de creación", "registeredDate")}
+        {viewCol["Fecha de creación"] && renderSectionBasicNoEdit("Fecha de creación", "createdDate")}
         {viewCol.postulaciones && renderSectionBasicNoEdit("Postulaciones", "postulations")}
         {viewCol["Nivel de inglés"] && renderSectionBasicNoEdit("Nivel de inglés", "englishLevel")}
         {viewCol.imágen && renderSectionBasic("Imágen", "image")}

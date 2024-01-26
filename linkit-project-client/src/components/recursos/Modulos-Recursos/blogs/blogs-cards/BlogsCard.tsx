@@ -2,7 +2,6 @@ import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import "./BlogsCards.css";
 
 type BlogsCardProps = {
   image: string;
@@ -26,7 +25,7 @@ const blogsCardVariants: Variants = {
       type: "spring",
     },
   },
-  exit:{
+  exit: {
     x: -100,
     transition: {
       duration: 1,
@@ -34,12 +33,12 @@ const blogsCardVariants: Variants = {
       type: "spring",
     },
   }
-  
+
 }
 
 function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
   const [key, setKey] = useState(Math.random());
-  const{t} = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -52,7 +51,7 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
 
   return (
     <motion.div 
-    className="flex flex-col border-[0.13rem] w-[60vw] lg:w-[25vw] rounded-[0.625rem] font-montserrat lg:h-[73vh] items-center justify-center bg-white container"
+    className="border-[2px] w-full h-full rounded-xl font-montserrat  bg-white"
     variants={blogsCardVariants}
     initial="hidden"
     animate="visible"
@@ -60,27 +59,27 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
     key={key}
     >
       <img
-        src={image}
+        src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
         alt={title}
-        className={`w-full h-[15rem] lg:h-[8rem] xl:h-[20rem] rounded-[0.625rem] ${
+        className={`w-full rounded-xl ${
           title.length > 20 ? "xl:-mt-4" : ""
         } image`}
       />
-      <div className="p-[3rem] flex flex-col flex-grow w-full justify-between lg:p-[1.5rem] xl:p-[1.8rem] content-container">
-        <div>
-          <p className="border-[2px] text-[0.8rem] mb-[1rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] lg:p-[.7rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] genre">
-            {genre}
-          </p>
-          <h1 className="font-bold text-[1rem] lg:text-[.8rem] title-card">
-            {title}
-          </h1>
-          <p className="font-semibold text-[0.9rem] lg:text-[.8rem] w-full mt-[15px] xl:mb-[1rem] description">
-            {description}
-          </p>
-        </div>
+      <div className="grid justify-items-start h-full p-[7%]">
+
+        <p className="border-[1px] text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+          {genre}
+        </p>
+        <h1 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.5rem] md:text-[1.8rem]">
+          {title}
+        </h1>
+        <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem]">
+          {description}
+        </p>
+
         <motion.a
           onClick={handleClick}
-          className="text-[1rem] font-bold lg:text-[.8rem] lg:mt-[1rem] link"
+          className="text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] font-bold mt-2 xs:mt-3"
           whileHover={{ scale: 1.02, cursor: 'pointer' }}
           whileTap={{ scale: 1 }}
         >

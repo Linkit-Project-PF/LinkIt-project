@@ -52,7 +52,7 @@ export const i18nOptions: InitOptions = {
          "y selección":"and selection",
          "Identificamos a profesionales con la experiencia adecuada para tus proyectos. Evaluamos habilidades técnicas, experiencia previa, cultura e idioma, para así lograr construir un equipo eficiente y exitoso.":"We identify professionals with the appropriate experience for your projects. We evaluate technical skills, previous experience, culture and language, in order to build an efficient and successful team.",
          "Contratación":"Hiring",
-         "Agranda tu equipo y reduce tu costos de contratación con talento externo, aumentando la capacidad productiva, sin compromisos a largo plazo. Dedícate a lo que es realmente importante; elimina los tiempos administrativos y operativos de la gestión contractual y de pagos.":"Expand your team and reduce your hiring costs with external talent, increasing productive capacity, without long-term commitments. Dedicate yourself to what is really important; eliminates administrative and operational times for contractual and payment management.",
+         "Agranda tu equipo y reduce tu costo de contratación con talento externo, aumentando la capacidad productiva, sin compromisos a largo plazo. Dedícate a lo que es realmente importante; elimina los tiempos administrativos y operativos de la gestión contractual y de pagos.":"Expand your team and reduce your hiring costs with external talent, increasing productive capacity, without long-term commitments. Dedicate yourself to what is really important; eliminates administrative and operational times for contractual and payment management.",
          "Gestión":"Management",
          "y beneficios":"and benefits",
          "Implementamos planes de beneficios y estrategias de retención para lograr equipos de alto desempeño, realizando informes y asesoramiento personalizado ayudando a tu empresa a retener talento global de manera escalable.":"We implement benefit plans and retention strategies to achieve high-performance teams, providing personalized reports and advice, helping your company retain global talent in a scalable way.",
@@ -111,6 +111,18 @@ export const i18nOptions: InitOptions = {
          "En este paso, nuestro compromiso va más allá de la entrevista. Buscamos acompañarte durante todo el proceso, brindando la mejor experiencia tanto a los candidatos como a nuestros clientes. Realizamos un seguimiento detallado en cada etapa, siempre en búsqueda de la excelencia y listos para ajustar el rumbo si es necesario.":"In this step, our commitment goes beyond the interview. We seek to accompany you throughout the entire process, providing the best experience to both candidates and our clients. We carry out detailed monitoring at every stage, always striving for excellence and ready to adjust course if necessary.",
          "En LinkIT, convertimos la presión en progreso y el seguimiento en éxito. Estamos preparados para elevar tus entrevistas y negociaciones al siguiente nivel.":"At LinkIT, we turn pressure into progress and follow-through into success. We are prepared to take your interviews and negotiations to the next level.",
          "¡Contáctanos y descubre el poder de la determinación con una sonrisa!":"Contact us and discover the power of determination with a smile!",
+         //Company calculator
+         "Calculadora":"Calculator",
+         "Posición":"Position",
+         "Inglés":"English",
+         "Básico":"Basic",
+         "Intermedio":"Intermediate",
+         "Avanzado":"Advanced",
+         "Otros":"Others",
+         "Tecnologías":"Technologies",
+         "Calcular":"Calculate",
+         "Mínimo":"Minimum",
+          "Máximo":"Maximum",
          //Company module I
          "Contáctanos":"Contact us",
          "¿Qué servicio te interesa?":"What service are you interested in?",
@@ -282,7 +294,7 @@ export const i18nOptions: InitOptions = {
         "Oportunidades en más de 100 tecnologías":"Opportunities in more than 100 technologies",
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!":"If none of these vacancies are for you, don't worry, there are many more to come!",
-        "Contáctanos para futuras oportunidades":"Contact us for future opportunities",
+        "Súmate a nuestra base de datos":"Join our database",
         //!Talentos Job filters
         "Encontrar Vacante":"Find vacancies",
         //!Footer
@@ -516,7 +528,6 @@ export const i18nOptions: InitOptions = {
         "Tiempo completo":"Full time",
         "Medio tiempo":"Part-time",
         "Independiente":"Freelance",
-        "Tecnologías":"Technologies",
         "Deseable":"Desirable",
         "Requisitos":"Requirements",
         "Responsabilidades":"Responsibilities",
@@ -575,8 +586,7 @@ export const i18nOptions: InitOptions = {
         'Volver atrás':'Go back',
         'Cancelado':'Cancelled',
         'Tu postulación sigue en curso':'Your application is still in progress',
-
-
+        
         //! Permission Form
         "Administradores":"Admins",
         "Empresas":"Companies",
@@ -584,7 +594,10 @@ export const i18nOptions: InitOptions = {
         "Consultar":"Retrieve",
         "Eliminar":"Delete",
         "Enviado":"Saved",
-        "Permisos cambiados con éxito": "Successfully changed permissions"
+        "Permisos cambiados con éxito": "Successfully changed permissions",
+
+        //! MISC
+        
       },
     }
   },
@@ -592,7 +605,6 @@ export const i18nOptions: InitOptions = {
 
 i18n
   .use(initReactI18next)
-  // .use(LanguageDetector)
   .init(i18nOptions);
 
 export default i18n;
