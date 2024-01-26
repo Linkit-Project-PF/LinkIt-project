@@ -156,7 +156,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
           >X</button>
         </div>
         <div>
-          <h1 className="text-3xl mb-6">{t(`Nuevo recurso ${information.type}`)}</h1>
+          <h1 className="text-3xl mb-6">{t(`Nuevo recurso ${information.type === 'social' ? 'evento': information.type}`)}</h1>
         </div>
 
         <form
@@ -176,11 +176,11 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   <option value="">{t('Selecciona')}</option>
                   <option value="blog">Blog</option>
                   <option value="ebook">Ebook</option>
-                  <option value="event">Event</option>
+                  <option value="social">Event</option>
                 </select>
               </div>
             </div>
-            {information.type === 'event' || information.type === 'ebook' ? (
+            {information.type === 'social' || information.type === 'ebook' ? (
               <div className="flex flex-row flex-wrap w-[110vh]">
                 <div className="w-fit mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Título')}</label>
