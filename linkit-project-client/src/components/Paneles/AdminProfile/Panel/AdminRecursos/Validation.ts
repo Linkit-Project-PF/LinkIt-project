@@ -19,9 +19,6 @@ export const validations = (resource: ResourceProps) => {
   if (!resource.link) {
     errors.link = "Link requerido";
   }
-  if (!resource.image) {
-    errors.image = "Imagen requerido";
-  }
   if (!resource.category) {
     errors.category = "Categoría requerido";
   }

@@ -190,32 +190,8 @@ export default function Resources() {
       </div>
     </div>
   )
+
   const renderSectionBasicCap = <K extends keyof ResourceProps>(title: string, key: K,) => (
-    <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
-        <h1>{title}</h1>
-      </div>
-      <div>
-        {dataToShow?.map((r: ResourceProps, index) => (
-          <div
-            key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
-          >
-            <p>{selectedRows.has(r._id) && editing ?
-              <input
-                name={key}
-                type="text"
-                defaultValue={r[key] as any}
-                onChange={handleChange}
-                className="bg-linkIt-500 text-black"
-              />
-              : String(r[key] === undefined || NaN ? '' : r[key])}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-  const renderSectionBasicCapType = <K extends keyof ResourceProps>(title: string, key: K,) => (
     <div>
       <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
         <h1>{title}</h1>
@@ -234,7 +210,7 @@ export default function Resources() {
                 onChange={handleChange}
                 className="bg-linkIt-500 text-black"
               />
-              : String(r[key] === undefined || NaN ? '' : r[key] && r[key]=== 'social' ? 'evento' :r[key])}</p>
+              : String(r[key] === undefined || NaN ? '' : r[key] && r[key] === 'social' ? 'evento' : r[key])}</p>
           </div>
         ))}
       </div>
@@ -275,7 +251,7 @@ export default function Resources() {
         {viewCol.title && renderSectionSelect("Título", "title")}
         {viewCol._id && renderSectionBasicNoEdit("ID", "_id")}
         {viewCol.link && renderSectionBasic("Link", "link")}
-        {viewCol.type && renderSectionBasicCapType("Tipo", "type")}
+        {viewCol.type && renderSectionBasicCap("Tipo", "type")}
         {viewCol.createdDate && renderSectionBasic("Fecha de Creación", "createdDate")}
         {viewCol.image && renderSectionBasic("URL Imágen", "image")}
         {viewCol.category && renderSectionBasicCap("Categoría", "category")}
