@@ -41,7 +41,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     headers: [],
     createdBy: user.firstName.concat(user.lastName),
   });
-  console.log(information)
 
   const [infoList, setInfoList] = useState<Header>(
     {
@@ -83,7 +82,6 @@ export default function FormResource({ onClose, }: FormResourceProps) {
     category: "",
     headers: [],
   });
-  console.log(errors)
 
   const handleChangeInfoList = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -156,7 +154,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
           >X</button>
         </div>
         <div>
-          <h1 className="text-3xl mb-6">{t(`Nuevo recurso ${information.type === 'social' ? 'evento': information.type}`)}</h1>
+          <h1 className="text-3xl mb-6">{t(`Nuevo recurso ${information.type === 'social' ? 'evento' : information.type}`)}</h1>
         </div>
 
         <form
@@ -207,17 +205,30 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                     onBlur={handleBlurErrors}
                   />
                 </div>
-
-                <div className="w-fit px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
-                  <CloudinaryUploadWidget
-                    setFileName={setFileName}
-                    setFilePublicId={setFilePublicId}
-                    className="ml-2"
-                  >
-                    <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
-                  </CloudinaryUploadWidget>
-                </div>
+                {information.type === 'social' && (
+                  <div className="w-fit px-3 mb-6">
+                    <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
+                    <div
+                      className={"flex items-center appearance-none w-60 h-[50px] bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"}
+                    >
+                      <input
+                      className="w-full h-full border-none"
+                        type="text"
+                        name="image"
+                        placeholder="Link Youtube"
+                        autoComplete="off"
+                        onChange={handleChange}
+                      />
+                      <CloudinaryUploadWidget
+                        setFileName={setFileName}
+                        setFilePublicId={setFilePublicId}
+                        className="ml-2"
+                      >
+                        <img className="w-10" src="/Vectores/upload-circle.svg" alt="" />
+                      </CloudinaryUploadWidget>
+                    </div>
+                  </div>
+                )}
 
                 <div className="w-fit px-3 mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Categoría')}</label>
@@ -268,13 +279,13 @@ export default function FormResource({ onClose, }: FormResourceProps) {
 
                 <div className="w-fit px-3 mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Imagen')}</label>
-                  <div className={errors.image ? 'flex flex-row appearance-none justify-center pr-7 items-center w-fit h-[50px] bg-linkIt-500 border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500' : 'flex pr-7 flex-row  appearance-none  w-fit bg-linkIt-500 text-black border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white'}>
+                  <div>
                     <CloudinaryUploadWidget
                       setFileName={setFileName}
                       setFilePublicId={setFilePublicId}
                       className="ml-2"
                     >
-                      <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
+                      <img className="w-10" src="/Vectores/upload-circle.svg" alt="" />
                     </CloudinaryUploadWidget>
                   </div>
                 </div>
@@ -330,7 +341,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                     setFilePublicId={setFilePublicIdSect}
                     className="ml-2"
                   >
-                    <img className="w-6" src="/Vectores/upload-circle.svg" alt="" />
+                    <img className="w-10" src="/Vectores/upload-circle.svg" alt="" />
                   </CloudinaryUploadWidget>
                 </div>
 
@@ -392,7 +403,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
             }
           </div>
         </form>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
