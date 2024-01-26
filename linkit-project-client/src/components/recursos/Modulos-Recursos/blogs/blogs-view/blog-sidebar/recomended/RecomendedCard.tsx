@@ -25,7 +25,7 @@ const blogsCardVariants: Variants = {
       type: "spring",
     },
   },
-  exit:{
+  exit: {
     x: -100,
     transition: {
       duration: 1,
@@ -33,32 +33,36 @@ const blogsCardVariants: Variants = {
       type: "spring",
     },
   }
-  
+
 }
 
 
 function RecomendedCard({ title, description, image, genre, _id }: BlogsCardProps) {
-    const{t} = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate();
 
+  
   const handleClick = () => {
-    navigate(`/blog/${_id}`);
+    navigate(`/blog/${_id}`)
+    window.location.reload();
   }
+
   return (
-    <motion.div 
-    className="flex flex-col border-[0.13rem] w-[20vw] h-full rounded-[0.625rem] font-montserrat items-center justify-center bg-white mt-[10%]"
-    variants={blogsCardVariants}
-    initial="hidden"
-    animate="visible"
-    exit="exit"
+    <motion.div
+      className="flex flex-col border-[0.13rem] w-[20vw] h-full rounded-[0.625rem] font-montserrat items-center justify-center bg-white mt-[10%]"
+      variants={blogsCardVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
     >
-      <img
-        src={image}
-        alt={title}
-        className={`w-full h-[15rem] lg:h-[8rem] xl:h-[20rem] rounded-[0.625rem] ${
-          title.length > 20 ? "xl:-mt-4" : ""
-        } image`}
-      />
+      {image && (
+        <img
+          src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
+          alt={title}
+          className={`w-full h-[15rem] lg:h-[8rem] xl:h-[20rem] rounded-[0.625rem] ${title.length > 20 ? "xl:-mt-4" : ""
+            } image`}
+        />
+      )}
       <div className="p-[3rem] flex flex-col flex-grow w-full justify-between lg:p-[1.5rem] xl:p-[1.8rem] ">
         <div>
           <p className="border-[2px] text-[0.8rem] mb-[1rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] lg:p-[.7rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] ">
