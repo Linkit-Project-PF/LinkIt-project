@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IUser, ICompany, IAdmin, WebsiteUser } from "./types";
 import { SUPERADMN_ID } from "../../env";
+import { UserLogin } from "../Login/type";
 
 interface responseType {
   data: WebsiteUser
@@ -36,7 +37,7 @@ export async function editWebUserImage(user: WebsiteUser, image: string): Promis
   return data
 }
 
-export async function changePassword(user: WebsiteUser): Promise<string> {
+export async function changePassword(user: WebsiteUser | UserLogin): Promise<string> {
   const {data} = await axios.get(`${URL}/auth/resetPassword?email=${user.email}`, {headers: {
     Authorization: `Bearer ${SUPERADMN_ID}`,
     'Accept-Language': sessionStorage.getItem('lang')

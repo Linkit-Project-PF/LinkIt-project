@@ -6,7 +6,7 @@ import "./LoginTalent.css";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios, { AxiosError } from "axios";
 import {
   GoogleAuthProvider,
@@ -22,6 +22,8 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
 import { IUser } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
+import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
+import { UserLogin } from "../type.ts";
 
 type Event = {
   target: HTMLInputElement;
@@ -34,11 +36,13 @@ function LoginTalent() {
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
   const [loading, isLoading] = useState(false);
+  const [resetPassword, setRessetpassword] = useState(false);
 
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
     dispatch(setPressLoginTalent("hidden"));
   };
+
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -53,7 +57,7 @@ function LoginTalent() {
   };
 
   const [thirdParty, setThirdParty] = useState<boolean | undefined>(false);
-  const [user, setUser] = useState({
+  const [user, setUser]  = useState<UserLogin>({
     email: "",
     password: "",
   });
@@ -78,6 +82,12 @@ function LoginTalent() {
       [target.name]: fieldErrors[target.name as keyof typeof fieldErrors],
     });
   };
+
+  const handleResetPassword = (): void => {
+    if(resetPassword === true) setRessetpassword(false);
+    else setRessetpassword(true);
+  }
+
 
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -278,6 +288,7 @@ function LoginTalent() {
     }
   }, [thirdParty]);
 
+
   return (
     <>
       <div
@@ -338,10 +349,10 @@ function LoginTalent() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
+            <p className="text-[.8rem] self-start ml-[6%] font-manrope cursor-pointer">
               <motion.a
-                href="_blank"
-                
+
+                onClick={handleResetPassword}
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}
@@ -396,6 +407,16 @@ function LoginTalent() {
             {t("INGRESO PARA TALENTOS")}
           </h3>
         </form>
+        {resetPassword && (
+          <motion.div 
+          className="bg-slate-50 absolute pt-56 pb-96 h-96">
+            <ResetPassword 
+              user={user}
+              handleResetPassword={handleResetPassword}
+              />
+          </motion.div>
+          )
+        }
       </div>
     </>
   );
