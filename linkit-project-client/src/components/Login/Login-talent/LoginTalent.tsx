@@ -20,8 +20,9 @@ import { SUPERADMN_ID } from "../../../env.ts";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
-import { IUser } from "../../Profiles/types.ts";
+import { IUser, UserLoginType } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
+import { changePassword } from "../../Profiles/api.ts";
 
 type Event = {
   target: HTMLInputElement;
@@ -53,11 +54,11 @@ function LoginTalent() {
   };
 
   const [thirdParty, setThirdParty] = useState<boolean | undefined>(false);
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserLoginType>({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<UserLoginType>({
     email: "",
     password: "",
   });
@@ -98,15 +99,7 @@ function LoginTalent() {
           }
         }
       );
-      // const response = await axios.get<IUser>(
-      //   `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${SUPERADMN_ID}`,
-      //       "Accept-Language": sessionStorage.getItem("lang"),
-      //     },
-      //   }
-      // );
+      
       const loggedUser = response.data;
 
       if (response.status === 200) {
@@ -137,6 +130,63 @@ function LoginTalent() {
       });
     }
   };
+
+  //* ResetPassword
+  const resetPasswordHandler = (user: UserLoginType): void => {
+    const confirmEmailAlert = (user: UserLoginType) => {
+      Swal.fire({
+        title: t('¡Confirmación de email exitoso!'),
+        text: t('Hemos confirmado tu correo electrónico. Pronto recibirás un correo con las instrucciones para cambiar tu contraseña.'),
+        icon: "success",
+        iconColor: "#173951",
+        background: "#ECEEF0",
+        allowOutsideClick: true,
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      })
+      changePassword(user);
+    }
+    Swal.fire({
+      title: t ('Restablecer Contraseña'),
+      text: t('Por favor, confirme su correo electrónico: ' + user.email),
+      input: "email",
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+  }).then((result) => {
+      if (result.isConfirmed) {
+          const email = result.value;
+          if(user.email.length) {
+            if(email === user.email) {
+              confirmEmailAlert(user);
+            }else {
+              Swal.fire({
+                title: t('¡El email no coincide!'),
+                text: t('Asegurate de escribir bien el correo'),
+                icon: "error",
+                background: "#ECEEF0",
+                allowOutsideClick: true,
+                confirmButtonColor: "#01A28B",
+                confirmButtonText: t("Continuar"),
+              }).then(() => {
+                if (result.isConfirmed){
+                  Swal.fire({
+                    title: t ('Restablecer Contraseña'),
+                    text: t('Por favor, confirme su correo electrónico: ' + user.email),
+                    input: "email",
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Enviar',
+                    cancelButtonText: 'Cancelar',
+                })
+                }
+              });
+            }
+          } else confirmEmailAlert(user);
+      }
+  });
+  }
 
   const handleAuthClick = async (prov: string) => {
     try {
@@ -340,8 +390,8 @@ function LoginTalent() {
             </div>
             <p className="text-[.8rem] self-start ml-[6%] font-manrope">
               <motion.a
-                href="_blank"
-                
+                onClick={()=>resetPasswordHandler(user)}
+                className="cursor-pointer"
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}
