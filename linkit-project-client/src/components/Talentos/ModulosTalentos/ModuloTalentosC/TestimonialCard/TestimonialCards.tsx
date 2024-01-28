@@ -2,10 +2,16 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import TestimonialCard, { TestimonialCardProps } from './TestimonialCard'; 
 import { getReviews } from '../../../../Services/reviews.service';
 import blackArrow from "/Vectores/arrow.png"
+import whiteArrow from "/Vectores/white-arrow.png"
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../redux/types";
 
 const TestimonialCards: FunctionComponent = () => {
   const [current, setCurrent] = useState(0);
   const [reviews, setReviews] = useState<TestimonialCardProps[]>([])
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode);
+
 
   // Display 3 testimonials at a time
   const testimonialsPerPage = 3;
@@ -38,7 +44,7 @@ const TestimonialCards: FunctionComponent = () => {
   
   return (
     <div className="my-[5%] w-full h-[20rem] flex space-x-6 items-center justify-center">
-      <img src={blackArrow} alt="prev" onClick={handlePrev} className='rotate-90 w-[20px] h-[20px] cursor-pointer' />
+      <img src={isDarkMode ? whiteArrow : blackArrow} alt="prev" onClick={handlePrev} className='rotate-90 w-[20px] cursor-pointer' />
       <div className="w-full h-full space-x-4 grid grid-cols-3">
         {testimonialsToShow.map((testimonial, _id) => (
           <div className="" key={testimonial._id}>
@@ -46,7 +52,7 @@ const TestimonialCards: FunctionComponent = () => {
           </div>
         ))}
       </div>
-        <img src={blackArrow} alt="next" onClick={handleNext} className='-rotate-90 w-[20px] h-[20px] cursor-pointer' />
+        <img src={isDarkMode ? whiteArrow : blackArrow} alt="next" onClick={handleNext} className='-rotate-90 w-[20px] cursor-pointer' />
       
     </div>
   );
