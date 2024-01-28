@@ -41,6 +41,7 @@ function LoginTalent() {
     dispatch(setPressLoginTalent("hidden"));
   };
 
+
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
       setVisiblePassword("text");
@@ -328,6 +329,7 @@ function LoginTalent() {
     }
   }, [thirdParty]);
 
+
   return (
     <>
       <div
@@ -388,7 +390,7 @@ function LoginTalent() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
+            <p className="text-[.8rem] self-start ml-[6%] font-manrope cursor-pointer">
               <motion.a
                 onClick={()=>resetPasswordHandler(user)}
                 className="cursor-pointer"
