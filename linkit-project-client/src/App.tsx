@@ -239,7 +239,7 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home Unauth={false} error={false} />} />
+        <Route path="/" element={<Home Unauth={false} error={false} Verify={false}/>} />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
@@ -257,9 +257,10 @@ function App() {
         <Route path="/blog/:id" element={<BlogView />} />
         <Route
           path="/unauthorized"
-          element={<Home Unauth={true} error={false} />}
+          element={<Home Unauth={true} error={false} Verify={false} />}
         />
-        <Route path="*" element={<Home Unauth={false} error={true} />} />
+        <Route path="/verify" element={<Home Verify={true} Unauth={false} error={false}/>} />
+        <Route path="*" element={<Home Unauth={false} error={true} Verify={false} />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>} />
         <Route path="/TermsAndConditions" element={<TermsAndConditions/>} />
       </Routes>
