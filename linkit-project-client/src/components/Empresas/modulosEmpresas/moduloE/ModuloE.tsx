@@ -4,12 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import whiteArrow from "/Vectores/white-arrow.png"
 
+
 export default function ModuloE() {
   const { t } = useTranslation();
 
   const [isActive, setIsActive] = useState(1);
   const [position, setPosition] = useState(0);
-
+  
   const handleNext = () => {
       if (isActive === 4) {
           setIsActive(1)
@@ -32,34 +33,34 @@ export default function ModuloE() {
   return (
     <div className="p-[7%] relative bg-linkIt-200 text-white">
       <div className=" lg:flex flex-col  justify-center hidden  h-full before:absolute before:w-full before:h-[18%] before:bg-linkIt-500 dark:before:bg-linkIt-400 before:top-[-8%] before:left-0 before:-skew-y-3 after:absolute after:w-full after:h-[5px] after:bg-linkIt-200 after:top-[8%] after:left-0 after:-skew-y-3">
-        <h1 className="flex font-bold text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] sm:text-[1.5rem] lg:text-[2rem] xl:text-[2.3rem] justify-center mt-[5%]">{t('¿Qué nos hace diferentes?')}</h1>
+        <h1 className="flex font-bold titles-size justify-center mt-[5%]">{t('¿Qué nos hace diferentes?')}</h1>
             <div>
                 <ul className="grid grid-cols-4">
                     <div className="flex flex-col text-center items-center">
-                        <li className="text-[1.3rem] xl:text-[1.5rem] font-manrope font-bold mt-[10%] justify-self-center">{t('Sin riesgos')}</li>
-                        <p className="text-center text-[0.8rem] xl:text-[1rem] mt-[5%] font-montserrat font-medium px-[15%]">{t('Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.')}</p>
+                        <li className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Sin riesgos')}</li>
+                        <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.')}</p>
                         <br />
                     </div>
                     <div className="flex flex-col text-center items-center">
-                        <li className="text-[1.3rem] xl:text-[1.5rem] font-manrope font-bold mt-[10%] justify-self-center">{t('Fee a medida')}</li>
-                        <p className="text-center text-[0.8rem] xl:text-[1rem] mt-[5%] font-montserrat font-medium px-[15%]">{t('Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.')}</p>
-                        <br />
-
-                    </div>
-                    <div className="flex flex-col text-center items-center">
-                        <li className="text-[1.3rem] xl:text-[1.5rem] font-manrope font-bold mt-[10%] justify-self-center">{t('Garantía')}</li>
-                        <p className="text-center text-[0.8rem] xl:text-[1rem] mt-[5%] font-montserrat font-medium px-[15%]">{t('Garantía de por vida contratando a través de LinkIT.')}</p>
+                        <li className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Fee a medida')}</li>
+                        <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.')}</p>
                         <br />
 
                     </div>
                     <div className="flex flex-col text-center items-center">
-                        <li className="text-[1.3rem] xl:text-[1.5rem] font-manrope font-bold mt-[10%] justify-self-center">{t('Seguimiento continuo')}</li>
-                        <p className="text-center text-[0.8rem] xl:text-[1rem] mt-[5%] font-montserrat font-medium px-[15%]">{t('Asignamos un equipo de trabajo específico proporcionando un servicio integral y personalizado durante todo el proceso.')}</p>
+                        <li className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Garantía')}</li>
+                        <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Garantía de por vida contratando a través de LinkIT.')}</p>
+                        <br />
+
+                    </div>
+                    <div className="flex flex-col text-center items-center">
+                        <li className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center whitespace-nowrap">{t('Seguimiento continuo')}</li>
+                        <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Asignamos un equipo de trabajo específico proporcionando un servicio integral y personalizado durante todo el proceso.')}</p>
                         <br />
                     </div>
                 </ul>
                 <ul className="grid grid-cols-4 justify-items-center relative mt-[2vh] font-manrope">
-                <div className="lineE top-[3vh] 2xl:top-[3.5vh]"></div>
+                <div className="lineE top-[8px] md:top-[12px] md:left-[20px] lg:top-[15px] lg:left-[20px] xl:top-[30px] xl:left-[20px] 2xl:top-[30px] 2xl:left-[47px]"></div>
                     <li className="flex items-center justify-center text-sm md:text-sm lg:text-base xl:text-xl 2xl:text-2xl h-5 w-5 md:h-7 md:w-7 lg:h-10 lg:w-10 xl:h-16 xl:w-16 2xl:h-16 2xl:w-16 font-bold  text-linkIt-200 bg-white rounded-full z-20">1</li>
                     <li className="flex items-center justify-center text-sm md:text-sm lg:text-base xl:text-xl 2xl:text-2xl h-5 w-5 md:h-7 md:w-7 lg:h-10 lg:w-10 xl:h-16 xl:w-16 2xl:h-16 2xl:w-16 font-bold  text-linkIt-200 bg-white rounded-full z-20">2</li>
                     <li className="flex items-center justify-center text-sm md:text-sm lg:text-base xl:text-xl 2xl:text-2xl h-5 w-5 md:h-7 md:w-7 lg:h-10 lg:w-10 xl:h-16 xl:w-16 2xl:h-16 2xl:w-16 font-bold  text-linkIt-200 bg-white rounded-full z-20">3</li>
@@ -68,15 +69,16 @@ export default function ModuloE() {
             </div>
             </div>
             <div className="lg:hidden">
+            <h1 className="flex font-bold titles-size justify-center mt-[5%] text-center">{t('¿Qué nos hace diferentes?')}</h1>
             <div className="flex  dark:text-white text-center space-x-2 items-center ssm:space-x-10 sm:space-x-12"> 
-            <img className="relative top-[1.2rem] rotate-90 w-1/12 h-[20px] cursor-pointer" onClick={handlePrev} src={whiteArrow} alt="gray-Arrow" />
+            <img className="relative top-[1.2rem] rotate-90 w-[20px] cursor-pointer" onClick={handlePrev} src={whiteArrow} alt="gray-Arrow" />
             <div className="mt-5">
-            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 1 ? 1 : 0, scale: 1}} transition={{duration: 0.3}} className={`${isActive === 1 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold text-[1.1rem] xs:text-[1.2rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem]">{t('Sin riesgos')}</h2><p className="font-montserrat font-medium text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] md:text-[1.6rem] xs:mx-1.5" >{t('Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.')}</p></motion.div>
-            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 2 ? 1 : 0, scale: 1}} transition={{duration: 1}} className={`${isActive === 2 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold text-[1.1rem] xs:text-[1.2rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] ">{t('Fee a medida')}</h2><p className="font-montserrat font-medium text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] md:text-[1.6rem] xs:mx-1.5 sm:mx-10  ">{t('Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.')}</p></motion.div>
-            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 3 ? 1 : 0, scale: 1}} transition={{duration: 1}} className={`${isActive === 3 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold text-[1.1rem] xs:text-[1.2rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] ">{t('Garantía')}</h2><p className="font-montserrat font-medium text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] md:text-[1.6rem] xs:mx-1.5 sm:mx-10  ">{t('Garantía de por vida contratando a través de LinkIT.')}</p></motion.div>
-            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 4 ? 1 : 0, scale: 1}} transition={{duration: 1}} className={`${isActive === 4 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold text-[1.1rem] xs:text-[1.2rem] whitespace-nowrap ssm:text-[1.5rem] md:text-[2rem] ">{t('Seguimiento continuo')}</h2><p className="font-montserrat font-medium text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] md:text-[1.6rem] xs:mx-1.5 sm:mx-10  ">{t('Asignamos un equipo de trabajo específico proporcionando un servicio integral y personalizado durante todo el proceso.')}</p></motion.div>
+            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 1 ? 1 : 0, scale: 1}} transition={{duration: 0.3}} className={`${isActive === 1 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold subtitles-size whitespace-nowrap ">{t('Sin riesgos')}</h2><p className="font-montserrat font-medium text-size xs:mx-1.5" >{t('Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.')}</p></motion.div>
+            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 2 ? 1 : 0, scale: 1}} transition={{duration: 1}} className={`${isActive === 2 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold subtitles-size whitespace-nowrap  ">{t('Fee a medida')}</h2><p className="font-montserrat font-medium text-size xs:mx-1.5 sm:mx-10  ">{t('Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.')}</p></motion.div>
+            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 3 ? 1 : 0, scale: 1}} transition={{duration: 1}} className={`${isActive === 3 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold subtitles-size whitespace-nowrap  ">{t('Garantía')}</h2><p className="font-montserrat font-medium text-size xs:mx-1.5 sm:mx-10  ">{t('Garantía de por vida contratando a través de LinkIT.')}</p></motion.div>
+            <motion.div initial={{opacity: 0, scale: 0.5}} animate={{opacity: isActive === 4 ? 1 : 0, scale: 1}} transition={{duration: 1}} className={`${isActive === 4 ? 'block' : 'hidden'} space-y-3`}><h2 className="font-manrope font-bold subtitles-size whitespace-nowrap  ">{t('Seguimiento continuo')}</h2><p className="font-montserrat font-medium text-size xs:mx-1.5 sm:mx-10  ">{t('Asignamos un equipo de trabajo específico proporcionando un servicio integral y personalizado durante todo el proceso.')}</p></motion.div>
             </div>
-            <img className="relative top-5  -rotate-90 w-1/12 h-[20px] cursor-pointer" onClick={handleNext} src={whiteArrow} alt="gray-Arrow" />
+            <img className="relative top-5  -rotate-90 w-[20px] cursor-pointer" onClick={handleNext} src={whiteArrow} alt="gray-Arrow" />
             </div>
             <motion.div className="relative w-[335vw] before:bg-white before:w-full before:h-[2px] before:absolute before:rounded-full before:top-[45%]"
             initial={{x: position + '%'}}

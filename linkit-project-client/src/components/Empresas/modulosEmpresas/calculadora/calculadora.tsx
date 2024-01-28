@@ -173,8 +173,8 @@ interface VacancySecondState {
     
     return (
   
-        <div className="bg-linkIt-500 grid justify-center p-[7%]">
-            <h1 className="text-black text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] sm:text-[1.5rem] lg:text-[2rem] xl:text-[2.3rem] font-manrope font-bold text-center">{t('Calculadora')}</h1>
+        <div className="bg-linkIt-500 grid justify-center p-[7%] dark:bg-linkIt-200">
+            <h1 className="text-black titles-size font-manrope font-bold text-center dark:text-white">{t('Calculadora')}</h1>
 
             <div className="hidden lg:block">
 
@@ -335,8 +335,8 @@ interface VacancySecondState {
 </div>
 <div className="flex bg-white rounded-[7px] p-1 mt-[2%] h-[3rem] items-center whitespace-nowrap px-3">
 
-<div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center">
-          <Dropdown label="Seniority" inline className=" overflow-y-auto ">
+<div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center relative">
+          <Dropdown label="Seniority" inline className=" overflow-y-auto">
               <li className=""> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
                     <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
@@ -437,13 +437,13 @@ interface VacancySecondState {
 
  
 
-          <div className="grid grid-cols-2 items-end">
-            <h2 className="text-[1rem] ssm:text-[1.5rem] xl:text-[1.5rem] font-montserrat font-semibold pl-[2%]">Pricing</h2>
-            <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%] text-[1rem] ssm:text-[1.5rem] xl:text-[1.5rem]">
-                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t(`Mínimo`)} USD</span>{price.min}</h2>
-                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t('Máximo')} USD</span>{price.max}</h2>
+          <div className="grid grid-cols-2 items-end dark:text-white">
+            <h2 className="subtitles-size font-montserrat font-semibold pl-[2%]">Pricing</h2>
+            <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%] subtitles-size">
+                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 dark:text-white text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t(`Mínimo`)} USD</span>{price.min}</h2>
+                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 dark:text-white text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t('Máximo')} USD</span>{price.max}</h2>
             </div>
-            <hr className="bg-black h-1 col-span-full mt-[1%]"/>
+            <hr className="bg-black h-1 col-span-full mt-[1%] dark:bg-white"/>
             <p className={`lg:col-start-2 col-span-2 font-medium mt-3 font-manrope text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] justify-self-end ${price.min === "$0" && price.max === "$0" ? "opacity-0" : "opacity-100"}`}>Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo</p>
           </div>
         </div>

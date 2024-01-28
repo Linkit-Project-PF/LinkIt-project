@@ -74,7 +74,7 @@ export default function ModuloD() {
 </p>
 </div> 
 </div>
-<div className=" lg:hidden flex bg-linkIt-200 w-screen h-[3rem] items-center justify-items-center justify-between dark:bg-linkIt-700 px-[5%]">
+<div className=" lg:hidden flex bg-linkIt-200 w-screen h-[3rem] items-center justify-items-center justify-between dark:bg-linkIt-200 px-[5%]">
     <button className={`text-white text-[0.6rem] ssm:text-[1rem] font-extrabold text-start font-montserrat ${show ? '' : ''}`} onClick={handleClick2}>{show ? (<a href="#historia">-</a>) : "+"}</button>
     <button className='text-white text-[0.6rem] ssm:text-[1rem] font-montserrat whitespace-nowrap font-bold text-end' onClick={handleClick2}>{t('Nuestra Historia')}</button>
     </div>

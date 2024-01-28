@@ -14,6 +14,7 @@ import {
   setPressSignUp,
   setPressRegister,
 } from "../../redux/features/registerLoginSlice";
+import { toggleDarkMode } from "../../redux/features/darkModeSlice";
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../redux/types";
@@ -71,8 +72,9 @@ function NavBar() {
   const [isOpenRecursos, setIsOpenRecursos] = useState(false);
   const [isOpenQS, setIsOpenQS] = useState(false);
   const [isOpenSoyTalento, setIsOpenSoyTalento] = useState(false);
-  const [toggleDarkMode, setToggleDarkMode] = useState(false);
   const [burgerMenu, setBurgerMenu] = useState(false);
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode);
 
   const scopeQS = useMenuAnimation(isOpenQS);
   const scopeRecursos = useMenuAnimation(isOpenRecursos);
@@ -230,15 +232,17 @@ function NavBar() {
   };
 
   const darkMode = () => {
-    setToggleDarkMode(!toggleDarkMode);
+    dispatch(toggleDarkMode());
   };
+
+  
   useEffect(() => {
-    if (toggleDarkMode) {
+    if (isDarkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-  }, [toggleDarkMode]);
+  }, [isDarkMode]);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -267,7 +271,7 @@ function NavBar() {
 
       <div className="navBar">
         <img
-          src={!toggleDarkMode ? LogoBlue : LogoWhite}
+          src={!isDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
           alt="LinkIT-logo"
           className="relative w-[15%] md:w-[10%] lg:w-[6%] xs:left-2 md:left-10 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
@@ -301,7 +305,7 @@ function NavBar() {
               >
                 {t("Soy Empresa")}
                 <div className="arrow w-[0.7vw] ml-[0.3vw] hidden lg:block">
-                  <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
+                  <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
@@ -347,7 +351,7 @@ function NavBar() {
               >
                 {t("Soy Talento")}
                 <div className="arrow w-[0.7vw] ml-[0.3vw] hidden lg:block">
-                  <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
+                  <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
@@ -393,7 +397,7 @@ function NavBar() {
               >
                 {t("Recursos")}
                 <div className="arrow w-[0.7vw] ml-[0.3vw]">
-                  <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
+                  <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
@@ -450,7 +454,7 @@ function NavBar() {
               >
                 {t("Quiénes Somos")}
                 <div className="arrow w-[0.7vw] ml-[0.3vw]">
-                  <img src={!toggleDarkMode ? arrow : whiteArrow} alt="arrow" />
+                  <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
@@ -493,7 +497,7 @@ function NavBar() {
           
           <motion.ul
            
-            className={`container-navigation ${
+            className={`absolute left-0 top-[100%] bg-white dark:bg-linkIt-400 w-full h-fit p-[5%] text-[1.3rem] xs:text-[1.5rem] ssm:text-[2rem] border-b ${
               burgerMenu ? "block" : "hidden"
             }`}
             initial={{ opacity: 0, scale: 0, y: "-50%" }}
@@ -504,35 +508,35 @@ function NavBar() {
             }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="flex justify-between items-center text-[0.8rem] xs:text-[1rem] md:text-[1.3rem]">
+            <div className="flex justify-between items-center text-[1rem] ssm:text-[1.3rem] ssm:mx-2 ">
               <Languaje />
 
               <div className="cl-toggle-switch top-[1px]">
                 <label className="cl-switch">
-                  <input type="checkbox" onChange={darkMode} />
+                  <input type="checkbox" onChange={darkMode} checked={isDarkMode} />
                   <span></span>
                 </label>
               </div>
             </div>
             <li
-              className={`flex cursor-pointer items-center mt-[0.3%] hover:text-linkIt-300 dark:hover:text-white  ${
-                isActiveHome ? "text-linkIt-300 dark:text-white" : ""
+              className={`flex cursor-pointer items-center hover:text-linkIt-300  ${
+                isActiveHome ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goHome()}
             >
               {t("Inicio")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${
-                isActiveEmpresa ? "text-linkIt-300 dark:text-white " : ""
+              className={`flex cursor-pointer h-full items-center my-3 hover:text-linkIt-300  ${
+                isActiveEmpresa ? "text-linkIt-300  " : ""
               }`}
               onClick={() => goSoyEmpresa()}
             >
               {t("Soy Empresa")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${
-                isActiveTalento ? "text-linkIt-300 dark:text-white" : ""
+              className={`flex cursor-pointer h-full items-center my-3 hover:text-linkIt-300  ${
+                isActiveTalento ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goSoyTalento()}
             >
@@ -540,8 +544,8 @@ function NavBar() {
               {t("Soy Talento")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${
-                isActiveRecursos ? "text-linkIt-300 dark:text-white" : ""
+              className={`flex cursor-pointer h-full items-center my-3 hover:text-linkIt-300  ${
+                isActiveRecursos ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goRecursos()}
             >
@@ -549,8 +553,8 @@ function NavBar() {
               {t("Recursos")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center hover:text-linkIt-300 dark:hover:text-white ${
-                isActiveQS ? "text-linkIt-300 dark:text-white" : ""
+              className={`flex cursor-pointer h-full items-center hover:text-linkIt-300  ${
+                isActiveQS ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goQS()}
             >
@@ -562,7 +566,7 @@ function NavBar() {
         )}
 
         <div className="containerBtnsNavbar">
-          {/* toggleDarkMode */}
+          {/* isDarkMode */}
 
           <div className="cl-toggle-switch hidden lg:flex">
             <label className="cl-switch">

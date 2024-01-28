@@ -55,3 +55,15 @@ html {
 .styles-head {
   @apply border-linkIt-300 border rounded-[7px]
 }
+
+.titles-size {
+  @apply  text-[1.3rem] xs:text-[1.5rem] ssm:text-[2rem] xl:text-[2.3rem]
+}
+
+.subtitles-size {
+  @apply text-[0.8rem] ssm:text-[1.3rem] lg:text-[1.3rem] xl:text-[1.5rem]
+}
+
+.text-size {
+  @apply  text-[0.7rem] ssm:text-[1rem] md:text-[1.2rem] lg:text-[0.8rem] xl:text-[1rem] 
+}

@@ -67,7 +67,7 @@ export default function Technologies() {
 
     return (
         <div className="p-[7%] dark:bg-linkIt-400">
-             <h1 className="flex justify-center font-bold font-manrope text-[0.8rem] xs:text-[1rem] ssm:text-[1.3rem] sm:text-[1.5rem] lg:text-[2rem] xl:text-[2.3rem] xs:px-[9%] md:px-[12%] lg:px-[20%] xl:px-[27%] 1xl:px-[28%] 2xl:px-[34%] mb-[5%] dark:text-white text-center">{t('Talento especializado en más de 100 tecnologías')}</h1>
+             <h1 className="flex justify-center font-bold font-manrope titles-size xs:px-[9%] md:px-[12%] lg:px-[20%] xl:px-[27%] 1xl:px-[28%] 2xl:px-[34%] mb-[5%] dark:text-white text-center">{t('Talento especializado en más de 100 tecnologías')}</h1>
            
                 <div className=" hidden lg:grid">
              <div className="flex flex-row flex-wrap justify-center items-center 2xl:px-[7%]">
