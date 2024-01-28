@@ -69,4 +69,9 @@ interface WebUser {
   password?: string
 }
 
+export type UserLoginType = {
+  email: string
+  password: string
+}
+
 export type WebsiteUser = IAdmin  | IUser | ICompany
