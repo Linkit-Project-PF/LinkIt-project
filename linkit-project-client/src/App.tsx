@@ -237,7 +237,10 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home Unauth={false} error={false} Verify={false}/>} />
+        <Route
+          path="/"
+          element={<Home Unauth={false} error={false} Verify={false} />}
+        />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
@@ -250,15 +253,19 @@ function App() {
         <Route path="/quienesSomos" element={<QuienesSomos />} />
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/dashboard" element={<ProfileContainer />} />
-        {/* <Route path="/verify/:id" element={<VerifyUser />} /> */}
-        {/* <Route path="/testing" element={<Loading text={"Hola"} />} /> */}
         <Route path="/blog/:id" element={<BlogView />} />
         <Route
           path="/unauthorized"
           element={<Home Unauth={true} error={false} Verify={false} />}
         />
-        <Route path="/verify" element={<Home Verify={true} Unauth={false} error={false}/>} />
-        <Route path="*" element={<Home Unauth={false} error={true} Verify={false} />} />
+        <Route
+          path="/verify"
+          element={<Home Verify={true} Unauth={false} error={false} />}
+        />
+        <Route
+          path="*"
+          element={<Home Unauth={false} error={true} Verify={false} />}
+        />
       </Routes>
       <TopButton />
       <Footer />

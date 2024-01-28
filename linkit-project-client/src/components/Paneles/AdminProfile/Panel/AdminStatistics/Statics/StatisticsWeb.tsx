@@ -19,6 +19,8 @@ import {
   mostRepeatedCountry,
   mostRepeatedInterest,
   mostUsedProvider,
+  returnCountryData,
+  returnInterestData,
 } from "./Helpers/WebFunctions";
 import graphIcon from "../../../../../../assets/graph-create.svg";
 
@@ -28,7 +30,7 @@ export default function StatisticsWeb() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [companies, setCompanies] = useState<ICompany[]>([]);
   const [jds, setJDs] = useState();
-  // const [activeData, setActiveData] = useState<any>();
+  const [activeData, setActiveData] = useState<string>("register");
   const currentDate = new Date();
 
   //TODO Erase this once is used, only for deployment purposes
@@ -96,12 +98,98 @@ export default function StatisticsWeb() {
     },
   ];
 
+  const userCountryData = users && returnCountryData(users);
+  const companyCountryData = companies && returnCountryData(companies);
+  const companyInterestData = returnInterestData(companies);
+
   const pieData = [
     { name: "Usuarios", value: users.length },
     { name: "Emrpesas", value: companies.length },
   ];
 
   const pieColors = ["#0088FE", "#FFBB28"];
+
+  function setGraph(type: string) {
+    if (type === "register")
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={registerData}>
+            <PolarGrid />
+            <PolarAngleAxis dataKey="label" />
+            <PolarRadiusAxis />
+            <Radar
+              name="RegisterType"
+              dataKey="A"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+          </RadarChart>
+        </ResponsiveContainer>
+      );
+    else if (type === "userCountry")
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <RadarChart
+            cx="50%"
+            cy="50%"
+            outerRadius="80%"
+            data={userCountryData}
+          >
+            <PolarGrid />
+            <PolarAngleAxis dataKey="label" />
+            <PolarRadiusAxis />
+            <Radar
+              name="RegisterType"
+              dataKey="A"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+          </RadarChart>
+        </ResponsiveContainer>
+      );
+    else if (type === "companyCountry")
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <RadarChart
+            cx="50%"
+            cy="50%"
+            outerRadius="80%"
+            data={companyCountryData}
+          >
+            <PolarGrid />
+            <PolarAngleAxis dataKey="label" />
+            <PolarRadiusAxis />
+            <Radar
+              name="RegisterType"
+              dataKey="A"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+          </RadarChart>
+        </ResponsiveContainer>
+      );
+    else if (type === "interest")
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+          <RadarChart
+            cx="50%"
+            cy="50%"
+            outerRadius="80%"
+            data={companyInterestData}
+          >
+            <PolarGrid />
+            <PolarAngleAxis dataKey="label" />
+            <PolarRadiusAxis />
+            <Radar
+              name="RegisterType"
+              dataKey="A"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+          </RadarChart>
+        </ResponsiveContainer>
+      );
+  }
 
   return (
     <div className="p-10 divide-black">
@@ -219,26 +307,32 @@ export default function StatisticsWeb() {
             />
           </div>
           <div className="flex flex-col w-[50px] justify-around">
-            {[1, 2, 3, 4].map((x) => (
-              <img key={x} src={graphIcon} className="hover:cursor-pointer" />
-            ))}
+            {["register", "userCountry", "companyCountry", "interest"].map(
+              (x, idx) => (
+                <img
+                  key={idx}
+                  src={graphIcon}
+                  onClick={() => setActiveData(x)}
+                  className="hover:cursor-pointer"
+                />
+              )
+            )}
           </div>
         </div>
-        <div className="w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={registerData}>
-              <PolarGrid />
-              <PolarAngleAxis dataKey="label" />
-              <PolarRadiusAxis />
-              <Radar
-                name="RegisterType"
-                dataKey="A"
-                stroke="#8884d8"
-                fill="#8884d8"
-              />
-            </RadarChart>
-          </ResponsiveContainer>
-        </div>
+        <div className="w-full">{setGraph(activeData)}</div>
+      </div>
+      <h1 className="ml-10 text-3xl pt-8">JDs</h1>
+      <hr className="mt-2 mb-5 w-[90%] translate-x-10" />
+      <div className="flex flex-row ml-10 gap-7">
+        {/*CARDS*/}
+        {/*TOTAL JDS*/}
+        {/*TOTAL JDS created last month*/}
+        {/*TOTAL JDS created this year*/}
+        {/*GRAPH AND CARD*/}
+        {/*Most common in type x3*/}
+        {/*Most common location x5*/}
+        {/*Most common stack x5*/}
+        {/*Most common company x5*/}
       </div>
     </div>
   );
