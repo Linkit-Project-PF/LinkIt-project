@@ -17,6 +17,7 @@ export default function Resources() {
   const data = useSelector((state: stateProps) => state.resources.filteredResources);
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
+
   useEffect(() => {
     const loadData = async (): Promise<void> => {
       try {
@@ -31,8 +32,8 @@ export default function Resources() {
         );
         dispatch(setResources(response.data));
         dispatch(sortResource('recent'))
-      } catch (error) {
-        console.error("Error al cargar las información", error);
+      } catch (error: any) {
+        console.error("Error al cargar la información", error.response?.data);
       }
     };
     loadData();
