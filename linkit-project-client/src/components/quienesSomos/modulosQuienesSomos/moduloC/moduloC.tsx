@@ -1,9 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { useState } from 'react'
+import darkValues from "/Vectores/valores-oscuro.svg"
+import values from "/Vectores/valores.svg"
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
 
 export default function ModuloC() {
     const {t} = useTranslation();
     const [show, setShow] = useState(false)
+    const isDarkMode = useSelector(
+        (state: RootState) => state.darkMode);
 
     const handleClick = () => { setShow(!show) }
 
@@ -25,7 +31,7 @@ export default function ModuloC() {
 
 {t('En nuestra búsqueda incansable por brindar una experiencia excepcional, aspiramos a dejar una huella imborrable en cada momento. Estamos comprometidos a')} <strong>{t('superar las expectativas de nuestros partners y talentos')}</strong> {t('en cada paso del camino, ofreciendo constantemente un rendimiento que supera el 100%.')}
 </p>
-<img src="/Vectores/valores.svg" className="self-center hidden lg:block w-[90%] justify-self-center" alt="" />
+<img src={isDarkMode ? darkValues : values} className="self-center hidden lg:block w-[90%] justify-self-center" alt="" />
         </div>
         </div>
 
@@ -49,7 +55,7 @@ export default function ModuloC() {
         </div>
         </div>
 
-        <div className=" lg:hidden flex bg-linkIt-300 w-screen h-[3rem] items-center justify-items-center justify-between dark:bg-linkIt-700 px-[5%]">
+        <div className=" lg:hidden flex bg-linkIt-300 w-screen h-[3rem] items-center justify-items-center justify-between dark:bg-linkIt-300 px-[5%]">
     <button className={`text-white text-[0.6rem] ssm:text-[1rem] font-extrabold text-start font-montserrat ${show ? '' : ''}`} onClick={handleClick}>{show ? (<a href="#historia">-</a>) : "+"}</button>
     <button className='text-white text-[0.6rem] ssm:text-[1rem] font-montserrat whitespace-nowrap font-bold text-end' onClick={handleClick}>{t('Nuestros Valores')}</button>
     </div>

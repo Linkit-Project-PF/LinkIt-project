@@ -12,6 +12,7 @@ export interface RootState {
   registerLogin: any;
   jobCard: any;
   resources: any;
+  darkMode: boolean;
 }
 
 export interface JobData {

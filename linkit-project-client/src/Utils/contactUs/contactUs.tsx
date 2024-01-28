@@ -16,7 +16,7 @@ export default function ContactUs() {
 
   const customTheme: CustomFlowbiteTheme['dropdown'] = {
       "arrowIcon": "ml-2 h-4 w-4",
-      "content": "py-1 focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+      "content": "py-1 focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] bg-white text-black lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
       "floating": {
         "animation": "transition-opacity",
         "arrow": {
@@ -41,7 +41,7 @@ export default function ContactUs() {
         "style": {
           "dark": "bg-gray-900 text-white dark:bg-gray-700",
           "light": "border border-red-200 text-gray-900",
-          "auto": "border border-gray-200 text-gray-900 dark:border-none dark:bg-gray-700 dark:text-white"
+          "auto": "border border-gray-200  text-gray-900 dark:border-none dark:bg-gray-700 dark:text-white"
         },
         "target": "w-fit bg-transparent border border-white w-full justify-start text-left focus:outline-none text-[0.4rem] ssm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.4rem] xl:text-[1.6rem] 2xl:text-[2rem]"
       },

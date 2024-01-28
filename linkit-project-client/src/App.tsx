@@ -35,6 +35,8 @@ import { setAdmins } from "./redux/features/ApplicationSlice.ts";
 import JobForm from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/job-form/JobForm.tsx";
 import Footer from "./Utils/Footer/Footer.tsx";
 import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
+import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.tsx";
+import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions.tsx";
 
 type registerLoginState = {
   registerLogin: {
@@ -237,7 +239,7 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home Unauth={false} error={false} />} />
+        <Route path="/" element={<Home Unauth={false} error={false} Verify={false}/>} />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
         <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
@@ -255,9 +257,12 @@ function App() {
         <Route path="/blog/:id" element={<BlogView />} />
         <Route
           path="/unauthorized"
-          element={<Home Unauth={true} error={false} />}
+          element={<Home Unauth={true} error={false} Verify={false} />}
         />
-        <Route path="*" element={<Home Unauth={false} error={true} />} />
+        <Route path="/verify" element={<Home Verify={true} Unauth={false} error={false}/>} />
+        <Route path="*" element={<Home Unauth={false} error={true} Verify={false} />} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>} />
+        <Route path="/TermsAndConditions" element={<TermsAndConditions/>} />
       </Routes>
       <TopButton />
       <Footer />
