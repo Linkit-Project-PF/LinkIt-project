@@ -29,7 +29,7 @@ import { useTranslation } from "react-i18next";
                 </div>
 
 
-            <div className="lg:hidden flex flex-col relative before:bg-linkIt-500 before:w-[100%] before:h-[100%] before:absolute before:rotate-[-38deg] before:top-[73%] before:left-[55%]">
+            <div className="lg:hidden flex flex-col relative before:bg-linkIt-500 before:dark:bg-linkIt-700 before:w-[100%] before:h-[100%] before:absolute before:rotate-[-38deg] before:top-[73%] before:left-[55%]">
                 <h1 className="relative text-white font-montserrat text-[0.65rem] xs:text-[0.85rem] ssm:text-[1.2rem] md:text-[1.5rem] text-start">
                 {t('LinkIT nace para encontrar una solución clara, conectar al talento mas destacado con los mejores proyectos IT. Actuamos como enlace para simplificar la experiencia en el proceso de contratación, con el objetivo de formar equipos de alto rendimiento.')}
                

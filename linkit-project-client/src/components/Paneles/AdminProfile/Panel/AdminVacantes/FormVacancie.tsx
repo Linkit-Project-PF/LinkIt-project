@@ -403,6 +403,28 @@ export default function FormVacancie(props: FormVacancieProps) {
                 onBlur={errors.stack ? handleBlurErrors : addToListBlur}
                 onClick={handleInputClick}
               />
+              {infoList && infoList.stack && infoList.stack.length > 0 ? (
+                <div className="mx-4">
+                  <h3 className="text-xs font-bold text-linkIt-200">
+                    {t('Tecnologías agregadas')}
+                  </h3>
+                  <ul className="list-disc">
+                    {infoList.stack?.map((t: string) => {
+                      return (
+                        <div key={t} className="flex">
+                          <li className="text-sm">{t}</li>
+                          <button
+                            onClick={(e) => deleteFromList(e, t, "stack")}
+                            className="ml-3 hover:text-red-500"
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -422,6 +444,30 @@ export default function FormVacancie(props: FormVacancieProps) {
                 onBlur={errors.stack ? handleBlurErrors : addToListBlur}
                 onClick={handleInputClick}
               />
+              {infoList &&
+                infoList.niceToHave &&
+                infoList.niceToHave.length > 0 ? (
+                <div className="mx-4">
+                  <h3 className="text-xs font-bold text-linkIt-200">
+                    {t('Deseables agregados')}
+                  </h3>
+                  <ul className="list-disc">
+                    {infoList.niceToHave?.map((t: string) => {
+                      return (
+                        <div key={t} className="flex">
+                          <li className="text-sm">{t}</li>
+                          <button
+                            onClick={(e) => deleteFromList(e, t, "niceToHave")}
+                            className="ml-3 hover:text-red-500"
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -446,6 +492,31 @@ export default function FormVacancie(props: FormVacancieProps) {
                 onBlur={errors.requirements ? handleBlurErrors : addToListBlur}
                 onClick={handleInputClick}
               />
+
+              {infoList &&
+                infoList.requirements &&
+                infoList.requirements.length > 0 ? (
+                <div className="mx-4">
+                  <h3 className="text-xs font-bold text-linkIt-200">
+                    {t('Requisitos agregados')}
+                  </h3>
+                  <ul className="list-disc">
+                    {infoList.requirements?.map((t: string) => {
+                      return (
+                        <div key={t} className="flex">
+                          <li className="text-sm">{t}</li>
+                          <button
+                            onClick={(e) => deleteFromList(e, t, "requirements")}
+                            className="ml-3 hover:text-red-500"
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -478,8 +549,29 @@ export default function FormVacancie(props: FormVacancieProps) {
                 onKeyDown={addToList}
                 onBlur={errors.benefits ? handleBlurErrors : addToListBlur}
                 onClick={handleInputClick}
-
               />
+              {infoList && infoList.benefits && infoList.benefits.length > 0 ? (
+                <div className="mx-4">
+                  <h3 className="text-xs font-bold text-linkIt-200">
+                    {t('Beneficios agregados')}
+                  </h3>
+                  <ul className="list-disc">
+                    {infoList.benefits?.map((t: string) => {
+                      return (
+                        <div key={t} className="flex">
+                          <li className="text-sm">{t}</li>
+                          <button
+                            onClick={(e) => deleteFromList(e, t, "benefits")}
+                            className="ml-3 hover:text-red-500"
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -523,98 +615,6 @@ export default function FormVacancie(props: FormVacancieProps) {
                 onChange={handleChange}
               />
             </div>
-            {infoList && infoList.stack && infoList.stack.length > 0 ? (
-              <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">
-                  {t('Tecnologías agregadas')}
-                </h3>
-                <ul className="list-disc">
-                  {infoList.stack?.map((t: string) => {
-                    return (
-                      <div key={t} className="flex">
-                        <li className="text-sm">{t}</li>
-                        <button
-                          onClick={(e) => deleteFromList(e, t, "stack")}
-                          className="ml-3 hover:text-red-500"
-                        >
-                          x
-                        </button>
-                      </div>
-                    );
-                  })}
-                </ul>
-              </div>
-            ) : null}
-            {infoList &&
-              infoList.requirements &&
-              infoList.requirements.length > 0 ? (
-              <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">
-                  {t('Requisitos agregados')}
-                </h3>
-                <ul className="list-disc">
-                  {infoList.requirements?.map((t: string) => {
-                    return (
-                      <div key={t} className="flex">
-                        <li className="text-sm">{t}</li>
-                        <button
-                          onClick={(e) => deleteFromList(e, t, "requirements")}
-                          className="ml-3 hover:text-red-500"
-                        >
-                          x
-                        </button>
-                      </div>
-                    );
-                  })}
-                </ul>
-              </div>
-            ) : null}
-            {infoList &&
-              infoList.niceToHave &&
-              infoList.niceToHave.length > 0 ? (
-              <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">
-                  {t('Deseables agregados')}
-                </h3>
-                <ul className="list-disc">
-                  {infoList.niceToHave?.map((t: string) => {
-                    return (
-                      <div key={t} className="flex">
-                        <li className="text-sm">{t}</li>
-                        <button
-                          onClick={(e) => deleteFromList(e, t, "niceToHave")}
-                          className="ml-3 hover:text-red-500"
-                        >
-                          x
-                        </button>
-                      </div>
-                    );
-                  })}
-                </ul>
-              </div>
-            ) : null}
-            {infoList && infoList.benefits && infoList.benefits.length > 0 ? (
-              <div className="mx-4">
-                <h3 className="text-md font-bold text-linkIt-200">
-                  {t('Beneficios agregados')}
-                </h3>
-                <ul className="list-disc">
-                  {infoList.benefits?.map((t: string) => {
-                    return (
-                      <div key={t} className="flex">
-                        <li className="text-sm">{t}</li>
-                        <button
-                          onClick={(e) => deleteFromList(e, t, "benefits")}
-                          className="ml-3 hover:text-red-500"
-                        >
-                          x
-                        </button>
-                      </div>
-                    );
-                  })}
-                </ul>
-              </div>
-            ) : null}
           </div>
           {errors.code ||
             errors.title ||
