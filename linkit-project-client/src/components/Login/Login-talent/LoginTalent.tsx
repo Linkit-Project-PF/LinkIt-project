@@ -20,8 +20,9 @@ import { SUPERADMN_ID } from "../../../env.ts";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
-import { IUser } from "../../Profiles/types.ts";
+import { IUser, UserLoginType } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
+import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
 
 type Event = {
   target: HTMLInputElement;
@@ -34,11 +35,19 @@ function LoginTalent() {
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
   const [loading, isLoading] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
     dispatch(setPressLoginTalent("hidden"));
   };
+
+  const resetPasswordHandler = () => {
+    setShowResetPassword(true);
+    setTimeout(() =>{
+      setShowResetPassword(false);
+    },100)
+  }
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -53,11 +62,11 @@ function LoginTalent() {
   };
 
   const [thirdParty, setThirdParty] = useState<boolean | undefined>(false);
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserLoginType>({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<UserLoginType>({
     email: "",
     password: "",
   });
@@ -98,15 +107,7 @@ function LoginTalent() {
           }
         }
       );
-      // const response = await axios.get<IUser>(
-      //   `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=user`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${SUPERADMN_ID}`,
-      //       "Accept-Language": sessionStorage.getItem("lang"),
-      //     },
-      //   }
-      // );
+      
       const loggedUser = response.data;
 
       if (response.status === 200) {
@@ -278,6 +279,7 @@ function LoginTalent() {
     }
   }, [thirdParty]);
 
+
   return (
     <>
       <div
@@ -338,15 +340,16 @@ function LoginTalent() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
+            <p className="text-[.8rem] self-start ml-[6%] font-manrope cursor-pointer">
               <motion.a
-                href="_blank"
-                
+                onClick={resetPasswordHandler}
+                className="cursor-pointer"
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}
               </motion.a>
             </p>
+            {showResetPassword && <ResetPassword user={user} />}
           </fieldset>
           <div className="flex flex-col w-full items-center gap-[.5rem]">
             <button

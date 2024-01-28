@@ -6,25 +6,25 @@ const {t} = useTranslation();
 
     return (
         <div className="relative grid p-[7%] z-[10] bg-white dark:bg-linkIt-300">
-            <h1 className="text-black dark:text-white text-[0.8rem] ssm:text-[1rem] sm:text-[1rem] md:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] font-manrope font-bold text-center justify-self-center w-[80%] xs:w-[70%] ssm:w-[50%] md:w-[60%] lg:w-[55%] xl:w-[50%]">{t('Conoce a alguno de los integrantes de nuestro equipo')}</h1>
+            <h1 className="text-black dark:text-white titles-size font-manrope font-bold text-center justify-self-center">{t('Conoce a alguno de los integrantes de nuestro equipo')}</h1>
             <div className="hidden lg:block">
-            <div className="grid grid-cols-4 items-center justify-items-center my-[5%] gap-5 dark:text-white" >
+            <div className="grid grid-cols-4 items-center justify-items-center my-[5%] gap-[5%] mx-[5%] dark:text-white" >
                     <img src="/people-LinkIt/philo-perfil.png" className="bg-linkIt-500 rounded-xl w-full h-full" alt="Philipe Saint-Hubert" />
                     <img src="/people-LinkIt/ary-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Ary Molchadsky" />
                     <img src="/people-LinkIt/gonza-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Gonzalo Lein" />
                     <img src="/people-LinkIt/juli-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Julieta Jasin" />
-                <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Philipe Saint-Hubert <br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">Co-Founder</span></p>
-                <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Ary Molchadsky<br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">CEO & Co-Founder</span></p>
-                <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Gonzalo Lein<br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">Sales Development Representative</span></p>
-                <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Julieta Jasin<br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">Talent Acquisition Specialist</span></p>
+                <p className="text-center font-bold subtitles-size font-montserrat">Philipe Saint-Hubert <br /><span className="font-normal text-size  font-montserrat">Co-Founder</span></p>
+                <p className="text-center font-bold subtitles-size font-montserrat">Ary Molchadsky<br /><span className="font-normal text-size  font-montserrat">CEO & Co-Founder</span></p>
+                <p className="text-center font-bold subtitles-size font-montserrat">Gonzalo Lein<br /><span className="font-normal text-size  font-montserrat">Sales Development Representative</span></p>
+                <p className="text-center font-bold subtitles-size font-montserrat">Julieta Jasin<br /><span className="font-normal text-size  font-montserrat">Talent Acquisition Specialist</span></p>
                 </div>
-                <div className="grid grid-cols-3 justify-items-center px-[12%] dark:text-white gap-5">
+                <div className="grid grid-cols-3 justify-items-center px-[18%] dark:text-white gap-[5%]">
                     <img src="/people-LinkIt/shay-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Shayna Iskandarani" />
                     <img src="/people-LinkIt/maca-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Macarena Cuadro" />
                     <img src="/people-LinkIt/ju-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Julieta Radicich" />
-                    <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Shayna Iskandarani<br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">Talent Acquisition Specialist</span></p>
-                    <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Macarena Cuadro<br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">Business Development Specialist</span></p>
-                    <p className="text-center font-bold xl:text-[1.2rem] font-montserrat">Julieta Radicich<br /><span className="font-normal xl:text-[1.1rem]  font-montserrat">Growth Marketing Specialist</span></p>
+                    <p className="text-center subtitles-size font-bold font-montserrat">Shayna Iskandarani<br /><span className="font-normal text-size  font-montserrat">Talent Acquisition Specialist</span></p>
+                    <p className="text-center subtitles-size font-bold font-montserrat">Macarena Cuadro<br /><span className="font-normal text-size  font-montserrat">Business Development Specialist</span></p>
+                    <p className="text-center subtitles-size font-bold font-montserrat">Julieta Radicich<br /><span className="font-normal text-size  font-montserrat">Growth Marketing Specialist</span></p>
             </div>
             </div>
             <div className="lg:hidden">
