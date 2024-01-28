@@ -236,7 +236,7 @@ function App() {
         >
           <Register />
         </motion.div>
-      )}
+      )} 
 
       <Routes>
         <Route path="/" element={<Home Unauth={false} error={false} Verify={false}/>} />
@@ -259,7 +259,7 @@ function App() {
           path="/unauthorized"
           element={<Home Unauth={true} error={false} Verify={false} />}
         />
-        <Route path="/verify" element={<Home Verify={true} Unauth={false} error={false}/>} />
+        <Route path="/verify" element={<Home Verify={true} Unauth={false} error={false} />} />
         <Route path="*" element={<Home Unauth={false} error={true} Verify={false} />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>} />
         <Route path="/TermsAndConditions" element={<TermsAndConditions/>} />
