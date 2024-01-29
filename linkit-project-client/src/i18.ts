@@ -598,6 +598,10 @@ export const i18nOptions: InitOptions = {
 
         //! MISC
         
+
+
+        //! Terms And Conditions
+        
       },
     }
   },

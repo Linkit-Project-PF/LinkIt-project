@@ -1,10 +1,12 @@
+import { useTranslation } from "react-i18next";
 
 
 
 export default function TermsAndConditions() { 
+    const { t } = useTranslation();
     return (  
         <div className="bg-linkIt-500 p-[7%] pt-[17vh] lg:pt-[23vh]">
-            <h1 className="titles-size text-center font-bold font-manrope">Términos y condiciones de LinkIT</h1>
+            <h1 className="titles-size text-center font-bold font-manrope">{t('Términos y condiciones de LinkIT')}</h1>
             <p className="text-size font-montserrat my-[2%]">En LinkIT creemos que es esencial la transparencia al momento de relacionarnos con terceros. Por eso, es muy importante que leas y entiendas estos términos y condiciones (los “TyC”) porque son las bases de cómo nos relacionamos con todos los visitantes y usuarios (los “Usuarios”) del sitio web www.linkit-hr.com (en adelante "el Sitio Web"), de las aplicaciones móviles de LinkIT y de todos los servicios que puedas contratar y programas de estudio a los que puedas acceder por esos medios con Linkit (los “Servicios”). <br /> <br />
 
 Utilizar el Sitio Web y/o cualquiera de los Servicios implica que, como Usuario, aceptás estos TyC y, en consecuencia, quedás obligado por todas las disposiciones de abajo. La aceptación de los presentes TyC, implica asimismo la aceptación expresa de las Política de Privacidad que es parte integrante de éstos.
