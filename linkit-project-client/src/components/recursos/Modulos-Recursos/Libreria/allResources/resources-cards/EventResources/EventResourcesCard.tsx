@@ -50,7 +50,7 @@ function EventResourceCard({
   return (
     <>
       <motion.div
-        className="border-[2px] h-[30rem] rounded-[7px] w-full flex flex-col font-montserrat lg-card-resources"
+        className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400"
         variants={eventCardVariants}
         initial="hidden"
         whileInView={"visible"}
@@ -59,25 +59,23 @@ function EventResourceCard({
       >
         {image.includes("youtube") ? (
           <div
-            className="bg-center bg-cover h-[31rem] rounded-[7px] w-full card-thumbnail-resources"
+            className="w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center"
             style={{ backgroundImage: `url(${videoToThumbnail(image)})` }}
           />
         ) : (
           <img
             src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
             alt={title}
-            className="h-[20rem] rounded-[7px] w-full"
+            className="w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center"
           />
         )}
-        <div className="flex flex-col h-[100%] p-[2rem]">
-          <div>
-            <p className="font-semibold text-[.9rem] border-[2px] border-linkIt-300 inline-flex p-[.3rem] rounded-[7px] category-resources">
-              {category}
-            </p>
-          </div>
-          <h2 className="mt-[1rem] font-bold text-[1.1rem] title">{title}</h2>
-          <p className="mt-[2rem] font-[500] description-resources">{description}</p>
-          <a href={link} target="_blank" className="mt-[2rem] font-bold">
+        <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+          <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+            {category}
+          </p>
+          <h2 className="font-bold subtitles-size line-clamp-3">{title}</h2>
+          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 pt-8">{description}</p>
+          <a href={link} target="_blank" className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
             {t('Ver Grabación')}
           </a>
         </div>

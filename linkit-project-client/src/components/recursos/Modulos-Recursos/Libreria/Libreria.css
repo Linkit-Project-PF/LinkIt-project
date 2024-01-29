@@ -1,5 +1,4 @@
 .content-display{
-    display: grid;
-    grid-template-columns: 1fr 3fr;
+    display: flex;
     grid-gap: 2rem;
 }

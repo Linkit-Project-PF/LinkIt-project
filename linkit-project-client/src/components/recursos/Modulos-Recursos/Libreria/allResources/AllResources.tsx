@@ -58,17 +58,17 @@ function AllResources() {
   const blogs = useSelector((state: resourcesState) => state.resources.blogs);
   const ebooks = useSelector((state: resourcesState) => state.resources.ebooks);
   const events = useSelector((state: resourcesState) => state.resources.events);
+
   const {t} = useTranslation();
   return (
     <>
-      <div className="flex flex-row flex-wrap justify-between gap-[2rem] mt-[3.5rem] responsive-container">
+      <div className="flex flex-row flex-wrap justify-between  mt-[3.5rem] responsive-container">
         {
           ebooks.length > 3 && blogs.length > 3 && events.length > 3 
           ?ebooks.slice(0, 3).map((ebook: resourceType) => {
           return (
-            <div className="w-[17rem] item">
+            <div className="w-[21rem]" key={ebook._id}>
                 <EbookResourcesCard
-                  key={ebook._id}
                   title={ebook.title}
                   description={ebook.description}
                   category={ebook.category}
@@ -79,9 +79,8 @@ function AllResources() {
         })
         :ebooks.map((ebook: resourceType) => {
           return (
-            <div className="w-[17rem]">
+            <div className="w-[21rem] h-[1rem]" key={ebook._id}>
                 <EbookResourcesCard
-                  key={ebook._id}
                   title={ebook.title}
                   description={ebook.description}
                   category={ebook.category}
@@ -96,9 +95,8 @@ function AllResources() {
           blogs.length > 3 && ebooks.length > 3 && events.length > 3
             ?blogs?.slice(0, 3).map((blog: resourceType) => {
             return (
-              <div className="w-[17rem]">
-                  <BlogResourcesCard
-                    key={blog._id}
+              <div className="w-[21rem] mb-[2rem]"  key={blog._id}>
+                  <BlogResourcesCard                
                     image={blog.image}
                     title={blog.title}
                     description={blog.description}
@@ -110,9 +108,8 @@ function AllResources() {
           )})
         :blogs?.map((blog: resourceType) => {
           return (
-            <div className="w-[17rem]">
-                <BlogResourcesCard
-                  key={blog._id}
+            <div className="w-[21rem] mb-[2rem]" key={blog._id}>
+                <BlogResourcesCard            
                   image={blog.image}
                   title={blog.title}
                   description={blog.description}
@@ -129,9 +126,8 @@ function AllResources() {
         ?events?.slice(0,3).map((event: resourceType) => {
           return (
 
-            <div className="w-[17rem]">
-                <EventResourceCard
-                  key={event._id}
+            <div className="w-[21rem] mb-[2rem]" key={event._id}>
+                <EventResourceCard                
                   image={event.image}
                   title={event.title}
                   description={event.description}
@@ -144,9 +140,8 @@ function AllResources() {
         :events?.map((event: resourceType) => {
           return (
 
-            <div className="w-[17rem]">
-                <EventResourceCard
-                  key={event._id}
+            <div className="w-[21rem] mb-[2rem]" key={event._id}>
+                <EventResourceCard                 
                   image={event.image}
                   title={event.title}
                   description={event.description}

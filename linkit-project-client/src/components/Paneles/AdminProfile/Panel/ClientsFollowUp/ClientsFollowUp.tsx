@@ -140,7 +140,7 @@ export default function ClientsFollowUp() {
 
   return (
     <div>
-      <div className=' bg-scroll bg-linkIt-500'>
+      <div className='bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-auto'>
 
 
         <HeadClientsFollowUp
