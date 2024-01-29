@@ -1,9 +1,15 @@
 import { useTranslation } from "react-i18next";
  import email from "/Vectores/linkit-web-vectores-12.svg"
+ import emailBlue from "/Vectores/linkit-web-vectores-icon--12.svg"
+ import linkedinblue from "/Vectores/linkit-web-vectores-icon--13.svg"
  import linkedin from "/Vectores/linkit-web-vectores-13.svg"
+ import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
 
  export default function ModuloF() { 
   const {t} = useTranslation();
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode);
 
         return (
             <div className="relative bg-linkIt-200 p-[12%] lg:p-[7%] dark:bg-linkIt-400">
@@ -20,9 +26,13 @@ import { useTranslation } from "react-i18next";
                 <div className="left-[34%] relative mt-3 grid grid-cols-2">
                 <p className="text-white text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem] text-start font-montserrat font-bold ">Ary Molchadsky <br />
                 <span className="text-white col-start-2 text-start font-manrope font-normal">CEO & Co-Founder</span></p>
-                <div className="flex ">
-                <img src={email} alt="email" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
-                <img src={linkedin} alt="linkedIn" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
+                <div className="flex">
+                  <a  href="mailto:ary@linkit-hr.com" target="_blank">
+                <img src={isDarkMode ? email : emailBlue} alt="email" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
+                </a>
+                <a href="https://www.linkedin.com/in/arymolchadsky/" target="_blank">
+                <img src={isDarkMode ? linkedin : linkedinblue} alt="linkedIn" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
+                </a>
                 </div>
                 </div>
                 <div className="before:absolute before:bg-white before:dark:bg-linkIt-300 before:w-screen before:h-[20%] before:left-0 before:z-20 before:-skew-y-[3deg] before:top-[90%] after:left-0 after:z-20 after:bg-linkIt-200 dark:after:bg-white after:w-screen after:h-[4px] after:absolute after:-skew-y-[3deg] after:top-[93%]"></div>

@@ -150,7 +150,7 @@ export default function OurServicesCarousel({ component }: OurServicesCarouselPr
 <h2 className=" font-montserrat subtitles-size font-bold">{component === "talent" ? t('Trabajo remoto') : t('Contratación')}</h2>
         <p className="text-white px-[15%] text-center text-size font-montserrat w-[120%] sm:w-[100%] md:w-[101%]">{ component === "talent" ? t('Despídete de las largas horas de traslado y trabaja desde la comodidad de tu hogar. Democratizamos oportunidades a nivel global para que encuentres el equilibrio perfecto entre el trabajo y la vida personal.') : t('Realizamos la gestión contractual y de pagos del talento. Refuerza tu equipo y aumenta la capacidad productiva sin riesgos.')}</p>
     </motion.div>
-        <button className="background-button hover:bg-white justify-self-center w-[20%] hover:text-linkIt-300 mt-3 xs:mt-4 sm:mt-5" onClick={goSoyEmpresa}>{t('Ver más')}</button>
+        <button className={`background-button hover:bg-white justify-self-center w-[20%] hover:text-linkIt-300 mt-3 xs:mt-4 sm:mt-5 ${component !== "home" ? "hidden": "block"}`} onClick={goSoyEmpresa}>{t('Ver más')}</button>
 
 
     </div>
