@@ -35,7 +35,7 @@ function SideBar() {
                     key={index}
                     value={item}
                 >
-                    {item}
+                    {t(item)}
                 </li>
             ))}
         </ul>

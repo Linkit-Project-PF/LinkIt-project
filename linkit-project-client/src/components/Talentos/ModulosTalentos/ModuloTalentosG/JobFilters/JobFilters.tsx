@@ -46,14 +46,15 @@ const customTheme: CustomFlowbiteTheme['dropdown'] = {
   },
   "inlineWrapper": " flex items-center w-full h-fit rounded-md p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
 };
-
 interface OptionType {
   value: string;
   label: string;
 }
 
 const JobFilters = () => {
-
+  
+  const {t} = useTranslation();
+  
   const allJobOffers = useSelector(
     (state: any) => state.jobCard.allJobOffers as JobCardProps[]
   );
@@ -258,7 +259,7 @@ const JobFilters = () => {
         className="background-button whitespace-nowrap mr-3"
         onClick={() => handleFilters()}
       >
-        Encontrar Vacante
+        {t('Encontrar vacante')}
       </button>
       <button
         className="bg-linkIt-300 text-white rounded-full py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
