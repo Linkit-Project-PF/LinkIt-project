@@ -36,10 +36,10 @@ function LoginCompany() {
 
   const resetPasswordHandler = () => {
     setShowResetPassword(true);
-    setTimeout(() =>{
+    setTimeout(() => {
       setShowResetPassword(false);
-    },100)
-  }
+    }, 100);
+  };
 
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
@@ -277,7 +277,7 @@ function LoginCompany() {
         onClick={() => dispatch(setPressLoginCompany("hidden"))}
       ></div>
       {loading && <Loading text={t("Validando credenciales")} />}
-      <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
+      <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] min-w-[300px] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
         <form
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSignIn}
