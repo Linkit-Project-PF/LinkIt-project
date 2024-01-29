@@ -59,7 +59,7 @@ function EventCard({
 
   return (
     <motion.div
-      className="border-[2px] w-full h-full rounded-xl font-montserrat items-center justify-center bg-white"
+      className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400"
       key={key}
       variants={eventCardVariants}
       initial="hidden"
@@ -68,24 +68,24 @@ function EventCard({
     >
       {image.includes("youtube") ? (
         <div
-          className="w-full rounded-xl h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center"
+          className="w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center"
           style={{ backgroundImage: `url(${videoToThumbnail(image)})` }}
         />
       ) : (
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
           alt={title.concat('Image')}
-          className="w-full rounded-xl h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center" />
+          className="w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center" />
       )}
 
-      <div className="flex flex-col justify-start h-full p-[7%]">
-        <p className="border-[1px] text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center w-fit">
+      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {category}
         </p>
 
-        <h2 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.5rem] md:text-[1.8rem] lg:text-[1.5rem]">{title}</h2>
-        <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[1rem]">{description}</p>
-        <a href={link} target="_blank" className="text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] font-bold mt-2 xs:mt-3">
+        <h2 className="font-bold subtitles-size line-clamp-3">{title}</h2>
+        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
+        <a href={link} target="_blank" className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
           {t('Ver Grabación')}
         </a>
       </div>

@@ -13,8 +13,7 @@ export type stateProps = {
     };
   }
 
-function EbooksCards() {
-    const items: number = 3;
+function EbooksCardsMobile() {
     const [currentPage, setCurrentPage] = useState(0)
     const dispatch = useDispatch()
     const eBooks = useSelector((state: stateProps) => state.resources.ebooks);
@@ -35,39 +34,36 @@ function EbooksCards() {
 
 
     const handleNext = () => {
-        setCurrentPage(currentPage === Math.ceil(eBooks.length / items) - 1 ? 0 : currentPage + 1)
+        setCurrentPage(currentPage === eBooks.length - 1 ? 0 : currentPage + 1)
     }
 
     const handlePrevius = () => {
-        setCurrentPage(currentPage === 0 ? Math.ceil(eBooks.length / items) - 1 : currentPage - 1)
+        setCurrentPage(currentPage === 0 ? eBooks.length - 1 : currentPage - 1)
     }
-
-    const startIndex = currentPage * items
-    const endIndex = startIndex + items
-
 
     return (
         <div className="flex w-full justify-center items-center space-x-[5%]">
+            <button disabled={eBooks.length <= 1}>
             <img src={whiteArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+            </button>
             <div className='grid lg:grid-cols-3 items-center gap-2 w-full h-full'>
                 {
-                    eBooks.slice(startIndex, endIndex).map((ebook, index) => {
-                        return (
+                    eBooks.length > 0 && (
 
                             <EbooksCard
-                                title={ebook.title}
-                                description={ebook.description}
-                                link={ebook.link}
-                                category={ebook.category}
-                                key={index}
+                                title={eBooks[currentPage].title}
+                                description={eBooks[currentPage].description}
+                                link={eBooks[currentPage].link}
+                                category={eBooks[currentPage].category}
+                                key={currentPage}
                             />
-                        )
-                    })
-                }
+                        )}
             </div>
+            <button disabled={eBooks.length <= 1}>
             <img onClick={handleNext} src={whiteArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+            </button>
         </div>
     )
 }
 
-export default EbooksCards
+export default EbooksCardsMobile

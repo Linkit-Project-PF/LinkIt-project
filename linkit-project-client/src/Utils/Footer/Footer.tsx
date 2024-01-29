@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import {
@@ -109,6 +108,18 @@ export default function Footer() {
         window.location.href = "#vacantes";
       }, 0);
     };
+    const navigatetoPrivacyPolicy = () => {
+      navigate("/privacyPolicy");
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 0);
+    };
+    const navigatetoTermsAndConditions = () => {
+      navigate("/termsAndConditions");
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 0);
+    };
   
 
   const {t} = useTranslation();
@@ -203,12 +214,11 @@ export default function Footer() {
             <p className="text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  font-montserrat"> ©2024 | {t('Todos los derechos reservados')}
             </p>
             
-            <p>
-              <NavLink to='' className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  font-montserrat"> {t('Política de Privacidad')}</NavLink>
-            </p>
-            <p>
-              <NavLink to='' className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  font-montserrat"> {t('Términos y condiciones')}</NavLink>
-            </p>
+            
+              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] font-montserrat" onClick={navigatetoPrivacyPolicy}> {t('Política de Privacidad')}</button>
+            
+              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] font-montserrat" onClick={navigatetoTermsAndConditions}> {t('Términos y condiciones')}</button>
+            
             </div>
       </div>
     </div >
