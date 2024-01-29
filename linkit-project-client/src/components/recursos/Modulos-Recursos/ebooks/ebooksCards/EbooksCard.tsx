@@ -49,21 +49,21 @@ function EbooksCard({
   return (
     <motion.div
       key={key}
-      className="border-linkIt-500 border-[2px] w-full h-full rounded-xl font-montserrat items-center justify-center bg-white"
+      className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white"
       variants={cardVariants}
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}
     >
-      <div className="grid justify-items-start p-[7%]">
-        <p className="border-[1px] text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] xl:text-[1rem] border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {category}
         </p>
-        <h1 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.5rem] md:text-[1.8rem] lg:text-[1.2rem] xl:text-[1.5rem]">{title}</h1>
-        <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.8rem] xl:text-[1rem]">{description}</p>
+        <h1 className="font-bold subtitles-size line-clamp-3">{title}</h1>
+        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
       <motion.a 
       href={link} 
-      className="text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] xl:text-[1rem] font-bold mt-2 xs:mt-3" 
+      className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start" 
       target="_blank"
       >
         {t('Descargar')}

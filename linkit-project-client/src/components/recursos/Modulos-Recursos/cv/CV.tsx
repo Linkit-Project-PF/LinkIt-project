@@ -7,7 +7,7 @@ function CV() {
   return (
     <div className="bg-linkIt-300 p-[7%] relative grid grid-cols-2 gap-2 ">
       <div className="grid lg:mb-[20%]">
-            <h1 className="text-white font-bold font-montserrat mb-[5%] text-[0.9rem] xs:text-[1.2rem] ssm:text-[2rem] xl:text-[2.5rem]">
+            <h1 className="text-white font-bold font-montserrat mb-[5%] titles-size">
               Arma tu CV <br /> con nuestro <br /> template
             </h1>
             
@@ -22,7 +22,7 @@ function CV() {
             alt="cv-template"
             className="absolute w-1/3 lg:w-1/2 left-[60%] lg:left-[40%] top-[30%] xs:top-[20%]"
             />
-            <div className="hidden lg:block before:absolute before:bg-white before:w-full before:h-[20%] before:left-0 before:skew-y-[-3deg] before:top-[88%] after:absolute after:bg-linkIt-300 after:w-full after:h-[3px] after:left-0 after:skew-y-[-3deg] after:top-[89.5%]"></div>
+            <div className="hidden lg:block before:absolute before:bg-white before:dark:bg-linkIt-400 before:w-full before:h-[20%] before:left-0 before:skew-y-[-3deg] before:top-[88%] after:absolute after:bg-linkIt-300 after:w-full after:h-[3px] after:left-0 after:skew-y-[-3deg] after:top-[89.5%]"></div>
     </div>
   );
 }

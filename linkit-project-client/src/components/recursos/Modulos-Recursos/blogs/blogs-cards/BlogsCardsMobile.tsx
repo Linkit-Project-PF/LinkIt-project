@@ -9,12 +9,11 @@ import whiteArrow from "/Vectores/white-arrow.png"
 import { RootState } from "../../../../../redux/types";
 import { useSelector } from "react-redux";
 
-function BlogsCards() {
+function BlogsCardsMobile() {
   const [currentBlog, setCurrentBlog] = useState(0);
   const [blogs, setBlogs] = useState<PostEntity[]>([]);
   const isDarkMode = useSelector(
     (state: RootState) => state.darkMode);
-
 
   useEffect(() => {
     (async () => {
@@ -30,62 +29,49 @@ function BlogsCards() {
     })();
   }, []);
 
-  
-  
-  
-  let blogsToShow = 3;
-  
-  
-  const startIndex = currentBlog * blogsToShow;
-  const endIndex = startIndex + blogsToShow;
-  
-  let blogsToShowArray = blogs.slice(startIndex, endIndex);
-
-
-  const handlePrev = () => {
-    setCurrentBlog(currentBlog === 0 ? Math.ceil(blogs.length / blogsToShow) - 1 : currentBlog - 1);
-  };
 
   const handleNext = () => {
-    setCurrentBlog(currentBlog === Math.ceil(blogs.length / blogsToShow) - 1 ? 0 : currentBlog + 1);
+    setCurrentBlog(currentBlog === blogs.length - 1 ? 0 : currentBlog + 1);
   };
 
-  if (blogsToShowArray.length < blogsToShow) {
-    blogsToShowArray = [
-      ...blogsToShowArray,
-      ...blogs.slice(0, blogsToShow - blogsToShowArray.length),
-    ];
-  }
+  const handlePrev = () => {
+    setCurrentBlog(currentBlog === 0 ? blogs.length - 1 : currentBlog - 1);
+  };
+  
+
+
 
 
   return (
     <div className="flex w-full justify-center items-center space-x-[5%]">
+      <button disabled={blogs.length <= 1}>
         <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
-        <div className='grid grid-cols-3 items-end gap-2 w-full h-full'>
-      {blogsToShowArray.map((blog, index) => {
-        return (
+        </button>
+        <div className='grid lg:grid-cols-3 items-end gap-2 w-full h-full'>
+      {blogs.length > 0 && (
           <motion.div
-            key={index}
+            key={currentBlog}
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.4 }}
           >
             <BlogsCard
-              image={blog.image}
-              title={blog.title}
-              description={blog.description}
-              _id={blog._id}
-              genre={blog.category}
+              image={blogs[currentBlog].image}
+              title={blogs[currentBlog].title}
+              description={blogs[currentBlog].description}
+              _id={blogs[currentBlog]._id}
+              genre={blogs[currentBlog].category}
             />
           </motion.div>
-        );
-      })}
+        )
+      }
     </div>
+    <button disabled={blogs.length <= 1}>
         <img onClick={handleNext} src={isDarkMode ? whiteArrow : blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
-      
+        </button>
     </div>
   );
 }
 
-export default BlogsCards;
+export default BlogsCardsMobile;

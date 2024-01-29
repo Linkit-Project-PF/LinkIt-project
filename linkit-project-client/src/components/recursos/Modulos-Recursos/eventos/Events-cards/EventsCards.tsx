@@ -1,10 +1,14 @@
 import EventCard from "./EventCard";
 import { useEffect, useState } from 'react'
-import blackArrow from "/Vectores/arrow.png";
+
 import axios from "axios";
 import { setEvents } from "../../../../../redux/features/ResourcesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ResourceProps } from "../../../../Paneles/admin.types";
+import blackArrow from "/Vectores/arrow.png";
+import whiteArrow from "/Vectores/white-arrow.png"
+import { RootState } from "../../../../../redux/types";
+
 
 export type stateProps = {
     resources: {
@@ -14,8 +18,11 @@ export type stateProps = {
 
 function EventsCards() {
 
-    const maxEventsPerPage: number = window.matchMedia("(max-width: 1023px)").matches ? 1 : 3
+    const maxEventsPerPage: number =  3
     const [currentPage, setCurrentPage] = useState(0)
+    const isDarkMode = useSelector(
+        (state: RootState) => state.darkMode);
+    
 
     const dispatch = useDispatch()
     const events = useSelector((state: stateProps) => state.resources.events);
@@ -49,9 +56,9 @@ function EventsCards() {
     return (
         <div className="flex w-full h-full justify-center items-center space-x-[5%]">
 
-            <img src={blackArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] h-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+            <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
 
-            <div className='grid lg:grid-cols-3 items-end gap-2 w-full h-full'>
+            <div className='grid grid-cols-3 items-end gap-2 w-full h-full'>
                 {
                     events.slice(startIndex, endIndex).map((event, index) => {
                         return (
@@ -67,7 +74,7 @@ function EventsCards() {
                     })
                 }
             </div>
-            <img onClick={handleNext} src={blackArrow} alt="next-icon" className="-rotate-90 w-[20px] h-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+            <img onClick={handleNext} src={isDarkMode ? whiteArrow : blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
         </div>
     )
 }
