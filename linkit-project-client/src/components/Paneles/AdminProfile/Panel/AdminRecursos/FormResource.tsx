@@ -224,7 +224,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                         setFilePublicId={setFilePublicId}
                         className="ml-2"
                       >
-                        <img className="w-10" src="/Vectores/upload-circle.svg" alt="" />
+                        <img className="w-10" src="/Vectores/upload-circle.svg" alt="Upload image" />
                       </CloudinaryUploadWidget>
                     </div>
                   </div>

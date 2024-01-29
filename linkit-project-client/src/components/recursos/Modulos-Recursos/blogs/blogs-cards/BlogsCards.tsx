@@ -57,7 +57,6 @@ function BlogsCards() {
         <img src={blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] h-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
         <div className='grid lg:grid-cols-3 items-end gap-2 w-full h-full'>
       {blogsToShowArray.map((blog, index) => {
-        console.log(blog)
         return (
           <motion.div
             key={index}
