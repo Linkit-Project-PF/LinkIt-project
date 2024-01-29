@@ -1,11 +1,43 @@
 import { useState, useEffect} from "react";
-import { Dropdown } from 'flowbite-react';
+import { CustomFlowbiteTheme, Dropdown } from 'flowbite-react';
 import axios from "axios";
 import "./calculadora.css";
 import { useTranslation } from "react-i18next";
 
 
-
+const customTheme: CustomFlowbiteTheme['dropdown'] = {
+  "arrowIcon": "ml-2 h-4 w-4",
+  "content": "py-1 focus:outline-none text-[0.6rem]  ssm:text-[0.9rem] md:text-[1rem] bg-white text-black lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+  "floating": {
+    "animation": "transition-opacity",
+    "arrow": {
+      "base": "absolute z-10 h-2 w-2 rotate-45",
+      "style": {
+        "dark": "bg-gray-900 dark:bg-gray-700",
+        "light": "bg-white",
+        "auto": "bg-white dark:bg-gray-700"
+      },
+      "placement": "-4px"
+    },
+    "base": "z-10 w-fit rounded divide-y divide-gray-200 focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "content": "py-1 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "divider": "my-1 h-px",
+    "header": "block py-2 px-4 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "hidden": "invisible opacity-0",
+    "item": {
+      "container": " text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+      "base": " text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem] flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
+      "icon": "mr-2 h-4 w-4"
+    },
+    "style": {
+      "dark": "",
+      "light": "border",
+      "auto": "border text-gray-900 dark:border-none"
+    },
+    "target": "bg-transparent border border-white w-full justify-start text-left focus:outline-none text-[0.4rem] ssm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.4rem] xl:text-[1.6rem] 2xl:text-[2rem]"
+  },
+  "inlineWrapper": "flex items-center w-full h-fit rounded-md border border-white p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
+};
 
 interface VacancyFirstState {
   [key: string]: string;
@@ -181,7 +213,7 @@ interface VacancySecondState {
             <div className="flex bg-white rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap ">
 
               <div className="grid grid-cols-6 w-full font-montserrat font-semibold justify-items-center">
-              <Dropdown label={t('Posición')} inline className="h-40 overflow-y-scroll font-medium">
+              <Dropdown label={t('Posición')} inline theme={customTheme} className="h-40 overflow-y-scroll font-medium">
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
                     <li key={index}> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0 cursor-pointer font-normal" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
@@ -193,13 +225,13 @@ interface VacancySecondState {
           </Dropdown>
 
 
-          <Dropdown label={t('Inglés')} inline className="overflow-y-auto font-medium pr-2">
+          <Dropdown label={t('Inglés')} inline theme={customTheme} className="overflow-y-auto font-medium">
               <li className=""> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0 cursor-pointer" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
                     <label htmlFor="Basico" className="cursor-pointer w-full">{t('Básico')}</label>
                     </li>
                     
-                    <li className=""> 
+                    <li className="pr-3"> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0 cursor-pointer" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
                     <label htmlFor="Intermedio" className="cursor-pointer w-full">{t('Intermedio')}</label>
                     </li>
@@ -211,7 +243,7 @@ interface VacancySecondState {
                     </Dropdown>
                     
 
-          <Dropdown label="Seniority" inline className=" overflow-y-auto z-20 font-medium pr-2">
+          <Dropdown label="Seniority" inline theme={customTheme} className=" overflow-y-auto z-20 font-medium pr-2">
               <li className=""> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
                     <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
@@ -222,7 +254,7 @@ interface VacancySecondState {
                     <label htmlFor="Semi-senior" className="cursor-pointer w-full">Semi-senior</label>
                     </li>
                   
-              <li className=""> 
+              <li className="pr-3"> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
                     <label htmlFor="Senior Advance" className="cursor-pointer w-full">Senior Advance</label>
                     </li>
@@ -233,7 +265,7 @@ interface VacancySecondState {
                     </li>
                     </Dropdown>
 
-              <Dropdown label={t('Tecnologías')} inline className=" h-40 overflow-y-scroll font-medium">
+              <Dropdown label={t('Tecnologías')} inline theme={customTheme} className=" h-40 overflow-y-scroll font-medium">
               {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
                 
                     <li key={index} className=""> 
@@ -245,7 +277,7 @@ interface VacancySecondState {
                 ))}
     </Dropdown>
           
-          <Dropdown label="Frameworks" inline className=" h-40 overflow-y-scroll font-medium">
+          <Dropdown label="Frameworks" inline theme={customTheme} className=" h-40 overflow-y-scroll font-medium">
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
               
                     <li key={index} className=""> 
@@ -258,7 +290,7 @@ interface VacancySecondState {
 
     </Dropdown>
 
-          <Dropdown label={t('Otros')} inline className=" h-28 overflow-y-scroll font-medium">
+          <Dropdown label={t('Otros')} inline theme={customTheme} className=" h-40 overflow-y-scroll font-medium">
 
           {
               
@@ -297,7 +329,7 @@ interface VacancySecondState {
           <div className="flex bg-white rounded-[7px] p-1 mt-[5%] h-[3rem] items-center whitespace-nowrap px-3">
 
               <div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center">
-              <Dropdown label={t('Posición')} inline className="h-28 overflow-y-scroll">
+              <Dropdown label={t('Posición')} inline theme={customTheme} className="h-28 overflow-y-scroll">
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
                     <li key={index}> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2 ring-black cursor-pointer" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
@@ -308,13 +340,13 @@ interface VacancySecondState {
             
           </Dropdown>
 
-          <Dropdown label={t('Inglés')} inline className="overflow-y-auto">
+          <Dropdown label={t('Inglés')} inline theme={customTheme} className="overflow-y-auto">
               <li className=""> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
                     <label htmlFor="Basico" className="cursor-pointer w-full">{t('Básico')}</label>
                     </li>
                     
-                    <li className=""> 
+                    <li className="pr-3"> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
                     <label htmlFor="Intermedio" className="cursor-pointer w-full"> {t('Intermedio')}</label>
                     </li>
@@ -336,7 +368,7 @@ interface VacancySecondState {
 <div className="flex bg-white rounded-[7px] p-1 mt-[2%] h-[3rem] items-center whitespace-nowrap px-3">
 
 <div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center relative">
-          <Dropdown label="Seniority" inline className=" overflow-y-auto">
+          <Dropdown label="Seniority" inline theme={customTheme} className=" overflow-y-auto">
               <li className=""> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
                     <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
@@ -347,7 +379,7 @@ interface VacancySecondState {
                     <label htmlFor="Semi-senior" className="cursor-pointer w-full">Semi-senior</label>
                     </li>
                   
-              <li className=""> 
+              <li className="pr-3"> 
                     <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
                     <label htmlFor="Senior Advance" className="cursor-pointer w-full">Senior Advance</label>
                     </li>
@@ -360,7 +392,7 @@ interface VacancySecondState {
     </Dropdown>
    
 
-    <Dropdown label={t('Tecnologías')} inline className=" h-28 overflow-y-scroll">
+    <Dropdown label={t('Tecnologías')} inline theme={customTheme} className=" h-28 overflow-y-scroll">
               {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
                 
                     <li key={index} className=""> 
@@ -385,7 +417,7 @@ interface VacancySecondState {
 
 <div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center">
 
-          <Dropdown label="Frameworks" inline className=" h-28 overflow-y-scroll">
+          <Dropdown label="Frameworks" inline theme={customTheme} className=" h-28 overflow-y-scroll">
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
               
                     <li key={index} className=""> 
@@ -399,7 +431,7 @@ interface VacancySecondState {
     </Dropdown>
               
 
-          <Dropdown label={t('Otros')} inline className=" h-28 overflow-y-scroll">
+          <Dropdown label={t('Otros')} inline theme={customTheme} className=" h-28 overflow-y-scroll">
 
           {
               

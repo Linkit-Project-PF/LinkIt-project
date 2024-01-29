@@ -7,7 +7,10 @@ import FAQ from "./Modulos-Recursos/FAQ/FAQ";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import topLines from "/Vectores/linkit-linea-banner-recursos-superior.svg"
+import topLinesMobile from "/Vectores/M_linkit-linea-banner-recursos-superior_grueso.svg"
+
 import bottomLines from "/Vectores/linkit-linea-banner-recursos-inferior.svg"
+import bottomLinesMobile from "/Vectores/M_linkit-linea-banner-recursos-inferior_grueso.svg"
 import Newsletter from "../../Utils/newsletter/newsletter";
 export default function Recursos() {
   const { t } = useTranslation();
@@ -18,11 +21,13 @@ export default function Recursos() {
     <div className="overflow-hidden">
       <section id="moduloA">
         <div className="bg-linkIt-300 dark:bg-linkIt-200 h-[20%] mt-[115px] md:mt-[135px] p-[7%] py-[15%] lg:py-[7%] flex flex-col content-center text-center relative">
-          <img src={topLines} alt="lines" className="w-full absolute top-[22%]" />
-          <h1 className="font-bold font-manrope text-white text-[1.4rem] xs:text-[2rem] ssm:text-[2.5rem] lg:text-[3rem]">
+          <img src={topLines} alt="lines" className="w-full absolute top-[22%] hidden lg:block" />
+          <img src={topLinesMobile} alt="lines" className="w-full absolute top-[22%] lg:hidden" />
+          <h1 className="font-bold font-manrope text-white titles-size">
             {t("Recursos de LinkIT")}
           </h1>
-          <img src={bottomLines} alt="lines" className="w-full absolute top-[70%]" />
+          <img src={bottomLines} alt="lines" className="w-full absolute top-[70%] hidden lg:block" />
+          <img src={bottomLinesMobile} alt="lines" className="w-full absolute top-[70%]  lg:hidden" />
 
         </div>
       </section>

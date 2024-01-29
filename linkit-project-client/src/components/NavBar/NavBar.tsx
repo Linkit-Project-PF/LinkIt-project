@@ -18,7 +18,7 @@ import { toggleDarkMode } from "../../redux/features/darkModeSlice";
 import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../redux/types";
-import { Avatar, Dropdown, DropdownDivider, DropdownHeader } from "flowbite-react";
+import { Avatar, CustomFlowbiteTheme, Dropdown, DropdownDivider} from "flowbite-react";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -56,6 +56,40 @@ function useMenuAnimation(isOpen: boolean) {
 
   return scope;
 }
+
+const customTheme: CustomFlowbiteTheme['dropdown'] = {
+  "arrowIcon": "ml-2 h-4 w-4",
+  "content": "py-1 dark:bg-linkIt-400 bg-white rounded-[7px] border dark:border-linkIt-700",
+  "floating": {
+    "animation": "transition-opacity",
+    "arrow": {
+      "base": "absolute z-10 h-2 w-2 rotate-45",
+      "style": {
+        "dark": "bg-gray-900 dark:bg-gray-700",
+        "light": "bg-white",
+        "auto": "bg-white dark:bg-gray-700"
+      },
+      "placement": "-4px"
+    },
+    "base": "z-10 w-fit rounded divide-y divide-gray-200",
+    "content": "py-1 text-sm",
+    "divider": "my-1 h-px",
+    "header": "block py-2 px-4 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "hidden": "invisible opacity-0",
+    "item": {
+      "container": "",
+      "base": "flex items-center justify-start py-2 px-4 text-sm cursor-pointer w-full dark:bg-linkIt-400 dark:text-white hover:text-linkIt-300 dark:hover:text-linkIt-300",
+      "icon": "mr-2 h-4 w-4"
+    },
+    "style": {
+      "dark": "",
+      "light": "",
+      "auto": " rounded-[7px]"
+    },
+    "target": "w-full justify-start text-left ",
+  },
+  "inlineWrapper": "flex items-center w-full h-fit "
+};
 
 function NavBar() {
   const { t } = useTranslation();
@@ -527,7 +561,7 @@ function NavBar() {
               {t("Inicio")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center my-3 hover:text-linkIt-300  ${
+              className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
                 isActiveEmpresa ? "text-linkIt-300  " : ""
               }`}
               onClick={() => goSoyEmpresa()}
@@ -535,7 +569,7 @@ function NavBar() {
               {t("Soy Empresa")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center my-3 hover:text-linkIt-300  ${
+              className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
                 isActiveTalento ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goSoyTalento()}
@@ -544,7 +578,7 @@ function NavBar() {
               {t("Soy Talento")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center my-3 hover:text-linkIt-300  ${
+              className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
                 isActiveRecursos ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goRecursos()}
@@ -553,7 +587,7 @@ function NavBar() {
               {t("Recursos")}
             </li>
             <li
-              className={`flex cursor-pointer h-full items-center hover:text-linkIt-300  ${
+              className={`flex cursor-pointer items-center hover:text-linkIt-300  ${
                 isActiveQS ? "text-linkIt-300 " : ""
               }`}
               onClick={() => goQS()}
@@ -570,7 +604,7 @@ function NavBar() {
 
           <div className="cl-toggle-switch hidden lg:flex">
             <label className="cl-switch">
-              <input type="checkbox" onChange={darkMode} />
+              <input type="checkbox" onChange={darkMode} checked={isDarkMode} />
               <span></span>
             </label>
           </div>
@@ -596,10 +630,8 @@ function NavBar() {
       label={<Avatar alt="User settings" img={userGreen} rounded className="border-[1px] rounded-full border-linkIt-300 p-1 w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] lg:w-[35px] lg:h-[35px]" />}
       arrowIcon={false}
       inline
+      theme={customTheme}
     >
-      <DropdownHeader>
-        
-      </DropdownHeader>
       {isAuthenticated && role === "user" ? (
                   <div>
                     <Dropdown.Item

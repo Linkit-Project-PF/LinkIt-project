@@ -10,7 +10,7 @@ import whiteArrow from "/Vectores/white-arrow.png"
 import { RootState } from "../../../../../redux/types";
 
 
-const JobCards: FunctionComponent = () => {
+const JobCardsMobile: FunctionComponent = () => {
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(0);
   const isDarkMode = useSelector(
@@ -18,7 +18,7 @@ const JobCards: FunctionComponent = () => {
 
 
   const jobOffers = useSelector((state: any) => state.jobCard.jobOffers as JobCardProps[]);
-  const jobsPerPage = 6;
+  const jobsPerPage = 3;
   const maxPages = Math.ceil(jobOffers.length / jobsPerPage);
   const handlePrev = () => setCurrent(current === 0 ? maxPages - 1 : current - 1);
   const handleNext = () => setCurrent(current === maxPages - 1 ? 0 : current + 1);
@@ -70,4 +70,4 @@ const JobCards: FunctionComponent = () => {
   );
 };
 
-export default JobCards;
+export default JobCardsMobile;
