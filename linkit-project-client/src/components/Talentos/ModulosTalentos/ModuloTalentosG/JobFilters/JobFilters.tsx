@@ -10,7 +10,42 @@ import { SUPERADMN_ID } from '../../../../../env';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { applyFilters } from "../../../../../redux/features/JobCardsSlice";
-import { Dropdown } from "flowbite-react";
+import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
+
+
+const customTheme: CustomFlowbiteTheme['dropdown'] = {
+  "arrowIcon": "ml-2 h-4 w-4",
+  "content": "py-1 focus:outline-none text-[0.6rem]  ssm:text-[0.9rem] md:text-[1rem] bg-white text-black lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+  "floating": {
+    "animation": "transition-opacity",
+    "arrow": {
+      "base": "absolute z-10 h-2 w-2 rotate-45",
+      "style": {
+        "dark": "bg-gray-900 dark:bg-gray-700",
+        "light": "bg-white",
+        "auto": "bg-white dark:bg-gray-700"
+      },
+      "placement": "-4px"
+    },
+    "base": "z-10 w-fit rounded divide-y divide-gray-200 focus:outline-none text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "content": "py-1 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "divider": "my-1 h-px",
+    "header": "block py-2 px-4 text-sm text-gray-700 dark:text-gray-200 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+    "hidden": "invisible opacity-0",
+    "item": {
+      "container": " text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]",
+      "base": " text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem] flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
+      "icon": "mr-2 h-4 w-4"
+    },
+    "style": {
+      "dark": "",
+      "light": "border",
+      "auto": "border text-gray-900 dark:border-none"
+    },
+    "target": "bg-transparent w-full justify-start text-left focus:outline-none text-[0.4rem] ssm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.4rem] xl:text-[1.6rem] 2xl:text-[2rem]"
+  },
+  "inlineWrapper": " flex items-center w-full h-fit rounded-md p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
+};
 
 interface OptionType {
   value: string;
@@ -101,10 +136,11 @@ const JobFilters = () => {
 
 
   return (
-    <div>
-    <div className="hidden lg:flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
+    <div className="w-full">
+    <div className="hidden lg:flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400">
       <div className="grid grid-cols-4 w-full font-montserrat font-semibold justify-items-center items-center">
-          <Dropdown label={stack} inline className="h-40 overflow-y-scroll font-medium">
+        <div>
+          <Dropdown label={stack} inline theme={customTheme} className="h-40 overflow-y-scroll font-medium ">
           {allStackTechnologies?.map((stack: any, index: number) => {
             return (
                 <li
@@ -126,9 +162,9 @@ const JobFilters = () => {
             );
           })}
           </Dropdown>
-          
-
-         <Dropdown label={type} inline className=" font-medium">
+          </div>
+          <div>
+         <Dropdown label={type} inline theme={customTheme} className=" font-medium">
           <li
             onClick={() => {
               setType("Part-time"), setTypeValue("part-time");
@@ -154,6 +190,7 @@ const JobFilters = () => {
             Freelance
           </li>
       </Dropdown>
+      </div>
 
 
       
@@ -173,8 +210,8 @@ const JobFilters = () => {
       
 
 
-
-      <Dropdown label={modality} inline> 
+      <div>
+      <Dropdown label={modality} inline theme={customTheme} className="font-medium"> 
           {language === "en" ? (
             <li
               onClick={() => {
@@ -214,7 +251,7 @@ const JobFilters = () => {
             </li>
           )}
 </Dropdown>
-  
+</div>
 
 </div>
       <button
@@ -244,10 +281,12 @@ const JobFilters = () => {
         />
       </button>
     </div>
+
   <div className="lg:hidden">
 <div className=" flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
 <div className="grid grid-cols-2 w-full font-montserrat font-semibold justify-items-center items-center">
-<Dropdown label={stack} inline className="h-40 overflow-y-scroll font-medium">
+  <div>
+<Dropdown label={stack} inline theme={customTheme} className="h-40 overflow-y-scroll font-medium">
           {allStackTechnologies?.map((stack: any, index: number) => {
             return (
                 <li
@@ -269,9 +308,11 @@ const JobFilters = () => {
             );
           })}
           </Dropdown>
-          
+          </div>
+ 
 
-         <Dropdown label={type} inline className=" font-medium">
+        <div>
+         <Dropdown label={type} inline theme={customTheme} className=" font-medium">
           <li
             onClick={() => {
               setType("Part-time"), setTypeValue("part-time");
@@ -297,6 +338,8 @@ const JobFilters = () => {
             Freelance
           </li>
       </Dropdown>
+      </div>
+
   </div>
   </div>
 <div className=" flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
@@ -317,8 +360,8 @@ const JobFilters = () => {
       
 
 
-
-      <Dropdown label={modality} inline> 
+      <div>
+      <Dropdown label={modality} inline theme={customTheme} className="font-medium"> 
           {language === "en" ? (
             <li
               onClick={() => {
@@ -358,12 +401,14 @@ const JobFilters = () => {
             </li>
           )}
 </Dropdown>
+</div>
   </div>
   </div>
-<div className=" flex items-center justify-center whitespace-nowrap">
+
+<div className="relative flex items-center justify-center whitespace-nowrap z-[1]">
   
       <button
-        className="background-button whitespace-nowrap mr-3"
+        className="background-button whitespace-nowrap mr-3 relative "
         onClick={() => handleFilters()}
       >
         Encontrar Vacante

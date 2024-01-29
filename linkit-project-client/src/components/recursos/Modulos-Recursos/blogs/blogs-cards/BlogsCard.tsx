@@ -51,7 +51,7 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
 
   return (
     <motion.div 
-    className="border-[2px] w-full h-full rounded-xl font-montserrat  bg-white"
+    className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400"
     variants={blogsCardVariants}
     initial="hidden"
     animate="visible"
@@ -61,25 +61,22 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
       <img
         src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
         alt={title}
-        className={`w-full rounded-xl ${
-          title.length > 20 ? "xl:-mt-4" : ""
-        } image`}
+        className={`w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center`}
       />
-      <div className="grid justify-items-start h-full p-[7%]">
-
-        <p className="border-[1px] text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
         </p>
-        <h1 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.5rem] md:text-[1.8rem]">
+        <h1 className="font-bold subtitles-size line-clamp-3">
           {title}
         </h1>
-        <p className="font-semibold text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem]">
+        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
           {description}
         </p>
 
         <motion.a
           onClick={handleClick}
-          className="text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] font-bold mt-2 xs:mt-3"
+          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
           whileHover={{ scale: 1.02, cursor: 'pointer' }}
           whileTap={{ scale: 1 }}
         >

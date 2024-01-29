@@ -22,7 +22,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
 import { IUser, UserLoginType } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
-import { changePassword } from "../../Profiles/api.ts";
+import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
 
 type Event = {
   target: HTMLInputElement;
@@ -35,11 +35,19 @@ function LoginTalent() {
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
   const [loading, isLoading] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
     dispatch(setPressLoginTalent("hidden"));
   };
+
+  const resetPasswordHandler = () => {
+    setShowResetPassword(true);
+    setTimeout(() =>{
+      setShowResetPassword(false);
+    },100)
+  }
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -130,63 +138,6 @@ function LoginTalent() {
       });
     }
   };
-
-  //* ResetPassword
-  const resetPasswordHandler = (user: UserLoginType): void => {
-    const confirmEmailAlert = (user: UserLoginType) => {
-      Swal.fire({
-        title: t('¡Confirmación de email exitoso!'),
-        text: t('Hemos confirmado tu correo electrónico. Pronto recibirás un correo con las instrucciones para cambiar tu contraseña.'),
-        icon: "success",
-        iconColor: "#173951",
-        background: "#ECEEF0",
-        allowOutsideClick: true,
-        confirmButtonColor: "#01A28B",
-        confirmButtonText: t("Continuar"),
-      })
-      changePassword(user);
-    }
-    Swal.fire({
-      title: t ('Restablecer Contraseña'),
-      text: t('Por favor, confirme su correo electrónico: ' + user.email),
-      input: "email",
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: 'Enviar',
-      cancelButtonText: 'Cancelar',
-  }).then((result) => {
-      if (result.isConfirmed) {
-          const email = result.value;
-          if(user.email.length) {
-            if(email === user.email) {
-              confirmEmailAlert(user);
-            }else {
-              Swal.fire({
-                title: t('¡El email no coincide!'),
-                text: t('Asegurate de escribir bien el correo'),
-                icon: "error",
-                background: "#ECEEF0",
-                allowOutsideClick: true,
-                confirmButtonColor: "#01A28B",
-                confirmButtonText: t("Continuar"),
-              }).then(() => {
-                if (result.isConfirmed){
-                  Swal.fire({
-                    title: t ('Restablecer Contraseña'),
-                    text: t('Por favor, confirme su correo electrónico: ' + user.email),
-                    input: "email",
-                    focusConfirm: false,
-                    showCancelButton: true,
-                    confirmButtonText: 'Enviar',
-                    cancelButtonText: 'Cancelar',
-                })
-                }
-              });
-            }
-          } else confirmEmailAlert(user);
-      }
-  });
-  }
 
   const handleAuthClick = async (prov: string) => {
     try {
@@ -328,6 +279,7 @@ function LoginTalent() {
     }
   }, [thirdParty]);
 
+
   return (
     <>
       <div
@@ -388,15 +340,16 @@ function LoginTalent() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
+            <p className="text-[.8rem] self-start ml-[6%] font-manrope cursor-pointer">
               <motion.a
-                onClick={()=>resetPasswordHandler(user)}
+                onClick={resetPasswordHandler}
                 className="cursor-pointer"
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}
               </motion.a>
             </p>
+            {showResetPassword && <ResetPassword user={user} />}
           </fieldset>
           <div className="flex flex-col w-full items-center gap-[.5rem]">
             <button

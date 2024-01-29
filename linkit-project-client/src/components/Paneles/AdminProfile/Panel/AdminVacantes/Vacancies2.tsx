@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import HeadVacancy from './headVacancy'
 import { useDispatch, useSelector } from "react-redux";
 import { CompaniesProps, VacancyProps } from "../../../admin.types";
-import { setSortJobOffers, setJobOffers, applyFilters} from "../../../../../redux/features/JobCardsSlice";
+import { setSortJobOffers, setJobOffers, applyFilters } from "../../../../../redux/features/JobCardsSlice";
 import axios from "axios";
 import { t } from 'i18next';
 import { RootState } from '../../../../../redux/types';
@@ -57,7 +57,7 @@ export default function Vacancies2() {
                     }
                 );
                 dispatch(setJobOffers(response.data));
-                dispatch(setSortJobOffers({ visibility : 'Visible' }));
+                dispatch(setSortJobOffers({ visibility: 'Visible' }));
                 dispatch(setSortJobOffers({ date: 'recent' }))
             } catch (error) {
                 console.error("Error al cargar las ofertas de trabajo", error);
@@ -68,12 +68,12 @@ export default function Vacancies2() {
 
 
     const handleFilters = async () => {
-        const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1 ? `stack=${stackValue.map((tech) => `${tech}`)}` : ""}${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}${companyValue && companyValue !== " " ? `&company=${companyValue}`: ``}`
+        const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1 ? `stack=${stackValue.map((tech) => `${tech}`)}` : ""}${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``}${companyValue && companyValue !== " " ? `&company=${companyValue}` : ``}`
         console.log(url)
         try {
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${token} `, 
+                    Authorization: `Bearer ${token} `,
                     'Accept-Language': sessionStorage.getItem('lang')
                 }
             })
@@ -248,7 +248,7 @@ export default function Vacancies2() {
     };
 
     return (
-        <div className=' bg-scroll bg-linkIt-500'>
+        <div className='bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-auto'>
 
             <HeadVacancy
                 hideCol={hideCol}
