@@ -320,7 +320,7 @@ function LoginCompany() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
+            <p className="cursor-pointer text-[.8rem] self-start ml-[6%] font-manrope">
               <motion.a
                 onClick={resetPasswordHandler}
                 whileHover={{ textDecoration: "underline" }}
