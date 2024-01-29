@@ -54,8 +54,9 @@ export type stateProps = {
 
   const [specificResultName, setSpecificResultName] = useState<string>("");
 
-  // const [isFormSpecificResultsOpen, setIsFormSpecificResultsOpen] = useState(false);
-
+  const [viewOKRForm, setViewOKRForm]=useState<boolean>(true)
+  
+ 
   
   const [completeOKR, setCompleteOKR] = useState<Partial<OKRsType>>({
     generalTitleOKR:"",
@@ -91,11 +92,6 @@ export type stateProps = {
     // archived:false
     // });
     
-  
-      //!CAMBIO HECHO
-      //!CAMBIO HECHO
-      //!CAMBIO HECHO
-//! REVISAR PARA ELIMINAR LOS VACíOS EN EL ARRAY arraySpecificOKRsArea 
         
     useEffect(() => {
   // Filtra los objetos que cumplen la condición okrSpecificName !== ""
@@ -112,8 +108,10 @@ export type stateProps = {
 
 }, [specificOKRsAreaComplete]);
 
-     
-  console.log(arraySpecificOKRsArea)
+const closeViewForm = ()=>{
+  setViewOKRForm(false)
+
+} 
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
@@ -268,21 +266,28 @@ const noShowForm = () => {
         }
       };
     
-// console.log(completeOKR)
-// console.log(arrayAreas)
-// console.log(arraySpecificOKRsArea)
+
     return(
-      <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
-            <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300">
+      <>
+      {viewOKRForm && (
+
+      <div className="container mx-auto">
+            <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-5 rounded-[20px] border-[3px] border-linkIt-300">
+            <div className="flex w-full justify-end ">
+              <button
+                className={`background-button m-2`}
+                onClick={closeViewForm}
+              >X</button>
+            </div>
                 <div>
                     <h1 className="text-3xl my-12">{t("Nuevo OKR")}</h1>
                 </div>
 
                 <form 
                     onSubmit={handleSubmit}
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-row justify-center items-center"
                     action="">
-                        <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
+                        <div className="flex flex-wrap justify-start mx-3 mb-6 px-160">
 
                             <div className="w-fit px-3 mb-6">
                                 <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t("Título OKR principal")}
@@ -296,49 +301,38 @@ const noShowForm = () => {
                                 // onBlur={handleBlurErrors}
                                 /> 
                             </div>
+                           
+                            <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
+  {completeOKR && completeOKR.generalTitleOKR && completeOKR.generalTitleOKR.length > 0 && completeOKR.generalTitleOKR !== " " ? (
+    <div className="mx-4 flex flex-col">
+      <div className="my-4">{completeOKR.generalTitleOKR}</div>
+      <div className="flex items-center"> {/* Nuevo div para alinear los elementos */}
+        <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2 mr-2">Area</label>
+        <select
+          name="area"
+          onChange={handleAreaChange}
+          value={lastAreaName}
+          className="w-full bg-linkIt-500 text-black border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+        >
+          <option value="">{t('Seleccionar')}</option>
+          <option value="LinkIT">LinkIT</option>
+          <option value="Sales">Sales</option>
+          <option value="Q4-Recruiting">Q4-Recruiting</option>
+          <option value="Recruiting">Recruiting</option>
+        </select>
+      </div>
+      <button
+        className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
+        type="button"
+        onClick={handleChangeArrayArea}
+      >
+        {t('Agregar área')}
+      </button>
+    </div>
+  ) : null}
+</div>
 
-                            <div className="w-fit px-3 mb-6">
 
-
-                                  {completeOKR &&
-                                    completeOKR.generalTitleOKR &&
-                                    completeOKR.generalTitleOKR.length > 0 && completeOKR.generalTitleOKR !== " " ? (
-                                      <div className="mx-4">
-                                      <h3 className="text-md font-bold text-linkIt-200">
-                                        {t('Nombre OKR principal agregado')}
-                                      </h3>
-
-                                        {completeOKR.generalTitleOKR}
-                
-                                      <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">Area</label>
-                                      <select
-                                      name="area"
-                                      onChange={handleAreaChange}
-                                      value={lastAreaName}
-                                      >
-                                        
-                                          <option value="">{t('Seleccionar')}</option>
-                                          <option value="LinkIT">LinkIT</option>
-                                          <option value="Sales">Sales</option>
-                                          <option value="Q4-Recruiting">Q4-Recruiting</option>
-                                          <option value="Recruiting">Recruiting</option>
-                                      </select>
-
-                                      <button 
-                                
-                                className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
-                                type="button"
-                                onClick={ handleChangeArrayArea}>
-                          
-                                {t('Agregar área')}
-                                
-                                </button>
-                                
-                                    </div>
-                                  ) : null}
-                                  
-                              
-                            </div>
 
 
                         </div>
@@ -386,5 +380,7 @@ const noShowForm = () => {
 
 
         </div>
+      )}
+        </>
     )
 }
