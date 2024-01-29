@@ -16,9 +16,10 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
-import { ICompany } from "../../Profiles/types.ts";
+import { ICompany, UserLoginType } from "../../Profiles/types.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import Loading from "../../Loading/Loading.tsx";
+import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
 
 type Event = {
   target: HTMLInputElement;
@@ -31,6 +32,14 @@ function LoginCompany() {
   const [lock, setLock] = useState<string>("/Vectores/lock.svg");
   const [open, setOpen] = useState<string>("closed");
   const [loading, isLoading] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+
+  const resetPasswordHandler = () => {
+    setShowResetPassword(true);
+    setTimeout(() =>{
+      setShowResetPassword(false);
+    },100)
+  }
 
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
@@ -50,7 +59,7 @@ function LoginCompany() {
   };
 
   const [thirdParty, setThirdParty] = useState<boolean | undefined>(false);
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserLoginType>({
     email: "",
     password: "",
   });
@@ -311,14 +320,15 @@ function LoginCompany() {
                 />
               </button>
             </div>
-            <p className="text-[.8rem] self-start ml-[6%] font-manrope">
+            <p className="cursor-pointer text-[.8rem] self-start ml-[6%] font-manrope">
               <motion.a
-                href="_blank"
+                onClick={resetPasswordHandler}
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}
               </motion.a>
             </p>
+            {showResetPassword && <ResetPassword user={user} />}
           </fieldset>
           <div className="flex flex-col w-full items-center gap-[.5rem]">
             <button
