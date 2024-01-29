@@ -54,7 +54,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
 
     const hideReview = async () => {
         swal({
-            title: "¿Deseas eliminar el Recurso?",
+            title: "¿Deseas ocultar el Recurso?",
             icon: "warning",
             buttons: ["Cancelar", "Aceptar"],
             dangerMode: true,

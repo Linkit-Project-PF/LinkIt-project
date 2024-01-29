@@ -25,8 +25,6 @@ function BlogsCards() {
   }, []);
 
   
-  
-  
   let blogsToShow = window.matchMedia("(max-width: 1023px)").matches ? 1 : 3;
   
   
@@ -34,6 +32,7 @@ function BlogsCards() {
   const endIndex = startIndex + blogsToShow;
   
   let blogsToShowArray = blogs.slice(startIndex, endIndex);
+
 
 
   const handlePrev = () => {
@@ -46,7 +45,6 @@ function BlogsCards() {
 
   if (blogsToShowArray.length < blogsToShow) {
     blogsToShowArray = [
-      ...blogsToShowArray,
       ...blogs.slice(0, blogsToShow - blogsToShowArray.length),
     ];
   }
