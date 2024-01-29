@@ -156,7 +156,9 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: `${t("Bienvenido a LinkIT")}, ${ user.firstName }, ${t("Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación.")}`,
+          text: `${t("Bienvenido a LinkIT")}, ${user.firstName}, ${t(
+            "Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."
+          )}`,
           confirmButtonText: t("Confirmar"),
           confirmButtonColor: "#2D46B9",
           allowOutsideClick: true,
@@ -261,11 +263,11 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text:
-            `${t("!Bienvenido a LinkIT¡")} ${DBresponse
-              .role === "company"
-            ? DBresponse.companyName
-            : DBresponse.firstName} ${"Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."}`,
+          text: `${t("!Bienvenido a LinkIT¡")} ${
+            DBresponse.role === "company"
+              ? DBresponse.companyName
+              : DBresponse.firstName
+          } ${"Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."}`,
           confirmButtonText: t("Confirmar"),
           confirmButtonColor: "#2D46B9",
           // didOpen: () => {
@@ -360,7 +362,7 @@ function Register() {
         onClick={() => dispatch(setPressRegister("hidden"))}
       ></div>
       {loading && <Loading text={t("Creando tu cuenta")} />}
-      <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
+      <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] min-w-[300px] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
         <form
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSubmit}

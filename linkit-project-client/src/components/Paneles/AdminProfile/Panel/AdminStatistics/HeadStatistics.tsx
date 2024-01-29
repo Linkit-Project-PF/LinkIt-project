@@ -18,7 +18,8 @@ export default function HeadStatitics() {
               Web
             </NavLink>
           </li>
-          <li
+          {/* TODO WORKING HERE AS FOR MORE STATISTICS, Working now on FollowUp*/}
+          {/* <li
             className={`text-2xl mr-16 ${active[1] === 1 ? "underline" : ""}`}
           >
             <NavLink
@@ -50,7 +51,7 @@ export default function HeadStatitics() {
             >
               Presentation
             </NavLink>
-          </li>
+          </li> */}
           <li
             className={`text-2xl mr-16 ${active[4] === 1 ? "underline" : ""}`}
           >

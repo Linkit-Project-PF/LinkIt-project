@@ -295,7 +295,7 @@ const noShowForm = () => {
                                 <input className={'"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 type="text"
                                 name="generalTitleOKR"
-                                // placeholder={errors.title ? "*" : ""}
+                                placeholder={t("Mercado Posiciona...")}
                                 autoComplete="off"
                                 onChange={handleChange}
                                 // onBlur={handleBlurErrors}
@@ -362,7 +362,7 @@ const noShowForm = () => {
               className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
               type="button"
               onClick={showForm2} 
-              >Crear Resultados específicos
+              >{t('Crear Resultados específicos')}
               </button>
 
               {viewForm && (

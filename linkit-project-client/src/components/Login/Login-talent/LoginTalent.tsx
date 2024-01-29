@@ -44,10 +44,10 @@ function LoginTalent() {
 
   const resetPasswordHandler = () => {
     setShowResetPassword(true);
-    setTimeout(() =>{
+    setTimeout(() => {
       setShowResetPassword(false);
-    },100)
-  }
+    }, 100);
+  };
 
   const handleVisiblePassword = () => {
     if (visiblePassword === "password") {
@@ -93,21 +93,21 @@ function LoginTalent() {
     isLoading(true);
     try {
       const response = await axios.post<IUser>(
-        'https://linkit-server.onrender.com/auth/login',
+        "https://linkit-server.onrender.com/auth/login",
         {
           email: user.email,
           password: user.password,
-          role: 'user'
+          role: "user",
         },
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
-            'Accept-Language': sessionStorage.getItem('lang'),
-            'Content-Type': 'application/json' // Especifica el tipo de contenido como JSON
-          }
+            "Accept-Language": sessionStorage.getItem("lang"),
+            "Content-Type": "application/json", // Especifica el tipo de contenido como JSON
+          },
         }
       );
-      
+
       const loggedUser = response.data;
 
       if (response.status === 200) {
@@ -180,7 +180,12 @@ function LoginTalent() {
             }
           );
           if (usersData.data.length) {
-            if (!usersData.data[0].active) throw new Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
+            if (!usersData.data[0].active)
+              throw new Error(
+                t(
+                  "Email no verificado, por favor revisa tu bandeja de entrada o spam"
+                )
+              );
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
@@ -204,7 +209,12 @@ function LoginTalent() {
               }
             );
             if (adminData.data.length) {
-              if (!adminData.data[0].active) throw new Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
+              if (!adminData.data[0].active)
+                throw new Error(
+                  t(
+                    "Email no verificado, por favor revisa tu bandeja de entrada o spam"
+                  )
+                );
               const authAdmin = adminData.data[0];
               dispatch(loginSuccess(authAdmin));
               Swal.fire({
@@ -279,7 +289,6 @@ function LoginTalent() {
     }
   }, [thirdParty]);
 
-
   return (
     <>
       <div
@@ -287,7 +296,7 @@ function LoginTalent() {
         onClick={() => dispatch(setPressLoginTalent("hidden"))}
       ></div>
       {loading && <Loading text={t("Validando credenciales")} />}
-      <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
+      <div className=" bg-linkIt-500 absolute left-1/2 top-1/2 translate-x-[-50%] rounded-[1.3rem] translate-y-[-50%] min-h-[50vh] min-w-[300px] p-[2%] w-[30%] flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden">
         <form
           className=" flex flex-col flex-grow items-center gap-[1.5rem] font-montserrat overflow-hidden w-full"
           onSubmit={handleSignIn}

@@ -71,6 +71,7 @@ function MyPosts({ loader }: componentprops) {
           },
         }
       );
+      console.log(response);
       const activePosts = response.data.filter(
         (post: ICompanyPost) => !invalidStatus.includes(post.Status)
       );
