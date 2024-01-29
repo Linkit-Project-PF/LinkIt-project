@@ -2,13 +2,19 @@ import Swal from "sweetalert2"
 import { changePassword } from "../../components/Profiles/api"
 import {  useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { UserLoginType } from "../../components/Profiles/types"
+import { UserLoginType, WebsiteUser } from "../../components/Profiles/types"
 
-export default function ResetPassword(user: any) {
+interface IResetPassword {
+  user: UserLoginType | WebsiteUser
+}
+
+export default function ResetPassword(props: IResetPassword) {
   const { t } = useTranslation();
   
+  const { user } = props;
+  
   useEffect(() => {
-      const confirmEmailAlert = (user: UserLoginType) => {
+      const confirmEmailAlert = (user: WebsiteUser | UserLoginType) => {
         Swal.fire({
           title: t('¡Confirmación de email exitoso!'),
           text: t('Hemos confirmado tu correo electrónico. Pronto recibirás un correo con las instrucciones para cambiar tu contraseña.'),
@@ -28,6 +34,7 @@ export default function ResetPassword(user: any) {
         focusConfirm: false,
         showCancelButton: true,
         confirmButtonText: 'Enviar',
+        confirmButtonColor: "#01A28B",
         cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
@@ -52,6 +59,7 @@ export default function ResetPassword(user: any) {
                       input: "email",
                       focusConfirm: false,
                       showCancelButton: true,
+                      confirmButtonColor: "#01A28B",
                       confirmButtonText: 'Enviar',
                       cancelButtonText: 'Cancelar',
                   })

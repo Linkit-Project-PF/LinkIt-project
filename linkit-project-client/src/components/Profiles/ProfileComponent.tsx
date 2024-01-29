@@ -1,13 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import CloudinaryUploadWidget from "../Services/cloudinaryWidget";
-import { changePassword, editWebUserImage } from "./api";
+import { editWebUserImage } from "./api";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, setUser } from "../../redux/features/AuthSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import ProfileFormComponent from "./ProfileFormComponent";
 import { WebsiteUser } from "./types";
+import ResetPassword from "../../Utils/ResetPassword/ResetPassword";
 
 interface componentProps {
   loader: (value: boolean) => void;
@@ -19,11 +20,20 @@ export default function ProfileComponent({ loader }: componentProps) {
   const [filePublicId, setFilePublicId] = useState("");
   const [fileName, setFileName] = useState("");
   const [reload, setReload] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user: WebsiteUser = useSelector(
     (state: any) => state.Authentication.user
   );
+
+  const resetPasswordHandler = () => {
+    setShowResetPassword(true);
+    setTimeout(() =>{
+      setShowResetPassword(false);
+    },100)
+  }
 
   // UseEffect for validate auth
   useEffect(() => {
@@ -59,26 +69,26 @@ export default function ProfileComponent({ loader }: componentProps) {
     return () => loader(true);
   }, [reload]);
 
-  async function profileChangePassword() {
-    try {
-      const response: string = await changePassword(user);
-      Swal.fire({
-        title: t("Exitoso"),
-        text: response,
-        icon: "success",
-        confirmButtonText: "Ok",
-        confirmButtonColor: "#0098DA",
-      });
-    } catch (error: any) {
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Ok",
-        confirmButtonColor: "#0098DA",
-      });
-    }
-  }
+  // async function profileChangePassword() {
+  //   try {
+  //     const response: string = await changePassword(user);
+  //     Swal.fire({
+  //       title: t("Exitoso"),
+  //       text: response,
+  //       icon: "success",
+  //       confirmButtonText: "Ok",
+  //       confirmButtonColor: "#0098DA",
+  //     });
+  //   } catch (error: any) {
+  //     Swal.fire({
+  //       title: "Error",
+  //       text: error.message,
+  //       icon: "error",
+  //       confirmButtonText: "Ok",
+  //       confirmButtonColor: "#0098DA",
+  //     });
+  //   }
+  // }
 
   function handleLogOut() {
     dispatch(logout());
@@ -141,11 +151,12 @@ export default function ProfileComponent({ loader }: componentProps) {
             {user?.provider === "email" && (
               <button
                 className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
-                onClick={profileChangePassword}
+                onClick={resetPasswordHandler}
               >
                 {t("Cambiar contraseña")}
               </button>
             )}
+            {showResetPassword && <ResetPassword user={user}/>}
             <button
               className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
               onClick={handleLogOut}
