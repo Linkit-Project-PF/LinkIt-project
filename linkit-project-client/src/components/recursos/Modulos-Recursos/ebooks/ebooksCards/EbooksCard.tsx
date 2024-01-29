@@ -41,7 +41,7 @@ function EbooksCard({
   category,
 }: EbooksCardProps): JSX.Element {
   const [key, setKey] = useState(Math.random());
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   useEffect(() => {
     setKey(Math.random()); // change key to force re-render
   }, [title, description, link, category]); // re-render when these props change
@@ -61,14 +61,14 @@ function EbooksCard({
         </p>
         <h1 className="font-bold subtitles-size line-clamp-3">{title}</h1>
         <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
-      <motion.a 
-      href={link} 
-      className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start" 
-      target="_blank"
-      >
-        {t('Descargar')}
-      </motion.a>
-        </div>
+        <motion.a
+          href={link}
+          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
+          target="_blank"
+        >
+          {t('Descargar')}
+        </motion.a>
+      </div>
     </motion.div>
   );
 }

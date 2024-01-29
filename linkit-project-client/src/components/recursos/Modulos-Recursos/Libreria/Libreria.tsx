@@ -50,7 +50,7 @@ function Libreria() {
             alt="go-back"
             className="w-[1.5rem]"
           />
-          Volver
+          {t('Volver')}
         </motion.h3>
         <h1 className="text-left text-[2rem] font-bold font-montserrat ">
           {t('Todos los recursos')}

@@ -44,31 +44,31 @@ function EbookResourcesCard({
   return (
     <>
       <motion.div
-        className="bg-white w-full border-[2px] border-linkIt-500 h-[50vh] xl:h-[17rem] font-montserrat rounded-[0.75rem] flex flex-col justify-between p-[2rem] lg:p-[1.5rem] lg:h-[55vh] container-ebook-resources"
+        className="border-[2px] w-full h-fit rounded-xl font-montserrat bg-white"
         variants={cardVariants}
         initial="hidden"
         whileInView={"visible"}
         viewport={{ once: true }}
         exit="exit"
       >
-        <div>
-          <p className="border-[2px] text-[0.8rem] mb-[1rem] h-[25px] lg:h-[10px] border-linkIt-300 rounded-[10px] p-[0.8rem] lg:p-[0.7rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] category-resources">
+        <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+          <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
             {category}
           </p>
-          <h1 className="font-bold text-[1.3rem] w-[100%] mb-[0.9rem] lg:text-[1rem] lg:mt-[0.5rem] title-resources">
+          <h1 className="font-bold subtitles-size line-clamp-3">
             {title}
           </h1>
-          <p className="font-semibold text-[0.8rem] mb-[1.5rem] xl:mb-[-1rem] description-resources">
+          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 mt-6">
             {description}
           </p>
+          <motion.a
+            href={link}
+            className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold xs:mt-3 place-self-end justify-self-start"
+            target="_blank"
+          >
+            {t('Descargar')}
+          </motion.a>
         </div>
-        <motion.a
-          href={link}
-          className="font-bold"
-          target="_blank"
-        >
-          {t('Descargar')}
-        </motion.a>
       </motion.div>
     </>
   );

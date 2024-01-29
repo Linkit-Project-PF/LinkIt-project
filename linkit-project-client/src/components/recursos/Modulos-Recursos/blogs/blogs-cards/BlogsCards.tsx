@@ -42,6 +42,7 @@ function BlogsCards() {
   let blogsToShowArray = blogs.slice(startIndex, endIndex);
 
 
+
   const handlePrev = () => {
     setCurrentBlog(currentBlog === 0 ? Math.ceil(blogs.length / blogsToShow) - 1 : currentBlog - 1);
   };
@@ -52,7 +53,6 @@ function BlogsCards() {
 
   if (blogsToShowArray.length < blogsToShow) {
     blogsToShowArray = [
-      ...blogsToShowArray,
       ...blogs.slice(0, blogsToShow - blogsToShowArray.length),
     ];
   }

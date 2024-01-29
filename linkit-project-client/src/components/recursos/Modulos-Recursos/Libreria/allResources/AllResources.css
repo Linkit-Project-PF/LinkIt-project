@@ -29,7 +29,6 @@
         display: flex !important;
         flex-direction: row  !important;
         flex-wrap: wrap !important;
-        gap: 2rem !important;
     }
     .item{
         display: inline-flex !important;
@@ -42,7 +41,6 @@
         display: flex !important;
         flex-direction: row  !important;
         flex-wrap: wrap !important;
-        gap: 1.5rem !important;
         width: 85%;
     }
     .item{
@@ -56,7 +54,6 @@
         display: flex !important;
         flex-direction: row  !important;
         flex-wrap: wrap !important;
-        gap: 2rem !important;
         width: 80%;
     }
     .item{
@@ -69,7 +66,6 @@
         display: flex !important;
         flex-direction: row  !important;
         flex-wrap: wrap !important;
-        gap: 2rem !important;
         width: 80%;
     }
     .item{
