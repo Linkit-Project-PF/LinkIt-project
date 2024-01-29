@@ -17,10 +17,6 @@ const working = [
 const finish = ["Pending invoice/ contract", "Partial Payment"];
 const paused = ["Stalled"];
 
-// TODO: Set diff colors depending status using variable and dynamic color
-// TODO: Set status description
-// TODO: Internal nav between Active and Ended
-
 function CompanyPosts({ posts }: IComponentProps) {
   const filterPostsByStatus = (status: string[]): ICompanyPost[] => {
     return posts.filter((post) => status.includes(post.Status));
