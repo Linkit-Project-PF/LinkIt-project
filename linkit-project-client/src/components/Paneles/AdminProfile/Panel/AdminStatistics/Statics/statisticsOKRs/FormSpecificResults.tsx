@@ -158,7 +158,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
         <div className=" flex flex-col text-center mb-12">
           <h1 className="text-3xl">{t('Resultados específicos')}</h1>
         {inputClicked && (
-          <span className="m-0 text-xs text-linkIt-300">*Presiona enter para agregar más de un resultado*</span>
+          <span className="m-0 text-xs text-linkIt-300">{t('*Presiona enter para agregar más de un resultado*')}</span>
         )}
         </div>
 
