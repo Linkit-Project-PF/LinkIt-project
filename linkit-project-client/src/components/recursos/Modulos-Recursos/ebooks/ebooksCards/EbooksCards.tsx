@@ -48,7 +48,11 @@ function EbooksCards() {
 
     return (
         <div className="flex w-full justify-center items-center space-x-[5%]">
-            <img src={whiteArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+            <img 
+            src={whiteArrow} 
+            onClick={handlePrevius} 
+            alt="previus-icon" 
+            className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
             <div className='grid lg:grid-cols-3 items-center gap-2 w-full h-full'>
                 {
                     eBooks.slice(startIndex, endIndex).map((ebook, index) => {

@@ -48,8 +48,8 @@ export default function Recursos() {
       </section>
       <section id="form">
         <Newsletter />
-        
+
       </section>
-      </div>
+    </div>
   );
 }
