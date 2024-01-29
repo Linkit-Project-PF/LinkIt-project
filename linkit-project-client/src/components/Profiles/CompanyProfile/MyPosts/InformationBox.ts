@@ -1,19 +1,9 @@
-import { useEffect, useState } from "react";
-
-interface componentParams {
-  status: string;
-}
-
 interface statusInfo {
   en: any;
   es: any;
 }
 
-export default function InformationBox({ status }: componentParams) {
-  const [lang, setLang] = useState("es");
-  useEffect(() => {
-    setLang(sessionStorage.getItem("lang") ?? "es");
-  }, []);
+export default function getInfoBox(status: string, lang: string): string {
   const statusInfoObject: statusInfo = {
     en: {
       "Pre-alignment":
@@ -60,11 +50,5 @@ export default function InformationBox({ status }: componentParams) {
         "Este es el último paso. Para este punto todo está completado y firmado y la factura ha sido enviada para su pago. Una vez tengamos la confirmación del pago, el proceso se dará por terminado",
     },
   };
-  return (
-    <div className="absolute top-[20%] left-[33%] p-5 bg-white rounded-md shadow-[0px_4px_20px_10px_#718096] z-20 w-1/3">
-      <div className="font-monserrat text-sm text-center">
-        <p>{statusInfoObject[lang as keyof statusInfo][status]}</p>
-      </div>
-    </div>
-  );
+  return statusInfoObject[lang as keyof statusInfo][status];
 }

@@ -80,8 +80,13 @@ function LoginCompany() {
     event.preventDefault();
     isLoading(true);
     try {
-      const response = await axios.get<ICompany>(
-        `https://linkit-server.onrender.com/auth/login?email=${user.email}&password=${user.password}&role=company`,
+      const response = await axios.post<ICompany>(
+        `https://linkit-server.onrender.com/auth/login`,
+        {
+          email: user.email,
+          password: user.password,
+          role: "company",
+        },
         {
           headers: {
             Authorization: `Bearer ${SUPERADMN_ID}`,
@@ -155,7 +160,12 @@ function LoginCompany() {
             }
           );
           if (getCompanyResponse.data.length) {
-            if (!getCompanyResponse.data[0].active) throw Error(t("Email no verificado, por favor revisa tu bandeja de entrada o spam"))
+            if (!getCompanyResponse.data[0].active)
+              throw Error(
+                t(
+                  "Email no verificado, por favor revisa tu bandeja de entrada o spam"
+                )
+              );
             const authUser = getCompanyResponse.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
@@ -190,11 +200,11 @@ function LoginCompany() {
             //     confirmButtonText: t("Continuar"),
             //   });
             // } else
-              throw Error(
-                t(
-                  "Usuario autenticado pero registro no encontrado, contacte a un administrador"
-                )
-              );
+            throw Error(
+              t(
+                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+              )
+            );
           }
         }
       }
