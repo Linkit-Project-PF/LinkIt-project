@@ -8,7 +8,7 @@ export default function ModuloTalentosE() {
     return (
 
 <div className="p-[7%] dark:bg-linkIt-200 bg-linkIt-500 text-linkIt-200 dark:text-white overflow-hidden">
-<h1 className="titles-size font-bold text-center font-manrope">{t('Cómo aplicar a')}</h1>
+<h1 className="titles-size font-bold text-center font-manrope">{t('Cómo aplicar')}</h1>
 <div className="hidden lg:block">
 <div className="grid grid-cols-4">
         <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Consulta nuestras vacantes')}</h2>

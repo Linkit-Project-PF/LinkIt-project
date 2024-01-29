@@ -16,7 +16,7 @@ export default function ModuloTalentosG() {
           <JobCardsMobile/>
         </div>
       <p className="text-center font-montserrat text-size font-semibold dark:text-white">{t('Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!')}</p>
-      <button className="transparent-background-button mt-[5%] dark:bg-linkIt-300 dark:text-white dark:hover:bg-white">{t('Súmate a nuestra base de datos')}</button>
+      <a className="transparent-background-button mt-[5%] dark:bg-linkIt-300 dark:text-white dark:hover:bg-white" href="https://airtable.com/appPc8zZP29ez9V2O/shrDb6l9hbaByBAcX" target="_blank">{t('Súmate a nuestra base de datos')}</a>
     </div>
   )
 }

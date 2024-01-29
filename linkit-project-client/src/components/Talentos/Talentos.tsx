@@ -7,6 +7,7 @@ import ModuloTalentosC from "./ModulosTalentos/ModuloTalentosC/ModuloTalentosC";
 import ModuloTalentosG from "./ModulosTalentos/ModuloTalentosG/ModuloTalentosG";
 import { useEffect } from "react";
 import "./Talentos.css";
+import Newsletter from "../../Utils/newsletter/newsletter";
 
 function Talentos() {
   useEffect(() => {
@@ -27,6 +28,7 @@ function Talentos() {
         <ModuloTalentosE />
       </section>
       <ModuloTalentosF />
+      <Newsletter /> 
     </div>
   );
 }
