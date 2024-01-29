@@ -132,6 +132,11 @@ export const i18nOptions: InitOptions = {
          "En proceso":"Currently working",
          "Finalizando":"Last steps",
          "En pausa":"Stalled",
+         //Company - Contactános
+         "¡Gracias por contactarnos!":"Thank you for contacting us!",
+         "Nos estaremos comunicando a la brevedad":"We will be communicating as soon as possible.",
+         "Contáctanos para escalar tu equipo":"Contact us to scale your team",
+         
 
         //!Login - company
         "¡Te damos la bienvenida a LinkIT!":"Welcome to LinkIT!",
@@ -210,6 +215,8 @@ export const i18nOptions: InitOptions = {
         //!Events
         "Ver Grabación":"View Recording",
         "Hablamos de trabajo remoto, oportunidades IT, tus primeros pasos en el empleo, cómo contratar talento internacional y mucho más!":"We talk about remote work, IT opportunities, your first steps in employment, how to hire international talent and much more!",
+        //!
+        'Encontrar vacante':'Find vacancy',
         //!Accordion Faqs
         "LinkIT es tu recruitment partner que, sin importar las distancias, conecta a las empresas con el mejor talento tech a lo largo del mundo.":"LinkIT is your recruitment partner that, regardless of distance, connects companies with the best tech talent throughout the world.",
         "+ ¿Qué es LinkIT?":"+ What is LinkIT?",
@@ -232,6 +239,9 @@ export const i18nOptions: InitOptions = {
         "Como trabajador autónomo modalidad freelance":"As a self-employed worker, freelance modality",
         "Mediante un contrato temporal":"Through a temporary contract",
         "En relación de dependencia En caso de no avanzar con el proceso, ¿me tendrán en cuenta futuras oportunidades? Por supuesto! Aceptando los términos y condiciones entrarás en nuestra gran base de datos para poder asignarte el proyecto a tu medida, alineado con tus talentos y necesidades.":"In a dependency relationship If I do not advance with the process, will I be considered for future opportunities? Of course! By accepting the terms and conditions you will enter our large database to be able to assign you the project tailored to you, aligned with your talents and needs.",
+        //!CV
+        "Arma tu CV":"Create your CV",
+        "con nuestro":"with our",
         //!FAQ
         "Preguntas Frecuentes":"Frequent questions",
         //!Ebook resources
@@ -247,6 +257,16 @@ export const i18nOptions: InitOptions = {
         "Todos los recursos":"All resources",
         //!Recursos
         "Recursos de LinkIT":"LinkIT Resources",
+        "¿Quieres saber que está pasando en el mundo IT?":"Do you want to know what's going on in the IT world?",
+        "todos":"all",
+        "adquisición de talentos":"talent acquisition",
+        "contratación":"hiring",
+        "casos de éxito":"success stories",
+        "entrevista":"interview",
+        "guía":"guide",
+        //!Suscribirse
+        "¡Suscríbete para recibir novedades!":"Subscribe to receive news!",
+        "Suscribirme":"Subscribe me",
         //!Register
         "Nombre":"Name",
         "Apellido":"Lastname",
@@ -436,7 +456,7 @@ export const i18nOptions: InitOptions = {
         "Nuevo Recurso":"New Resource",
         "Selecciona":"Select",
         "Los campos marcados con * son obligatorios":"Fields marked with * are required",
-        "Volver":"Back",
+        "Volver":"Go back",
         "Publicar":"Post",
         //!Paneles AdminReviews
         "Gestión de reseñas":"Review management",

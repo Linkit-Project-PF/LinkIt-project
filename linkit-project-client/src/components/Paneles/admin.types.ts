@@ -336,4 +336,5 @@ export interface OKRsType {
   generalTitleOKR: string
   areas: Area[]
   archived: boolean
+  _id:string
 }

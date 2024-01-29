@@ -8,7 +8,7 @@ function CV() {
     <div className="bg-linkIt-300 p-[7%] relative grid grid-cols-2 gap-2 ">
       <div className="grid lg:mb-[20%]">
             <h1 className="text-white font-bold font-montserrat mb-[5%] titles-size">
-              Arma tu CV <br /> con nuestro <br /> template
+              {t('Arma tu CV')} <br /> {t('con nuestro')} <br /> template
             </h1>
             
             <button className="text-white border-[2px] border-white rounded-[7px] w-fit p-2 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem]"

@@ -3,6 +3,7 @@ import { useEffect, useState} from "react";
 import { useSelector} from "react-redux"; 
 import axios from "axios";
 import { OKRsType } from "../../../../../admin.types";
+import swal from 'sweetalert';
 
 export type stateProps = {
     resources: {
@@ -13,34 +14,66 @@ function AccordionOKRs(){
         const token = useSelector((state: any) => state.Authentication.token);
         const [okrData, setOkrData] = useState<OKRsType[]>([]);
 
-        useEffect(()=>{
-        const loadData = async (): Promise<any> => {
-            try {
-                const response = await axios(
-                    "https://linkit-server.onrender.com/OKRs/find",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Accept-Language': sessionStorage.getItem('lang')
+        useEffect(() => {
+            const loadData = async (): Promise<any> => {
+                try {
+                    const response = await axios(
+                        "https://linkit-server.onrender.com/OKRs/find",
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                'Accept-Language': sessionStorage.getItem('lang')
+                            }
                         }
-                    }
                     );
-                setOkrData(response.data);
-                // console.log(okrData)
-            } catch (error) {
-                console.error("Error al cargar las información", error);
-            }
+        
+                    const arrayOKRS = response.data.filter((okr: { archived: boolean }) => !okr.archived);
+        
+                    setOkrData(arrayOKRS);
+                } catch (error) {
+                    console.error("Error al cargar las información", error);
+                }
+            };
+            loadData();
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, []);
+
+
+        const handleDelete = async (_id:string)=>{
+         
+            const deleteData = async (): Promise<any> => {
+                try {
+                    const response = await axios.delete(
+                        `https://linkit-server.onrender.com/OKRs/delete/${_id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                'Accept-Language': sessionStorage.getItem('lang')
+                            }
+                        }
+                    );
+                    if(response.data) swal('OKR eliminado');
+                    
+                } catch (error) {
+                    console.error("Error al eliminar el OKR", error);
+                }
+            };
+            deleteData();
         }
-        loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        
 
     return (
         <div>
                 <div>
                     {okrData.map((okr, index) => (
                         <div key={index}>
-                            <h2 className="text-black text-[2vw] font-bold">{okr.generalTitleOKR}</h2>
+                            <button
+                             type="button"
+                             className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
+                             onClick={() => handleDelete(okr._id)}
+                            >X</button>
+                            <h2 className="text-black text-[2vw] font-bold">{okr.generalTitleOKR } </h2>  
+                            
                                 <div>
                                     {okr.areas.map((area, areaIndex) => (
                                         <Accordion key={areaIndex} className="accordion-item">
