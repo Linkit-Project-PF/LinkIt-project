@@ -181,7 +181,7 @@ function App() {
         dispatch(setEbooks());
         dispatch(setAdmins(responseAdmins.data));
       } catch (error) {
-        if (error instanceof AxiosError) console.log({ error: error.message });
+        if (error instanceof AxiosError) console.error({ error: error.response?.data });
       }
     };
     fetchData();

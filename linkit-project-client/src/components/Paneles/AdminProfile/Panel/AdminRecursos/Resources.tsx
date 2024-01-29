@@ -17,6 +17,7 @@ export default function Resources() {
   const data = useSelector((state: stateProps) => state.resources.filteredResources);
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
 
+
   useEffect(() => {
     const loadData = async (): Promise<void> => {
       try {
@@ -31,8 +32,8 @@ export default function Resources() {
         );
         dispatch(setResources(response.data));
         dispatch(sortResource('recent'))
-      } catch (error) {
-        console.error("Error al cargar las información", error);
+      } catch (error: any) {
+        console.error("Error al cargar la información", error.response?.data);
       }
     };
     loadData();
@@ -131,7 +132,7 @@ export default function Resources() {
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}
+            className={selectedRows.has(r._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap w-80' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis  overflow-hidden line-clamp-1'}
           >
             <input type="checkbox" name="edit" onChange={() => handleEdit(r._id)} checked={selectedRows.has(r._id)} />
             <p className="pl-2">{selectedRows.has(r._id) && editing ?
@@ -140,7 +141,7 @@ export default function Resources() {
                 type="text"
                 defaultValue={r[key] as any}
                 onChange={handleChange}
-                className="bg-linkIt-500 text-black w-full"
+                className="bg-linkIt-500 text-black w-full h-6"
               />
               : String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>
@@ -159,7 +160,24 @@ export default function Resources() {
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
-            <p>{String(r[key] === undefined || NaN ? '' : r[key])}</p>
+            <p>{String(r[key] === undefined || NaN ? '' : r[key] && r[key] === 'social' ? 'evento' : r[key])}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+  const renderSectionBasicNoEditCap = <K extends keyof ResourceProps>(title: string, key: K,) => (
+    <div>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+        <h1>{title}</h1>
+      </div>
+      <div>
+        {dataToShow?.map((r: ResourceProps, index) => (
+          <div
+            key={`${key}-${index}`}
+            className={selectedRows.has(r._id) ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : ' capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+          >
+            <p>{String(r[key] === undefined || NaN ? '' : r[key] && r[key] === 'social' ? 'evento' : r[key])}</p>
           </div>
         ))}
       </div>
@@ -182,7 +200,7 @@ export default function Resources() {
                 type="text"
                 defaultValue={r[key] as any}
                 onChange={handleChange}
-                className="bg-linkIt-500 text-black w-full"
+                className="bg-linkIt-500 text-black w-full h-6"
               />
               : String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>
@@ -202,15 +220,15 @@ export default function Resources() {
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
-            <p>{selectedRows.has(r._id) && editing ?
+            <p>{selectedRows.has(r._id) && editing  ?
               <input
                 name={key}
                 type="text"
-                defaultValue={r[key] as any}
+                defaultValue={r[key] === 'social' ? 'evento' : r[key] as any}
                 onChange={handleChange}
-                className="bg-linkIt-500 text-black"
+                className="bg-linkIt-500 text-black w-full h-6"
               />
-              : String(r[key] === undefined || NaN ? '' : r[key] && r[key] === 'social' ? 'evento' : r[key])}</p>
+              : String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>
         ))}
       </div>
@@ -242,6 +260,7 @@ export default function Resources() {
         hideCol={hideCol}
         viewCol={viewCol}
         selectedRows={selectedRows}
+        setSelectedRows = {setSelectedRows}
         editing={editing}
         editResource={editResource}
         handleSave={handleSave}
@@ -251,8 +270,8 @@ export default function Resources() {
         {viewCol.title && renderSectionSelect("Título", "title")}
         {viewCol._id && renderSectionBasicNoEdit("ID", "_id")}
         {viewCol.link && renderSectionBasic("Link", "link")}
-        {viewCol.type && renderSectionBasicCap("Tipo", "type")}
-        {viewCol.createdDate && renderSectionBasic("Fecha de Creación", "createdDate")}
+        {viewCol.type && renderSectionBasicNoEditCap("Tipo", "type")}
+        {viewCol.createdDate && renderSectionBasicNoEdit("Fecha de Creación", "createdDate")}
         {viewCol.image && renderSectionBasic("URL Imágen", "image")}
         {viewCol.category && renderSectionBasicCap("Categoría", "category")}
         {viewCol.archived && renderSectionActive("Estado", "archived")}

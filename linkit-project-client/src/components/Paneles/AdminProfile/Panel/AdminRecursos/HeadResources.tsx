@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ViewResourceProps } from "../../../admin.types";
 import FormResource from "./FormResource";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +10,14 @@ interface HeadResources {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
     viewCol: ViewResourceProps
     selectedRows: Set<string>;
+    setSelectedRows: Dispatch<SetStateAction<Set<string>>>;
     editing: boolean
     editResource: () => void
     handleSave: (arrayProps: string[]) => void
     setSaveStatus: (status: boolean) => void;
 }
 
-export default function HeadResources({ hideCol, viewCol, selectedRows, editing, editResource, handleSave, setSaveStatus }: HeadResources) {
+export default function HeadResources({ hideCol, viewCol, selectedRows, setSelectedRows, editing, editResource, handleSave, setSaveStatus }: HeadResources) {
     const dispatch = useDispatch();
     const token = useSelector((state: any) => state.Authentication.token);
     const arraySelectedRows = [...selectedRows]
@@ -51,7 +52,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
     };
     //?
 
-    const deleteReview = async () => {
+    const hideReview = async () => {
         swal({
             title: "¿Deseas eliminar el Recurso?",
             icon: "warning",
@@ -71,6 +72,40 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
                             }
                         );
                         dispatch(setResources(response.data));
+                        swal("Recurso ocultado", { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        "Error al enviar la solicitud:",
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
+
+    const deleteReview = async () => {
+        swal({
+            title: "¿Deseas eliminar el Recurso?",
+            icon: "warning",
+            buttons: ["Cancelar", "Aceptar"],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/posts/delete/${id}?total=true`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                    'Accept-Language': sessionStorage.getItem('lang')
+                                },
+                            }
+                        );
+                        dispatch(setResources(response.data));
+                        setSelectedRows(new Set<string>())
                         swal("Recurso eliminado", { icon: "success" });
                     })
                 } catch (error) {
@@ -178,6 +213,12 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, editing,
                                     </button>
                                 </div>
                             }
+                            <button
+                                onClick={hideReview}
+                                className="pl-6 hover:text-red-600"
+                            >
+                                {selectedRows.size && 'Ocultar'}
+                            </button>
                             <button
                                 onClick={deleteReview}
                                 className="pl-6 hover:text-red-600"
