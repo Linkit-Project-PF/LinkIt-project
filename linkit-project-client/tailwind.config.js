@@ -6,18 +6,18 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/tw-elements/dist/js/**/*.js",
-    'node_modules/flowbite-react/lib/esm/**/*.js',
+    "node_modules/flowbite-react/lib/esm/**/*.js",
   ],
   theme: {
     extend: {
       animation: {
-        'infinite-scroll': 'infinite-scroll 10000s linear infinite',
+        "infinite-scroll": "infinite-scroll 10000s linear infinite",
       },
       keyframes: {
-        'infinite-scroll': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
-        }
+        "infinite-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
       },
       colors: {
         linkIt: {
@@ -28,7 +28,7 @@ module.exports = {
           400: "#2E2D2C",
           500: "#EBEDEF",
           600: "#D9DCE0",
-          700: "#666666"
+          700: "#666666",
         },
       },
       fontFamily: {
@@ -36,10 +36,10 @@ module.exports = {
         manrope: ["Manrope", "sans-serif"],
       },
       screens: {
-        "ssm":'540px',
+        ssm: "540px",
         "1xl": "1440px",
-      }
+      },
     },
   },
-  plugins: [require("tw-elements/dist/plugin.cjs"), require('flowbite/plugin')],
+  plugins: [require("tw-elements/dist/plugin.cjs"), require("flowbite/plugin")],
 };

@@ -2,8 +2,8 @@
 
 import { ICompanyPost } from "./MyPosts";
 import questionMark from "../../../../assets/question-mark.svg";
-import { useState } from "react";
-import InformationBox from "./InformationBox";
+import { Tooltip } from "flowbite-react";
+import getInfoBox from "./InformationBox";
 
 interface IComponentProps {
   post: ICompanyPost;
@@ -12,8 +12,6 @@ interface IComponentProps {
 interface colorsObject {}
 
 export default function CompanyPost({ post }: IComponentProps) {
-  const [infoVisible, isInfoVisible] = useState(false);
-
   const statusColor: colorsObject = {
     "Pre-alignment": "bg-green-200",
     Alignment: "bg-cyan-200",
@@ -63,14 +61,10 @@ export default function CompanyPost({ post }: IComponentProps) {
           >
             Job Description
           </a>
-          <img
-            src={questionMark}
-            className="w-5 hover:cursor-help"
-            onMouseEnter={() => isInfoVisible(true)}
-            onMouseLeave={() => isInfoVisible(false)}
-          />
+          <Tooltip content={getInfoBox(post.Status, "es")} style="light">
+            <img src={questionMark} className="w-5 hover:cursor-help" />
+          </Tooltip>
         </div>
-        {infoVisible && <InformationBox status={post.Status} />}
       </div>
     </div>
   );
