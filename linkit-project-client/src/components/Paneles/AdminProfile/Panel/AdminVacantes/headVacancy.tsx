@@ -124,7 +124,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         <select
                             className={`ml-2 styles-head`}
                             onChange={handleDate}
-                            value={sortDate}
+                            defaultValue={sortDate}
                         >
                             <option value="-">-</option>
                             <option value="recent">Recientes</option>

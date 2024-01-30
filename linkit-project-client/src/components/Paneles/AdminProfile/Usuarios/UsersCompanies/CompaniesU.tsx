@@ -20,7 +20,7 @@ export default function CompaniesU() {
   const data = useSelector(
     (state: statePropsCompanies) => state.users.filteredCompanies
   );
-  const [saveStatus, setSaveStatus] = useState<boolean>(true);
+  const [saveStatus, setSaveStatus] = useState<boolean>(false);
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -40,7 +40,7 @@ export default function CompaniesU() {
       }
     };
     loadData();
-  }, [saveStatus]);
+  }, [saveStatus || dispatch]);
 
   //? COLUMNAS
   const [viewCol, setViewCol] = useState({
@@ -96,6 +96,7 @@ export default function CompaniesU() {
     setEditing(false);
   };
   const editCompanies = () => {
+    setSaveStatus(false)
     setEditing(!editing);
   };
   const handleChange = (
@@ -104,6 +105,7 @@ export default function CompaniesU() {
     >
   ) => {
     const { name, value } = e.target;
+    setSaveStatus(false)
     setEditedData({
       ...editedData,
       [name]: value,
@@ -211,7 +213,7 @@ export default function CompaniesU() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black w-full"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -247,7 +249,7 @@ export default function CompaniesU() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -294,6 +296,7 @@ export default function CompaniesU() {
         editCompanies={editCompanies}
         handleSave={handleSave}
         setSaveStatus={setSaveStatus}
+        saveStatus={saveStatus}
       />
       <div className="flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
         {viewCol.rol && renderSectionSelect("Rol", "role")}

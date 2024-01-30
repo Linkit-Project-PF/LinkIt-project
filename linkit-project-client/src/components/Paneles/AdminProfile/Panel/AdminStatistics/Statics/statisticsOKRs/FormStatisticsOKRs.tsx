@@ -285,7 +285,7 @@ const noShowForm = () => {
 
                 <form 
                     onSubmit={handleSubmit}
-                    className=" mx-4 mb-0 flex flex flex-col "
+                    className=" mx-4 mb-0  flex flex-col "
                     action="">
                         <div className="flex flex-col justify-start mx-3 mb-1 px-160 ">
 

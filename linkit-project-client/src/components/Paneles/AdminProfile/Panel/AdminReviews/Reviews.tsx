@@ -26,7 +26,7 @@ export default function Reviews() {
   const data = useSelector(
     (state: stateProps) => state.reviews.filteredReviews
   );
-  const [saveStatus, setSaveStatus] = useState<boolean>(true);
+  const [saveStatus, setSaveStatus] = useState<boolean>(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -47,7 +47,7 @@ export default function Reviews() {
       }
     };
     loadData();
-  }, [saveStatus]);
+  }, [saveStatus || dispatch]);
 
   //? PAGINADO
   const itemsPerPage = 15;
@@ -97,6 +97,7 @@ export default function Reviews() {
     setEditing(false);
   };
   const editReview = () => {
+    setSaveStatus(false)
     setEditing(!editing);
   };
   const handleChange = (
@@ -161,7 +162,7 @@ export default function Reviews() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black w-full"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -221,7 +222,7 @@ export default function Reviews() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black w-full"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -257,7 +258,7 @@ export default function Reviews() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])

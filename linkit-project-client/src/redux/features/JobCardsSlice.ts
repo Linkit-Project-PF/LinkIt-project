@@ -50,38 +50,37 @@ const JobCardSlice = createSlice({
         setSortJobOffers: (state, action) => {
             const { visibility, date, sortA } = action.payload;
 
-
             if (date === 'recent') {
+                state.sortValues.sortAlfa = '-';
                 state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const dateA = new Date(a.createdDate);
                     const dateB = new Date(b.createdDate);
                     state.sortValues.sortDate = 'recent';
-                    state.sortValues.sortAlfa = '-';
 
                     return dateB.getTime() - dateA.getTime();
                 });
             } else if (date === 'old') {
+                state.sortValues.sortAlfa = '-';
                 state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const dateA = new Date(a.createdDate);
                     const dateB = new Date(b.createdDate);
                     state.sortValues.sortDate = 'old';
-                    state.sortValues.sortAlfa = '-';
 
                     return dateA.getTime() - dateB.getTime();
                 });
             } else if (sortA === 'A-Z') {
+                state.sortValues.sortDate = '-';
                 state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const titleA = a.title.toLowerCase();
                     const titleB = b.title.toLowerCase();
-                    state.sortValues.sortDate = '-';
                     state.sortValues.sortAlfa = 'A-Z';
                     return titleA.localeCompare(titleB);
                 });
             } else if (sortA === 'Z-A') {
+                state.sortValues.sortDate = '-';
                 state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
                     const titleA = a.title.toLowerCase();
                     const titleB = b.title.toLowerCase();
-                    state.sortValues.sortDate = '-';
                     state.sortValues.sortAlfa = 'Z-A';
                     return titleB.localeCompare(titleA);
                 });
