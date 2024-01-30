@@ -90,7 +90,7 @@ export default function Technologies() {
             
                     <div className="flex justify-center lg:hidden">
                         <img className="relative rotate-180 w-[20px] cursor-pointer" onClick={handlePrev} src={grayArrow} alt="gray-Arrow" />
-                        <div className="flex flex-row flex-wrap justify-center items-center w-[100%] px-2 ssm:w-[83%] ssm:mx-4 md:w-[76%] ">
+                        <div className="flex flex-wrap justify-center items-center w-[100%] px-2 ssm:w-[83%] ssm:mx-4 md:w-[76%] ">
                         {
                         technologiesToRender.map(({ name, logo, id }: Technology) => {
                             return (
