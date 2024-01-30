@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import { SUPERADMN_ID } from "../../../../../../../env"
 import RecomendedCard from "./RecomendedCard"
+import { useParams } from "react-router-dom"
 
 interface Header {
     title: string,
@@ -20,30 +20,24 @@ type Blog = {
 
 function Recomended() {
     const [blogs, setBlogs] = useState<Blog[] | null >(null)
+    const blogId = useParams();
 
-    const randomBlogs = blogs?.sort(() => Math.random() - Math.random()).slice(0, 3)
+    const filterBlogs = blogs?.filter((b:Blog)=> b._id !== blogId.id)
     
     useEffect(()=>{
         const fetchBlogs = async ()=> {
             const response = await axios.get("https://linkit-server.onrender.com/posts/find?type=blog",
-            {
-                headers: {
-                    Authorization: `Bearer ${SUPERADMN_ID}`,
-                    'Accept-Language': sessionStorage.getItem('lang')
-                }
-            }
             )
             setBlogs(response.data)
-            console.log(blogs)
         }
         fetchBlogs()
     },[])
 
 
   return (
-    <>
+    <div>
         {
-            randomBlogs?.map((blog, index) => (
+            filterBlogs?.map((blog, index) => (
                     <RecomendedCard
                         key={index}
                         title={blog.title}
@@ -51,10 +45,11 @@ function Recomended() {
                         image={blog.image}
                         genre={blog.category}
                         _id={blog._id}
+                        
                     />
             ))
         }
-    </>
+    </div>
   )
 }
 

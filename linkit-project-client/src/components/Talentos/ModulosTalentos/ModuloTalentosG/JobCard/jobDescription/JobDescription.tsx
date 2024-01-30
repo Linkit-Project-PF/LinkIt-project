@@ -93,7 +93,7 @@ function JobDescription() {
                   alt="back"
                   className="w-[1.5rem]"
                 />
-                {language === "en" ? "volver" : "Go back"}
+                {language === "en" ? "Go back" : "Volver"}
               </motion.button>
               <h2 className="text-black border-[2px] border-linkIt-300 inline-flex px-[.6rem] py-[.2rem] font-semibold rounded-[8px] mb-[3%]">
                 CODE: {id}
