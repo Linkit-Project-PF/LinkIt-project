@@ -49,8 +49,11 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
             allowOutsideClick: true,
             confirmButtonColor: "#01A28B",
             confirmButtonText: t("Continuar"),
-        })
-        setViewForm(true);
+        }).then((result) => {
+            if(result.isConfirmed) {
+                setViewForm(true);
+            }
+        });
     };
 
     const noShowForm = () => {  
