@@ -19,7 +19,7 @@ const InternalNavBar: React.FC<InternalNavProps> = ({
   }, []);
   return (
     <div className="h-[10%] z-0">
-      <div className="ml-20 h-full flex flex-row">
+      <div className="md:ml-20 ml-10 h-full flex flex-row">
         {items.map((item, index) => (
           <div
             onClick={() => {
@@ -32,10 +32,8 @@ const InternalNavBar: React.FC<InternalNavProps> = ({
               }
               setActicveIndex(index);
             }}
-            className={`rounded-t-2xl hover:cursor-pointer p-5 ${
-              activeIndex === index
-                ? "shadow-[0px_4px_20px_10px_#00000024]"
-                : "bg-gray-400"
+            className={`text-2xl hover:cursor-pointer font-bold p-5 ${
+              activeIndex === index ? "text-green-500" : ""
             }`}
             key={index}
           >
