@@ -420,6 +420,7 @@ export const i18nOptions: InitOptions = {
         "pleno y realmente feliz":"full and really happy",
         "en el trabajo, no cómodo o contento... desde ese entonces nace LinkIT.":"at work, not comfortable or content... from that moment LinkIT was born.",
         "Nuestra Historia":"Our History",
+        "Leer Más":"Read More",
         "Así comenzaron a co-crear el espacio donde uno aspiraría a trabajar, no sólo desde lo amplio de sus conocimientos y valores, sino que también desde su desconocimiento, desde la intriga,":"Thus they began to co-create the space where we would aspire to work, not only from the breadth of their knowledge and values, but also from their lack of knowledge, from the intrigue,",
         "las ganas de innovar,":"the desire to innovate, ",
         "la perseverancia y, gracias a sus expertises y de tantas charlas y consultas con profesionales, adquirieron con claridad cómo no debían hacerse las cosas, siempre uno piensa que debe saber cómo se hacen pero hay otro punto de vista que te lo da la experiencia, el saber cómo no se hacen o cómo no salen las cosas también es un gran camino al éxito; así nacemos, así ":"perseverance and, thanks to their expertise and many talks and consultations with professionals, they acquired clearly how things should not be done, you always think you should know how to do things but there is another point of view that gives you the experience, knowing how not to do things or how things do not work out is also a great way to success; that's how we are born, so ",

@@ -13,7 +13,7 @@ const {t} = useTranslation();
                     <img src="/people-LinkIt/ary-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Ary Molchadsky" />
                     <img src="/people-LinkIt/gonza-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Gonzalo Lein" />
                     <img src="/people-LinkIt/juli-perfil.png" className=" bg-linkIt-500 rounded-xl w-full h-full" alt="Julieta Jasin" />
-                <p className="text-center font-bold subtitles-size font-montserrat">Philipe Saint-Hubert <br /><span className="font-normal text-size  font-montserrat">Co-Founder</span></p>
+                <p className="text-center font-bold subtitles-size font-montserrat">Philippe Saint-Hubert <br /><span className="font-normal text-size  font-montserrat">Co-Founder</span></p>
                 <p className="text-center font-bold subtitles-size font-montserrat">Ary Molchadsky<br /><span className="font-normal text-size  font-montserrat">CEO & Co-Founder</span></p>
                 <p className="text-center font-bold subtitles-size font-montserrat">Gonzalo Lein<br /><span className="font-normal text-size  font-montserrat">Sales Development Representative</span></p>
                 <p className="text-center font-bold subtitles-size font-montserrat">Julieta Jasin<br /><span className="font-normal text-size  font-montserrat">Talent Acquisition Specialist</span></p>

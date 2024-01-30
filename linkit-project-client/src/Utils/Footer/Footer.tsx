@@ -134,7 +134,7 @@ export default function Footer() {
                   
                   <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start " onClick={navigatetoHowItWorks}> {t('Cómo funciona')}</button>
                   <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start " onClick={navigatetoSuccessStories}>{t('Casos de éxito')} </button>
-                  <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start " onClick={navigatetoQuoteCompany}>Cotiza </button>
+                  <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start " onClick={navigatetoQuoteCompany}>{t('Cotiza')}</button>
                 
                 
                   <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start"  onClick={() => {
@@ -144,7 +144,7 @@ export default function Footer() {
                           dispatch(setPressLogin("hidden")),
                           dispatch(setPressRegister("hidden")),
                           setPressRegister("hidden");
-                      }}>Regístrate</button>
+                      }}>{t('Regístrate')}</button>
                 
                 
                   <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={() => {
@@ -152,15 +152,15 @@ export default function Footer() {
                           ? dispatch(setPressLogin("hidden"))
                           : dispatch(setPressLogin("visible")),
                           dispatch(setPressSignUp("hidden"));
-                      }}>Inicia Sesión</button>
+                      }}>{t('Inicia Sesión')}</button>
                 </div>
             
 
             <div className="flex flex-col">
               <p className="font-semibold text-[0.6rem] ssm:text-[0.8rem] lg:text-[0.9rem]">{t('Talento')} </p>
-              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={navigatetoServicesTalent}> Servicios </button>
-              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={navigatetoProcessTalent}> Proceso </button>
-              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={navigatetoVacanciesTalent}> Vacantes </button>
+              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={navigatetoServicesTalent}>{t('Servicios')}</button>
+              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={navigatetoProcessTalent}>{t('Proceso')}</button>
+              <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={navigatetoVacanciesTalent}>{t('Vacantes')}</button>
               <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start"  onClick={() => {
                         pressSignUp === "visible"
                           ? dispatch(setPressSignUp("hidden"))
@@ -168,7 +168,7 @@ export default function Footer() {
                           dispatch(setPressLogin("hidden")),
                           dispatch(setPressRegister("hidden")),
                           setPressRegister("hidden");
-                      }}>Regístrate</button>
+                      }}>{t('Regístrate')}</button>
                 
                 
                   <button className="hover:underline text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem]  text-start" onClick={() => {
@@ -176,7 +176,7 @@ export default function Footer() {
                           ? dispatch(setPressLogin("hidden"))
                           : dispatch(setPressLogin("visible")),
                           dispatch(setPressSignUp("hidden"));
-                      }}>Inicia Sesión</button>
+                      }}>{t('Inicia Sesión')}</button>
             
             </div>
 
