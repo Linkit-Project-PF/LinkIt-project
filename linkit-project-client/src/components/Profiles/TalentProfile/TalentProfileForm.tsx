@@ -52,7 +52,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      console.log(technologies);
       isLoading(true);
       const newUser = {
         ...user,
@@ -72,6 +71,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
         Swal.fire({
           title: t("Datos actualizados"), //!
           icon: "success",
+          confirmButtonColor: "#01A28B",
         });
         isLoading(false);
       }
