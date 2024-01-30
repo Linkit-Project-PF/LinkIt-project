@@ -28,14 +28,14 @@ export default function ResetPassword(props: IResetPassword) {
         changePassword(user);
       }
       Swal.fire({
-        title: t ('Restablecer Contraseña'),
-        text: t('Por favor, confirme su correo electrónico: ' + user.email),
+        title: t ("Restablecer Contraseña"),
+        text: t("Por favor, confirme su correo electrónico: ") + user.email,
         input: "email",
         focusConfirm: false,
         showCancelButton: true,
-        confirmButtonText: 'Enviar',
+        confirmButtonText: t("Enviar"),
         confirmButtonColor: "#01A28B",
-        cancelButtonText: 'Cancelar',
+        cancelButtonText: t("Cancelar"),
     }).then((result) => {
         if (result.isConfirmed) {
             const email = result.value;
@@ -55,13 +55,13 @@ export default function ResetPassword(props: IResetPassword) {
                   if (result.isConfirmed){
                     Swal.fire({
                       title: t ('Restablecer Contraseña'),
-                      text: t('Por favor, confirme su correo electrónico: ' + user.email),
+                      text: t('Por favor, confirme su correo electrónico: ') + user.email,
                       input: "email",
                       focusConfirm: false,
                       showCancelButton: true,
+                      confirmButtonText: t("Enviar"),
                       confirmButtonColor: "#01A28B",
-                      confirmButtonText: 'Enviar',
-                      cancelButtonText: 'Cancelar',
+                      cancelButtonText: t("Cancelar"),
                   })
                   }
                 });
