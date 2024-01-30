@@ -89,7 +89,6 @@ export default function FormReview({ onClose }: FormReviewProps) {
             onClose()
             return response.data;
         } catch (error) {
-            console.error((error as Error).message)
             throw new ValidationError((error as Error).message);
         }
     };

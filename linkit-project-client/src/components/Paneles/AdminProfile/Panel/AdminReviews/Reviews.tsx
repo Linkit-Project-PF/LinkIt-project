@@ -8,7 +8,7 @@ import { ReviewProps, ViewReviewProps } from "../../../admin.types";
 import { IUser } from "../../../../Profiles/types";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type stateProps = {
   Authentication: { user: IUser };
@@ -19,6 +19,7 @@ type stateProps = {
 
 export default function Reviews() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const token = useSelector(
     (state: stateProps) => state.Authentication.user._id
   );
@@ -121,8 +122,7 @@ export default function Reviews() {
         });
       });
     } catch (error: any) {
-      console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      throw new Error(t("Error al enviar la solicitud:")).message
     }
     setEditing(false);
     setEditedData({});
@@ -319,17 +319,17 @@ export default function Reviews() {
           onClick={handlePrevius}
           disabled={currentPage === 0}
         >
-          Anterior
+          {t("Anterior")}
         </button>
         <span className="text-center">
-          Pagina {currentPage + 1} de {totalPages}
+          {t("Página")} {currentPage + 1} de {totalPages}
         </span>
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
           disabled={endIndex >= data.length}
         >
-          Siguiente
+          {t("Siguiente")}
         </button>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import axios from "axios";
 import { searchReviews, setReviews, sortReviews } from "../../../../../redux/features/ReviewsSlice";
+import { useTranslation } from "react-i18next";
 
 interface HeadReviews {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     const dispatch = useDispatch();
     const token = useSelector((state: any) => state.Authentication.token);
     const arraySelectedRows = [...selectedRows]
+    const { t } = useTranslation();
     
     //? OPTION COLUMNS
     const [options, setOptions] = useState(false)
@@ -53,9 +55,9 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
 
     const deleteReview = async () => {
         swal({
-            title: "¿Deseas eliminar el Usuario?",
+            title: t("¿Deseas eliminar el Usuario?"),
             icon: "warning",
-            buttons: ["Cancelar", "Aceptar"],
+            buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
         }).then(async (willDelete) => {
             if (willDelete) {
@@ -75,7 +77,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                     })
                 } catch (error) {
                     console.error(
-                        "Error al enviar la solicitud:",
+                        t("Error al enviar la solicitud:"),
                         (error as Error).message
                     );
                 }
@@ -87,7 +89,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     return (
         <div>
             <div>
-                <h1 className="text-4xl pl-16 py-6">Gestión de reseñas</h1>
+                <h1 className="text-4xl pl-16 py-6">{t("Gestión de reseñas")}</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
                 <div>
@@ -95,20 +97,20 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                         className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
                         onClick={showForm}
                     >
-                        Crear reseña
+                        {t("Crear reseña")}
                     </button>
                 </div>
                 <div className="flex flex-row">
                     <div>
-                        <h1>Ordenar:</h1>
+                        <h1>{t("Ordenar: ")}</h1>
                     </div>
                     <div>
                         <select
                             onChange={handleSort}
                             className={`styles-head ml-2`}
                         >
-                            <option value="recent">Recientes</option>
-                            <option value="old">Antiguos</option>
+                            <option value="recent">{t("Recientes")}</option>
+                            <option value="old">{t("Antiguos")}</option>
                         </select>
                     </div>
                 </div>
@@ -118,7 +120,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                         <div>
                             <button
                                 onClick={hideOptions}
-                            >Columnas</button>
+                            >{t("Columnas")}</button>
                         </div>
                     </div>
                     {options && (
@@ -150,7 +152,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                 />}
             </div>
             <div>
-                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                <span className="flex flex-row pl-8">{t("Seleccionados: ")} {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
                             {editing ?
@@ -159,13 +161,13 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                                         onClick={() => handleSave(arraySelectedRows)}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Guardar
+                                        {t("Guardar")}
                                     </button>
                                     <button
                                         onClick={editReview}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Cancelar
+                                        {t("Cancelar")}
                                     </button>
                                 </div>
                                 :
