@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import axios from "axios";
 import { searchCompanies, setUsersCompanies, sortCompanies } from "../../../../../redux/features/UsersSlice";
+import { useTranslation } from "react-i18next";
 
 interface HeadCompaniesU {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +20,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
     const arraySelectedRows = [...selectedRows]
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     //? OPUIONS COLUMNS
     const [options, setOptions] = useState(false)
@@ -41,9 +43,9 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
     //?
     const deleteCompany = async () => {
         swal({
-            title: "¿Deseas eliminar el Usuario?",
+            title: t("¿Deseas eliminar el Usuario?"),
             icon: "warning",
-            buttons: ["Cancelar", "Aceptar"],
+            buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
         }).then(async (willDelete) => {
             if (willDelete) {
@@ -59,13 +61,10 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                             }
                         );
                         dispatch(setUsersCompanies(response.data));
-                        swal("Usuario eliminado", { icon: "success" });
+                        swal(t("Usuario eliminado"), { icon: "success" });
                     })
                 } catch (error) {
-                    console.error(
-                        "Error al enviar la solicitud:",
-                        (error as Error).message
-                    );
+                    throw new Error(t("Error al enviar la solicitud:")).message
                 }
             }
         });
@@ -76,20 +75,20 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
         <div>
 
             <div>
-                <h1 className="text-4xl pl-16 py-6">Empresas</h1>
+                <h1 className="text-4xl pl-16 py-6">{t("Empresas")}</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
                 <div className="flex flex-row">
                     <div>
-                        <h1>Ordenar:</h1>
+                        <h1>{t("Ordenar: ")}</h1>
                     </div>
                     <div>
                         <select 
                          className={`styles-head ml-2`}
                          onChange={handleSort}
                          >
-                            <option value="recent">Recientes</option>
-                            <option value="old">Antiguos</option>
+                            <option value="recent">{t("Recientes")}</option>
+                            <option value="old">{t("Antiguos")}</option>
                         </select>
                     </div>
                 </div>
@@ -99,7 +98,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                         <div>
                             <button
                                 onClick={hideOptions}
-                            >Columnas</button>
+                            >{t("Columnas")}</button>
                         </div>
                     </div>
                     {options && (
@@ -121,7 +120,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                 <div>
                     <input
                         type="text"
-                        placeholder="Buscar"
+                        placeholder={t("Buscar")}
                         onChange={(e) => handleSearch(e.target.value)}
                         className={`styles-head`}
                     />
@@ -138,13 +137,13 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                                         onClick={() => handleSave(arraySelectedRows)}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Guardar
+                                        {t("Guardar")}
                                     </button>
                                     <button
                                         onClick={editCompanies}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Cancelar
+                                        {t("Cancelar")}
                                     </button>
                                 </div>
                                 :
