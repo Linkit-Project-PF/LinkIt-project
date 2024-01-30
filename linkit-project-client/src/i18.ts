@@ -174,13 +174,14 @@ export const i18nOptions: InitOptions = {
         "Asegurate de escribir bien el correo": "Make sure you write the email correctly",
         "Continuar": "Continue",
         "Restablecer Contraseña": "Restore password",
-        "Por favor, confirme su correo electrónico:": "Please confirm your email:",
+        "Por favor, confirme su correo electrónico: ": "Please confirm your email: ",
         "Enviar": "Send",
         "Cancelar": "Cancel",
         "¡Confirmación de email exitoso!": "Email confirmation successful!",
         "Hemos confirmado tu correo electrónico. Pronto recibirás un correo con las instrucciones para cambiar tu contraseña.": "We have confirmed your email. You will soon receive an email with instructions to change your password.",
         "¡Recordatorio importante!": "Important reminder!",
         "Recuerda que primero debes de crear la vacante directamente en nuestra base de datos de Airtable": "Remember that you must first create the vacancy directly in our Airtable database",
+
 
         //!Login pre-login
         "Conectando al talento más destacado":"Connecting the most outstanding talent",
