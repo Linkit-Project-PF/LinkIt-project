@@ -368,6 +368,14 @@ export const i18nOptions: InitOptions = {
         "Selecciona el tipo de recurso": "Select the type of resource",
         "Secciones": "Sections",
         "Secciones agregadas: ": "Added sections:",
+        "Create review": "Create review",
+        "Esta área ya existe": "This area already exists: ",
+        "Crear OKR": "Create OKR",
+        "Cantidad de vacantes": "Number of vacancies",
+        "Empresa líder": "Leading company",
+        "Conversión %": "Conversion %",
+        "Follow-up pendientes": "Follow-up pending",
+        "Reclutador con mayor cantidad de FollowUps: ": "Recruiter with the most FollowUps: ",
         
 
         //!Quienes Somos modulo A
