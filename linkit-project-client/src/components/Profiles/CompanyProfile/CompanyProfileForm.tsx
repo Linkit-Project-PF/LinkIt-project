@@ -69,7 +69,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
   }
 
   return (
-    <div className="bg-linkIt-500 mx-5 my-5 p-10 rounded-[20px] md:mx-10 md:p-10">
+    <div className="bg-white mx-5 my-5 p-10 rounded-[20px] md:mx-10 md:p-10">
       {loading && <Loading text={t("Enviando los cambios")} />}
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">

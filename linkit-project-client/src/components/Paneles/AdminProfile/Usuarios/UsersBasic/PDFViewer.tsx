@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { CLOUDINARY_ID } from "../../../../../env";
 
 
 export default function PDFViewer({ cv }: any) {
+    const { t } = useTranslation();
     const ID = cv.cloudinaryId;
     const NAME = cv.fileName.trim();
     const pdfUrl = `https://res.cloudinary.com/${CLOUDINARY_ID}/image/upload/${ID}/${NAME}`;
@@ -13,7 +15,7 @@ export default function PDFViewer({ cv }: any) {
     return (
         <div>
             <a href={pdfUrl} target="_blank" rel="noopener noreferrer" onClick={handleOpenInNewTab}>
-                Ver PDF 
+                {t("Ver PDF ")}
             </a>
         </div>
     );

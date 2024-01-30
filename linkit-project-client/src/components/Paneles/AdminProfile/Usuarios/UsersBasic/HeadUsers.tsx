@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchTalents, setUsersTalent, sortTalents } from "../../../../../redux/features/UsersSlice";
 import swal from "sweetalert";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 interface HeadUsers {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +20,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
     const arraySelectedRows = [...selectedRows]
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     //? OPTIONS COLUMNS
     const [options, setOptions] = useState(false)
@@ -63,10 +65,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                         swal("Usuario eliminado", { icon: "success" });
                     })
                 } catch (error) {
-                    console.error(
-                        "Error al enviar la solicitud:",
-                        (error as Error).message
-                    );
+                    throw new Error(t("Error al enviar la solicitud:" )).message;
                 }
             }
         });
@@ -83,15 +82,15 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
             <div className=' flex flex-row justify-around pb-6'>
                 <div className="flex flex-row">
                     <div>
-                        <h1>Ordenar:</h1>
+                        <h1>{t("Ordenar: ")}</h1>
                     </div>
                     <div>
                         <select
                             onChange={handleSort}
                             className={`styles-head ml-2`}
                         >
-                            <option value="recent">Recientes</option>
-                            <option value="old">Antiguos</option>
+                            <option value="recent">{t("Recientes")}</option>
+                            <option value="old">{t("Antiguos")}</option>
                         </select>
                     </div>
                 </div>
@@ -101,7 +100,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                         <div>
                             <button
                                 onClick={hideOptions}
-                            >Columnas</button>
+                            >{t("Columnas")}</button>
                         </div>
                     </div>
                     {options && (
@@ -130,7 +129,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                 </div>
             </div>
             <div>
-                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                <span className="flex flex-row pl-8">{t("Seleccionados: ")} {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
                             {editing ?
@@ -139,13 +138,13 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                                         onClick={() => handleSave(arraySelectedRows)}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Guardar
+                                        {t("Guardar")}
                                     </button>
                                     <button
                                         onClick={editTalent}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Cancelar
+                                        {t("Cancelar")}
                                     </button>
                                 </div>
                                 :

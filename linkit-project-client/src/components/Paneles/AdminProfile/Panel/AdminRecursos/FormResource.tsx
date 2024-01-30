@@ -133,7 +133,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
       onClose()
       return response.data;
     } catch (error: any) {
-      console.error(error.response.data)
+      throw new Error(t("Error al enviar la solicitud:")).message
     }
   };
 
@@ -319,7 +319,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                   <span className="text-xs text-red-600">{errors.description}</span>
                 </div>
 
-                <span className="flex w-full justify-center text-xl text-linkIt-300">Secciones</span>
+                <span className="flex w-full justify-center text-xl text-linkIt-300">{t("Secciones")}</span>
 
                 <div className="w-full mb-6">
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Encabezado')}</label>
@@ -361,10 +361,10 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                       className="background-button"
                       onClick={addToList}
                     >
-                      Agregar otra sección</button>
+                      {t("Agregar otra sección")}</button>
                   </div>
                   <div>
-                    <h3 className="ml-6 text-md font-bold text-linkIt-200">Secciones agregadas: </h3>
+                    <h3 className="ml-6 text-md font-bold text-linkIt-200"></h3>
                     {information.headers?.map((header, index) => (
                       <div key={index} className="ml-10">
                         <ul className="list-disc">
@@ -382,7 +382,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
                 </div>
               </div>
             ) :
-              <span>Selecciona el tipo de recurso</span>
+              <span>{t("Selecciona el tipo de recurso")}</span>
             }
           </div>
 

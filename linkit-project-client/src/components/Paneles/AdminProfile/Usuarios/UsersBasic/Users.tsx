@@ -5,6 +5,7 @@ import axios from "axios";
 import HeadUsers from "./HeadUsers";
 import { TalentProps } from "../../../admin.types";
 import PDFViewer from "./PDFViewer";
+import { useTranslation } from "react-i18next";
 
 type stateProps = {
   users: {
@@ -17,6 +18,7 @@ export default function Users() {
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredTalents)
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
+  const { t } = useTranslation()
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -33,7 +35,7 @@ export default function Users() {
         dispatch(setUsersTalent(response.data));
         dispatch(sortTalents('recent'))
       } catch (error) {
-        console.error("Error al cargar la información", error);
+        throw new Error(t("Error al enviar la solicitud:")).message
       }
     };
     loadData();
@@ -119,8 +121,7 @@ export default function Users() {
         });
       })
     } catch (error: any) {
-      console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      throw new Error(t("Error al enviar la solicitud:")).message
     }
     setEditing(false);
     setEditedData({});
@@ -297,17 +298,17 @@ export default function Users() {
           onClick={handlePrevius}
           disabled={currentPage === 0}
         >
-          Anterior
+          {t("Anterior")}
         </button>
         <span className='text-center'>
-          Pagina {currentPage + 1} de {totalPages}
+          {t("Pagina")} {currentPage + 1} de {totalPages}
         </span>
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
           disabled={endIndex >= data.length}
         >
-          Siguiente
+          {t("Siguiente")}
         </button>
       </div>
     </div>

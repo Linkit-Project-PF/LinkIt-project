@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { setUsersCompanies } from "../../../../../redux/features/UsersSlice";
 import { CompaniesProps } from "../../../admin.types";
+import { useTranslation } from "react-i18next";
 
 export type statePropsCompanies = {
   users: {
@@ -15,6 +16,7 @@ export type statePropsCompanies = {
 export default function CompaniesU() {
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const data = useSelector(
     (state: statePropsCompanies) => state.users.filteredCompanies
   );
@@ -34,7 +36,7 @@ export default function CompaniesU() {
         );
         dispatch(setUsersCompanies(response.data));
       } catch (error) {
-        console.error("Error al cargar las información", error);
+        throw new Error(t("Error al enviar la solicitud:")).message
       }
     };
     loadData();
@@ -119,8 +121,7 @@ export default function CompaniesU() {
         });
       });
     } catch (error: any) {
-      console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      throw new Error(t("Error al enviar la solicitud:")).message
     }
     setEditing(false);
     setEditedData({});
@@ -319,17 +320,17 @@ export default function CompaniesU() {
           onClick={handlePrevius}
           disabled={currentPage === 0}
         >
-          Anterior
+          {t("Anterior")}
         </button>
         <span className="text-center">
-          Pagina {currentPage + 1} de {totalPages}
+          {t("Pagina")} {currentPage + 1} de {totalPages}
         </span>
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
           disabled={endIndex >= data.length}
         >
-          Siguiente
+          {t("Siguiente")}
         </button>
       </div>
     </div>

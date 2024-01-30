@@ -2,21 +2,25 @@ import { useEffect, useState } from "react";
 import HeadResources from "./HeadResources";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setResources, sortResource } from "../../../../../redux/features/ResourcesSlice";
+import {
+  setResources,
+  sortResource,
+} from "../../../../../redux/features/ResourcesSlice";
 import { ResourceProps, ViewResourceProps } from "../../../admin.types";
 
 export type stateProps = {
   resources: {
     filteredResources: ResourceProps[];
   };
-}
+};
 
 export default function Resources() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const token = useSelector((state: any) => state.Authentication.token);
-  const data = useSelector((state: stateProps) => state.resources.filteredResources);
+  const data = useSelector(
+    (state: stateProps) => state.resources.filteredResources
+  );
   const [saveStatus, setSaveStatus] = useState<boolean>(true);
-
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -26,18 +30,18 @@ export default function Resources() {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              'Accept-Language': sessionStorage.getItem('lang')
-            }
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
           }
         );
         dispatch(setResources(response.data));
-        dispatch(sortResource('recent'))
+        dispatch(sortResource("recent"));
       } catch (error: any) {
         console.error("Error al cargar la información", error.response?.data);
       }
     };
     loadData();
-  }, [saveStatus])
+  }, [saveStatus]);
 
   //?COLUMNS
   const [viewCol, setViewCol] = useState<ViewResourceProps>({
@@ -50,14 +54,14 @@ export default function Resources() {
     image: true,
     category: true,
     archived: true,
-  })
+  });
   const hideCol = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name } = e.target
+    const { name } = e.target;
     setViewCol((prevViewCol) => ({
       ...prevViewCol,
       [name]: !prevViewCol[name as keyof typeof prevViewCol],
-    }))
-  }
+    }));
+  };
   //?
 
   //? PAGINADO
@@ -73,27 +77,29 @@ export default function Resources() {
   const handlePrevius = (): void => {
     setCurrentPage(currentPage - 1);
   };
-  //? 
+  //?
 
   //?EDITAR
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
-  const [editing, setEditing] = useState(false)
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [editing, setEditing] = useState(false);
   const [editedData, setEditedData] = useState<Partial<ResourceProps>>({});
   const handleEdit = (id: string): void => {
     const updateSelectedRows = new Set(selectedRows);
     if (updateSelectedRows.has(id)) {
-      updateSelectedRows.delete(id)
+      updateSelectedRows.delete(id);
     } else {
-      updateSelectedRows.add(id)
+      updateSelectedRows.add(id);
     }
-    setSelectedRows(updateSelectedRows)
-    setEditing(false)
-  }
+    setSelectedRows(updateSelectedRows);
+    setEditing(false);
+  };
   const editResource = () => {
-    setEditing(!editing)
-  }
+    setEditing(!editing);
+  };
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setEditedData({
@@ -108,10 +114,10 @@ export default function Resources() {
         await axios.put(endPoint, editedData, {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Accept-Language': sessionStorage.getItem('lang')
+            "Accept-Language": sessionStorage.getItem("lang"),
           },
         });
-      })
+      });
     } catch (error: any) {
       console.error(error.response.data);
       console.error("Error al enviar la solicitud: ", (error as Error).message);
@@ -123,159 +129,235 @@ export default function Resources() {
   //?
 
   //?SECCIONES
-  const renderSectionSelect = <K extends keyof ResourceProps>(title: string, key: K,) => (
+  const renderSectionSelect = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap w-80' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis  overflow-hidden line-clamp-1'}
+            className={
+              selectedRows.has(r._id)
+                ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap w-80"
+                : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis  overflow-hidden line-clamp-1"
+            }
           >
-            <input type="checkbox" name="edit" onChange={() => handleEdit(r._id)} checked={selectedRows.has(r._id)} />
-            <p className="pl-2">{selectedRows.has(r._id) && editing ?
-              <input
-                name={key}
-                type="text"
-                defaultValue={r[key] as any}
-                onChange={handleChange}
-                className="bg-linkIt-500 text-black w-full h-6"
-              />
-              : String(r[key] === undefined || NaN ? '' : r[key])}</p>
+            <input
+              type="checkbox"
+              name="edit"
+              onChange={() => handleEdit(r._id)}
+              checked={selectedRows.has(r._id)}
+            />
+            <p className="pl-2">
+              {selectedRows.has(r._id) && editing ? (
+                <input
+                  name={key}
+                  type="text"
+                  defaultValue={r[key] as any}
+                  onChange={handleChange}
+                  className="bg-linkIt-500 text-black w-full h-6"
+                />
+              ) : (
+                String(r[key] === undefined || NaN ? "" : r[key])
+              )}
+            </p>
           </div>
         ))}
       </div>
     </div>
-  )
-  const renderSectionBasicNoEdit = <K extends keyof ResourceProps>(title: string, key: K,) => (
+  );
+  const renderSectionBasicNoEdit = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={
+              selectedRows.has(r._id)
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+            }
           >
-            <p>{String(r[key] === undefined || NaN ? '' : r[key] && r[key] === 'social' ? 'evento' : r[key])}</p>
+            <p>
+              {String(
+                r[key] === undefined || NaN
+                  ? ""
+                  : r[key] && r[key] === "social"
+                  ? "evento"
+                  : r[key]
+              )}
+            </p>
           </div>
         ))}
       </div>
     </div>
-  )
-  const renderSectionBasicNoEditCap = <K extends keyof ResourceProps>(title: string, key: K,) => (
+  );
+  const renderSectionBasicNoEditCap = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : ' capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={
+              selectedRows.has(r._id)
+                ? "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : " capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+            }
           >
-            <p>{String(r[key] === undefined || NaN ? '' : r[key] && r[key] === 'social' ? 'evento' : r[key])}</p>
+            <p>
+              {String(
+                r[key] === undefined || NaN
+                  ? ""
+                  : r[key] && r[key] === "social"
+                  ? "evento"
+                  : r[key]
+              )}
+            </p>
           </div>
         ))}
       </div>
     </div>
-  )
-  const renderSectionBasic = <K extends keyof ResourceProps>(title: string, key: K,) => (
+  );
+  const renderSectionBasic = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={
+              selectedRows.has(r._id)
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+            }
           >
-            <p>{selectedRows.has(r._id) && editing ?
-              <input
-                name={key}
-                type="text"
-                defaultValue={r[key] as any}
-                onChange={handleChange}
-                className="bg-linkIt-500 text-black w-full h-6"
-              />
-              : String(r[key] === undefined || NaN ? '' : r[key])}</p>
+            <p>
+              {selectedRows.has(r._id) && editing ? (
+                <input
+                  name={key}
+                  type="text"
+                  defaultValue={r[key] as any}
+                  onChange={handleChange}
+                  className="bg-linkIt-500 text-black w-full h-6"
+                />
+              ) : (
+                String(r[key] === undefined || NaN ? "" : r[key])
+              )}
+            </p>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 
-  const renderSectionBasicCap = <K extends keyof ResourceProps>(title: string, key: K,) => (
+  const renderSectionBasicCap = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={
+              selectedRows.has(r._id)
+                ? "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+            }
           >
-            <p>{selectedRows.has(r._id) && editing  ?
-              <input
-                name={key}
-                type="text"
-                defaultValue={r[key] === 'social' ? 'evento' : r[key] as any}
-                onChange={handleChange}
-                className="bg-linkIt-500 text-black w-full h-6"
-              />
-              : String(r[key] === undefined || NaN ? '' : r[key])}</p>
+            <p>
+              {selectedRows.has(r._id) && editing ? (
+                <input
+                  name={key}
+                  type="text"
+                  defaultValue={
+                    r[key] === "social" ? "evento" : (r[key] as any)
+                  }
+                  onChange={handleChange}
+                  className="bg-linkIt-500 text-black w-full h-6"
+                />
+              ) : (
+                String(r[key] === undefined || NaN ? "" : r[key])
+              )}
+            </p>
           </div>
         ))}
       </div>
     </div>
-  )
-  const renderSectionActive = <K extends keyof ResourceProps>(title: string, key: K,) => (
+  );
+  const renderSectionActive = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow?.map((r: ResourceProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={
+              selectedRows.has(r._id)
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+            }
           >
-            <p>{String(r[key] === true ? 'Inactivo' : 'Activo')}</p>
+            <p>{String(r[key] === true ? "Inactivo" : "Activo")}</p>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
   //?
 
   return (
-
-    <div className="bg-linkIt-500 mx-12 rounded-[20px] rounded-b-none w-auto">
+    <div className="bg-linkIt-500 mx-12 rounded-[20px] w-auto p-3">
       <HeadResources
         hideCol={hideCol}
         viewCol={viewCol}
         selectedRows={selectedRows}
-        setSelectedRows = {setSelectedRows}
+        setSelectedRows={setSelectedRows}
         editing={editing}
         editResource={editResource}
         handleSave={handleSave}
         setSaveStatus={setSaveStatus}
       />
-      <div className='flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg'>
+      <div className="flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
         {viewCol.title && renderSectionSelect("Título", "title")}
         {viewCol._id && renderSectionBasicNoEdit("ID", "_id")}
         {viewCol.link && renderSectionBasic("Link", "link")}
         {viewCol.type && renderSectionBasicNoEditCap("Tipo", "type")}
-        {viewCol.createdDate && renderSectionBasicNoEdit("Fecha de Creación", "createdDate")}
+        {viewCol.createdDate &&
+          renderSectionBasicNoEdit("Fecha de Creación", "createdDate")}
         {viewCol.image && renderSectionBasic("URL Imágen", "image")}
         {viewCol.category && renderSectionBasicCap("Categoría", "category")}
         {viewCol.archived && renderSectionActive("Estado", "archived")}
-
       </div>
       <div className="flex flex-row justify-around">
         <button
@@ -285,7 +367,7 @@ export default function Resources() {
         >
           Anterior
         </button>
-        <span className='text-center'>
+        <span className="text-center">
           Pagina {currentPage + 1} de {totalPages}
         </span>
         <button
@@ -297,5 +379,5 @@ export default function Resources() {
         </button>
       </div>
     </div>
-  )
+  );
 }

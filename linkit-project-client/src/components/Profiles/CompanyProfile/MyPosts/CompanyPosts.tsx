@@ -26,7 +26,7 @@ function CompanyPosts({ posts }: IComponentProps) {
   return (
     <div className="w-full flex flex-col md:flex-row md:gap-x-4 gap-y-4 justify-evenly">
       <div className="md:w-1/4">
-        <div className="bg-gray-100 p-3 rounded">
+        <div className="bg-gray-50 p-3 rounded">
           <h2 className="font-bold mb-2">{t("Iniciados")}</h2>
           {filterPostsByStatus(started).map((post) => (
             <CompanyPost key={post._id} post={post} />
@@ -35,7 +35,7 @@ function CompanyPosts({ posts }: IComponentProps) {
       </div>
 
       <div className="md:w-1/4">
-        <div className="bg-gray-100 p-3 rounded">
+        <div className="bg-gray-50 p-3 rounded">
           <h2 className="font-bold mb-2">{t("En proceso")}</h2>
           {filterPostsByStatus(working).map((post) => (
             <CompanyPost key={post._id} post={post} />
@@ -44,7 +44,7 @@ function CompanyPosts({ posts }: IComponentProps) {
       </div>
 
       <div className="md:w-1/4">
-        <div className="bg-gray-100 p-3 rounded">
+        <div className="bg-gray-50 p-3 rounded">
           <h2 className="font-bold mb-2">{t("Finalizando")}</h2>
           {filterPostsByStatus(finish).map((post) => (
             <CompanyPost key={post._id} post={post} />
@@ -53,7 +53,7 @@ function CompanyPosts({ posts }: IComponentProps) {
       </div>
 
       <div className="md:w-1/4">
-        <div className="bg-gray-100 p-3 rounded">
+        <div className="bg-gray-50 p-3 rounded">
           <h2 className="font-bold mb-2">{t("En pausa")}</h2>
           {filterPostsByStatus(paused).map((post) => (
             <CompanyPost key={post._id} post={post} />
