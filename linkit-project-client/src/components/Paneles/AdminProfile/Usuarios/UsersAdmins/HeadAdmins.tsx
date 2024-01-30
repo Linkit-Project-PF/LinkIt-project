@@ -58,9 +58,9 @@ export default function HeadAdmins({
 
   const deleteUser = async () => {
     swal({
-      title: "¿Deseas eliminar el Usuario?",
+      title: t("¿Deseas eliminar el Usuario?"),
       icon: "warning",
-      buttons: ["Cancelar", "Aceptar"],
+      buttons: [t("Cancelar"), t("Aceptar")],
       dangerMode: true,
     }).then(async (willDelete) => {
       if (willDelete) {
@@ -76,13 +76,10 @@ export default function HeadAdmins({
               }
             );
             dispatch(setUsersAdmins(response.data));
-            swal("Usuario eliminado", { icon: "success" });
+            swal(t("Usuario eliminado"), { icon: "success" });
           });
         } catch (error) {
-          console.error(
-            "Error al enviar la solicitud:",
-            (error as Error).message
-          );
+          throw new Error(t("Error al enviar la solicitud:")).message
         }
       }
     });
@@ -92,17 +89,17 @@ export default function HeadAdmins({
   return (
     <div>
       <div>
-        <h1 className="text-4xl pl-16 py-6">Administradores</h1>
+        <h1 className="text-4xl pl-16 py-6">{t("Administradores")}</h1>
       </div>
       <div className=" flex flex-row justify-around pb-6">
         <div className="flex flex-row">
           <div>
-            <h1>Ordenar:</h1>
+            <h1>{t("Ordenar: ")}</h1>
           </div>
           <div>
             <select onChange={handleSort} className={`styles-head ml-2`}>
-              <option value="recent">Recientes</option>
-              <option value="old">Antiguos</option>
+              <option value="recent">{t("Recientes")}</option>
+              <option value="old">{t("Antiguos")}</option>
             </select>
           </div>
         </div>
@@ -110,7 +107,7 @@ export default function HeadAdmins({
         <div className="relative">
           <div className="flex flex-row">
             <div>
-              <button onClick={hideOptions}>Columnas</button>
+              <button onClick={hideOptions}>{t("Columnas")}</button>
             </div>
           </div>
           {options && (
@@ -141,7 +138,7 @@ export default function HeadAdmins({
 
       <div>
         <span className="flex flex-row pl-8">
-          Seleccionados: {selectedRows.size}
+          {t("Seleccionados: ")} {selectedRows.size}
           {selectedRows.size > 0 && (
             <div className="flex flex-row">
               {editing ? (
@@ -150,13 +147,13 @@ export default function HeadAdmins({
                     onClick={() => handleSave(arraySelectedRows)}
                     className="pl-6 hover:text-linkIt-300"
                   >
-                    Guardar
+                    {t("Guardar")}
                   </button>
                   <button
                     onClick={editAdmin}
                     className="pl-6 hover:text-linkIt-300"
                   >
-                    Cancelar
+                    {t("Cancelar")}
                   </button>
                 </div>
               ) : (

@@ -4,6 +4,7 @@ import { useSelector} from "react-redux";
 import axios from "axios";
 import { OKRsType } from "../../../../../admin.types";
 import swal from 'sweetalert';
+import { t } from 'i18next'
 
 export type stateProps = {
     resources: {
@@ -52,7 +53,7 @@ function AccordionOKRs(){
                             }
                         }
                     );
-                    if(response.data) swal('OKR eliminado');
+                    if(response.data) swal(t('OKR eliminado'));
                     
                 } catch (error) {
                     console.error("Error al eliminar el OKR", error);

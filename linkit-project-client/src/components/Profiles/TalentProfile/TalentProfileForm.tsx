@@ -10,7 +10,6 @@ import axios from "axios";
 import Loading from "../../Loading/Loading";
 import Select from "react-select";
 
-
 //TODO Bullet select on technologies
 
 interface IComponentProps {
@@ -26,7 +25,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
     return { value: tech.name, label: tech.name };
   });
 
-
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState(user.cv.fileName);
   const [cv, setCv] = useState(user.cv);
@@ -39,7 +37,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const [countries, setCountries] = useState([]);
   const [loading, isLoading] = useState(false);
   const [filePublicId, setFilePublicId] = useState("");
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +52,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      console.log(technologies);
       isLoading(true);
       const newUser = {
         ...user,
@@ -99,7 +97,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
   }));
 
   return (
-    <div className="bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
+    <div className="bg-white mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10">
       {loading && <Loading text={t("Enviando los cambios")} />}
       <form action="" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
@@ -153,7 +151,6 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col">
-
             <label className="ml-2">{t("Stack tecnológico")}</label>
             <Select
               className="md:w-[24rem] min-w-[15rem]"
@@ -173,7 +170,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 multiValueLabel: (provided) => ({
                   ...provided,
                   color: "#FFF",
-                  fontSize: "0.8rem"
+                  fontSize: "0.8rem",
                 }),
                 control: (provided) => ({
                   ...provided,
@@ -188,7 +185,7 @@ const TalentForm: FunctionComponent<IComponentProps> = ({ user }) => {
                 }),
               }}
               onChange={(event) =>
-                setTechnologies(event?.map((tech:any)=> tech.value))
+                setTechnologies(event?.map((tech: any) => tech.value))
               }
               defaultValue={defaultValues}
               placeholder={t("Stack tecnológico")}

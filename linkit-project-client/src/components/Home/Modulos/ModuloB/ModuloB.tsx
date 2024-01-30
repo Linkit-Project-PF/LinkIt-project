@@ -31,6 +31,7 @@ export default function ModuloB() {
                 </div> 
                 <div className="lg:hidden">
                     <OurServicesCarousel component="home" />
+                    
                     </div>
             </div>
 

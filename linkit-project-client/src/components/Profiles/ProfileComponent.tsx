@@ -15,7 +15,9 @@ interface componentProps {
 }
 
 export default function ProfileComponent({ loader }: componentProps) {
-  loader(false);
+  useEffect(() => {
+    loader(false); 
+  }, [loader]);
   const { t } = useTranslation();
   const [filePublicId, setFilePublicId] = useState("");
   const [fileName, setFileName] = useState("");

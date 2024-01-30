@@ -24,6 +24,7 @@ import { RootState } from "../../../../../../../redux/types";
 import { IUser } from "../../../../../../Profiles/types";
 import Loading from "../../../../../../Loading/Loading";
 
+
 const formVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -80,14 +81,12 @@ function JobForm() {
   const [filePublicId, setFilePublicId] = useState<string>("");
   const [fileName, setFileName] = useState<string>(userData.cv.fileName);
   const [country, setCountry] = useState<string>(userData.country ?? "");
-  const [englishLevel, setEnglishLevel] = useState<string>(
-    userData.englishLevel ?? ""
-  );
+  const [englishLevel, setEnglishLevel] = useState<string>(() => t("Selecciona tu nivel de inglés"));
   const [openEnglishLevel, setOpenEnglishLevel] = useState<boolean>(false);
   const [userStack, setUserStack] = useState<string[]>([]);
   const [openRecruiter, setOpenRecruiter] = useState<boolean>(false);
   const [recruiter, setRecruiter] = useState<string>("");
-  const [userTechnologies, setUserTechnologies] = useState<string[]>([]);
+  const [userTechnologies, setUserTechnologies] = useState<string[]>(userData.technologies);
   const [loading, isLoading] = useState(false);
 
   const englishLevelRef = useRef<HTMLButtonElement>(null);
@@ -107,7 +106,6 @@ function JobForm() {
     technologies: userTechnologies,
     reason: "",
   });
-  console.log(user);
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -485,7 +483,7 @@ function JobForm() {
                       }}
                       ref={englishLevelRef}
                     >
-                      {englishLevel === "" ? t("Seleccionar") : englishLevel}
+                      {englishLevel}
                     </button>
 
                     <motion.ul

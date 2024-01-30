@@ -59,7 +59,6 @@ export default function PermissionsForm({
           },
         }
       );
-      console.log("Executing this");
       setActiveAdmin(data);
       setPermissions(data.permissions);
     };
@@ -155,7 +154,7 @@ export default function PermissionsForm({
     <div className="absolute flex w-[100vw] h-[120vh] lg:h-[100vh] bg-black bg-opacity-40 justify-center">
       <div className="flex flex-col self-center w-[80%] lg:w-[50%] bg-white rounded-2xl p-5 md:mt-14">
         <h1 className="text-center my-2">
-          Permisos de: <b>{activeAdmin?.firstName}</b>
+          {t("Permisos de:")} <b>{activeAdmin?.firstName}</b>
         </h1>
         <div className="flex flex-col md:flex-row mb-5 lg:gap-10 lg:p-5 md:gap-2">
           <div className="flex flex-col">

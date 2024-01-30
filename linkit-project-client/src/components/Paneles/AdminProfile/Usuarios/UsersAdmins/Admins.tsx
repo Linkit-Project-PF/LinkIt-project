@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { setUsersAdmins, sortUsersAdmins } from "../../../../../redux/features/UsersSlice";
 import axios from "axios";
 import { Admin } from "../../../admin.types";
+import { useTranslation } from "react-i18next";
 
 type stateProps = {
   users: {
@@ -12,7 +13,7 @@ type stateProps = {
 };
 
 export default function Admins() {
-
+  const { t } = useTranslation();
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredAdmins);
@@ -115,8 +116,7 @@ export default function Admins() {
         });
       })
     } catch (error: any) {
-      console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      throw new Error(error.message);
     }
     setEditing(false);
     setEditedData({});
@@ -259,17 +259,17 @@ export default function Admins() {
           onClick={handlePrevius}
           disabled={currentPage === 0}
         >
-          Anterior
+          {t("Anterior")}
         </button>
         <span className='text-center'>
-          Pagina {currentPage + 1} de {totalPages}
+          {t("Página")} {currentPage + 1} {t("de")} {totalPages}
         </span>
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
           disabled={endIndex >= data.length}
         >
-          Siguiente
+          {t("Siguiente")}
         </button>
       </div>
     </div>
