@@ -24,11 +24,11 @@ const goBackVariants: Variants = {
       type: "spring",
       duration: 0.5,
     },
-  }
-}
+  },
+};
 
 function Libreria() {
-  const {t} = useTranslation(); 
+  const { t } = useTranslation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -38,24 +38,24 @@ function Libreria() {
     <>
       <div className="mt-[6rem] p-[3.5rem]">
         <motion.h3
-         variants={goBackVariants}
-         initial="hidden"
-         whileInView="visible"
-         whileHover="hover"
-         className="inline-flex flex-row gap-[.5rem] font-bold font-montserrat text-[1.3rem] mb-[2rem] cursor-pointer"
-         onClick={()=>navigate("/recursos")}
-         >
+          variants={goBackVariants}
+          initial="hidden"
+          whileInView="visible"
+          whileHover="hover"
+          className="inline-flex flex-row gap-[.5rem] font-bold font-montserrat text-[1.3rem] mb-[2rem] cursor-pointer"
+          onClick={() => navigate("/recursos")}
+        >
           <img
             src="/Vectores/left-arrow.svg"
             alt="go-back"
             className="w-[1.5rem]"
           />
-          {t('Volver')}
+          {t("Volver")}
         </motion.h3>
         <h1 className="text-left text-[2rem] font-bold font-montserrat ">
-          {t('Todos los recursos')}
+          {t("Todos los recursos")}
         </h1>
-        <div className=" content-display">
+        <div className=" content-display flex flex-col md:flex-row">
           <section>
             <SideBar />
           </section>
