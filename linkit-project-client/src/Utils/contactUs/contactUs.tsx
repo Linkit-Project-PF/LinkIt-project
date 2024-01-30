@@ -115,10 +115,15 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       })
       if(response.status === 200) {
         Swal.fire({ 
+          customClass: {
+            confirmButton: 'background-button bg-linkIt-300'
+          },
           title: t("¡Gracias por contactarnos!"),
           text: t("Nos estaremos comunicando a la brevedad"),
           allowOutsideClick: true,
-          icon: "success" })
+          showConfirmButton: true,
+          buttonsStyling: false,
+          icon: "success" }),
           
 
         setContacts({
