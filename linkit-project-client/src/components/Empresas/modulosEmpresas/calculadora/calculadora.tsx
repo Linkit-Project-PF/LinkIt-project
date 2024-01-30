@@ -331,8 +331,8 @@ interface VacancySecondState {
               <div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center">
               <Dropdown label={t('Posición')} inline theme={customTheme} className="h-28 overflow-y-scroll">
             {positionsToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((position: string, index: number) => (
-                    <li key={index}> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 ring-black cursor-pointer" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
+                    <li key={index} className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 cursor-pointer focus:ring-0" type="checkbox" name="positionV" value={position} id={position} onChange={handleChange} />
                     <label htmlFor={position} className="cursor-pointer w-full">{position}</label>
                     </li>
                     
@@ -341,18 +341,18 @@ interface VacancySecondState {
           </Dropdown>
 
           <Dropdown label={t('Inglés')} inline theme={customTheme} className="overflow-y-auto">
-              <li className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
+              <li className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="englishLevel" value="Basico" id="Basico" onChange={handleChange} />
                     <label htmlFor="Basico" className="cursor-pointer w-full">{t('Básico')}</label>
                     </li>
                     
-                    <li className="pr-3"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
+                    <li className="pr-3 pb-1"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="englishLevel" value="Intermedio" id="Intermedio" onChange={handleChange} />
                     <label htmlFor="Intermedio" className="cursor-pointer w-full"> {t('Intermedio')}</label>
                     </li>
                     
-                    <li className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
+                    <li className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="englishLevel" value="Avanzado" id="Avanzado" onChange={handleChange} />
                     <label htmlFor="Avanzado" className="cursor-pointer w-full">{t('Avanzado')}</label>
                     </li>
                     </Dropdown>
@@ -369,23 +369,23 @@ interface VacancySecondState {
 
 <div className="grid grid-cols-2 w-full font-montserrat justify-items-start ssm:justify-items-center relative">
           <Dropdown label="Seniority" inline theme={customTheme} className=" overflow-y-auto">
-              <li className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
+              <li className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="seniorityV" value="Junior" id="Junior" onChange={handleChange} />
                     <label htmlFor="Junior" className="cursor-pointer w-full">Junior</label>
                     </li>
                   
-              <li className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
+              <li className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="seniorityV" value="Semi-senior" id="Semi-senior" onChange={handleChange} />
                     <label htmlFor="Semi-senior" className="cursor-pointer w-full">Semi-senior</label>
                     </li>
                   
-              <li className="pr-3"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
+              <li className="pr-3 pb-1"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="seniorityV" value="Senior Advance" id="Senior Advance" onChange={handleChange} />
                     <label htmlFor="Senior Advance" className="cursor-pointer w-full">Senior Advance</label>
                     </li>
                     
-              <li className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
+              <li className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="seniorityV" value="Manager/Lead" id="Manager/Lead" onChange={handleChange} />
                     <label htmlFor="Manager/Lead" className="cursor-pointer w-full">Manager/Lead</label>
                     </li>
 
@@ -395,8 +395,8 @@ interface VacancySecondState {
     <Dropdown label={t('Tecnologías')} inline theme={customTheme} className=" h-28 overflow-y-scroll">
               {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
                 
-                    <li key={index} className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} />
+                    <li key={index} className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} />
                     <label htmlFor={techs} className="cursor-pointer w-full">{techs}</label>
                     </li>
                    
@@ -420,8 +420,8 @@ interface VacancySecondState {
           <Dropdown label="Frameworks" inline theme={customTheme} className=" h-28 overflow-y-scroll">
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
               
-                    <li key={index} className=""> 
-                    <input className=" checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
+                    <li key={index} className="pb-1 ssm:pb-0"> 
+                    <input className=" checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} />
                     <label htmlFor={frameworks} className="cursor-pointer w-full">{frameworks}</label>
                     </li>
                     
@@ -431,13 +431,13 @@ interface VacancySecondState {
     </Dropdown>
               
 
-          <Dropdown label={t('Otros')} inline theme={customTheme} className=" h-28 overflow-y-scroll">
+          <Dropdown label={t('Otros')} inline theme={customTheme} className="h-28 overflow-y-scroll">
 
           {
               
               othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
-                    <li key={index} className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2" type="checkbox" name="others" value={others} id={others} onChange={handleChange} />
+                    <li key={index} className="pb-1 ssm:pb-0"> 
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="others" value={others} id={others} onChange={handleChange} />
                     <label htmlFor={others} className="cursor-pointer ">
                     {others}</label>
                     </li>
@@ -451,7 +451,7 @@ interface VacancySecondState {
 
           
           </div>
-          <div className="justify-center flex my-[5%] z-[1]">
+          <div className="justify-center flex my-[5%] z-[1] relative">
           <button className="background-button disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:" onClick={CalculatePrice}
            disabled={
             vacancyFirst.englishLevel === "" ||
