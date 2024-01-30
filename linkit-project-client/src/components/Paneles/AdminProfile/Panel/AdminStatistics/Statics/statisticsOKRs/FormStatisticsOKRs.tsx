@@ -346,7 +346,7 @@ const noShowForm = () => {
               <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-3 rounded-[20px] border-[3px] border-linkIt-300 p-5"
               >
               
-                  <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t("Resultados clave")}</label>
+                  <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t("Resultado clave")}</label>
                   <input className={'"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                       type="text"
                                       name="okrSpecificName"
