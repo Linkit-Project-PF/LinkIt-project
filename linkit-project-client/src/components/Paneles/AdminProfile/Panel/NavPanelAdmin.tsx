@@ -8,7 +8,7 @@ export default function NavPanelAdmin() {
 
   return (
     <nav>
-      <ul className="flex flex-row p-6 pl-16 pb-0">
+      <ul className="flex flex-row p-6 pb-0">
         <li
           className={`text-2xl mr-16 p-5 ${
             active[0] === 1 ? "text-linkIt-300" : ""
