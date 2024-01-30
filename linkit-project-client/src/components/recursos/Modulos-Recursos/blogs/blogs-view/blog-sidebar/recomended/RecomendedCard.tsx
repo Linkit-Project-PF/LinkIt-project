@@ -41,7 +41,7 @@ function RecomendedCard({ title, description, image, genre, _id }: BlogsCardProp
   const { t } = useTranslation()
   const navigate = useNavigate();
 
-  
+
   const handleClick = () => {
     navigate(`/blog/${_id}`)
     window.location.reload();
@@ -49,7 +49,7 @@ function RecomendedCard({ title, description, image, genre, _id }: BlogsCardProp
 
   return (
     <motion.div
-      className="flex flex-col border-[0.13rem] w-[20vw] h-full rounded-[0.625rem] font-montserrat items-center justify-center bg-white mt-[10%]"
+      className="border-[2px] w-[23vw] h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400 mb-10"
       variants={blogsCardVariants}
       initial="hidden"
       animate="visible"
@@ -59,25 +59,23 @@ function RecomendedCard({ title, description, image, genre, _id }: BlogsCardProp
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
           alt={title}
-          className={`w-full h-[15rem] lg:h-[8rem] xl:h-[20rem] rounded-[0.625rem] ${title.length > 20 ? "xl:-mt-4" : ""
-            } image`}
+          className="w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center"
         />
       )}
-      <div className="p-[3rem] flex flex-col flex-grow w-full justify-between lg:p-[1.5rem] xl:p-[1.8rem] ">
-        <div>
-          <p className="border-[2px] text-[0.8rem] mb-[1rem] h-[25px] border-linkIt-300 rounded-[10px] p-[0.8rem] lg:p-[.7rem] font-semibold items-center justify-center whitespace-nowrap inline-flex lg:text-[0.7rem] ">
-            {genre}
-          </p>
-          <h1 className="font-bold text-[1rem] lg:text-[.8rem]">
-            {title}
-          </h1>
-          <p className="font-semibold text-[0.9rem] lg:text-[.8rem] w-full mt-[15px] xl:mb-[1rem] ">
-            {description}
-          </p>
-        </div>
+      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+
+        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+          {genre}
+        </p>
+        <h1 className="font-bold subtitles-size line-clamp-3">
+          {title}
+        </h1>
+        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 mt-8">
+          {description}
+        </p>
         <motion.a
           onClick={handleClick}
-          className="text-[1rem] font-bold lg:text-[.8rem] lg:mt-[1rem] "
+          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start hover:cursor-pointer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
         >

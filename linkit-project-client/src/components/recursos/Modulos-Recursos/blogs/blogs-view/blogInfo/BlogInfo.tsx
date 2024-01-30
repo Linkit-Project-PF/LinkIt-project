@@ -54,10 +54,15 @@ function BlogInfo() {
       <ul className="flex flex-col gap-[3rem] w-full">
         {blog?.headers?.map((header: Header, index: number) => {
           return (
-            <div className="flex flex-row gap-[1.5rem] " key={header.sectionImage}>
-              <div className="font-bold bg-linkIt-300 text-white text-[1.5rem] w-[3rem] h-[3rem] rounded-full flex flex-col justify-center items-center ">
-                {index + 1}
-              </div>
+            <div className="flex flex-row gap-[1.5rem] " key={index}>
+              {header.head !== "" ?
+                <div className="font-bold bg-linkIt-300 text-white text-[1.5rem] w-[3rem] h-[3rem] rounded-full flex flex-col justify-center items-center ">
+                  {index + 1}
+                </div>
+                : 
+                <div className="font-bold bg-white text-white text-[1.5rem] w-[3rem] h-[3rem] rounded-full flex flex-col justify-center items-center ">
+                </div>
+              }
               <li key={index} className="flex flex-col w-full gap-[2%]">
                 <h3 className="text-linkIt-300 font-[600] subtitles-size w-[55vw]">{header.head}</h3>
                 <p className="text-linkIt-400 w-[50vw] text-size mt-6">{header.body}</p>
