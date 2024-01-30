@@ -126,7 +126,6 @@ export const i18nOptions: InitOptions = {
          //Company module I
          "Contáctanos":"Contact us",
          "¿Qué servicio te interesa?":"What service are you interested in?",
-         "Enviar":"Send",
          //Company - Profile - MyPosts
          "Iniciados":"Started",
          "En proceso":"Currently working",
@@ -153,7 +152,6 @@ export const i18nOptions: InitOptions = {
         "Registrarse":"Register",
         "INGRESO PARA EMPRESAS":"COMPANIES LOGIN ",
         "Has ingresado correctamente":"You have successfully logged in",
-        "Continuar":"Continue",
         "Bienvenido":"Welcome, {{name}}",
         "Usuario autenticado pero registro no encontrado, contacte a un administrador":"User authenticated but registration not found, contact an administrator.",
         "Usuario o contraseña incorrectos":"Incorrect username or password",
@@ -171,6 +169,18 @@ export const i18nOptions: InitOptions = {
         "Usuario autenticado pero registro no encontrado, por favor inicia sesión desde la sección correspondiente. Si el error persiste contactános":
         "User found but no register match, please log-in on the correct role section. If error persist, please contact us",
         
+        //!Sweet Alerts!
+        "¡El email no coincide!": "The email does not match!",
+        "Asegurate de escribir bien el correo": "Make sure you write the email correctly",
+        "Continuar": "Continue",
+        "Restablecer Contraseña": "Restore password",
+        "Por favor, confirme su correo electrónico:": "Please confirm your email:",
+        "Enviar": "Send",
+        "Cancelar": "Cancel",
+        "¡Confirmación de email exitoso!": "Email confirmation successful!",
+        "Hemos confirmado tu correo electrónico. Pronto recibirás un correo con las instrucciones para cambiar tu contraseña.": "We have confirmed your email. You will soon receive an email with instructions to change your password.",
+        "¡Recordatorio importante!": "Important reminder!",
+        "Recuerda que primero debes de crear la vacante directamente en nuestra base de datos de Airtable": "Remember that you must first create the vacancy directly in our Airtable database",
 
         //!Login pre-login
         "Conectando al talento más destacado":"Connecting the most outstanding talent",
@@ -569,7 +579,6 @@ export const i18nOptions: InitOptions = {
         "El estado seleccionado es el mismo estado anterior":"The selected status is the same as the previous status",
         "Crear":"Create",
         "Estado":"Status",
-        "Cancelar":"Cancel",
         "Vacante ocultada":"Vacancy hidden",
         "Error al enviar la solicitud:":"Error submitting request:",
         "Gestión de vacantes":"Vacancy management",
