@@ -9,6 +9,7 @@ import swal from "sweetalert";
 import { t } from "i18next";
 import axios from "axios";
 import { RootState } from "../../../../../redux/types";
+import Swal from "sweetalert2";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,6 +41,15 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
     }
 
     const showForm = () => {
+        Swal.fire({
+            title: t('¡Recordatorio importante!'),
+            text: t('Recuerda que primero debes de crear la vacante directamente en nuestra base de datos de Airtable'),
+            icon: "info",
+            background: "#ECEEF0",
+            allowOutsideClick: true,
+            confirmButtonColor: "#01A28B",
+            confirmButtonText: t("Continuar"),
+        })
         setViewForm(true);
     };
 
