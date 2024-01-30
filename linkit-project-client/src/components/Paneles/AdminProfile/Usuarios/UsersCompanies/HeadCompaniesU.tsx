@@ -13,10 +13,11 @@ interface HeadCompaniesU {
     editing: boolean
     editCompanies: () => void
     handleSave: (arrayProps: string[]) => void
+    saveStatus: boolean
     setSaveStatus: (status: boolean) => void;
 }
 
-export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing, editCompanies, handleSave, setSaveStatus }: HeadCompaniesU) {
+export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing, editCompanies, handleSave, setSaveStatus, saveStatus }: HeadCompaniesU) {
     const arraySelectedRows = [...selectedRows]
     const token = useSelector((state: any) => state.Authentication.token);
     const dispatch = useDispatch();
@@ -68,7 +69,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                 }
             }
         });
-        setSaveStatus(true)
+        setSaveStatus(!saveStatus)
     };
 
     return (
