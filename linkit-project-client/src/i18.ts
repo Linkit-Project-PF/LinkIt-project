@@ -506,8 +506,22 @@ export const i18nOptions: InitOptions = {
         "El OKR fue creado con éxito":"OKR was successfully created.",
         "Nuevo OKR":"New OKR",
         "Título OKR principal":"Main OKR title",
-        "Resultados clave":"Key results",
+        "Resultado clave":"Key result",
         "Resultados específicos":"Specific results",
+        "Presentación":"Presentation",
+        "OKR eliminado":"OKR removed",
+        "Mercado Posiciona...":"Market Position...",
+        "Agregar área":"Add area",
+        "Crear OKR":"Create OKR",
+        "Crear Resultados específicos":"Create Specific Results",
+        "Esta área ya existe":"This area already exists",
+        "Área añadida con éxito":"Area successfully added",
+        "*Presiona enter para agregar más de un resultado*":"*Press enter to add more than one result*.",
+        "Resultados específicos agregados":"Aggregated specific results",
+        "Selecciona tu nivel de inglés":"Select your English level",
+        "Hola":"Hi",
+
+
         //!Profiles
         "Hola ":"Hi",
         "Mis Datos":"My Data",

@@ -1,6 +1,7 @@
 import { AccordionOKRs } from "./AcordionStatisticsOKRs";
 import { useState } from "react";
 import FormStatisticsOKRs from "./FormStatisticsOKRs";
+import { t } from 'i18next'
 
 export default function StatisticsOKRs() {
 
@@ -23,7 +24,7 @@ export default function StatisticsOKRs() {
           className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
           onClick={showForm}
         >
-          Crear OKR
+          {t('Crear OKR')}
         </button>
       </div>
 
