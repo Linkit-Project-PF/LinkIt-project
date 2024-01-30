@@ -271,26 +271,26 @@ const noShowForm = () => {
       <>
       {viewOKRForm && (
 
-      <div className="container mx-auto">
-            <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-5 rounded-[20px] border-[3px] border-linkIt-300">
-            <div className="flex w-full justify-end ">
+      <div className="flex justify-center items-center">
+            <div className=" flex flex-row justify-center items-center bg-linkIt-500 opa m-10 rounded-[20px] border-[3px] border-linkIt-300">
+            
               <button
-                className={`background-button m-2`}
+                className={`background-button m-4`}
                 onClick={closeViewForm}
               >X</button>
-            </div>
+           
                 <div>
-                    <h1 className="text-3xl my-12">{t("Nuevo OKR")}</h1>
+                    <h1 className="text-3xl">{t("Nuevo OKR")}</h1>
                 </div>
 
                 <form 
                     onSubmit={handleSubmit}
-                    className="flex flex-row justify-center items-center"
+                    className=" mx-4 mb-0 flex flex flex-col "
                     action="">
-                        <div className="flex flex-wrap justify-start mx-3 mb-6 px-160">
+                        <div className="flex flex-col justify-start mx-3 mb-1 px-160 ">
 
-                            <div className="w-fit px-3 mb-6">
-                                <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t("Título OKR principal")}
+                            <div className="w-fit px-3 mb-0">
+                                <label className="block uppercase tracking-wide text-black text-xs font-bold m-5">{t("Título OKR principal")}
                                 </label>
                                 <input className={'"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
                                 type="text"
@@ -300,80 +300,77 @@ const noShowForm = () => {
                                 onChange={handleChange}
                                 // onBlur={handleBlurErrors}
                                 /> 
+                              <div className="my-4">{completeOKR.generalTitleOKR}</div>
                             </div>
                            
-                            <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
-  {completeOKR && completeOKR.generalTitleOKR && completeOKR.generalTitleOKR.length > 0 && completeOKR.generalTitleOKR !== " " ? (
-    <div className="mx-4 flex flex-col">
-      <div className="my-4">{completeOKR.generalTitleOKR}</div>
-      <div className="flex items-center"> {/* Nuevo div para alinear los elementos */}
-        <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2 mr-2">Area</label>
-        <select
-          name="area"
-          onChange={handleAreaChange}
-          value={lastAreaName}
-          className="w-full bg-linkIt-500 text-black border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
-        >
-          <option value="">{t('Seleccionar')}</option>
-          <option value="LinkIT">LinkIT</option>
-          <option value="Sales">Sales</option>
-          <option value="Q4-Recruiting">Q4-Recruiting</option>
-          <option value="Recruiting">Recruiting</option>
-        </select>
-      </div>
-      <button
-        className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
-        type="button"
-        onClick={handleChangeArrayArea}
-      >
-        {t('Agregar área')}
-      </button>
-    </div>
-  ) : null}
-</div>
+                            <div className="w-fit px-3 mb-6">
+                              {completeOKR && completeOKR.generalTitleOKR && completeOKR.generalTitleOKR.length > 0 && completeOKR.generalTitleOKR !== " " ? (
+                                <div className="mx-4 flex flex-col">
+                                  
+                                    <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2 mr-2">Area</label>
+                                    <select
+                                      name="area"
+                                      onChange={handleAreaChange}
+                                      value={lastAreaName}
+                                      className="w-full bg-linkIt-500 text-black border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                                    >
+                                      <option value="">{t('Seleccionar')}</option>
+                                      <option value="LinkIT">LinkIT</option>
+                                      <option value="Sales">Sales</option>
+                                      <option value="Q4-Recruiting">Q4-Recruiting</option>
+                                      <option value="Recruiting">Recruiting</option>
+                                    </select>
+                                  
+                                  <button
+                                    className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-5 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
+                                    type="button"
+                                    onClick={handleChangeArrayArea}
+                                  >
+                                    {t('Agregar área')}
+                                  </button>
 
-
-
-
-                        </div>
-                        <button 
-                                className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
+                                  <button 
+                                className="bg-linkIt-300 flex justify-center items-center rounded-[7px]  ml-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
                                 type="submit"
                                 onClick={handleChangeAdd}>
                                 {t('Crear OKR')}
                                 
                                 </button>
+                                </div>
+                              ) : null}
+                            </div>
+                        </div>    
                 </form>
 
             {showForm && (
-              <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-32 rounded-[20px] border-[3px] border-linkIt-300  "
+              <div className=" flex flex-col justify-center items-center bg-linkIt-500 opa m-3 rounded-[20px] border-[3px] border-linkIt-300 p-5"
               >
-      
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t("Resultados clave")}</label>
-              <input className={'"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                                  type="text"
-                                  name="okrSpecificName"
-                                  // placeholder={errors.title ? "*" : ""}
-                                  autoComplete="off"
-                                  onChange={handleResultNameChange}
-                                  // onBlur={handleBlurErrors}
-                                  /> 
-              <button
-              className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
-              type="button"
-              onClick={showForm2} 
-              >{t('Crear Resultados específicos')}
-              </button>
+              
+                  <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t("Resultados clave")}</label>
+                  <input className={'"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                                      type="text"
+                                      name="okrSpecificName"
+                                      // placeholder={errors.title ? "*" : ""}
+                                      autoComplete="off"
+                                      onChange={handleResultNameChange}
+                                      // onBlur={handleBlurErrors}
+                                      /> 
+                  <button
+                  className="border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out"
+                  type="button"
+                  onClick={showForm2} 
+                  >{t('Crear Resultados específicos')}
+                  </button>
 
-              {viewForm && (
-              <FormSpecificResults
-                onOkrsSpecificUpdate={handleOkrsSpecificUpdate}
-                onClose={() => {
-                  noShowForm();
-                }}
-                token={token}
-              />
-              )}
+                  {viewForm && (
+                  <FormSpecificResults
+                    onOkrsSpecificUpdate={handleOkrsSpecificUpdate}
+                    onClose={() => {
+                      noShowForm();
+                    }}
+                    token={token}
+                  />
+                  )}
             </div>)
           }
             </div>
