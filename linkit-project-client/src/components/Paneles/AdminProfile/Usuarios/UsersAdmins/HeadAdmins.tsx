@@ -162,12 +162,12 @@ export default function HeadAdmins({
                     onClick={editAdmin}
                     className="pl-6 hover:text-linkIt-300"
                   >
-                    {selectedRows.size && "Editar"}
+                    {selectedRows.size && t("Editar")}
                   </button>
                 </div>
               )}
               <button onClick={deleteUser} className="pl-6 hover:text-red-600">
-                {selectedRows.size && "Eliminar"}
+                {selectedRows.size && t("Eliminar")}
               </button>
             </div>
           )}

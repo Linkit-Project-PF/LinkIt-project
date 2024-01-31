@@ -1,15 +1,16 @@
 // import React from 'react'
 
 import React, { useState } from "react"
-import { ViewColVacancy } from "../../../admin.types";
+import { VacancyProps, ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
 import { setSortJobOffers, setJobOffers, setSearchJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import swal from "sweetalert";
 import { t } from "i18next";
-import axios from "axios";
 import { RootState } from "../../../../../redux/types";
 import Swal from "sweetalert2";
+import { stateProps } from "./Vacancies2";
+import axios from "axios";
 
 interface HeadVacancyProps {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,8 @@ interface HeadVacancyProps {
     editing: boolean
     handleSave: (arrayProps: string[]) => void
 }
+
+
 
 export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveStatus, editJDS, editing, handleSave }: HeadVacancyProps) {
     const token = useSelector((state: any) => state.Authentication.token);
@@ -34,6 +37,15 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
     const [options, setOptions] = useState(false)
     const [viewForm, setViewForm] = useState(false);
     const dispatch = useDispatch();
+
+    const jds = useSelector(
+        (state: stateProps) => state.jobCard.filterJobOffers
+      );
+    
+      const allJdsArchived = arraySelectedRows.every((reviewId: string) => {
+        const review = jds.find((v:VacancyProps) => v._id === reviewId);
+        return review && review.archived;
+    });
 
 
     const handleSearch = (searchTerm: string) => {
@@ -67,7 +79,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
     const hideVacancie = async () => {
         swal({
-            title: t("¿Deseas ocultar la vacante?"),
+            title: t("¿Deseas cambiar la vista de la vacante?"),
             icon: "warning",
             buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
@@ -83,7 +95,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                             }
                         );
                         dispatch(setJobOffers(response.data));
-                        swal(t("Vacante ocultada"), { icon: "success" });
+                        swal(t("Cambio de vista exitoso"), { icon: "success" });
                     })
                 } catch (error) {
                     console.error(
@@ -98,7 +110,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
 
     const deleteVacancie = async () => {
         swal({
-            title: t("¿Deseas ocultar la vacante?"),
+            title: t("¿Deseas eliminar la vacante?"),
             icon: "warning",
             buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
@@ -114,7 +126,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                             }
                         );
                         dispatch(setJobOffers(response.data));
-                        swal(t("Vacante ocultada"), { icon: "success" });
+                        swal(t("Vacante eliminada"), { icon: "success" });
                     })
                 } catch (error) {
                     console.error(
@@ -145,12 +157,12 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                         className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
                         onClick={showForm}
                     >
-                        Crear vacante
+                        {t("Crear vacante")}
                     </button>
                 </div>
                 <div className="flex flex-row">
                     <div>
-                        <h1>Ordenar:</h1>
+                        <h1>{t("Ordenar: ")}</h1>
                     </div>
                     <div>
                         <select
@@ -159,8 +171,8 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                             defaultValue={sortDate}
                         >
                             <option value="-">-</option>
-                            <option value="recent">Recientes</option>
-                            <option value="old">Antiguos</option>
+                            <option value="recent">{t("Recientes")}</option>
+                            <option value="old">{t("Antiguos")}</option>
                         </select>
                     </div>
                 </div>
@@ -168,7 +180,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                 <div className="relative">
                     <div className="flex flex-row">
                         <div>
-                            <button onClick={hideOptions}>Columnas</button>
+                            <button onClick={hideOptions}>{t("Columnas")}</button>
                         </div>
                     </div>
                     {options &&
@@ -239,7 +251,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                 <div>
                     <input
                         type="text"
-                        placeholder="Buscar"
+                        placeholder={t("Buscar")}
                         onChange={(e) => handleSearch(e.target.value)}
                         className={`styles-head`}
                     />
@@ -251,7 +263,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                 setSaveStatus={setSaveStatus}
             />}
             <div className="flex flex-row pb-6">
-                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                <span className="flex flex-row pl-8">{t("Seleccionados: ")} {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
                             {editing ?
@@ -275,21 +287,21 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                                         onClick={editJDS}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        {selectedRows.size <= 1 ? 'Editar vacante' : 'Editar vacantes'}
+                                        {selectedRows.size && t("Editar")}
                                     </button>
                                 </div>
                             }
                             <button
                                 onClick={hideVacancie}
-                                className="pl-6 hover:text-red-600"
+                                className={allJdsArchived ?"pl-6 hover:text-linkIt-300" : "pl-6 hover:text-red-600"}
                             >
-                                {selectedRows.size <= 1 ? 'Ocultar vacante' : 'Ocultar vacantes'}
+                                {allJdsArchived ? t( "Mostrar") : t("Ocultar")}
                             </button>
                             <button
                                 onClick={deleteVacancie}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size <= 1 ? 'Eliminar vacante' : 'Eliminar vacantes'}
+                                {selectedRows.size && t("Eliminar")}
                             </button>
                         </div>
                     }

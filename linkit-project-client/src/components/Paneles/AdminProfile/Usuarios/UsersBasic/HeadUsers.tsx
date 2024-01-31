@@ -153,7 +153,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                                         onClick={editTalent}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        {selectedRows.size && 'Editar'}
+                                        {selectedRows.size && t('Editar')}
                                     </button>
                                 </div>
                             }
@@ -161,7 +161,7 @@ export default function HeadUsers({ hideCol, viewCol, editTalent, handleSave, se
                                 onClick={deleteUser}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size && 'Eliminar'}
+                                {selectedRows.size && t('Eliminar')}
                             </button>
                         </div>
                     }

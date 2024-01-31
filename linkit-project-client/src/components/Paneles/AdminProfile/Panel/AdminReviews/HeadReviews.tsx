@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ViewReviewProps } from "../../../admin.types";
+import { ReviewProps, ViewReviewProps } from "../../../admin.types";
 import FormReview from "./FormReviews";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
@@ -22,6 +22,15 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     const token = useSelector((state: any) => state.Authentication.token);
     const arraySelectedRows = [...selectedRows]
     const { t } = useTranslation();
+    const reviews = useSelector(
+        (state: any) => state.reviews.filteredReviews
+    );
+
+
+    const allReviewsArchived = arraySelectedRows.every((reviewId: string) => {
+        const review = reviews.find((r:ReviewProps) => r._id === reviewId);
+        return review && review.archived;
+    });
 
     //? OPTION COLUMNS
     const [options, setOptions] = useState(false)
@@ -56,7 +65,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
 
     const hideReview = async () => {
         swal({
-            title: t("¿Deseas ocultar la reseña?"),
+            title: t("¿Deseas cambiar el estado de la reseña?"),
             icon: "warning",
             buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
@@ -74,7 +83,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                             }
                         );
                         dispatch(setReviews(response.data));
-                        swal("Reseña ocultada", { icon: "success" });
+                        swal("Estado actualizado correctamente", { icon: "success" });
                     })
                 } catch (error) {
                     console.error(
@@ -175,14 +184,14 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                 <div>
                     <input
                         type="text"
-                        placeholder="Buscar"
+                        placeholder={t("Buscar")}
                         onChange={(e) => handleSearch(e.target.value)}
                         className={`styles-head`}
                     />
                 </div>
                 {viewForm && <FormReview
                     onClose={noShowForm}
-                    setSaveStatus= {setSaveStatus}
+                    setSaveStatus={setSaveStatus}
                 />}
             </div>
             <div>
@@ -210,21 +219,23 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                                         onClick={editReview}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        {selectedRows.size && 'Editar'}
+                                        {selectedRows.size && t('Editar')}
                                     </button>
                                 </div>
                             }
+
                             <button
                                 onClick={hideReview}
-                                className="pl-6 hover:text-red-600"
+                                className={allReviewsArchived ?"pl-6 hover:text-linkIt-300" : "pl-6 hover:text-red-600"}
                             >
-                                {selectedRows.size && 'Ocultar'}
+                                {allReviewsArchived ? t( "Mostrar") : t("Ocultar")}
                             </button>
+
                             <button
                                 onClick={deleteReview}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size && 'Eliminar'}
+                                {selectedRows.size && t('Eliminar')}
                             </button>
                         </div>
                     }

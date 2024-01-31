@@ -129,7 +129,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
             </div>
 
             <div>
-                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                <span className="flex flex-row pl-8">{t("Seleccionados: ")} {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
                             {editing ?
@@ -153,7 +153,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                                         onClick={editCompanies}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        {selectedRows.size && 'Editar'}
+                                        {selectedRows.size && t('Editar')}
                                     </button>
                                 </div>
                             }
@@ -161,7 +161,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                                 onClick={deleteCompany}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size && 'Eliminar'}
+                                {selectedRows.size && t('Eliminar')}
                             </button>
                         </div>
                     }
