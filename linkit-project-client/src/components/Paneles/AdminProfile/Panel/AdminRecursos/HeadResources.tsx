@@ -47,6 +47,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
     //? FORM
     const [viewForm, setViewForm] = useState(false);
     const showForm = () => {
+        setSaveStatus(false)
         setViewForm(true);
     };
     const noShowForm = () => {
@@ -86,7 +87,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
 
     const deleteReview = async () => {
         swal({
-            title: t("¿Deseas eliminar el Usuario?"),
+            title: t("¿Deseas eliminar el recurso?"),
             icon: "warning",
             buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
@@ -178,6 +179,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
                 </div>
                 {viewForm && <FormResource
                     onClose={noShowForm}
+                    setSaveStatus ={setSaveStatus}
                 />}
             </div>
             <div>

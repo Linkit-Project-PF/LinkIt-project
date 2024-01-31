@@ -3,7 +3,7 @@ import { ReviewProps } from "../../../admin.types";
 export const validations = (review: ReviewProps) => {
   const errors = {
     name: "",
-    rol: "",
+    role: "",
     country: "",
     detail: "",
   };
@@ -12,8 +12,8 @@ export const validations = (review: ReviewProps) => {
     errors.name = "Nombre requerido";
   }
 
-  if (!review.rol) {
-    errors.rol = "Rol requerido";
+  if (!review.role) {
+    errors.role = "Rol requerido";
   }
 
   if (!review.country) {

@@ -22,9 +22,10 @@ type OnCloseFunction = () => void;
 
 interface FormResourceProps {
   onClose: OnCloseFunction;
+  setSaveStatus: (status: boolean) => void;
 }
 
-export default function FormResource({ onClose, }: FormResourceProps) {
+export default function FormResource({ onClose, setSaveStatus }: FormResourceProps) {
   const token = useSelector((state: stateProps) => state.Authentication.user._id)
   const user = useSelector((state: stateProps) => state.Authentication.user)
   const { t } = useTranslation()
@@ -131,6 +132,7 @@ export default function FormResource({ onClose, }: FormResourceProps) {
         category: "",
       });
       onClose()
+      setSaveStatus(true)
       return response.data;
     } catch (error: any) {
       throw new Error(t("Error al enviar la solicitud:")).message

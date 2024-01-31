@@ -26,6 +26,8 @@ export default function Reviews() {
   const data = useSelector(
     (state: stateProps) => state.reviews.filteredReviews
   );
+
+
   const [saveStatus, setSaveStatus] = useState<boolean>(false);
 
   useEffect(() => {
@@ -309,7 +311,7 @@ export default function Reviews() {
       <div className="flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
         {viewCol.name && renderSectionSelect("Nombre", "name")}
         {viewCol._id && renderSectionBasicNoEdit("ID", "_id")}
-        {viewCol.rol && renderSectionBasicNoEdit("Rol", "rol")}
+        {viewCol.rol && renderSectionBasicNoEdit("Rol", "role")}
         {viewCol.country && renderSectionBasicCap("País", "country")}
         {viewCol.detail && renderSectionBasic("Detalle", "detail")}
         {viewCol.archived && renderSectionActive("Estado", "archived")}

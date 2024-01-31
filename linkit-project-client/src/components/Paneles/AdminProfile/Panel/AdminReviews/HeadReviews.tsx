@@ -22,30 +22,31 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     const token = useSelector((state: any) => state.Authentication.token);
     const arraySelectedRows = [...selectedRows]
     const { t } = useTranslation();
-    
+
     //? OPTION COLUMNS
     const [options, setOptions] = useState(false)
     const hideOptions = () => {
         setOptions(!options)
     }
     //?
-    
+
     //?BUSCAR
     const handleSearch = (searchTerm: string): void => {
         dispatch(searchReviews(searchTerm))
     }
     //?
-    
+
     //?ORDENAR
     const handleSort = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target;
         dispatch(sortReviews(value))
     }
     //?
-    
+
     //? FORM
     const [viewForm, setViewForm] = useState(false);
     const showForm = () => {
+        setSaveStatus(false)
         setViewForm(true);
     };
     const noShowForm = () => {
@@ -53,9 +54,9 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     };
     //?
 
-    const deleteReview = async () => {
+    const hideReview = async () => {
         swal({
-            title: t("¿Deseas eliminar el Usuario?"),
+            title: t("¿Deseas ocultar la reseña?"),
             icon: "warning",
             buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
@@ -73,7 +74,39 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                             }
                         );
                         dispatch(setReviews(response.data));
-                        swal("Usuario eliminado", { icon: "success" });
+                        swal("Reseña ocultada", { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        t("Error al enviar la solicitud:"),
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
+    const deleteReview = async () => {
+        swal({
+            title: t("¿Deseas eliminar la reseña?"),
+            icon: "warning",
+            buttons: [t("Cancelar"), t("Aceptar")],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/reviews/delete/${id}?total=true`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                    'Accept-Language': sessionStorage.getItem('lang')
+                                },
+                            }
+                        );
+                        dispatch(setReviews(response.data));
+                        swal("Reseña eliminada", { icon: "success" });
                     })
                 } catch (error) {
                     console.error(
@@ -149,6 +182,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                 </div>
                 {viewForm && <FormReview
                     onClose={noShowForm}
+                    setSaveStatus= {setSaveStatus}
                 />}
             </div>
             <div>
@@ -180,6 +214,12 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                                     </button>
                                 </div>
                             }
+                            <button
+                                onClick={hideReview}
+                                className="pl-6 hover:text-red-600"
+                            >
+                                {selectedRows.size && 'Ocultar'}
+                            </button>
                             <button
                                 onClick={deleteReview}
                                 className="pl-6 hover:text-red-600"
