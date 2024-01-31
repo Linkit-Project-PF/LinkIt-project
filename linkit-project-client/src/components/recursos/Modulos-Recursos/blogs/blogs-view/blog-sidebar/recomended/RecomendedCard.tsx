@@ -49,7 +49,7 @@ function RecomendedCard({ title, description, image, genre, _id }: BlogsCardProp
 
   return (
     <motion.div
-      className="border-[2px] w-[23vw] h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400 mb-10"
+      className="border-[2px] w-[23vw] h-full rounded-xl font-montserrat bg-white dark:border-linkIt-200 mb-10"
       variants={blogsCardVariants}
       initial="hidden"
       animate="visible"

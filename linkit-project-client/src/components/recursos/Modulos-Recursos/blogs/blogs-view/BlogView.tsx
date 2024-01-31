@@ -1,20 +1,17 @@
+import Newsletter from "../../../../../Utils/newsletter/newsletter";
 import BlogSidebar from "./blog-sidebar/BlogSidebar";
 import BlogInfo from "./blogInfo/BlogInfo";
 
 export default function BlogView() {
   return (
-    <>
-      <article>
-        <section className="mb-[6%]">
-          <div className="flex flex-row justify-between">
+    <div>
+    <div className="p-[7%] flex pt-[17vh] lg:pt-[23vh] dark:bg-linkIt-200 ">
             <BlogInfo />
+            <div className="hidden lg:block">
             <BlogSidebar />
-          </div>
-        </section>
-        <section className="bg-linkIt-300 text-white font-bold flex flex-row justify-center items-center h-[50vh]">
-          <h3>NEWSLETTER</h3>
-        </section>
-      </article>
-    </>
+            </div>
+    </div>
+        <Newsletter />
+    </div>
   );
 }

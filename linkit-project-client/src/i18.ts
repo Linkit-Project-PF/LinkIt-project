@@ -218,6 +218,7 @@ export const i18nOptions: InitOptions = {
         //!Blogs
         "Leer Nota": "Read note",
         "Descubre más sobre el mundo IT": "Discover more about the IT world",
+        "Recomendado": "Recommended",
         //!CV
         "Arma tu CV con nuestro template": "Build your CV with our template",
         "Descargar Plantilla": "Download Template",
