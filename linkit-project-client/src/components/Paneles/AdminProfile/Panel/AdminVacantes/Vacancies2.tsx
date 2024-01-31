@@ -15,7 +15,7 @@ import { RootState } from "../../../../../redux/types";
 import { statePropsCompanies } from "../../Usuarios/UsersCompanies/CompaniesU";
 import { setUsersCompanies } from "../../../../../redux/features/UsersSlice";
 
-type stateProps = {
+export type stateProps = {
   jobCard: {
     allJobOffers: VacancyProps[];
     filterJobOffers: VacancyProps[];
@@ -48,6 +48,9 @@ export default function Vacancies2() {
     setTehcs(!tehcs);
   };
 
+
+
+
   useEffect(() => {
     const loadData = async (): Promise<void> => {
       try {
@@ -72,8 +75,8 @@ export default function Vacancies2() {
 
   const handleFilters = async () => {
     const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1
-        ? `stack=${stackValue.map((tech) => `${tech}`)}`
-        : ""
+      ? `stack=${stackValue.map((tech) => `${tech}`)}`
+      : ""
       }${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``
       }${companyValue && companyValue !== " " ? `&company=${companyValue}` : ``}`;
     try {

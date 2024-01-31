@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { ViewResourceProps } from "../../../admin.types";
+import { ResourceProps, ViewResourceProps } from "../../../admin.types";
 import FormResource from "./FormResource";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import axios from "axios";
 import { searchResource, setResources, sortResource } from "../../../../../redux/features/ResourcesSlice";
 import { useTranslation } from "react-i18next";
+import { stateProps } from "./Resources";
 
 interface HeadResources {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,6 +24,14 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
     const { t } = useTranslation();
     const token = useSelector((state: any) => state.Authentication.token);
     const arraySelectedRows = [...selectedRows]
+
+    const resources = useSelector(
+        (state: stateProps) => state.resources.filteredResources
+    );
+    const allResourcesArchived = arraySelectedRows.every((reviewId: string) => {
+        const review = resources.find((r: ResourceProps) => r._id === reviewId);
+        return review && review.archived;
+    });
 
     //?OPTIONS COLUMNS
     const [options, setOptions] = useState(false)
@@ -57,7 +66,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
 
     const hideReview = async () => {
         swal({
-            title: "¿Deseas ocultar el Recurso?",
+            title: t("¿Deseas ocultar el Recurso?"),
             icon: "warning",
             buttons: ["Cancelar", "Aceptar"],
             dangerMode: true,
@@ -75,7 +84,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
                             }
                         );
                         dispatch(setResources(response.data));
-                        swal("Recurso ocultado", { icon: "success" });
+                        swal(t("Recurso ocultado"), { icon: "success" });
                     })
                 } catch (error) {
                     throw new Error(t("Error al enviar la solicitud:")).message
@@ -135,9 +144,9 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
                         <h1>{t("Ordenar: ")}</h1>
                     </div>
                     <div>
-                        <select 
-                        onChange={handleSort}
-                        className={`styles-head ml-2`}
+                        <select
+                            onChange={handleSort}
+                            className={`styles-head ml-2`}
                         >
                             <option value="recent">{t("Recientes")}</option>
                             <option value="old">{t("Antiguos")}</option>
@@ -173,17 +182,17 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
                     <input
                         type="text"
                         placeholder="Buscar"
-                    onChange={(e) => handleSearch(e.target.value)}
-                    className={`styles-head`}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        className={`styles-head`}
                     />
                 </div>
                 {viewForm && <FormResource
                     onClose={noShowForm}
-                    setSaveStatus ={setSaveStatus}
+                    setSaveStatus={setSaveStatus}
                 />}
             </div>
             <div>
-                <span className="flex flex-row pl-8">{t("Seleccionados:")} {selectedRows.size}
+                <span className="flex flex-row pl-8">{t("Seleccionados: ")} {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
                             {editing ?
@@ -207,21 +216,21 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
                                         onClick={editResource}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        {selectedRows.size && 'Editar'}
+                                        {selectedRows.size && t('Editar')}
                                     </button>
                                 </div>
                             }
                             <button
                                 onClick={hideReview}
-                                className="pl-6 hover:text-red-600"
+                                className={allResourcesArchived ? "pl-6 hover:text-linkIt-300" : "pl-6 hover:text-red-600"}
                             >
-                                {selectedRows.size && 'Ocultar'}
+                                {allResourcesArchived ? t("Mostrar") : t("Ocultar")}
                             </button>
                             <button
                                 onClick={deleteReview}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size && 'Eliminar'}
+                                {selectedRows.size && t('Eliminar')}
                             </button>
                         </div>
                     }
