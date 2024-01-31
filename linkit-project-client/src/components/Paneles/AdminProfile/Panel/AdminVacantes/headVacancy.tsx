@@ -51,6 +51,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
             confirmButtonText: t("Continuar"),
         }).then((result) => {
             if(result.isConfirmed) {
+                setSaveStatus(false)
                 setViewForm(true);
             }
         });
@@ -64,7 +65,7 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
         setOptions(!options)
     }
 
-    const deleteVacancie = async () => {
+    const hideVacancie = async () => {
         swal({
             title: t("¿Deseas ocultar la vacante?"),
             icon: "warning",
@@ -76,6 +77,37 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                     arraySelectedRows.forEach(async (id: string) => {
                         const response = await axios.delete(
                             `https://linkit-server.onrender.com/jds/delete/${id}`,
+                            {
+                                headers: { Authorization: `Bearer ${token}`,
+                                'Accept-Language': sessionStorage.getItem('lang') },
+                            }
+                        );
+                        dispatch(setJobOffers(response.data));
+                        swal(t("Vacante ocultada"), { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        t("Error al enviar la solicitud:"),
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
+
+    const deleteVacancie = async () => {
+        swal({
+            title: t("¿Deseas ocultar la vacante?"),
+            icon: "warning",
+            buttons: [t("Cancelar"), t("Aceptar")],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/jds/delete/${id}?total=true`,
                             {
                                 headers: { Authorization: `Bearer ${token}`,
                                 'Accept-Language': sessionStorage.getItem('lang') },
@@ -248,10 +280,16 @@ export default function HeadVacancy({ hideCol, viewCol, selectedRows, setSaveSta
                                 </div>
                             }
                             <button
+                                onClick={hideVacancie}
+                                className="pl-6 hover:text-red-600"
+                            >
+                                {selectedRows.size <= 1 ? 'Ocultar vacante' : 'Ocultar vacantes'}
+                            </button>
+                            <button
                                 onClick={deleteVacancie}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size <= 1 ? 'Cerrar vacante' : 'Cerrar vacantes'}
+                                {selectedRows.size <= 1 ? 'Eliminar vacante' : 'Eliminar vacantes'}
                             </button>
                         </div>
                     }

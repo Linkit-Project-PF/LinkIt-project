@@ -21,7 +21,7 @@ interface InfoList {
   [key: string]: string[] | undefined;
 }
 
-export default function FormVacancie(props: FormVacancieProps) {
+export default function FormVacancie({onClose, token, setSaveStatus}: FormVacancieProps) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -169,7 +169,7 @@ export default function FormVacancie(props: FormVacancieProps) {
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: {
-          Authorization: `Bearer ${props.token}`,
+          Authorization: `Bearer ${token}`,
           "Accept-Language": sessionStorage.getItem("lang"),
         },
       });
@@ -195,14 +195,14 @@ export default function FormVacancie(props: FormVacancieProps) {
         "https://linkit-server.onrender.com/jds/find",
         {
           headers: {
-            Authorization: `Bearer ${props.token}`,
+            Authorization: `Bearer ${token}`,
             "Accept-Language": sessionStorage.getItem("lang"),
           },
         }
       );
       dispatch(setJobOffers(allJds.data));
-      props.onClose();
-      props.setSaveStatus(true);
+      onClose();
+      setSaveStatus(true);
       return response.data;
     } catch (error) {
       console.error((error as Error).message);
@@ -228,7 +228,7 @@ export default function FormVacancie(props: FormVacancieProps) {
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
       <div className=" flex flex-col justify-center items-center bg-linkIt-500  mx-32 my-10  rounded-[7px] border-[3px] border-linkIt-300 ">
         <div className="flex w-full justify-end ">
-          <button className={`background-button m-2`} onClick={props.onClose}>
+          <button className={`background-button m-2`} onClick={onClose}>
             X
           </button>
         </div>
@@ -628,7 +628,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           ) : null}
           <div className="flex m-4">
             <div className="pr-2">
-              <button onClick={props.onClose} className={`background-button`}>
+              <button onClick={onClose} className={`background-button`}>
                 {t("Volver")}
               </button>
             </div>
