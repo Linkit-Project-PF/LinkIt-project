@@ -38,38 +38,38 @@ function BlogInfo() {
   }, []);
 
   return (
-    <div className="mt-[6rem] font-montserrat p-[5%]">
-      <h3 className="border-[2px] border-linkIt-300 rounded-[8px] px-[1rem] py-[.5rem] font-bold inline-flex">{blog?.category}</h3>
-      <h2 className=" titles-size my-[2rem] font-semibold  w-[55vw]">{blog?.title}</h2>
-      <p className="text-xl max-w-[75%] text-linkIt-400 font-[500] ">{blog?.description}</p>
-      <div className="flex justify-center items-center w-[50vw]">
+    <div className="font-montserrat lg:mr-[5%]">
+      <h3 className="border-[2px] text-size border-linkIt-300 rounded-[8px] p-1 font-bold inline-flex dark:border-linkIt-200 dark:bg-white">{blog?.category}</h3>
+      <h2 className="titles-size my-[5%] font-semibold dark:text-white">{blog?.title}</h2>
+      <p className="subtitles-size text-linkIt-400 dark:text-white">{blog?.description}</p>
+      <div className="flex justify-center items-center w-full">
         {blog?.image && (
           <img
             src={`https://res.cloudinary.com/dquhriqz3/image/upload/${blog?.image}`}
             alt={blog?.title}
-            className="mb-[5%] mt-[2%] rounded-[18px] w-full h-[30rem] "
+            className="h-[8rem] xs:h-[10rem] ssm:h-[16rem] md:h-[24rem] lg:h-[24rem] xl:h-[26rem] 2xl:h-[30rem] w-full xl:w-[80%] rounded-xl my-[5%]"
           />
         )}
       </div>
-      <ul className="flex flex-col gap-[3rem] w-full">
+      <ul className="flex flex-col w-full gap-5">
         {blog?.headers?.map((header: Header, index: number) => {
           return (
             <div className="flex flex-row gap-[1.5rem] " key={index}>
               {header.head !== "" ?
-                <div className="font-bold bg-linkIt-300 text-white text-[1.5rem] w-[3rem] h-[3rem] rounded-full flex flex-col justify-center items-center ">
+                <div className="font-bold bg-linkIt-300 text-white flex items-center justify-center text-base ssm:text-xl xl:text-2xl h-8 w-8 ssm:h-10 ssm:w-10 xl:w-12 xl:h-12 2xl:h-16 2xl:w-16 rounded-full p-2 ssm:p-4">
                   {index + 1}
                 </div>
                 : 
-                <div className="font-bold bg-white text-white text-[1.5rem] w-[3rem] h-[3rem] rounded-full flex flex-col justify-center items-center ">
+                <div>
                 </div>
               }
-              <li key={index} className="flex flex-col w-full gap-[2%]">
-                <h3 className="text-linkIt-300 font-[600] subtitles-size w-[55vw]">{header.head}</h3>
-                <p className="text-linkIt-400 w-[50vw] text-size mt-6">{header.body}</p>
-                <div className="flex justify-center items-center w-[50vw]">
+              <li key={index} className="flex flex-col w-full">
+                <h3 className="text-linkIt-300 font-[600] subtitles-size mb-[5%]">{header.head}</h3>
+                <p className="text-linkIt-400 text-size dark:text-white">{header.body}</p>
+                <div className="flex justify-center items-center">
                   {header?.sectionImage && (
                     <img
-                      className="mb-[5%] mt-[2%] rounded-[18px] w-full h-[30rem]"
+                      className="h-[8rem] xs:h-[10rem] ssm:h-[15rem] md:h-[24rem] lg:h-[24rem] xl:h-[26rem] 2xl:h-[30rem] w-full xl:w-[80%] rounded-xl my-[5%]"
                       src={`https://res.cloudinary.com/dquhriqz3/image/upload/${header.sectionImage}`}
                       alt={header.head.concat('image')} />
                   )}
