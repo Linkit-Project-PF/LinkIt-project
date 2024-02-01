@@ -1,38 +1,45 @@
 [{
     "id": 1,
+    "link": "https://www.linkedin.com/in/philippesainthubert/",
     "img": "/people-LinkIt/philo-perfil.png",
     "name": "Philipe Saint-Hubert",
     "position": "Co-Founder"
 }, {
     "id": 2,
+    "link": "https://www.linkedin.com/in/arymolchadsky/",
     "img":"/people-LinkIt/ary-perfil.png",
     "name": "Ary Molchadsky",
     "position": "CEO & Co-Founder"
 }, {
     "id": 3,
+    "link": "https://www.linkedin.com/in/gonzalo-leon-744aa01a1/",
     "img": "/people-LinkIt/gonza-perfil.png",
     "name": "Gonzalo Lein",
     "position": "Sales Development Representative"
 },
 {
     "id": 4,
+    "link": "https://www.linkedin.com/in/julieta-clara-26b207296/",
     "img": "/people-LinkIt/juli-perfil.png",
     "name": "Julieta Jasin",
     "position": "Talent Acquisition Specialist"
 },
 {
     "id": 5,
+    "link": "https://www.linkedin.com/in/shayna-iskandarani-126270211/",
     "img": "/people-LinkIt/shay-perfil.png",
     "name": "Shayna Iskandarani",
     "position": "Talent Acquisition Specialist"
 }
 , {
     "id": 6,
+    "link": "https://www.linkedin.com/in/macarena-cuadro/",
     "img": "/people-LinkIt/maca-perfil.png",
     "name": "Macarena Cuadro",
     "position": "Business Development Specialist"
 }, {
     "id": 7,
+    "link": "https://www.linkedin.com/in/macarena-cuadro/",
     "img": "/people-LinkIt/ju-perfil.png",
     "name": "Julieta Radicich",
     "position": "Growth Marketing Specialist"

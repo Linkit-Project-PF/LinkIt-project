@@ -67,3 +67,4 @@ html {
 .text-size {
   @apply  text-[0.7rem] ssm:text-[1rem] md:text-[1.2rem] lg:text-[0.8rem] xl:text-[1rem] 
 }
+

@@ -7,7 +7,7 @@ import Languaje from "../../Utils/Language";
 import userGreen from "/Vectores/user-green.svg";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useAnimate, stagger, motion } from "framer-motion";
+import { useAnimate, stagger, motion, AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setPressLogin,
@@ -528,7 +528,8 @@ function NavBar() {
             </motion.nav>
           </motion.div>
         ) : (
-          
+          <AnimatePresence>
+            {burgerMenu && (
           <motion.ul
            
             className={`absolute left-0 top-[100%] bg-white dark:bg-linkIt-400 w-full h-fit p-[5%] text-[1.3rem] xs:text-[1.5rem] ssm:text-[2rem] border-b ${
@@ -540,11 +541,13 @@ function NavBar() {
               scale: burgerMenu ? 1 : 0,
               y: burgerMenu ? "0%" : "-50%",
             }}
+            exit={{ opacity: 0, scale: 0, y: "-50%", transition: { duration: 0.2 } }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <div className="flex justify-between items-center text-[1rem] ssm:text-[1.3rem] ssm:mx-2 ">
+              <button onClick={() => setBurgerMenu(false)}>
               <Languaje />
-
+              </button>
               <div className="cl-toggle-switch top-[1px]">
                 <label className="cl-switch">
                   <input type="checkbox" onChange={darkMode} checked={isDarkMode} />
@@ -556,7 +559,10 @@ function NavBar() {
               className={`flex cursor-pointer items-center hover:text-linkIt-300  ${
                 isActiveHome ? "text-linkIt-300 " : ""
               }`}
-              onClick={() => goHome()}
+              onClick={() => {
+                goHome();
+                setBurgerMenu(false);}
+              }
             >
               {t("Inicio")}
             </li>
@@ -564,7 +570,7 @@ function NavBar() {
               className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
                 isActiveEmpresa ? "text-linkIt-300  " : ""
               }`}
-              onClick={() => goSoyEmpresa()}
+              onClick={() => {setBurgerMenu(false); goSoyEmpresa()}}
             >
               {t("Soy Empresa")}
             </li>
@@ -572,7 +578,7 @@ function NavBar() {
               className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
                 isActiveTalento ? "text-linkIt-300 " : ""
               }`}
-              onClick={() => goSoyTalento()}
+              onClick={() => {setBurgerMenu(false); goSoyTalento()}}
             >
               {" "}
               {t("Soy Talento")}
@@ -581,7 +587,7 @@ function NavBar() {
               className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
                 isActiveRecursos ? "text-linkIt-300 " : ""
               }`}
-              onClick={() => goRecursos()}
+              onClick={() => {setBurgerMenu(false); goRecursos()}}
             >
               {" "}
               {t("Recursos")}
@@ -590,13 +596,14 @@ function NavBar() {
               className={`flex cursor-pointer items-center hover:text-linkIt-300  ${
                 isActiveQS ? "text-linkIt-300 " : ""
               }`}
-              onClick={() => goQS()}
+              onClick={() => {setBurgerMenu(false); goQS()}}
             >
               {" "}
               {t("Quiénes Somos")}
             </li>
           </motion.ul>
-          
+            )}
+            </AnimatePresence>
         )}
 
         <div className="containerBtnsNavbar">
