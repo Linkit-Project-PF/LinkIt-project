@@ -2,38 +2,45 @@
     "id": 1,
     "img": "/people-LinkIt/Samuel-Rodriguez.png",
     "name": "Samuel Rodríguez",
-    "position": "FullStack Web Developer"
+    "position": "FullStack Web Developer",
+    "link": "https://www.linkedin.com/in/samuelrodriguezyopasa/"
 }, {
     "id": 2,
     "img":"/people-LinkIt/maria-gabriela-henry.png",
     "name": "Maria Gabriela Sándigo",
-    "position": "FullStack Web Developer"
+    "position": "FullStack Web Developer",
+    "link": "http://www.linkedin.com/in/maria-gabriela-sandigo-munoz"
 }, {
     "id": 3,
     "img": "/people-LinkIt/jose-henry.png",
     "name": "José Lozano",
-    "position": "FullStack Web Developer"
+    "position": "FullStack Web Developer",
+    "link": "https://www.linkedin.com/in/joselozanodev/"
 },
 {
     "id": 4,
     "img": "/people-LinkIt/Juan-Henry.png",
     "name": "Juan Vélez",
-    "position": "FullStack Web Developer"
+    "position": "FullStack Web Developer",
+    "link": "https://www.linkedin.com/in/juandavidbedoyavelez/"
 },
 {
     "id": 5,
     "img": "/people-LinkIt/edwar-henry.png",
     "name": "Edwar Jimenez",
-    "position": "FullStack Web Developer"
+    "position": "FullStack Web Developer",
+    "link": "https://www.linkedin.com/in/jimenzeddi/"
 }
 , {
     "id": 6,
     "img": "/people-LinkIt/mateo-henry.png",
     "name": "Mateo Guerrero",
-    "position": "FullStack Web Developer"
+    "position": "FullStack Web Developer",
+    "link": "https://www.linkedin.com/in/mateoguerreroe/"
 }, {
     "id": 7,
     "img": "/people-LinkIt/carolina-henry.png",
     "name": "Carolina Tobar",
-    "position": "Scrum Master"
+    "position": "Scrum Master",
+    "link": "https://www.linkedin.com/in/carolina-tobar-jaramillo"
 }]

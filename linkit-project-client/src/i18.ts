@@ -113,6 +113,7 @@ export const i18nOptions: InitOptions = {
         "¡Contáctanos y descubre el poder de la determinación con una sonrisa!": "Contact us and discover the power of determination with a smile!",
         //Company calculator
         "Calculadora": "Calculator",
+        "Por favor rellena todos los campos para poder cotizar.": "Please fill in all the fields to be able to quote.",
         "Posición": "Position",
         "Inglés": "English",
         "Básico": "Basic",
@@ -123,6 +124,7 @@ export const i18nOptions: InitOptions = {
         "Calcular": "Calculate",
         "Mínimo": "Minimum",
         "Máximo": "Maximum",
+        "Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo.": "Quotations will depend on all the exact requirements of the search, benefits, defined development plans among others, contact us to quote.",
         //Company module I
         "Contáctanos": "Contact us",
         "¿Qué servicio te interesa?": "What service are you interested in?",
