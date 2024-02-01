@@ -24,7 +24,6 @@ import { RootState } from "../../../../../../../redux/types";
 import { IUser } from "../../../../../../Profiles/types";
 import Loading from "../../../../../../Loading/Loading";
 
-
 const formVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -81,12 +80,16 @@ function JobForm() {
   const [filePublicId, setFilePublicId] = useState<string>("");
   const [fileName, setFileName] = useState<string>(userData.cv.fileName);
   const [country, setCountry] = useState<string>(userData.country ?? "");
-  const [englishLevel, setEnglishLevel] = useState<string>(() => t("Selecciona tu nivel de inglés"));
+  const [englishLevel, setEnglishLevel] = useState<string>(() =>
+    t("Selecciona tu nivel de inglés")
+  );
   const [openEnglishLevel, setOpenEnglishLevel] = useState<boolean>(false);
   const [userStack, setUserStack] = useState<string[]>([]);
   const [openRecruiter, setOpenRecruiter] = useState<boolean>(false);
   const [recruiter, setRecruiter] = useState<string>("");
-  const [userTechnologies, setUserTechnologies] = useState<string[]>(userData.technologies);
+  const [userTechnologies, setUserTechnologies] = useState<string[]>(
+    userData.technologies
+  );
   const [loading, isLoading] = useState(false);
 
   const englishLevelRef = useRef<HTMLButtonElement>(null);
@@ -99,7 +102,7 @@ function JobForm() {
     country: country,
     linkedin: userData.linkedin ?? "",
     englishLevel: englishLevel,
-    salary: 0,
+    salary: Number(),
     technicalStack: userStack,
     recruiter: recruiter,
     availability: "",
@@ -553,7 +556,7 @@ function JobForm() {
                     className="font-montserrat relative text-[1.3rem] w-full"
                   >
                     <div className="flex">
-                      {t("Expectativa Salarial")}
+                      {t("Expectativa Salarial mensual en USD")}
                       <span className=" text-red-400">*</span>
                     </div>
                     <input
@@ -596,7 +599,7 @@ function JobForm() {
                         errors.salary ||
                         user.linkedin === "" ||
                         englishLevel === "" ||
-                        user.salary === 0 ||
+                        Number(user.salary) === 0 ||
                         !user.salary
                           ? true
                           : false
@@ -761,6 +764,7 @@ function JobForm() {
                         if (index === 0 || index === admins.length - 1) {
                           return (
                             <li
+                              key={index}
                               className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
                               onClick={() =>
                                 handleRecruiterChange(
