@@ -17,7 +17,7 @@ export default function Admins() {
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredAdmins);
-  const [saveStatus, setSaveStatus] = useState<boolean>(true);
+  const [saveStatus, setSaveStatus] = useState<boolean>(false);
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -93,6 +93,7 @@ export default function Admins() {
     setEditing(false)
   }
   const editAdmin = () => {
+    setSaveStatus(false)
     setEditing(!editing)
   }
   const handleChange = (
@@ -179,7 +180,7 @@ export default function Admins() {
             type="text"
             defaultValue={r[key] as any}
             onChange={handleChange}
-            className="bg-linkIt-500 text-black w-full" 
+            className="bg-linkIt-500 text-black w-full h-6" 
             />
             :String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>
@@ -204,7 +205,7 @@ export default function Admins() {
                 type="text"
                 defaultValue={r[key] as any}
                 onChange={handleChange}
-                className="bg-linkIt-500 text-black"
+                className="bg-linkIt-500 text-black w-full h-6"
               />
               : String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>

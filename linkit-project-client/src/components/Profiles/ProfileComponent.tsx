@@ -52,7 +52,7 @@ export default function ProfileComponent({ loader }: componentProps) {
           text: fileName,
           icon: "success",
           confirmButtonText: "Ok",
-          confirmButtonColor: "#0098DA",
+          confirmButtonColor: "#01A28B",
         });
       } catch (error: any) {
         Swal.fire({
@@ -60,7 +60,7 @@ export default function ProfileComponent({ loader }: componentProps) {
           text: error.response.data,
           icon: "error",
           confirmButtonText: "Ok",
-          confirmButtonColor: "#0098DA",
+          confirmButtonColor: "#01A28B",
         });
       }
     };

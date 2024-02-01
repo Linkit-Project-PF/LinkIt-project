@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ViewReviewProps } from "../../../admin.types";
+import { ReviewProps, ViewReviewProps } from "../../../admin.types";
 import FormReview from "./FormReviews";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import axios from "axios";
 import { searchReviews, setReviews, sortReviews } from "../../../../../redux/features/ReviewsSlice";
+import { useTranslation } from "react-i18next";
 
 interface HeadReviews {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,30 +21,41 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     const dispatch = useDispatch();
     const token = useSelector((state: any) => state.Authentication.token);
     const arraySelectedRows = [...selectedRows]
-    
+    const { t } = useTranslation();
+    const reviews = useSelector(
+        (state: any) => state.reviews.filteredReviews
+    );
+
+
+    const allReviewsArchived = arraySelectedRows.every((reviewId: string) => {
+        const review = reviews.find((r:ReviewProps) => r._id === reviewId);
+        return review && review.archived;
+    });
+
     //? OPTION COLUMNS
     const [options, setOptions] = useState(false)
     const hideOptions = () => {
         setOptions(!options)
     }
     //?
-    
+
     //?BUSCAR
     const handleSearch = (searchTerm: string): void => {
         dispatch(searchReviews(searchTerm))
     }
     //?
-    
+
     //?ORDENAR
     const handleSort = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target;
         dispatch(sortReviews(value))
     }
     //?
-    
+
     //? FORM
     const [viewForm, setViewForm] = useState(false);
     const showForm = () => {
+        setSaveStatus(false)
         setViewForm(true);
     };
     const noShowForm = () => {
@@ -51,11 +63,11 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     };
     //?
 
-    const deleteReview = async () => {
+    const hideReview = async () => {
         swal({
-            title: "¿Deseas eliminar el Usuario?",
+            title: t("¿Deseas cambiar el estado de la reseña?"),
             icon: "warning",
-            buttons: ["Cancelar", "Aceptar"],
+            buttons: [t("Cancelar"), t("Aceptar")],
             dangerMode: true,
         }).then(async (willDelete) => {
             if (willDelete) {
@@ -71,11 +83,43 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                             }
                         );
                         dispatch(setReviews(response.data));
-                        swal("Usuario eliminado", { icon: "success" });
+                        swal("Estado actualizado correctamente", { icon: "success" });
                     })
                 } catch (error) {
                     console.error(
-                        "Error al enviar la solicitud:",
+                        t("Error al enviar la solicitud:"),
+                        (error as Error).message
+                    );
+                }
+            }
+        });
+        setSaveStatus(true)
+    };
+    const deleteReview = async () => {
+        swal({
+            title: t("¿Deseas eliminar la reseña?"),
+            icon: "warning",
+            buttons: [t("Cancelar"), t("Aceptar")],
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                try {
+                    arraySelectedRows.forEach(async (id: string) => {
+                        const response = await axios.delete(
+                            `https://linkit-server.onrender.com/reviews/delete/${id}?total=true`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                    'Accept-Language': sessionStorage.getItem('lang')
+                                },
+                            }
+                        );
+                        dispatch(setReviews(response.data));
+                        swal("Reseña eliminada", { icon: "success" });
+                    })
+                } catch (error) {
+                    console.error(
+                        t("Error al enviar la solicitud:"),
                         (error as Error).message
                     );
                 }
@@ -87,7 +131,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
     return (
         <div>
             <div>
-                <h1 className="text-4xl pl-16 py-6">Gestión de reseñas</h1>
+                <h1 className="text-4xl pl-16 py-6">{t("Gestión de reseñas")}</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
                 <div>
@@ -95,20 +139,20 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                         className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
                         onClick={showForm}
                     >
-                        Crear reseña
+                        {t("Crear reseña")}
                     </button>
                 </div>
                 <div className="flex flex-row">
                     <div>
-                        <h1>Ordenar:</h1>
+                        <h1>{t("Ordenar: ")}</h1>
                     </div>
                     <div>
                         <select
                             onChange={handleSort}
                             className={`styles-head ml-2`}
                         >
-                            <option value="recent">Recientes</option>
-                            <option value="old">Antiguos</option>
+                            <option value="recent">{t("Recientes")}</option>
+                            <option value="old">{t("Antiguos")}</option>
                         </select>
                     </div>
                 </div>
@@ -118,7 +162,7 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                         <div>
                             <button
                                 onClick={hideOptions}
-                            >Columnas</button>
+                            >{t("Columnas")}</button>
                         </div>
                     </div>
                     {options && (
@@ -140,17 +184,18 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                 <div>
                     <input
                         type="text"
-                        placeholder="Buscar"
+                        placeholder={t("Buscar")}
                         onChange={(e) => handleSearch(e.target.value)}
                         className={`styles-head`}
                     />
                 </div>
                 {viewForm && <FormReview
                     onClose={noShowForm}
+                    setSaveStatus={setSaveStatus}
                 />}
             </div>
             <div>
-                <span className="flex flex-row pl-8">Seleccionados: {selectedRows.size}
+                <span className="flex flex-row pl-8">{t("Seleccionados: ")} {selectedRows.size}
                     {selectedRows.size > 0 &&
                         <div className="flex flex-row">
                             {editing ?
@@ -159,13 +204,13 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                                         onClick={() => handleSave(arraySelectedRows)}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Guardar
+                                        {t("Guardar")}
                                     </button>
                                     <button
                                         onClick={editReview}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        Cancelar
+                                        {t("Cancelar")}
                                     </button>
                                 </div>
                                 :
@@ -174,15 +219,23 @@ export default function HeadReviews({ hideCol, viewCol, selectedRows, editing, e
                                         onClick={editReview}
                                         className="pl-6 hover:text-linkIt-300"
                                     >
-                                        {selectedRows.size && 'Editar'}
+                                        {selectedRows.size && t('Editar')}
                                     </button>
                                 </div>
                             }
+
+                            <button
+                                onClick={hideReview}
+                                className={allReviewsArchived ?"pl-6 hover:text-linkIt-300" : "pl-6 hover:text-red-600"}
+                            >
+                                {allReviewsArchived ? t( "Mostrar") : t("Ocultar")}
+                            </button>
+
                             <button
                                 onClick={deleteReview}
                                 className="pl-6 hover:text-red-600"
                             >
-                                {selectedRows.size && 'Eliminar'}
+                                {selectedRows.size && t('Eliminar')}
                             </button>
                         </div>
                     }

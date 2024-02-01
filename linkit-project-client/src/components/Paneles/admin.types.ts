@@ -72,11 +72,12 @@ export type UserProps = {
 export type ReviewProps = {
   _id: string;
   name: string;
-  rol: string;
+  role: string;
   country: string;
   detail: string;
   archived: boolean;
   createdDate: string;
+  createdBy : string; 
 };
 export type ViewReviewProps = {
   _id: boolean;

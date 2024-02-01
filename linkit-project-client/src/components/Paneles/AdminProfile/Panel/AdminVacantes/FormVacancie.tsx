@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { validateVacancy } from "../../../errors/validation";
 import { VacancyProps } from "../../../admin.types";
@@ -21,9 +21,14 @@ interface InfoList {
   [key: string]: string[] | undefined;
 }
 
-export default function FormVacancie(props: FormVacancieProps) {
+export default function FormVacancie({
+  onClose,
+  token,
+  setSaveStatus,
+}: FormVacancieProps) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [companyNames, setCompanyNames] = useState<string[]>([]);
 
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
@@ -66,6 +71,21 @@ export default function FormVacancie(props: FormVacancieProps) {
     niceToHave: [],
     benefits: [],
   });
+
+  useEffect(() => {
+    const fetchAirtableData = async () => {
+      const { data } = await axios.get(
+        "https://linkit-server.onrender.com/resources/companyjds"
+      );
+      const allCompanies: string[] = [];
+      const companies = data.map((entry: any) => entry.Client);
+      companies.forEach((comp: string) => {
+        if (!allCompanies.includes(comp)) allCompanies.push(comp);
+      });
+      setCompanyNames(allCompanies);
+    };
+    fetchAirtableData();
+  }, []);
 
   const addToList = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -169,7 +189,7 @@ export default function FormVacancie(props: FormVacancieProps) {
       const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: {
-          Authorization: `Bearer ${props.token}`,
+          Authorization: `Bearer ${token}`,
           "Accept-Language": sessionStorage.getItem("lang"),
         },
       });
@@ -195,14 +215,14 @@ export default function FormVacancie(props: FormVacancieProps) {
         "https://linkit-server.onrender.com/jds/find",
         {
           headers: {
-            Authorization: `Bearer ${props.token}`,
+            Authorization: `Bearer ${token}`,
             "Accept-Language": sessionStorage.getItem("lang"),
           },
         }
       );
       dispatch(setJobOffers(allJds.data));
-      props.onClose();
-      props.setSaveStatus(true);
+      onClose();
+      setSaveStatus(true);
       return response.data;
     } catch (error) {
       console.error((error as Error).message);
@@ -228,7 +248,7 @@ export default function FormVacancie(props: FormVacancieProps) {
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
       <div className=" flex flex-col justify-center items-center bg-linkIt-500  mx-32 my-10  rounded-[7px] border-[3px] border-linkIt-300 ">
         <div className="flex w-full justify-end ">
-          <button className={`background-button m-2`} onClick={props.onClose}>
+          <button className={`background-button m-2`} onClick={onClose}>
             X
           </button>
         </div>
@@ -295,13 +315,18 @@ export default function FormVacancie(props: FormVacancieProps) {
                     ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
                     : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
                 }
-                type="text"
+                autoComplete="off"
+                list="company-list"
                 name="company"
                 placeholder={errors.company ? "*" : ""}
-                autoComplete="off"
                 onChange={handleChange}
                 onBlur={handleBlurErrors}
               />
+              <datalist id="company-list">
+                {companyNames.map((comp) => (
+                  <option value={comp}></option>
+                ))}
+              </datalist>
             </div>
 
             <div className="w-fit px-3 mb-6">
@@ -593,7 +618,7 @@ export default function FormVacancie(props: FormVacancieProps) {
 
             <div className="w-full px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                {t("Acerca de la empresa")}
+                {t("Acerca de nosotros")}
               </label>
               <textarea
                 className="appearance-none block h-32 w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
@@ -628,7 +653,7 @@ export default function FormVacancie(props: FormVacancieProps) {
           ) : null}
           <div className="flex m-4">
             <div className="pr-2">
-              <button onClick={props.onClose} className={`background-button`}>
+              <button onClick={onClose} className={`background-button`}>
                 {t("Volver")}
               </button>
             </div>

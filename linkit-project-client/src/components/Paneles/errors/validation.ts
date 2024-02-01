@@ -19,7 +19,7 @@ export const validateVacancy = (form: VacancyProps): void => {
 
 export const validateReview = (form: ReviewProps): void => {
   if(!form.name) returnFormErrors("Name is required")
-  if(!form.rol) returnFormErrors("Rol is required")
+  if(!form.role) returnFormErrors("Role is required")
   if(!form.country) returnFormErrors("Country is required")
   if(!form.detail) returnFormErrors("Detail is required")
 }

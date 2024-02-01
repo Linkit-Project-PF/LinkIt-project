@@ -52,6 +52,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
       Swal.fire({
         title: t("Datos actualizados"),
         icon: "success",
+        confirmButtonColor: "#01A28B",
       });
       isLoading(false);
     } catch (error: any) {

@@ -8,7 +8,7 @@ import { ReviewProps, ViewReviewProps } from "../../../admin.types";
 import { IUser } from "../../../../Profiles/types";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 type stateProps = {
   Authentication: { user: IUser };
@@ -19,13 +19,16 @@ type stateProps = {
 
 export default function Reviews() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const token = useSelector(
     (state: stateProps) => state.Authentication.user._id
   );
   const data = useSelector(
     (state: stateProps) => state.reviews.filteredReviews
   );
-  const [saveStatus, setSaveStatus] = useState<boolean>(true);
+
+
+  const [saveStatus, setSaveStatus] = useState<boolean>(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -46,7 +49,7 @@ export default function Reviews() {
       }
     };
     loadData();
-  }, [saveStatus]);
+  }, [saveStatus || dispatch]);
 
   //? PAGINADO
   const itemsPerPage = 15;
@@ -96,6 +99,7 @@ export default function Reviews() {
     setEditing(false);
   };
   const editReview = () => {
+    setSaveStatus(false)
     setEditing(!editing);
   };
   const handleChange = (
@@ -121,14 +125,14 @@ export default function Reviews() {
         });
       });
     } catch (error: any) {
-      console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      throw new Error(t("Error al enviar la solicitud:")).message
     }
     setEditing(false);
     setEditedData({});
     setSaveStatus(!saveStatus);
   };
   //?
+  
   //?SECCIONES
   const renderSectionSelect = <K extends keyof ReviewProps>(
     title: string,
@@ -161,7 +165,7 @@ export default function Reviews() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black w-full"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -221,7 +225,7 @@ export default function Reviews() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black w-full"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -257,7 +261,7 @@ export default function Reviews() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : (
                 String(r[key] === undefined || NaN ? "" : r[key])
@@ -308,7 +312,7 @@ export default function Reviews() {
       <div className="flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
         {viewCol.name && renderSectionSelect("Nombre", "name")}
         {viewCol._id && renderSectionBasicNoEdit("ID", "_id")}
-        {viewCol.rol && renderSectionBasicNoEdit("Rol", "rol")}
+        {viewCol.rol && renderSectionBasicNoEdit("Rol", "role")}
         {viewCol.country && renderSectionBasicCap("País", "country")}
         {viewCol.detail && renderSectionBasic("Detalle", "detail")}
         {viewCol.archived && renderSectionActive("Estado", "archived")}
@@ -319,17 +323,17 @@ export default function Reviews() {
           onClick={handlePrevius}
           disabled={currentPage === 0}
         >
-          Anterior
+          {t("Anterior")}
         </button>
         <span className="text-center">
-          Pagina {currentPage + 1} de {totalPages}
+          {t("Página")} {currentPage + 1} de {totalPages}
         </span>
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
           disabled={endIndex >= data.length}
         >
-          Siguiente
+          {t("Siguiente")}
         </button>
       </div>
     </div>

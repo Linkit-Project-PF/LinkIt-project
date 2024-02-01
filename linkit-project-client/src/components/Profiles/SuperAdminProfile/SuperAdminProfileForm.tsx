@@ -39,7 +39,7 @@ const SuperAdminProfileForm: FunctionComponent = () => {
           text: response,
           icon: "success",
           confirmButtonText: "Ok",
-          confirmButtonColor: "#0098DA",
+          confirmButtonColor: "#01A28B",
         });
     } catch (error: any) {
       console.log(error);
@@ -87,6 +87,7 @@ const SuperAdminProfileForm: FunctionComponent = () => {
       Swal.fire({
         title: t("Datos actualizados"), //!
         icon: "success",
+        confirmButtonColor: "#01A28B"
       });
       isLoading(false);
     } catch (error: any) {

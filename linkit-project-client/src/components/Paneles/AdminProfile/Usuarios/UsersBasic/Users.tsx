@@ -17,7 +17,7 @@ export default function Users() {
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch()
   const data = useSelector((state: stateProps) => state.users.filteredTalents)
-  const [saveStatus, setSaveStatus] = useState<boolean>(true);
+  const [saveStatus, setSaveStatus] = useState<boolean>(false);
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -98,6 +98,7 @@ export default function Users() {
     setEditing(false)
   }
   const editTalent = () => {
+    setSaveStatus(false)
     setEditing(!editing)
   }
   const handleChange = (
@@ -188,7 +189,7 @@ export default function Users() {
                   type="text"
                   defaultValue={r[key] as any}
                   onChange={handleChange}
-                  className="bg-linkIt-500 text-black w-full"
+                  className="bg-linkIt-500 text-black w-full h-6"
                 />
               ) : String(r[key] === undefined || isNaN(r[key] as any) ? '' : r[key])}</p>
             )}
@@ -214,7 +215,7 @@ export default function Users() {
                 type="text"
                 defaultValue={r[key] as any}
                 onChange={handleChange}
-                className="bg-linkIt-500 text-black"
+                className="bg-linkIt-500 text-black w-full h-6"
               />
               : String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>
@@ -239,7 +240,7 @@ export default function Users() {
                 type="text"
                 defaultValue={r[key] as any}
                 onChange={handleChange}
-                className="bg-linkIt-500 text-black"
+                className="bg-linkIt-500 text-black w-full h-6"
               />
               : String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>

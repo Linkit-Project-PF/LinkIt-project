@@ -40,7 +40,7 @@ export default function ModuloD() {
 </div> 
 <div className="flex bg-linkIt-500 w-screen h-[3rem] items-center justify-items-center justify-between dark:bg-linkIt-700 px-[5%]">
     <button className={`text-linkIt-300 dark:text-white text-[0.6rem] ssm:text-[1rem] font-extrabold text-start font-montserrat ${show ? '' : ''}`} onClick={handleClick}>{show ? (<a href="#historia">-</a>) : "+"}</button>
-    <button className='text-linkIt-300 dark:text-white text-[0.6rem] ssm:text-[1rem] font-montserrat whitespace-nowrap font-bold text-end' onClick={handleClick}>{show ? (<a href="#historia">{t('Leer menos')}</a>) : "Leer más"}</button>
+    <button className='text-linkIt-300 dark:text-white text-[0.6rem] ssm:text-[1rem] font-montserrat whitespace-nowrap font-bold text-end' onClick={handleClick}>{show ? (<a href="#historia">{t('Leer menos')}</a>) : (<p>{t('Leer Más')}</p>)}</button>
 </div>
 </div>
 

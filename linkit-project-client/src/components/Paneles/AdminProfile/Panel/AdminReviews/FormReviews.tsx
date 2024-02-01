@@ -15,29 +15,33 @@ type OnCloseFunction = () => void;
 
 interface FormReviewProps {
     onClose: OnCloseFunction;
+    setSaveStatus: (status: boolean) => void;
 }
 
 export type stateProps = {
     Authentication: {
-      user: IUser
+        user: IUser
     }
-  }
+}
 
-export default function FormReview({ onClose }: FormReviewProps) {
-    
-    const {t}=useTranslation();
-    const token = useSelector((state: stateProps) => state.Authentication.user._id )
+export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) {
+
+    const { t } = useTranslation();
+    const token = useSelector((state: stateProps) => state.Authentication.user._id)
+    const user = useSelector((state: stateProps) => state.Authentication.user)
+
     const [information, setInformation] = useState<Partial<ReviewProps>>({
         name: "",
-        rol: "",
+        role: "",
         country: "",
         detail: "",
+        createdBy: user.firstName.concat(user.lastName),
     });
-    // console.log(information)
+    console.log(information)
 
     const [errors, setErrors] = useState({
         name: "",
-        rol: "",
+        role: "",
         country: "",
         detail: "",
     });
@@ -71,25 +75,27 @@ export default function FormReview({ onClose }: FormReviewProps) {
             //* validation review form
             const validationError = validations(information as ReviewProps)
             setErrors(validationError)
-            
+
             validateReview(information as ReviewProps) //* errors from console
             const endPoint = "https://linkit-server.onrender.com/reviews/create";
             const response = await axios.post(endPoint, information, {
-                headers: { Authorization: `Bearer ${token}`,
-                'Accept-Language': sessionStorage.getItem('lang') }
-              });
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Accept-Language': sessionStorage.getItem('lang')
+                }
+            });
 
             swal(t("El post fue creado con éxito"));
             setInformation({
                 name: "",
-                rol: "",
+                role: "",
                 country: "",
                 detail: "",
             });
             onClose()
+            setSaveStatus(true)
             return response.data;
         } catch (error) {
-            console.error((error as Error).message)
             throw new ValidationError((error as Error).message);
         }
     };
@@ -128,9 +134,9 @@ export default function FormReview({ onClose }: FormReviewProps) {
                         <div className="w-fit px-3 mb-6">
                             <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Rol')}</label>
                             <select
-                                className={errors.rol ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                                name="rol"
-                                placeholder={errors.rol ? "*" : ""}
+                                className={errors.role ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
+                                name="role"
+                                placeholder={errors.role ? "*" : ""}
                                 autoComplete="off"
                                 onChange={handleChange}
                                 onBlur={handleBlurErrors}
@@ -166,7 +172,7 @@ export default function FormReview({ onClose }: FormReviewProps) {
                             ></textarea>
                         </div>
                     </div>
-                    {errors.name || errors.rol || errors.country || errors.detail ? <span className="text-red-500">{t('Los campos marcados con * son obligatiorios')}</span> : null}
+                    {errors.name || errors.role || errors.country || errors.detail ? <span className="text-red-500">{t('Los campos marcados con * son obligatiorios')}</span> : null}
                     <div className="flex">
                         <button onClick={onClose} className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
                             {t('Volver')}

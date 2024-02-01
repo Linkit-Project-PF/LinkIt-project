@@ -15,7 +15,7 @@ import { RootState } from "../../../../../redux/types";
 import { statePropsCompanies } from "../../Usuarios/UsersCompanies/CompaniesU";
 import { setUsersCompanies } from "../../../../../redux/features/UsersSlice";
 
-type stateProps = {
+export type stateProps = {
   jobCard: {
     allJobOffers: VacancyProps[];
     filterJobOffers: VacancyProps[];
@@ -39,7 +39,7 @@ export default function Vacancies2() {
   const [modalityValue, setModalityValue] = useState<string>("");
   const [companyValue, setCompanyValue] = useState<string>("");
 
-  const [saveStatus, setSaveStatus] = useState<boolean>(true); //* Estado que actualiza la info de la tabla
+  const [saveStatus, setSaveStatus] = useState<boolean>(false); //* Estado que actualiza la info de la tabla
   const allStackTechnologies = useSelector(
     (state: any) => state.resources.stackTechnologies as string[]
   );
@@ -47,6 +47,9 @@ export default function Vacancies2() {
   const hideTehcs = () => {
     setTehcs(!tehcs);
   };
+
+
+
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -71,14 +74,11 @@ export default function Vacancies2() {
   }, [saveStatus]);
 
   const handleFilters = async () => {
-    const url = `https://linkit-server.onrender.com/jds/find?${
-      stackValue.length >= 1
-        ? `stack=${stackValue.map((tech) => `${tech}`)}`
-        : ""
-    }${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${
-      modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``
-    }${companyValue && companyValue !== " " ? `&company=${companyValue}` : ``}`;
-    console.log(url);
+    const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1
+      ? `stack=${stackValue.map((tech) => `${tech}`)}`
+      : ""
+      }${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``
+      }${companyValue && companyValue !== " " ? `&company=${companyValue}` : ``}`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -213,6 +213,7 @@ export default function Vacancies2() {
   };
 
   const editJDS = () => {
+    setSaveStatus(false)
     setEditing(!editing);
   };
 
@@ -233,6 +234,7 @@ export default function Vacancies2() {
     >
   ) => {
     const { name, value } = e.target;
+    setSaveStatus(false)
     if (name === "requirements" || name === "stack") {
       const valuesArray = value.split(",").map((i) => i.trim());
       setEditedData({
@@ -279,9 +281,9 @@ export default function Vacancies2() {
               <div className="ml-6 justify-end">
                 <select
                   name="sortAlfa"
-                  className="border-none outline-none h-1"
+                  className="border-none outline-none h-6 text-sm p-0"
                   onChange={handleAlfa}
-                  value={sortAlfa}
+                  defaultValue={sortAlfa}
                 >
                   <option value="">-</option>
                   <option value="A-Z">A-Z</option>
@@ -312,7 +314,7 @@ export default function Vacancies2() {
                         type="text"
                         onChange={handleChange}
                         defaultValue={v.title}
-                        className="bg-linkIt-500 text-black"
+                        className="bg-linkIt-500 text-black w-full h-6"
                       />
                     ) : (
                       v.title
@@ -367,7 +369,7 @@ export default function Vacancies2() {
               <div className="ml-6">
                 <select
                   name="sort"
-                  className="border-none outline-none h-1"
+                  className="border-none outline-none h-6 text-sm p-0"
                   onChange={handleType}
                   onClick={handleFilters}
                 >
@@ -394,7 +396,7 @@ export default function Vacancies2() {
                         defaultValue={v.type}
                         name="type"
                         onChange={handleChange}
-                        className=" bg-linkIt-500 text-black"
+                        className=" bg-linkIt-500 text-black h-6 text-sm p-0"
                       >
                         <option value="full-time">Full-time</option>
                         <option value="part-time">Part-time</option>
@@ -432,7 +434,7 @@ export default function Vacancies2() {
                         type="text"
                         onChange={handleChange}
                         defaultValue={v.location}
-                        className="bg-linkIt-500 text-black"
+                        className="bg-linkIt-500 text-black w-full h-6"
                       />
                     ) : (
                       v.location
@@ -453,7 +455,7 @@ export default function Vacancies2() {
               <div className="ml-6">
                 <select
                   name="sort"
-                  className="border-none outline-none h-1"
+                  className="border-none outline-none w-fit h-6 text-sm p-0"
                   onChange={handleModality}
                   onClick={handleFilters}
                 >
@@ -480,7 +482,7 @@ export default function Vacancies2() {
                         defaultValue={v.modality}
                         name="modality"
                         onChange={handleChange}
-                        className="bg-linkIt-500 text-black"
+                        className="bg-linkIt-500 text-black w-fit h-6 text-sm p-0"
                       >
                         <option value="remote">Remote</option>
                         <option value="specific-remote">Specific-remote</option>
@@ -544,7 +546,7 @@ export default function Vacancies2() {
                         type="text"
                         onChange={handleChange}
                         defaultValue={v.stack.join(", ")}
-                        className="bg-linkIt-500 text-black"
+                        className="bg-linkIt-500 text-black w-full h-6"
                       />
                     ) : (
                       v.stack.join(", ")
@@ -765,7 +767,7 @@ export default function Vacancies2() {
                   name="filterCompany"
                   onChange={handleCompany}
                   onClick={handleFilters}
-                  className="border-none outline-none h-1"
+                  className="border-none outline-none h-6 text-sm p-0"
                 >
                   <option value=" ">All</option>
                   {companies.map((c: CompaniesProps) => (
@@ -826,7 +828,7 @@ export default function Vacancies2() {
               <div className="ml-6">
                 <select
                   name="view"
-                  className="border-none outline-none h-1"
+                  className="border-none outline-none h-6 text-sm p-0"
                   onChange={handleView}
                   value={sortView}
                 >

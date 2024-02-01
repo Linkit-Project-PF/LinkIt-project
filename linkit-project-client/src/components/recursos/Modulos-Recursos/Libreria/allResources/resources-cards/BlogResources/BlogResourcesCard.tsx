@@ -58,11 +58,11 @@ function BlogsResourceCard({
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
           alt={title}
-          className={`w-[20rem]  rounded-lg  xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center`}
+          className={`rounded-lg xs:h-[10rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem]  bg-cover bg-center`}
         />
       )}
-      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
-        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
         </p>
         <h1 className="font-bold subtitles-size line-clamp-3">{title}</h1>
@@ -72,7 +72,7 @@ function BlogsResourceCard({
         </p>
 
         <motion.a
-          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start hover:cursor-pointer"
+          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start hover:cursor-pointer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 1 }}
           onClick={() => {

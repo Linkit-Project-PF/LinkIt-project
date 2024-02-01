@@ -11,6 +11,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setFormVisible } from "../../../../../../redux/features/ApplicationSlice";
 import Swal from "sweetalert2";
 import { setPressLogin } from "../../../../../../redux/features/registerLoginSlice";
+import Newsletter from "../../../../../../Utils/newsletter/newsletter";
+import blackArrow from "/Vectores/arrowBlackLeft.png";
+import whiteArrow from "/Vectores/arrowWhiteLeft.png"
+import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg"
+import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg"
+import { RootState } from "../../../../../../redux/types";
+
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
@@ -29,6 +36,10 @@ function JobDescription() {
   const { i18n } = useTranslation();
   const { language } = i18n;
   const navigate = useNavigate();
+
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode);
+
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -76,58 +87,58 @@ function JobDescription() {
   };
 
   return (
-    <>
-      <article className="mt-[10rem] mx-[5%] font-montserrat text-linkIt-400 flex flex-col relative">
-        <div className="flex flex-row relative mb-[10%] w-full">
+    <div className="">
+      <article className="font-montserrat text-linkIt-400 dark:bg-linkIt-200 flex flex-col relative p-[7%] pt-[17vh] lg:pt-[23vh]">
+        <div className="lg:flex grid relative mb-[10%] w-full">
           <div className="w-full">
             <header className="mb-[3%]">
               <motion.button
-                className="flex flex-row gap-[.5rem] items-center content-center mb-[5%] font-bold text-[1rem]"
+                className="flex flex-row gap-[.5rem] items-center content-center mb-[5%] font-bold text-size text-black dark:text-white"
                 onClick={handleGoBack}
                 whileHover={{ cursor: "pointer", scale: 1.1 }}
                 initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
               >
                 <img
-                  src="/Vectores/left-arrow.svg"
+                  src={isDarkMode ? whiteArrow : blackArrow}
                   alt="back"
                   className="w-[1.5rem]"
                 />
                 {language === "en" ? "Go back" : "Volver"}
               </motion.button>
-              <h2 className="text-black border-[2px] border-linkIt-300 inline-flex px-[.6rem] py-[.2rem] font-semibold rounded-[8px] mb-[3%]">
+              <h2 className="text-black border-[2px] border-linkIt-300 dark:border-linkIt-200 dark:bg-white dark: inline-flex px-2 py-1 text-size font-semibold rounded-[7px] mb-[3%]">
                 CODE: {id}
               </h2>
-              <h1 className="text-black font-bold text-4xl">{jobData.title}</h1>
+              <h1 className="text-black dark:text-white font-bold titles-size">{jobData.title}</h1>
             </header>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Descripción")}
               </h3>
-              <p className="font-[600] max-w-[50%]">{jobData.description}</p>
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.description}</p>
             </section>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Acerca de nosotros")}
               </h3>
-              <p className="font-[600] max-w-[50%]">{jobData.aboutUs}</p>
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.aboutUs}</p>
             </section>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Acerca de nuestro cliente")}
               </h3>
-              <p className="font-[600] max-w-[50%]">{jobData.aboutClient}</p>
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.aboutClient}</p>
             </section>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Responsabilidades")}
               </h3>
-              <p className="font-[600] max-w-[50%]">
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
                 {jobData.responsabilities}
               </p>
             </section>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Requerimientos")}
               </h3>
               <ul className="flex flex-col list">
@@ -135,7 +146,7 @@ function JobDescription() {
                   return (
                     <li
                       key={index}
-                      className="font-[600] list-item max-w-[50%]"
+                      className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
                     >
                       {requirement}
                     </li>
@@ -144,7 +155,7 @@ function JobDescription() {
               </ul>
             </section>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Deseable")}
               </h3>
               <ul className="flex flex-col list">
@@ -152,7 +163,7 @@ function JobDescription() {
                   return (
                     <li
                       key={index}
-                      className="font-[600] max-w-[50%] list-item"
+                      className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
                     >
                       {desirable}
                     </li>
@@ -161,7 +172,7 @@ function JobDescription() {
               </ul>
             </section>
             <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 text-2xl mb-[1%]">
+              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Beneficios")}
               </h3>
               <ul className="flex flex-col list">
@@ -169,7 +180,7 @@ function JobDescription() {
                   return (
                     <li
                       key={index}
-                      className="font-[600] max-w-[50%] list-item"
+                      className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
                     >
                       {benefit}
                     </li>
@@ -177,37 +188,35 @@ function JobDescription() {
                 })}
               </ul>
             </section>
-            <section className=" mt-[10%] flex flex-row content-center items-center">
+            <section className=" mt-[10%] lg:flex grid content-center items-center justify-items-center lg:max-w-[70%] dark:text-white ">
               <img
                 src="/Vectores/complete-form.svg"
                 alt="complete-form"
-                className="w-[4.5rem] mr-[1.5%]"
+                className="w-[30px] ssm:w-[40px] lg:w-1/16 mr-2 lg:mr-4 hidden lg:block"
               />
-              <h3 className="font-bold text-black text-2xl">
-                {t("Para aplicar por favor completa")} <br />{" "}
+              <h3 className="font-bold text-black dark:text-white subtitles-size row-start-1 text-center lg:text-start">
+                {t("Para aplicar por favor completa")} {" "}
                 {t("el siguiente formulario")}
               </h3>
             </section>
           </div>
-          <section className="w-[50%] flex flex-col justify-center items-center gap-[1rem]">
+          <section className="lg:w-[50%] flex flex-col justify-items-center items-center gap-[1rem]">
             <img
-              src="/Linkit-logo/linkit-logo-blue.svg"
+              src={isDarkMode ? WhiteLogo : BlueLogo}
               alt="linkIt-logo"
-              className="w-full sticky top-[10%] mb-[10%]"
+              className="w-full sticky top-[30%] mb-[20%] hidden lg:block"
             />
             <button
-              className="inline-flex border-[2px] border-linkIt-300  p-[.5rem] font-montserrat font-[600] text-white bg-linkIt-300 sticky top-[70%] whitespace-nowrap rounded-[5px] hover:bg-white hover:text-linkIt-300 transition-all duration-150 ease-out"
+              className="inline-flex relative lg:sticky lg:top-[93%] justify-self-center border border-linkIt-300 text-white bg-linkIt-300 rounded-[7px] p-1 xs:p-1.5 sm:p-2 2xl:p-3 px-1 xs:px-2 text-size whitespace-nowrap hover:bg-linkIt-200 hover:border-linkIt-200 transition-all duration-300 ease-in-out font-bold dark:hover:border-white dark:hover:bg-white dark:hover:text-linkIt-300 cursor-pointer font-manrope"
               onClick={() => handleApply()}
             >
               {t("Aplicar a esta vacante")}
             </button>
           </section>
         </div>
-        <section className="bg-linkIt-300 mx-[-6%] text-white text-center h-[50vh] flex flex-row justify-center content-center items-center ">
-          <h3 className="font-bold">NEWSLETTER</h3>
-        </section>
       </article>
-    </>
+      <Newsletter />
+    </div>
   );
 }
 

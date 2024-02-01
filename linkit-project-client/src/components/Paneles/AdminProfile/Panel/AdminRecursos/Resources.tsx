@@ -94,6 +94,7 @@ export default function Resources() {
     setEditing(false);
   };
   const editResource = () => {
+    setSaveStatus(false)
     setEditing(!editing);
   };
   const handleChange = (
@@ -102,6 +103,7 @@ export default function Resources() {
     >
   ) => {
     const { name, value } = e.target;
+    setSaveStatus(false)
     setEditedData({
       ...editedData,
       [name]: value,
