@@ -54,8 +54,6 @@ function JobForm() {
 
   const { t } = useTranslation();
 
-  const admins = useSelector((state: any) => state.application.admins);
-
   const userData = useSelector(
     (state: RootState) => state.Authentication.user as IUser
   );
@@ -183,6 +181,7 @@ function JobForm() {
         text: error.response.data,
       });
       isLoading(false);
+      console.log(error);
     }
   };
 
@@ -514,7 +513,7 @@ function JobForm() {
                       <li
                         className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
                         onClick={() =>
-                          handleEnglishLevelChange("Intermediate (B1)")
+                          handleEnglishLevelChange("intermediate (B1)")
                         }
                       >
                         Intermediate{"(B1)"}
@@ -523,7 +522,7 @@ function JobForm() {
                       <li
                         className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
                         onClick={() =>
-                          handleEnglishLevelChange("Intermediate (B2)")
+                          handleEnglishLevelChange("intermediate (B2)")
                         }
                       >
                         Intermediate{"(B2)"}
@@ -760,42 +759,25 @@ function JobForm() {
                       >
                         Ninguno
                       </li>
-                      {admins?.map((admin: any, index: number) => {
-                        if (index === 0 || index === admins.length - 1) {
+                      {["Julieta", "Shayna"].map(
+                        (recruiter: string, index: number) => {
                           return (
                             <li
                               key={index}
                               className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
                               onClick={() =>
                                 handleRecruiterChange(
-                                  `${admin.firstName}`,
+                                  recruiter,
                                   setRecruiter,
                                   setLocalUser
                                 )
                               }
                             >
-                              {admin.firstName}
+                              {recruiter}
                             </li>
                           );
                         }
-                        return (
-                          <>
-                            <li
-                              className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                              onClick={() =>
-                                handleRecruiterChange(
-                                  `${admin.firstName}`,
-                                  setRecruiter,
-                                  setLocalUser
-                                )
-                              }
-                            >
-                              {admin.firstName}
-                            </li>
-                            <hr />
-                          </>
-                        );
-                      })}
+                      )}
                     </motion.ul>
                   </label>
 
