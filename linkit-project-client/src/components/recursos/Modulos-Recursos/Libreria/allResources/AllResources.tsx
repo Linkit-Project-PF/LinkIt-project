@@ -60,7 +60,7 @@ function AllResources() {
   const { t } = useTranslation();
   return (
     <>
-      <div className="flex flex-row gap-6 flex-wrap justify-between  mt-[3.5rem] responsive-container">
+      <div className="flex flex-row gap-6 flex-wrap justify-around  mt-[3.5rem] responsive-container">
         {ebooks.length > 3 && blogs.length > 3 && events.length > 3
           ? ebooks.slice(0, 3).map((ebook: resourceType) => {
               return (

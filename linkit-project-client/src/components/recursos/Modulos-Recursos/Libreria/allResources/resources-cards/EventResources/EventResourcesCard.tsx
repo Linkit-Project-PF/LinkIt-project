@@ -1,6 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import './EventResourcesCard.css'
+import "./EventResourcesCard.css";
 
 type EventCardProps = {
   image: string;
@@ -31,8 +31,8 @@ const eventCardVariants: Variants = {
       delay: 0.2,
       type: "spring",
     },
-  }
-}
+  },
+};
 
 function EventResourceCard({
   image,
@@ -74,9 +74,15 @@ function EventResourceCard({
             {category}
           </p>
           <h2 className="font-bold subtitles-size line-clamp-3">{title}</h2>
-          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 pt-8">{description}</p>
-          <a href={link} target="_blank" className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
-            {t('Ver Grabación')}
+          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 pt-8">
+            {description}
+          </p>
+          <a
+            href={link}
+            target="_blank"
+            className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
+          >
+            {t("Ver Grabación")}
           </a>
         </div>
       </motion.div>
