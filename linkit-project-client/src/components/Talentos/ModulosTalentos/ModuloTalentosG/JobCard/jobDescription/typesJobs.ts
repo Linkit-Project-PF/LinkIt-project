@@ -9,7 +9,7 @@ export type JobDescriptionProps = {
     stack: string[]
     aboutUs: string
     aboutClient: string
-    responsabilities: string
+    responsabilities: string[]
     requirements: string[]
     niceToHave: string[]
     benefits: string[]

@@ -129,14 +129,25 @@ function JobDescription() {
               </h3>
               <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.aboutClient}</p>
             </section>
+
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Responsabilidades")}
+                {t("Requerimientos")}
               </h3>
-              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                {jobData.responsabilities}
-              </p>
+              <ul className="flex flex-col list">
+                {jobData.responsabilities?.map((responsability, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
+                    >
+                      {responsability}
+                    </li>
+                  );
+                })}
+              </ul>
             </section>
+
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Requerimientos")}
@@ -154,6 +165,8 @@ function JobDescription() {
                 })}
               </ul>
             </section>
+
+
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Deseable")}

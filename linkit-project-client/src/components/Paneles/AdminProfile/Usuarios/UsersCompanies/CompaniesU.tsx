@@ -50,7 +50,7 @@ export default function CompaniesU() {
     correo: true,
     linkedin: true,
     representante: true,
-    imágen: true,
+    imagen: true,
     "Fecha de registro": true,
     interesado: true,
     "AirTable Id": true,
@@ -306,7 +306,7 @@ export default function CompaniesU() {
         {viewCol.linkedin && renderSectionBasic("Linkedin", "linkedin")}
         {viewCol.representante &&
           renderSectionBasicCap("Representante", "repName")}
-        {viewCol.imágen && renderSectionBasic("Imagen", "image")}
+        {viewCol.imagen && renderSectionBasic("Imagen", "image")}
         {viewCol["Fecha de registro"] &&
           renderSectionBasicNoEdit("Fecha de Registro", "createdDate")}
         {viewCol.interesado &&

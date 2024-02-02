@@ -33,6 +33,7 @@ const ResourcesSlice = createSlice({
             state.blogs = state.allresources.filter((resource: ResourceProps) => resource.type === "blog" && resource.archived === false);
         },
         setFilterResources: (state, action) => {
+            
             if(action.payload === "todos"){
                 state.resources = state.allresources.filter((resource: ResourceProps) => resource.archived === false);
                 state.ebooks = state.allresources.filter((resource: ResourceProps) => resource.type === "ebook" && resource.archived === false);
@@ -64,8 +65,8 @@ const ResourcesSlice = createSlice({
                 state.events = state.allresources.filter((resource: ResourceProps) => resource.type === "social" && resource.category.toLowerCase() === action.payload.toLowerCase() && resource.archived === false);
             }
             else if(action.payload === "guía"){
-                state.resources = state.allresources.filter((resource: ResourceProps) => resource.category.toLocaleLowerCase() === action.payload.toLowerCase() && resource.archived === false);
-                state.blogs = state.allresources.filter((resource: ResourceProps) => resource.type === "blog" && resource.category.toLocaleLowerCase() === action.payload.toLowerCase() && resource.archived === false);
+                state.resources = state.allresources.filter((resource: ResourceProps) => resource.category.toLowerCase() === action.payload.toLowerCase() && resource.archived === false);
+                state.blogs = state.allresources.filter((resource: ResourceProps) => resource.type === "blog" && resource.category.toLowerCase() === action.payload.toLowerCase() && resource.archived === false);
                 state.ebooks = state.allresources.filter((resource: ResourceProps) => resource.type === "ebook" && resource.category.toLowerCase() === action.payload.toLowerCase() && resource.archived === false);
                 state.events = state.allresources.filter((resource: ResourceProps) => resource.type === "social" && resource.category.toLowerCase() === action.payload.toLowerCase() && resource.archived === false);
             }
@@ -78,7 +79,7 @@ const ResourcesSlice = createSlice({
         
         },
         searchResource: (state, action) => {
-            const searchTerm = action.payload.toLocaleLowerCase();
+            const searchTerm = action.payload.toLowerCase();
             if (searchTerm) {
                 const searchResource = state.allresources.filter((review: ResourceProps) => {
                     const searchTerms = searchTerm.split(' ');

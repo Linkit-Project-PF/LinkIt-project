@@ -7,6 +7,7 @@ import {
   sortResource,
 } from "../../../../../redux/features/ResourcesSlice";
 import { ResourceProps, ViewResourceProps } from "../../../admin.types";
+import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
 
 export type stateProps = {
   resources: {
@@ -20,7 +21,9 @@ export default function Resources() {
   const data = useSelector(
     (state: stateProps) => state.resources.filteredResources
   );
-  const [saveStatus, setSaveStatus] = useState<boolean>(true);
+  const [saveStatus, setSaveStatus] = useState<boolean>(false);
+
+
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -41,7 +44,10 @@ export default function Resources() {
       }
     };
     loadData();
-  }, [saveStatus]);
+  }, [saveStatus || dispatch]);
+
+
+
 
   //?COLUMNS
   const [viewCol, setViewCol] = useState<ViewResourceProps>({
@@ -83,6 +89,7 @@ export default function Resources() {
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState(false);
   const [editedData, setEditedData] = useState<Partial<ResourceProps>>({});
+  const [filePublicId, setFilePublicId] = useState("");
   const handleEdit = (id: string): void => {
     const updateSelectedRows = new Set(selectedRows);
     if (updateSelectedRows.has(id)) {
@@ -104,10 +111,12 @@ export default function Resources() {
   ) => {
     const { name, value } = e.target;
     setSaveStatus(false)
+
     setEditedData({
       ...editedData,
       [name]: value,
     });
+
   };
   const handleSave = async (arrayProps: string[]) => {
     try {
@@ -125,10 +134,22 @@ export default function Resources() {
       console.error("Error al enviar la solicitud: ", (error as Error).message);
     }
     setEditing(false);
-    setEditedData({});
     setSaveStatus(!saveStatus);
+    setEditedData({});
   };
+  const setFileName = () => {
+    editedData.title?.concat('image')
+  }
   //?
+
+  const handleCloudinaryChange = (newFilePublicId: string) => {
+    setFilePublicId(newFilePublicId);
+
+    setEditedData({
+      ...editedData,
+      image: newFilePublicId,
+    });
+  };
 
   //?SECCIONES
   const renderSectionSelect = <K extends keyof ResourceProps>(
@@ -196,8 +217,8 @@ export default function Resources() {
                 r[key] === undefined || NaN
                   ? ""
                   : r[key] && r[key] === "social"
-                  ? "evento"
-                  : r[key]
+                    ? "evento"
+                    : r[key]
               )}
             </p>
           </div>
@@ -228,8 +249,8 @@ export default function Resources() {
                 r[key] === undefined || NaN
                   ? ""
                   : r[key] && r[key] === "social"
-                  ? "evento"
-                  : r[key]
+                    ? "evento"
+                    : r[key]
               )}
             </p>
           </div>
@@ -242,7 +263,7 @@ export default function Resources() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row justify-center whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -268,6 +289,53 @@ export default function Resources() {
                 String(r[key] === undefined || NaN ? "" : r[key])
               )}
             </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+  const renderSectionImg = <K extends keyof ResourceProps>(
+    title: string,
+    key: K
+  ) => (
+    <div>
+      <div className="flex flex-row justify-center whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+        <h1>{title}</h1>
+      </div>
+      <div>
+        {dataToShow?.map((r: ResourceProps, index) => (
+          <div
+            key={`${key}-${index}`}
+            className={
+              selectedRows.has(r._id)
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+            }
+          >
+            {key === 'image' && selectedRows.has(r._id) && editing
+              ?
+              <div className="flex justify-center">
+                <input
+                  name={key}
+                  type="text"
+                  value={filePublicId}
+                  onChange={handleChange}
+                  className="bg-linkIt-500 text-black w-full h-6"
+                />
+                <CloudinaryUploadWidget
+                  setFileName={setFileName}
+                  setFilePublicId={handleCloudinaryChange}
+                  className="ml-2"
+                >
+                  <img className="w-6" src="/Vectores/upload-circle.svg" alt="Upload image" />
+                </CloudinaryUploadWidget>
+              </div>
+              :
+              (
+                String(r[key] === undefined || NaN ? "" : r[key])
+              )
+            }
+
           </div>
         ))}
       </div>
@@ -357,7 +425,7 @@ export default function Resources() {
         {viewCol.type && renderSectionBasicNoEditCap("Tipo", "type")}
         {viewCol.createdDate &&
           renderSectionBasicNoEdit("Fecha de Creación", "createdDate")}
-        {viewCol.image && renderSectionBasic("URL Imágen", "image")}
+        {viewCol.image && renderSectionImg("Imagen", "image")}
         {viewCol.category && renderSectionBasicCap("Categoría", "category")}
         {viewCol.archived && renderSectionActive("Estado", "archived")}
       </div>
