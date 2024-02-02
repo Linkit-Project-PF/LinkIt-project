@@ -210,7 +210,7 @@ export default function HeadVacancy({
                   checked={viewCol.description}
                   onChange={hideCol}
                 />
-                Descipción
+                Descripción
               </label>
               <label>
                 <input

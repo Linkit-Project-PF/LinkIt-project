@@ -185,7 +185,7 @@ function App() {
       }
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="w-screen h-full">

@@ -38,7 +38,7 @@ export default function Admins() {
       }
     };
     loadData();
-  }, [saveStatus])
+  }, [saveStatus, dispatch, token])
 
   //?COLUMNAS
   const [viewCol, setViewCol] = useState({
@@ -48,7 +48,7 @@ export default function Admins() {
     pais: true,
     correo: true,
     'Fecha de creación': true,
-    imágen: true,
+    imagen: true,
     'Firebase Id': false,
     Estado: true,
   })
@@ -250,7 +250,7 @@ export default function Admins() {
         {viewCol.pais && renderSectionBasicCap("País", "country")}
         {viewCol.correo && renderSectionBasic("Correo", "email")}
         {viewCol["Fecha de creación"] && renderSectionBasicNoEdit("Fecha de Creación", "createdDate")}
-        {viewCol.imágen && renderSectionBasic("Imágen", "image")}
+        {viewCol.imagen && renderSectionBasic("Imagen", "image")}
         {viewCol["Firebase Id"] && renderSectionBasicNoEdit("Firebase Id", "firebaseId")}
         {viewCol.Estado && renderSectionActive("Estado", "active")}
       </div>

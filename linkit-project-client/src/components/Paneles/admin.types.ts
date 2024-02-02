@@ -8,7 +8,7 @@ export type VacancyProps = {
   stack: string[];
   aboutUs: string;
   aboutClient?: string;
-  responsabilities: string;
+  responsabilities: string[];
   requirements: string[];
   niceToHave: string[];
   benefits: string[];
@@ -243,7 +243,7 @@ export interface ViewColHeadCompaniesU {
   correo: boolean;
   linkedin: boolean;
   representante: boolean;
-  imágen: boolean;
+  imagen: boolean;
   "Fecha de registro": boolean;
   interesado: boolean;
   "AirTable Id": boolean;
@@ -280,7 +280,7 @@ export interface ViewColHeadAdmins {
   pais: boolean;
   correo: boolean;
   'Fecha de creación': boolean;
-  imágen: boolean;
+  imagen: boolean;
   'Firebase Id': boolean;
   Estado: boolean;
 }
@@ -318,7 +318,7 @@ export interface ViewColHeadTalent {
   'Fecha de creación': boolean;
   postulaciones: boolean;
   'Nivel de inglés': boolean;
-  imágen: boolean; 
+  imagen: boolean; 
   estado: boolean; 
 }
 

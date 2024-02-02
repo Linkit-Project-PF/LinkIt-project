@@ -54,7 +54,7 @@ export default function Users() {
     'Fecha de creación': true,
     postulaciones: true,
     'Nivel de inglés': true,
-    imágen: true,
+    imagen: true,
     estado: true,
   })
   const hideCol = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -290,7 +290,7 @@ export default function Users() {
         {viewCol["Fecha de creación"] && renderSectionBasicNoEdit("Fecha de creación", "createdDate")}
         {viewCol.postulaciones && renderSectionBasicNoEdit("Postulaciones", "postulations")}
         {viewCol["Nivel de inglés"] && renderSectionBasicNoEdit("Nivel de inglés", "englishLevel")}
-        {viewCol.imágen && renderSectionBasic("Imágen", "image")}
+        {viewCol.imagen && renderSectionBasic("Imagen", "image")}
         {viewCol.estado && renderSectionActive("Estado", "active")}
       </div>
       <div className="flex flex-row justify-around">
