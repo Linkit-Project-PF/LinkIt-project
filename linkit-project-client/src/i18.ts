@@ -46,6 +46,7 @@ export const i18nOptions: InitOptions = {
         "Contrata Talento": "Hire Talent",
         "4/5 en Truspilot": "4/5 on Truspilot",
         "Leer reviews": "Read reviews",
+        "Contacta para contratar": "Contact to hire",
         //Company module B
         "Nuestros servicios": "Our services",
         "Reclutamiento": "Recruitment",
