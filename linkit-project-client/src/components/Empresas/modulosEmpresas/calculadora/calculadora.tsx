@@ -493,8 +493,8 @@ useEffect(() => {
     return (
   
         <div className="bg-linkIt-500 grid justify-center p-[7%] dark:bg-linkIt-200">
-            <h1 className="text-black titles-size font-manrope font-bold text-center dark:text-white">{t('Calculadora')}</h1>
-            <h2 className="text-black subtitles-size font-montserrat font-medium text-center dark:text-white mb-[3%]">{t('Por favor rellena todos los campos para poder cotizar.')}</h2>
+            <h3 className="text-black titles-size font-manrope font-bold text-center dark:text-white">{t('Calculadora')}</h3>
+            <span className="text-black subtitles-size font-montserrat font-medium text-center dark:text-white mb-[3%]">{t('Por favor rellena todos los campos para poder cotizar.')}</span>
 
             <div className="hidden lg:block">
 
@@ -748,10 +748,10 @@ useEffect(() => {
  
 
           <div className="grid grid-cols-2 items-end dark:text-white">
-            <h2 className="subtitles-size font-montserrat font-semibold pl-[2%]">Pricing</h2>
+            <span className="subtitles-size font-montserrat font-semibold pl-[2%]">Pricing</span>
             <div className="flex justify-end gap-[5%] mx-[1%] pr-[2%] subtitles-size">
-                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 dark:text-white text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t(`Mínimo`)} USD</span>{price.min}</h2>
-                <h2 className="font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 dark:text-white text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t('Máximo')} USD</span>{price.max}</h2>
+                <p className="font-bold font-manrope text-end whitespace-nowrap"><span className=" font-medium text-linkIt-700 dark:text-white text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t(`Mínimo`)} USD</span>{price.min}</p>
+                <p className="font-bold font-manrope text-end whitespace-nowrap"><span className="font-medium text-linkIt-700 dark:text-white text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] font-montserrat mr-[2%]">{t('Máximo')} USD</span>{price.max}</p>
             </div>
             <hr className="bg-black h-[2px] lg:h-[3px] col-span-full mt-[1%] dark:bg-white"/>
             <p className={`lg:col-start-2 col-span-2 font-medium mt-3 font-manrope text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] xl:text-[1rem] justify-self-end ${price.min === "$0" && price.max === "$0" ? "opacity-0" : "opacity-100"}`}>{t('Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo.')}</p>

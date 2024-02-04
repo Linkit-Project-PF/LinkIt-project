@@ -28,20 +28,20 @@ export default function ModuloG () {
     }
         return ( 
             <div className="bg-linkIt-500 p-[7%] dark:bg-linkIt-200 dark:text-white">
-                <h1 className="font-bold grid col-span-4 titles-size text-center mb-[5%] font-manrope">{t('¿Por qué elegir LinkIT?')}</h1>
+                <h3 className="font-bold grid col-span-4 titles-size text-center mb-[5%] font-manrope">{t('¿Por qué elegir LinkIT?')}</h3>
                 <div className="grid-cols-4 hidden lg:grid">
-                    <h2 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
+                    <h4 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
                     {t('Hasta 5 días')}
-                    </h2>
-                    <h2 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
+                    </h4>
+                    <h4 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
                     {t('Más de 50 países')}
-                    </h2>
-                    <h2 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
+                    </h4>
+                    <h4 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
                     {t('Más de ')} 100
-                    </h2>
-                    <h2 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
+                    </h4>
+                    <h4 className="font-semibold mb-3 text-center subtitles-size font-montserrat">
                     {t('Más de ')} 10.000
-                    </h2>
+                    </h4>
                     <p className="text-center text-size font-montserrat">{t('para contactar a tu')} <br /> {t('próximo talento')}</p>
                     <p className="text-center text-size font-montserrat">{t('para seleccionar ')}<br /> {t('talentos')}</p>
                     <p className="text-center text-size font-montserrat">{t('tipos de lenguajes en los ')} <br />{t('que nos especializamos')}</p>
@@ -52,30 +52,30 @@ export default function ModuloG () {
                         <img src={isDarkMode ? whiteArrow : blackArrow} className=" w-[20px] rotate-90 cursor-pointer" onClick={handlePrev} alt="arrow" />
 
                         <div className={`${isActive === 1 ? 'block' : 'hidden'}`}>
-                        <h2 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
+                        <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
                     {t('Hasta 5 días')}
-                    </h2>
+                    </h4>
                     <p className="text-center text-size font-montserrat">{t('para contactar a tu')} <br /> {t('próximo talento')}</p>
 
                         </div>
                         <div className={`${isActive === 2 ? 'block' : 'hidden'}`}>
-                        <h2 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
+                        <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
                     {t('Más de 50 países')}
-                    </h2>
+                    </h4>
                     <p className="text-center text-size font-montserrat">{t('para seleccionar ')}<br /> {t('talentos')}</p>
 
                         </div>
                         <div className={`${isActive === 3 ? 'block' : 'hidden'}`}>
-                        <h2 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
+                        <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
                     {t('Más de ')} 100
-                    </h2>
+                    </h4>
                     <p className="text-center text-size font-montserrat">{t('tipos de lenguajes en los ')} <br /> {t('que nos especializamos')}</p>
 
                         </div>
                         <div className={`${isActive === 4 ? 'block' : 'hidden'}`}>
-                        <h2 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
+                        <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
                     {t('Más de ')} 10.000
-                    </h2>
+                    </h4>
                     <p className="text-center  text-size font-montserrat">{t('candidatos listos para')}<br /> {t('trabajar')}</p>
                         </div>
                         <img src={isDarkMode ? whiteArrow : blackArrow} className="w-[20px] -rotate-90 cursor-pointer" onClick={handleNext} alt="arrow" />

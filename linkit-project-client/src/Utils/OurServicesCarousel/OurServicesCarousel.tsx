@@ -24,6 +24,34 @@ export default function OurServicesCarousel({ component }: OurServicesCarouselPr
         setTimeout(() => {
           window.location.href = "#serviciosE";
         }, 0);
+
+
+        setTimeout(() => {
+        const updatedIconsToRender = [...iconsToRender];
+        const newFirstIcon = updatedIconsToRender.pop();
+        updatedIconsToRender.unshift(newFirstIcon as any);
+        setIconsToRender(updatedIconsToRender);
+        setFirstIcon(updatedIconsToRender[0]);
+        setThirdIcon(updatedIconsToRender[2]);
+    
+        const newIconActive = updatedIconsToRender[1].toString().charAt(10);
+        switch (newIconActive) {
+            case 'p':
+                setIconActive('peopleIcon');
+                setIconToRender(peopleIcon_green);
+                break;
+            case 'l':
+                setIconActive('letterIcon');
+                setIconToRender(letterIcon_green);
+                break;
+            case 'C':
+                setIconActive('checkedIcon');
+                setIconToRender(checkedIcon_green);
+                break;
+            default:
+                break;
+      };
+    }, 4000);
     };
 
 

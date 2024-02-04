@@ -550,7 +550,7 @@ function NavBar() {
               </button>
               <div className="cl-toggle-switch top-[1px]">
                 <label className="cl-switch">
-                  <input type="checkbox" onChange={darkMode} checked={isDarkMode} />
+                  <input type="checkbox" readOnly onChange={darkMode} checked={isDarkMode} />
                   <span></span>
                 </label>
               </div>
@@ -611,7 +611,7 @@ function NavBar() {
 
           <div className="cl-toggle-switch hidden lg:flex">
             <label className="cl-switch">
-              <input type="checkbox" onChange={darkMode} checked={isDarkMode} />
+              <input type="checkbox" onChange={darkMode} readOnly checked={isDarkMode} />
               <span></span>
             </label>
           </div>
