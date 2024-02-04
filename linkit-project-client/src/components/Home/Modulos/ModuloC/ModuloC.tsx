@@ -10,13 +10,13 @@ export default function ModuloC() {
 
     return (
         <div className="p-[7%] dark:bg-linkIt-200 dark:text-white overflow-hidden">
+            <h3 className=" titles-size font-bold text-center font-manrope">{t('¿Qué nos hace diferentes?')}</h3>
                 <div className="hidden lg:block">
-            <h1 className=" titles-size font-bold text-center font-manrope">{t('¿Qué nos hace diferentes?')}</h1>
             <div className="grid grid-cols-4">
-                        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Sin riesgos')}</h2>
-                        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Fee a medida')}</h2>
-                        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Garantía')}</h2>
-                        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center  whitespace-nowrap">{t('Seguimiento continuo')}</h2>
+                        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Sin riesgos')}</h4>
+                        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Fee a medida')}</h4>
+                        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center">{t('Garantía')}</h4>
+                        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center  whitespace-nowrap">{t('Seguimiento continuo')}</h4>
                         <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Ofrecemos un servicio de calidad a éxito. No hay anticipos; el pago es al efectivizar la contratación.')}</p>
                         <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Personalizamos nuestro fee a tus necesidades y ahorra hasta un 50% en la contratación.')}</p>
                         <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Garantía de por vida contratando a través de LinkIT.')}</p>
@@ -32,7 +32,6 @@ export default function ModuloC() {
             </div> 
             </div>
              <div className="block lg:hidden">
-                <h1 className="titles-size font-bold text-center font-manrope">{t('¿Qué nos hace diferentes?')}</h1>
                 <WhatMakeUsDCarousel />
                 </div>
         </div>
