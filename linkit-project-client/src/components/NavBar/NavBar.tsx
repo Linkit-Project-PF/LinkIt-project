@@ -156,7 +156,7 @@ function NavBar() {
     navigate("/SoyEmpresa");
     setTimeout(() => {
       window.location.href = "#calculadora";
-    }, 1000);
+    }, 0);
   };
 
   const goSoyTalento = () => {

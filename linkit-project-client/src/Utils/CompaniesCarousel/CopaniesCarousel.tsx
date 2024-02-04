@@ -20,9 +20,9 @@ export default function CompaniesCarousel() {
 
   return (
     <div className="flex flex-col p-[7%] ">
-      <h1 className="flex relative justify-center font-bold titles-size text-center font-manrope mb-[5%]">
+      <h3 className="flex relative justify-center font-bold titles-size text-center font-manrope mb-[5%]">
         {t("Más de 500 empresas confían en LinkIT")}
-      </h1>
+      </h3>
       <div
         x-data="{}"
         x-init="$nextTick(() => {
