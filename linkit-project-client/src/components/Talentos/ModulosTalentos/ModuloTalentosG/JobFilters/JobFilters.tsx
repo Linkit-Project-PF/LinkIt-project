@@ -138,7 +138,7 @@ const JobFilters = () => {
 
   return (
     <div className="w-full">
-    <div className="hidden lg:flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400">
+    <div className="hidden lg:flex rounded-[7px] p-4 my-[5%] h-[4rem] items-center whitespace-nowrap bg-white text-linkIt-400">
       <div className="grid grid-cols-4 w-full font-montserrat font-semibold justify-items-center items-center">
         <div>
           <Dropdown label={stack} inline theme={customTheme} className="h-40 overflow-y-scroll font-medium ">
@@ -284,7 +284,7 @@ const JobFilters = () => {
     </div>
 
   <div className="lg:hidden">
-<div className=" flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
+<div className=" flex rounded-[7px] p-4 my-7 h-[3rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
 <div className="grid grid-cols-2 w-full font-montserrat font-semibold justify-items-center items-center">
   <div>
 <Dropdown label={stack} inline theme={customTheme} className="h-40 overflow-y-scroll font-medium">
@@ -343,7 +343,7 @@ const JobFilters = () => {
 
   </div>
   </div>
-<div className=" flex rounded-[7px] p-4 my-7 h-[4rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
+<div className=" flex rounded-[7px] p-4 my-7 h-[3rem] items-center whitespace-nowrap bg-linkIt-500 text-linkIt-400 w-full">
 <div className="grid grid-cols-2 w-full font-montserrat font-semibold justify-items-center items-center">
 <section>
         {language === "en" ? (
@@ -406,16 +406,17 @@ const JobFilters = () => {
   </div>
   </div>
 
-<div className="relative flex items-center justify-center whitespace-nowrap z-[1]">
+<div className="relative flex items-center justify-center whitespace-nowrap z-[1] w-full">
   
       <button
-        className="background-button whitespace-nowrap mr-3 relative "
+        className="background-button whitespace-nowrap mr-3 relative hover:text-linkIt-200 hover:bg-white"
         onClick={() => handleFilters()}
       >
         Encontrar Vacante
       </button>
+
       <button
-        className="bg-linkIt-300 text-white rounded-full py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat font-[500] hover:scale-105"
+        className="bg-linkIt-300 text-white rounded-full py-[.4rem] px-[.4rem] border-[2px] border-linkIt-300  transition-all duration-300 ease-in-out font-montserrat hover:scale-105"
         onClick={() => {
           dispatch(applyFilters(allJobOffers)),
             setStack("Stack"),

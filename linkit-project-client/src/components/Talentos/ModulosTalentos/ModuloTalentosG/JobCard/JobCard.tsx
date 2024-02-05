@@ -24,14 +24,14 @@ export const JobCard: FunctionComponent<JobCardProps> = ({ title, location, moda
   
   return (
     <motion.div 
-    className="flex space-x-3 bg-white border border-gray-300 rounded-md p-4 w-full"
+    className="flex space-x-3 bg-transparent border border-gray-300 rounded-md p-4 w-full"
     onClick={handleClick}
     whileHover={{cursor: 'pointer'}}
     >
       <div>
-        <h3 className="text-gray-900 font-bold text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem]">{`${title}`}</h3>
-        <span className="text-gray-500 text-[0.6rem] ssm:text-[0.7rem] sm:text-[0.9rem] lg:text-[0.7rem] xl:text-[0.9rem]">{`${location}, ${modality}`}</span>
-        <div className="mt-3 h-5 w-fit px-3 py-1 flex items-center rounded-lg bg-linkIt-200">
+        <h3 className="text-white font-bold text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1.2rem]">{`${title}`}</h3>
+        <span className="text-white text-[0.6rem] ssm:text-[0.7rem] sm:text-[0.9rem] lg:text-[0.7rem] xl:text-[1rem]">{`${location}, ${modality}`}</span>
+        <div className="mt-3 h-5 w-fit px-3 py-1 flex items-center rounded-lg bg-linkIt-300">
           <p className="text-white  text-[0.5rem] ssm:text-[0.6rem] sm:text-[0.8rem] lg:text-[0.6rem] xl:text-[0.8rem]">
             {`${type}`}
           </p>
