@@ -97,7 +97,7 @@ function Register() {
         title: t("Espera un momento"),
         text: t("Estamos registrando tu cuenta"),
         confirmButtonText: t("Iniciar sesión"),
-        confirmButtonColor: "#2D46B9",
+        confirmButtonColor: "#01A28B",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
@@ -156,11 +156,11 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: `${t("Bienvenido a LinkIT")}, ${user.firstName}, ${t(
+          text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}, ${t(
             "Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."
           )}`,
           confirmButtonText: t("Confirmar"),
-          confirmButtonColor: "#2D46B9",
+          confirmButtonColor: "#01A28B",
           allowOutsideClick: true,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -189,7 +189,7 @@ function Register() {
           title: "¡Error!",
           text: `${error.response?.data}`,
           confirmButtonText: t("Aceptar"),
-          confirmButtonColor: "#2D46B9",
+          confirmButtonColor: "#01A28B",
           allowOutsideClick: true,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -263,13 +263,13 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: `${t("!Bienvenido a LinkIT¡")} ${
+          text: `${t("Bienvenido/a a LinkIT")} ${
             DBresponse.role === "company"
               ? DBresponse.companyName
               : DBresponse.firstName
           } ${"Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."}`,
           confirmButtonText: t("Confirmar"),
-          confirmButtonColor: "#2D46B9",
+          confirmButtonColor: "#01A28B",
           // didOpen: () => {
           //   Swal.showLoading();
           // },
@@ -288,7 +288,7 @@ function Register() {
           title: "¡Error!",
           text: `${error.message}`,
           confirmButtonText: t("Aceptar"),
-          confirmButtonColor: "#2D46B9",
+          confirmButtonColor: "#01A28B",
           allowOutsideClick: true,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -311,7 +311,7 @@ function Register() {
           title: "¡Error!",
           text: `${error.response.data}`,
           confirmButtonText: t("Aceptar"),
-          confirmButtonColor: "#2D46B9",
+          confirmButtonColor: "#01A28B",
           allowOutsideClick: true,
           allowEscapeKey: false,
           allowEnterKey: false,
@@ -334,7 +334,7 @@ function Register() {
           title: "¡Error!",
           text: error,
           confirmButtonText: t("Aceptar"),
-          confirmButtonColor: "#2D46B9",
+          confirmButtonColor: "#01A28B",
           allowOutsideClick: true,
           allowEscapeKey: false,
           allowEnterKey: false,

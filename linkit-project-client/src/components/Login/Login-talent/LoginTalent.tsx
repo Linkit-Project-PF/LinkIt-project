@@ -112,7 +112,7 @@ function LoginTalent() {
 
       if (response.status === 200) {
         Swal.fire({
-          title: t("Bienvenido de vuelta ") + response.data.firstName,
+          title: t("Bienvenido/a de vuelta ") + response.data.firstName,
           text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
@@ -159,7 +159,7 @@ function LoginTalent() {
             prov
           );
           Swal.fire({
-            title: t("Bienvenido", { name: DBresponse.name }),
+            title: t("Bienvenido/a", { name: DBresponse.name }),
             text: t("Se ha creado una nueva cuenta para ti"),
             icon: "success",
             iconColor: "#173951",
@@ -189,7 +189,7 @@ function LoginTalent() {
             const authUser = usersData.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
-              title: t("Bienvenido de vuelta ") + authUser.firstName,
+              title: t("Bienvenido/a de vuelta ") + authUser.firstName,
               text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
@@ -218,7 +218,7 @@ function LoginTalent() {
               const authAdmin = adminData.data[0];
               dispatch(loginSuccess(authAdmin));
               Swal.fire({
-                title: t("Bienvenido de vuelta ") + authAdmin.firstName,
+                title: t("Bienvenido/a de vuelta ") + authAdmin.firstName,
                 text: t("Has ingresado correctamente"),
                 icon: "success",
                 iconColor: "#173951",
@@ -271,7 +271,7 @@ function LoginTalent() {
         title: t("Espera un momento"),
         text: t(`Estamos autenticando tu cuenta`),
         confirmButtonText: t("Iniciar sesión"),
-        confirmButtonColor: "#2D46B9",
+        confirmButtonColor: "#01A28B",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,

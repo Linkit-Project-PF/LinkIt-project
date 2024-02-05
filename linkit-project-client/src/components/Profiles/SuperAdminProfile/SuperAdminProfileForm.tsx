@@ -40,6 +40,7 @@ const SuperAdminProfileForm: FunctionComponent = () => {
           icon: "success",
           confirmButtonText: "Ok",
           confirmButtonColor: "#01A28B",
+
         });
     } catch (error: any) {
       console.log(error);
@@ -48,7 +49,8 @@ const SuperAdminProfileForm: FunctionComponent = () => {
         text: error.message,
         icon: "error",
         confirmButtonText: "Ok",
-        confirmButtonColor: "#0098DA",
+        confirmButtonColor: "#01A28B",
+
       });
     }
   }
