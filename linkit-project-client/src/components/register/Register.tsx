@@ -156,7 +156,7 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: `${t("Bienvenido a LinkIT")}, ${user.firstName}, ${t(
+          text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}, ${t(
             "Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."
           )}`,
           confirmButtonText: t("Confirmar"),
@@ -263,7 +263,7 @@ function Register() {
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
-          text: `${t("!Bienvenido a LinkIT¡")} ${
+          text: `${t("Bienvenido/a a LinkIT")} ${
             DBresponse.role === "company"
               ? DBresponse.companyName
               : DBresponse.firstName
