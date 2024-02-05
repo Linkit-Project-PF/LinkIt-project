@@ -251,7 +251,7 @@ function LoginCompany() {
         title: t("Espera un momento"),
         text: t("Estamos autenticando tu cuenta"),
         confirmButtonText: t("Iniciar sesión"),
-        confirmButtonColor: "#2D46B9",
+        confirmButtonColor: "#01A28B",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
