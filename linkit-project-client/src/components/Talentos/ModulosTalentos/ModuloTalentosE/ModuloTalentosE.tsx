@@ -8,13 +8,13 @@ export default function ModuloTalentosE() {
     return (
 
 <div className="p-[7%] dark:bg-linkIt-200 bg-linkIt-500 text-linkIt-200 dark:text-white overflow-hidden">
-<h1 className="titles-size font-bold text-center font-manrope">{t('Cómo aplicar')}</h1>
+<h3 className="titles-size font-bold text-center font-manrope">{t('Cómo aplicar')}</h3>
 <div className="hidden lg:block">
 <div className="grid grid-cols-4">
-        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Consulta nuestras vacantes')}</h2>
-        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Aplica completando el formulario')}</h2>
-        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Proceso de entrevistas')}</h2>
-        <h2 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Consigue el trabajo de tus sueños')}</h2>
+        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Consulta nuestras vacantes')}</h4>
+        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Aplica completando el formulario')}</h4>
+        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Proceso de entrevistas')}</h4>
+        <h4 className="subtitles-size font-manrope font-bold mt-[10%] justify-self-center px-[7%] text-center">{t('Consigue el trabajo de tus sueños')}</h4>
         <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Tenemos posiciones abiertas en múltiples áreas de crecimiento.')}</p>
         <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Selecciona tu posición ideal rellenando la solicitud en pocos clicks.')}</p>
         <p className="text-center text-size mt-[5%] font-montserrat font-medium px-[15%]">{t('Conoce en detalle la oportunidad y prepárate para los próximos pasos.')}</p>

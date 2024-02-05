@@ -25,12 +25,12 @@ const TestimonialCard: FunctionComponent<TestimonialCardProps> = ({
       className="h-[13rem] xs:h-[15rem] ssm:h-[20rem] lg:h-full w-full p-[8%] border-[0.13rem] rounded-[7px] font-montserrat bg-white shadow-lg flex flex-col"
     >
       <div className="h-[90%] lg:h-[70%] border-b-[2px] border-linkIt-500">
-        <p className="font-semibold text-[0.7rem] xs:text-[0.9rem] ssm:text-[1.2rem] 1xl:text-[1.3rem]">{detail}</p>
+        <p className="font-semibold text-[0.7rem] xs:text-[0.9rem] ssm:text-[1.2rem] 1xl:text-[1.3rem] line-clamp-4">{detail}</p>
       </div>
-      <div className="mt-3">
-        <p className="font-bold text-[0.7rem] xs:text-[0.9rem] ssm:text-[1.2rem] 1xl:text-[1.3rem]">{name}</p>
-        <p className="text-[0.7rem] xs:text-[0.9rem] ssm:text-[1rem]  1xl:text-[1.1rem] font-semibold">{rol}</p>
-        <p className="text-[0.7rem] xs:text-[0.9rem] ssm:text-[1rem] 1xl:text-[1.1rem] font-semibold">{country}</p>
+      <div className="mt-3 grid">
+        <span className="font-bold text-[0.7rem] xs:text-[0.9rem] ssm:text-[1.2rem] 1xl:text-[1.3rem]">{name}</span>
+        <span className="text-[0.7rem] xs:text-[0.9rem] ssm:text-[1rem]  1xl:text-[1.1rem] font-semibold">{rol}</span>
+        <span className="text-[0.7rem] xs:text-[0.9rem] ssm:text-[1rem] 1xl:text-[1.1rem] font-semibold">{country}</span>
       </div>
     </motion.div>
   );

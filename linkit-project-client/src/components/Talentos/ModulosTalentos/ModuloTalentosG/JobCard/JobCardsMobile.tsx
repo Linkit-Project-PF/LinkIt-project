@@ -5,16 +5,13 @@ import { getJobOffers } from '../../../../Services/jobOffers.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobOffers } from '../../../../../redux/features/JobCardsSlice';
 import { motion } from 'framer-motion';
-import blackArrow from "/Vectores/arrow.png";
 import whiteArrow from "/Vectores/white-arrow.png"
-import { RootState } from "../../../../../redux/types";
-
+import { useTranslation } from 'react-i18next';
 
 const JobCardsMobile: FunctionComponent = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const [current, setCurrent] = useState(0);
-  const isDarkMode = useSelector(
-    (state: RootState) => state.darkMode);
 
 
   const jobOffers = useSelector((state: any) => state.jobCard.jobOffers as JobCardProps[]);
@@ -44,28 +41,32 @@ const JobCardsMobile: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex w-full h-full items-center justify-center space-x-[5%] my-[5%]">
-      <button onClick={handlePrev} className=""><img src={isDarkMode ? whiteArrow : blackArrow} alt="previus" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" /></button>
-      <div className="grid lg:grid-cols-3 lg:grid-rows-2">
+    <div className="flex h-full items-center justify-center my-[5%]">
+      <button onClick={handlePrev} className=""><img src={whiteArrow } alt="previus" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" /></button>
+      <div className="justify-center items-center w-full">
         {jobOffers.length === 0
         ? (
-          <div className='flex flex-row justify-center items-center content-center w-full h-[20rem] col-span-3 row-span-2'>
+          <div className='flex flex-row justify-center items-center content-center my-[10%] mx-2 text-white'>
             <motion.p 
-            className='font-montserrat text-[1rem] ssm:text-[1.5rem] xl:text-[1.5rem] whitespace-nowrap'
+            className='font-montserrat subtitles-size text-center'
             initial={{ opacity: 0, x: -1000 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5, type: 'spring', bounce: 0.25 }}
-            >¡Ups! No se encontraron ofertas de trabajo
+            >{t('¡Ups! No se encontraron ofertas de trabajo')}
             </motion.p>
           </div>
           
         )
-        : jobOffersToShow.map((jobDescription) => (
+        :
+        <div className='mx-[5%] grid gap-[3%]'>{
+         jobOffersToShow.map((jobDescription) => (
         <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
-        ))
-      }
+        ))}
+        </div>
+      } 
+      
       </div>
-      <button onClick={handleNext} className=""><img src={isDarkMode ? whiteArrow : blackArrow} alt="next" className="-rotate-90 w-[20px] justify-self-end ssm:justify-self-center cursor-pointer" /></button>
+      <button onClick={handleNext} className=""><img src={whiteArrow } alt="next" className="-rotate-90 w-[20px] justify-self-end ssm:justify-self-center cursor-pointer" /></button>
     </div>
   );
 };

@@ -20,38 +20,16 @@ export default function OurServicesCarousel({ component }: OurServicesCarouselPr
 
 
     const goSoyEmpresa = () => {
+      if(IconActive === 'letterIcon'){
         navigate("/SoyEmpresa");
         setTimeout(() => {
           window.location.href = "#serviciosE";
+
         }, 0);
-
-
-        setTimeout(() => {
-        const updatedIconsToRender = [...iconsToRender];
-        const newFirstIcon = updatedIconsToRender.pop();
-        updatedIconsToRender.unshift(newFirstIcon as any);
-        setIconsToRender(updatedIconsToRender);
-        setFirstIcon(updatedIconsToRender[0]);
-        setThirdIcon(updatedIconsToRender[2]);
-    
-        const newIconActive = updatedIconsToRender[1].toString().charAt(10);
-        switch (newIconActive) {
-            case 'p':
-                setIconActive('peopleIcon');
-                setIconToRender(peopleIcon_green);
-                break;
-            case 'l':
-                setIconActive('letterIcon');
-                setIconToRender(letterIcon_green);
-                break;
-            case 'C':
-                setIconActive('checkedIcon');
-                setIconToRender(checkedIcon_green);
-                break;
-            default:
-                break;
-      };
-    }, 4000);
+        setTimeout(() => { 
+          
+        }, 1000);
+      }
     };
 
 
@@ -63,10 +41,14 @@ export default function OurServicesCarousel({ component }: OurServicesCarouselPr
     peopleIcon,
     checkedIcon,
   ];
+
+
+
+  
   const [iconsToRender, setIconsToRender] = useState(initialIconsToRender);
   const [firstIcon, setFirstIcon] = useState(iconsToRender[0]);
-  const [thirdIcon, setThirdIcon] = useState(iconsToRender[2]);
   const [IconActive, setIconActive] = useState('peopleIcon');
+  const [thirdIcon, setThirdIcon] = useState(iconsToRender[2]);
   const [IconToRender, setIconToRender] = useState(peopleIcon_green);
 
 
@@ -77,6 +59,7 @@ export default function OurServicesCarousel({ component }: OurServicesCarouselPr
     const updatedIconsToRender = [...iconsToRender];
     const newFirstIcon = updatedIconsToRender.pop();
     updatedIconsToRender.unshift(newFirstIcon as any);
+
     setIconsToRender(updatedIconsToRender);
     setFirstIcon(updatedIconsToRender[0]);
     setThirdIcon(updatedIconsToRender[2]);
