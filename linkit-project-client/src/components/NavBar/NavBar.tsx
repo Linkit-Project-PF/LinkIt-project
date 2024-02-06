@@ -115,7 +115,7 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
   const scopeSoyTalento = useMenuAnimation(isOpenSoyTalento);
 
-  const { isAuthenticated, role } = useSelector(
+  const { isAuthenticated, role, user } = useSelector(
     (state: RootState) => state.Authentication
   );
 
@@ -634,11 +634,24 @@ function NavBar() {
             <Languaje />
           </div>
           <Dropdown
-      label={<Avatar alt="User settings" img={userGreen} rounded className="border-[1px] rounded-full border-linkIt-300 p-1 w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] lg:w-[35px] lg:h-[35px]" />}
-      arrowIcon={false}
-      inline
-      theme={customTheme}
-    >
+            label={
+              user?.image 
+                ? <Avatar
+                alt="User settings" 
+                img={user.image} 
+                rounded
+                /> 
+                : <Avatar
+                alt="User settings" 
+                img={userGreen} 
+                rounded
+                className="border-[1px] rounded-full border-linkIt-300 p-1 w-[25px] h-[20px] xs:w-[30px] xs:h-[30px] lg:w-[35px] lg:h-[35px]"
+                />
+              }
+            arrowIcon={false}
+            inline
+            theme={customTheme}
+          >
       {isAuthenticated && role === "user" ? (
                   <div>
                     <Dropdown.Item
