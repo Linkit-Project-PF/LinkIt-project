@@ -12,6 +12,7 @@ import ReviewsSlice from "./features/ReviewsSlice";
 import ClientsFollowUpSlice from "./features/ClientsFollowUpSlice";
 import UsersSlice from "./features/UsersSlice";
 import darkModeSlice from "./features/darkModeSlice";
+import ourServicesSlice from "./features/OurServicesSlice";
 
 const persistConfig = {
   key: "root",
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   jobData: ClientsFollowUpSlice,
   users: UsersSlice,
   darkMode: darkModeSlice,
+  ourServices: ourServicesSlice,
 });
 
 const store = configureStore({
