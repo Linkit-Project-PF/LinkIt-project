@@ -13,6 +13,7 @@ export interface RootState {
   jobCard: any;
   resources: any;
   darkMode: boolean;
+  ourServices: any;
 }
 
 export interface JobData {

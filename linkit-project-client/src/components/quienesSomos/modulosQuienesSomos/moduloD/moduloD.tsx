@@ -14,9 +14,9 @@ export default function ModuloD() {
         <div className='hidden lg:block'>
 <div className="grid lg:grid-cols-2 p-[7%] bg-linkIt-300 dark:bg-linkIt-400">
     <div className='flex flex-col lg:flex-row w-full items-end justify-end relative lg:col-span-full mb-[5%]'>
-<h1 className="text-white xs:text-[1.3rem] ssm:text-[1.8rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[1.5rem] xl:text-[2rem] 1xl:text-[2.5rem] font-manrope font-extrabold">
+<p className="text-white xs:text-[1.3rem] ssm:text-[1.8rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[1.5rem] xl:text-[2rem] 1xl:text-[2.5rem] font-manrope font-extrabold">
 {t('Todo nace luego de la pandemia, más precisamente allí por mediados del 2021, luego de reiteradas conversaciones de unos amigos hablando de encontrar')} <span className="bg-neutral-100 bg-opacity-[0.2]">{t('el lugar ideal')}</span> {t('para trabajar, si el mismo existiera, cómo hacer para sentirse')} <span className="bg-neutral-100 bg-opacity-[0.2]">{t('pleno y realmente feliz')}</span> {t('en el trabajo, no cómodo o contento... desde ese entonces nace LinkIT.')}
-</h1>
+</p>
 <div  className="w-full grid items-end justify-end relative before:w-full before:h-[1px] before:absolute before:bg-white before:top-[100%] lg:col-span-full">
 <p className="text-white  text-[0.6rem] ssm:text-[1rem] text-end">{t('Nuestra Historia')}</p>
 </div>
@@ -48,9 +48,9 @@ export default function ModuloD() {
     <div className={`lg:hidden ${ show2 ? "block" : "hidden" }`}>
 <div className="grid lg:grid-cols-2 p-[7%] bg-linkIt-300 dark:bg-linkIt-400">
     <div className='flex flex-col lg:flex-row w-full items-end justify-end relative lg:col-span-full mb-[5%]'>
-<h1 className="text-white xs:text-[1.3rem] ssm:text-[1.8rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[1.5rem] xl:text-[2rem] 1xl:text-[2.5rem] font-manrope font-extrabold">
+<p className="text-white xs:text-[1.3rem] ssm:text-[1.8rem] sm:text-[2rem] md:text-[2.3rem] lg:text-[1.5rem] xl:text-[2rem] 1xl:text-[2.5rem] font-manrope font-extrabold">
 {t('Todo nace luego de la pandemia, más precisamente allí por mediados del 2021, luego de reiteradas conversaciones de unos amigos hablando de encontrar')} <span className="bg-neutral-100 bg-opacity-[0.2]">{t('el lugar ideal')}</span> {t('para trabajar, si el mismo existiera, cómo hacer para sentirse')} <span className="bg-neutral-100 bg-opacity-[0.2]">{t('pleno y realmente feliz')}</span> {t('en el trabajo, no cómodo o contento... desde ese entonces nace LinkIT.')}
-</h1>
+</p>
 <div  className="w-full grid items-end justify-end relative before:w-full before:h-[1px] before:absolute before:bg-white before:top-[100%] lg:col-span-full">
 <p className="text-white  text-[0.6rem] ssm:text-[1rem] text-end">{t('Nuestra Historia')}</p>
 </div>
