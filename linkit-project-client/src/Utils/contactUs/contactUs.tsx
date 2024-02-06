@@ -79,15 +79,21 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 
   if (type === "checkbox") {
     if (checked) {
-      setContacts({
-        ...contacts,
-        service: [...contacts.service, value],
+      setContacts(prevContacts => {
+        if (!prevContacts.service.includes(value)) {
+          return {
+            ...prevContacts,
+            service: [...prevContacts.service, value],
+          };
+        } else {
+          return prevContacts;
+        }
       });
     } else {
-      setContacts({
-        ...contacts,
-        service: contacts.service.filter((service) => service !== value),
-      });
+      setContacts(prevContacts => ({
+        ...prevContacts,
+        service: prevContacts.service.filter((service) => service !== value),
+      }));
     }
   } else {
     setContacts({
