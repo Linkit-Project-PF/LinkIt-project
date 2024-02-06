@@ -674,6 +674,7 @@ export const i18nOptions: InitOptions = {
         'Volver atrás': 'Back',
         'Cancelado': 'Cancelled',
         'Tu postulación sigue en curso': 'Your application is still in progress',
+        'Cargando información':"Gathering JD information",
 
         //! Permission Form
         "Administradores": "Admins",
