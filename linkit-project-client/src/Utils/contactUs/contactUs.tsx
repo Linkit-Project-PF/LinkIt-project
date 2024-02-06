@@ -79,15 +79,21 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 
   if (type === "checkbox") {
     if (checked) {
-      setContacts({
-        ...contacts,
-        service: [...contacts.service, value],
+      setContacts(prevContacts => {
+        if (!prevContacts.service.includes(value)) {
+          return {
+            ...prevContacts,
+            service: [...prevContacts.service, value],
+          };
+        } else {
+          return prevContacts;
+        }
       });
     } else {
-      setContacts({
-        ...contacts,
-        service: contacts.service.filter((service) => service !== value),
-      });
+      setContacts(prevContacts => ({
+        ...prevContacts,
+        service: prevContacts.service.filter((service) => service !== value),
+      }));
     }
   } else {
     setContacts({
@@ -153,7 +159,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
 }
   return (
     <div className="bg-linkIt-300 text-white grid lg:flex p-[7%] lg:gap-[10%] dark:bg-linkIt-400">
-      <h1 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.7rem] sm:text-[1.9rem] md:text-[2.3rem] xl:text-[2.5rem] leading-tight justify-self-center font-manrope">{t('Contáctanos para escalar tu equipo')}</h1>
+      <h3 className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.7rem] sm:text-[1.9rem] md:text-[2.3rem] xl:text-[2.5rem] leading-tight justify-self-center font-manrope">{t('Contáctanos para escalar tu equipo')}</h3>
       <form className="grid grid-cols-2 gap-y-[4%] gap-x-[2%] pt-[2%] font-montserrat whitespace-nowrap w-full" onSubmit={contactsBtn}>
         <div>
         <input className={`${errors.firstName ? ' border-black' : 'border-white'} border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full ring-0 focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder={t("Nombre")} name="firstName" value={contacts.firstName} onChange={handleChange} onBlur={handleChange} />

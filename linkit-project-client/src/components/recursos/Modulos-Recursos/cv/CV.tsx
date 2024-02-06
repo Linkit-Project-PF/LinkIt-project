@@ -4,6 +4,15 @@ import "./CV.css";
 function CV() {
   const {t}= useTranslation()
 
+  const downloadTemplate = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault()
+    const fileUrl = "../../../../../public/CV/CVHarvardtemplate.doc";
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = "CVHarvardtemplate.doc";
+    link.click();
+  };
+
 
   return (
     <div className="bg-linkIt-300 p-[7%] relative grid grid-cols-2 gap-2 ">
@@ -12,13 +21,12 @@ function CV() {
               {t('Arma tu CV')} <br /> {t('con nuestro')} <br /> template
             </h2>
             
-              <a 
-                href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fcdn-careerservices.fas.harvard.edu%2Fwp-content%2Fuploads%2Fsites%2F161%2F2023%2F08%2Ftemplate_bullet-1.doc&wdOrigin=BROWSELINK"
-                target="_blank" 
-                className="text-white border-[2px] border-white rounded-[7px] w-fit p-2 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem]"
-              >
-                {t('Descargar Plantilla')}
-              </a>
+            <a onClick={(event) => downloadTemplate(event)}
+              href="#"
+              className="text-white border-[2px] border-white rounded-[7px] w-fit p-2 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem]"
+            >
+              {t('Descargar Plantilla')}
+            </a>
             
             </div>
           <img

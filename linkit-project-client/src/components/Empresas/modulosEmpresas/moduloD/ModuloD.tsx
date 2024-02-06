@@ -37,7 +37,7 @@ export default function ModuloA() {
 
     return (
       <div className="grid items-center justify-items-center bg-linkIt-500 dark:bg-linkIt-400 p-[7%]">
-        <h1 className="flex titles-size justify-self-center font-bold font-manrope dark:text-white text-center">{t('Lo que dicen nuestros clientes')}</h1>
+        <h3 className="flex titles-size justify-self-center font-bold font-manrope dark:text-white text-center">{t('Lo que dicen nuestros clientes')}</h3>
         <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank">
         <motion.button className="transparent-background-button dark:bg-linkIt-300 dark:text-white dark:hover:text-linkIt-300 dark:hover:bg-white mt-3" whileTap={{ scale: 0.9 }}>{t('Conoce los casos de éxito')}</motion.button></Link>
         <div className="grid-cols-4 space-x-3 mt-16 hidden lg:grid">

@@ -106,7 +106,7 @@ function LoginCompany() {
       const loggedCompany = response.data;
       if (response.status === 200) {
         Swal.fire({
-          title: t("Bienvenido de vuelta ") + loggedCompany.companyName,
+          title: t("Bienvenido/a de vuelta ") + loggedCompany.companyName,
           text: t("Has ingresado correctamente"),
           icon: "success",
           iconColor: "#173951",
@@ -149,7 +149,7 @@ function LoginCompany() {
             "google"
           );
           Swal.fire({
-            title: t("Bienvenido", { name: DBresponse.companyName }),
+            title: t("Bienvenido/a", { name: DBresponse.companyName }),
             text: t("Has ingresado correctamente"),
             icon: "success",
             iconColor: "#173951",
@@ -178,7 +178,7 @@ function LoginCompany() {
             const authUser = getCompanyResponse.data[0];
             dispatch(loginSuccess(authUser));
             Swal.fire({
-              title: t("Bienvenido de vuelta ") + authUser.companyName,
+              title: t("Bienvenido/a de vuelta ") + authUser.companyName,
               text: t("Has ingresado correctamente"),
               icon: "success",
               iconColor: "#173951",
@@ -251,7 +251,7 @@ function LoginCompany() {
         title: t("Espera un momento"),
         text: t("Estamos autenticando tu cuenta"),
         confirmButtonText: t("Iniciar sesión"),
-        confirmButtonColor: "#2D46B9",
+        confirmButtonColor: "#01A28B",
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,

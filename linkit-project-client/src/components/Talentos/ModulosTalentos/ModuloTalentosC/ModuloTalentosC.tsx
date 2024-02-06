@@ -12,7 +12,7 @@ const ModuloTalentosG: React.FC = () => {
 
   return (
     <div className="grid justify-items-center bg-linkIt-500 p-[7%] dark:bg-linkIt-200 ">
-      <h1 className="titles-size text-center justify-center font-manrope mb-[5%] font-bold dark:text-white">{t('Lo que dicen nuestros talentos')}</h1>
+      <h3 className="titles-size text-center justify-center font-manrope font-bold dark:text-white">{t('Lo que dicen nuestros talentos')}</h3>
       <div className='hidden lg:block w-full'>
       <TestimonialCards/>
       </div>

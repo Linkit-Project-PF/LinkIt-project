@@ -17,15 +17,17 @@ import { RootState } from "../../../../redux/types";
                 <img src="/people-LinkIt/ary-perfil.png" alt="ary-perfil" className="absolute top-[0%] col-start-1 row-start-1 w-1/3 z-[10]" />
                 <div className="flex relative left-[30%]">
                 <img src="/Vectores/comillas-blancas.svg" alt="Comillas" className="relative w-[40px] h-[40px]" />
-                <h1 className="relative text-white font-montserrat text-[1rem] xl:text-[1.2rem] 2xl:text-[1.5rem] text-start w-[50%] ">
+                <p className="relative text-white font-montserrat text-[1rem] xl:text-[1.2rem] 2xl:text-[1.5rem] text-start w-[50%] ">
                 {t('LinkIT nace para encontrar una solución clara, conectar al talento mas destacado con los mejores proyectos IT. Actuamos como enlace para simplificar la experiencia en el proceso de contratación, con el objetivo de formar equipos de alto rendimiento.')}
                
-                </h1>
+                </p>
                 
                 </div>
                 <div className="left-[34%] relative mt-3 grid grid-cols-2">
-                <p className="text-white text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem] text-start font-montserrat font-bold ">Ary Molchadsky <br />
-                <span className="text-white col-start-2 text-start font-manrope font-normal">CEO & Co-Founder</span></p>
+                <span className="text-white text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem] text-start font-montserrat font-bold ">Ary Molchadsky 
+                </span>
+                <br />
+                <span className="text-white text-start font-manrope font-normal col-start-1">CEO & Co-Founder</span>
                 <div className="flex">
                   <a  href="mailto:ary@linkit-hr.com" target="_blank">
                 <img src={isDarkMode ? email : emailBlue} alt="email" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
@@ -40,15 +42,15 @@ import { RootState } from "../../../../redux/types";
 
 
             <div className="lg:hidden flex flex-col relative before:bg-linkIt-500 before:dark:bg-linkIt-700 before:w-[100%] before:h-[100%] before:absolute before:rotate-[-38deg] before:top-[73%] before:left-[55%]">
-                <h1 className="relative text-white font-montserrat text-[0.65rem] xs:text-[0.85rem] ssm:text-[1.2rem] md:text-[1.5rem] text-start">
+                <p className="relative text-white font-montserrat text-[0.65rem] xs:text-[0.85rem] ssm:text-[1.2rem] md:text-[1.5rem] text-start">
                 {t('LinkIT nace para encontrar una solución clara, conectar al talento mas destacado con los mejores proyectos IT. Actuamos como enlace para simplificar la experiencia en el proceso de contratación, con el objetivo de formar equipos de alto rendimiento.')}
-               
-                </h1>
+                </p>
                 
                 
                 
-                <p className="text-white text-[0.6rem] xs:text-[0.8rem] ssm:text-[1.2rem] md:text-[1.4rem] mt-3 text-start font-montserrat font-bold ">Ary Molchadsky <br />
-                <span className="text-white text-start font-manrope font-normal">CEO & Co-Founder</span></p>
+                <span className="text-white text-[0.6rem] xs:text-[0.8rem] ssm:text-[1.2rem] md:text-[1.4rem] mt-3 text-start font-montserrat font-bold ">Ary Molchadsky 
+                </span>
+                <span className="text-white text-start font-manrope font-normal">CEO & Co-Founder</span>
                 <div className="flex mt-3">
                 <img src={email} alt="email" className="w-[30px] h-[30px] ssm:h-[40px] ssm:w-[40px] md:w-[50px] md:h-[50px]" />
                 <img src={linkedin} alt="linkedIn" className="w-[30px] h-[30px] ssm:h-[40px] ssm:w-[40px] md:w-[50px] md:h-[50px]" />

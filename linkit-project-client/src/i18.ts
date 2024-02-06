@@ -46,6 +46,7 @@ export const i18nOptions: InitOptions = {
         "Contrata Talento": "Hire Talent",
         "4/5 en Truspilot": "4/5 on Truspilot",
         "Leer reviews": "Read reviews",
+        "Contacta para contratar": "Contact to hire",
         //Company module B
         "Nuestros servicios": "Our services",
         "Reclutamiento": "Recruitment",
@@ -113,6 +114,7 @@ export const i18nOptions: InitOptions = {
         "¡Contáctanos y descubre el poder de la determinación con una sonrisa!": "Contact us and discover the power of determination with a smile!",
         //Company calculator
         "Calculadora": "Calculator",
+        "Por favor rellena todos los campos para poder cotizar.": "Please fill in all the fields to be able to quote.",
         "Posición": "Position",
         "Inglés": "English",
         "Básico": "Basic",
@@ -123,6 +125,7 @@ export const i18nOptions: InitOptions = {
         "Calcular": "Calculate",
         "Mínimo": "Minimum",
         "Máximo": "Maximum",
+        "Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo.": "Quotations will depend on all the exact requirements of the search, benefits, defined development plans among others, contact us to quote.",
         //Company module I
         "Contáctanos": "Contact us",
         "¿Qué servicio te interesa?": "What service are you interested in?",
@@ -289,7 +292,7 @@ export const i18nOptions: InitOptions = {
         "Ingresa aquí": "Enter here",
         "Estamos registrando tu cuenta": "We are registering your account",
         "¡Registro exitoso!": "Successful registration!",
-        "Bienvenido a LinkIT": "Welcome to LinkIT,{{name}}",
+        "Bienvenido/a a LinkIT": "Welcome to LinkIT,{{name}}",
         "Aceptar": "Accept",
         "Nombre de la empresa": "Company name",
         "TALENTOS": "TALENTS",
@@ -327,6 +330,7 @@ export const i18nOptions: InitOptions = {
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!": "If none of these vacancies are for you, don't worry, there are many more to come!",
         "Súmate a nuestra base de datos": "Join our database",
+        "¡Ups! No se encontraron ofertas de trabajo": "Oops! No job offers found",
         //!Talentos Job filters
         "Encontrar Vacante": "Find vacancies",
         //!Footer
@@ -670,6 +674,7 @@ export const i18nOptions: InitOptions = {
         'Volver atrás': 'Back',
         'Cancelado': 'Cancelled',
         'Tu postulación sigue en curso': 'Your application is still in progress',
+        'Cargando información':"Gathering JD information",
 
         //! Permission Form
         "Administradores": "Admins",
@@ -743,6 +748,8 @@ export const i18nOptions: InitOptions = {
         "Cookies Flash. Ciertas características de nuestro Servicio pueden utilizar objetos almacenados localmente (o Cookies Flash) para recopilar y almacenar información sobre sus preferencias o su actividad en nuestro Servicio. Las Cookies Flash no están gestionadas por la misma configuración del navegador que se utiliza para las Cookies del Navegador. Para obtener más información sobre cómo puede eliminar las Cookies Flash, lea “¿Dónde puedo cambiar la configuración para deshabilitar o eliminar los objetos compartidos locales?” disponible en": "Flash Cookies. Certain features of our Service may use locally stored objects (or Flash Cookies) to collect and store information about your preferences or your activity on our Service. Flash Cookies are not managed by the same browser settings that are used for Browser Cookies. For more information on how you can delete Flash Cookies, please read “Where can I change the settings to disable or delete local shared objects?” available at",
         "Balizas Web. Ciertas secciones de nuestro Servicio y nuestros correos electrónicos pueden contener pequeños archivos electrónicos conocidos como balizas web (también llamados gifs claros, etiquetas de píxeles y gifs de un solo píxel) que permiten a la Empresa, por ejemplo, contar a los usuarios que han visitado esas páginas o abierto un correo electrónico y para otras estadísticas relacionadas con el sitio web (por ejemplo, registrar la popularidad de una cierta sección y verificar la integridad del sistema y del servidor).": "Web Beacons. Certain sections of our Service and our emails may contain small electronic files known as web beacons (also called clear gifs, pixel tags, and single-pixel gifs) that allow the Company, for example, to count users who have visited those pages or opened an email and for other statistics related to the website (for example, recording the popularity of a certain section and verifying system and server integrity).",
         "Las Cookies pueden ser “Persistentes” o “de Sesión”. Las Cookies Persistentes permanecen en su computadora personal o dispositivo móvil cuando se desconecta, mientras que las Cookies de Sesión se eliminan tan pronto como cierra su navegador web.": "Cookies can be “Persistent” or “Session”. Persistent Cookies remain on your personal computer or mobile device when you log out, while Session Cookies are deleted as soon as you close your web browser.",
+        //!Verify alerts
+        "¡Estás listo/a para empezar!": "You're ready to get started!"
 
 
 

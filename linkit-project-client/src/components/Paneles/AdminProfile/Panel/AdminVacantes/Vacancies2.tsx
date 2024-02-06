@@ -276,7 +276,7 @@ export default function Vacancies2() {
           <div className="">
             <div className="capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200">
               <div className="justify-start">
-                <h1>Titulo</h1>
+                <h1>Título</h1>
               </div>
               <div className="ml-6 justify-end">
                 <select
@@ -329,7 +329,7 @@ export default function Vacancies2() {
         {viewCol.description && (
           <div className="">
             <div className="flex flex-row  px-20 border-b-2 border-r-2 h-7 w-80 border-linkIt-200">
-              <h1>Descipción</h1>
+              <h1>Descripción</h1>
             </div>
 
             <div>

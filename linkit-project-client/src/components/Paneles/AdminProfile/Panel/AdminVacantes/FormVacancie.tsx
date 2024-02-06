@@ -17,6 +17,11 @@ interface FormVacancieProps {
   setSaveStatus: (status: boolean) => void;
 }
 
+// interface FormObject {
+//   en: VacancyProps
+//   es: VacancyProps
+// }
+
 interface InfoList {
   [key: string]: string[] | undefined;
 }
@@ -29,6 +34,7 @@ export default function FormVacancie({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [companyNames, setCompanyNames] = useState<string[]>([]);
+  // const [vacancy, setVacancy] = useState<FormObject>();
 
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
@@ -40,7 +46,7 @@ export default function FormVacancie({
     stack: [],
     aboutUs: "",
     aboutClient: "",
-    responsabilities: "",
+    responsabilities: [],
     requirements: [],
     niceToHave: [],
     benefits: [],
@@ -68,6 +74,7 @@ export default function FormVacancie({
   const [infoList, setInfoList] = useState<InfoList>({
     stack: [],
     requirements: [],
+    responsabilities:[],
     niceToHave: [],
     benefits: [],
   });
@@ -205,7 +212,7 @@ export default function FormVacancie({
         stack: [],
         aboutUs: "",
         aboutClient: "",
-        responsabilities: "",
+        responsabilities: [],
         requirements: [],
         niceToHave: [],
         benefits: [],
@@ -224,7 +231,7 @@ export default function FormVacancie({
       onClose();
       setSaveStatus(true);
       return response.data;
-    } catch (error) {
+    } catch (error) { /* console.error(error) */
       console.error((error as Error).message);
       throw new ValidationError(
         `${t("Error al ingresar los datos en el formulario")}: ${
@@ -234,11 +241,7 @@ export default function FormVacancie({
     }
   };
 
-  const noEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-    }
-  };
+
   const [inputClicked, setInputClicked] = useState(false);
   const handleInputClick = () => {
     setInputClicked(true);
@@ -254,11 +257,6 @@ export default function FormVacancie({
         </div>
         <div className=" flex flex-col text-center mb-12">
           <h1 className="text-3xl">{t("Nueva vacante")}</h1>
-          {inputClicked && (
-            <span className="m-0 text-xs text-linkIt-300">
-              *En la parte de abajo puedes ver lo que se ha agregado*
-            </span>
-          )}
         </div>
 
         <form
@@ -545,6 +543,59 @@ export default function FormVacancie({
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                 {t("Responsabilidades")}
               </label>
+              {inputClicked && (
+                <span className="m-0 text-xs text-linkIt-300">
+                  *Presiona enter para agregar más de una Responsabilidad*
+                </span>
+              )}
+              <input
+                className={
+                  errors.responsabilities
+                    ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                    : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                }
+                type="text"
+                name="responsabilities"
+                autoComplete="off"
+                placeholder={errors.responsabilities ? "*" : ""}
+                onChange={handleChange}
+                onKeyDown={addToList}
+                onBlur={errors.responsabilities ? handleBlurErrors : addToListBlur}
+                onClick={handleInputClick}
+              />
+
+              {infoList &&
+              infoList.responsabilities &&
+              infoList.responsabilities.length > 0 ? (
+                <div className="mx-4">
+                  <h3 className="text-xs font-bold text-linkIt-200">
+                    {t("Responsabilidades agregadas")}
+                  </h3>
+                  <ul className="list-disc">
+                    {infoList.responsabilities?.map((t: string) => {
+                      return (
+                        <div key={t} className="flex">
+                          <li className="text-sm">{t}</li>
+                          <button
+                            onClick={(e) =>
+                              deleteFromList(e, t, "responsabilities")
+                            }
+                            className="ml-3 hover:text-red-500"
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+{/* 
+            <div className="w-full px-3 mb-6">
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                {t("Responsabilidades")}
+              </label>
               <input
                 className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 type="text"
@@ -553,7 +604,7 @@ export default function FormVacancie({
                 onChange={handleChange}
                 onKeyDown={noEnter}
               />
-            </div>
+            </div> */}
 
             <div className="w-full px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">

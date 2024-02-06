@@ -7,7 +7,7 @@ export default function VerifyAlert() {
   const { t } = useTranslation();
   useEffect(() => {
     Swal.fire({
-      title: t("¡Estás listo para empezar!"),
+      title: t("¡Estás listo/a para empezar!"),
       text: t(`Tu correo electrónico ha sido verificado con éxito Te invitamos a iniciar sesión y explorar nuestra página. Esperamos que disfrutes de la experiencia`),
       icon: "success",
       iconColor: "#173951",
