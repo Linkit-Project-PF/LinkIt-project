@@ -144,7 +144,7 @@ export function JobValidations(User: IUserJob) {
   } else if (User.reason.length > 300) {
     errors.reason = "The reason must be less than 300 characters long";
   } else if (User.reason.length < 5) {
-    errors.reason = "The reason must be at least 5 characters long";
+    errors.reason = "El motivo debe tener al menos 5 caracteres";
   }
 
   return errors;

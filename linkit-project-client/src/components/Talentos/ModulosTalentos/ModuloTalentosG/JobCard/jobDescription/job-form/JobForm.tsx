@@ -179,6 +179,7 @@ function JobForm() {
         icon: "error",
         title: "Oops...",
         text: error.response.data,
+        confirmButtonColor: "#01A28B",
       });
       isLoading(false);
       console.log(error);
@@ -250,7 +251,13 @@ function JobForm() {
         dispatch(resetForm());
         navigate(-1);
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(t("Cancelado"), t("Tu postulación sigue en curso"), "info");
+        Swal.fire({
+          title: t("Cancelado"),
+          text: t("Tu postulación sigue en curso"),
+          icon: "info",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#01A28B",
+        });
       }
     });
   };
@@ -726,7 +733,7 @@ function JobForm() {
                     className="font-montserrat relative text-[1.3rem] w-full"
                   >
                     <div className="flex">
-                      {t("¿Estás haciendo el proceso con algun reclutador/a?")}
+                      {t("¿Estás haciendo el proceso con algún reclutador/a?")}
                       <span className=" text-red-400">*</span>
                     </div>
 
