@@ -143,13 +143,34 @@ export default function Users() {
             className={selectedRows.has(r._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}
           >
             <input type="checkbox" name="edit" onChange={() => handleEdit(r._id)} checked={selectedRows.has(r._id)} />
-            <p className='pl-2'>{String(r[key] === undefined || NaN ? '' : r[key])}
+            <p className="pl-2"
+            >{selectedRows.has(r._id) && editing ? (
+              < select 
+              name={key} 
+              id={key} 
+              className="bg-linkIt-500 text-black w-full h-6 text-sm p-0" 
+              onChange={handleChange}
+              defaultValue={r[key] as any}
 
-            </p>
+              >
+
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+
+            </select>
+
+              // <input
+              //   name={key}
+              //   type="text"
+              //   defaultValue={r[key] as any}
+              //   onChange={handleChange}
+              //   className="bg-linkIt-500 text-black w-full h-6 pl-2"
+              // />
+            ) : r[key]}</p>
           </div>
         ))}
-      </div>
     </div>
+    </div >
   )
   const renderSectionBasicNoEdit = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
@@ -180,7 +201,7 @@ export default function Users() {
             key={`${key}-${index}`}
             className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
-            {key === 'cv' && r[key] !== ""  && Object.values(r[key]).some((value)=> value !== "") ?  (
+            {key === 'cv' && r[key] !== "" && Object.values(r[key]).some((value) => value !== "") ? (
               <PDFViewer cv={r[key] as any} />
             ) : (
               <p>{selectedRows.has(r._id) && editing ? (
