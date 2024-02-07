@@ -111,49 +111,64 @@ const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
 const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
     try {
-      validateContact(contacts);
-      const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts,
-      {
-        headers: {
-          Authorization: `Bearer ${SUPERADMN_ID}`,
-          "Accept-Language": sessionStorage.getItem("lang"),
-        },
+      const confirmMessage = await Swal.fire({
+        icon: 'info',
+        title: t("Por favor confirma los servicios"),
+        text: `${t("Servicios: " + contacts.service.join(", "))}`,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Confirmar"),
+        cancelButtonText: t("Cancelar")
       })
-      if(response.status === 200) {
-        Swal.fire({ 
-          customClass: {
-            confirmButton: 'background-button bg-linkIt-300'
-          },
-          title: t("¡Gracias por contactarnos!"),
-          text: t("Nos estaremos comunicando a la brevedad"),
-          allowOutsideClick: true,
-          showConfirmButton: true,
-          buttonsStyling: false,
-          icon: "success" }),
-          
 
-        setContacts({
-          firstName: "",
-          lastName: "",
-          company: "",
-          service: [] as string[],
-          email: "",
-          message: "",
+      if (confirmMessage.isConfirmed) {
+        validateContact(contacts);
+        const response = await axios.post('https://linkit-server.onrender.com/resources/contactus', contacts,
+        {
+          headers: {
+            Authorization: `Bearer ${SUPERADMN_ID}`,
+            "Accept-Language": sessionStorage.getItem("lang"),
+          },
         })
+
+        if(response.status === 200) {
+          Swal.fire({ 
+            customClass: {
+              confirmButton: 'background-button bg-linkIt-300'
+            },
+            title: t("¡Gracias por contactarnos!"),
+            text: t("Nos estaremos comunicando a la brevedad"),
+            allowOutsideClick: true,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showCloseButton: false,
+            showDenyButton: false,
+            showConfirmButton: false,
+            timer: 2000,
+            icon: "success"
+          }),
+  
+          setContacts({
+            firstName: "",
+            lastName: "",
+            company: "",
+            service: [] as string[],
+            email: "",
+            message: "",
+          })
+        }
       }
-      return response
     } catch (error) {
       Swal.fire({ 
         customClass: {
           confirmButton: 'background-button'
         },
-        title: "<h1 style='color: black; font-family: Manrope'>Faltan datos del formulario!</h1>",
-        html: "<span style='font-family: Montserrat'>Por favor, completa todos los campos</span>",
+        title: (error as Error).message,
         icon: 'error',
         showConfirmButton: true,
         buttonsStyling: false,
         })
-        
       throw new ValidationError(`Faltan datos del formulario: ${(error as Error).message}`);
     }
 }
