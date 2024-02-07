@@ -115,7 +115,7 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
   const scopeSoyTalento = useMenuAnimation(isOpenSoyTalento);
 
-  const { isAuthenticated, role, user } = useSelector(
+  const { isAuthenticated, role } = useSelector(
     (state: RootState) => state.Authentication
   );
 
