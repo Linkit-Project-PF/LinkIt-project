@@ -635,13 +635,7 @@ function NavBar() {
           </div>
           <Dropdown
             label={
-              user?.image
-                ? <Avatar
-                alt="User settings" 
-                img={user.image.includes('cloudinary') ? 'https://res.cloudinary.com/dquhriqz3/image/upload/v1707319041/' + user.image : user.image}
-                rounded
-                /> 
-                : <Avatar
+                <Avatar
                 alt="User settings" 
                 img={userGreen} 
                 rounded
