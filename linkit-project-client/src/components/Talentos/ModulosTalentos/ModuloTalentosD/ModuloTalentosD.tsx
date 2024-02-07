@@ -10,7 +10,7 @@ export default function ModuloTalentosD() {
     return (
 
 
-            <div className='bg-linkIt-500 dark:bg-linkIt-200'>
+            <div className='bg-linkIt-500 dark:bg-linkIt-200 overflow-hidden'>
             <div className="skewed-borderBH after:bg-linkIt-500 after:dark:bg-linkIt-200 hidden lg:block  p-[7%]">
                 <div className="contentBH flex flex-col pb-[10%] ">
                     <h3 className="font-manrope font-bold self-center titles-size text-center justify-cente mb-[5%] text-white">{t('Nuestros servicios')}</h3>

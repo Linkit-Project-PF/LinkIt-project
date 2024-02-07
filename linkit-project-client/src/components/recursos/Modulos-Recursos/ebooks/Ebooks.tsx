@@ -17,7 +17,7 @@ function Ebooks() {
       <div className="relative w-[117%] items-center justify-center flex">
       <img src={topLines} alt="lines" className="absolute w-full h-full top-[0%] hidden lg:block" />
       <img src={topLinesMobile} alt="lines" className="absolute w-full h-full top-[0%] lg:hidden" />
-            <h1 className=" titles-size my-[5%] text-white font-bold font-manrope bg-linkIt-200 z-10 px-3">Ebooks</h1>
+            <h3 className=" titles-size my-[5%] text-white font-bold font-manrope bg-linkIt-200 z-10 px-3">Ebooks</h3>
             </div>
             <div className="hidden lg:block">
         <EbooksCards/>

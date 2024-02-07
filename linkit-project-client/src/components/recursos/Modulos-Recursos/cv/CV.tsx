@@ -17,9 +17,9 @@ function CV() {
   return (
     <div className="bg-linkIt-300 p-[7%] relative grid grid-cols-2 gap-2 ">
       <div className="grid lg:mb-[20%]">
-            <h2 className="text-white font-bold font-montserrat mb-[5%] titles-size">
+            <h3 className="text-white font-bold font-montserrat mb-[5%] titles-size">
               {t('Arma tu CV')} <br /> {t('con nuestro')} <br /> template
-            </h2>
+            </h3>
             
             <a onClick={(event) => downloadTemplate(event)}
               href="#"

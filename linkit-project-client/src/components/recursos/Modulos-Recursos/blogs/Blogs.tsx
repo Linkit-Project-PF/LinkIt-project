@@ -11,7 +11,7 @@ function Blogs() {
 
   return (
     <div className="p-[7%] flex flex-col justify-center justify-items-center dark:bg-linkIt-400 ">
-        <h1 className="mb-[5%] font-manrope font-bold titles-size text-center dark:text-white">{t('¿Quieres saber que está pasando en el mundo IT?')}</h1>
+        <h3 className="mb-[5%] font-manrope font-bold titles-size text-center dark:text-white">{t('¿Quieres saber que está pasando en el mundo IT?')}</h3>
         <div className="lg:hidden"><BlogsCardsMobile /></div>
         <div className="hidden lg:block"><BlogsCards/></div>
       

@@ -10,10 +10,10 @@ const {t} = useTranslation();
         <h1 className=" titles-size titles-size font-manrope font-bold text-center justify-self-center"> {t('Conoce a nuestros desarrolladores')}</h1>
         <div className="hidden lg:block">
         <div className="grid grid-cols-4 justify-items-center my-[5%] gap-[5%] mx-[5%] items-start text-center leading-tight">
-                    <img src="/people-LinkIt/Samuel-Rodriguez.png" className="bg-white rounded-xl w-1/1 h-1/1" alt="Samuel-Rodriguez" />
-                    <img src="/people-LinkIt/maria-gabriela-henry.png" className="bg-white rounded-xl w-1/1  h-1/1" alt="Maria-Gabriela-Sandigo" />
-                    <img src="/people-LinkIt/jose-henry.png" className="bg-white rounded-xl w-1/1  h-1/1" alt="Jose-Lozano" />
-                    <img src="/people-LinkIt/Juan-Henry.png" className="bg-white rounded-xl w-1/1  h-1/1" alt="Juan-Velez" />
+                    <img src="/people-LinkIt/Samuel-Rodriguez.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Samuel-Rodriguez" />
+                    <img src="/people-LinkIt/maria-gabriela-henry.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Maria-Gabriela-Sandigo" />
+                    <img src="/people-LinkIt/jose-henry.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Jose-Lozano" />
+                    <img src="/people-LinkIt/Juan-Henry.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Juan-Velez" />
 
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/samuelrodriguezyopasa/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Samuel Rodríguez</Link>
@@ -33,9 +33,9 @@ const {t} = useTranslation();
                     </div>
                     </div>
                     <div className="grid grid-cols-3 justify-items-center px-[18%] gap-[5%] items-start text-center leading-tight">
-                    <img src="/people-LinkIt/edwar-henry.png" className="bg-white rounded-xl w-1/1  h-1/1" alt="Edwar-Jimenez" />
-                    <img src="/people-LinkIt/mateo-henry.png" className="bg-white rounded-xl w-1/1  h-1/1" alt="Mateo-Guerrero" />
-                    <img src="/people-LinkIt/carolina-henry.png" className="bg-white rounded-xl w-1/1  h-1/1" alt="Carolina-Tobar" />
+                    <img src="/people-LinkIt/edwar-henry.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Edwar-Jimenez" />
+                    <img src="/people-LinkIt/mateo-henry.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Mateo-Guerrero" />
+                    <img src="/people-LinkIt/carolina-henry.png" className="bg-white rounded-xl w-1/1 h-1/1 aspect-square" alt="Carolina-Tobar" />
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/jimenzeddi/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Edwar Jimenez </Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
