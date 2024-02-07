@@ -173,6 +173,8 @@ export const i18nOptions: InitOptions = {
           "User found but no register match, please log-in on the correct role section. If error persist, please contact us",
 
         //!Sweet Alerts!
+        "Confirmar": "Confirm",
+        "Por favor confirma los servicios": "Please confirm the services",
         "¡El email no coincide!": "The email does not match!",
         "Asegurate de escribir bien el correo": "Make sure you write the email correctly",
         "Continuar": "Continue",
