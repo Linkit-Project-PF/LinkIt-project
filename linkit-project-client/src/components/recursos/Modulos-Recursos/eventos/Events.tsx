@@ -14,14 +14,14 @@ function Events() {
       <div
         className="p-[7%] flex flex-col justify-center justify-items-center dark:bg-linkIt-400">
         
-          <motion.h1 
+          <motion.h3 
           className="mb-[2%] font-manrope font-bold titles-size text-center dark:text-white"
           initial={{ opacity: 0, x: 100 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.1, type: "spring"}}
           >{t('Webinars')}
-          </motion.h1>
+          </motion.h3>
 
           <motion.p 
           className="mb-[5%] font-montserrat subtitles-size text-center dark:text-white" 

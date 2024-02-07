@@ -51,7 +51,7 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
 
   return (
     <motion.div 
-    className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400"
+    className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400"
     variants={blogsCardVariants}
     initial="hidden"
     animate="visible"
@@ -61,18 +61,18 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
       <img
         src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
         alt={title}
-        className={`w-full rounded-lg h-[6rem] xs:h-[10rem] ssm:h-[15rem] md:h-[20rem] lg:h-[10rem] xl:h-[12rem] 2xl:h-[16rem] bg-cover bg-center`}
+        className={`w-full rounded-lg aspect-video bg-cover bg-center`}
       />
       <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
         <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
         </p>
-        <h1 className="font-bold subtitles-size line-clamp-3">
+        <span className="font-bold subtitles-size line-clamp-3">
           {title}
-        </h1>
-        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
+        </span>
+        <span className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
           {description}
-        </p>
+        </span>
 
         <motion.a
           onClick={handleClick}

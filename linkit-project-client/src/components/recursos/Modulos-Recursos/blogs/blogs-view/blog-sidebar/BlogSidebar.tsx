@@ -22,7 +22,7 @@ function BlogSidebar() {
     const items = ["todos","adquisición de talentos", "contratación", "casos de éxito", "entrevista", "guía"]
   return (
     <div className='font-montserrat relative '>
-        <h2 className='font-bold subtitles-size dark:text-white'>{t('Temas')}</h2>
+        <span className='font-bold subtitles-size dark:text-white'>{t('Temas')}</span>
         <ul className='flex flex-col space-y-2 mt-[2rem] text-size dark:text-white'>
             {items.map((item, index) => (
                 <li 
@@ -36,7 +36,7 @@ function BlogSidebar() {
             ))}
         </ul>
         <div >
-           <h3 className="font-bold mt-[10%] subtitles-size mb-[3%] dark:text-white">{t('Recomendado')}</h3>
+           <span className="font-bold mt-[10%] subtitles-size mb-[3%] dark:text-white">{t('Recomendado')}</span>
            <Recomended />
         </div>
     </div>

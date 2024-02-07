@@ -37,7 +37,7 @@ function Libreria() {
   return (
     <>
       <div className="mt-[6rem] p-[3.5rem]">
-        <motion.h3
+        <motion.p
           variants={goBackVariants}
           initial="hidden"
           whileInView="visible"
@@ -51,10 +51,10 @@ function Libreria() {
             className="w-[1.5rem]"
           />
           {t("Volver")}
-        </motion.h3>
-        <h1 className="text-left text-[2rem] font-bold font-montserrat ">
+        </motion.p>
+        <p className="text-left text-[2rem] font-bold font-montserrat ">
           {t("Todos los recursos")}
-        </h1>
+        </p>
         <div className=" content-display flex flex-col md:flex-row">
           <section>
             <SideBar />

@@ -14,7 +14,7 @@ function Talentos() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
+    <div className="overflow-hidden">
       <ModuloTalentosA />
       <section id="vacantes">
         <ModuloTalentosG />
