@@ -332,7 +332,7 @@ export const i18nOptions: InitOptions = {
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!": "If none of these vacancies are for you, don't worry, there are many more to come!",
         "Súmate a nuestra base de datos": "Join our database",
-        "¡Ups! No se encontraron ofertas de trabajo": "Oops! No job offers found",
+        "No se encontraron vacantes disponibles con las opciones seleccionadas.": "No vacancies available with the selected options.",
         //!Talentos Job filters
         "Encontrar Vacante": "Find vacancies",
         //!Footer
