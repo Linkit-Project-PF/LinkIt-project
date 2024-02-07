@@ -18,18 +18,22 @@ const {t} = useTranslation();
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/samuelrodriguezyopasa/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Samuel Rodríguez</Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
+                    <span className="font-normal text-size  font-montserrat">{"(FrontEnd)"}</span>
                     </div>
                     <div className="flex flex-col space-y-1">
                     <Link to="http://www.linkedin.com/in/maria-gabriela-sandigo-munoz" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Maria Gabriela Sándigo </Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
+                    <span className="font-normal text-size  font-montserrat">{"(BackEnd)"}</span>
                     </div>
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/joselozanodev/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">José Lozano </Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
+                    <span className="font-normal text-size  font-montserrat">{"(FrontEnd)"}</span>
                     </div>
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/juandavidbedoyavelez/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Juan Vélez </Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
+                    <span className="font-normal text-size  font-montserrat">{"(BackEnd)"}</span>
                     </div>
                     </div>
                     <div className="grid grid-cols-3 justify-items-center px-[18%] gap-[5%] items-start text-center leading-tight">
@@ -39,10 +43,12 @@ const {t} = useTranslation();
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/jimenzeddi/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Edwar Jimenez </Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
+                    <span className="font-normal text-size  font-montserrat">{"(FrontEnd)"}</span>
                     </div>
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/mateoguerreroe/" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Mateo Guerrero </Link>
                     <span className="font-normal text-size  font-montserrat">FullStack Web Developer</span>
+                    <span className="font-normal text-size  font-montserrat">{"(BackEnd)"}</span>
                     </div>
                     <div className="flex flex-col space-y-1">
                     <Link to="https://www.linkedin.com/in/carolina-tobar-jaramillo" target="_blank" className="text-center font-bold subtitles-size font-montserrat">Carolina Tobar </Link>
