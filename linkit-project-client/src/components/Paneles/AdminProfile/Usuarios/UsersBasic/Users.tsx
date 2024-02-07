@@ -306,7 +306,7 @@ export default function Users() {
         {viewCol.pais && renderSectionBasicCap("País", "country")}
         {viewCol.correo && renderSectionBasic("Correo", "email")}
         {viewCol.curriculum && renderSectionBasicCV("Curriculum", "cv")}
-        {viewCol.linkedin && renderSectionBasic("Linkedin", "linkedin")}
+        {viewCol.linkedin && renderSectionBasic("LinkedIn", "linkedin")}
         {viewCol.tecnologías && renderSectionBasicNoEdit("Tecnologías", "technologies")}
         {viewCol["Fecha de creación"] && renderSectionBasicNoEdit("Fecha de creación", "createdDate")}
         {viewCol.postulaciones && renderSectionBasicNoEdit("Postulaciones", "postulations")}
