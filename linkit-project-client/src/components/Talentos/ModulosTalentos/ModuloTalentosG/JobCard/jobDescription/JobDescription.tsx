@@ -132,7 +132,7 @@ function JobDescription() {
 
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Requerimientos")}
+                {t("Responsabilidades")}
               </h3>
               <ul className="flex flex-col list">
                 {jobData.responsabilities?.map((responsability, index) => {
