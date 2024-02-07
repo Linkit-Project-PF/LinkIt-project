@@ -187,31 +187,9 @@ function LoginCompany() {
               confirmButtonText: t("Continuar"),
             });
           } else {
-            // const companyData = await axios.get(
-            //   `https://linkit-server.onrender.com/companies/find?email=${firebaseAuthResponse.user.email}`,
-            //   {
-            //     headers: {
-            //       Authorization: `Bearer ${SUPERADMN_ID}`,
-            //       "Accept-Language": sessionStorage.getItem("lang"),
-            //     },
-            //   }
-            // );
-            // if (companyData.data.length) {
-            //   const authCompany = companyData.data[0];
-            //   dispatch(loginSuccess(authCompany));
-            //   Swal.fire({
-            //     title: t("Bienvenido de vuelta") + authCompany.companyName,
-            //     text: t("Has ingresado correctamente"),
-            //     icon: "success",
-            //     iconColor: "#173951",
-            //     background: "#ECEEF0",
-            //     confirmButtonColor: "#01A28B",
-            //     confirmButtonText: t("Continuar"),
-            //   });
-            // } else
             throw Error(
               t(
-                "Usuario autenticado pero registro no encontrado, contacte a un administrador"
+                "Verifica: si te registraste como compañia, debes de iniciar sesión como compañia, si te registraste como talento, inicia sesión como talento. En caso del error persistir contactar con un administrador"
               )
             );
           }

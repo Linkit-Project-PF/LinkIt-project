@@ -638,7 +638,7 @@ function NavBar() {
               user?.image 
                 ? <Avatar
                 alt="User settings" 
-                img={user.image} 
+                img={user.image.includes('google') ? user.image : 'https://res.cloudinary.com/dquhriqz3/image/upload/v1707319041/' + user.image} 
                 rounded
                 /> 
                 : <Avatar
