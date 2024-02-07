@@ -43,11 +43,11 @@ function BlogsCardsMobile() {
 
 
   return (
-    <div className="flex w-full justify-center items-center space-x-[5%]">
+    <div className="flex w-full justify-center items-center">
       <button disabled={blogs.length <= 1}>
         <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
         </button>
-        <div className='grid lg:grid-cols-3 items-end gap-2 w-full h-full'>
+        <div className='grid lg:grid-cols-3 items-end justify-center gap-2 w-full h-full'>
       {blogs.length > 0 && (
           <motion.div
             key={currentBlog}

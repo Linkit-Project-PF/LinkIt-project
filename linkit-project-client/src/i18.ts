@@ -674,6 +674,7 @@ export const i18nOptions: InitOptions = {
         'Volver atrás': 'Back',
         'Cancelado': 'Cancelled',
         'Tu postulación sigue en curso': 'Your application is still in progress',
+        'Cargando información':"Gathering JD information",
 
         //! Permission Form
         "Administradores": "Admins",
@@ -748,7 +749,9 @@ export const i18nOptions: InitOptions = {
         "Balizas Web. Ciertas secciones de nuestro Servicio y nuestros correos electrónicos pueden contener pequeños archivos electrónicos conocidos como balizas web (también llamados gifs claros, etiquetas de píxeles y gifs de un solo píxel) que permiten a la Empresa, por ejemplo, contar a los usuarios que han visitado esas páginas o abierto un correo electrónico y para otras estadísticas relacionadas con el sitio web (por ejemplo, registrar la popularidad de una cierta sección y verificar la integridad del sistema y del servidor).": "Web Beacons. Certain sections of our Service and our emails may contain small electronic files known as web beacons (also called clear gifs, pixel tags, and single-pixel gifs) that allow the Company, for example, to count users who have visited those pages or opened an email and for other statistics related to the website (for example, recording the popularity of a certain section and verifying system and server integrity).",
         "Las Cookies pueden ser “Persistentes” o “de Sesión”. Las Cookies Persistentes permanecen en su computadora personal o dispositivo móvil cuando se desconecta, mientras que las Cookies de Sesión se eliminan tan pronto como cierra su navegador web.": "Cookies can be “Persistent” or “Session”. Persistent Cookies remain on your personal computer or mobile device when you log out, while Session Cookies are deleted as soon as you close your web browser.",
         //!Verify alerts
-        "¡Estás listo/a para empezar!": "You're ready to get started!"
+        "¡Estás listo/a para empezar!": "You're ready to get started!",
+        //!JD form
+        "¿Estás haciendo el proceso con algún reclutador/a?":"Are you doing the process with a recruiter?"
 
 
 

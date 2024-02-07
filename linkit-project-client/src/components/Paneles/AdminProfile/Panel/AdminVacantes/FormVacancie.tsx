@@ -17,6 +17,11 @@ interface FormVacancieProps {
   setSaveStatus: (status: boolean) => void;
 }
 
+// interface FormObject {
+//   en: VacancyProps
+//   es: VacancyProps
+// }
+
 interface InfoList {
   [key: string]: string[] | undefined;
 }
@@ -29,6 +34,7 @@ export default function FormVacancie({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [companyNames, setCompanyNames] = useState<string[]>([]);
+  // const [vacancy, setVacancy] = useState<FormObject>();
 
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",

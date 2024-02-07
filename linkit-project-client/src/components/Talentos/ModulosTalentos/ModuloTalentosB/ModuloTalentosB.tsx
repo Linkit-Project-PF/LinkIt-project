@@ -3,7 +3,7 @@ import CompaniesCarousel from "../../../../Utils/CompaniesCarousel/CopaniesCarou
 
 export default function ModuloTalentosB() {
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <CompaniesCarousel />
     </div>
   )

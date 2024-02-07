@@ -54,11 +54,11 @@ function EventsCards() {
     }, [dispatch])
 
     return (
-        <div className="flex w-full h-full justify-center items-center space-x-[5%]">
+        <div className="flex w-full h-full justify-center items-center">
 
             <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
 
-            <div className='grid grid-cols-3 items-end gap-2 w-full h-full'>
+            <div className='grid grid-cols-3 items-end gap-3 w-full h-full mx-3'>
                 {
                     events.slice(startIndex, endIndex).map((event, index) => {
                         return (

@@ -39,7 +39,7 @@ export default function PhotosCarousel({arrayOfMembers, bgColor}: PhotosCarousel
                 {arrayOfMembers.map((item, index) => {
                     return (
                         <div className={`justify-items-center mt-5 ${item.id === current ? "grid" : "hidden"}`} key={index}>
-                            <img src={item.img} alt={item.name} className={`${bgColor === "white" ? "bg-white" : "bg-linkIt-500"} rounded-xl w-full h-full`} />
+                            <img src={item.img} alt={item.name} className={`${bgColor === "white" ? "bg-white" : "bg-linkIt-500"} rounded-xl w-1/1 h-1/1 aspect-square`} />
                             <Link target='_blank' to={item.link} className='font-bold subtitles-size whitespace-nowrap mt-2 mb-1'>{item.name}</Link>
                             <p className='text-size text-center'>{item.position}</p>
                         </div>

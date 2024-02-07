@@ -29,7 +29,7 @@ export default function ModuloTalentosE() {
 </ul>
 </div> 
 </div>
-<div className="block lg:hidden">
+<div className="block lg:hidden overflow-hidden">
 <HowToApplyCarousel />
 </div>
 </div>

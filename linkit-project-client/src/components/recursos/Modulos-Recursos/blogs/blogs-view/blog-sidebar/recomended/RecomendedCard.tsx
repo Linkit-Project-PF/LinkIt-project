@@ -64,12 +64,12 @@ function RecomendedCard({ title, description, image, genre, _id }: BlogsCardProp
       )}
       <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
 
-        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+        <span className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
-        </p>
-        <h1 className="font-bold subtitles-size line-clamp-3">
+        </span>
+        <span className="font-bold subtitles-size line-clamp-3">
           {title}
-        </h1>
+        </span>
         <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 mt-8">
           {description}
         </p>

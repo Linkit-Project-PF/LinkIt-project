@@ -24,7 +24,7 @@ function SearchBar({setActive}: SearchBarProps) {
         <input
           type="text"
           name="searchBar"
-          className=" border-none placeholder:text-black grow font-montserrat focus:outline-none text-left w-[10rem] pl-[.8rem] placeholder:font-[600] font-[600]"
+          className=" border-none placeholder:text-black grow bg-transparent focus:outline-none focus:ring-0 focus:border-none font-montserrat text-left w-[10rem] pl-[.8rem] placeholder:font-[600] font-[600]"
           placeholder={t("Buscar recursos")}
           value={search}
           onChange={handleChange}

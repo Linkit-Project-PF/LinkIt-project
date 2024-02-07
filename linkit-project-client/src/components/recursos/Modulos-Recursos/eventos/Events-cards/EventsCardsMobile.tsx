@@ -44,11 +44,11 @@ function EventsCardsMobile() {
     }, [dispatch])
 
     return (
-        <div className="flex w-full h-full justify-center items-center space-x-[5%]">
+        <div className="flex w-full h-full justify-center items-center">
             <button disabled={events.length <= 1}>
             <img src={blackArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
             </button>
-            <div className='flex items-end gap-2 w-full h-full'>
+            <div className='flex items-end justify-center gap-2 w-full h-full'>
                 {
                     events.length > 0 && (
                             <EventCard

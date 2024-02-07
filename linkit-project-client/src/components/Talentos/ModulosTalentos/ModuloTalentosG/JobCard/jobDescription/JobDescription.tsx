@@ -13,11 +13,11 @@ import Swal from "sweetalert2";
 import { setPressLogin } from "../../../../../../redux/features/registerLoginSlice";
 import Newsletter from "../../../../../../Utils/newsletter/newsletter";
 import blackArrow from "/Vectores/arrowBlackLeft.png";
-import whiteArrow from "/Vectores/arrowWhiteLeft.png"
-import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg"
-import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg"
+import whiteArrow from "/Vectores/arrowWhiteLeft.png";
+import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg";
+import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
-
+import Loading from "../../../../../Loading/Loading";
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
@@ -33,26 +33,33 @@ function JobDescription() {
   const [jobData, setJobData] = useState<JobDescriptionProps>(
     {} as JobDescriptionProps
   );
+  const [loading, isLoading] = useState<boolean>(false);
   const { i18n } = useTranslation();
   const { language } = i18n;
   const navigate = useNavigate();
 
-  const isDarkMode = useSelector(
-    (state: RootState) => state.darkMode);
-
+  const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
   useEffect(() => {
     const fetchJob = async () => {
-      const response = await axios.get(
-        `https://linkit-server.onrender.com/jds/find?code=${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
-        }
-      );
-      setJobData(response.data[0]);
+      try {
+        isLoading(true);
+        const response = await axios.get(
+          `https://linkit-server.onrender.com/jds/find?code=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        setJobData(response.data[0]);
+      } catch (error: any) {
+        Swal.fire({ title: "Error", text: error.response.data, icon: "error" });
+      } finally {
+        isLoading(false);
+        window.scrollTo(0, 0);
+      }
     };
     fetchJob();
     window.scrollTo(0, 0);
@@ -88,6 +95,7 @@ function JobDescription() {
 
   return (
     <div className="">
+      {loading ? <Loading text={t("Cargando información")} /> : null}
       <article className="font-montserrat text-linkIt-400 dark:bg-linkIt-200 flex flex-col relative p-[7%] pt-[17vh] lg:pt-[23vh]">
         <div className="lg:flex grid relative mb-[10%] w-full">
           <div className="w-full">
@@ -109,25 +117,33 @@ function JobDescription() {
               <h2 className="text-black border-[2px] border-linkIt-300 dark:border-linkIt-200 dark:bg-white dark: inline-flex px-2 py-1 text-size font-semibold rounded-[7px] mb-[3%]">
                 CODE: {id}
               </h2>
-              <h1 className="text-black dark:text-white font-bold titles-size">{jobData.title}</h1>
+              <h1 className="text-black dark:text-white font-bold titles-size">
+                {jobData.title}
+              </h1>
             </header>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Descripción")}
               </h3>
-              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.description}</p>
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
+                {jobData.description}
+              </p>
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Acerca de nosotros")}
               </h3>
-              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.aboutUs}</p>
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
+                {jobData.aboutUs}
+              </p>
             </section>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                 {t("Acerca de nuestro cliente")}
               </h3>
-              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">{jobData.aboutClient}</p>
+              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
+                {jobData.aboutClient}
+              </p>
             </section>
 
             <section className="mb-[3%]">
@@ -165,7 +181,6 @@ function JobDescription() {
                 })}
               </ul>
             </section>
-
 
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
@@ -208,7 +223,7 @@ function JobDescription() {
                 className="w-[30px] ssm:w-[40px] lg:w-1/16 mr-2 lg:mr-4 hidden lg:block"
               />
               <h3 className="font-bold text-black dark:text-white subtitles-size row-start-1 text-center lg:text-start">
-                {t("Para aplicar por favor completa")} {" "}
+                {t("Para aplicar por favor completa")}{" "}
                 {t("el siguiente formulario")}
               </h3>
             </section>
