@@ -29,7 +29,7 @@ import { RootState } from "../../../../redux/types";
                 <br />
                 <span className="text-white text-start font-manrope font-normal col-start-1">CEO & Co-Founder</span>
                 <div className="flex">
-                  <a  href="mailto:ary@linkit-hr.com" target="_blank">
+                  <a  href="https://mail.google.com/mail/?view=cm&to=ary@linkit-hr.com" target="_blank">
                 <img src={isDarkMode ? email : emailBlue} alt="email" className="w-[40px] h-[40px] xl:w-[50px] xl:h-[50px]" />
                 </a>
                 <a href="https://www.linkedin.com/in/arymolchadsky/" target="_blank">
@@ -52,7 +52,9 @@ import { RootState } from "../../../../redux/types";
                 </span>
                 <span className="text-white text-start font-manrope font-normal">CEO & Co-Founder</span>
                 <div className="flex mt-3">
+                <a  href="https://mail.google.com/mail/?view=cm&to=ary@linkit-hr.com" target="_blank">
                 <img src={email} alt="email" className="w-[30px] h-[30px] ssm:h-[40px] ssm:w-[40px] md:w-[50px] md:h-[50px]" />
+                </a>
                 <img src={linkedin} alt="linkedIn" className="w-[30px] h-[30px] ssm:h-[40px] ssm:w-[40px] md:w-[50px] md:h-[50px]" />
                 
                 </div>
