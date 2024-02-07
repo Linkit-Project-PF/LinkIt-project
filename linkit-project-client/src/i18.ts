@@ -141,6 +141,7 @@ export const i18nOptions: InitOptions = {
 
 
         //!Login - company
+        "Verifica: si te registraste como compañia, debes de iniciar sesión como compañia, si te registraste como talento, inicia sesión como talento. En caso del error persistir contactar con un administrador": "Verify: if you registered as a company, you must log in as a company, if you registered as a talent, log in as a talent. If the error persists, contact an administrator",
         "¡Te damos la bienvenida a LinkIT!": "Welcome to LinkIT!",
         "Conectamos a las empresas con el": "We connect companies with the",
         "mejor talento para sus equipos.": "best talent for their teams.",
