@@ -3,18 +3,21 @@
     "img": "/people-LinkIt/Samuel-Rodriguez.png",
     "name": "Samuel Rodríguez",
     "position": "FullStack Web Developer",
+    "rol": "(FrontEnd)",
     "link": "https://www.linkedin.com/in/samuelrodriguezyopasa/"
 }, {
     "id": 2,
     "img":"/people-LinkIt/maria-gabriela-henry.png",
     "name": "Maria Gabriela Sándigo",
     "position": "FullStack Web Developer",
+    "rol": "(BackEnd)",
     "link": "http://www.linkedin.com/in/maria-gabriela-sandigo-munoz"
 }, {
     "id": 3,
     "img": "/people-LinkIt/jose-henry.png",
     "name": "José Lozano",
     "position": "FullStack Web Developer",
+    "rol": "(FrontEnd)",
     "link": "https://www.linkedin.com/in/joselozanodev/"
 },
 {
@@ -22,6 +25,7 @@
     "img": "/people-LinkIt/Juan-Henry.png",
     "name": "Juan Vélez",
     "position": "FullStack Web Developer",
+    "rol": "(BackEnd)",
     "link": "https://www.linkedin.com/in/juandavidbedoyavelez/"
 },
 {
@@ -29,6 +33,7 @@
     "img": "/people-LinkIt/edwar-henry.png",
     "name": "Edwar Jimenez",
     "position": "FullStack Web Developer",
+    "rol": "(FrontEnd)",
     "link": "https://www.linkedin.com/in/jimenzeddi/"
 }
 , {
@@ -36,6 +41,7 @@
     "img": "/people-LinkIt/mateo-henry.png",
     "name": "Mateo Guerrero",
     "position": "FullStack Web Developer",
+    "rol": "(BackEnd)",
     "link": "https://www.linkedin.com/in/mateoguerreroe/"
 }, {
     "id": 7,

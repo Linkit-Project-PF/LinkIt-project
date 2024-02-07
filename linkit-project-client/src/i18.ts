@@ -141,6 +141,7 @@ export const i18nOptions: InitOptions = {
 
 
         //!Login - company
+        "Verifica: si te registraste como compañia, debes de iniciar sesión como compañia, si te registraste como talento, inicia sesión como talento. En caso del error persistir contactar con un administrador": "Verify: if you registered as a company, you must log in as a company, if you registered as a talent, log in as a talent. If the error persists, contact an administrator",
         "¡Te damos la bienvenida a LinkIT!": "Welcome to LinkIT!",
         "Conectamos a las empresas con el": "We connect companies with the",
         "mejor talento para sus equipos.": "best talent for their teams.",
@@ -173,6 +174,8 @@ export const i18nOptions: InitOptions = {
           "User found but no register match, please log-in on the correct role section. If error persist, please contact us",
 
         //!Sweet Alerts!
+        "Confirmar": "Confirm",
+        "Por favor confirma los servicios": "Please confirm the services",
         "¡El email no coincide!": "The email does not match!",
         "Asegurate de escribir bien el correo": "Make sure you write the email correctly",
         "Continuar": "Continue",
@@ -330,7 +333,7 @@ export const i18nOptions: InitOptions = {
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!": "If none of these vacancies are for you, don't worry, there are many more to come!",
         "Súmate a nuestra base de datos": "Join our database",
-        "¡Ups! No se encontraron ofertas de trabajo": "Oops! No job offers found",
+        "No se encontraron vacantes disponibles con las opciones seleccionadas.": "No vacancies available with the selected options.",
         //!Talentos Job filters
         "Encontrar Vacante": "Find vacancies",
         //!Footer

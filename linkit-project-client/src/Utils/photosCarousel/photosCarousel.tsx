@@ -10,7 +10,8 @@ interface members {
     img: string,
     name: string,
     position: string,
-    link: string
+    link: string,
+    rol?: string
 }
 interface PhotosCarouselProps { 
     arrayOfMembers: members[],
@@ -41,7 +42,8 @@ export default function PhotosCarousel({arrayOfMembers, bgColor}: PhotosCarousel
                         <div className={`justify-items-center mt-5 ${item.id === current ? "grid" : "hidden"}`} key={index}>
                             <img src={item.img} alt={item.name} className={`${bgColor === "white" ? "bg-white" : "bg-linkIt-500"} rounded-xl w-1/1 h-1/1 aspect-square`} />
                             <Link target='_blank' to={item.link} className='font-bold subtitles-size whitespace-nowrap mt-2 mb-1'>{item.name}</Link>
-                            <p className='text-size text-center'>{item.position}</p>
+                            <p className='text-size text-center'>{item.position}</p>{ item.rol &&
+                            <p className='text-size text-center'>{item.rol}</p>}
                         </div>
                     )
                 })}

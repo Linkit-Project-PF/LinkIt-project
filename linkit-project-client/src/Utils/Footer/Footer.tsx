@@ -203,10 +203,10 @@ export default function Footer() {
 
           <div className="flex ssm:grid col-span-full items-center">
           <div className="col-start-1">
-            <p className="font-semibold my-1 text-[0.6rem] ssm:text-[0.8rem] lg:text-[0.9rem]">Link IT</p>
+            <p className="font-semibold my-1 text-[0.6rem] ssm:text-[0.8rem] lg:text-[0.9rem]">LinkIT</p>
             <p className="text-[0.5rem] ssm:text-[0.7rem] md:text-[0.9rem] w-[90%] ssm:w-[50%] xl:w-[35%] font-montserrat">{t('Conectando al talento más destacado con los mejores proyectos IT')}</p>
             <div className="flex  mt-2">
-              <a href="mailto:sales@linkit-hr.com" target="_blank" className="w-[20%] ssm:w-[7%] lg:w-[5%] xl:w-[4%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
+              <a href="https://mail.google.com/mail/?view=cm&to=sales@linkit-hr.com" target="_blank" className="w-[20%] ssm:w-[7%] lg:w-[5%] xl:w-[4%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
               <a href="https://www.linkedin.com/company/linkit-hr/" target="_blank" className="w-[20%] ssm:w-[7%] lg:w-[5%] xl:w-[4%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" /></a>
             </div>
         </div>

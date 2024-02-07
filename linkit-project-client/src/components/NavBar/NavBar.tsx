@@ -115,7 +115,7 @@ function NavBar() {
   const scopeEmpresa = useMenuAnimation(isOpenEmpresa);
   const scopeSoyTalento = useMenuAnimation(isOpenSoyTalento);
 
-  const { isAuthenticated, role, user } = useSelector(
+  const { isAuthenticated, role } = useSelector(
     (state: RootState) => state.Authentication
   );
 
@@ -635,13 +635,7 @@ function NavBar() {
           </div>
           <Dropdown
             label={
-              user?.image 
-                ? <Avatar
-                alt="User settings" 
-                img={user.image} 
-                rounded
-                /> 
-                : <Avatar
+                <Avatar
                 alt="User settings" 
                 img={userGreen} 
                 rounded

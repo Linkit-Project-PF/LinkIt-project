@@ -168,9 +168,10 @@ function JobForm() {
           if (result.isConfirmed) {
             dispatch(resetForm());
             navigate("/soyTalento");
+            navigate("/SoyTalento");
             setTimeout(() => {
-              window.location.href = "#vacantes";
-            });
+            window.location.href = "#vacantes";
+            }, 0);
           }
         });
       }
