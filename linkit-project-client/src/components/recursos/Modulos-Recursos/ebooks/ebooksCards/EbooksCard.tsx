@@ -49,17 +49,17 @@ function EbooksCard({
   return (
     <motion.div
       key={key}
-      className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white"
+      className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white"
       variants={cardVariants}
       initial={"initial"}
       animate={"animate"}
       exit={"exit"}
     >
       <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
-        <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+        <span className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {category}
-        </p>
-        <h1 className="font-bold subtitles-size line-clamp-3">{title}</h1>
+        </span>
+        <span className="font-bold subtitles-size line-clamp-3">{title}</span>
         <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
         <motion.a
           href={link}

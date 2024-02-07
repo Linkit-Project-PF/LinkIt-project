@@ -24,9 +24,9 @@ function SideBar() {
     const items = ["todos","adquisición de talentos", "contratación", "casos de éxito", "entrevista", "guía"]
   return (
     <div className='font-montserrat'>
-        <h1 className="font-bold mt-[3rem] text-[1.7rem] mb-[2rem]">{t('Buscar')}</h1>
+        <p className="font-bold mt-[3rem] text-[1.7rem] mb-[2rem]">{t('Buscar')}</p>
         <SearchBar setActive={setActive} />
-        <h2 className='font-bold mt-[2rem] text-[1.7rem]'>{t('Temas')}</h2>
+        <p className='font-bold mt-[2rem] text-[1.7rem]'>{t('Temas')}</p>
         <ul className='flex flex-col gap-[1rem] font-[500] mt-[2rem]'>
             {items.map((item, index) => (
                 <li 

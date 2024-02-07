@@ -10,10 +10,10 @@ export default function ModuloG() {
             <h3 className="text-black dark:text-white titles-size font-manrope font-bold text-center justify-self-center">{t('Conoce a alguno de los integrantes de nuestro equipo')}</h3>
             <div className="hidden lg:block">
                 <div className="grid grid-cols-4 items-start justify-items-center my-[5%] gap-[5%] mx-[5%] dark:text-white text-center leading-tight" >
-                    <img src="/people-LinkIt/philo-perfil.png" className="bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Philipe Saint-Hubert" />
-                    <img src="/people-LinkIt/ary-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Ary Molchadsky" />
-                    <img src="/people-LinkIt/gonza-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Gonzalo Lein" />
-                    <img src="/people-LinkIt/juli-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Julieta Jasin" />
+                    <img src="/people-LinkIt/philo-perfil.png" className="bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Philipe Saint-Hubert" />
+                    <img src="/people-LinkIt/ary-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Ary Molchadsky" />
+                    <img src="/people-LinkIt/gonza-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Gonzalo Lein" />
+                    <img src="/people-LinkIt/juli-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Julieta Jasin" />
 
                     <div className="flex flex-col space-y-1">
                     <Link target="_blank" to="https://www.linkedin.com/in/philippesainthubert/" className="text-center font-bold subtitles-size font-montserrat">Philippe Saint-Hubert</Link>
@@ -39,9 +39,9 @@ export default function ModuloG() {
                 
                 </div>
                 <div className="grid grid-cols-3 justify-items-center px-[18%] dark:text-white gap-[5%] items-start text-center leading-tight">
-                    <img src="/people-LinkIt/shay-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Shayna Iskandarani" />
-                    <img src="/people-LinkIt/maca-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Macarena Cuadro" />
-                    <img src="/people-LinkIt/ju-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1" alt="Julieta Radicich" />
+                    <img src="/people-LinkIt/shay-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Shayna Iskandarani" />
+                    <img src="/people-LinkIt/maca-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Macarena Cuadro" />
+                    <img src="/people-LinkIt/ju-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Julieta Radicich" />
 
                     <div className="flex flex-col space-y-1">
                     <Link target="_blank" to="https://www.linkedin.com/in/shayna-iskandarani-126270211/" className="text-center subtitles-size font-bold font-montserrat">Shayna Iskandarani</Link>

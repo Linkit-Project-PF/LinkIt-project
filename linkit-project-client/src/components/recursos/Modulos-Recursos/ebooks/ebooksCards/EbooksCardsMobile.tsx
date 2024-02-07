@@ -42,7 +42,7 @@ function EbooksCardsMobile() {
     }
 
     return (
-        <div className="flex w-full justify-center items-center space-x-[5%]">
+        <div className="flex w-full justify-center items-center">
             <button disabled={eBooks.length <= 1}>
             <img src={whiteArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
             </button>
