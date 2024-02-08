@@ -16,7 +16,7 @@ interface componentProps {
 
 export default function ProfileComponent({ loader }: componentProps) {
   useEffect(() => {
-    loader(false); 
+    loader(false);
   }, [loader]);
   const { t } = useTranslation();
   const [filePublicId, setFilePublicId] = useState("");
@@ -32,10 +32,10 @@ export default function ProfileComponent({ loader }: componentProps) {
 
   const resetPasswordHandler = () => {
     setShowResetPassword(true);
-    setTimeout(() =>{
+    setTimeout(() => {
       setShowResetPassword(false);
-    },100)
-  }
+    }, 100);
+  };
 
   // UseEffect for validate auth
   useEffect(() => {
@@ -62,6 +62,8 @@ export default function ProfileComponent({ loader }: componentProps) {
           confirmButtonText: "Ok",
           confirmButtonColor: "#01A28B",
         });
+      } finally {
+        loader(false);
       }
     };
     if (reload) {
@@ -158,7 +160,7 @@ export default function ProfileComponent({ loader }: componentProps) {
                 {t("Cambiar contraseña")}
               </button>
             )}
-            {showResetPassword && <ResetPassword user={user}/>}
+            {showResetPassword && <ResetPassword user={user} />}
             <button
               className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
               onClick={handleLogOut}
