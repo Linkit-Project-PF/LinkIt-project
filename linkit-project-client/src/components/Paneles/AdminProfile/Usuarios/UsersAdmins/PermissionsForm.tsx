@@ -171,7 +171,7 @@ export default function PermissionsForm({
                   value !== "companies"
                 )
                   return (
-                    <label>
+                    <label key={index}>
                       {permissionsLabels[index]}
                       <input
                         type="checkbox"
@@ -193,7 +193,7 @@ export default function PermissionsForm({
             </div>
             <div className="bg-gray-200 rounded-md p-2 flex flex-wrap gap-x-3">
               {permissionValues.map((value: string, index) => (
-                <label>
+                <label key={index}>
                   {permissionsLabels[index]}
                   <input
                     type="checkbox"
@@ -214,7 +214,7 @@ export default function PermissionsForm({
             </div>
             <div className="bg-gray-200 rounded-md p-2 flex flex-wrap gap-x-3">
               {permissionValues.map((value: string, index) => (
-                <label>
+                <label key={index}>
                   {permissionsLabels[index]}
                   <input
                     type="checkbox"
@@ -235,7 +235,7 @@ export default function PermissionsForm({
             </div>
             <div className="bg-gray-200 rounded-md p-2 flex flex-wrap gap-x-3">
               {permissionValues.map((value: string, index) => (
-                <label>
+                <label key={index}>
                   {permissionsLabels[index]}
                   <input
                     type="checkbox"
