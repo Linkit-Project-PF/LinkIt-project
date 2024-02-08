@@ -387,7 +387,11 @@ export const i18nOptions: InitOptions = {
         "¿Deseas ocultar el Recurso?": "Do you want to hide the Resource?",
         "Recurso ocultado": "Resource hidden.",
         "¿Deseas eliminar el recurso?": "Do you want to delete the resource?",
-        "Recurso eliminado": "Resource deleted.", 
+        "Recurso eliminado": "Resource deleted.",
+        "Nuevo Admin": "New Admin",
+        "Datos Nuevo Admin" : "New Admin Data",
+         "Datos Nueva Empresa": "New Company Data",
+         "Empresa creada con éxito": "Company created successfully",
 
         //!Quienes Somos modulo A
         "En LinkIT buscamos conectar al talento más destacado con los mejores proyectos de tecnología de manera global.": "At LinkIT we seek to connect the most outstanding talent with the best technology projects globally.",

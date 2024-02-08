@@ -301,9 +301,9 @@ export default function CompaniesU() {
       <div className="flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
         {viewCol.rol && renderSectionSelect("Rol", "role")}
         {viewCol.empresa && renderSectionBasicCap("Nombre", "companyName")}
-        {viewCol.pais && renderSectionBasicCap("Pais", "country")}
+        {viewCol.pais && renderSectionBasicCap("País", "country")}
         {viewCol.correo && renderSectionBasic("Correo", "email")}
-        {viewCol.linkedin && renderSectionBasic("Linkedin", "linkedin")}
+        {viewCol.linkedin && renderSectionBasic("LinkedIn", "linkedin")}
         {viewCol.representante &&
           renderSectionBasicCap("Representante", "repName")}
         {viewCol.imagen && renderSectionBasic("Imagen", "image")}
