@@ -10,6 +10,7 @@ import {
 } from "../../../../../redux/features/UsersSlice";
 import { useTranslation } from "react-i18next";
 import PermissionsForm from "./PermissionsForm";
+import AdminsForm from "./AdminsForm";
 
 interface HeadAdmins {
   hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -30,6 +31,7 @@ export default function HeadAdmins({
   handleSave,
   setSaveStatus,
 }: HeadAdmins) {
+
   const arraySelectedRows = [...selectedRows];
   const { t } = useTranslation();
   const token = useSelector((state: any) => state.Authentication.token);
@@ -53,6 +55,17 @@ export default function HeadAdmins({
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { value } = e.target;
     dispatch(sortUsersAdmins(value));
+  };
+  //?
+
+  //? FORM
+  const [viewForm, setViewForm] = useState(false);
+  const showForm = () => {
+    setSaveStatus(false)
+    setViewForm(true);
+  };
+  const noShowForm = () => {
+    setViewForm(false);
   };
   //?
 
@@ -92,6 +105,14 @@ export default function HeadAdmins({
         <h1 className="text-4xl pl-16 py-6">{t("Administradores")}</h1>
       </div>
       <div className=" flex flex-row justify-around pb-6">
+          <div>
+            <button
+              className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
+              onClick={showForm}
+            >
+              {t("Nuevo Admin")}
+            </button>
+          </div>
         <div className="flex flex-row">
           <div>
             <h1>{t("Ordenar: ")}</h1>
@@ -126,6 +147,10 @@ export default function HeadAdmins({
             </div>
           )}
         </div>
+        {viewForm && <AdminsForm
+          onClose={noShowForm}
+          setSaveStatus={setSaveStatus}
+        />}
         <div>
           <input
             type="text"

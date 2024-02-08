@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { IUser } from "../../../../Profiles/types";
 import { useTranslation } from "react-i18next";
-import { Admin } from "../../../admin.types";
+import { CompaniesProps } from "../../../admin.types";
 import { useState } from "react";
 import swal from "sweetalert";
 import axios from "axios";
@@ -19,45 +19,42 @@ export type stateProps = {
     }
 }
 
-export default function AdminsForm({ onClose, setSaveStatus }: FormAdminProps) {
+export default function CompaniesForm({ onClose, setSaveStatus }: FormAdminProps) {
 
     const token = useSelector((state: stateProps) => state.Authentication.user._id)
     const { t } = useTranslation()
 
-    const [information, setInformation] = useState<Partial<Admin>>({
-        role: "admin",
-        provider:"email",
-        firstName: "",
-        lastName: "",
+    const [information, setInformation] = useState<Partial<CompaniesProps>>({
+        role: "company",
+        companyName: "",
+        repName: "",
         email: "",
-        password: "",
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setInformation({
-          ...information,
-          [name]: value,
+            ...information,
+            [name]: value,
         });
-      };
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            const endPoint = "https://linkit-server.onrender.com/admins/create";
+            const endPoint = "https://linkit-server.onrender.com/companies/create";
             const response = await axios.post(endPoint, information, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Accept-Language': sessionStorage.getItem('lang')
                 }
             });
-            swal(t("Admin creado con éxito"));
+            swal(t("Empresa creada con éxito"));
             setInformation({
-                firstName: "",
-                lastName: "",
+                companyName: "",
+                repName: "",
                 email: "",
-                password: "",
             });
             onClose()
             setSaveStatus(true)
@@ -79,7 +76,7 @@ export default function AdminsForm({ onClose, setSaveStatus }: FormAdminProps) {
                     >X</button>
                 </div>
                 <div>
-                    <h1 className="text-3xl mb-6">{t(`Datos Nuevo Admin`)}</h1>
+                    <h1 className="text-3xl mb-6">{t(`Datos Nueva Empresa`)}</h1>
                 </div>
                 <form
                     onSubmit={handleSubmit}
@@ -88,20 +85,20 @@ export default function AdminsForm({ onClose, setSaveStatus }: FormAdminProps) {
                 >
                     <div className="flex flex-row flex-wrap w-[110vh]">
                         <div className="w-fit mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Nombre')}</label>
+                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Nombre de la empresa')}</label>
                             <input
                                 className={"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"}
                                 type="text"
-                                name="firstName"
+                                name="companyName"
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="w-fit px-3 mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Apellido')}</label>
+                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('Representante')}</label>
                             <input
                                 className={"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"}
                                 type="text"
-                                name="lastName"
+                                name="repName"
                                 onChange={handleChange}
 
                             />

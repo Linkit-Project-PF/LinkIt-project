@@ -271,6 +271,8 @@ export interface Admin {
   };
   __v: number;
   _id: string;
+  password: string,
+  provider: string, 
 }
 
 export interface ViewColHeadAdmins {
