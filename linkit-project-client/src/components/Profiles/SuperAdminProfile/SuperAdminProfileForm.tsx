@@ -106,7 +106,7 @@ const SuperAdminProfileForm: FunctionComponent = () => {
   return (
     <div className="flex flex-col bg-linkIt-500 mx-5 p-10 rounded-[20px] md:mx-10 md:p-20 md:pb-10 lg:flex-row">
       <div className="flex p-3 flex-col md:flex-row w-full mb-5">
-        <div className="flex flex-col md:flex-row w-full pt-10 md:justify-evenly md:pt-0">
+        <div className="flex flex-col md:flex-col w-full pt-10 md:justify-evenly md:pt-0 relative">
           <div className="relative w-full flex justify-center md:w-[50%]">
             <div
               className={`relative rounded-full w-[250px] h-[250px] bg-gray-300 ${
@@ -162,18 +162,19 @@ const SuperAdminProfileForm: FunctionComponent = () => {
               {t("Cambiar contraseña")}
             </button> : null}
             <button
-              className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
-              onClick={handleLogOut}
-            >
-              {t("Cerrar Sesión")}
-            </button>
+  className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 md:w-[11.75rem] md:h-[2.75rem] rounded-[10px] border-solid absolute md:top-[20rem] md:left-[rem] top-[10%] left-[5%] md:top-[110%] md:left-[25%] transform md:-translate-y-1/2 md:-translate-x-1/2"
+  onClick={handleLogOut}
+>
+  {t("Cerrar Sesión")}
+</button>
+
           </div>
         </div>
       </div>
       {loading && <Loading text={t("Enviando los cambios")} />}
       {admin.role === UserRoleEnum.ADMIN && (
         <form action="" onSubmit={handleSubmit} className="flex flex-col">
-          <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
+          <div className="flex flex justify-center flex-col gap-5 md:flex-row md:flex-wrap justify-content: center;">
             <div className="flex flex-col">
               <label className="ml-2">{t("Nombre")}</label>
               <input
