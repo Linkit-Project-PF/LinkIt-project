@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /src/components/Paneles
+Disallow: /src/components/Profiles
