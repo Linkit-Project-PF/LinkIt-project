@@ -8,7 +8,7 @@ import { validations } from "./Validation";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
-
+import { useNavigate } from "react-router-dom";
 type OnCloseFunction = () => void;
 
 interface FormVacancieProps {
@@ -31,11 +31,12 @@ export default function FormVacancie({
   token,
   setSaveStatus,
 }: FormVacancieProps) {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [companyNames, setCompanyNames] = useState<string[]>([]);
   // const [vacancy, setVacancy] = useState<FormObject>();
-
+  const [countries, setCountries] = useState([]);
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
@@ -53,7 +54,7 @@ export default function FormVacancie({
     company: "",
     status: "open",
   });
-
+console.log(information)
   const [errors, setErrors] = useState({
     code: "",
     title: "",
@@ -186,6 +187,18 @@ export default function FormVacancie({
     const validationError = validations(information as VacancyProps);
     setErrors(validationError);
   };
+
+  useEffect(() => {
+    if (!token) navigate("/unauthorized");
+    const fetchData = async () => {
+      const { data } = await axios.get(
+        "https://linkit-server.onrender.com/resources/countries"
+      );
+      const countries = data.map((country: any) => country.name);
+      setCountries(countries);
+    };
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -331,19 +344,25 @@ export default function FormVacancie({
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                 {t("Ubicación")}
               </label>
-              <input
-                className={
-                  errors.location
-                    ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
-                    : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
-                }
-                type="text"
+              <select
+              className={
+                errors.location
+                  ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+                  : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+              }
+                onChange={handleChange}
+                value={ information.location ?? "-"}
                 name="location"
                 placeholder={errors.location ? "*" : ""}
                 autoComplete="off"
-                onChange={handleChange}
                 onBlur={handleBlurErrors}
-              />
+              >
+                <option value=""></option>
+                {countries.map((country, index) => (
+                  <option key={index}>{country}</option>
+                ))}
+              </select>
+             
             </div>
 
             <div className="w-fit px-3 mb-6">
@@ -441,50 +460,7 @@ export default function FormVacancie({
               ) : null}
             </div>
 
-            <div className="w-full px-3 mb-6">
-              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
-                {t("Deseable")}
-              </label>
-              {inputClicked && (
-                <span className="m-0 text-xs text-linkIt-300">
-                  *Presiona enter para agregar más de un Deseable*
-                </span>
-              )}
-              <input
-                className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
-                type="text"
-                name="niceToHave"
-                autoComplete="off"
-                onChange={handleChange}
-                onKeyDown={addToList}
-                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
-                onClick={handleInputClick}
-              />
-              {infoList &&
-              infoList.niceToHave &&
-              infoList.niceToHave.length > 0 ? (
-                <div className="mx-4">
-                  <h3 className="text-xs font-bold text-linkIt-200">
-                    {t("Deseables agregados")}
-                  </h3>
-                  <ul className="list-disc">
-                    {infoList.niceToHave?.map((t: string) => {
-                      return (
-                        <div key={t} className="flex">
-                          <li className="text-sm">{t}</li>
-                          <button
-                            onClick={(e) => deleteFromList(e, t, "niceToHave")}
-                            className="ml-3 hover:text-red-500"
-                          >
-                            x
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : null}
-            </div>
+            
 
             <div className="w-full px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
@@ -527,6 +503,51 @@ export default function FormVacancie({
                             onClick={(e) =>
                               deleteFromList(e, t, "requirements")
                             }
+                            className="ml-3 hover:text-red-500"
+                          >
+                            x
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="w-full px-3 mb-6">
+              <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
+                {t("Deseable")}
+              </label>
+              {inputClicked && (
+                <span className="m-0 text-xs text-linkIt-300">
+                  *Presiona enter para agregar más de un Deseable*
+                </span>
+              )}
+              <input
+                className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
+                type="text"
+                name="niceToHave"
+                autoComplete="off"
+                onChange={handleChange}
+                onKeyDown={addToList}
+                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
+                onClick={handleInputClick}
+              />
+              {infoList &&
+              infoList.niceToHave &&
+              infoList.niceToHave.length > 0 ? (
+                <div className="mx-4">
+                  <h3 className="text-xs font-bold text-linkIt-200">
+                    {t("Deseables agregados")}
+                  </h3>
+                  <ul className="list-disc">
+                    {infoList.niceToHave?.map((t: string) => {
+                      return (
+                        <div key={t} className="flex">
+                          <li className="text-sm">{t}</li>
+                          <button
+                            onClick={(e) => deleteFromList(e, t, "niceToHave")}
                             className="ml-3 hover:text-red-500"
                           >
                             x
