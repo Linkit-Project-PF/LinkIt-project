@@ -350,13 +350,13 @@ function LoginTalent() {
               </button>
             </div>
             <p className="text-[.8rem] self-start ml-[6%] font-manrope cursor-pointer">
-              <motion.a
+              <motion.button
                 onClick={resetPasswordHandler}
                 className="cursor-pointer"
                 whileHover={{ textDecoration: "underline" }}
               >
                 {t("olvidé mi contraseña")}
-              </motion.a>
+              </motion.button>
             </p>
             {showResetPassword && <ResetPassword user={user} />}
           </fieldset>
@@ -404,9 +404,9 @@ function LoginTalent() {
               {t("Registrarse")}
             </motion.span>
           </p>
-          <h3 className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
+          <span className="bg-linkIt-200 text-white font-semibold w-full text-center text-[.7rem] absolute bottom-0 top-[95%] p-[.4rem]">
             {t("INGRESO PARA TALENTOS")}
-          </h3>
+          </span>
         </form>
       </div>
     </>
