@@ -23,9 +23,9 @@ export default function Recursos() {
         <div className="bg-linkIt-300 dark:bg-linkIt-200 h-[20%] mt-[115px] md:mt-[135px] p-[7%] py-[15%] lg:py-[7%] flex flex-col content-center text-center relative">
           <img src={topLines} alt="lines" className="w-full absolute top-[22%] hidden lg:block" />
           <img src={topLinesMobile} alt="lines" className="w-full absolute top-[22%] lg:hidden" />
-          <h1 className="font-bold font-manrope text-white titles-size">
+          <h2 className="font-bold font-manrope text-white titles-size">
             {t("Recursos de LinkIT")}
-          </h1>
+          </h2>
           <img src={bottomLines} alt="lines" className="w-full absolute top-[70%] hidden lg:block" />
           <img src={bottomLinesMobile} alt="lines" className="w-full absolute top-[70%]  lg:hidden" />
 

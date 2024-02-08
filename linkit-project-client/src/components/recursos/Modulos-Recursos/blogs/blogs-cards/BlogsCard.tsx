@@ -74,14 +74,14 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
           {description}
         </span>
 
-        <motion.a
+        <motion.button
           onClick={handleClick}
           className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
           whileHover={{ scale: 1.02, cursor: 'pointer' }}
           whileTap={{ scale: 1 }}
         >
           {t('Leer Nota')}
-        </motion.a>
+        </motion.button>
       </div>
     </motion.div>
   );
