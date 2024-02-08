@@ -45,7 +45,7 @@ export default function AdminsForm({ onClose, setSaveStatus }: FormAdminProps) {
         e.preventDefault();
 
         try {
-            const endPoint = "https://linkit-server.onrender.com/admins/create";
+            const endPoint = "https://linkit-server.onrender.com/auth/register";
             const response = await axios.post(endPoint, information, {
                 headers: {
                     Authorization: `Bearer ${token}`,
