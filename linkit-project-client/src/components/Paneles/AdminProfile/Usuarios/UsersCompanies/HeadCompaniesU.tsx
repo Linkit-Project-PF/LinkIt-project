@@ -5,7 +5,6 @@ import swal from "sweetalert";
 import axios from "axios";
 import { searchCompanies, setUsersCompanies, sortCompanies } from "../../../../../redux/features/UsersSlice";
 import { useTranslation } from "react-i18next";
-import CompaniesForm from "./CompaniesForm";
 
 interface HeadCompaniesU {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -44,16 +43,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
     }
     //?
 
-    //? FORM
-    const [viewForm, setViewForm] = useState(false);
-    const showForm = () => {
-        setSaveStatus(false)
-        setViewForm(true);
-    };
-    const noShowForm = () => {
-        setViewForm(false);
-    };
-    //?
+
     const deleteCompany = async () => {
         swal({
             title: t("¿Deseas eliminar el Usuario?"),
@@ -86,19 +76,10 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
 
     return (
         <div>
-
             <div>
                 <h1 className="text-4xl pl-16 py-6">{t("Empresas")}</h1>
             </div>
             <div className=' flex flex-row justify-around pb-6'>
-                <div>
-                    <button
-                        className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
-                        onClick={showForm}
-                    >
-                        {t("Nueva Empresa")}
-                    </button>
-                </div>
                 <div className="flex flex-row">
                     <div>
                         <h1>{t("Ordenar: ")}</h1>
@@ -138,10 +119,7 @@ export default function HeadCompaniesU({ hideCol, viewCol, selectedRows, editing
                         </div>
                     )}
                 </div>
-                {viewForm && <CompaniesForm
-                    onClose={noShowForm}
-                    setSaveStatus={setSaveStatus}
-                />}
+
                 <div>
                     <input
                         type="text"
