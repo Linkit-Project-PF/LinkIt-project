@@ -295,7 +295,7 @@ function NavBar() {
           {t("Contrata y gestiona talentos de forma global con LinkIT")} |{" "}
         </span>
         <NavLink
-          to="https://calendly.com/linkit-project-henry/30min"
+          to="https://calendly.com/saleslinkit/30min"
           className="ml-2 underline underline-offset-[3.3px]"
           target="_blank"
         >
@@ -308,13 +308,13 @@ function NavBar() {
           src={!isDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
           alt="LinkIT-logo"
-          className="relative w-[15%] md:w-[10%] lg:w-[6%] xs:left-2 md:left-10 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+          className="relative w-[15%] md:w-[10%] lg:w-[5%] xl:w-[6%] xs:left-2 md:left-10 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
 
         {windowWidth >= 1024 ? (
           <motion.div className={`container-navigation bg-transparent`}>
             <motion.button
-              className={`flex items-center mt-[0.3%] border-b-[0.5vh] hover:border-b-linkIt-300 hover:text-linkIt-300 dark:hover:border-b-white dark:hover:text-white  ${
+              className={`flex items-center border-b-[4px] hover:border-b-linkIt-300 hover:text-linkIt-300 dark:hover:border-b-white dark:hover:text-white  ${
                 isActiveHome
                   ? "text-linkIt-300 border-b-linkIt-300 dark:border-b-white dark:text-white"
                   : "border-b-transparent"
@@ -331,25 +331,25 @@ function NavBar() {
               onMouseLeave={() => setIsOpenEmpresa(false)}
             >
               <motion.button
-                className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
+                className={`flex h-full items-center border-b-[4px] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
                   isActiveEmpresa ? "text-linkIt-300 dark:text-white " : ""
                 }`}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goSoyEmpresa()}
               >
                 {t("Soy Empresa")}
-                <div className="arrow w-[0.7vw] ml-[0.3vw] hidden lg:block">
+                <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2 hidden lg:block">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
-                className="relative right-[10%] bg-white dark:bg-linkIt-400 rounded-b-[7px] w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+                className="relative right-[10%] bg-white dark:bg-linkIt-400 rounded-b-[7px] w-[120%] h-fit p-2 xl:p-3 font-semibold items-center space-y-2"
                 style={{
                   pointerEvents: isOpenEmpresa ? "auto" : "none",
                   clipPath: "inset(10% 50% 90% 50%)",
                 }}
               >
-                <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 dark:after:bg-white after:absolute"></div>
+                <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 dark:after:bg-white after:absolute"></div>
                 <li className={`hover:text-linkIt-300`}>
                   <button onClick={navigatetoServicesCompany}>
                     {t("Servicios")}
@@ -377,25 +377,25 @@ function NavBar() {
               onMouseLeave={() => setIsOpenSoyTalento(false)}
             >
               <motion.button
-                className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
+                className={`flex h-full items-center border-b-[4px] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
                   isActiveTalento ? "text-linkIt-300 dark:text-white" : ""
                 }`}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goSoyTalento()}
               >
                 {t("Soy Talento")}
-                <div className="arrow w-[0.7vw] ml-[0.3vw] hidden lg:block">
+                <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2 hidden lg:block">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
-                className="relative right-[10%] bg-white rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+                className="relative right-[10%] bg-white rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-2 xl:p-3 font-semibold items-center space-y-2"
                 style={{
                   pointerEvents: isOpenSoyTalento ? "auto" : "none",
                   clipPath: "inset(10% 50% 90% 50%)",
                 }}
               >
-                <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
+                <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoVacanciesTalent}>
                     {t("Vacantes")}
@@ -423,25 +423,25 @@ function NavBar() {
               onMouseLeave={() => setIsOpenRecursos(false)}
             >
               <motion.button
-                className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
+                className={`flex h-full items-center border-b-[4px] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
                   isActiveRecursos ? "text-linkIt-300 dark:text-white" : ""
                 }`}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goRecursos()}
               >
                 {t("Recursos")}
-                <div className="arrow w-[0.7vw] ml-[0.3vw]">
+                <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
-                className="bg-white right-[10%] relative rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+                className="bg-white right-[10%] relative rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-2 xl:p-3 font-semibold items-center space-y-2"
                 style={{
                   pointerEvents: isOpenRecursos ? "auto" : "none",
                   clipPath: "inset(10% 50% 90% 50%)",
                 }}
               >
-                <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
+                <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoBlogs}>{t("Blogs")}</button>
                 </li>
@@ -463,12 +463,12 @@ function NavBar() {
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
-                  <a
+                  <button
                     onClick={() => navigate("/recursos/libreria")}
                     className="cursor-pointer"
                   >
                     {t("Librería")}
-                  </a>
+                  </button>
                 </li>
               </ul>
             </motion.nav>
@@ -480,25 +480,25 @@ function NavBar() {
               onMouseLeave={() => setIsOpenQS(false)}
             >
               <motion.button
-                className={`flex h-full items-center border-b-[0.5vh] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
+                className={`flex h-full items-center border-b-[4px] border-b-transparent hover:text-linkIt-300 dark:hover:text-white ${
                   isActiveQS ? "text-linkIt-300 dark:text-white" : ""
                 }`}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goQS()}
               >
                 {t("Quiénes Somos")}
-                <div className="arrow w-[0.7vw] ml-[0.3vw]">
+                <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
               </motion.button>
               <ul
-                className="relative right-[10%] bg-white rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-[0.5vw] font-semibold items-center space-y-[1vh]"
+                className="relative right-[10%] bg-white rounded-b-[7px] dark:bg-linkIt-400 w-[120%] h-fit p-2 xl:p-3 font-semibold items-center space-y-2"
                 style={{
                   pointerEvents: isOpenQS ? "auto" : "none",
                   clipPath: "inset(10% 50% 90% 50%)",
                 }}
               >
-                <div className="absolute w-[85%] left-[7.5%] after:h-[0.5vh] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
+                <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoMission}>{t("Misión")}</button>
                 </li>
@@ -549,8 +549,8 @@ function NavBar() {
               <Languaje />
               </button>
               <div className="cl-toggle-switch top-[1px]">
-                <label className="cl-switch">
-                  <input type="checkbox" readOnly onChange={darkMode} checked={isDarkMode} />
+                <label className="cl-switch" id="switchDarkModeOutside" aria-label="Cambiar modo oscuro">
+                  <input type="checkbox" readOnly onChange={darkMode} checked={isDarkMode} id="switchDarkmodeInside"/>
                   <span></span>
                 </label>
               </div>
@@ -610,8 +610,8 @@ function NavBar() {
           {/* isDarkMode */}
 
           <div className="cl-toggle-switch hidden lg:flex">
-            <label className="cl-switch">
-              <input type="checkbox" onChange={darkMode} readOnly checked={isDarkMode} />
+            <label className="cl-switch" id="switchDarkModeOutside" aria-label="Cambiar modo oscuro">
+              <input type="checkbox" onChange={darkMode} readOnly checked={isDarkMode} id="switchDarkmodeInside"/>
               <span></span>
             </label>
           </div>
@@ -745,6 +745,7 @@ function NavBar() {
           <button
             className="relative lg:hidden"
             onClick={() => setBurgerMenu(!burgerMenu)}
+            aria-label="Open Menu"
           >
             <div
               className={`relative flex overflow-hidden items-center justify-center transform transition-all`}

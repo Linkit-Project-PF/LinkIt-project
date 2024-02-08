@@ -412,7 +412,7 @@ const JobFilters = () => {
         className="background-button whitespace-nowrap mr-3 relative hover:text-linkIt-200 hover:bg-white"
         onClick={() => handleFilters()}
       >
-        Encontrar Vacante
+        {t('Encontrar vacante')}
       </button>
 
       <button
