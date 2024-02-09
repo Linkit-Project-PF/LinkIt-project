@@ -780,21 +780,34 @@ export default function Vacancies2() {
             </div>
             <div>
               {dataToShow.map((v: VacancyProps) => (
-                <div key={v._id}>
-                  <p
-                    className={
-                      selectedRows.has(v._id)
-                        ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap justify-center items-center"
-                        : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 justify-center items-center"
-                    }
-                  >
-                    {v.company}
+                <div
+                  key={v._id}
+                  className={
+                    selectedRows.has(v._id)
+                      ? "flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap"
+                      : "flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                  }
+                >
+                  <p className="">
+                    {selectedRows.has(v._id) && editing ? (
+                      <input
+                        name="company"
+                        type="text"
+                        onChange={handleChange}
+                        defaultValue={v.company}
+                        className="bg-linkIt-500 text-black w-full h-6"
+                      />
+                    ) : (
+                      v.company
+                    )}
                   </p>
                 </div>
               ))}
             </div>
           </div>
         )}
+
+
 
         {viewCol.code && (
           <div className="">
@@ -804,16 +817,28 @@ export default function Vacancies2() {
 
             <div>
               {dataToShow.map((v: VacancyProps) => (
-                <p
-                  key={v._id}
-                  className={
-                    selectedRows.has(v._id)
-                      ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap"
-                      : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
-                  }
-                >
-                  {v.code}
+                <div
+                key={v._id}
+                className={
+                  selectedRows.has(v._id)
+                    ? "flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap"
+                    : "flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                }
+              >
+                <p className="">
+                  {selectedRows.has(v._id) && editing ? (
+                    <input
+                      name="code"
+                      type="text"
+                      onChange={handleChange}
+                      defaultValue={v.code}
+                      className="bg-linkIt-500 text-black w-full h-6"
+                    />
+                  ) : (
+                    v.code
+                  )}
                 </p>
+              </div>
               ))}
             </div>
           </div>
