@@ -136,7 +136,8 @@ export default function PermissionsForm({
         title: t("Enviado"),
         text: t("Permisos cambiados con éxito"),
         icon: "success",
-        allowOutsideClick: true
+        allowOutsideClick: true,
+        confirmButtonColor: "#01A28B"
       });
       console.log(response);
       hideFunction(false);

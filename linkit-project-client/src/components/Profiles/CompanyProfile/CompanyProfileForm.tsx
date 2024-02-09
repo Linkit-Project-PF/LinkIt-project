@@ -76,7 +76,7 @@ const CompanyForm: FunctionComponent<IComponentProps> = ({ company }) => {
         <div className="flex flex-col gap-5 md:flex-row md:flex-wrap">
           <div className="flex flex-col">
             <label htmlFor="" className="ml-2">
-              {t("Representante")}
+              {t("Nombre y apellido")}
             </label>
             <input
               defaultValue={company.repName}
