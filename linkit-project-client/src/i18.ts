@@ -683,6 +683,9 @@ export const i18nOptions: InitOptions = {
         'Tu postulación sigue en curso': 'Your application is still in progress',
         'Cargando información':"Gathering JD information",
 
+        //!Pane soy empresa
+        'Nombre y apellido': 'First and last name',
+
         //! Permission Form
         "Administradores": "Admins",
         "Empresas": "Companies",
