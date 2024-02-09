@@ -33,6 +33,7 @@ function JobDescription() {
   const [jobData, setJobData] = useState<JobDescriptionProps>(
     {} as JobDescriptionProps
   );
+
   const [loading, isLoading] = useState<boolean>(false);
   const { i18n } = useTranslation();
   const { language } = i18n;
@@ -114,12 +115,12 @@ function JobDescription() {
                 />
                 {language === "en" ? "Go back" : "Volver"}
               </motion.button>
-              <h2 className="text-black border-[2px] border-linkIt-300 dark:border-linkIt-200 dark:bg-white dark: inline-flex px-2 py-1 text-size font-semibold rounded-[7px] mb-[3%]">
+              <h3 className="text-black border-[2px] border-linkIt-300 dark:border-linkIt-200 dark:bg-white dark: inline-flex px-2 py-1 text-size font-semibold rounded-[7px] mb-[3%]">
                 CODE: {id}
-              </h2>
-              <h1 className="text-black dark:text-white font-bold titles-size">
+              </h3>
+              <h3 className="text-black dark:text-white font-bold titles-size">
                 {jobData.title}
-              </h1>
+              </h3>
             </header>
             <section className="mb-[3%]">
               <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
@@ -129,93 +130,108 @@ function JobDescription() {
                 {jobData.description}
               </p>
             </section>
-            <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Acerca de nosotros")}
-              </h3>
-              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                {jobData.aboutUs}
-              </p>
-            </section>
-            <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Acerca de nuestro cliente")}
-              </h3>
-              <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                {jobData.aboutClient}
-              </p>
-            </section>
+            {jobData?.aboutUs &&
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Acerca de nosotros")}
+                </h3>
+                <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
+                  {jobData.aboutUs}
+                </p>
+              </section>
+            }
 
-            <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Responsabilidades")}
-              </h3>
-              <ul className="flex flex-col list">
-                {jobData.responsabilities?.map((responsability, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
-                    >
-                      {responsability}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+            {jobData?.aboutClient &&
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Acerca de nuestro cliente")}
+                </h3>
+                <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
+                  {jobData.aboutClient}
+                </p>
+              </section>
+            }
 
-            <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Requerimientos")}
-              </h3>
-              <ul className="flex flex-col list">
-                {jobData.requirements?.map((requirement, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
-                    >
-                      {requirement}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+            {jobData.responsabilities?.length > 0 &&
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Responsabilidades")}
+                </h3>
+                <ul className="flex flex-col list">
+                  {jobData.responsabilities?.map((responsability, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
+                      >
+                        {responsability}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            }
 
-            <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Deseable")}
-              </h3>
-              <ul className="flex flex-col list">
-                {jobData.niceToHave?.map((desirable, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
-                    >
-                      {desirable}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-            <section className="mb-[3%]">
-              <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                {t("Beneficios")}
-              </h3>
-              <ul className="flex flex-col list">
-                {jobData.benefits?.map((benefit, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
-                    >
-                      {benefit}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+            {jobData.requirements?.length > 0 &&
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Requerimientos")}
+                </h3>
+                <ul className="flex flex-col list">
+                  {jobData.requirements?.map((requirement, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
+                      >
+                        {requirement}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            }
+
+            {jobData.niceToHave?.length > 0 &&
+              < section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Deseable")}
+                </h3>
+                <ul className="flex flex-col list">
+                  {jobData.niceToHave?.map((desirable, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
+                      >
+                        {desirable}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            }
+
+            {jobData.benefits?.length > 0 &&
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Beneficios")}
+                </h3>
+                <ul className="flex flex-col list">
+                  {jobData.benefits?.map((benefit, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
+                      >
+                        {benefit}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            }
+
             <section className=" mt-[10%] lg:flex grid content-center items-center justify-items-center lg:max-w-[70%] dark:text-white ">
               <img
                 src="/Vectores/complete-form.svg"
@@ -227,6 +243,7 @@ function JobDescription() {
                 {t("el siguiente formulario")}
               </h3>
             </section>
+            
           </div>
           <section className="lg:w-[50%] flex flex-col justify-items-center items-center gap-[1rem]">
             <img
@@ -242,9 +259,9 @@ function JobDescription() {
             </button>
           </section>
         </div>
-      </article>
+      </article >
       <Newsletter />
-    </div>
+    </div >
   );
 }
 
