@@ -3,7 +3,7 @@ import { IAdmin, UserRoleEnum } from "../types";
 import { changePassword, editAdmin } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/types";
-import { logout, setUser } from "../../../redux/features/AuthSlice";
+import { setUser } from "../../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
@@ -53,10 +53,6 @@ const SuperAdminProfileForm: FunctionComponent = () => {
 
       });
     }
-  }
-  function handleLogOut() {
-    dispatch(logout());
-    navigate("/");
   }
 
   useEffect(() => {
@@ -161,13 +157,7 @@ const SuperAdminProfileForm: FunctionComponent = () => {
             >
               {t("Cambiar contraseña")}
             </button> : null}
-            <button
-  className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 md:w-[11.75rem] md:h-[2.75rem] rounded-[10px] border-solid absolute md:top-[20rem] md:left-[rem] top-[10%] left-[5%] md:top-[110%] md:left-[25%] transform md:-translate-y-1/2 md:-translate-x-1/2"
-  onClick={handleLogOut}
->
-  {t("Cerrar Sesión")}
-</button>
-
+           
           </div>
         </div>
       </div>

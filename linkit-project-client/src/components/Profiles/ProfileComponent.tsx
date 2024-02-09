@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CloudinaryUploadWidget from "../Services/cloudinaryWidget";
 import { editWebUserImage } from "./api";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, setUser } from "../../redux/features/AuthSlice";
+import { setUser } from "../../redux/features/AuthSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import ProfileFormComponent from "./ProfileFormComponent";
@@ -94,10 +94,7 @@ export default function ProfileComponent({ loader }: componentProps) {
   //   }
   // }
 
-  function handleLogOut() {
-    dispatch(logout());
-    navigate("/");
-  }
+  
 
   return (
     <div className="flex flex-col w-full pt-5 justify-center">
@@ -161,12 +158,7 @@ export default function ProfileComponent({ loader }: componentProps) {
               </button>
             )}
             {showResetPassword && <ResetPassword user={user} />}
-            <button
-              className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
-              onClick={handleLogOut}
-            >
-              {t("Cerrar Sesión")}
-            </button>
+           
           </div>
         </div>
       </div>
