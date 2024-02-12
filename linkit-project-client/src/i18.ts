@@ -174,6 +174,7 @@ export const i18nOptions: InitOptions = {
           "User found but no register match, please log-in on the correct role section. If error persist, please contact us",
 
         //!Sweet Alerts!
+        "Servicios: ": "Services: ",
         "Confirmar": "Confirm",
         "Por favor confirma los servicios": "Please confirm the services",
         "¡El email no coincide!": "The email does not match!",
@@ -333,7 +334,7 @@ export const i18nOptions: InitOptions = {
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!": "If none of these vacancies are for you, don't worry, there are many more to come!",
         "Súmate a nuestra base de datos": "Join our database",
-        "No se encontraron vacantes disponibles con las opciones seleccionadas.": "No vacancies available with the selected options.",
+        "No se encontraron vacantes disponibles con las opciones seleccionadas. Prueba nuevos filtros!": "There were no vacancies available with the selected options. Try new filters!",
         //!Talentos Job filters
         "Encontrar Vacante": "Find vacancies",
         //!Footer

@@ -114,7 +114,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       const confirmMessage = await Swal.fire({
         icon: 'info',
         title: t("Por favor confirma los servicios"),
-        text: `${t("Servicios: " + contacts.service.join(", "))}`,
+        // text: `${t("Servicios: ") + contacts.service.join(", ")}`,
         showCancelButton: true,
         showConfirmButton: true,
         confirmButtonColor: "#01A28B",
@@ -131,7 +131,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             "Accept-Language": sessionStorage.getItem("lang"),
           },
         })
-
+        // console.log(sessionStorage.getItem("langs"))
         if(response.status === 200) {
           Swal.fire({ 
             customClass: {
@@ -195,7 +195,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
               <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.company}</p>
             )}
         </div>
-          <Dropdown label={t('¿Qué servicio te interesa?')} theme={customTheme} inline> 
+          <Dropdown label={contacts.service.length ? contacts.service[0] : t('¿Qué servicio te interesa?')} theme={customTheme} inline> 
               <li className="flex items-center">
               <input className=" checked:bg-linkIt-300 rounded-sm mr-1 focus:ring-0" type="checkbox" name="Gestión y beneficios" value='Gestión y beneficios' id="Gestión y beneficios" checked={contacts.service.includes('Gestión y beneficios')}
               onChange={handleChange} onBlur={handleChange} />
