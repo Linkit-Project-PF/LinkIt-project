@@ -133,14 +133,16 @@ export default function Users() {
   //? SECCIONES
   const renderSectionSelect = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: TalentProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}
+            className={selectedRows.has(r._id) 
+              ? 'capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap' 
+              : 'capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1'}
           >
             <input type="checkbox" name="edit" onChange={() => handleEdit(r._id)} checked={selectedRows.has(r._id)} />
             <p>{String(r[key] === undefined || NaN ? '' : r[key])}</p>
@@ -152,14 +154,16 @@ export default function Users() {
   )
   const renderSectionBasicNoEdit = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: TalentProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={selectedRows.has(r._id) 
+              ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center' 
+              : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
             <p>{String(r[key] === undefined || NaN ? '' : r[key])}</p>
           </div>
@@ -170,14 +174,16 @@ export default function Users() {
 
   const renderSectionBasicCV = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: TalentProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={selectedRows.has(r._id) 
+              ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center' 
+              : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
             {key === 'cv' && r[key] !== "" && Object.values(r[key]).some((value) => value !== "") ? (
               <PDFViewer cv={r[key] as any} />
@@ -199,14 +205,16 @@ export default function Users() {
   )
   const renderSectionBasicCap = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: TalentProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={selectedRows.has(r._id) 
+              ? 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center' 
+              : 'capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
             <p>{selectedRows.has(r._id) && editing ?
               <input
@@ -224,14 +232,16 @@ export default function Users() {
   )
   const renderSectionBasic = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-full border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: TalentProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={selectedRows.has(r._id) 
+              ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis w-80 h-8 line-clamp-1 bg-linkIt-300 justify-center items-center' 
+              : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis w-80 h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
             <p>{selectedRows.has(r._id) && editing ?
               <input
@@ -249,14 +259,16 @@ export default function Users() {
   )
   const renderSectionActive = <K extends keyof TalentProps>(title: string, key: K,) => (
     <div>
-      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200'>
+      <div className='flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200'>
         <h1>{title}</h1>
       </div>
       <div>
         {dataToShow.map((r: TalentProps, index) => (
           <div
             key={`${key}-${index}`}
-            className={selectedRows.has(r._id) ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center' : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
+            className={selectedRows.has(r._id) 
+              ? 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center' 
+              : 'pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center'}
           >
             <p>{String(r[key] === true ? 'Activo' : 'Inactivo')}</p>
           </div>

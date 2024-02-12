@@ -137,7 +137,7 @@ export default function CompaniesU() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -169,7 +169,7 @@ export default function CompaniesU() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-full border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -178,8 +178,8 @@ export default function CompaniesU() {
             key={`${key}-${index}`}
             className={
               selectedRows.has(r._id)
-                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
-                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
             <p>{String(r[key] === undefined || NaN ? "" : r[key])}</p>
@@ -193,7 +193,7 @@ export default function CompaniesU() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-full border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -229,7 +229,7 @@ export default function CompaniesU() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -238,8 +238,8 @@ export default function CompaniesU() {
             key={`${key}-${index}`}
             className={
               selectedRows.has(r._id)
-                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
-                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
             <p>
@@ -265,7 +265,7 @@ export default function CompaniesU() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-fit border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -274,8 +274,8 @@ export default function CompaniesU() {
             key={`${key}-${index}`}
             className={
               selectedRows.has(r._id)
-                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
-                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
             <p>{String(r[key] === true ? "Activo" : "Inactivo")}</p>
