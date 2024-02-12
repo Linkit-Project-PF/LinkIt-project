@@ -53,7 +53,7 @@ const JobCards: FunctionComponent = () => {
             initial={{ opacity: 0, x: -1000 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: .5, type: 'spring', bounce: 0.25 }}
-            >{t('No se encontraron vacantes disponibles con las opciones seleccionadas.')}
+            >{t('No se encontraron vacantes disponibles con las opciones seleccionadas. Prueba nuevos filtros!')}
             </motion.p>
           </div>
           
