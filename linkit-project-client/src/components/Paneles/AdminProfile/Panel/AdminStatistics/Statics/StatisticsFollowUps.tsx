@@ -25,6 +25,7 @@ export default function StatisticsFollowUps() {
           title: "Error",
           icon: "error",
           text: "Error fetching followUps data, check server status and/or Airtable",
+          confirmButtonColor: "#01A28B"
         });
       } finally {
         isLoading(false);
