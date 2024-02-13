@@ -380,12 +380,9 @@ console.log(information)
                   onChange={handleChange}
                 >
                   <option value="">{t("Selecciona")}</option>
-                  <option value="remote">{t("Remoto")}</option>
-                  <option value="specific-remote">
-                    {t("Remoto específico")}
-                  </option>
-                  <option value="on-site">{t("Presencial")}</option>
-                  <option value="hybrid">{t("Hibrido")}</option>
+                  <option value="remote-local">{t("Remoto (Local)")}</option>
+                  <option value="remote-regional">{t("Remoto (Regional)")}</option>
+                  <option value="hybrid">{t("Híbrido")}</option>
                 </select>
               </div>
             </div>

@@ -128,7 +128,7 @@ export const i18nOptions: InitOptions = {
         "Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo.": "Quotations will depend on all the exact requirements of the search, benefits, defined development plans among others, contact us to quote.",
         //Company module I
         "Contáctanos": "Contact us",
-        "¿Qué servicio te interesa?": "What service are you interested in?",
+        "¿Qué servicio te interesa?": "Which service are you interested in?",
         //Company - Profile - MyPosts
         "Iniciados": "Started",
         "En proceso": "Currently working",
@@ -174,6 +174,7 @@ export const i18nOptions: InitOptions = {
           "User found but no register match, please log-in on the correct role section. If error persist, please contact us",
 
         //!Sweet Alerts!
+        "Servicios: ": "Services: ",
         "Confirmar": "Confirm",
         "Por favor confirma los servicios": "Please confirm the services",
         "¡El email no coincide!": "The email does not match!",
@@ -333,7 +334,7 @@ export const i18nOptions: InitOptions = {
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!": "If none of these vacancies are for you, don't worry, there are many more to come!",
         "Súmate a nuestra base de datos": "Join our database",
-        "No se encontraron vacantes disponibles con las opciones seleccionadas.": "No vacancies available with the selected options.",
+        "No se encontraron vacantes disponibles con las opciones seleccionadas. Prueba nuevos filtros!": "There were no vacancies available with the selected options. Try new filters!",
         //!Talentos Job filters
         "Encontrar Vacante": "Find vacancies",
         //!Footer
@@ -599,6 +600,8 @@ export const i18nOptions: InitOptions = {
         //!Panel Admin Vacantes
         "¿Deseas ocultar la vacante?": "Do you want to hide the vacancy?",
         "¿Deseas eliminar la vacante?": "Do you want to delete the vacancy?",
+        "Remoto (Local)":"Remote (Local)",
+        "Remoto (Regional)":"Remote (Regional)",
         "Por favor selecciona un estado": "",
         "Se ha creado una nueva vacante exitosamente.": "A new vacancy has been successfully created.",
         "ID de la vacante:": "Vacancy ID:",
@@ -619,7 +622,7 @@ export const i18nOptions: InitOptions = {
         "Remoto": "Remote",
         "Remoto específico": "Specific Remote",
         "Presencial": "On-site",
-        "Hibrido": "Hybrid",
+        "Híbrido": "Hybrid",
         "Tiempo completo": "Full time",
         "Medio tiempo": "Part-time",
         "Independiente": "Freelance",

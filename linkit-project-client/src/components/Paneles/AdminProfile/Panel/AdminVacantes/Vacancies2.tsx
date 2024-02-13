@@ -468,10 +468,9 @@ export default function Vacancies2() {
                   onClick={handleFilters}
                 >
                   <option value=""></option>
-                  <option value="remote">Remote</option>
-                  <option value="specific-remote">Specific-remote</option>
-                  <option value="on-Site">On-Site</option>
-                  <option value="hybrid">Hybrid</option>
+                  <option value="remote-local">{t("Remoto (Local)")}</option>
+                  <option value="remote-regional">{t("Remoto (Regional)")}</option>
+                  <option value="hybrid">{t("Híbrido")}</option>
                 </select>
               </div>
             </div>
