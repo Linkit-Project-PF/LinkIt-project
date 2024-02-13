@@ -216,39 +216,58 @@ const JobFilters = () => {
           {language === "en" ? (
             <li
               onClick={() => {
-                setModality("Remote"), setModalityValue("remote");
+                setModality("Remote (Local)"), setModalityValue("remote-local");
               }}
               className="cursor-pointer w-full px-2"
             >
-              Remote
+              Remote (Local)
             </li>
           ) : (
             <li
               onClick={() => {
-                setModality("Remoto"), setModalityValue("remote");
+                setModality("Remoto (Local)"), setModalityValue("remote-local");
               }}
               className="cursor-pointer w-full px-2"
             >
-              Remoto
+              Remoto (Local)
             </li>
           )}
           {language === "en" ? (
             <li
               onClick={() => {
-                setModality("Presential"), setModalityValue("on-site");
+                setModality("Remote (Regional)"), setModalityValue("remote-regional");
               }}
               className="cursor-pointer w-full px-2"
             >
-              Presential
+              Remote (Regional)
             </li>
           ) : (
             <li
               onClick={() => {
-                setModality("Presencial"), setModalityValue("on-site");
+                setModality("Remoto (Regional)"), setModalityValue("remote-regional");
               }}
               className="cursor-pointer w-full px-2"
             >
-              Presencial
+              Remoto (Regional)
+            </li>
+          )}
+           {language === "en" ? (
+            <li
+              onClick={() => {
+                setModality("Hybrid"), setModalityValue("hybrid");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Hybrid
+            </li>
+          ) : (
+            <li
+              onClick={() => {
+                setModality("Híbrido"), setModalityValue("hybrid");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Híbrido
             </li>
           )}
 </Dropdown>

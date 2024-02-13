@@ -128,7 +128,7 @@ export const i18nOptions: InitOptions = {
         "Los presupuestos dependerán de todos los requerimientos exactos de la búsqueda, beneficios, planes de desarrollo definidos entre otros, contáctanos para concretarlo.": "Quotations will depend on all the exact requirements of the search, benefits, defined development plans among others, contact us to quote.",
         //Company module I
         "Contáctanos": "Contact us",
-        "¿Qué servicio te interesa?": "What service are you interested in?",
+        "¿Qué servicio te interesa?": "Which service are you interested in?",
         //Company - Profile - MyPosts
         "Iniciados": "Started",
         "En proceso": "Currently working",
@@ -600,6 +600,8 @@ export const i18nOptions: InitOptions = {
         //!Panel Admin Vacantes
         "¿Deseas ocultar la vacante?": "Do you want to hide the vacancy?",
         "¿Deseas eliminar la vacante?": "Do you want to delete the vacancy?",
+        "Remoto (Local)":"Remote (Local)",
+        "Remoto (Regional)":"Remote (Regional)",
         "Por favor selecciona un estado": "",
         "Se ha creado una nueva vacante exitosamente.": "A new vacancy has been successfully created.",
         "ID de la vacante:": "Vacancy ID:",
@@ -620,7 +622,7 @@ export const i18nOptions: InitOptions = {
         "Remoto": "Remote",
         "Remoto específico": "Specific Remote",
         "Presencial": "On-site",
-        "Hibrido": "Hybrid",
+        "Híbrido": "Hybrid",
         "Tiempo completo": "Full time",
         "Medio tiempo": "Part-time",
         "Independiente": "Freelance",
