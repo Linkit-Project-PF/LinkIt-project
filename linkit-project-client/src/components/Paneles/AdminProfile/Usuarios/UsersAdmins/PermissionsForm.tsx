@@ -252,17 +252,17 @@ export default function PermissionsForm({
         </div>
         <div className="flex flex-row self-center mb-4">
           <button
-            type="submit"
-            onClick={handleSave}
-            className="bg-linkIt-300 flex justify-center items-center rounded-[7px] m-2 p-6 h-12 w-32 text-white text-[12px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
-          >
-            {t("Guardar")}
-          </button>
-          <button
             onClick={() => hideFunction(false)}
-            className="bg-linkIt-300 flex justify-center items-center rounded-[7px] m-2 p-6 h-12 w-32 text-white text-[12px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90"
+            className="transparent-background-button mr-2"
           >
             {t("Volver")}
+          </button>
+          <button
+            type="submit"
+            onClick={handleSave}
+            className="background-button ml-2"
+          >
+            {t("Guardar")}
           </button>
         </div>
       </div>
