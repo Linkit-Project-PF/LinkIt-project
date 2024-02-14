@@ -173,11 +173,11 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
                         </div>
                     </div>
                     {errors.name || errors.role || errors.country || errors.detail ? <span className="text-red-500">{t('Los campos marcados con * son obligatiorios')}</span> : null}
-                    <div className="flex">
-                        <button onClick={onClose} className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 mr-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
+                    <div className="flex mb-4">
+                        <button onClick={onClose} className="transparent-background-button mr-2">
                             {t('Volver')}
                         </button>
-                        <button type="submit" className="bg-linkIt-300 flex justify-center items-center rounded-[7px] mb-12 ml-6 p-6 h-12 w-32 text-white text-[10px] xl:text-xl shadow-md hover:bg-transparent hover:border-linkIt-300 hover:text-black hover:shadow-sm hover:shadow-linkIt-300 transition-all duration-300 ease-in-out active:scale-90">
+                        <button type="submit" className="background-button ml-2">
                             {t('Publicar')}
                         </button>
                     </div>

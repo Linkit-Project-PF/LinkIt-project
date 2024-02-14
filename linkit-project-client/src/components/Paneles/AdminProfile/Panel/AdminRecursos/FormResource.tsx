@@ -391,7 +391,7 @@ export default function FormResource({ onClose, setSaveStatus }: FormResourcePro
 
           <div className="flex m-4">
             <button onClick={onClose}
-              className={`background-button mr-2`}
+              className={`transparent-background-button mr-2`}
 
             >
               {t('Volver')}

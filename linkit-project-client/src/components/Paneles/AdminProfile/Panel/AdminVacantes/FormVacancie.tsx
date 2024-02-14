@@ -722,7 +722,7 @@ console.log(information)
           ) : null}
           <div className="flex m-4">
             <div className="pr-2">
-              <button onClick={onClose} className={`background-button`}>
+              <button onClick={onClose} className={`transparent-background-button`}>
                 {t("Volver")}
               </button>
             </div>
