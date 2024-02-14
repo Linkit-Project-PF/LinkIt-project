@@ -161,6 +161,11 @@ export const i18nOptions: InitOptions = {
         "Usuario o contraseña incorrectos": "Incorrect username or password",
         "Email no verificado, por favor revisa tu bandeja de entrada o spam": "Unverified email, please check your inbox or spam",
 
+        //!Company post
+        "Líder de la búsqueda: ": "Search leader",
+        "Fecha: ": "Date :",
+        "Descripción de la vacante": "Job Description",
+
         //!Login - talents
         "Conéctate con los mejores proyectos y aplica": "Connect with the best projects and apply",
         "a oportunidades de manera remota.": "to opportunities remotely.",
