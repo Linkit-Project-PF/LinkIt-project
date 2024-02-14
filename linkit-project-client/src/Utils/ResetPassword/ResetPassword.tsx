@@ -33,9 +33,10 @@ export default function ResetPassword(props: IResetPassword) {
         input: "email",
         focusConfirm: false,
         showCancelButton: true,
+        cancelButtonText: t("Cancelar"),
+        reverseButtons: true,
         confirmButtonText: t("Enviar"),
         confirmButtonColor: "#01A28B",
-        cancelButtonText: t("Cancelar"),
     }).then((result) => {
         if (result.isConfirmed) {
             const email = result.value;
@@ -60,6 +61,7 @@ export default function ResetPassword(props: IResetPassword) {
                       focusConfirm: false,
                       showCancelButton: true,
                       confirmButtonText: t("Enviar"),
+                      reverseButtons: true,
                       confirmButtonColor: "#01A28B",
                       cancelButtonText: t("Cancelar"),
                   })

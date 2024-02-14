@@ -175,6 +175,8 @@ export const i18nOptions: InitOptions = {
 
         //!Sweet Alerts!
         "Servicios: ": "Services: ",
+        "Hemos cerrado tu sesión con éxito": "We have successfully closed your session",
+        "Sesíon cerrada": "closed session",
         "Confirmar": "Confirm",
         "Por favor confirma los servicios": "Please confirm the services",
         "¡El email no coincide!": "The email does not match!",

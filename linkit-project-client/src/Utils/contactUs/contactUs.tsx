@@ -119,7 +119,8 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         showConfirmButton: true,
         confirmButtonColor: "#01A28B",
         confirmButtonText: t("Confirmar"),
-        cancelButtonText: t("Cancelar")
+        cancelButtonText: t("Cancelar"),
+        reverseButtons: true
       })
 
       if (confirmMessage.isConfirmed) {
@@ -144,7 +145,8 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             allowEnterKey: false,
             showCloseButton: false,
             showDenyButton: false,
-            showConfirmButton: false,
+            showConfirmButton: true,
+            confirmButtonText: t("Confirmar"),
             timer: 2000,
             icon: "success"
           }),
