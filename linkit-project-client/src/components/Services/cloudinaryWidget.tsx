@@ -1,6 +1,7 @@
 // import { Cloudinary } from "@cloudinary/url-gen/index";
 import { createContext, useEffect, useState } from "react";
 import { Curriculum } from "../Profiles/types";
+import Swal from "sweetalert2";
 
 declare global {
   interface Window {
@@ -49,28 +50,39 @@ function CloudinaryUploadWidget({
   });
 
   const openCloudinaryWidget = () => {
-    if (loaded) {
-      // Create upload widget configuration
-      const myWidget = window.cloudinary.createUploadWidget(
-        uwConfig,
-        (error: any, result: any) => {
-          if (!error && result && result.event === "success") {
-            setFilePublicId && setFilePublicId(result.info.public_id);
-            setCv &&
-              setCv({
-                fileName: `${result.info.original_filename}.${result.info.format}`,
-                cloudinaryId: result.info.public_id,
-              });
-            setFileName(
-              `${result.info.original_filename}.${result.info.format}`
-            );
-            setReload && setReload(true);
-          }
-        }
-      );
+    Swal.fire({
+      icon: "success",
+      title: "Cargando",
+      timer: 1000,
+      showConfirmButton: false,
+      showLoaderOnConfirm: true
+    })
+    setTimeout(() => {
+      if (loaded) {
+        // Create upload widget configuration
 
-      myWidget.open();
-    }
+        const myWidget = window.cloudinary.createUploadWidget(
+          uwConfig,
+          (error: any, result: any) => {
+            if (!error && result && result.event === "success") {
+              setFilePublicId && setFilePublicId(result.info.public_id);
+              setCv &&
+                setCv({
+                  fileName: `${result.info.original_filename}.${result.info.format}`,
+                  cloudinaryId: result.info.public_id,
+                });
+              setFileName(
+                `${result.info.original_filename}.${result.info.format}`
+              );
+              setReload && setReload(true);
+            }
+          }
+        );
+  
+        myWidget.open();
+      }
+    }, 1000)
+    
   };
 
   useEffect(() => {
