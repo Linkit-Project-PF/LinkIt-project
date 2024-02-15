@@ -589,6 +589,7 @@ export const i18nOptions: InitOptions = {
         "Fecha de creación": "Created date",
 
         //!Validations
+        "Cargando": "Charging",
         "Nombre requerido": "Name required",
         "Nombre inválido": "Invalid name",
         "Apellido requerido": "Last name required",
