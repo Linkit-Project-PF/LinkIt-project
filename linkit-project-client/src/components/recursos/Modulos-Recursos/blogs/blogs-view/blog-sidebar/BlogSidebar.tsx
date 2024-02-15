@@ -23,7 +23,7 @@ function BlogSidebar() {
   return (
     <div className='font-montserrat relative '>
         <span className='font-bold subtitles-size dark:text-white'>{t('Temas')}</span>
-        <ul className='flex flex-col space-y-2 mt-[2rem] text-size dark:text-white'>
+        <ul className='flex flex-col space-y-2 mt-[5%] text-size dark:text-white'>
             {items.map((item, index) => (
                 <li 
                     className={`list-item-resource${active === index.toString() ? '-active' : ''} cursor-pointer inline-flex uppercase`} 
@@ -35,8 +35,8 @@ function BlogSidebar() {
                 </li>
             ))}
         </ul>
-        <div >
-           <span className="font-bold mt-[10%] subtitles-size mb-[3%] dark:text-white">{t('Recomendado')}</span>
+        <div className="mt-[5%]">
+           <span className="font-bold subtitles-size dark:text-white">{t('Recomendado')}</span>
            <Recomended />
         </div>
     </div>

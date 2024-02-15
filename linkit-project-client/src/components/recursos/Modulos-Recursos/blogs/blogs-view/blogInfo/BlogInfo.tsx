@@ -38,8 +38,8 @@ function BlogInfo() {
   }, []);
 
   return (
-    <div className="font-montserrat lg:mr-[5%]">
-      <span className="border-[2px] text-size border-linkIt-300 rounded-[8px] p-1 font-bold inline-flex dark:border-linkIt-200 dark:bg-white">{blog?.category}</span>
+    <div className="font-montserrat lg:mr-[5%] grid">
+      <span className="border-[2px] text-size border-linkIt-300 rounded-[8px] p-1 font-bold inline-flex dark:border-linkIt-200 dark:bg-white justify-self-start">{blog?.category}</span>
       <span className="titles-size my-[5%] font-semibold dark:text-white">{blog?.title}</span>
       <p className="subtitles-size text-linkIt-400 dark:text-white">{blog?.description}</p>
       <div className="flex justify-center items-center w-full">

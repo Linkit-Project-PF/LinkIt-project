@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-
 import { useTranslation } from "react-i18next";
-
+import { RootState } from "../../../../redux/types";
+import { useSelector } from "react-redux";
+import starsBlue from "/Vectores/Stars-Trustpilot.svg"
+import starsWhite from "/Vectores/MO-trustpilot.svg"
 
 export default function ModuloTalentosA() {
 const {t} = useTranslation();
+const isDarkMode = useSelector(
+  (state: RootState) => state.darkMode);
 
   return (
 <div className="grid grid-cols-2 h-fit w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white p-[7%] pt-[17vh] lg:pt-[23vh] ">
@@ -17,7 +21,7 @@ const {t} = useTranslation();
           <motion.button className="background-button" whileTap={{ scale: 0.9 }}>{t('Vacantes disponibles')}</motion.button> </a>
         </div>
         <div className="relative flex top-3">
-          <img className="w-1/2 lg:w-1/4 " src="Vectores/Stars-Trustpilot.svg" alt="stars" />
+          <img className="w-1/2 lg:w-1/4 " src={isDarkMode ? starsWhite : starsBlue} alt="stars" />
           <span className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></span>
       </div>
       </div>
