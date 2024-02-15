@@ -570,6 +570,7 @@ export const i18nOptions: InitOptions = {
         "Mis Postulaciones": "My Applications",
         "Perfil de LinkedIn": "LinkedIn Profile",
         "Stack tecnológico": "Technology Stack",
+        "Imagen de perfil": "Profile picture",
         "Bajo": "Low",
         "Medio": "Middle",
         "Alto": "High",

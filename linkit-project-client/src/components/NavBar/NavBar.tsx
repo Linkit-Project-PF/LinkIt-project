@@ -136,7 +136,7 @@ function NavBar() {
       showConfirmButton: true,
       confirmButtonText: t("Confirmar"),
       confirmButtonColor: "#01A28B",
-      timer: 300
+      timer: 3000
     })
     navigate("/");
   };
