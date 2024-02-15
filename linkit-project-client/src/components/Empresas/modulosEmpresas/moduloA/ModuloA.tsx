@@ -1,16 +1,25 @@
 import { Link, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useTranslation } from 'react-i18next';
+import { RootState } from "../../../../redux/types";
+import { useSelector } from "react-redux";
+import starsBlue from "/Vectores/Stars-Trustpilot.svg"
+import starsWhite from "/Vectores/MO-trustpilot.svg"
 
 export default function ModuloA() {
 
   const { t } = useTranslation();
   const navigate = useNavigate()
 
+
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode);
+
+
   const goSoyEmpresa = () => {
     navigate("/SoyEmpresa");
     setTimeout(() => {
-      window.location.href = "#calculadora";
+      window.location.href = "#contactanosE";
     }, 0);
   }
 
@@ -23,7 +32,7 @@ export default function ModuloA() {
           <motion.button className="background-button" onClick={goSoyEmpresa} whileTap={{ scale: 0.9 }}>{('Contacta para contratar')}</motion.button>
           </div>
           <div className="relative flex top-3" >
-          <img className="w-1/2 lg:w-1/4 " src="Vectores/Stars-Trustpilot.svg" alt="stars" />
+          <img className="w-1/2 lg:w-1/4 " src={isDarkMode ? starsWhite : starsBlue} alt="stars" />
           <span className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 en Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></span>
           </div>
           </div>

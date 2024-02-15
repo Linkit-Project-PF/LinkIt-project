@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 99.76">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #173951;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #d7dbdf;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle" class="cls-1" width="99.76" height="99.76"/>
+  <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" x="107.04" width="99.76" height="99.76"/>
+  <rect id="Rectangle-3" data-name="Rectangle" class="cls-1" x="215.12" width="99.76" height="99.76"/>
+  <rect id="Rectangle-4" data-name="Rectangle" class="cls-1" x="322.16" width="99.76" height="99.76"/>
+  <rect id="Rectangle-5" data-name="Rectangle" class="cls-2" x="430.24" width="99.76" height="99.76"/>
+  <path id="Shape" class="cls-3" d="M48.84,66.51l15.59-4.16,6.24,19.75-21.82-15.59ZM84.18,41.57h-27.02l-8.31-24.94-8.31,24.94H14.55l21.82,15.59-8.31,24.94,21.82-15.59,13.51-9.35,20.78-15.59h0Z"/>
+  <path id="Shape-2" data-name="Shape" class="cls-3" d="M156.92,66.51l15.59-4.16,6.24,19.75-21.82-15.59ZM191.22,41.57h-27.02l-8.31-24.94-8.31,24.94h-27.02l21.82,15.59-8.31,24.94,21.82-15.59,13.51-9.35,21.82-15.59h0Z"/>
+  <path id="Shape-3" data-name="Shape" class="cls-3" d="M265,66.51l15.59-4.16,6.24,19.75-21.82-15.59ZM299.29,41.57h-27.02l-8.31-24.94-8.31,24.94h-27.02l21.82,15.59-7.27,24.94,21.82-15.59,13.51-9.35,20.78-15.59h0Z"/>
+  <path id="Shape-4" data-name="Shape" class="cls-3" d="M480.12,66.51l15.59-4.16,6.24,19.75-21.82-15.59ZM514.41,41.57h-27.02l-8.31-24.94-7.27,24.94h-27.02l21.82,15.59-8.31,24.94,21.82-15.59,13.51-9.35,20.78-15.59h0Z"/>
+  <polygon id="Rectangle-6" data-name="Rectangle" class="cls-2" points="372.04 0 421.92 0 421.92 99.76 372.04 99.76 372.04 0"/>
+  <path id="Shape-5" data-name="Shape" class="cls-3" d="M372.04,66.51l15.59-4.16,6.24,19.75-21.82-15.59ZM407.37,41.57h-27.02l-8.31-24.94-8.31,24.94h-27.02l21.82,15.59-8.31,24.94,21.82-15.59,13.51-9.35,21.82-15.59h0Z"/>
+</svg>
