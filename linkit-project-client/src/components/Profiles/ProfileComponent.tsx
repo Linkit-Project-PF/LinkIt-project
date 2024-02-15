@@ -112,7 +112,7 @@ export default function ProfileComponent({ loader }: componentProps) {
                 setFilePublicId={setFilePublicId}
                 setFileName={setFileName}
                 setReload={setReload}
-                className="flex absolute font-bold p-2 bg-linkIt-300 cursor-pointer text-linkIt-50 hover:bg-linkIt-200 rounded-xl h-9 m-auto items-center cursor pointer"
+                className="background-button"
               >
                 {t("Imagen de perfil")}
                 {/* <svg
@@ -150,6 +150,7 @@ export default function ProfileComponent({ loader }: componentProps) {
             </div>
           </div>
           <div className="flex flex-col pt-5 gap-3 self-center place-self-center">
+            {user.role === "company" && <a className="background-button"href="https://calendly.com/saleslinkit/30min?month=2024-02" target="_blank" >{t("Crear una vacante")}</a>}
             {user?.provider === "email" && (
               <button
                 className="text-white border-[.125rem] border-linkIt-300 bg-linkIt-300 w-[11.75rem] h-[2.75rem] rounded-[10px] border-solid"
