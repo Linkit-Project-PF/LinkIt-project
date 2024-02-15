@@ -112,9 +112,10 @@ export default function ProfileComponent({ loader }: componentProps) {
                 setFilePublicId={setFilePublicId}
                 setFileName={setFileName}
                 setReload={setReload}
-                className="flex absolute bottom-0 right-0 bg-white  rounded-full ring-2 ring-black w-9 h-9 justify-center items-center cursor pointer"
+                className="flex absolute font-bold p-2 bg-linkIt-300 cursor-pointer text-linkIt-50 hover:bg-linkIt-200 rounded-xl h-9 m-auto items-center cursor pointer"
               >
-                <svg
+                {t("Imagen de perfil")}
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   height={20}
@@ -137,7 +138,7 @@ export default function ProfileComponent({ loader }: componentProps) {
                       strokeWidth={0.8333333333333334}
                     />
                   </g>
-                </svg>
+                </svg> */}
               </CloudinaryUploadWidget>
               {user?.image && (
                 <img
