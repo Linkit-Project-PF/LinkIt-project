@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { Curriculum } from "../Profiles/types";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 declare global {
   interface Window {
@@ -43,6 +44,7 @@ function CloudinaryUploadWidget({
   setReload,
 }: IComponentProps) {
   const [loaded, setLoaded] = useState(false);
+  const { t } = useTranslation();
 
   const [uwConfig] = useState({
     cloudName: "dquhriqz3",
@@ -52,7 +54,7 @@ function CloudinaryUploadWidget({
   const openCloudinaryWidget = () => {
     Swal.fire({
       icon: "success",
-      title: "Cargando",
+      title: t("Cargando"),
       timer: 1000,
       showConfirmButton: false,
       showLoaderOnConfirm: true
