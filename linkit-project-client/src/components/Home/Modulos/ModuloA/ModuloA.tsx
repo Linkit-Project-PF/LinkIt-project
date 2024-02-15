@@ -2,23 +2,26 @@ import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../../redux/types"
+import starsBlue from "/Vectores/Stars-Trustpilot.svg"
+import starsWhite from "/Vectores/MO-trustpilot.svg"
+
+
 export default function ModuloA() {
   const{t}=useTranslation()
+
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode);
 
   const navigate = useNavigate()
 
   const goSoyEmpresa = () => {
     navigate("/SoyEmpresa");
-    setTimeout(() => {
-      window.location.href = "#contactanosE";
-    }, 0);
   }
 
   const goSoyTalento = () => {
     navigate("/SoyTalento");
-    setTimeout(() => {
-    window.location.href = "#vacantes";
-    }, 0);
   }
 
 
@@ -41,7 +44,7 @@ export default function ModuloA() {
 
         </div>
         <div className="relative flex top-3">
-          <img className="w-1/2 lg:w-1/4 " src="Vectores/Stars-Trustpilot.svg" alt="stars" />
+          <img className="w-1/2 lg:w-1/4 " src={isDarkMode ? starsWhite : starsBlue} alt="stars" />
           <span className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></span>
         </div>
         </div>

@@ -1,67 +1,83 @@
 [
     {
     "id": 1,
-   "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Profesionalismo y agilidad.",
-    "testimonio": "Se nota el profesionalismo y la agilidad. En mi experiencia, era una búsqueda super compleja que sufrió cambios. Pero se vio la adaptabilidad a ellos. Sin dudas recomiendo y volvería a elegirlos para trabajar a futuro!",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Tiger",
-    "nombre": "Properix"
+    "titleEn": "Agile and transparent approach",
+    "testimonial": "Incredible experience working with LinkIT. Their agile and transparent approach to communication allowed us to find the perfect talent for our needs. Additionally, they provided us with expert advice on career plans that really made a difference for our team.",
+   "rating": "/Vectores/linkit-estrellas_5.svg",
+    "titulo": "Enfoque ágil y transparente",
+    "testimonio": "Increíble experiencia trabajando con LinkIT. Su enfoque ágil y transparente en la comunicación nos permitió encontrar el talento perfecto para nuestras necesidades. Además, nos brindaron un asesoramiento experto en planes de carrera que realmente hizo la diferencia para nuestro equipo.",
+    "foto": "/Vectores/Vairix.jpeg",
+    "nombre": "Vairix"
 },
 {
     "id": 2,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Experiencia excepcional",
-    "testimonio": "Estoy impresionado por la experiencia excepcional. En mi búsqueda, enfrenté desafíos inesperados, pero la adaptabilidad mostrada fue sorprendente. Definitivamente los recomendaría y trabajaré con ellos nuevamente en el futuro.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Oreo",
-    "nombre": "IngeniousTech"
+    "titleEn": "Total success",
+    "testimonial": "Having incorporated LinkIT as an IT recruitment partner was a total success, we have been able to delegate the search for SAP profiles and focus on our business.",
+    "rating": "/Vectores/linkit-estrellas_4.svg",
+    "titulo": "Éxito total",
+    "testimonio": "Haber incorporado a LinkIT como partner de reclutamiento IT fue un éxito total, hemos podido delegar la búsqueda de perfiles SAP y enfocarnos en nuestro negocio.",
+    "foto": "/Vectores/seidor-logo-reviews.jpg",
+    "nombre": "Seidor"
   },
   {
     "id": 3,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Resultados rápidos y eficientes",
-    "testimonio": "La rapidez y eficiencia en el proceso fueron notables. A pesar de la complejidad de mi búsqueda, la adaptabilidad fue clave. Sin duda, los recomendaría y elegiría trabajar con ellos en el futuro.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Sugar",
-    "nombre": "TechSavvy"
+    "titleEn": "Agile recruiting",
+    "testimonial": "LinkIT has surprised me, we had been searching for a technical profile 4 months ago and in less than a week we had 3 candidates available.",
+    "rating": "/Vectores/linkit-estrellas_4.5.svg",
+    "titulo": "Reclutamiento ágil",
+    "testimonio": "LinkIT me ha sorprendido, teníamos hace 4 meses la búsqueda de un perfil técnico y en menos de 1 semana teníamos 3 candidatos sobre la mesa.",
+    "foto": "/Vectores/geotech-logo-reviews.jpg",
+    "nombre": "GeoTech"
   },
   {
     "id": 4,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Profesionales confiables",
-    "testimonio": "La profesionalidad y confiabilidad fueron evidentes en cada etapa. Mi búsqueda experimentó cambios, pero la adaptabilidad fue excepcional. Recomiendo encarecidamente y consideraré trabajar con ellos en futuros proyectos.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Lion",
-    "nombre": "DigitalPro"
+    "titleEn": "Accurate selection",
+    "testimonial": "LinkIT has helped us scale our team quickly. The talent presented was exactly what we needed and we were able to flex the requirements along the way.",
+    "rating": "/Vectores/linkit-estrellas_5.svg",
+    "titulo": "Selección precisa",
+    "testimonio": "LinkIT nos ha ayudado a escalar nuestro equipo rápidamente. Los talentos presentados eran exactamente lo que necesitábamos y pudimos flexibilizar los requisitos sobre el camino.",
+    "foto": "/Vectores/utriper-logo-reviews.jpg",
+    "nombre": "Utriper"
   },
   {
     "id": 5,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Innovación y agilidad",
-    "testimonio": "Se destacaron por su innovación y agilidad. A pesar de la complejidad de mi búsqueda, demostraron una adaptabilidad asombrosa. Los recomendaría sin dudarlo y consideraría trabajar con ellos en futuras ocasiones.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Phoenix",
-    "nombre": "CodeMaster"
+    "titleEn": "Technology experts",
+    "testimonial": "LinkIT has been able to find the perfect fit for our project, it is clear that they are technology experts.",
+    "rating": "/Vectores/linkit-estrellas_4.5.svg",
+    "titulo": "Expertos en tecnología",
+    "testimonio": "LinkIT ha podido encontrar al fit perfecto para nuestro proyecto, se nota que son expertos en tecnología.",
+    "foto": "/Vectores/oratech-logo-reviews.jpg",
+    "nombre": "Oratech"
   },
   {
     "id": 6,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Eficiencia y dedicación",
-    "testimonio": "La eficiencia y dedicación mostradas fueron sobresalientes. A pesar de los cambios en mi búsqueda, demostraron una adaptabilidad excepcional. Recomendaría su servicio y consideraría trabajar con ellos en el futuro.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Wolf",
-    "nombre": "DevExpert"
+    "titleEn": "Personalized and agile service",
+    "testimonial": "I recommend working with LinkIT 100%! They have been able to meet all of our requirements and we were able to fill the vacancies in record time!",
+    "rating": "/Vectores/linkit-estrellas_4.svg",
+    "titulo": "Servicio personalizado y ágil",
+    "testimonio": "Recomiendo 100% trabajar con LinkIT, han podido atender a todos nuestros requisitos y pudimos cubrir las vacantes en tiempo récord!",
+    "foto": "/Vectores/sibudigital-logo-reviews.jpeg",
+    "nombre": "Sibú Digital"
   },
   {
     "id": 7,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Resultados excepcionales",
-    "testimonio": "Obtuve resultados excepcionales gracias a su profesionalismo y agilidad. Enfrenté desafíos inesperados, pero demostraron una adaptabilidad impresionante. Los recomendaría y consideraría trabajar con ellos en futuros proyectos.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Bear",
-    "nombre": "TechInnovator"
+    "titleEn": "Perfect match",
+    "testimonial": "They provided us with highly qualified talent that not only met our technical needs but also fit perfectly into our company culture. Their agile approach allowed us to close positions quickly.",
+    "rating": "/Vectores/linkit-estrellas_3.5.svg",
+    "titulo": "Match perfecto",
+    "testimonio": "Nos proporcionaron talentos altamente calificados que no solo cumplían con nuestras necesidades técnicas, sino que también se adaptaban perfectamente a nuestra cultura empresarial. Su enfoque ágil nos permitió cerrar posiciones rápidamente.",
+    "foto": "/Vectores/maxcapital-logo-reviews.jpg",
+    "nombre": "Max Capital"
   },
   {
     "id": 8,
-    "rating": "/Vectores/linkit-web-vectores-16.svg",
-    "titulo": "Servicio confiable",
-    "testimonio": "Experimenté un servicio confiable y profesional. A pesar de los cambios en mi búsqueda, mostraron una adaptabilidad destacada. Definitivamente los recomendaría y volvería a trabajar con ellos en el futuro.",
-    "foto": "https://api.dicebear.com/7.x/avataaars-neutral/svg?seed=Raccoon",
-    "nombre": "DigitalCraft"
+    "titleEn": "Flexibility and commitment",
+    "testimonial": "The professionalism and agility are evident. In my experience, it was a super complex search that underwent changes. But they showed adaptability. I definitely recommend and would choose them again to work with in the future!",
+    "rating": "/Vectores/linkit-estrellas_5.svg",
+    "titulo": "Flexibilidad y compromiso",
+    "testimonio": "Se nota el profesionalismo y la agilidad. En mi experiencia, era una búsqueda super compleja que sufrió cambios. Pero se vio la adaptabilidad a ellos. Sin dudas recomiendo y volvería a elegirlos para trabajar a futuro!",
+    "foto": "/Vectores/properix-logo-reviews.jpg",
+    "nombre": "Properix"
   }
 
 ]
