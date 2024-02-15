@@ -4,6 +4,7 @@ import { ICompanyPost } from "./MyPosts";
 import questionMark from "../../../../assets/question-mark.svg";
 import { Tooltip } from "flowbite-react";
 import getInfoBox from "./InformationBox";
+import { useTranslation } from "react-i18next";
 
 interface IComponentProps {
   post: ICompanyPost;
@@ -12,6 +13,7 @@ interface IComponentProps {
 interface colorsObject {}
 
 export default function CompanyPost({ post }: IComponentProps) {
+  const { t } = useTranslation();
   const statusColor: colorsObject = {
     "Pre-alignment": "bg-green-200",
     Alignment: "bg-cyan-200",
@@ -48,9 +50,8 @@ export default function CompanyPost({ post }: IComponentProps) {
         <h3 className="text-sm font-semibold">{post["Role Name"]}</h3>
 
         {/* Other details */}
-        <p className="text-gray-500 text-xs">Responsible: {post.Responsable}</p>
-        <p className="text-gray-500 text-xs">
-          Date: {`${post["Created time Month"]}/${post["Created time year"]}`}
+        <p className="text-gray-500 text-xs">{t("Líder de la búsqueda: ") + post.Responsable}</p>
+        <p className="text-gray-500 text-xs">{t("Fecha: ") + `${post["Created time Month"]}/${post["Created time year"]}`}
         </p>
         <div className="flex flex-row justify-between">
           <a
@@ -59,7 +60,7 @@ export default function CompanyPost({ post }: IComponentProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Job Description
+            {t("Descripción de la vacante")}
           </a>
           <Tooltip content={getInfoBox(post.Status, "es")} style="light">
             <img src={questionMark} className="w-5 hover:cursor-help" />

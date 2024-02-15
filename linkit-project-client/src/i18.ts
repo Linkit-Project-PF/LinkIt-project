@@ -161,6 +161,11 @@ export const i18nOptions: InitOptions = {
         "Usuario o contraseña incorrectos": "Incorrect username or password",
         "Email no verificado, por favor revisa tu bandeja de entrada o spam": "Unverified email, please check your inbox or spam",
 
+        //!Company post
+        "Líder de la búsqueda: ": "Search leader",
+        "Fecha: ": "Date :",
+        "Descripción de la vacante": "Job Description",
+
         //!Login - talents
         "Conéctate con los mejores proyectos y aplica": "Connect with the best projects and apply",
         "a oportunidades de manera remota.": "to opportunities remotely.",
@@ -175,6 +180,8 @@ export const i18nOptions: InitOptions = {
 
         //!Sweet Alerts!
         "Servicios: ": "Services: ",
+        "Hemos cerrado tu sesión con éxito": "We have successfully closed your session",
+        "Sesíon cerrada": "closed session",
         "Confirmar": "Confirm",
         "Por favor confirma los servicios": "Please confirm the services",
         "¡El email no coincide!": "The email does not match!",
@@ -563,6 +570,7 @@ export const i18nOptions: InitOptions = {
         "Mis Postulaciones": "My Applications",
         "Perfil de LinkedIn": "LinkedIn Profile",
         "Stack tecnológico": "Technology Stack",
+        "Imagen de perfil": "Profile picture",
         "Bajo": "Low",
         "Medio": "Middle",
         "Alto": "High",

@@ -19,6 +19,7 @@ import { logout } from "../../redux/features/AuthSlice";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../redux/types";
 import { Avatar, CustomFlowbiteTheme, Dropdown, DropdownDivider} from "flowbite-react";
+import Swal from "sweetalert2";
 
 const staggerMenuItems = stagger(0.03, { startDelay: 0.15 });
 
@@ -128,6 +129,15 @@ function NavBar() {
 
   const handleLogout = () => {
     dispatch(logout());
+    Swal.fire({
+      title: t ("Sesión cerrada"),
+      text: t ("Hemos cerrado tu sesión con éxito"),
+      icon: "success",
+      showConfirmButton: true,
+      confirmButtonText: t("Confirmar"),
+      confirmButtonColor: "#01A28B",
+      timer: 3000
+    })
     navigate("/");
   };
 
