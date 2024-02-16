@@ -101,14 +101,8 @@ export default function ProfileComponent({ loader }: componentProps) {
       <div className="flex p-3 flex-col md:flex-row w-full">
         <div className="flex flex-col md:flex-row w-full pt-10 md:justify-evenly md:pt-0">
           <div className="relative w-full flex justify-center md:w-[50%]">
-            <div
-              className={`relative rounded-full w-[250px] h-[250px] bg-gray-300 ${
-                user?.image
-                  ? "flex flex-col justify-center items-center content-center"
-                  : ""
-              }`}
-            >
-              <CloudinaryUploadWidget
+            <div className="relative left-[7%]">
+          <CloudinaryUploadWidget
                 setFilePublicId={setFilePublicId}
                 setFileName={setFileName}
                 setReload={setReload}
@@ -140,11 +134,19 @@ export default function ProfileComponent({ loader }: componentProps) {
                   </g>
                 </svg> */}
               </CloudinaryUploadWidget>
+              </div>
+            <div
+              className={`relative rounded-full w-[250px] h-[250px] bg-gray-300 ${
+                user?.image
+                  ? "flex flex-col justify-center items-center content-center"
+                  : ""
+              }`}
+            >
               {user?.image && (
                 <img
                   src={`https://res.cloudinary.com/dquhriqz3/image/upload/${user?.image}`}
                   alt=""
-                  className=" h-full w-full rounded-full"
+                  className="rounded-full absolute h-full w-full object-cover"
                 />
               )}
             </div>
