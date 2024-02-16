@@ -21,6 +21,7 @@ import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import "sweetalert2/dist/sweetalert2.min.css";
 import Loading from "../Loading/Loading";
+import { motion } from "framer-motion";
 
 function Register() {
   const { t } = useTranslation();
@@ -380,7 +381,7 @@ function Register() {
           <fieldset className="flex flex-col w-full content-center justify-center items-center gap-[.5rem]">
             <input
               type="text"
-              className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
+              className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] focus:border-linkIt-300 focus:ring-0"
               placeholder={
                 user.role === "user" ? t("Nombre") : t("Nombre de la empresa")
               }
@@ -394,7 +395,8 @@ function Register() {
             {user.role === "user" && (
               <input
                 type="text"
-                className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]"
+                className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]  focus:border-linkIt-300 focus:ring-0" 
+                // className="border-none focus:ring-0 bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
                 placeholder={t("Apellido")}
                 name="lastName"
                 value={user.lastName}
@@ -416,7 +418,7 @@ function Register() {
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%] border-none focus:ring-0"
               />
             </div>
             {errors.email && (
@@ -430,7 +432,7 @@ function Register() {
                 name="password"
                 value={user.password}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="border-none focus:ring-0 bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
               />
               <button onClick={handleVisiblePassword} type="button">
                 <img
@@ -451,7 +453,7 @@ function Register() {
                 name="confirm_password"
                 value={user.confirm_password}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="border-none focus:ring-0 bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
               />
               <button onClick={handleVisibleConfirmPassword} type="button">
                 <img
@@ -501,8 +503,9 @@ function Register() {
             >
               {t("Crear Cuenta")}
             </button>
-            <button
+            <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
+              whileHover={{ scale: 1.05 }}
               onClick={() => handleAuthLogin("google")}
               type="button"
             >
@@ -513,9 +516,10 @@ function Register() {
                 className="w-[1.2rem]"
               />
               {t("Registrate con Google")}
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
+              whileHover={{ scale: 1.05 }}
               onClick={() => handleAuthLogin("github")}
               type="button"
             >
@@ -526,7 +530,7 @@ function Register() {
                 className="w-[1.2rem]"
               />
               {t("Registrate con Github")}
-            </button>
+            </motion.button>
           </div>
           <p className="text-[.7rem] font-[500] mb-[3%] lg:mb-[6%]">
             {t("¿Ya tienes una cuenta?")} {""}

@@ -287,7 +287,7 @@ function LoginCompany() {
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="bg-transparent focus:ring-0 placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%] border-none"
               />
             </div>
             <div className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem]">
@@ -298,7 +298,7 @@ function LoginCompany() {
                 name="password"
                 value={user.password}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="bg-transparent focus:ring-0 placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%] border-none"
               />
               <button onClick={handleVisiblePassword} type="button">
                 <img
@@ -342,7 +342,7 @@ function LoginCompany() {
           </div>
           <Link
             className="flex flex-row border-[2px] border-linkIt-300 rounded-[8px] p-[.5rem] bg-white w-[90%] justify-center items-center content-center gap-[.5rem] hover:scale-105 transition-all duration-300 ease-in-out"
-            to={"https://calendly.com/linkit-project-henry/30min"}
+            to={"https://calendly.com/saleslinkit/30min?month=2024-02"}
             target="_blank"
           >
             <img src="/Vectores/calendario.svg" alt="" className="w-[2.5rem]" />
