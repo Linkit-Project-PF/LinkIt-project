@@ -707,7 +707,12 @@ function NavBar() {
                       >
                         {t("Mis datos")}
                     </Dropdown.Item>
-                    <Dropdown.Item className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out">
+                    <Dropdown.Item 
+                    className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
+                    onClick={() => {
+                      navigate("/dashboard#misvacantes");
+                    }}
+                    >
                         {t("Mis vacantes")}
                     </Dropdown.Item>
                     <DropdownDivider />
