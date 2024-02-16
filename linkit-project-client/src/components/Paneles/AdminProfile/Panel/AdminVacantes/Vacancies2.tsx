@@ -493,9 +493,8 @@ export default function Vacancies2() {
                         onChange={handleChange}
                         className="bg-linkIt-500 text-black w-fit h-fit text-md p-0"
                       >
-                        <option value="remote">Remote</option>
-                        <option value="specific-remote">Specific-remote</option>
-                        <option value="on-Site">On-Site</option>
+                        <option value="remote-local">Remote (Local)</option>
+                        <option value="remote-regional">Remote(Regional)</option>
                         <option value="hybrid">Hybrid</option>
                       </select>
                     ) : (
