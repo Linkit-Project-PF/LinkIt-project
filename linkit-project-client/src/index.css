@@ -44,12 +44,12 @@ html {
 
 
 .transparent-background-button {
-  @apply font-manrope relative z-10 border border-linkIt-300 rounded-[7px] p-1 xs:p-1.5 sm:p-2 lg:p-2.5 2xl:p-3 px-1 xs:px-2 text-[0.45rem] xs:text-[0.5rem] sm:text-[0.6rem] lg:text-[0.7rem] xl:text-[1rem] 2xl:text-[1rem] max-h-fit hover:border-linkIt-200 font-bold dark:hover:border-white dark:hover:text-linkIt-300 transition-all duration-300 ease-in-out cursor-pointer
+  @apply font-manrope relative z-10 border border-linkIt-300 rounded-[7px] p-1 xs:p-1.5 sm:p-2 lg:p-2.5 2xl:p-3 px-1 xs:px-2 text-[0.45rem] xs:text-[0.5rem] sm:text-[0.6rem] lg:text-[0.7rem] xl:text-[1rem] 2xl:text-[1rem] max-h-fit w-fit hover:border-linkIt-200 font-bold dark:hover:border-white dark:hover:text-linkIt-300 transition-all duration-300 ease-in-out cursor-pointer
 }
 
 
 .background-button {
-  @apply font-manrope relative z-10 border border-linkIt-300 text-white bg-linkIt-300 rounded-[7px] p-1 xs:p-1.5 sm:p-2 lg:p-2.5 2xl:p-3 px-1 xs:px-2 text-[0.45rem] xs:text-[0.5rem] sm:text-[0.6rem] lg:text-[0.7rem] xl:text-[1rem] 2xl:text-[1rem] max-h-fit hover:bg-linkIt-200 hover:border-linkIt-200 transition-all duration-300 ease-in-out font-bold dark:hover:border-white dark:hover:bg-white dark:hover:text-linkIt-300 cursor-pointer
+  @apply font-manrope relative z-10 border border-linkIt-300 text-white bg-linkIt-300 rounded-[7px] p-1 xs:p-1.5 sm:p-2 lg:p-2.5 2xl:p-3 px-1 xs:px-2 text-[0.45rem] xs:text-[0.5rem] sm:text-[0.6rem] lg:text-[0.7rem] xl:text-[1rem] 2xl:text-[1rem] max-h-fit w-fit hover:bg-linkIt-200 hover:border-linkIt-200 transition-all duration-300 ease-in-out font-bold dark:hover:border-white dark:hover:bg-white dark:hover:text-linkIt-300 cursor-pointer
 }
 
 .styles-head {
