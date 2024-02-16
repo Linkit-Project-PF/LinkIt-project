@@ -328,7 +328,7 @@ function LoginTalent() {
                 name="email"
                 value={user.email}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="bg-transparent focus:ring-0 placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%] border-none"
               />
             </div>
             <div className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem]">
@@ -339,7 +339,7 @@ function LoginTalent() {
                 name="password"
                 value={user.password}
                 onChange={handleInputChange}
-                className="bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
+                className="bg-transparent focus:ring-0 placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%] border-none"
               />
               <button onClick={handleVisiblePassword} type="button">
                 <img
@@ -367,10 +367,11 @@ function LoginTalent() {
             >
               {t("Iniciar sesión")}
             </button>
-            <button
+            <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
               onClick={() => handleAuthClick("google")}
               type="button"
+              whileHover={{ scale: 1.05 }}
             >
               {" "}
               <img
@@ -379,7 +380,7 @@ function LoginTalent() {
                 className="w-[1.2rem]"
               />
               {t("Ingresa con Google")}
-            </button>
+            </motion.button>
             <motion.button
               className="w-[90%] bg-white p-[.2rem] font-[500] border-[2px] border-linkIt-300 rounded-[.7rem] flex flex-row justify-center items-center gap-[.2rem]"
               onClick={() => handleAuthClick("github")}
