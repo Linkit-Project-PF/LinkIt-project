@@ -32,7 +32,6 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
 
     const [information, setInformation] = useState<Partial<ReviewProps>>({
         name: "",
-        role: "",
         country: "",
         detail: "",
         createdBy: user.firstName.concat(user.lastName),
@@ -41,7 +40,6 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
 
     const [errors, setErrors] = useState({
         name: "",
-        role: "",
         country: "",
         detail: "",
     });
@@ -131,21 +129,7 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
 
                         </div>
 
-                        <div className="w-fit px-3 mb-6">
-                            <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">{t('Rol')}</label>
-                            <select
-                                className={errors.role ? '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"' : '"appearance-none block w-fit bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'}
-                                name="role"
-                                placeholder={errors.role ? "*" : ""}
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlurErrors}
-                            >
-                                <option value="">{t('Selecciona')}</option>
-                                <option value="user">{t('Usuario')}</option>
-                                <option value="company">{t('Empresa')}</option>
-                            </select>
-                        </div>
+
 
                         <div className="w-fit px-3 mb-6">
                             <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2" >{t('País')}</label>
@@ -172,7 +156,7 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
                             ></textarea>
                         </div>
                     </div>
-                    {errors.name || errors.role || errors.country || errors.detail ? <span className="text-red-500">{t('Los campos marcados con * son obligatiorios')}</span> : null}
+                    {errors.name || errors.country || errors.detail ? <span className="text-red-500">{t('Los campos marcados con * son obligatiorios')}</span> : null}
                     <div className="flex mb-4">
                         <button onClick={onClose} className="transparent-background-button mr-2">
                             {t('Volver')}

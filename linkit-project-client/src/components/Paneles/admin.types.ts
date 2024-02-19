@@ -82,7 +82,6 @@ export type ReviewProps = {
 export type ViewReviewProps = {
   _id: boolean;
   name: boolean;
-  rol: boolean;
   country: boolean;
   detail: boolean;
   archived: boolean;

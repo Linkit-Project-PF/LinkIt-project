@@ -70,7 +70,6 @@ export default function Reviews() {
   const [viewCol, setViewCol] = useState<ViewReviewProps>({
     _id: false,
     name: true,
-    rol: true,
     country: true,
     detail: true,
     archived: true,
@@ -312,7 +311,6 @@ export default function Reviews() {
       <div className="flex flex-row mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
         {viewCol.name && renderSectionSelect("Nombre", "name")}
         {viewCol._id && renderSectionBasicNoEdit("ID", "_id")}
-        {viewCol.rol && renderSectionBasicNoEdit("Rol", "role")}
         {viewCol.country && renderSectionBasicCap("País", "country")}
         {viewCol.detail && renderSectionBasic("Detalle", "detail")}
         {viewCol.archived && renderSectionActive("Estado", "archived")}
