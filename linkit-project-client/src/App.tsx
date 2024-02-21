@@ -112,7 +112,7 @@ function App() {
   useEffect(() => {
     const googleAnalytics = async () => {
       try {
-        ReactGA.initialize("G-M6F6EHLMX7");
+        ReactGA.initialize("G-SJ3KWGF9FD");
       } catch (error) {
         console.log(error);
       }
