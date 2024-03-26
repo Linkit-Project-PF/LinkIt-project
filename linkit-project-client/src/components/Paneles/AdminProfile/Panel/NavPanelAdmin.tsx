@@ -7,10 +7,10 @@ export default function NavPanelAdmin() {
 
  
   return (
-    <nav>
-      <ul className="flex flex-row p-6 pb-0">
+    <nav className="w-screen">
+    <ul className="flex flex-row pt-4 pb-4 justify-center items-center  ">
         <li
-          className={`text-2xl mr-16 p-5 ${
+          className={`text-2xl mr-10 p-5 ${
             params['*']?.includes('statistics') ? "text-linkIt-300" : ""
           }`}
         >
@@ -22,7 +22,7 @@ export default function NavPanelAdmin() {
           </NavLink>
         </li>
         <li
-          className={`text-2xl mr-16 p-5 ${
+          className={`text-2xl mr-10 p-4 ${
             params['*']?.includes('vacantes') ? "text-linkIt-300" : ""
           }`}
         >
@@ -35,7 +35,7 @@ export default function NavPanelAdmin() {
           </NavLink>
         </li>
         <li
-          className={`text-2xl mr-16 p-5 ${
+          className={`text-2xl mr-10 p-5 ${
             params['*']?.includes('clientsfollowup') ? "text-linkIt-300" : ""
           }`}
         >
@@ -47,7 +47,7 @@ export default function NavPanelAdmin() {
           </NavLink>
         </li>
         <li
-          className={`ttext-2xl mr-16 p-5 ${
+          className={`ttext-2xl mr-10 p-5 ${
             params['*']?.includes('recursos') ? "text-linkIt-300" : ""
           }`}
         >
@@ -59,7 +59,7 @@ export default function NavPanelAdmin() {
           </NavLink>
         </li>
         <li
-          className={`text-2xl mr-16 p-5 ${
+          className={`text-2xl mr-10 p-5 ${
             params['*']?.includes('reviews') ? "text-linkIt-300" : ""
           }`}
         >
@@ -71,7 +71,7 @@ export default function NavPanelAdmin() {
           </NavLink>
         </li>
         <li
-          className={`text-2xl mr-16 p-5 ${
+          className={`text-2xl mr-10 p-5 ${
             params['*']?.includes('users') ? "text-linkIt-300" : ""
           }`}
         >
@@ -84,7 +84,7 @@ export default function NavPanelAdmin() {
           </NavLink>
         </li>
         <li
-          className={`text-2xl mr-16 p-5 ${
+          className={`text-2xl mr-10 p-5 ${
             params['*']?.includes('datos') ? "text-linkIt-300" : ""
           }`}
         >
