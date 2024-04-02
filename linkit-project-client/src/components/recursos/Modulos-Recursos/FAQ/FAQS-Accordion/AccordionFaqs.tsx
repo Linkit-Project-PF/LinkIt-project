@@ -13,7 +13,7 @@ function AccordionFaqs() {
         </AccordionItem>
 
         <AccordionItem header={t("+ ¿Por qué LinkIT?")} className="subtitles-size font-montserrat dark:bg-linkIt-400 dark:text-white">
-          {t('Linkit no es una agencia de recursos humanos, es tu Partner que te ayudará a escalar en tu negocio. Nuestros pilares son Agilidad, Calidad y Excelencia tiro cualquier pilar porque da para pensar esto.')}
+          {t('LinkIT no es una agencia de recursos humanos, es tu partner que te ayudará a escalar en tu negocio. Nuestros pilares son agilidad, calidad y excelencia.')}
         </AccordionItem>
 
         <AccordionItem header={t("+ ¿De qué parte del mundo encuentran talento?")} className="subtitles-size font-montserrat text-start dark:bg-linkIt-400 dark:text-white">
@@ -33,7 +33,7 @@ function AccordionFaqs() {
         </AccordionItem>
 
         <AccordionItem header={t("+ ¿En cuánto tiempo presentan los primeros candidatos cualificados?" )}className="subtitles-size font-montserrat dark:bg-linkIt-400 dark:text-white">
-          {t('Tardamos no más de 7 a 10 días hábiles en presentar los primeros candidatos, previamente seleccionados y entrevistados.')}
+          {t('Tardamos solo 5 días en presentar los primeros candidatos, previamente seleccionados y entrevistados.')}
         </AccordionItem>
 
         <AccordionItem header={t("+ ¿Sólo se dedican a reclutamiento Tech?")} className="subtitles-size font-montserrat dark:bg-linkIt-400 dark:text-white">
