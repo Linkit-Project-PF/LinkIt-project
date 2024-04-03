@@ -84,7 +84,6 @@ export function JobValidations(User: IUserJob) {
   } else if (User.country === User.email) {
     errors.country = "Country must be different from email";
   }
-
   if (User.englishLevel === "") {
     errors.englishLevel = "English level is required";
   }
@@ -96,7 +95,6 @@ export function JobValidations(User: IUserJob) {
     errors.linkedin = "Not a valid Linkedin URL";
   }
   
-
   if (User.salary === 0) {
     errors.salary = "Expected salary is required";
   } else if (User.salary.toString().startsWith("0")) {
