@@ -88,14 +88,14 @@ export function JobValidations(User: IUserJob) {
   if (User.englishLevel === "") {
     errors.englishLevel = "English level is required";
   }
-
   if (User.linkedin === "") {
     errors.linkedin = "Linkedin is required";
   } else if (
-    !/^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[\w-]+\/?$/.test(User.linkedin)
+    !/^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[\w\u00F1-]+\/?$/.test(User.linkedin)
   ) {
     errors.linkedin = "Not a valid Linkedin URL";
   }
+  
 
   if (User.salary === 0) {
     errors.salary = "Expected salary is required";
