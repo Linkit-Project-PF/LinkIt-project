@@ -92,9 +92,17 @@ export function JobValidations(User: IUserJob) {
   if (User.linkedin === "") {
     errors.linkedin = "Linkedin is required";
   } else if (
-    !/^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[\w-]+\/?$/.test(User.linkedin)
+    !/^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[\w-ñ]+\/?$/.test(User.linkedin)
   ) {
+
     errors.linkedin = "Not a valid Linkedin URL";
+
+
+
+
+
+
+    
   }
 
   if (User.salary === 0) {
