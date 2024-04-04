@@ -87,6 +87,7 @@ export function JobValidations(User: IUserJob) {
   if (User.englishLevel === "") {
     errors.englishLevel = "English level is required";
   }
+  
   if (User.linkedin === "") {
     errors.linkedin = "Linkedin is required";
   } else if (
