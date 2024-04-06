@@ -142,8 +142,9 @@ function Register() {
     try {
       if (user.role === "company") user.companyName = user.firstName;
       user.provider = "email";
+      // https://linkit-server.onrender.com
       const response = await axios.post(
-        "https://linkit-server.onrender.com/auth/register",
+        "http://localhost:3000/auth/register",
         user,
         {
           headers: {
@@ -152,6 +153,8 @@ function Register() {
           },
         }
       );
+      console.log(user)
+      console.log(response)
       if (response.data._id) {
         isLoading(false);
         Swal.fire({
@@ -230,8 +233,9 @@ function Register() {
         // @ts-expect-error: Private property is not readable for typescript valiadtion.
         if (!response._tokenResponse.isNewUser) {
           //* In case trying to register with google but user already exists
+          //https://linkit-server.onrender.com
           const result = await axios.get(
-            `https://linkit-server.onrender.com/users/find?email=${response.user.email}`,
+            `http://localhost:3000/users/find?email=${response.user.email}`,
             {
               headers: {
                 Authorization: `Bearer ${SUPERADMN_ID}`,
@@ -242,8 +246,9 @@ function Register() {
           if (result.data.length)
             throw Error(`El usuario ya existe, para acceder inicia sesion`);
           else {
+            //https://linkit-server.onrender.com
             const result = await axios.get(
-              `https://linkit-server.onrender.com/companies/find?email=${response.user.email}`,
+              `http://localhost:3000/companies/find?email=${response.user.email}`,
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
@@ -261,6 +266,7 @@ function Register() {
           String(user.role),
           externalProvider
         );
+        console.log(DBresponse)
         Swal.fire({
           icon: "success",
           title: t("¡Registro exitoso!"),
@@ -284,6 +290,7 @@ function Register() {
       }
     } catch (error: any) {
       if (error instanceof FirebaseError) {
+        console.log(error)
         Swal.fire({
           icon: "error",
           title: "¡Error!",

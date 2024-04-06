@@ -14,10 +14,12 @@ export default async function saveUserThirdAuth(user: any, role: string, provide
     provider: provider
   };
   let result;
+  console.log("authentication")
   try {
     if (role === "user") {
+      // "https://linkit-server.onrender.com/users/create"
       result = await axios.post(
-        "https://linkit-server.onrender.com/users/create",
+        "http://localhost:3000/users/create",
         userToSave,
         {
           headers: {
@@ -27,8 +29,9 @@ export default async function saveUserThirdAuth(user: any, role: string, provide
         }
       );
     } else if (role === "company") {
+      // "https://linkit-server.onrender.com/companies/create"
       result = await axios.post(
-        "https://linkit-server.onrender.com/companies/create",
+        "http://localhost:3000/companies/create",
         userToSave,
         {
           headers: {
@@ -39,6 +42,7 @@ export default async function saveUserThirdAuth(user: any, role: string, provide
       );
     } else throw Error("Not a valid role for this path");
   } catch (error) {
+    console.log(error)
     throw Error("Failed to save user info on DB: " + error);
   }
   return result.data;
