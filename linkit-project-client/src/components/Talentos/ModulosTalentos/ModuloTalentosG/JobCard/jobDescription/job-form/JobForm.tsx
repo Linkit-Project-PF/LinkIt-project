@@ -18,8 +18,8 @@ import { handleRecruiterChange } from "./job-form-types-handlers/jobFormHandlers
 import Select from "react-select";
 import FormTransition from "./job-form-types-handlers/FormTransition";
 import { useTranslation } from "react-i18next";
-// import { SUPERADMN_ID } from "../../../../../../../env";
-import { setUser } from "../../../../../../../redux/features/AuthSlice";
+import { SUPERADMN_ID } from "../../../../../../../env";
+import { setUser, loginSuccess } from "../../../../../../../redux/features/AuthSlice";
 import { RootState } from "../../../../../../../redux/types";
 import { IUser } from "../../../../../../Profiles/types";
 import Loading from "../../../../../../Loading/Loading";
@@ -164,8 +164,20 @@ function JobForm() {
           text: "Tu postulación ha sido enviada exitosamente",
           confirmButtonText: "Seguir viendo vacantes",
           confirmButtonColor: "#01A28B",
-        }).then((result) => {
+        }).then(async (result) => {
           if (result.isConfirmed) {
+            const getUserData = await axios.get(
+              `https://linkit-server.onrender.com/users/find?email=${userData.email}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${SUPERADMN_ID}`,
+                  "Accept-Language": sessionStorage.getItem("lang"),
+                },
+              }
+            );
+            if (getUserData.data[0]) {
+              dispatch(loginSuccess(getUserData.data[0]));
+            }
             dispatch(resetForm());
             navigate("/soyTalento");
             navigate("/SoyTalento");
