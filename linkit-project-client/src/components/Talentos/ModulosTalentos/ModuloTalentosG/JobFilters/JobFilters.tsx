@@ -216,6 +216,25 @@ const JobFilters = () => {
           {language === "en" ? (
             <li
               onClick={() => {
+                setModality("On-site"), setModalityValue("on-site");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              On-site
+            </li>
+          ) : (
+            <li
+              onClick={() => {
+                setModality("Presencial"), setModalityValue("on-site");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Presencial
+            </li>
+          )}
+          {language === "en" ? (
+            <li
+              onClick={() => {
                 setModality("Remote (Local)"), setModalityValue("remote-local");
               }}
               className="cursor-pointer w-full px-2"
