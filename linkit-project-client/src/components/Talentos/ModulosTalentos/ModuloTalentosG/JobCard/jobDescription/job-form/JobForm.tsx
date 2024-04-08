@@ -209,7 +209,7 @@ function JobForm() {
 
   const handleEnglishLevelChange = (level: string) => {
     setEnglishLevel(level);
-    setLocalUser((prevUser) => ({ ...prevUser, englishLevel: level }));
+    setLocalUser((prevUser) =>  ({ ...prevUser, englishLevel: level }));
   };
 
   const handleInputChange = (
