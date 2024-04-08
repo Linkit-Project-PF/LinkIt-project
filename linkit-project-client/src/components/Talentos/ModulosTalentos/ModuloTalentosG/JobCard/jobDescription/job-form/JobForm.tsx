@@ -153,7 +153,7 @@ function JobForm() {
     };
     try {
       const response = await axios.post(
-        `http://localhost:3000/postulations/create?user=${userData._id}`,
+        `https://linkit-server.onrender.com/postulations/create?user=${userData._id}`,
         userApplicationObject,
         { headers: { "Accept-Language": sessionStorage.getItem("lang") } }
       );
@@ -169,7 +169,7 @@ function JobForm() {
         }).then(async (result) => {
           if (result.isConfirmed) {
             const getUserData = await axios.get(
-              ` http://localhost:3000/users/find?email=${userData.email}`,
+              `https://linkit-server.onrender.com/users/find?email=${userData.email}`,
               {
                 headers: {
                   Authorization: `Bearer ${SUPERADMN_ID}`,
