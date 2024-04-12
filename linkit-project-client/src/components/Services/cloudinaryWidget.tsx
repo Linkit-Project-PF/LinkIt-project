@@ -50,41 +50,52 @@ function CloudinaryUploadWidget({
     cloudName: "dquhriqz3",
     uploadPreset: "new-preset",
   });
+  let uploadSuccess = false;
 
   const openCloudinaryWidget = () => {
-    Swal.fire({
-      icon: "success",
-      title: t("Cargando"),
-      timer: 1000,
-      showConfirmButton: false,
-      showLoaderOnConfirm: true
-    })
-    setTimeout(() => {
-      if (loaded) {
-        // Create upload widget configuration
+    if (loaded) {
+      // Create upload widget configuration
 
-        const myWidget = window.cloudinary.createUploadWidget(
-          uwConfig,
-          (error: any, result: any) => {
-            if (!error && result && result.event === "success") {
-              setFilePublicId && setFilePublicId(result.info.public_id);
-              setCv &&
-                setCv({
-                  fileName: `${result.info.original_filename}.${result.info.format}`,
-                  cloudinaryId: result.info.public_id,
-                });
-              setFileName(
-                `${result.info.original_filename}.${result.info.format}`
+      const myWidget = window.cloudinary.createUploadWidget(
+        uwConfig,
+        (error: any, result: any) => {
+          if (!error && result && result.event === "success") {
+            uploadSuccess = true;
+            setFilePublicId && setFilePublicId(result.info.public_id);
+            setCv &&
+            setCv({
+              fileName: `${result.info.original_filename}.${result.info.format}`,
+              cloudinaryId: result.info.public_id,
+            });
+            setFileName(
+              `${result.info.original_filename}.${result.info.format}`
               );
-              setReload && setReload(true);
+            setReload && setReload(true);
+          } else if (result.event === "close") {
+            if (uploadSuccess) {
+              Swal.fire({
+                icon: "success",
+                title: t("Enviado"),
+                timer: 1000,
+                showConfirmButton: false,
+                showLoaderOnConfirm: true
+              })
+              uploadSuccess = false;
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: t("Cancelado"),
+                timer: 1000,
+                showConfirmButton: false,
+                showLoaderOnConfirm: true
+              })
             }
           }
+        }
         );
-  
-        myWidget.open();
-      }
-    }, 1000)
-    
+        
+      myWidget.open();
+    }
   };
 
   useEffect(() => {
