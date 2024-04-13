@@ -468,6 +468,7 @@ export default function Vacancies2() {
                   onClick={handleFilters}
                 >
                   <option value=""></option>
+                  <option value="on-site">{t("Presencial")}</option>
                   <option value="remote-local">{t("Remoto (Local)")}</option>
                   <option value="remote-regional">{t("Remoto (Regional)")}</option>
                   <option value="hybrid">{t("Híbrido")}</option>
@@ -493,6 +494,7 @@ export default function Vacancies2() {
                         onChange={handleChange}
                         className="bg-linkIt-500 text-black w-fit h-fit text-md p-0"
                       >
+                        <option value="on-site">On-site</option>
                         <option value="remote-local">Remote (Local)</option>
                         <option value="remote-regional">Remote(Regional)</option>
                         <option value="hybrid">Hybrid</option>
