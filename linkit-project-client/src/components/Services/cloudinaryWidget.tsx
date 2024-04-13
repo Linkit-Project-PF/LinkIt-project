@@ -71,6 +71,7 @@ function CloudinaryUploadWidget({
               `${result.info.original_filename}.${result.info.format}`
               );
             setReload && setReload(true);
+            myWidget.close();
           } else if (result.event === "close") {
             if (uploadSuccess) {
               Swal.fire({
