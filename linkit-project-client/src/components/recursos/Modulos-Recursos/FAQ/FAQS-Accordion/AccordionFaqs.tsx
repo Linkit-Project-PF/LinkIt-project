@@ -47,7 +47,11 @@ function AccordionFaqs() {
           <br />
           - {t('Mediante un contrato temporal')} <br />
           <br />
-          - {t('En relación de dependencia En caso de no avanzar con el proceso, ¿me tendrán en cuenta futuras oportunidades? Por supuesto! Aceptando los términos y condiciones entrarás en nuestra gran base de datos para poder asignarte el proyecto a tu medida, alineado con tus talentos y necesidades.')}
+          - {t('En relación de dependencia')} <br />
+          
+        </AccordionItem>
+        <AccordionItem header={t("+ En caso de no avanzar con el proceso, ¿me tendrán en cuenta futuras oportunidades?")} className="subtitles-size font-montserrat dark:bg-linkIt-400 dark:text-white">
+        {t('Por supuesto! Aceptando los términos y condiciones entrarás en nuestra gran base de datos para poder asignarte el proyecto a tu medida, alineado con tus talentos y necesidades.')}
         </AccordionItem>
       </Accordion>
     </div>

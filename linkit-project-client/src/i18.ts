@@ -264,7 +264,9 @@ export const i18nOptions: InitOptions = {
         "Gracias a los partners que tenemos con distintas empresas del mundo, podemos alinear los requisitos legales del país donde radique la empresa, así como donde esté el talento. Los tipos de relaciones laborales más frecuentes pueden ser:": "Thanks to the partners we have with different companies around the world, we can align the legal requirements of the country where the company is located, as well as where the talent is. The most frequent types of employment relationships can be:",
         "Como trabajador autónomo modalidad freelance": "As a self-employed worker, freelance modality",
         "Mediante un contrato temporal": "Through a temporary contract",
-        "En relación de dependencia En caso de no avanzar con el proceso, ¿me tendrán en cuenta futuras oportunidades? Por supuesto! Aceptando los términos y condiciones entrarás en nuestra gran base de datos para poder asignarte el proyecto a tu medida, alineado con tus talentos y necesidades.": "In a dependency relationship If I do not advance with the process, will I be considered for future opportunities? Of course! By accepting the terms and conditions you will enter our large database to be able to assign you the project tailored to you, aligned with your talents and needs.",
+        "En relación de dependencia" : "In a dependency relationship",
+        "+ En caso de no avanzar con el proceso, ¿me tendrán en cuenta futuras oportunidades?" : "+ If I do not advance with the process, will I be considered for future opportunities?",
+        "Por supuesto! Aceptando los términos y condiciones entrarás en nuestra gran base de datos para poder asignarte el proyecto a tu medida, alineado con tus talentos y necesidades." : "Of course! By accepting the terms and conditions you will enter our large database to be able to assign you the project tailored to you, aligned with your talents and needs.",
         //!CV
         "Arma tu CV": "Create your CV",
         "con nuestro": "with our",
