@@ -360,7 +360,6 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
 
 
     const [buttonPressed, setButtonPressed] = useState(false);
-//sacar vacanySecond, del useEffect
 
 useEffect(() => {
   if (buttonPressed) {
@@ -427,40 +426,20 @@ useEffect(() => {
     };
 
 
-    //sacamos condicionante del vacancySecond value.kength === 0
     useEffect(() => {
       setIsDisabled(Object.values(vacancyFirst).some((value) => value === "") );
     }, [vacancyFirst]);
 
-    // const CalculatePrice  = async () => {
 
-
-    //   if (isDisabled) {
-    //     handleFiltersSelected()
-    //   } else {
-    //   try {
-    //     const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond)
-    //     if(response.status === 200) {
-    //       const data = response.data
-    //       setPrice(data)
-    //     }
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // }
     const CalculatePrice = async () => {
       if (isDisabled) {
         handleFiltersSelected();
       } else {
         try {
-          // Definimos los valores predeterminados
           let techsValue = ["No techs"];
           let frameworksValue = ["No frameworks"];
           let othersValue = ["No others"];
-    
-          // Verificamos si hay selecciones en vacancySecond y actualizamos los valores predeterminados según corresponda
-          if (vacancySecond.technologies.length > 0) {
+              if (vacancySecond.technologies.length > 0) {
             techsValue = vacancySecond.technologies;
           }
           if (vacancySecond.frameworks.length > 0) {
@@ -470,29 +449,23 @@ useEffect(() => {
             othersValue = vacancySecond.others;
           }
     
-          // Actualizamos el estado vacancySecond con los nuevos valores
           setVacancySecond({
             technologies: techsValue,
             frameworks: frameworksValue,
             others: othersValue,
           });
     
-          const response = await axios.post(`http://localhost:3000/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond);
+          const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond);
     
           if (response.status === 200) {
             const data = response.data;
             setPrice(data);
-            console.log(vacancyFirst + "vacancy first")
-            console.log(vacancySecond + "vacancy second")
           }
         } catch (error) {
           console.log(error);
         }
       }
     };
-    
-
-    console.log(`http://localhost:3000/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`)
     
 
     useEffect(() => {
