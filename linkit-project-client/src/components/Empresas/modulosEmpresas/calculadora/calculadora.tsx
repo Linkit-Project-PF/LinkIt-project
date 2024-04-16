@@ -21,16 +21,17 @@ interface VacancySecondState {
 }
 
 
- function Calculadora () {
+        function Calculadora () {
   
-const [filtersToSelect, setFiltersToSelect] = useState({
-  filterPosition: false,
-  filterEnglishLevel: false,
-  filterSeniority: false,
-  filterTechnologies: false,
-  filterFrameworks: false,
-  filterOthers: false
-})
+        const [filtersToSelect, setFiltersToSelect] = useState({
+        filterPosition: false,
+        filterEnglishLevel: false,
+        filterSeniority: false,
+        filterTechnologies: false,
+        filterFrameworks: false,
+        filterOthers: false
+        
+      })
 
 
 const customThemeP: CustomFlowbiteTheme['dropdown'] = {
@@ -268,6 +269,7 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
 
       const [isDisabled, setIsDisabled] = useState(true)
 
+      //setear aquí en true los vacancySecond o comentarlos
     const handleFiltersSelected = () => {
       
         if (vacancyFirst.positionV === "") {
@@ -316,7 +318,7 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
         if (vacancySecond.technologies.length === 0) {
           setFiltersToSelect((prevFiltersToSelect) => ({
             ...prevFiltersToSelect,
-            filterTechnologies: true,
+            filterTechnologies: false,
           }));
         } else {
           setFiltersToSelect((prevFiltersToSelect) => ({
@@ -331,7 +333,7 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
         if (vacancySecond.frameworks.length === 0) {
           setFiltersToSelect((prevFiltersToSelect) => ({
             ...prevFiltersToSelect,
-            filterFrameworks: true,
+            filterFrameworks: false,
           }));
         } else {
           setFiltersToSelect((prevFiltersToSelect) => ({
@@ -346,7 +348,7 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
         if (vacancySecond.others.length === 0) {
           setFiltersToSelect((prevFiltersToSelect) => ({
             ...prevFiltersToSelect,
-            filterOthers: true,
+            filterOthers: false,
           }));
         } else {
           setFiltersToSelect((prevFiltersToSelect) => ({
@@ -358,13 +360,13 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
 
 
     const [buttonPressed, setButtonPressed] = useState(false);
-
+//sacar vacanySecond, del useEffect
 
 useEffect(() => {
   if (buttonPressed) {
     handleFiltersSelected();
   }
-}, [vacancyFirst, vacancySecond, buttonPressed]);
+}, [vacancyFirst, buttonPressed]);
 
 
 
@@ -424,27 +426,74 @@ useEffect(() => {
       }
     };
 
+
+    //sacamos condicionante del vacancySecond value.kength === 0
     useEffect(() => {
-      setIsDisabled(Object.values(vacancyFirst).some((value) => value === "") || Object.values(vacancySecond).some((value) => value.length === 0));
-    }, [vacancyFirst, vacancySecond]);
+      setIsDisabled(Object.values(vacancyFirst).some((value) => value === "") );
+    }, [vacancyFirst]);
 
-    const CalculatePrice  = async () => {
+    // const CalculatePrice  = async () => {
 
 
+    //   if (isDisabled) {
+    //     handleFiltersSelected()
+    //   } else {
+    //   try {
+    //     const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond)
+    //     if(response.status === 200) {
+    //       const data = response.data
+    //       setPrice(data)
+    //     }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // }
+    const CalculatePrice = async () => {
       if (isDisabled) {
-        handleFiltersSelected()
+        handleFiltersSelected();
       } else {
-      try {
-        const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond)
-        if(response.status === 200) {
-          const data = response.data
-          setPrice(data)
+        try {
+          // Definimos los valores predeterminados
+          let techsValue = ["No techs"];
+          let frameworksValue = ["No frameworks"];
+          let othersValue = ["No others"];
+    
+          // Verificamos si hay selecciones en vacancySecond y actualizamos los valores predeterminados según corresponda
+          if (vacancySecond.technologies.length > 0) {
+            techsValue = vacancySecond.technologies;
+          }
+          if (vacancySecond.frameworks.length > 0) {
+            frameworksValue = vacancySecond.frameworks;
+          }
+          if (vacancySecond.others.length > 0) {
+            othersValue = vacancySecond.others;
+          }
+    
+          // Actualizamos el estado vacancySecond con los nuevos valores
+          setVacancySecond({
+            technologies: techsValue,
+            frameworks: frameworksValue,
+            others: othersValue,
+          });
+    
+          const response = await axios.post(`http://localhost:3000/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond);
+    
+          if (response.status === 200) {
+            const data = response.data;
+            setPrice(data);
+            console.log(vacancyFirst + "vacancy first")
+            console.log(vacancySecond + "vacancy second")
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error)
       }
-    }
-    }
+    };
+    
+
+    console.log(`http://localhost:3000/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`)
+    
 
     useEffect(() => {
         axios
@@ -557,7 +606,7 @@ useEffect(() => {
               {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
                 
                     <li key={index} className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} checked={vacancySecond.technologies.some(tech => tech === techs)} />
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} checked={vacancySecond?.technologies?.some(tech => tech === techs)} />
                     <label htmlFor={techs} className="cursor-pointer w-full">{techs}</label>
                     </li>
                    
@@ -569,7 +618,7 @@ useEffect(() => {
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
               
                     <li key={index} className=""> 
-                    <input className=" checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} checked={vacancySecond.frameworks.some(item => item === frameworks)}/>
+                    <input className=" checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} checked={vacancySecond?.frameworks?.some(item => item === frameworks)}/>
                     <label htmlFor={frameworks} className="cursor-pointer w-full">{frameworks}</label>
                     </li>
                     
@@ -584,7 +633,7 @@ useEffect(() => {
               
               othersToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((others: string, index: number) => (
                     <li key={index} className=""> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="others" value={others} id={others} onChange={handleChange} checked={vacancySecond.others.some(item => item === others)}/>
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="others" value={others} id={others} onChange={handleChange} checked={vacancySecond?.others?.some(item => item === others)}/>
                     <label htmlFor={others} className="cursor-pointer ">
                     {others}</label>
                     </li>
@@ -679,7 +728,7 @@ useEffect(() => {
               {tech?.filter((items: string | null) => ( items !== null && items !== "")).map((techs: string, index: number) => (
                 
                     <li key={index} className="pb-1 ssm:pb-0"> 
-                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} checked={vacancySecond.technologies.some(tech => tech === techs)} />
+                    <input className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="technologies" value={techs} id={techs} onChange={handleChange} checked={vacancySecond?.technologies?.some(tech => tech === techs)} />
                     <label htmlFor={techs} className="cursor-pointer w-full">{techs}</label>
                     </li>
                    
@@ -704,7 +753,7 @@ useEffect(() => {
               {frameworksToRender?.filter((items: string | null) => ( items !== null && items !== "")).map((frameworks: string, index: number) => (
               
                     <li key={index} className="pb-1 ssm:pb-0"> 
-                    <input className=" checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} checked={vacancySecond.frameworks.some(item => item === frameworks)}/>
+                    <input className=" checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0" type="checkbox" name="frameworks" value={frameworks} id={frameworks} onChange={handleChange} checked={vacancySecond?.frameworks?.some(item => item === frameworks)}/>
                     <label htmlFor={frameworks} className="cursor-pointer w-full">{frameworks}</label>
                     </li>
                     
