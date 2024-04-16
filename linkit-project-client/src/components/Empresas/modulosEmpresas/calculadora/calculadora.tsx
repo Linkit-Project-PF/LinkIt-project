@@ -269,7 +269,6 @@ const customThemeO: CustomFlowbiteTheme['dropdown'] = {
 
       const [isDisabled, setIsDisabled] = useState(true)
 
-      //setear aquí en true los vacancySecond o comentarlos
     const handleFiltersSelected = () => {
       
         if (vacancyFirst.positionV === "") {
@@ -439,7 +438,8 @@ useEffect(() => {
           let techsValue = ["No techs"];
           let frameworksValue = ["No frameworks"];
           let othersValue = ["No others"];
-              if (vacancySecond.technologies.length > 0) {
+    
+          if (vacancySecond.technologies.length > 0) {
             techsValue = vacancySecond.technologies;
           }
           if (vacancySecond.frameworks.length > 0) {
@@ -448,14 +448,17 @@ useEffect(() => {
           if (vacancySecond.others.length > 0) {
             othersValue = vacancySecond.others;
           }
-    
-          setVacancySecond({
+              setVacancySecond({
             technologies: techsValue,
             frameworks: frameworksValue,
             others: othersValue,
           });
     
-          const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, vacancySecond);
+          const response = await axios.post(`https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`, {
+            technologies: techsValue,
+            frameworks: frameworksValue,
+            others: othersValue,
+          });
     
           if (response.status === 200) {
             const data = response.data;
@@ -466,6 +469,8 @@ useEffect(() => {
         }
       }
     };
+    
+
     
 
     useEffect(() => {
