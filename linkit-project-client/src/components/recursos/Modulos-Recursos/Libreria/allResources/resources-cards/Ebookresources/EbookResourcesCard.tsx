@@ -8,7 +8,7 @@ type EbooksCardProps = {
   description: string;
   link: string;
   category: string;
-  image: string;
+  image?: string;
 };
 
 const cardVariants: Variants = {

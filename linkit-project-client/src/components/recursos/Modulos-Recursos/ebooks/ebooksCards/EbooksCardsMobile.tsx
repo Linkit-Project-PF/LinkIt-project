@@ -11,7 +11,7 @@ export type stateProps = {
     resources: {
         ebooks: ResourceProps[];
     };
-  }
+}
 
 function EbooksCardsMobile() {
     const [currentPage, setCurrentPage] = useState(0)
@@ -56,6 +56,7 @@ function EbooksCardsMobile() {
                                 link={eBooks[currentPage].link}
                                 category={eBooks[currentPage].category}
                                 key={currentPage}
+                                image={eBooks[currentPage].image}
                             />
                         )}
             </div>
