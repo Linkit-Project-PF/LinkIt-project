@@ -302,8 +302,8 @@ export default function FormResource({
                       type="text"
                       name="image"
                       placeholder={
-                        information.type === "ebook" ? "Imagen" : "Imagen cargada"
-                      }
+                        filePublicId.length > 0 ? "Imagen cargada": "Cargar imagen"
+                      } 
                       autoComplete="off"
                       onChange={handleChange}
                       disabled
