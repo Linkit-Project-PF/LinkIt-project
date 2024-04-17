@@ -264,7 +264,7 @@ export default function FormResource({
                         className="w-full h-full border-none"
                         type="text"
                         name="link"
-                        placeholder={isUpdate ? "Link cargado" : "*"}
+                        placeholder={isUpdate ? "Pdf cargado" : "*"}
                         autoComplete="off"
                         onChange={handleChange}
                         onBlur={handleBlurErrors}
