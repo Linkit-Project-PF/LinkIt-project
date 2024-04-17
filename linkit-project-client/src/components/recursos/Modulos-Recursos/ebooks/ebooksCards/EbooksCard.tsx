@@ -8,6 +8,7 @@ type EbooksCardProps = {
   description: string;
   link: string;
   category: string;
+  image?: string;
 };
 
 const cardVariants: Variants = {
@@ -39,6 +40,7 @@ function EbooksCard({
   description,
   link,
   category,
+  image,
 }: EbooksCardProps): JSX.Element {
   const [key, setKey] = useState(Math.random());
   const { t } = useTranslation();
@@ -55,6 +57,11 @@ function EbooksCard({
       animate={"animate"}
       exit={"exit"}
     >
+      <img
+        src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
+        alt={title}
+        className={`w-full rounded-lg aspect-video bg-cover bg-center`}
+      />
       <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
         <span className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {category}

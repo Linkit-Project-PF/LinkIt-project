@@ -18,6 +18,7 @@ function EbooksCards() {
     const [currentPage, setCurrentPage] = useState(0)
     const dispatch = useDispatch()
     const eBooks = useSelector((state: stateProps) => state.resources.ebooks);
+    
 
     useEffect(() => {
         const loadData = async (): Promise<void> => {
@@ -55,10 +56,11 @@ function EbooksCards() {
             className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
             <div className='grid lg:grid-cols-3 items-center gap-3 w-full h-full mx-3'>
                 {
-                    eBooks.slice(startIndex, endIndex).map((ebook, index) => {
+                    eBooks.slice(startIndex, endIndex).reverse().map((ebook, index) => {
                         return (
 
                             <EbooksCard
+                                image={ebook.image}
                                 title={ebook.title}
                                 description={ebook.description}
                                 link={ebook.link}
