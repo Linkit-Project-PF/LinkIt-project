@@ -48,14 +48,19 @@ function EventResourceCard({
   };
 
   return (
-    <>
-      <motion.div
-        className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400"
+    <motion.div
+    className="border-[2px] w-full h-fit rounded-xl font-montserrat bg-white"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 1 }}>
+      <motion.a
         variants={eventCardVariants}
         initial="hidden"
         whileInView={"visible"}
         viewport={{ once: true }}
         exit="exit"
+        href={link}
+        target="_blank"
+        
       >
         {image.includes("youtube") ? (
           <div
@@ -77,16 +82,15 @@ function EventResourceCard({
           <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 pt-8">
             {description}
           </p>
-          <a
-            href={link}
-            target="_blank"
+          <p
+           
             className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
           >
             {t("Ver Grabación")}
-          </a>
+          </p>
         </div>
-      </motion.div>
-    </>
+      </motion.a>
+    </motion.div>
   );
 }
 

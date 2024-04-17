@@ -58,13 +58,19 @@ function EventCard({
   }, [title, description, link, category]);
 
   return (
-    <motion.div
+    
+    <motion.a
       className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400"
       key={key}
       variants={eventCardVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
+      href={link} 
+      target="_blank"
+      whileHover={{ scale: 1.02, cursor: "pointer" }}
+      whileTap={{ scale: 1 }}
+
     >
       {image.includes("youtube") ? (
         <div
@@ -85,11 +91,11 @@ function EventCard({
 
         <span className="font-bold subtitles-size line-clamp-3">{title}</span>
         <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
-        <a href={link} target="_blank" className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
+        <p  className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
           {t('Ver Grabación')}
-        </a>
+        </p>
       </div>
-    </motion.div>
+    </motion.a>
 
   );
 }
