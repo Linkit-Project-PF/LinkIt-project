@@ -56,6 +56,7 @@ function AllResources() {
   const blogs = useSelector((state: resourcesState) => state.resources.blogs);
   const ebooks = useSelector((state: resourcesState) => state.resources.ebooks);
   const events = useSelector((state: resourcesState) => state.resources.events);
+ 
 
   const { t } = useTranslation();
   return (
@@ -66,6 +67,7 @@ function AllResources() {
               return (
                 <div className="w-[21rem]" key={ebook._id}>
                   <EbookResourcesCard
+                    image={ebook.image}
                     title={ebook.title}
                     description={ebook.description}
                     category={ebook.category}
@@ -78,6 +80,7 @@ function AllResources() {
               return (
                 <div className="w-[21rem] mb-[2rem]" key={ebook._id}>
                   <EbookResourcesCard
+                    image={ebook.image}
                     title={ebook.title}
                     description={ebook.description}
                     category={ebook.category}

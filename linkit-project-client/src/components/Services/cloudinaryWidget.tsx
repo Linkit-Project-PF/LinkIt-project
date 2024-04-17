@@ -14,6 +14,7 @@ interface IComponentProps {
   children: React.ReactNode;
   setFilePublicId?: (value: string) => void;
   setFileName: (value: string) => void;
+  updateLink?: (value: string) => void;
   setCv?: (value: Curriculum) => void;
   onUploadSuccess?: (value: string) => void;
   setReload?: (value: boolean) => void;
@@ -39,6 +40,7 @@ function CloudinaryUploadWidget({
   children,
   setFilePublicId,
   setCv,
+  updateLink,
   setFileName,
   className,
   setReload,
@@ -60,7 +62,11 @@ function CloudinaryUploadWidget({
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
+            console.log(result.info.secure_url)
             uploadSuccess = true;
+            if (updateLink) {
+              updateLink(result.info.secure_url);
+            }
             setFilePublicId && setFilePublicId(result.info.public_id);
             setCv &&
             setCv({
