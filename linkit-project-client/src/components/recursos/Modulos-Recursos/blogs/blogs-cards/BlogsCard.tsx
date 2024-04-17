@@ -32,31 +32,33 @@ const blogsCardVariants: Variants = {
       delay: 0.2,
       type: "spring",
     },
-  }
-
-}
+  },
+};
 
 function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
   const [key, setKey] = useState(Math.random());
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/blog/${_id}`);
-  }
+  };
 
   useEffect(() => {
     setKey(Math.random()); // change key to force re-render
   }, [title, description, _id, genre]);
 
   return (
-    <motion.div 
-    className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400"
-    variants={blogsCardVariants}
-    initial="hidden"
-    animate="visible"
-    exit="exit"
-    key={key}
+    <motion.button
+      className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400"
+      variants={blogsCardVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      key={key}
+      whileHover={{ scale: 1.02, cursor: "pointer" }}
+      onClick={handleClick}
+      whileTap={{ scale: 1 }}
     >
       <img
         src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
@@ -67,23 +69,19 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
         <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
         </p>
-        <span className="font-bold subtitles-size line-clamp-3">
-          {title}
-        </span>
+        <span className="font-bold subtitles-size line-clamp-3">{title}</span>
         <span className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
           {description}
         </span>
 
-        <motion.button
-          onClick={handleClick}
+        <motion.p
           className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
-          whileHover={{ scale: 1.02, cursor: 'pointer' }}
-          whileTap={{ scale: 1 }}
+         
         >
-          {t('Leer Nota')}
-        </motion.button>
+          {t("Leer Nota")}
+        </motion.p>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
