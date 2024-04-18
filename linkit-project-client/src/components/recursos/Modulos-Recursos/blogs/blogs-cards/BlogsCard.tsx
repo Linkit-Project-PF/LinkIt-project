@@ -69,10 +69,10 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
         <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
         </p>
-        <span className="font-bold subtitles-size line-clamp-3">{title}</span>
-        <span className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
+        <span className="font-bold subtitles-size line-clamp-3 text-left">{title}</span>
+        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 text-left">
           {description}
-        </span>
+        </p>
 
         <motion.p
           className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"

@@ -10,7 +10,7 @@ export type stateProps = {
     resources: {
         events: ResourceProps[];
     };
-  }
+}
 
 function EventsCardsMobile() {
 
@@ -18,8 +18,6 @@ function EventsCardsMobile() {
 
     const dispatch = useDispatch()
     const events = useSelector((state: stateProps) => state.resources.events);
-
-
 
     const handleNext = () => {
         setCurrentPage(currentPage === events.length - 1 ? 0 : currentPage + 1)
@@ -46,24 +44,24 @@ function EventsCardsMobile() {
     return (
         <div className="flex w-full h-full justify-center items-center">
             <button disabled={events.length <= 1}>
-            <img src={blackArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+                <img src={blackArrow} onClick={handlePrevius} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
             </button>
             <div className='flex items-end justify-center gap-2 w-full h-full'>
                 {
                     events.length > 0 && (
-                            <EventCard
-                                image={events[currentPage].image}
-                                title={events[currentPage].title}
-                                category={events[currentPage].category}
-                                description={events[currentPage].description}
-                                link={events[currentPage].link}
-                                key={currentPage}
-                            />
-                        )
-                    }
+                        <EventCard
+                            image={events[events.length - 1 - currentPage].image}
+                            title={events[events.length - 1 - currentPage].title}
+                            category={events[events.length - 1 - currentPage].category}
+                            description={events[events.length - 1 - currentPage].description}
+                            link={events[events.length - 1 - currentPage].link}
+                            key={currentPage}
+                        />
+                    )
+                }
             </div>
             <button disabled={events.length <= 1}>
-            <img onClick={handleNext} src={blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+                <img onClick={handleNext} src={blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
             </button>
         </div>
     )
