@@ -13,16 +13,19 @@ function BlogsCards() {
   const [currentBlog, setCurrentBlog] = useState(0);
   const [blogs, setBlogs] = useState<PostEntity[]>([]);
   const isDarkMode = useSelector(
-    (state: RootState) => state.darkMode);
-
+    (state: RootState) => state.darkMode
+  );
 
   useEffect(() => {
     (async () => {
       try {
         const response = await axios.get<PostEntity[]>("https://linkit-server.onrender.com/posts/find?type=blog", {
-          headers: {"Authorization": `Bearer ${SUPERADMN_ID}`,
-          'Accept-Language': sessionStorage.getItem('lang')}
+          headers: {
+            "Authorization": `Bearer ${SUPERADMN_ID}`,
+            'Accept-Language': sessionStorage.getItem('lang')
+          }
         });
+        response.data.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
         setBlogs(response.data);
       } catch (error) {
         console.log(error);
@@ -30,18 +33,10 @@ function BlogsCards() {
     })();
   }, []);
 
-  
-  
-  
-  let blogsToShow = 3;
-  
-  
+  const blogsToShow = 3;
   const startIndex = currentBlog * blogsToShow;
   const endIndex = startIndex + blogsToShow;
-  
-  let blogsToShowArray = blogs.slice(startIndex, endIndex);
-
-
+  const blogsToShowArray = blogs.slice(startIndex, endIndex);
 
   const handlePrev = () => {
     setCurrentBlog(currentBlog === 0 ? Math.ceil(blogs.length / blogsToShow) - 1 : currentBlog - 1);
@@ -51,19 +46,11 @@ function BlogsCards() {
     setCurrentBlog(currentBlog === Math.ceil(blogs.length / blogsToShow) - 1 ? 0 : currentBlog + 1);
   };
 
-  if (blogsToShowArray.length < blogsToShow) {
-    blogsToShowArray = [
-      ...blogs.slice(0, blogsToShow - blogsToShowArray.length),
-    ];
-  }
-
-
   return (
     <div className="flex w-full justify-center items-center">
-        <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
-        <div className='grid grid-cols-3 items-end justify-items-center gap-3 w-full h-full mx-3'>
-      {blogsToShowArray.map((blog, index) => {
-        return (
+      <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+      <div className='grid grid-cols-3 items-end justify-items-center gap-3 w-full h-full mx-3'>
+        {blogsToShowArray.map((blog, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, x: 100 }}
@@ -79,11 +66,9 @@ function BlogsCards() {
               genre={blog.category}
             />
           </motion.div>
-        );
-      })}
-    </div>
-        <img onClick={handleNext} src={isDarkMode ? whiteArrow : blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
-      
+        ))}
+      </div>
+      <img onClick={handleNext} src={isDarkMode ? whiteArrow : blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
     </div>
   );
 }
