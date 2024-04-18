@@ -247,7 +247,6 @@ function LoginCompany() {
     }
   }, [thirdParty]);
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
-
   return (
     <>
       <div
@@ -310,6 +309,7 @@ function LoginCompany() {
             </div>
             <p className="cursor-pointer text-[.8rem] self-start ml-[6%] font-manrope">
               <motion.button
+                type="button"
                 onClick={resetPasswordHandler}
                 whileHover={{ textDecoration: "underline" }}
               >

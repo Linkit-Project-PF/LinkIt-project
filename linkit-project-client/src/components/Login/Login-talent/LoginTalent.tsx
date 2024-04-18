@@ -351,6 +351,7 @@ function LoginTalent() {
             </div>
             <p className="text-[.8rem] self-start ml-[6%] font-manrope cursor-pointer">
               <motion.button
+                type="button"
                 onClick={resetPasswordHandler}
                 className="cursor-pointer"
                 whileHover={{ textDecoration: "underline" }}
