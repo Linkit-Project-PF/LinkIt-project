@@ -247,7 +247,6 @@ function LoginCompany() {
     }
   }, [thirdParty]);
   //? NOTE: Consider Google is <a> instead of <button> as any button will be taken for submit action
-  console.log(user);
   return (
     <>
       <div
