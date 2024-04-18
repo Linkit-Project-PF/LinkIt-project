@@ -58,6 +58,7 @@ function BlogInfo() {
               {header.head !== "" ?
                 <div className="font-bold bg-linkIt-300 text-white flex items-center justify-center subtitles-size h-fit rounded-full px-2 ssm:px-3  aspect-square">
                   {index - 1}
+
                 </div>
                 : 
                 <div>

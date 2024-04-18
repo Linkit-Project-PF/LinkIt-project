@@ -75,7 +75,7 @@ function JobForm() {
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [filePublicId, setFilePublicId] = useState<string>("");
+  const [filePublicId, setFilePublicId] = useState<string>(userData.cv.cloudinaryId);
   const [fileName, setFileName] = useState<string>(userData.cv.fileName);
   const [country, setCountry] = useState<string>(userData.country ?? "");
   const [englishLevel, setEnglishLevel] = useState<string>(() =>
@@ -94,6 +94,10 @@ function JobForm() {
   const recruiterRef = useRef<HTMLButtonElement>(null);
 
   const [user, setLocalUser] = useState({
+    cv: [{
+      filename: userData.cv.fileName,
+      url: `https://res.cloudinary.com/dquhriqz3/image/upload/${userData.cv.cloudinaryId}`,
+    },],
     firstName: userData.firstName,
     lastName: userData.lastName ?? "",
     email: userData.email,
@@ -132,6 +136,7 @@ function JobForm() {
     e.preventDefault();
     isLoading(true);
     const userApplicationObject = {
+      cv: user.cv,
       email: user.email,
       reason: user.reason,
       availability: user.availability,
@@ -226,7 +231,7 @@ function JobForm() {
   };
 
   useEffect(() => {
-    setLocalUser((prevUser) => ({ ...prevUser, cv: filePublicId }));
+    setLocalUser((prevUser) => ({ ...prevUser, cv: [{filename: fileName, url: `https://res.cloudinary.com/dquhriqz3/image/upload/${filePublicId}`}]}));
   }, [filePublicId]);
 
   useEffect(() => {
