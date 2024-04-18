@@ -12,6 +12,7 @@ export default function ResetPassword(props: IResetPassword) {
   const { t } = useTranslation();
   
   const { user } = props;
+ 
   
   useEffect(() => {
       const confirmEmailAlert = (user: WebsiteUser | UserLoginType) => {
