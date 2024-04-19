@@ -62,7 +62,6 @@ function CloudinaryUploadWidget({
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            console.log(result.info.secure_url)
             uploadSuccess = true;
             if (updateLink) {
               updateLink(result.info.secure_url);
