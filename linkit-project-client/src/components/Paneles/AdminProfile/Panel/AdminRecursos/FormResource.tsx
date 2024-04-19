@@ -548,7 +548,7 @@ export default function FormResource({
                       <div key={index} className="ml-10">
                         <ul className="list-disc">
                           <li>{header.head}</li>
-                          <p>{HTMLReactParser(header.body)}</p>
+                          <div>{HTMLReactParser(header.body)}</div>
                         </ul>
                       </div>
                     ))}
