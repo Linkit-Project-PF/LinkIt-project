@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import { Header, ResourceProps } from "../../../admin.types";
@@ -7,6 +7,9 @@ import { validations } from "./Validation";
 import { useSelector } from "react-redux";
 import { IUser } from "../../../../Profiles/types";
 import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
+import JoditEditor from "jodit-react";
+import HTMLReactParser from "html-react-parser";
+
 
 export type stateProps = {
   Authentication: {
@@ -94,9 +97,21 @@ export default function FormResource({
   });
 
   const handleChangeInfoList = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string
   ) => {
-    const { name, value } = e.target;
+    let name = "";
+    let value = "";
+
+    if (typeof e === "string") {
+      name = "body"; // Si es una cadena de texto, asumimos que es el valor del campo 'body'
+      value = e; // Asignamos el valor directamente
+    } else {
+      // Si es un evento, obtenemos el nombre y el valor del evento
+      name = e.target.name;
+      value = e.target.value;
+    }
+
+    // Actualizamos el estado 'infoList' con el nuevo valor
     setInfoList((previusInfoList) => ({
       ...previusInfoList,
       [name]: value,
@@ -160,14 +175,24 @@ export default function FormResource({
     infoList.sectionImage?.concat("image");
   };
 
-  const [isUpdate, setIsUpdate] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false);
   const updateLink = (newLink: string) => {
     setInformation((prevInformation) => ({
       ...prevInformation,
       link: newLink,
     }));
-    setIsUpdate(true)
+    setIsUpdate(true);
   };
+
+  //Rich Text Area WYSIWYG Jodit
+  const editor = useRef(null);
+
+  // const config:any =
+  // 	{
+  // 		readonly: false,
+  // 		placeholder: 'Start typings...',
+  //     theme:`dark`
+  // 	}
 
   return (
     <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
@@ -269,7 +294,6 @@ export default function FormResource({
                         onChange={handleChange}
                         onBlur={handleBlurErrors}
                         disabled
-
                       />
                       <CloudinaryUploadWidget
                         setFileName={setFileName}
@@ -302,13 +326,15 @@ export default function FormResource({
                       type="text"
                       name="image"
                       placeholder={
-                        filePublicId.length > 0 ? "Imagen cargada": "Cargar imagen"
-                      } 
+                        filePublicId.length > 0
+                          ? "Imagen cargada"
+                          : "Cargar imagen"
+                      }
                       autoComplete="off"
                       onChange={handleChange}
                       disabled
                     />
-                    
+
                     <CloudinaryUploadWidget
                       setFileName={setFileName}
                       setFilePublicId={setFilePublicId}
@@ -496,14 +522,21 @@ export default function FormResource({
                   <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                     {t("Cuerpo")}
                   </label>
-                  <textarea
+
+                  <JoditEditor
+                    ref={editor}
+                    value={infoList.body}
+                    //config={config} // tabIndex of textarea
+                    onBlur={handleChangeInfoList} // preferred to use only this option to update the content for performance reasons
+                  />
+                  {/* <textarea
                     className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                     name="body"
                     autoComplete="off"
                     placeholder={"Agrega la descripcion del encabezado"}
                     onChange={handleChangeInfoList}
                     value={infoList.body}
-                  ></textarea>
+                  ></textarea> */}
                   <div className="flex w-full justify-center">
                     <button className="background-button" onClick={addToList}>
                       {t("Agregar otra sección")}
@@ -515,6 +548,7 @@ export default function FormResource({
                       <div key={index} className="ml-10">
                         <ul className="list-disc">
                           <li>{header.head}</li>
+                          <div>{HTMLReactParser(header.body)}</div>
                         </ul>
                       </div>
                     ))}

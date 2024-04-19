@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SUPERADMN_ID } from "../../../../../../env";
+import HTMLReactParser from "html-react-parser";
+
 
 interface Header {
   head: string;
@@ -81,9 +83,10 @@ function BlogInfo() {
                   </span>
                 )}
               </div>
-              <p className="text-linkIt-400 text-size dark:text-white ml-[5%]">
-                {header.body}
-              </p>
+              <div className="text-linkIt-400 text-size dark:text-white ml-[5%]">
+                {/* {header.body} */}
+                {HTMLReactParser(header.body)}
+              </div>
               <div className="flex justify-center items-center">
                 {header?.sectionImage && (
                   <img
