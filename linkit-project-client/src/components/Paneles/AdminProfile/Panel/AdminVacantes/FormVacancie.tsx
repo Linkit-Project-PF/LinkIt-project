@@ -529,7 +529,7 @@ console.log("delete")
                     {t("Remoto (Regional)")}
                   </option>
                   <option value="hybrid">{t("Híbrido")}</option>
-                  <option value="on-site">{t("Presencial")}</option>
+                  <option value="On-site">{t("Presencial")}</option>
                 </select>
               </div>
             </div>
