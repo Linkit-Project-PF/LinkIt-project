@@ -46,9 +46,9 @@ export function validations(vacancies: VacancyProps) {
     errors.modality = "Modalidad requerida";
   }
 
-  if (!vacancies.stack || vacancies.stack.length === 0) {
-    errors.stack = "Stack requerido";
-  }
+  // if (!vacancies.stack || vacancies.stack.length === 0) {
+  //   errors.stack = "Stack requerido";
+  // }
 
   if (!vacancies.requirements || vacancies.requirements.length === 0) {
     errors.requirements = "Requerimientos requeridos";
