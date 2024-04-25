@@ -14,6 +14,7 @@ import { t } from "i18next";
 import { RootState } from "../../../../../redux/types";
 import { statePropsCompanies } from "../../Usuarios/UsersCompanies/CompaniesU";
 import { setUsersCompanies } from "../../../../../redux/features/UsersSlice";
+import ExistingVacanciesOptions from "./ExistingVacanciesOptions";
 
 export type stateProps = {
   jobCard: {
@@ -38,6 +39,7 @@ export default function Vacancies2() {
   const [typeValue, setTypeValue] = useState<string>("");
   const [modalityValue, setModalityValue] = useState<string>("");
   const [companyValue, setCompanyValue] = useState<string>("");
+  const [viewForm, setViewForm] = useState(false);
 
   const [saveStatus, setSaveStatus] = useState<boolean>(false); //* Estado que actualiza la info de la tabla
   const allStackTechnologies = useSelector(
@@ -47,9 +49,6 @@ export default function Vacancies2() {
   const hideTehcs = () => {
     setTehcs(!tehcs);
   };
-
-
-
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -74,11 +73,13 @@ export default function Vacancies2() {
   }, [saveStatus]);
 
   const handleFilters = async () => {
-    const url = `https://linkit-server.onrender.com/jds/find?${stackValue.length >= 1
-      ? `stack=${stackValue.map((tech) => `${tech}`)}`
-      : ""
-      }${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``
-      }${companyValue && companyValue !== " " ? `&company=${companyValue}` : ``}`;
+    const url = `https://linkit-server.onrender.com/jds/find?${
+      stackValue.length >= 1
+        ? `stack=${stackValue.map((tech) => `${tech}`)}`
+        : ""
+    }${typeValue ? `&type=${typeValue.toLocaleLowerCase()}` : ``}${
+      modalityValue ? `&modality=${modalityValue.toLocaleLowerCase()}` : ``
+    }${companyValue && companyValue !== " " ? `&company=${companyValue}` : ``}`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -93,28 +94,6 @@ export default function Vacancies2() {
     }
   };
 
-  const handleSave = async (arrayProps: string[]) => {
-    try {
-      arrayProps.forEach(async (id: string) => {
-        const endPoint = `https://linkit-server.onrender.com/jds/update/${id}`;
-        await axios.put(endPoint, editedData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
-        });
-      });
-    } catch (error: any) {
-      console.error(error.response.data);
-      console.error(
-        t("Error al enviar la solicitud: "),
-        (error as Error).message
-      );
-    }
-    setEditing(false);
-    setEditedData({});
-    setSaveStatus(!saveStatus);
-  };
 
   useEffect(() => {
     const loadCompanies = async (): Promise<void> => {
@@ -158,6 +137,7 @@ export default function Vacancies2() {
     status: true,
     code: true,
     archived: true,
+    options: true,
   });
 
   //? PAGINADO
@@ -177,8 +157,11 @@ export default function Vacancies2() {
   };
   //?
 
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
-  const [editing, setEditing] = useState(false);
+  const [selectedRows] = useState<Set<string>>(new Set());
+  const [editing, setEditing] = useState<{ isEditing: boolean; currentVacancie?: string }>({
+    isEditing: false,
+    currentVacancie: undefined,
+  });
   const [editedData, setEditedData] = useState<Partial<VacancyProps>>({});
 
   const handleView = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -213,20 +196,26 @@ export default function Vacancies2() {
   };
 
   const editJDS = () => {
-    setSaveStatus(false)
-    setEditing(!editing);
+    setSaveStatus(false);
+    setEditing((prevState) => ({
+      ...prevState,
+      isEditing: !prevState.isEditing,
+    }));
   };
 
-  const handleEdit = (id: string): void => {
-    const updateSelectedRows = new Set(selectedRows);
-    if (updateSelectedRows.has(id)) {
-      updateSelectedRows.delete(id);
-    } else {
-      updateSelectedRows.add(id);
-    }
-    setSelectedRows(updateSelectedRows);
-    setEditing(false);
-  };
+  // const handleEdit = (id: string): void => {
+  //   const updateSelectedRows = new Set(selectedRows);
+  //   if (updateSelectedRows.has(id)) {
+  //     updateSelectedRows.delete(id);
+  //   } else {
+  //     updateSelectedRows.add(id);
+  //   }
+  //   setSelectedRows(updateSelectedRows);
+  //   setEditing((prevState) => ({
+  //     ...prevState,
+  //     isEditing: !prevState.isEditing,
+  //   }));
+  // };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -234,7 +223,7 @@ export default function Vacancies2() {
     >
   ) => {
     const { name, value } = e.target;
-    setSaveStatus(false)
+    setSaveStatus(false);
     if (name === "requirements" || name === "stack") {
       const valuesArray = value.split(",").map((i) => i.trim());
       setEditedData({
@@ -268,7 +257,10 @@ export default function Vacancies2() {
         setSaveStatus={setSaveStatus}
         editJDS={editJDS}
         editing={editing}
-        handleSave={handleSave}
+        setEditing={setEditing}
+        viewForm = {viewForm} 
+        setViewForm = {setViewForm}
+        saveStatus = {saveStatus}
       />
 
       <div className="capitalize flex flex-row  mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
@@ -299,16 +291,10 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "capitalize flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
                       : selectedRows.has(v._id)
-                        ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                        : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                      ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                      : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
-                  <input
-                    type="checkbox"
-                    name="edit"
-                    onChange={() => handleEdit(v._id)}
-                    checked={selectedRows.has(v._id)}
-                  />
                   <p className="pl-2">
                     {selectedRows.has(v._id) && editing ? (
                       <input
@@ -342,8 +328,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -393,8 +379,8 @@ export default function Vacancies2() {
                       selectedRows.has(v._id) && editing
                         ? "capitalize flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                         : selectedRows.has(v._id)
-                          ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                          : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                        ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                        : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                     }
                   >
                     {selectedRows.has(v._id) && editing ? (
@@ -431,8 +417,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "capitalize flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                       : selectedRows.has(v._id)
-                        ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                        : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                      ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                      : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
                   <p className="">
@@ -469,7 +455,9 @@ export default function Vacancies2() {
                 >
                   <option value=""></option>
                   <option value="remote-local">{t("Remoto (Local)")}</option>
-                  <option value="remote-regional">{t("Remoto (Regional)")}</option>
+                  <option value="remote-regional">
+                    {t("Remoto (Regional)")}
+                  </option>
                   <option value="hybrid">{t("Híbrido")}</option>
                 </select>
               </div>
@@ -482,8 +470,8 @@ export default function Vacancies2() {
                       selectedRows.has(v._id) && editing
                         ? "capitalize flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                         : selectedRows.has(v._id)
-                          ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                          : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                        ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                        : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                     }
                   >
                     {selectedRows.has(v._id) && editing ? (
@@ -494,7 +482,9 @@ export default function Vacancies2() {
                         className="bg-linkIt-500 text-black w-fit h-fit text-md p-0"
                       >
                         <option value="remote-local">Remote (Local)</option>
-                        <option value="remote-regional">Remote(Regional)</option>
+                        <option value="remote-regional">
+                          Remote(Regional)
+                        </option>
                         <option value="hybrid">Hybrid</option>
                       </select>
                     ) : (
@@ -545,8 +535,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "capitalize flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                       : selectedRows.has(v._id)
-                        ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                        : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                      ? "capitalize flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                      : "capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
                   <p className="">
@@ -581,8 +571,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -616,8 +606,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -651,8 +641,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -686,8 +676,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -721,8 +711,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -756,8 +746,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-20 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
                       : selectedRows.has(v._id)
-                        ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
-                        : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                      ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center "
+                      : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
                   }
                 >
                   <p>
@@ -808,8 +798,8 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? " flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                       : selectedRows.has(v._id)
-                        ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                        : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                      ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                      : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
                   <p className="">
@@ -831,8 +821,6 @@ export default function Vacancies2() {
           </div>
         )}
 
-
-
         {viewCol.code && (
           <div className="">
             <div className="capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200">
@@ -847,10 +835,11 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? " flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                       : selectedRows.has(v._id)
-                        ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                        : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                      ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                      : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
+                  <p> es este</p>
                   <p className="">
                     {selectedRows.has(v._id) && editing ? (
                       <input
@@ -878,14 +867,16 @@ export default function Vacancies2() {
               </div>
               <div className="ml-6">
                 <select
+                  defaultValue={"All"}
                   name="view"
                   className="border-none outline-none h-6 text-sm p-0"
                   onChange={handleView}
                   value={sortView}
                 >
+                  <option value="All">All</option>
                   <option value="Visible">Visible</option>
                   <option value="Hidden">Hidden</option>
-                  <option value="All">All</option>
+                  
                 </select>
               </div>
             </div>
@@ -897,13 +888,30 @@ export default function Vacancies2() {
                     selectedRows.has(v._id) && editing
                       ? " flex flex-row  pl-3 h-20 pt-1 bg-linkIt-300 whitespace-nowrap items-center justify-center"
                       : selectedRows.has(v._id)
-                        ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
-                        : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
+                      ? " flex flex-row  pl-3 h-8 pt-1 bg-linkIt-300 whitespace-nowrap items-center"
+                      : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
                   {v.archived ? "Hidden" : "Visible"}
                 </p>
               ))}
+            </div>
+          </div>
+        )}
+        {viewCol.options && (
+          <div className="">
+            <div className="capitalize flex flex-row border-b-2 border-r-2 h-7 border-linkIt-200">
+              <div>
+                <h1>Opciones</h1>
+              </div>
+              <div className="row-3 gap-3 mt-7 -ml-20">
+
+              {dataToShow.map((v: VacancyProps) => (
+                <div key={v._id} className="capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 ">
+                  <ExistingVacanciesOptions setSaveStatus={setSaveStatus} id={v._id} setViewForm={setViewForm} setEditing={setEditing} isVisible={v.archived}/>
+                </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

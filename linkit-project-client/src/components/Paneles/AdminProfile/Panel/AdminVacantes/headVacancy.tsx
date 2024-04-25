@@ -1,6 +1,4 @@
-// import React from 'react'
-
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { VacancyProps, ViewColVacancy } from "../../../admin.types";
 import { useDispatch, useSelector } from "react-redux";
 import FormVacancie from "./FormVacancie";
@@ -22,8 +20,11 @@ interface HeadVacancyProps {
   selectedRows: Set<string>;
   setSaveStatus: (status: boolean) => void;
   editJDS: () => void;
-  editing: boolean;
-  handleSave: (arrayProps: string[]) => void;
+  editing:{isEditing:boolean, vacancieID?:string}
+  setEditing: (status: { isEditing: boolean, vacancieID?: string}) => void;
+  viewForm: boolean;
+  setViewForm: (status: boolean) => void;
+  saveStatus: boolean;
 }
 
 export default function HeadVacancy({
@@ -31,9 +32,11 @@ export default function HeadVacancy({
   viewCol,
   selectedRows,
   setSaveStatus,
-  editJDS,
   editing,
-  handleSave,
+  viewForm,
+  setViewForm,
+  setEditing,
+  saveStatus
 }: HeadVacancyProps) {
   const token = useSelector((state: any) => state.Authentication.token);
   const selectSortDate = (state: RootState) =>
@@ -43,7 +46,6 @@ export default function HeadVacancy({
   const arraySelectedRows = [...selectedRows];
 
   const [options, setOptions] = useState(false);
-  const [viewForm, setViewForm] = useState(false);
   const dispatch = useDispatch();
 
   const jds = useSelector((state: stateProps) => state.jobCard.filterJobOffers);
@@ -52,7 +54,6 @@ export default function HeadVacancy({
     const review = jds.find((v: VacancyProps) => v._id === reviewId);
     return review && review.archived;
   });
-
   const handleSearch = (searchTerm: string) => {
     dispatch(setSearchJobOffers(searchTerm));
   };
@@ -78,6 +79,12 @@ export default function HeadVacancy({
 
   const noShowForm = () => {
     setViewForm(false);
+    if(editing.isEditing){
+      setEditing({
+        isEditing: false,
+        vacancieID: undefined,
+      });
+    }
   };
 
   const hideOptions = () => {
@@ -117,7 +124,7 @@ export default function HeadVacancy({
     setSaveStatus(true);
   };
 
-  const deleteVacancie = async () => {
+   const deleteVacancie = async () => {
     swal({
       title: t("¿Deseas eliminar la vacante?"),
       icon: "warning",
@@ -329,6 +336,15 @@ export default function HeadVacancy({
                 />
                 Vista
               </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="options"
+                  checked={viewCol.archived}
+                  onChange={hideCol}
+                />
+                Opciones
+              </label>
             </div>
           )}
         </div>
@@ -346,6 +362,9 @@ export default function HeadVacancy({
           onClose={noShowForm}
           token={token}
           setSaveStatus={setSaveStatus}
+          setEditing={setEditing}
+          editing={editing}
+          saveStatus={saveStatus}
         />
       )}
       <div className="flex flex-row pb-6">
@@ -353,31 +372,32 @@ export default function HeadVacancy({
           {t("Seleccionados: ")} {selectedRows.size}
           {selectedRows.size > 0 && (
             <div className="flex flex-row">
-              {editing ? (
-                <div>
-                  <button
-                    onClick={() => handleSave(arraySelectedRows)}
-                    className="pl-6 hover:text-linkIt-300"
-                  >
-                    Guardar
-                  </button>
-                  <button
-                    onClick={editJDS}
-                    className="pl-6 hover:text-linkIt-300"
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button
-                    onClick={editJDS}
-                    className="pl-6 hover:text-linkIt-300"
-                  >
-                    {selectedRows.size && t("Editar")}
-                  </button>
-                </div>
-              )}
+              {editing.isEditing && showForm() || null}
+
+              {/* //   <div>
+              //     <button
+              //       onClick={() => handleSave(arraySelectedRows)}
+              //       className="pl-6 hover:text-linkIt-300"
+              //     >
+              //       Guardar
+              //     </button>
+              //     <button
+              //       onClick={editJDS}
+              //       className="pl-6 hover:text-linkIt-300"
+              //     >
+              //       Cancelar
+              //     </button>
+              //   </div>
+              // ) : (
+              //   <div>
+              //     <button
+              //       onClick={editJDS}
+              //       className="pl-6 hover:text-linkIt-300"
+              //     >
+              //       {selectedRows.size && t("Editar")}
+              //     </button>
+              //   </div> */}
+              
               <button
                 onClick={hideVacancie}
                 className={
