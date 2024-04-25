@@ -61,13 +61,10 @@ const AddAnItemAfterThisOne: React.FC<AddAnItemAfterThisOneProps> = ({
     e.stopPropagation()
     const currentValue = inputRef.current?.value
     if(typeof currentValue === "string"){
-      console.log(currentValue)
     if (infoList[name] && !infoList[name]?.includes(currentValue)) {
       const index = infoList[name]?.findIndex(
         (elemento) => elemento === referenceItem
       );
-      console.log(index);
-      if (index && index !== -1) {
         const updatedInfoList = { ...infoList };
         let currentList = updatedInfoList[name] || [];
 
@@ -87,10 +84,9 @@ const AddAnItemAfterThisOne: React.FC<AddAnItemAfterThisOneProps> = ({
           [name]: currentList,
         });
         if (inputRef.current) {
-          inputRef.current.value = ""; // Set the value to an empty string
+          inputRef.current.value = "";
         }
         setAddAnItem(false);
-      }
     } else {
       swal(t("Ya se encuentra agregado"));
     }
@@ -100,29 +96,30 @@ const AddAnItemAfterThisOne: React.FC<AddAnItemAfterThisOneProps> = ({
   };
 
   return (
-    <div>
+    <div className="flex items-center">
       {!addAnItem && infoList[name].length -1 > infoList[name].indexOf(referenceItem) && (
-        <button onClick={() => setAddAnItem(true)}>
-          Agregar otro item despues de este
+        <button className="text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded" onClick={() => setAddAnItem(true)}>
+          + Agregar
         </button>
       )}
       {addAnItem &&  (
-        <div className="ml-5">
+        <div className="flex items-center">
           <input
             className={
               errors.responsabilities
-                ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
-                : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+                ? "block w-[300px] h-[2rem] bg-linkIt-500 text-black border border-red-500 rounded py-2 px-3 mb-3 focus:outline-none focus:bg-white "
+                : "block w-full h-[2rem] bg-linkIt-500 text-black border border-linkIt-300 rounded py-2 px-3 mb-3 focus:outline-none focus:bg-white"
             }
             type="text"
             ref={inputRef}
             onKeyPress={keyDown}
           />
-          <button onClick={() => setAddAnItem(false)}>Cancelar</button>
+          <button className="text-white bg-red-500 hover:bg-red-600 px-3 py-1 mb-3 rounded ml-2" onClick={() => setAddAnItem(false)}>Cancelar</button>
         </div>
       )}
     </div>
   );
-};
+  
+};  
 
 export default AddAnItemAfterThisOne;

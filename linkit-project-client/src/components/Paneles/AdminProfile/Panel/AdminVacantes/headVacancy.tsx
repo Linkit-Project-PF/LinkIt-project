@@ -79,7 +79,6 @@ export default function HeadVacancy({
   };
 
   const noShowForm = () => {
-    console.log("close")
     setViewForm(false);
     if(editing.isEditing){
       setEditing({

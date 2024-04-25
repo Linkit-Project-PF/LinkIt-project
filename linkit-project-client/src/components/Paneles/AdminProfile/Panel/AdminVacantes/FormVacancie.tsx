@@ -24,7 +24,7 @@ interface FormVacancieProps {
 }
 
 interface InfoList {
-  [key: string]: string[]
+  [key: string]: string[];
 }
 
 export default function FormVacancie({
@@ -155,7 +155,6 @@ export default function FormVacancie({
     listName: string
   ) => {
     e.preventDefault();
-console.log("delete")
     const updateList = infoList[listName]?.filter((i) => i !== id);
 
     setInfoList({
@@ -197,12 +196,10 @@ console.log("delete")
   };
 
   useEffect(() => {
-    console.log("editing useEffect");
     if (editing?.isEditing && editing?.vacancieID) {
       const VacancieToUpdate = AlljobData?.find(
         (j) => j._id === editing.vacancieID
       );
-      console.log(VacancieToUpdate);
       VacancieToUpdate &&
         setInformation({
           ...information,
@@ -338,7 +335,6 @@ console.log("delete")
       setSaveStatus(true);
       return response.data;
     } catch (error) {
-      /* console.error(error) */
       console.error((error as Error).message);
       throw new ValidationError(
         `${t("Error al ingresar los datos en el formulario")}: ${
@@ -589,13 +585,27 @@ console.log("delete")
                   <ul className="list-disc">
                     {infoList.stack?.map((t: string) => {
                       return (
-                        <div key={t} className="flex">
+                        <div
+                          key={t}
+                          className="flex items-center space-x-2 space-y-2"
+                        >
                           <li className="text-sm">{t}</li>
                           <button
                             onClick={(e) => deleteFromList(e, t, "stack")}
-                            className="ml-3 hover:text-red-500"
+                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
                           >
-                            x
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </button>
                         </div>
                       );
@@ -676,7 +686,7 @@ console.log("delete")
                 }
                 onClick={handleInputClick}
               />
-
+              {/*cambios realizados de estetica */}
               {infoList &&
               infoList.responsabilities &&
               infoList.responsabilities.length > 0 ? (
@@ -687,18 +697,42 @@ console.log("delete")
                   <ul className="list-disc">
                     {infoList.responsabilities?.map((t: string) => {
                       return (
-                        <div key={t} className="flex">
+                        <div
+                          key={t}
+                          className="flex items-center space-x-2 space-y-2"
+                        >
                           <li className="text-sm">{t}</li>
                           <button
                             onClick={(e) =>
                               deleteFromList(e, t, "responsabilities")
                             }
-                            className="ml-3 hover:text-red-500"
+                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
                           >
-                            x
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </button>
                           <div>
-                          {< AddAnItemAfterThisOne name={"responsabilities"} infoList={infoList} setInfoList={setInfoList} information={information} setInformation={setInformation} errors={errors} referenceItem={t}/>}
+                            {
+                              <AddAnItemAfterThisOne
+                                name={"responsabilities"}
+                                infoList={infoList}
+                                setInfoList={setInfoList}
+                                information={information}
+                                setInformation={setInformation}
+                                errors={errors}
+                                referenceItem={t}
+                              />
+                            }
                           </div>
                         </div>
                       );
@@ -743,18 +777,42 @@ console.log("delete")
                   <ul className="list-disc">
                     {infoList.requirements?.map((t: string) => {
                       return (
-                        <div key={t} className="flex">
+                        <div
+                          key={t}
+                          className="flex items-center space-x-2 space-y-2"
+                        >
                           <li className="text-sm">{t}</li>
                           <button
                             onClick={(e) =>
                               deleteFromList(e, t, "requirements")
                             }
-                            className="ml-3 hover:text-red-500"
+                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
                           >
-                            x
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </button>
                           <div>
-                          {< AddAnItemAfterThisOne name={"requirements"} infoList={infoList} setInfoList={setInfoList} information={information} setInformation={setInformation} errors={errors} referenceItem={t}/>}
+                            {
+                              <AddAnItemAfterThisOne
+                                name={"requirements"}
+                                infoList={infoList}
+                                setInfoList={setInfoList}
+                                information={information}
+                                setInformation={setInformation}
+                                errors={errors}
+                                referenceItem={t}
+                              />
+                            }
                           </div>
                         </div>
                       );
@@ -793,16 +851,40 @@ console.log("delete")
                   <ul className="list-disc">
                     {infoList.niceToHave?.map((t: string) => {
                       return (
-                        <div key={t} className="flex">
+                        <div
+                          key={t}
+                          className="flex items-center space-x-2 space-y-2"
+                        >
                           <li className="text-sm">{t}</li>
                           <button
                             onClick={(e) => deleteFromList(e, t, "niceToHave")}
-                            className="ml-3 hover:text-red-500"
+                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
                           >
-                            x
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </button>
                           <div>
-                          {< AddAnItemAfterThisOne name={"niceToHave"} infoList={infoList} setInfoList={setInfoList} information={information} setInformation={setInformation} errors={errors} referenceItem={t}/>}
+                            {
+                              <AddAnItemAfterThisOne
+                                name={"niceToHave"}
+                                infoList={infoList}
+                                setInfoList={setInfoList}
+                                information={information}
+                                setInformation={setInformation}
+                                errors={errors}
+                                referenceItem={t}
+                              />
+                            }
                           </div>
                         </div>
                       );
@@ -839,16 +921,40 @@ console.log("delete")
                   <ul className="list-disc">
                     {infoList.benefits?.map((t: string) => {
                       return (
-                        <div key={t} className="flex">
+                        <div
+                          key={t}
+                          className="flex items-center space-x-2 space-y-2"
+                        >
                           <li className="text-sm">{t}</li>
                           <button
                             onClick={(e) => deleteFromList(e, t, "benefits")}
-                            className="ml-3 hover:text-red-500"
+                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
                           >
-                            x
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </button>
                           <div>
-                          {< AddAnItemAfterThisOne name={"benefits"} infoList={infoList} setInfoList={setInfoList} information={information} setInformation={setInformation} errors={errors} referenceItem={t}/>}
+                            {
+                              <AddAnItemAfterThisOne
+                                name={"benefits"}
+                                infoList={infoList}
+                                setInfoList={setInfoList}
+                                information={information}
+                                setInformation={setInformation}
+                                errors={errors}
+                                referenceItem={t}
+                              />
+                            }
                           </div>
                         </div>
                       );

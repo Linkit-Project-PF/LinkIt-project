@@ -127,21 +127,29 @@ export default function ExistingVacanciesOptions({
     <div>
       <div
         key={id}
-        className="capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 "
+        className="flex flex-row border-b-2 border-linkIt-50 text-xs font-bold"
       >
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mr-2"
+          className="bg-blue-500 hover:bg-blue-700 text-white mb-2 mr-2 py-1 px-2 rounded-md"
           onClick={updateVacancie}
         >
           {t("Editar")}
         </button>
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2mr-2" onClick={hideVacancie}>
-          {isVisible? t("Mostrar") : t("Ocultar")}
+        <button
+          className={`bg-${isVisible ? 'gray' : 'green'}-500 hover:bg-${isVisible ? 'gray' : 'green'}-700 text-white mb-2 mr-2 py-1 px-2 rounded-md`}
+          onClick={hideVacancie}
+        >
+          {isVisible ? t("Mostrar") : t("Ocultar")}
         </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2" onClick={deleteVacancie}>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white mb-2 mr-2 py-1 px-2 rounded-md"
+          onClick={deleteVacancie}
+        >
           {t("Eliminar")}
         </button>
       </div>
     </div>
   );
+  
+  
 }

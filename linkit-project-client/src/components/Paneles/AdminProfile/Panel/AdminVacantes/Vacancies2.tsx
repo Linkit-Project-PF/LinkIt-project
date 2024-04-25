@@ -867,14 +867,16 @@ export default function Vacancies2() {
               </div>
               <div className="ml-6">
                 <select
+                  defaultValue={"All"}
                   name="view"
                   className="border-none outline-none h-6 text-sm p-0"
                   onChange={handleView}
                   value={sortView}
                 >
+                  <option value="All">All</option>
                   <option value="Visible">Visible</option>
                   <option value="Hidden">Hidden</option>
-                  <option value="All">All</option>
+                  
                 </select>
               </div>
             </div>
@@ -898,11 +900,11 @@ export default function Vacancies2() {
         )}
         {viewCol.options && (
           <div className="">
-            <div className="capitalize flex flex-row  px-16 border-b-2 border-r-2 h-7 border-linkIt-200">
+            <div className="capitalize flex flex-row border-b-2 border-r-2 h-7 border-linkIt-200">
               <div>
                 <h1>Opciones</h1>
               </div>
-              <div className="">
+              <div className="row-3 gap-3 mt-7 -ml-20">
 
               {dataToShow.map((v: VacancyProps) => (
                 <div key={v._id} className="capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 ">
