@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import './ModuloD.css'
-import peopleSpa from "/Vectores/linkit-web-vectores-home-flechas-ESP-07.svg"
-import peopleEn from "/Vectores/linkit-web-vectores-home-flechas-ENG-06.svg"
+import peopleSpa from "/Vectores/linkit-web-vectores-06.svg"
+import peopleEn from "/Vectores/flechas-ENG.svg"
 
 export default function ModuloD() {
     const {t, i18n}= useTranslation()
