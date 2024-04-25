@@ -157,7 +157,7 @@ export default function Vacancies2() {
   };
   //?
 
-  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [selectedRows] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<{ isEditing: boolean; currentVacancie?: string }>({
     isEditing: false,
     currentVacancie: undefined,
@@ -203,19 +203,19 @@ export default function Vacancies2() {
     }));
   };
 
-  const handleEdit = (id: string): void => {
-    const updateSelectedRows = new Set(selectedRows);
-    if (updateSelectedRows.has(id)) {
-      updateSelectedRows.delete(id);
-    } else {
-      updateSelectedRows.add(id);
-    }
-    setSelectedRows(updateSelectedRows);
-    setEditing((prevState) => ({
-      ...prevState,
-      isEditing: !prevState.isEditing,
-    }));
-  };
+  // const handleEdit = (id: string): void => {
+  //   const updateSelectedRows = new Set(selectedRows);
+  //   if (updateSelectedRows.has(id)) {
+  //     updateSelectedRows.delete(id);
+  //   } else {
+  //     updateSelectedRows.add(id);
+  //   }
+  //   setSelectedRows(updateSelectedRows);
+  //   setEditing((prevState) => ({
+  //     ...prevState,
+  //     isEditing: !prevState.isEditing,
+  //   }));
+  // };
 
   const handleChange = (
     e: React.ChangeEvent<

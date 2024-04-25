@@ -4,7 +4,6 @@ import swal from "sweetalert";
 import axios from "axios";
 import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { isValid } from "i18n-iso-countries";
 
 interface ExistingVacanciesOptionsProps {
   setSaveStatus: (status: boolean) => void;

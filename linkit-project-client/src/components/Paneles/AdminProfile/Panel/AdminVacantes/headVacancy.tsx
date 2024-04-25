@@ -32,7 +32,6 @@ export default function HeadVacancy({
   viewCol,
   selectedRows,
   setSaveStatus,
-  editJDS,
   editing,
   viewForm,
   setViewForm,
