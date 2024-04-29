@@ -1,7 +1,7 @@
 import axios from "axios";
 //import { SUPERADMN_ID } from "../../env";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = process.env.SUPERADMN_ID
 
 export default async function saveUserThirdAuth(user: any, role: string, provider: string) {
 

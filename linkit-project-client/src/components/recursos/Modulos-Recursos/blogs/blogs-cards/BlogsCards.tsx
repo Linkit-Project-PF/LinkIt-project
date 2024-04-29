@@ -9,7 +9,7 @@ import whiteArrow from "/Vectores/white-arrow.png"
 import { RootState } from "../../../../../redux/types";
 import { useSelector } from "react-redux";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = process.env.SUPERADMN_ID
 
 function BlogsCards() {
   const [currentBlog, setCurrentBlog] = useState(0);

@@ -6,7 +6,7 @@ import axios from "axios";
 import TalentApps from "./TalentApps";
 import { IUser } from "../../types";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = process.env.SUPERADMN_ID
 
 interface ITalentApp {}
 

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 //import { SUPERADMN_ID } from "../../../../../../env";
 import HTMLReactParser from "html-react-parser";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = process.env.SUPERADMN_ID
 
 
 interface Header {
