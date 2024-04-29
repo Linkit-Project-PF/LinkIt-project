@@ -6,12 +6,13 @@ import {
 import { JobCardProps } from "../JobCard/JobCard";
 import "./JobFilter.css";
 import { useTranslation } from "react-i18next";
-import { SUPERADMN_ID } from '../../../../../env';
+//import { SUPERADMN_ID } from '../../../../../env';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { applyFilters } from "../../../../../redux/features/JobCardsSlice";
 import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
 
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 const customTheme: CustomFlowbiteTheme['dropdown'] = {
   "arrowIcon": "ml-2 h-4 w-4",

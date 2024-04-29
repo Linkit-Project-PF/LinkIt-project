@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/types";
 import axios from "axios";
-import { SUPERADMN_ID } from "../../../../env";
+//import { SUPERADMN_ID } from "../../../../env";
 import TalentApps from "./TalentApps";
 import { IUser } from "../../types";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 interface ITalentApp {}
 

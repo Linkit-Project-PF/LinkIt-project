@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SUPERADMN_ID } from "../../../../../../env";
+//import { SUPERADMN_ID } from "../../../../../../env";
 import HTMLReactParser from "html-react-parser";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 
 interface Header {

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { CLOUDINARY_ID } from "../../../../../env";
+//import { CLOUDINARY_ID } from "../../../../../env";
 
+const CLOUDINARY_ID = import.meta.env.VITE_CLOUDINARY_ID;
 
 export default function PDFViewer({ cv }: any) {
     const { t } = useTranslation();

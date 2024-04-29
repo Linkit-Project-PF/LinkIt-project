@@ -2,13 +2,15 @@ import { useState } from "react";
 import validations from "./validations";
 import { validateContact } from "./errors/validation";
 import { ValidationError } from "./errors/errors";
-import { SUPERADMN_ID } from "../../env";
+//import { SUPERADMN_ID } from "../../env";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import "./contactUs.css"
 import { contacts } from "./typeContacts";
 import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 
 export default function ContactUs() {

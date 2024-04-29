@@ -1,6 +1,8 @@
 import axios from "axios";
 import { IUser, ICompany, IAdmin, WebsiteUser, UserLoginType } from "./types";
-import { SUPERADMN_ID } from "../../env";
+//import { SUPERADMN_ID } from "../../env";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 interface responseType {
   data: WebsiteUser

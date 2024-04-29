@@ -11,7 +11,7 @@ import axios, { AxiosError } from "axios";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
-import { SUPERADMN_ID } from "../../../env.ts";
+//import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -21,6 +21,7 @@ import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
 import Loading from "../../Loading/Loading.tsx";
 import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
 
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 type Event = {
   target: HTMLInputElement;
 };

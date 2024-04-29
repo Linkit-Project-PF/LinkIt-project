@@ -16,13 +16,15 @@ import {
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
-import { SUPERADMN_ID } from "../../../env.ts";
+//import { SUPERADMN_ID } from "../../../env.ts";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
 import { IUser, UserLoginType } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
 import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 type Event = {
   target: HTMLInputElement;
