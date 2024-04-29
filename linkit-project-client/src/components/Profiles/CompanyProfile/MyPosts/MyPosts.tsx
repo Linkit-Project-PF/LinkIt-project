@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/types";
-import { SUPERADMN_ID } from "../../../../env";
+//import { SUPERADMN_ID } from "../../../../env";
 import CompanyPosts from "./CompanyPosts";
 import { ICompany } from "../../types";
 import CompanyClosedPosts from "./CompanyClosedPosts";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 export interface ICompanyPost {
   _id: string;

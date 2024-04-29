@@ -24,7 +24,7 @@ import {
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
-import { SUPERADMN_ID } from "./env.ts";
+//import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
 import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx";
@@ -37,6 +37,8 @@ import Footer from "./Utils/Footer/Footer.tsx";
 import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.tsx";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions.tsx";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 type registerLoginState = {
   registerLogin: {

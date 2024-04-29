@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUPERADMN_ID } from "../../../../../env.ts";
+//import { SUPERADMN_ID } from "../../../../../env.ts";
 import { PostEntity } from "../types.blogs.ts";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -8,6 +8,8 @@ import blackArrow from "/Vectores/arrow.png";
 import whiteArrow from "/Vectores/white-arrow.png"
 import { RootState } from "../../../../../redux/types";
 import { useSelector } from "react-redux";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 function BlogsCardsMobile() {
   const [currentBlog, setCurrentBlog] = useState(0);

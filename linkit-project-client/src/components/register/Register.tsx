@@ -16,12 +16,15 @@ import {
 } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 import { FirebaseError } from "firebase/app";
-import { SUPERADMN_ID } from "../../env";
+//import { SUPERADMN_ID } from "../../env";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import "sweetalert2/dist/sweetalert2.min.css";
 import Loading from "../Loading/Loading";
 import { motion } from "framer-motion";
+
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 function Register() {
   const { t } = useTranslation();

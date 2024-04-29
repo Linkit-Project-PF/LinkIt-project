@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./JobDescription.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { SUPERADMN_ID } from "../../../../../../env";
+//import { SUPERADMN_ID } from "../../../../../../env";
 import { JobDescriptionProps, State } from "./typesJobs";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -18,6 +18,8 @@ import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg";
 import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
+
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
