@@ -7,7 +7,7 @@ import CompanyPosts from "./CompanyPosts";
 import { ICompany } from "../../types";
 import CompanyClosedPosts from "./CompanyClosedPosts";
 
-const SUPERADMN_ID = process.env.SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 export interface ICompanyPost {
   _id: string;

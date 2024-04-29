@@ -24,7 +24,7 @@ import { IUser, UserLoginType } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
 import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
 
-const SUPERADMN_ID = process.env.SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 type Event = {
   target: HTMLInputElement;

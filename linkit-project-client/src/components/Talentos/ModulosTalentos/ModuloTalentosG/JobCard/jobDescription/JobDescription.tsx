@@ -19,7 +19,7 @@ import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
 
-const SUPERADMN_ID = process.env.SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();

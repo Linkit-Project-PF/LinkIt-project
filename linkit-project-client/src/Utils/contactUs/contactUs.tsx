@@ -10,7 +10,7 @@ import "./contactUs.css"
 import { contacts } from "./typeContacts";
 import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
 
-const SUPERADMN_ID = process.env.SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 
 export default function ContactUs() {

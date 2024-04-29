@@ -24,7 +24,7 @@ import { RootState } from "../../../../../../../redux/types";
 import { IUser } from "../../../../../../Profiles/types";
 import Loading from "../../../../../../Loading/Loading";
 
-const SUPERADMN_ID = process.env.SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
 const formVariants: Variants = {
   hidden: {

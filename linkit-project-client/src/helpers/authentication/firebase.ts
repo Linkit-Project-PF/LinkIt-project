@@ -4,13 +4,13 @@ import { getAuth } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const API_KEY = process.env.API_KEY;
-const AUTH_DOMAIN = process.env.AUTH_DOMAIN;
-const PROJECT_ID = process.env.PROJECT_ID;
-const STORAGE_BUCKET = process.env.STORAGE_BUCKET;
-const MESSAGING_ID= process.env.MESSAGING_ID;
-const APP_ID = process.env.APP_ID;
-const MEASUREMENT_ID = process.env.MEASUREMENT_ID;
+const API_KEY = import.meta.env.VITE_API_KEY;
+const AUTH_DOMAIN = import.meta.env.VITE_AUTH_DOMAIN;
+const PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+const STORAGE_BUCKET = import.meta.env.VITE_STORAGE_BUCKET;
+const MESSAGING_ID= import.meta.env.VITE_MESSAGING_ID;
+const APP_ID = import.meta.env.VITE_APP_ID;
+const MEASUREMENT_ID = import.meta.env.VITE_MEASUREMENT_ID;
 
 
 const firebaseConfig = {
