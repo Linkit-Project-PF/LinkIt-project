@@ -56,6 +56,12 @@ const AddAnItemAfterThisOne: React.FC<AddAnItemAfterThisOneProps> = ({
     e.stopPropagation();
     }
   };
+  const updateItem = (e:React.MouseEvent<HTMLButtonElement>) =>{
+    e.preventDefault(); // Evita que se propague el evento
+    e.stopPropagation()
+
+    setAddAnItem(false);
+  }
   const addAnItemToList = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault(); // Evita que se propague el evento
     e.stopPropagation()

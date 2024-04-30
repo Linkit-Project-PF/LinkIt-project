@@ -1,0 +1,11 @@
+/* CSS estándar */
+.jodit-wysiwyg ul {
+  list-style-type: disc;
+  /* Otros estilos personalizados */
+}
+
+/* Con Tailwind CSS */
+.jodit-wysiwyg ul {
+  @apply list-disc;
+  /* Otros estilos personalizados */
+}

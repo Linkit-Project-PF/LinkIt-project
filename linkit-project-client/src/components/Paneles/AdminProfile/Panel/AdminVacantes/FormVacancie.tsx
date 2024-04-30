@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { validateVacancy } from "../../../errors/validation";
 import { VacancyProps } from "../../../admin.types";
@@ -12,6 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { stateProps } from "./Vacancies2";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import AddAnItemAfterThisOne from "./AddAnItemAfterThisOne";
+import JoditEditor from "jodit-react";
+import HTMLReactParser from "html-react-parser";
+import  "./FormVacancie.css";
+
 type OnCloseFunction = () => void;
 
 interface FormVacancieProps {
@@ -41,6 +45,13 @@ export default function FormVacancie({
   const [companyNames, setCompanyNames] = useState<string[]>([]);
   // const [vacancy, setVacancy] = useState<FormObject>();
   const [countries, setCountries] = useState([]);
+  const editor = useRef(null);
+  const config = {
+    buttons: "bold,italic,underline,|,ul,ol,|,link",
+    toolbarAdaptive: false,
+    allowTags: ["ul", "ol", "li"],
+    height: 300,
+  };
 
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
@@ -168,27 +179,71 @@ export default function FormVacancie({
     });
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
-    if (arrayProps.includes(name)) {
-      setInformation({
-        ...information,
-        [name]: value.split(", "),
-      });
-    } else {
-      setInformation({
-        ...information,
-        [name]: value,
-      });
-    }
-    const validationError = validations(information as VacancyProps);
-    setErrors(validationError);
+  // const handleChange = (
+  //   e: React.ChangeEvent<
+  //     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  //   >
+  // ) => {
+  //   const { name, value } = e.target;
+  //   const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
+  //   if (arrayProps.includes(name)) {
+  //     setInformation({
+  //       ...information,
+  //       [name]: value.split(", "),
+  //     });
+  //   } else {
+  //     setInformation({
+  //       ...information,
+  //       [name]: value,
+  //     });
+  //   }
+  //   const validationError = validations(information as VacancyProps);
+  //   setErrors(validationError);
+  // };
+  const generarListaDesordenada = (arrayDeStrings: string[]) => {
+    const items = arrayDeStrings
+      .map((item, index) => `<li key=${index}>${item}</li>`)
+      .join("");
+    return `<ul className="jodit-container list-disc">${items}</ul>`;
   };
+  const handleChange = (
+    e:
+      | React.ChangeEvent<
+          HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+        >
+      | string,
+    inputName?: string
+  ) => {
+    let name = "";
+    let value = "";
+    const arrayProps = [
+      "responsabilities",
+      "requisites",
+      "stack",
+      "niceToHave",
+      "benefits",
+    ];
+    if (typeof e === "string") {
+      name = inputName ? inputName : "";
+      console.log(e);
+      value = e;
+      if (arrayProps.includes(name))
+        setInformation((prevInformation) => ({
+          ...prevInformation,
+          [name]: [value],
+        }));
+    } else {
+      name = e.target.name;
+      value = e.target.value;
+      setInformation((prevInformation) => ({
+        ...prevInformation,
+        [name]: value,
+      }));
+    }
+
+    const validationError = validations(information as VacancyProps);
+       setErrors(validationError);
+  }
 
   const handleBlurErrors = () => {
     const validationError = validations(information as VacancyProps);
@@ -219,18 +274,20 @@ export default function FormVacancie({
               : "",
           company: VacancieToUpdate.company,
           stack: VacancieToUpdate.stack,
-          requirements: VacancieToUpdate.requirements,
+          requirements: [
+            generarListaDesordenada(VacancieToUpdate.requirements),
+          ],
           responsabilities:
             VacancieToUpdate.responsabilities !== undefined
-              ? VacancieToUpdate.responsabilities
+              ? [generarListaDesordenada(VacancieToUpdate.responsabilities)]
               : [],
           niceToHave:
             VacancieToUpdate.niceToHave !== undefined
-              ? VacancieToUpdate.niceToHave
+              ? [generarListaDesordenada(VacancieToUpdate.niceToHave)]
               : [],
           benefits:
             VacancieToUpdate.benefits !== undefined
-              ? VacancieToUpdate.benefits
+              ? [generarListaDesordenada(VacancieToUpdate.benefits)]
               : [],
         });
       VacancieToUpdate &&
@@ -293,6 +350,7 @@ export default function FormVacancie({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationError = validations(information as VacancyProps);
+    console.log(validationError);
     setErrors(validationError);
     try {
       validateVacancy(information as VacancyProps);
@@ -619,45 +677,73 @@ export default function FormVacancie({
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                 {t("Descripción")}
               </label>
-              <textarea
-                className={
-                  errors.description
-                    ? '"appearance-none block w-full h-32 bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
-                    : '"appearance-none block w-full h-32 bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
-                }
-                name="description"
-                autoComplete="off"
-                placeholder={errors.description ? "*" : ""}
-                onChange={handleChange}
-                value={information.description}
+              <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "description");
+                }}
+                value={information.description || ""}
                 onBlur={handleBlurErrors}
-              ></textarea>
+                config={config}
+              />
+              {/*
+
+              // {/* <textarea
+              //   className={
+              //     errors.description
+              //       ? '"appearance-none block w-full h-32 bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
+              //       : '"appearance-none block w-full h-32 bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+              //   }
+              //   name="description"
+              //   autoComplete="off"
+              //   placeholder={errors.description ? "*" : ""}
+              //   onChange={handleChange}
+              //   value={information.description}
+              //   onBlur={handleBlurErrors}
+              // ></textarea> */}
             </div>
 
             <div className="w-full px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                 {t("Acerca de nosotros")}
               </label>
-              <textarea
+              <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "aboutUs");
+                }}
+                value={information.aboutUs || ""}
+                onBlur={handleBlurErrors}
+              />
+
+              {/* <textarea
                 className="appearance-none block h-32 w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 name="aboutUs"
                 autoComplete="off"
                 onChange={handleChange}
                 value={information.aboutUs}
-              />
+              /> */}
             </div>
 
             <div className="w-full px-3 mb-6">
               <label className="block uppercase tracking-wide text-black text-xs font-bold mb-2">
                 {t("Acerca del cliente")}
               </label>
-              <textarea
+              <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "aboutClient");
+                }}
+                value={information.aboutClient || ""}
+                onBlur={handleBlurErrors}
+              />
+              {/* <textarea
                 className="appearance-none block h-32 w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 name="aboutClient"
                 autoComplete="off"
                 onChange={handleChange}
                 value={information.aboutClient}
-              />
+              /> */}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -669,7 +755,7 @@ export default function FormVacancie({
                   *Presiona enter para agregar más de una Responsabilidad*
                 </span>
               )}
-              <input
+              {/* <input
                 className={
                   errors.responsabilities
                     ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
@@ -685,7 +771,22 @@ export default function FormVacancie({
                   errors.responsabilities ? handleBlurErrors : addToListBlur
                 }
                 onClick={handleInputClick}
+              /> */}
+              {information.responsabilities[0] &&
+                HTMLReactParser(information.responsabilities[0])}
+              <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "responsabilities");
+                }}
+                value={
+                  (information.responsabilities &&
+                    information.responsabilities[0]) ||
+                  ""
+                }
+                onBlur={handleBlurErrors}
               />
+
               {/*cambios realizados de estetica */}
               {infoList &&
               infoList.responsabilities &&
@@ -972,7 +1073,7 @@ export default function FormVacancie({
           errors.requirements ||
           errors.description ? (
             <span className="text-red-500">
-              {t("Los campos marcados con * son obligatiorios")}
+              {t("Los campos marcados con * son obligatorios")}
             </span>
           ) : null}
           <div className="flex m-4">

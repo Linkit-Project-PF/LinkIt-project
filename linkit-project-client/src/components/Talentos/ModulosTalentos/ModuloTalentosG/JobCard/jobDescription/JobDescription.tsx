@@ -18,6 +18,7 @@ import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg";
 import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
+import HTMLReactParser from "html-react-parser";
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
@@ -127,7 +128,9 @@ function JobDescription() {
                 {t("Descripción")}
               </h3>
               <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                {jobData.description}
+                {/* {jobData.description && HTMLReactParser(jobData.description)} */}
+                {console.log(jobData.description)}
+                <div  dangerouslySetInnerHTML={{__html :jobData.description }}></div> 
               </p>
             </section>
             {jobData?.aboutUs &&

@@ -63,7 +63,7 @@ export default function Vacancies2() {
           }
         );
         dispatch(setJobOffers(response.data));
-        dispatch(setSortJobOffers({ visibility: "Visible" }));
+        dispatch(setSortJobOffers({ visibility: "All" }));
         dispatch(setSortJobOffers({ date: "recent" }));
       } catch (error) {
         console.error("Error al cargar las ofertas de trabajo", error);
@@ -459,6 +459,7 @@ export default function Vacancies2() {
                     {t("Remoto (Regional)")}
                   </option>
                   <option value="hybrid">{t("Híbrido")}</option>
+                  <option value="On-site">{t("Presencial")}</option>
                 </select>
               </div>
             </div>
@@ -839,7 +840,6 @@ export default function Vacancies2() {
                       : " flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1"
                   }
                 >
-                  <p> es este</p>
                   <p className="">
                     {selectedRows.has(v._id) && editing ? (
                       <input
