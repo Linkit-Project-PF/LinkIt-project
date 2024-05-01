@@ -28,6 +28,17 @@ export default function Vacancies2() {
   const filteredJobData = useSelector(
     (state: stateProps) => state.jobCard.filterJobOffers
   );
+  const quitarEtiquetasHTML = (strings: string[]): string[] => {
+    const sinEtiquetas: string[] = [];
+
+    strings.forEach((str) => {
+      // Utilizamos una expresión regular para quitar las etiquetas HTML
+      const textoLimpio = str.replace(/<[^>]+>/g, "");
+      sinEtiquetas.push(textoLimpio);
+    });
+
+    return sinEtiquetas;
+  };
   const selectSortView = (state: RootState) =>
     state.jobCard.sortValues.sortView;
   const selectSortAlfa = (state: RootState) =>
@@ -94,7 +105,6 @@ export default function Vacancies2() {
     }
   };
 
-
   useEffect(() => {
     const loadCompanies = async (): Promise<void> => {
       try {
@@ -145,8 +155,20 @@ export default function Vacancies2() {
   const [currentPage, setCurrentPage] = useState(0);
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const dataToShow = filteredJobData.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(filteredJobData.length / itemsPerPage);
+  const dataWithoutHTML = filteredJobData.map((d) => {
+    return {
+      ...d,
+      responsabilities: quitarEtiquetasHTML(d.responsabilities),
+      requirements: quitarEtiquetasHTML(d.requirements),
+      niceToHave: quitarEtiquetasHTML(d.niceToHave),
+      benefits: quitarEtiquetasHTML(d.benefits),
+      description: d.description.replace(/<[^>]+>/g, ""),
+      aboutClient: d.aboutClient ? d.aboutClient.replace(/<[^>]+>/g, "") : "",
+      aboutUs: d.aboutUs.replace(/<[^>]+>/g, ""),
+    };
+  });
+  const dataToShow = dataWithoutHTML.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(dataWithoutHTML.length / itemsPerPage);
   const sortView = useSelector(selectSortView);
   const sortAlfa = useSelector(selectSortAlfa);
   const handleNext = (): void => {
@@ -158,7 +180,10 @@ export default function Vacancies2() {
   //?
 
   const [selectedRows] = useState<Set<string>>(new Set());
-  const [editing, setEditing] = useState<{ isEditing: boolean; currentVacancie?: string }>({
+  const [editing, setEditing] = useState<{
+    isEditing: boolean;
+    currentVacancie?: string;
+  }>({
     isEditing: false,
     currentVacancie: undefined,
   });
@@ -203,20 +228,6 @@ export default function Vacancies2() {
     }));
   };
 
-  // const handleEdit = (id: string): void => {
-  //   const updateSelectedRows = new Set(selectedRows);
-  //   if (updateSelectedRows.has(id)) {
-  //     updateSelectedRows.delete(id);
-  //   } else {
-  //     updateSelectedRows.add(id);
-  //   }
-  //   setSelectedRows(updateSelectedRows);
-  //   setEditing((prevState) => ({
-  //     ...prevState,
-  //     isEditing: !prevState.isEditing,
-  //   }));
-  // };
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -258,9 +269,9 @@ export default function Vacancies2() {
         editJDS={editJDS}
         editing={editing}
         setEditing={setEditing}
-        viewForm = {viewForm} 
-        setViewForm = {setViewForm}
-        saveStatus = {saveStatus}
+        viewForm={viewForm}
+        setViewForm={setViewForm}
+        saveStatus={saveStatus}
       />
 
       <div className="capitalize flex flex-row  mx-6 overflow-y-scroll border-2 border-linkIt-200 rounded-lg">
@@ -876,7 +887,6 @@ export default function Vacancies2() {
                   <option value="All">All</option>
                   <option value="Visible">Visible</option>
                   <option value="Hidden">Hidden</option>
-                  
                 </select>
               </div>
             </div>
@@ -905,11 +915,19 @@ export default function Vacancies2() {
                 <h1>Opciones</h1>
               </div>
               <div className="row-3 gap-3 mt-7 -ml-20">
-
-              {dataToShow.map((v: VacancyProps) => (
-                <div key={v._id} className="capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 ">
-                  <ExistingVacanciesOptions setSaveStatus={setSaveStatus} id={v._id} setViewForm={setViewForm} setEditing={setEditing} isVisible={v.archived}/>
-                </div>
+                {dataToShow.map((v: VacancyProps) => (
+                  <div
+                    key={v._id}
+                    className="capitalize flex flex-row  pl-3 h-8 pt-1 border-b-2 border-r-2 border-linkIt-50 overflow-ellipsis overflow-hidden line-clamp-1 "
+                  >
+                    <ExistingVacanciesOptions
+                      setSaveStatus={setSaveStatus}
+                      id={v._id}
+                      setViewForm={setViewForm}
+                      setEditing={setEditing}
+                      isVisible={v.archived}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -930,7 +948,7 @@ export default function Vacancies2() {
         <button
           className="cursor-pointer hover:text-linkIt-300"
           onClick={handleNext}
-          disabled={endIndex >= filteredJobData.length}
+          disabled={endIndex >= dataWithoutHTML.length}
         >
           Siguiente
         </button>

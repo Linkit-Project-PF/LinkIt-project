@@ -14,7 +14,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import AddAnItemAfterThisOne from "./AddAnItemAfterThisOne";
 import JoditEditor from "jodit-react";
 import HTMLReactParser from "html-react-parser";
-import  "./FormVacancie.css";
+import "./FormVacancie.css";
 
 type OnCloseFunction = () => void;
 
@@ -43,16 +43,8 @@ export default function FormVacancie({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [companyNames, setCompanyNames] = useState<string[]>([]);
-  // const [vacancy, setVacancy] = useState<FormObject>();
   const [countries, setCountries] = useState([]);
   const editor = useRef(null);
-  const config = {
-    buttons: "bold,italic,underline,|,ul,ol,|,link",
-    toolbarAdaptive: false,
-    allowTags: ["ul", "ol", "li"],
-    height: 300,
-  };
-
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
@@ -178,33 +170,13 @@ export default function FormVacancie({
       [listName]: updateList,
     });
   };
-
-  // const handleChange = (
-  //   e: React.ChangeEvent<
-  //     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  //   >
-  // ) => {
-  //   const { name, value } = e.target;
-  //   const arrayProps = ["requisites", "stack", "niceToHave", "benefits"];
-  //   if (arrayProps.includes(name)) {
-  //     setInformation({
-  //       ...information,
-  //       [name]: value.split(", "),
-  //     });
-  //   } else {
-  //     setInformation({
-  //       ...information,
-  //       [name]: value,
-  //     });
-  //   }
-  //   const validationError = validations(information as VacancyProps);
-  //   setErrors(validationError);
-  // };
   const generarListaDesordenada = (arrayDeStrings: string[]) => {
+    const regex = /<ul.*?>/g;
+    if(arrayDeStrings.length === 1 && regex.test(arrayDeStrings[0])) return arrayDeStrings[0];
     const items = arrayDeStrings
       .map((item, index) => `<li key=${index}>${item}</li>`)
       .join("");
-    return `<ul className="jodit-container list-disc">${items}</ul>`;
+    return `<ul>${items}</ul>`;
   };
   const handleChange = (
     e:
@@ -242,8 +214,8 @@ export default function FormVacancie({
     }
 
     const validationError = validations(information as VacancyProps);
-       setErrors(validationError);
-  }
+    setErrors(validationError);
+  };
 
   const handleBlurErrors = () => {
     const validationError = validations(information as VacancyProps);
@@ -583,7 +555,7 @@ export default function FormVacancie({
                     {t("Remoto (Regional)")}
                   </option>
                   <option value="hybrid">{t("Híbrido")}</option>
-                  <option value="On-site">{t("Presencial")}</option>
+                  <option value="on-site">{t("Presencial")}</option>
                 </select>
               </div>
             </div>
@@ -684,23 +656,7 @@ export default function FormVacancie({
                 }}
                 value={information.description || ""}
                 onBlur={handleBlurErrors}
-                config={config}
               />
-              {/*
-
-              // {/* <textarea
-              //   className={
-              //     errors.description
-              //       ? '"appearance-none block w-full h-32 bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
-              //       : '"appearance-none block w-full h-32 bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
-              //   }
-              //   name="description"
-              //   autoComplete="off"
-              //   placeholder={errors.description ? "*" : ""}
-              //   onChange={handleChange}
-              //   value={information.description}
-              //   onBlur={handleBlurErrors}
-              // ></textarea> */}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -715,14 +671,6 @@ export default function FormVacancie({
                 value={information.aboutUs || ""}
                 onBlur={handleBlurErrors}
               />
-
-              {/* <textarea
-                className="appearance-none block h-32 w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
-                name="aboutUs"
-                autoComplete="off"
-                onChange={handleChange}
-                value={information.aboutUs}
-              /> */}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -737,13 +685,6 @@ export default function FormVacancie({
                 value={information.aboutClient || ""}
                 onBlur={handleBlurErrors}
               />
-              {/* <textarea
-                className="appearance-none block h-32 w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
-                name="aboutClient"
-                autoComplete="off"
-                onChange={handleChange}
-                value={information.aboutClient}
-              /> */}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -755,25 +696,6 @@ export default function FormVacancie({
                   *Presiona enter para agregar más de una Responsabilidad*
                 </span>
               )}
-              {/* <input
-                className={
-                  errors.responsabilities
-                    ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
-                    : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
-                }
-                type="text"
-                name="responsabilities"
-                autoComplete="off"
-                placeholder={errors.responsabilities ? "*" : ""}
-                onChange={handleChange}
-                onKeyDown={addToList}
-                onBlur={
-                  errors.responsabilities ? handleBlurErrors : addToListBlur
-                }
-                onClick={handleInputClick}
-              /> */}
-              {information.responsabilities[0] &&
-                HTMLReactParser(information.responsabilities[0])}
               <JoditEditor
                 ref={editor}
                 onChange={(e) => {
@@ -786,61 +708,6 @@ export default function FormVacancie({
                 }
                 onBlur={handleBlurErrors}
               />
-
-              {/*cambios realizados de estetica */}
-              {infoList &&
-              infoList.responsabilities &&
-              infoList.responsabilities.length > 0 ? (
-                <div className="mx-4">
-                  <h3 className="text-xs font-bold text-linkIt-200">
-                    {t("Responsabilidades agregadas")}
-                  </h3>
-                  <ul className="list-disc">
-                    {infoList.responsabilities?.map((t: string) => {
-                      return (
-                        <div
-                          key={t}
-                          className="flex items-center space-x-2 space-y-2"
-                        >
-                          <li className="text-sm">{t}</li>
-                          <button
-                            onClick={(e) =>
-                              deleteFromList(e, t, "responsabilities")
-                            }
-                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                          <div>
-                            {
-                              <AddAnItemAfterThisOne
-                                name={"responsabilities"}
-                                infoList={infoList}
-                                setInfoList={setInfoList}
-                                information={information}
-                                setInformation={setInformation}
-                                errors={errors}
-                                referenceItem={t}
-                              />
-                            }
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -852,75 +719,17 @@ export default function FormVacancie({
                   *Presiona enter para agregar más de un Requisito*
                 </span>
               )}
-              <input
-                className={
-                  errors.requirements
-                    ? '"appearance-none block w-full bg-linkIt-500 text-blackk border border-red-500 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white text-red-500"'
-                    : '"appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"'
+              <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "requirements");
+                }}
+                value={
+                  (information.requirements && information.requirements[0]) ||
+                  ""
                 }
-                type="text"
-                name="requirements"
-                autoComplete="off"
-                placeholder={errors.requirements ? "*" : ""}
-                onChange={handleChange}
-                onKeyDown={addToList}
-                onBlur={errors.requirements ? handleBlurErrors : addToListBlur}
-                onClick={handleInputClick}
+                onBlur={handleBlurErrors}
               />
-
-              {infoList &&
-              infoList.requirements &&
-              infoList.requirements.length > 0 ? (
-                <div className="mx-4">
-                  <h3 className="text-xs font-bold text-linkIt-200">
-                    {t("Requisitos agregados")}
-                  </h3>
-                  <ul className="list-disc">
-                    {infoList.requirements?.map((t: string) => {
-                      return (
-                        <div
-                          key={t}
-                          className="flex items-center space-x-2 space-y-2"
-                        >
-                          <li className="text-sm">{t}</li>
-                          <button
-                            onClick={(e) =>
-                              deleteFromList(e, t, "requirements")
-                            }
-                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                          <div>
-                            {
-                              <AddAnItemAfterThisOne
-                                name={"requirements"}
-                                infoList={infoList}
-                                setInfoList={setInfoList}
-                                information={information}
-                                setInformation={setInformation}
-                                errors={errors}
-                                referenceItem={t}
-                              />
-                            }
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -932,67 +741,17 @@ export default function FormVacancie({
                   *Presiona enter para agregar más de un Deseable*
                 </span>
               )}
-              <input
-                className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
-                type="text"
-                name="niceToHave"
-                autoComplete="off"
-                onChange={handleChange}
-                onKeyDown={addToList}
-                onBlur={errors.stack ? handleBlurErrors : addToListBlur}
-                onClick={handleInputClick}
+               <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "niceToHave");
+                }}
+                value={
+                  (information.niceToHave && information.niceToHave[0]) ||
+                  ""
+                }
+                onBlur={handleBlurErrors}
               />
-              {infoList &&
-              infoList.niceToHave &&
-              infoList.niceToHave.length > 0 ? (
-                <div className="mx-4">
-                  <h3 className="text-xs font-bold text-linkIt-200">
-                    {t("Deseables agregados")}
-                  </h3>
-                  <ul className="list-disc">
-                    {infoList.niceToHave?.map((t: string) => {
-                      return (
-                        <div
-                          key={t}
-                          className="flex items-center space-x-2 space-y-2"
-                        >
-                          <li className="text-sm">{t}</li>
-                          <button
-                            onClick={(e) => deleteFromList(e, t, "niceToHave")}
-                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                          <div>
-                            {
-                              <AddAnItemAfterThisOne
-                                name={"niceToHave"}
-                                infoList={infoList}
-                                setInfoList={setInfoList}
-                                information={information}
-                                setInformation={setInformation}
-                                errors={errors}
-                                referenceItem={t}
-                              />
-                            }
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : null}
             </div>
 
             <div className="w-full px-3 mb-6">
@@ -1004,65 +763,17 @@ export default function FormVacancie({
                   *Presiona enter para agregar más de un beneficio*
                 </span>
               )}
-              <input
-                className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
-                type="text"
-                name="benefits"
-                autoComplete="off"
-                onChange={handleChange}
-                onKeyDown={addToList}
-                onBlur={errors.benefits ? handleBlurErrors : addToListBlur}
-                onClick={handleInputClick}
+              <JoditEditor
+                ref={editor}
+                onChange={(e) => {
+                  handleChange(e, "benefits");
+                }}
+                value={
+                  (information.benefits && information.benefits[0]) ||
+                  ""
+                }
+                onBlur={handleBlurErrors}
               />
-              {infoList && infoList.benefits && infoList.benefits.length > 0 ? (
-                <div className="mx-4">
-                  <h3 className="text-xs font-bold text-linkIt-200">
-                    {t("Beneficios agregados")}
-                  </h3>
-                  <ul className="list-disc">
-                    {infoList.benefits?.map((t: string) => {
-                      return (
-                        <div
-                          key={t}
-                          className="flex items-center space-x-2 space-y-2"
-                        >
-                          <li className="text-sm">{t}</li>
-                          <button
-                            onClick={(e) => deleteFromList(e, t, "benefits")}
-                            className="text-white bg-red-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-red-600 hover:bg-red-600"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.414-9.414a1 1 0 011.414 0L10 8.586l1.414-1.414a1 1 0 111.414 1.414L11.414 10l1.414 1.414a1 1 0 11-1.414 1.414L10 11.414l-1.414 1.414a1 1 0 01-1.414-1.414L8.586 10 7.172 8.586a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                          <div>
-                            {
-                              <AddAnItemAfterThisOne
-                                name={"benefits"}
-                                infoList={infoList}
-                                setInfoList={setInfoList}
-                                information={information}
-                                setInformation={setInformation}
-                                errors={errors}
-                                referenceItem={t}
-                              />
-                            }
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : null}
             </div>
           </div>
           {errors.code ||
