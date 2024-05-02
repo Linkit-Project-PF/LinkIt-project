@@ -18,6 +18,7 @@ import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg";
 import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
+import HTMLReactParser from "html-react-parser";
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
@@ -95,6 +96,16 @@ function JobDescription() {
       dispatch(setFormVisible(true));
     }
   };
+  const agregarClasesHTML = (str: string): string => {
+    str = str.replace(/<ul>/g, '<ul className="flex flex-col list">')
+      str = str.replace(
+        /<li/g,
+        '<li className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"'
+      );
+
+    return str
+  };
+  const regex = /<ul.*?>/g;
 
   return (
     <div className="">
@@ -129,32 +140,42 @@ function JobDescription() {
                 {t("Descripción")}
               </h3>
               <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                {jobData.description}
+                {jobData.description && HTMLReactParser(jobData.description)}
               </p>
             </section>
-            {jobData?.aboutUs &&
+            {jobData?.aboutUs && (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Acerca de nosotros")}
                 </h3>
                 <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                  {jobData.aboutUs}
+                  {jobData.aboutUs && HTMLReactParser(jobData.aboutUs)}
                 </p>
               </section>
-            }
+            )}
 
-            {jobData?.aboutClient &&
+            {jobData?.aboutClient && (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Acerca de nuestro cliente")}
                 </h3>
                 <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                  {jobData.aboutClient}
+                  {jobData.aboutClient && HTMLReactParser(jobData.aboutClient)}
                 </p>
               </section>
-            }
+            )}
 
             {jobData.responsabilities?.length > 0 &&
+            jobData.responsabilities?.length === 1  && regex.test(jobData.responsabilities[0])? (
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Responsabilidades")}
+                </h3>
+                {HTMLReactParser(
+                  agregarClasesHTML(agregarClasesHTML(jobData.responsabilities[0]))
+                )}
+              </section>
+            ) : (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Responsabilidades")}
@@ -172,9 +193,17 @@ function JobDescription() {
                   })}
                 </ul>
               </section>
-            }
+            )}
 
             {jobData.requirements?.length > 0 &&
+            jobData.requirements?.length === 1  && regex.test(jobData.requirements[0]) ? (
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Requerimientos")}
+                </h3>
+                {HTMLReactParser(agregarClasesHTML(jobData.requirements[0]))}
+              </section>
+            ) : (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Requerimientos")}
@@ -192,10 +221,18 @@ function JobDescription() {
                   })}
                 </ul>
               </section>
-            }
+            )}
 
             {jobData.niceToHave?.length > 0 &&
-              < section className="mb-[3%]">
+            jobData.niceToHave?.length === 1 && regex.test(jobData.niceToHave[0]) ? (
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Deseable")}
+                </h3>
+                {HTMLReactParser(agregarClasesHTML(jobData.niceToHave[0]))}
+              </section>
+            ) : (
+              <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Deseable")}
                 </h3>
@@ -212,9 +249,16 @@ function JobDescription() {
                   })}
                 </ul>
               </section>
-            }
+            )}
 
-            {jobData.benefits?.length > 0 &&
+            {jobData.benefits?.length > 0 && jobData.benefits?.length === 1  && regex.test(jobData.benefits[0])? (
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Beneficios")}
+                </h3>
+                {HTMLReactParser(agregarClasesHTML(jobData.benefits[0]))}
+              </section>
+            ) : (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Beneficios")}
@@ -232,7 +276,7 @@ function JobDescription() {
                   })}
                 </ul>
               </section>
-            }
+            )}
 
             <section className=" mt-[10%] lg:flex grid content-center items-center justify-items-center lg:max-w-[70%] dark:text-white ">
               <img
@@ -245,7 +289,6 @@ function JobDescription() {
                 {t("el siguiente formulario")}
               </h3>
             </section>
-            
           </div>
           <section className="lg:w-[50%] flex flex-col justify-items-center items-center gap-[1rem]">
             <img
@@ -261,9 +304,9 @@ function JobDescription() {
             </button>
           </section>
         </div>
-      </article >
+      </article>
       <Newsletter />
-    </div >
+    </div>
   );
 }
 

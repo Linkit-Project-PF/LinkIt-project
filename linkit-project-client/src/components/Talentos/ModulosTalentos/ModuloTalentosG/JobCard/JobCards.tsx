@@ -28,7 +28,14 @@ const JobCards: FunctionComponent = () => {
       // Set the job offers in the state
 
       const activeJobOffers = fetchedJobOffers.filter((jobOffer) => jobOffer.archived === false)
-      dispatch(setJobOffers(activeJobOffers))
+      const recentJobOffers = activeJobOffers.sort((a, b) => {
+        const dateA = new Date(a.createdDate);
+        const dateB = new Date(b.createdDate);
+
+
+        return dateB.getTime() - dateA.getTime();
+    });
+      dispatch(setJobOffers(recentJobOffers))
 
 
     }
@@ -40,6 +47,7 @@ const JobCards: FunctionComponent = () => {
     current * jobsPerPage,
     (current + 1) * jobsPerPage
   );
+
 
   return (
     <div className="flex w-full h-full items-center justify-center my-[5%]">

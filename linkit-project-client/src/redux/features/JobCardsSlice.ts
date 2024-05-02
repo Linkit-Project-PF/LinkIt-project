@@ -8,7 +8,7 @@ const initialState = {
     sortValues: {
         sortAlfa: '-',
         sortDate: 'recent',
-        sortView: 'Visible'
+        sortView: 'All'
     }
 }
 

@@ -271,6 +271,25 @@ const JobFilters = () => {
               Híbrido
             </li>
           )}
+          {language === "en" ? (
+            <li
+              onClick={() => {
+                setModality("On-site"), setModalityValue("On-site");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              On-site
+            </li>
+          ) : (
+            <li
+              onClick={() => {
+                setModality("Presencial"), setModalityValue("On-site");
+              }}
+              className="cursor-pointer w-full px-2"
+            >
+              Presencial
+            </li>
+          )}
 </Dropdown>
 </div>
 
