@@ -11,9 +11,7 @@ import { setJobOffers } from "../../../../../redux/features/JobCardsSlice";
 import { useNavigate } from "react-router-dom";
 import { stateProps } from "./Vacancies2";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import AddAnItemAfterThisOne from "./AddAnItemAfterThisOne";
 import JoditEditor from "jodit-react";
-import HTMLReactParser from "html-react-parser";
 import "./FormVacancie.css";
 
 type OnCloseFunction = () => void;
@@ -172,7 +170,8 @@ export default function FormVacancie({
   };
   const generarListaDesordenada = (arrayDeStrings: string[]) => {
     const regex = /<ul.*?>/g;
-    if(arrayDeStrings.length === 1 && regex.test(arrayDeStrings[0])) return arrayDeStrings[0];
+    if (arrayDeStrings.length === 1 && regex.test(arrayDeStrings[0]))
+      return arrayDeStrings[0];
     const items = arrayDeStrings
       .map((item, index) => `<li key=${index}>${item}</li>`)
       .join("");
@@ -194,22 +193,18 @@ export default function FormVacancie({
       "niceToHave",
       "benefits",
     ];
-    const stringProps = [
-      "description",
-      "aboutUs",
-      "aboutClient",
-    ];
+    const stringProps = ["description", "aboutUs", "aboutClient"];
     if (typeof e === "string") {
       name = inputName ? inputName : "";
-      console.log(name)
+      console.log(name);
       console.log(e);
       value = e;
-      if (arrayProps.includes(name) )
+      if (arrayProps.includes(name))
         setInformation((prevInformation) => ({
           ...prevInformation,
           [name]: [value],
         }));
-      if (stringProps.includes(name)){
+      if (stringProps.includes(name)) {
         setInformation((prevInformation) => ({
           ...prevInformation,
           [name]: value,
@@ -376,7 +371,7 @@ export default function FormVacancie({
       setSaveStatus(true);
       return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       console.error((error as Error).message);
       throw new ValidationError(
         `${t("Error al ingresar los datos en el formulario")}: ${
@@ -753,14 +748,13 @@ export default function FormVacancie({
                   *Presiona enter para agregar más de un Deseable*
                 </span>
               )}
-               <JoditEditor
+              <JoditEditor
                 ref={editor}
                 onChange={(e) => {
                   handleChange(e, "niceToHave");
                 }}
                 value={
-                  (information.niceToHave && information.niceToHave[0]) ||
-                  ""
+                  (information.niceToHave && information.niceToHave[0]) || ""
                 }
                 onBlur={handleBlurErrors}
               />
@@ -780,10 +774,7 @@ export default function FormVacancie({
                 onChange={(e) => {
                   handleChange(e, "benefits");
                 }}
-                value={
-                  (information.benefits && information.benefits[0]) ||
-                  ""
-                }
+                value={(information.benefits && information.benefits[0]) || ""}
                 onBlur={handleBlurErrors}
               />
             </div>
