@@ -144,6 +144,7 @@ export default function HeadVacancy({
               }
             );
             dispatch(setJobOffers(response.data));
+            dispatch(setSortJobOffers({ date: "recent" }));
             swal(t("Vacante eliminada"), { icon: "success" });
           });
         } catch (error) {

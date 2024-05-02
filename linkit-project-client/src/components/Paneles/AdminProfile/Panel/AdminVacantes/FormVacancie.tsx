@@ -190,20 +190,31 @@ export default function FormVacancie({
     let value = "";
     const arrayProps = [
       "responsabilities",
-      "requisites",
-      "stack",
+      "requirements",
       "niceToHave",
       "benefits",
     ];
+    const stringProps = [
+      "description",
+      "aboutUs",
+      "aboutClient",
+    ];
     if (typeof e === "string") {
       name = inputName ? inputName : "";
+      console.log(name)
       console.log(e);
       value = e;
-      if (arrayProps.includes(name))
+      if (arrayProps.includes(name) )
         setInformation((prevInformation) => ({
           ...prevInformation,
           [name]: [value],
         }));
+      if (stringProps.includes(name)){
+        setInformation((prevInformation) => ({
+          ...prevInformation,
+          [name]: value,
+        }));
+      }
     } else {
       name = e.target.name;
       value = e.target.value;
@@ -365,6 +376,7 @@ export default function FormVacancie({
       setSaveStatus(true);
       return response.data;
     } catch (error) {
+      console.log(error)
       console.error((error as Error).message);
       throw new ValidationError(
         `${t("Error al ingresar los datos en el formulario")}: ${
