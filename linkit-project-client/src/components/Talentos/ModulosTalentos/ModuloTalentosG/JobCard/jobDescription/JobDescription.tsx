@@ -194,7 +194,6 @@ function JobDescription() {
                 </ul>
               </section>
             )}
- {console.log(jobData.requirements)}
             {jobData.requirements?.length > 0 &&
             jobData.requirements?.length === 1  && regex.test(jobData.requirements[0]) ? (
               <section className="mb-[3%]">
