@@ -424,7 +424,7 @@ const JobFilters = () => {
           {language === "en" ? (
             <li
               onClick={() => {
-                setModality("Presential"), setModalityValue("on-site");
+                setModality("Presential"), setModalityValue("On-site");
               }}
               className="cursor-pointer w-full px-2"
             >
@@ -433,7 +433,7 @@ const JobFilters = () => {
           ) : (
             <li
               onClick={() => {
-                setModality("Presencial"), setModalityValue("on-site");
+                setModality("Presencial"), setModalityValue("On-site");
               }}
               className="cursor-pointer w-full px-2"
             >

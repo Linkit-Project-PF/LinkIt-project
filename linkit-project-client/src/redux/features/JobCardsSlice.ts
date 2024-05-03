@@ -52,13 +52,8 @@ const JobCardSlice = createSlice({
 
             if (date === 'recent') {
                 state.sortValues.sortAlfa = '-';
-                state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
-                    const dateA = new Date(a.createdDate);
-                    const dateB = new Date(b.createdDate);
-                    state.sortValues.sortDate = 'recent';
-
-                    return dateB.getTime() - dateA.getTime();
-                });
+                state.filterJobOffers.reverse()
+                state.sortValues.sortDate = 'recent';
             } else if (date === 'old') {
                 state.sortValues.sortAlfa = '-';
                 state.filterJobOffers.sort((a: JobOffer, b: JobOffer) => {
