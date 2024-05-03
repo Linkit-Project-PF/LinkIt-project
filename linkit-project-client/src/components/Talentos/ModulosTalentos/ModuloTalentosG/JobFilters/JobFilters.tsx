@@ -283,7 +283,7 @@ const JobFilters = () => {
           ) : (
             <li
               onClick={() => {
-                setModality("Presencial"), setModalityValue("On-site");
+                setModality("On-site"), setModalityValue("On-site");
               }}
               className="cursor-pointer w-full px-2"
             >
