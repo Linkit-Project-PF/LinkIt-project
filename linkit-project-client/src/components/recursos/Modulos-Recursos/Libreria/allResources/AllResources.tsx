@@ -78,11 +78,11 @@ const events = useSelector((state: resourcesState) => [...state.resources.events
   const { t } = useTranslation();
   return (
     <>
-      <div className="flex flex-row gap-6 flex-wrap justify-around  mt-[3.5rem] responsive-container">
+      <div className="flex flex-row gap-6 flex-wrap justify-around  mt-[3.5rem] responsive-container w-full">
         {ebooks.length > 3 && blogs.length > 3 && events.length > 3
-          ? ebooks.slice(0, 3).map((ebook: resourceType) => {
+          ? ebooks?.slice(0, 3).map((ebook: resourceType) => {
               return (
-                <div className="w-[21rem]" key={ebook._id}>
+                <div className="w-[21rem] " key={ebook._id}>
                   <EbookResourcesCard
                     image={ebook.image}
                     title={ebook.title}
