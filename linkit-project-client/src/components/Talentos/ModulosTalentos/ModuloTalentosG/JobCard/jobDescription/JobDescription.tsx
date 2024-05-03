@@ -105,7 +105,7 @@ function JobDescription() {
 
     return str
   };
-  const regex = /<.*?>/g;
+  const regex = /<[^>]*>/g;
 
   return (
     <div className="">
