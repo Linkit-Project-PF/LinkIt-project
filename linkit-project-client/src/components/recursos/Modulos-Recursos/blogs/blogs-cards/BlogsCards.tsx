@@ -29,6 +29,7 @@ function BlogsCards() {
         });
         response.data.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
         setBlogs(response.data);
+
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +39,7 @@ function BlogsCards() {
   const blogsToShow = 3;
   const startIndex = currentBlog * blogsToShow;
   const endIndex = startIndex + blogsToShow;
-  const blogsToShowArray = blogs.slice(startIndex, endIndex);
+  const blogsToShowArray = blogs.filter((item: any) => item.archived === false ).slice(startIndex, endIndex);
 
   const handlePrev = () => {
     setCurrentBlog(currentBlog === 0 ? Math.ceil(blogs.length / blogsToShow) - 1 : currentBlog - 1);
