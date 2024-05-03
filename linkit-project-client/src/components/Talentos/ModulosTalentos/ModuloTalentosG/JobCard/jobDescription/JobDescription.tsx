@@ -105,7 +105,7 @@ function JobDescription() {
 
     return str
   };
-  const regex = /<ul.*?>/g;
+  const regex = /<.*?>/g;
 
   return (
     <div className="">
@@ -194,7 +194,6 @@ function JobDescription() {
                 </ul>
               </section>
             )}
-
             {jobData.requirements?.length > 0 &&
             jobData.requirements?.length === 1  && regex.test(jobData.requirements[0]) ? (
               <section className="mb-[3%]">
