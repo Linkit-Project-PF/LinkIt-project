@@ -53,9 +53,26 @@ type resourceType = {
 };
 
 function AllResources() {
-  const blogs = useSelector((state: resourcesState) => state.resources.blogs);
-  const ebooks = useSelector((state: resourcesState) => state.resources.ebooks);
-  const events = useSelector((state: resourcesState) => state.resources.events);
+
+  const blogs = useSelector((state: resourcesState) => [...state.resources.blogs].sort((a, b) => {
+    const dateA = new Date(a.createdDate);
+    const dateB = new Date(b.createdDate);
+    return   dateB.getTime() - dateA.getTime();
+}));
+
+const ebooks = useSelector((state: resourcesState) => [...state.resources.ebooks].sort((a, b) => {
+    const dateA = new Date(a.createdDate);
+    const dateB = new Date(b.createdDate);
+    return   dateB.getTime() - dateA.getTime();
+}));
+
+const events = useSelector((state: resourcesState) => [...state.resources.events].sort((a, b) => {
+    const dateA = new Date(a.createdDate);
+    const dateB = new Date(b.createdDate);
+    return   dateB.getTime() - dateA.getTime();
+}));
+
+
  
 
   const { t } = useTranslation();
