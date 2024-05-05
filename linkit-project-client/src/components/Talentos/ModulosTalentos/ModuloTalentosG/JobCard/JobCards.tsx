@@ -28,8 +28,7 @@ const JobCards: FunctionComponent = () => {
       // Set the job offers in the state
 
       const activeJobOffers = fetchedJobOffers.filter((jobOffer) => jobOffer.archived === false)
-      const recentJobOffers = activeJobOffers.reverse()
-      dispatch(setJobOffers(recentJobOffers))
+      dispatch(setJobOffers(activeJobOffers))
     }
 
     fetchedJobOffers()
