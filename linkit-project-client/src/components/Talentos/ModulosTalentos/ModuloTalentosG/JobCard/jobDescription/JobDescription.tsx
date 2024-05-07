@@ -116,9 +116,6 @@ function JobDescription() {
     return /[a-zA-Z0-9]/.test(textoSinEtiquetas);
   };
 
-  const regex = /<[^>]*>/g;
-
-
   return (
     <div className="">
       {loading ? <Loading text={t("Cargando información")} /> : null}
