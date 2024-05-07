@@ -77,7 +77,7 @@ export default function ExistingVacanciesOptions({
               },
             }
           );
-          dispatch(setJobOffers(response.data));
+          dispatch(setJobOffers(response.data.reverse()));
           swal(t("Cambio de vista exitoso"), { icon: "success" });
         } catch (error) {
           console.error(
@@ -109,7 +109,7 @@ export default function ExistingVacanciesOptions({
               },
             }
           );
-          dispatch(setJobOffers(response.data));
+          dispatch(setJobOffers(response.data.reverse()));
           swal(t("Vacante eliminada"), { icon: "success" });
         } catch (error) {
           console.error(
