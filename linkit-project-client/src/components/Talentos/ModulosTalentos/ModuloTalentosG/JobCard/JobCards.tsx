@@ -28,7 +28,7 @@ const JobCards: FunctionComponent = () => {
       // Set the job offers in the state
 
       const activeJobOffers = fetchedJobOffers.filter((jobOffer) => jobOffer.archived === false)
-      dispatch(setJobOffers(activeJobOffers.reverse()))
+      dispatch(setJobOffers(activeJobOffers))
     }
 
     fetchedJobOffers()
@@ -59,7 +59,7 @@ const JobCards: FunctionComponent = () => {
         )
         :
         <div className={`${jobOffers.length > 3 ? 'grid-rows-3' : 'grid-rows-1'} grid grid-cols-3 gap-[3%]`}>
-        {jobOffersToShow.map((jobDescription) => (
+        {jobOffersToShow.reverse().map((jobDescription) => (
         <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
         ))}
         </div>
