@@ -332,7 +332,7 @@ export default function FormVacancie({
     setErrors(validationError);
     try {
       validateVacancy(information as VacancyProps);
-      const endPoint = "http://localhost:3000/jds/create";
+      const endPoint = "https://linkit-server.onrender.com/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: {
           Authorization: `Bearer ${token}`,
