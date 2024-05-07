@@ -274,7 +274,7 @@ const JobFilters = () => {
           {language === "en" ? (
             <li
               onClick={() => {
-                setModality("On-site"), setModalityValue("On-site");
+                setModality("on-site"), setModalityValue("on-site");
               }}
               className="cursor-pointer w-full px-2"
             >
@@ -283,7 +283,7 @@ const JobFilters = () => {
           ) : (
             <li
               onClick={() => {
-                setModality("On-site"), setModalityValue("On-site");
+                setModality("Presencial"), setModalityValue("on-site");
               }}
               className="cursor-pointer w-full px-2"
             >
@@ -424,7 +424,7 @@ const JobFilters = () => {
           {language === "en" ? (
             <li
               onClick={() => {
-                setModality("Presential"), setModalityValue("On-site");
+                setModality("Presential"), setModalityValue("on-site");
               }}
               className="cursor-pointer w-full px-2"
             >
@@ -433,7 +433,7 @@ const JobFilters = () => {
           ) : (
             <li
               onClick={() => {
-                setModality("Presencial"), setModalityValue("On-site");
+                setModality("Presencial"), setModalityValue("on-site");
               }}
               className="cursor-pointer w-full px-2"
             >
