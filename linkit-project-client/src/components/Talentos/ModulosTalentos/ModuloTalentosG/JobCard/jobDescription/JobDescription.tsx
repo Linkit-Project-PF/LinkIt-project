@@ -109,11 +109,15 @@ function JobDescription() {
 
     return str;
   };
+
   const regex = /<.*?>/g;
   const removerEtiquetasHTML = (texto: string): boolean => {
     const textoSinEtiquetas = texto.replace(/<[^>]*>/g, "");
     return /[a-zA-Z0-9]/.test(textoSinEtiquetas);
   };
+
+  const regex = /<[^>]*>/g;
+
 
   return (
     <div className="">

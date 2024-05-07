@@ -24,7 +24,7 @@ function BlogsCardsMobile() {
           headers: {"Authorization": `Bearer ${SUPERADMN_ID}`,
           'Accept-Language': sessionStorage.getItem('lang')}
         });
-        setBlogs(response.data);
+        setBlogs(response.data.filter((item: any) => item.archived === false ));
       } catch (error) {
         console.log(error);
       }
