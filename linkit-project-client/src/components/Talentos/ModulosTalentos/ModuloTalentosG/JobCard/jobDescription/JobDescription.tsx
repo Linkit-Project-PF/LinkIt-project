@@ -20,7 +20,7 @@ import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
 import HTMLReactParser from "html-react-parser";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 function JobDescription() {
   const { id } = useParams<{ id: string }>();
@@ -97,15 +97,23 @@ function JobDescription() {
     }
   };
   const agregarClasesHTML = (str: string): string => {
-    str = str.replace(/<ul>/g, '<ul className="flex flex-col list">')
-      str = str.replace(
-        /<li/g,
-        '<li className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"'
-      );
+    str = str.replace(/<ul>/g, '<ul className="flex flex-col list">');
+    str = str.replace(
+      /<li/g,
+      '<li className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"'
+    );
+    str = str.replace(
+      /<p/g,
+      '<p className="font-[600] text-size lg:max-w-[70%] dark:text-white"'
+    );
 
-    return str
+    return str;
   };
   const regex = /<.*?>/g;
+  const removerEtiquetasHTML = (texto: string): boolean => {
+    const textoSinEtiquetas = texto.replace(/<[^>]*>/g, "");
+    return /[a-zA-Z0-9]/.test(textoSinEtiquetas);
+  };
 
   return (
     <div className="">
@@ -153,7 +161,6 @@ function JobDescription() {
                 </p>
               </section>
             )}
-
             {jobData?.aboutClient && (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
@@ -164,15 +171,15 @@ function JobDescription() {
                 </p>
               </section>
             )}
-
             {jobData.responsabilities?.length > 0 &&
-            jobData.responsabilities?.length === 1  && regex.test(jobData.responsabilities[0])? (
+            jobData.responsabilities?.length === 1 &&
+            regex.test(jobData.responsabilities[0]) ? (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Responsabilidades")}
                 </h3>
                 {HTMLReactParser(
-                  agregarClasesHTML(agregarClasesHTML(jobData.responsabilities[0]))
+                  agregarClasesHTML(jobData.responsabilities[0])
                 )}
               </section>
             ) : (
@@ -195,7 +202,8 @@ function JobDescription() {
               </section>
             )}
             {jobData.requirements?.length > 0 &&
-            jobData.requirements?.length === 1  && regex.test(jobData.requirements[0]) ? (
+            jobData.requirements?.length === 1 &&
+            regex.test(jobData.requirements[0]) ? (
               <section className="mb-[3%]">
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Requerimientos")}
@@ -221,62 +229,69 @@ function JobDescription() {
                 </ul>
               </section>
             )}
-
             {jobData.niceToHave?.length > 0 &&
-            jobData.niceToHave?.length === 1 && regex.test(jobData.niceToHave[0]) ? (
-              <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                  {t("Deseable")}
-                </h3>
-                {HTMLReactParser(agregarClasesHTML(jobData.niceToHave[0]))}
-              </section>
-            ) : (
-              <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                  {t("Deseable")}
-                </h3>
-                <ul className="flex flex-col list">
-                  {jobData.niceToHave?.map((desirable, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
-                      >
-                        {desirable}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            )}
-
-            {jobData.benefits?.length > 0 && jobData.benefits?.length === 1  && regex.test(jobData.benefits[0])? (
-              <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                  {t("Beneficios")}
-                </h3>
-                {HTMLReactParser(agregarClasesHTML(jobData.benefits[0]))}
-              </section>
-            ) : (
-              <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                  {t("Beneficios")}
-                </h3>
-                <ul className="flex flex-col list">
-                  {jobData.benefits?.map((benefit, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
-                      >
-                        {benefit}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </section>
-            )}
-
+              jobData.niceToHave?.length === 1 &&
+              regex.test(jobData.niceToHave[0]) &&
+              removerEtiquetasHTML(jobData.niceToHave[0]) && (
+                <section className="mb-[3%]">
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Deseable")}
+                  </h3>
+                  {HTMLReactParser(agregarClasesHTML(jobData.niceToHave[0]))}
+                </section>
+              )}{" "}
+            {jobData.niceToHave?.length > 0 &&
+              !regex.test(jobData.niceToHave[0]) &&
+              /[a-zA-Z0-9]/.test(jobData.niceToHave[0]) && (
+                <section className="mb-[3%]">
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Deseable")}
+                  </h3>
+                  <ul className="flex flex-col list">
+                    {jobData.niceToHave?.map((desirable, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
+                        >
+                          {desirable}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              )}
+            {jobData.benefits?.length > 0 &&
+              jobData.benefits?.length === 1 &&
+              regex.test(jobData.benefits[0]) &&
+              removerEtiquetasHTML(jobData.benefits[0]) && (
+                <section className="mb-[3%]">
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Beneficios")}
+                  </h3>
+                  {HTMLReactParser(agregarClasesHTML(jobData.benefits[0]))}
+                </section>
+              )}
+            {jobData.benefits?.length > 0 &&
+              !regex.test(jobData.benefits[0]) && /[a-zA-Z0-9]/.test(jobData.benefits[0]) && (
+                <section className="mb-[3%]">
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Beneficios")}
+                  </h3>
+                  <ul className="flex flex-col list">
+                    {jobData.benefits?.map((benefit, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item"
+                        >
+                          {benefit}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              )}
             <section className=" mt-[10%] lg:flex grid content-center items-center justify-items-center lg:max-w-[70%] dark:text-white ">
               <img
                 src="/Vectores/complete-form.svg"

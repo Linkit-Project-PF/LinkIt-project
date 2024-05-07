@@ -332,7 +332,7 @@ export default function FormVacancie({
     setErrors(validationError);
     try {
       validateVacancy(information as VacancyProps);
-      const endPoint = "https://linkit-server.onrender.com/jds/create";
+      const endPoint = "http://localhost:3000/jds/create";
       const response = await axios.post(endPoint, information, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -562,7 +562,7 @@ export default function FormVacancie({
                     {t("Remoto (Regional)")}
                   </option>
                   <option value="hybrid">{t("Híbrido")}</option>
-                  <option value="On-site">{t("Presencial")}</option>
+                  <option value="on-site">{t("Presencial")}</option>
                 </select>
               </div>
             </div>
