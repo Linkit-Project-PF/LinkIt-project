@@ -19,6 +19,7 @@ import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
 import HTMLReactParser from "html-react-parser";
+import i18n from "i18next";
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
@@ -47,7 +48,6 @@ function JobDescription() {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        isLoading(true);
         const response = await axios.get(
           `https://linkit-server.onrender.com/jds/find?code=${id}`,
           {
@@ -57,7 +57,9 @@ function JobDescription() {
             },
           }
         );
+        console.log(sessionStorage.getItem("lang"))
         setJobData(response.data[0]);
+        console.log(response.data[0])
       } catch (error: any) {
         Swal.fire({ title: "Error", text: error.response.data, icon: "error" });
       } finally {
@@ -67,7 +69,7 @@ function JobDescription() {
     };
     fetchJob();
     window.scrollTo(0, 0);
-  }, []);
+  }, [i18n.language]);
 
   const handleGoBack = () => {
     navigate("/soyTalento");
