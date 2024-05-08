@@ -46,7 +46,7 @@ export default function FormVacancie({
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
-    description: "",
+    description:"",
     type: "",
     location: "",
     modality: "",
@@ -289,12 +289,12 @@ export default function FormVacancie({
       setInformation({
         code: "",
         title: "",
-        description: "",
+        description: "Hola! Estamos buscando un increíble Sr Full Stack Developer para unirse al equipo de nuestro cliente. ¿Tenés interés en nuevos desafíos, el trabajo en equipo y buscas disfrutar el camino? ¡No dejes de contactarte!",
         type: "",
         location: "",
         modality: "",
         stack: [],
-        aboutUs: "",
+        aboutUs: "Somos LinkIT, una consultora de selección de personal. Buscamos brindar oportunidades, conectar y colaborar con el talento de LATAM hacia todo el mundo.",
         aboutClient: "",
         responsabilities: [],
         requirements: [],

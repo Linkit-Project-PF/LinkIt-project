@@ -97,7 +97,7 @@ function JobDescription() {
     }
   };
   const agregarClasesHTML = (str: string): string => {
-    str = str.replace(/<ul>/g, '<ul className="flex flex-col list">');
+    str = str.replace(/<ul>/g, '<ul className="flex flex-col list" style={{ "list-style": "initial" }} >');
     str = str.replace(
       /<li/g,
       '<li className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"'
@@ -167,9 +167,7 @@ function JobDescription() {
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Acerca de nuestro cliente")}
                 </h3>
-                <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
-                  {jobData.aboutClient && HTMLReactParser(jobData.aboutClient)}
-                </p>
+                {jobData.aboutClient && HTMLReactParser(agregarClasesHTML(jobData.aboutClient))}
               </section>
             )}
             {jobData.responsabilities?.length > 0 &&
@@ -274,7 +272,8 @@ function JobDescription() {
                 </section>
               )}
             {jobData.benefits?.length > 0 &&
-              !regex.test(jobData.benefits[0]) && /[a-zA-Z0-9]/.test(jobData.benefits[0]) && (
+              !regex.test(jobData.benefits[0]) &&
+              /[a-zA-Z0-9]/.test(jobData.benefits[0]) && (
                 <section className="mb-[3%]">
                   <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                     {t("Beneficios")}
