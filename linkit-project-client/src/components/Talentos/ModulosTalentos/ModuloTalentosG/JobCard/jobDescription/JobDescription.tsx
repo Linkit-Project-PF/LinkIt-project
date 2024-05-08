@@ -57,9 +57,7 @@ function JobDescription() {
             },
           }
         );
-        console.log(sessionStorage.getItem("lang"))
         setJobData(response.data[0]);
-        console.log(response.data[0])
       } catch (error: any) {
         Swal.fire({ title: "Error", text: error.response.data, icon: "error" });
       } finally {
