@@ -19,7 +19,6 @@ import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
 import { RootState } from "../../../../../../redux/types";
 import Loading from "../../../../../Loading/Loading";
 import HTMLReactParser from "html-react-parser";
-import i18n from "i18next";
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
