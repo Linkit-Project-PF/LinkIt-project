@@ -103,15 +103,14 @@ export default function FormResource({
     let value = "";
 
     if (typeof e === "string") {
-      name = "body"; // Si es una cadena de texto, asumimos que es el valor del campo 'body'
-      value = e; // Asignamos el valor directamente
+      name = "body"; 
+      value = e; 
     } else {
-      // Si es un evento, obtenemos el nombre y el valor del evento
+      
       name = e.target.name;
       value = e.target.value;
     }
 
-    // Actualizamos el estado 'infoList' con el nuevo valor
     setInfoList((previusInfoList) => ({
       ...previusInfoList,
       [name]: value,
@@ -186,13 +185,6 @@ export default function FormResource({
 
   //Rich Text Area WYSIWYG Jodit
   const editor = useRef(null);
-
-  // const config:any =
-  // 	{
-  // 		readonly: false,
-  // 		placeholder: 'Start typings...',
-  //     theme:`dark`
-  // 	}
 
   return (
     <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">

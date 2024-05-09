@@ -299,7 +299,7 @@ function NavBar() {
 
 
   return (
-    <div className="h-fit w-screen p-0 m-0">
+    <div className="h-fit w-full p-0 m-0">
       <div className="preNavbar">
         <span className="">
           {t("Contrata y gestiona talentos de forma global con LinkIT")} |{" "}
