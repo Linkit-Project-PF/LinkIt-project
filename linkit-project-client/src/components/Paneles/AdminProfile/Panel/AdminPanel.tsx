@@ -51,7 +51,7 @@ export default function AdminPanel() {
 
   return (
     <div className="pt-32 font-montserrat">
-      <h1 className="mt-[80px] text-5xl pt-6 pl-16 font-bold">
+      <h1 className="mt-[40px] text-5xl pt-6 pl-16 font-bold">
         {t("Hola")} {userData?.firstName}!
       </h1 >
       <NavPanelAdmin />

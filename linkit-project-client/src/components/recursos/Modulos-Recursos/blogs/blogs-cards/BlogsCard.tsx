@@ -9,6 +9,7 @@ type BlogsCardProps = {
   description: string;
   _id: string;
   genre: string;
+  isEditing?: boolean;
 };
 
 const blogsCardVariants: Variants = {
@@ -35,13 +36,21 @@ const blogsCardVariants: Variants = {
   },
 };
 
-function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
+function BlogsCard({
+  image,
+  title,
+  description,
+  _id,
+  genre,
+  isEditing,
+}: BlogsCardProps) {
   const [key, setKey] = useState(Math.random());
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/blog/${_id}`);
+    const url = `/blog/${_id}`;
+    isEditing ? window.open(url, "_blank") : navigate(url);
   };
 
   useEffect(() => {
@@ -51,14 +60,14 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
   return (
     <motion.button
       className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400"
-      variants={blogsCardVariants}
-      initial="hidden"
-      animate="visible"
+      variants={isEditing ? {} : blogsCardVariants}
+      initial={isEditing ? {} : "hidden"}
+      animate={isEditing ? {} : "visible"}
+      whileHover={isEditing ? {} : { scale: 1.02, cursor: "pointer" }}
+      whileTap={isEditing ? {} : { scale: 1 }}
+      onClick={isEditing ? undefined :handleClick}
       exit="exit"
       key={key}
-      whileHover={{ scale: 1.02, cursor: "pointer" }}
-      onClick={handleClick}
-      whileTap={{ scale: 1 }}
     >
       <img
         src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
@@ -69,15 +78,14 @@ function BlogsCard({ image, title, description, _id, genre }: BlogsCardProps) {
         <p className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
           {genre}
         </p>
-        <span className="font-bold subtitles-size line-clamp-3 text-left">{title}</span>
+        <span className="font-bold subtitles-size line-clamp-3 text-left">
+          {title}
+        </span>
         <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3 text-left">
           {description}
         </p>
 
-        <motion.p
-          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
-         
-        >
+        <motion.p className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
           {t("Leer Nota")}
         </motion.p>
       </div>

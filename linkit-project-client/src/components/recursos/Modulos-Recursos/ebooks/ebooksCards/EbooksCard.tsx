@@ -9,6 +9,7 @@ type EbooksCardProps = {
   link: string;
   category: string;
   image?: string;
+  isEditing?: boolean;
 };
 
 const cardVariants: Variants = {
@@ -41,6 +42,7 @@ function EbooksCard({
   link,
   category,
   image,
+  isEditing
 }: EbooksCardProps): JSX.Element {
   const [key, setKey] = useState(Math.random());
   const { t } = useTranslation();
@@ -49,18 +51,18 @@ function EbooksCard({
   }, [title, description, link, category]); // re-render when these props change
 
   return (
+    <div className=" border-[2px]  w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white">
     <motion.a
       key={key}
-      className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white"
-      variants={cardVariants}
-      initial={"initial"}
-      animate={"animate"}
+      className=""
+      variants={isEditing ? {} : cardVariants}
+      initial={isEditing ? {} : "initial"}
+      animate={isEditing ? {} : "animate"}
+      whileHover={isEditing ? {} : { scale: 1.02, cursor: "pointer" }}
+      whileTap={isEditing ? {} : { scale: 1 }}
       exit={"exit"}
       href={link}
       target="_blank"
-      whileHover={{ scale: 1.02, cursor: "pointer" }}
-      whileTap={{ scale: 1 }}
-
     >
       <img
         src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
@@ -81,6 +83,7 @@ function EbooksCard({
         </motion.div>
       </div>
     </motion.a>
+    </div>
   );
 }
 

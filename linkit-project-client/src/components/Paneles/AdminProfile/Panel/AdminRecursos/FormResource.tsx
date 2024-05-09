@@ -187,13 +187,6 @@ export default function FormResource({
   //Rich Text Area WYSIWYG Jodit
   const editor = useRef(null);
 
-  // const config:any =
-  // 	{
-  // 		readonly: false,
-  // 		placeholder: 'Start typings...',
-  //     theme:`dark`
-  // 	}
-
   return (
     <div className="fixed flex justify-center p-24 top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
       <div className=" flex flex-col justify-center items-center bg-linkIt-500 w-fit h-fit rounded-[7px] border-[3px] border-linkIt-300  p-8">

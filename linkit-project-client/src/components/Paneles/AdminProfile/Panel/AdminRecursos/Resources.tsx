@@ -8,6 +8,8 @@ import {
 } from "../../../../../redux/features/ResourcesSlice";
 import { ResourceProps, ViewResourceProps } from "../../../admin.types";
 import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
+import ModalEditResources from "./ModalEditResources";
+import swal from "sweetalert";
 
 export type stateProps = {
   resources: {
@@ -22,32 +24,27 @@ export default function Resources() {
     (state: stateProps) => state.resources.filteredResources
   );
   const [saveStatus, setSaveStatus] = useState<boolean>(false);
-
-
-
+  const loadData = async (): Promise<void> => {
+    try {
+      const response = await axios(
+        "https://linkit-server.onrender.com/posts/find",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Accept-Language": sessionStorage.getItem("lang"),
+          },
+        }
+      );
+      dispatch(setResources(response.data));
+      dispatch(sortResource("recent"));
+    } catch (error: any) {
+      console.error("Error al cargar la información", error.response?.data);
+    }
+  };
   useEffect(() => {
-    const loadData = async (): Promise<void> => {
-      try {
-        const response = await axios(
-          "https://linkit-server.onrender.com/posts/find",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Accept-Language": sessionStorage.getItem("lang"),
-            },
-          }
-        );
-        dispatch(setResources(response.data));
-        dispatch(sortResource("recent"));
-      } catch (error: any) {
-        console.error("Error al cargar la información", error.response?.data);
-      }
-    };
+    
     loadData();
   }, [saveStatus || dispatch]);
-
-
-
 
   //?COLUMNS
   const [viewCol, setViewCol] = useState<ViewResourceProps>({
@@ -91,18 +88,25 @@ export default function Resources() {
   const [editedData, setEditedData] = useState<Partial<ResourceProps>>({});
   const [filePublicId, setFilePublicId] = useState("");
   const handleEdit = (id: string): void => {
-    const updateSelectedRows = new Set(selectedRows);
-    if (updateSelectedRows.has(id)) {
-      updateSelectedRows.delete(id);
+    if (selectedRows.has(id)) {
+      setSelectedRows(new Set()); 
     } else {
-      updateSelectedRows.add(id);
+      setSelectedRows(new Set([id])); 
     }
-    setSelectedRows(updateSelectedRows);
     setEditing(false);
   };
+  
+ 
   const editResource = () => {
-    setSaveStatus(false)
-    setEditing(!editing);
+    setSaveStatus(false);
+    
+    if (selectedRows.size === 1) {
+      const id = Array.from(selectedRows)[0];
+      const selectedResource = data.find((resource) => resource._id === id);
+      if (selectedResource) {
+        handleOpenModal(selectedResource);
+      }
+    }
   };
   const handleChange = (
     e: React.ChangeEvent<
@@ -110,17 +114,18 @@ export default function Resources() {
     >
   ) => {
     const { name, value } = e.target;
-    setSaveStatus(false)
+    setSaveStatus(false);
 
     setEditedData({
       ...editedData,
       [name]: value,
     });
-
   };
-  const handleSave = async (arrayProps: string[]) => {
+  const handleSave = async (arrayProps: string | string[]) => {
     try {
-      arrayProps.forEach(async (id: string) => {
+
+      const propsArray = Array.isArray(arrayProps) ? arrayProps : [arrayProps];
+      propsArray.forEach(async (id: string) => {
         const endPoint = `https://linkit-server.onrender.com/posts/update/${id}`;
         await axios.put(endPoint, editedData, {
           headers: {
@@ -130,16 +135,21 @@ export default function Resources() {
         });
       });
     } catch (error: any) {
-      console.error(error.response.data);
-      console.error("Error al enviar la solicitud: ", (error as Error).message);
+      if (error.response) {
+        console.error(error.response.data);
+      } else {
+        console.error("Error al enviar la solicitud: ", error.message);
+      }
     }
+    
     setEditing(false);
     setSaveStatus(!saveStatus);
     setEditedData({});
   };
+
   const setFileName = () => {
-    editedData.title?.concat('image')
-  }
+    editedData.title?.concat("image");
+  };
   //?
 
   const handleCloudinaryChange = (newFilePublicId: string) => {
@@ -151,6 +161,39 @@ export default function Resources() {
     });
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+
+  const [selectedResource, setSelectedResource] =
+    useState<ResourceProps | null>(null);
+
+    const handleOpenModal = (resource: ResourceProps): void => {
+      // Obtener dimensiones de la ventana del navegador
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      console.log(windowHeight, windowWidth)
+    
+      // Verificar si las dimensiones son mayores que 1280x1024
+      if (windowWidth >= 1280 && windowHeight >= 800) {
+        setSelectedResource(resource);
+        setModalOpen(true);
+        setIsEditing(true);
+        setEditing(true);
+      } else {
+        // Mostrar mensaje de alerta utilizando sweetalert
+        swal("¡Atención!", "Esta función no está disponible para dispositivos con una resolución de pantalla de 1280x1024 o inferior.", "warning");
+      }
+    };
+    
+
+  const handleCloseModal = (): void => {
+    loadData()
+    setModalOpen(false);
+    setIsEditing(false);
+    setEditing(false);
+    setSelectedResource(null);
+  };
   //?SECCIONES
   const renderSectionSelect = <K extends keyof ResourceProps>(
     title: string,
@@ -194,6 +237,12 @@ export default function Resources() {
       </div>
     </div>
   );
+
+  const formatDate = (dateString: string): string => {
+    const formattedDate = dateString.slice(0, -5).replace("T", " ");
+    return formattedDate;
+  };
+
   const renderSectionBasicNoEdit = <K extends keyof ResourceProps>(
     title: string,
     key: K
@@ -214,11 +263,11 @@ export default function Resources() {
           >
             <p>
               {String(
-                r[key] === undefined || NaN
+                r[key] === undefined || r[key] === null
                   ? ""
-                  : r[key] && r[key] === "social"
-                    ? "evento"
-                    : r[key]
+                  : key === "createdDate"
+                  ? formatDate(r[key] as string)
+                  : r[key]
               )}
             </p>
           </div>
@@ -231,7 +280,7 @@ export default function Resources() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-10 border-b-2 border-r-2  w-40 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -240,8 +289,8 @@ export default function Resources() {
             key={`${key}-${index}`}
             className={
               selectedRows.has(r._id)
-                ? "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
-                : " capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                ? "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-40 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : " capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-40 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
             <p>
@@ -249,8 +298,8 @@ export default function Resources() {
                 r[key] === undefined || NaN
                   ? ""
                   : r[key] && r[key] === "social"
-                    ? "evento"
-                    : r[key]
+                  ? "evento"
+                  : r[key]
               )}
             </p>
           </div>
@@ -312,8 +361,7 @@ export default function Resources() {
                 : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
-            {key === 'image' && selectedRows.has(r._id) && editing
-              ?
+            {key === "image" && selectedRows.has(r._id) && editing ? (
               <div className="flex justify-center">
                 <input
                   name={key}
@@ -327,15 +375,16 @@ export default function Resources() {
                   setFilePublicId={handleCloudinaryChange}
                   className="ml-2"
                 >
-                  <img className="w-6" src="/Vectores/upload-circle.svg" alt="Upload image" />
+                  <img
+                    className="w-6"
+                    src="/Vectores/upload-circle.svg"
+                    alt="Upload image"
+                  />
                 </CloudinaryUploadWidget>
               </div>
-              :
-              (
-                String(r[key] === undefined || NaN ? "" : r[key])
-              )
-            }
-
+            ) : (
+              String(r[key] === undefined || NaN ? "" : r[key])
+            )}
           </div>
         ))}
       </div>
@@ -347,7 +396,7 @@ export default function Resources() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-10 border-b-2 border-r-2  w-40 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -356,8 +405,8 @@ export default function Resources() {
             key={`${key}-${index}`}
             className={
               selectedRows.has(r._id)
-                ? "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
-                : "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                ? "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-40 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "capitalize pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-40 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
             <p>
@@ -385,7 +434,7 @@ export default function Resources() {
     key: K
   ) => (
     <div>
-      <div className="flex flex-row whitespace-nowrap px-20 border-b-2 border-r-2  w-80 border-linkIt-200">
+      <div className="flex flex-row whitespace-nowrap px-10 border-b-2 border-r-2  w-36 border-linkIt-200">
         <h1>{title}</h1>
       </div>
       <div>
@@ -394,8 +443,8 @@ export default function Resources() {
             key={`${key}-${index}`}
             className={
               selectedRows.has(r._id)
-                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 bg-linkIt-300 justify-center items-center"
-                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-80 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
+                ? "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-36 line-clamp-1 bg-linkIt-300 justify-center items-center"
+                : "pl-3 pr-3 pt-1 overflow-hidden overflow-ellipsis h-8 w-36 line-clamp-1 border-b-2 border-r-2 border-linkIt-50 justify-center items-center"
             }
           >
             <p>{String(r[key] === true ? "Inactivo" : "Activo")}</p>
@@ -448,6 +497,12 @@ export default function Resources() {
           Siguiente
         </button>
       </div>
+      <ModalEditResources
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        resource={selectedResource}
+        isEditing={isEditing}
+      />
     </div>
   );
 }
