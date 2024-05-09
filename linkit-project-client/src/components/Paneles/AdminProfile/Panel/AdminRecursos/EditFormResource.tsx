@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { IUser } from "../../../../Profiles/types";
 import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
 import JoditEditor from "jodit-react";
-import HTMLReactParser from "html-react-parser";
 import { Textarea } from "flowbite-react";
 
 export type stateProps = {
@@ -231,7 +230,6 @@ export default function EditFormResource({
         },
       });
       if (response.status === 200) {
-        console.log("se hizo un submit");
         setSaveStatus(true);
         swal(
           "¡Guardado!",
@@ -250,16 +248,10 @@ export default function EditFormResource({
     }
   };
 
-  const extractPlainText = (html:any) => {
-    const temp = document.createElement("div");
-    temp.innerHTML = html;
-    return temp.textContent || temp.innerText || "";
-  };
 
   //Rich Text Area WYSIWYG Jodit
   const editor = useRef(null);
 
-  //console.log(JSON.stringify(editedProperties, null, 2));
 
   return (
     <div className=" p-26 top-0 left-0 w-full z-50 overflow-y-auto">

@@ -169,19 +169,16 @@ export default function Resources() {
     useState<ResourceProps | null>(null);
 
     const handleOpenModal = (resource: ResourceProps): void => {
-      // Obtener dimensiones de la ventana del navegador
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
-      console.log(windowHeight, windowWidth)
+     
     
-      // Verificar si las dimensiones son mayores que 1280x1024
       if (windowWidth >= 1280 && windowHeight >= 800) {
         setSelectedResource(resource);
         setModalOpen(true);
         setIsEditing(true);
         setEditing(true);
       } else {
-        // Mostrar mensaje de alerta utilizando sweetalert
         swal("¡Atención!", "Esta función no está disponible para dispositivos con una resolución de pantalla de 1280x1024 o inferior.", "warning");
       }
     };

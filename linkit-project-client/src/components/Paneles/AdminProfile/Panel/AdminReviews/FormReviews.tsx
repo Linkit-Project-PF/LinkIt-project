@@ -36,7 +36,6 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
         detail: "",
         createdBy: user.firstName.concat(user.lastName),
     });
-    console.log(information)
 
     const [errors, setErrors] = useState({
         name: "",
@@ -44,7 +43,7 @@ export default function FormReview({ onClose, setSaveStatus }: FormReviewProps) 
         detail: "",
     });
 
-    // console.log(errors)
+
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

@@ -103,15 +103,14 @@ export default function FormResource({
     let value = "";
 
     if (typeof e === "string") {
-      name = "body"; // Si es una cadena de texto, asumimos que es el valor del campo 'body'
-      value = e; // Asignamos el valor directamente
+      name = "body"; 
+      value = e; 
     } else {
-      // Si es un evento, obtenemos el nombre y el valor del evento
+      
       name = e.target.name;
       value = e.target.value;
     }
 
-    // Actualizamos el estado 'infoList' con el nuevo valor
     setInfoList((previusInfoList) => ({
       ...previusInfoList,
       [name]: value,

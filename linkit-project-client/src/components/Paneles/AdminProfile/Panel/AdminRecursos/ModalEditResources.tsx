@@ -23,14 +23,13 @@ const ModalEditResources: React.FC<ModalEditResourcesProps> = ({
     Partial<ResourceProps>
   >({});
   const [showPreview, setShowPreview] = useState(false);
-  const [resetKey, setResetKey] = useState<number>(0); // Estado para reiniciar la información
-
+  const [resetKey, setResetKey] = useState<number>(0); 
   useEffect(() => {
-    // Resetea la información cuando se cierra el modal
+  
     if (!isOpen) {
       setEditedProperties({});
       setShowPreview(false);
-      setResetKey(prevKey => prevKey + 1); // Incrementa la clave de reinicio
+      setResetKey(prevKey => prevKey + 1);
     }
   }, [isOpen]);
 
@@ -80,7 +79,7 @@ const ModalEditResources: React.FC<ModalEditResourcesProps> = ({
               />
             </div>
             <div className="w-full md:w-1/2 p-1">
-              <div key={resetKey}></div> {/* Utiliza resetKey como clave para reiniciar la información */}
+              <div key={resetKey}></div>
               {showPreview ? (
                 <PreviewBlogInfo
                   title={editedProperties.title || resource?.title}
