@@ -42,7 +42,7 @@ const JobCards: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex w-full h-full items-center justify-center my-[5%]">
+    <div className="flex w-full h-full items-center justify-center mb-16">
       <button onClick={handlePrev} className="">
         <img
           src={whiteArrow}
@@ -67,7 +67,7 @@ const JobCards: FunctionComponent = () => {
         ) : (
           <div
             className={`${
-              jobOffers.length > 3 ? "grid-rows-3" : "grid-rows-1"
+              jobOffers.length > 3 ? "grid-rows-2" : "grid-rows-1"
             } grid grid-cols-3 gap-[3%]`}
           >
             {jobOffersToShow.map((jobDescription) => (
