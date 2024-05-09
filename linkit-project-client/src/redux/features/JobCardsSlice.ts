@@ -37,7 +37,6 @@ const JobCardSlice = createSlice({
             state.filterJobOffers = action.payload;
             state.sortJobOffers = action.payload;
             state.sortValues.sortView = 'All'
-            console.log("set jobs", action.payload)
         },
 
         setSearchJobOffers: (state, action) => {
