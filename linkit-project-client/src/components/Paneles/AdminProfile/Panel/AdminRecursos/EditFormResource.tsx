@@ -37,7 +37,7 @@ export default function EditFormResource({
   const user = useSelector((state: stateProps) => state.Authentication.user);
   //const { t } = useTranslation();
   const [filePublicId, setFilePublicId] = useState("");
-  const [filePublicIdSect, setFilePublicIdSect] = useState("");
+  const [filePublicIdSect] = useState("");
   const token = useSelector((state: any) => state.Authentication.token);
 
   const [originalImageUrl, setOriginalImageUrl] = useState("");
