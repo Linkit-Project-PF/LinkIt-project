@@ -19,6 +19,7 @@ interface IComponentProps {
   onUploadSuccess?: (value: string) => void;
   setReload?: (value: boolean) => void;
   className?: string;
+  setInformationImage?: any;
 }
 
 // Create a context to manage the script loading state
@@ -44,6 +45,7 @@ function CloudinaryUploadWidget({
   setFileName,
   className,
   setReload,
+  setInformationImage
 }: IComponentProps) {
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation();
@@ -67,6 +69,7 @@ function CloudinaryUploadWidget({
               updateLink(result.info.secure_url);
             }
             setFilePublicId && setFilePublicId(result.info.public_id);
+            setInformationImage(result.info.public_id)
             setCv &&
             setCv({
               fileName: `${result.info.original_filename}.${result.info.format}`,
