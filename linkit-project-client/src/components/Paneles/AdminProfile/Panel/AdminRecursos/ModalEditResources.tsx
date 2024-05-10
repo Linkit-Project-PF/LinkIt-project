@@ -44,6 +44,7 @@ const ModalEditResources: React.FC<ModalEditResourcesProps> = ({
   const closePreview = () => {
     setShowPreview(false);
   };
+  
 
   return (
     <>

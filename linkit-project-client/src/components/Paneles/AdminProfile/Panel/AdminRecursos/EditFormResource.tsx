@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 import { Header, ResourceProps } from "../../../admin.types";
-//import { useTranslation } from "react-i18next";
 import { validations } from "./Validation";
 import { useSelector } from "react-redux";
 import { IUser } from "../../../../Profiles/types";
@@ -113,6 +112,7 @@ export default function EditFormResource({
     headers: [],
   });
 
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -198,9 +198,17 @@ export default function EditFormResource({
 
   const setFileName = () => {
     information.title?.concat("image");
+    
   };
   const [isUpdate, setIsUpdate] = useState(false);
 
+  const setInformationImage = (newImage: string) => {
+    const updatedInformation = {
+      ...information,
+      image: newImage,
+    };
+    updateEditedProperties(updatedInformation);
+  };
 
   const updateLink = (newLink: string) => {
     setInformation((prevInformation) => ({
@@ -238,6 +246,7 @@ export default function EditFormResource({
         );
       } else {
         swal("¡Error!", "Hubo un problema al guardar los cambios", "error");
+        
       }
     } catch (error: any) {
       if (error.response) {
@@ -363,6 +372,7 @@ export default function EditFormResource({
         <div>
           <label>Imagen</label>
           <CloudinaryUploadWidget
+            setInformationImage={setInformationImage}
             setFileName={setFileName}
             setFilePublicId={setFilePublicId}
             updateLink={updateLink}
