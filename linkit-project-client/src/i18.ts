@@ -19,6 +19,11 @@ export const i18nOptions: InitOptions = {
         "Contrata y gestiona al mejor talento de manera global": "Hire and manage the best talent globally",
         "Vacantes disponibles": "Available vacancies",
         "Leer reseñas": "Read reviews",
+        "Impulsa tu carrera":"Boost your career",
+        "en IT con los mejores":"in IT with the best",
+        "tips y recursos!":"tips and resources!",
+        "Blogs, ebooks y webinars para crecer como profesional en el mundo tech." : "Blogs, ebooks, and webinars to grow as a professional in the tech world.",
+        "Suscríbete al newsletter" : "Subscribe to the newsletter.",
         //Home module B
         "Reclutamiento y selección": "Recruitment and selection",
         "Identificamos a profesionales con el stack, habilidades y experiencia adecuada para tus proyectos y así lograr construir un equipo de alto desempeño.": "We identify professionals with the appropriate stack, skills and experience for your projects and thus build a high-performance team.",
