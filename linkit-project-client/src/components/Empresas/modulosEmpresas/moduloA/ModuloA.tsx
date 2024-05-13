@@ -24,8 +24,8 @@ export default function ModuloA() {
   }
 
   return (
-    <div className="grid grid-cols-2 h-fit w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white  pt-[17vh] lg:pt-[17vh]">
-       <div className="space-y-[5%] p-[7%]">
+    <div className="grid grid-cols-2 h-fit w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white  pt-[17vh] lg:pt-[19vh]">
+       <div className="space-y-[5%] p-[9%]">
         <h2 className="font-bold font-manrope xs:text-[1.3rem] ssm:text-[1.8rem] sm:text-[2rem] md:text-[2.3rem] w-[150%] ssm:w-[130%] sm:w-[115%] lg:w-[130%] lg:text-[3rem] xl:text-[3.5rem] xl:w-[112%] 2xl:text-[5rem] leading-tight ">{t('Contrata y escala')} {t('con el mejor talento IT')} {t('en tan solo 5 días!')}</h2>
           <h3 className="ont-monserrat text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%]  lg:w-[90%] xl:w-[85%] leading-tight">{t('Escala, gestiona y retiene al mejor')} {t('talento del mundo.')}</h3>
           <div className="">
@@ -36,7 +36,7 @@ export default function ModuloA() {
           <span className="font-monserrat text-[0.6rem] lg:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 en Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></span>
           </div>
           </div>
-          <img className="relative self-end content-end w-[90%] left-[15%] xs:left-[30%] xs:w-[80%] ssm:w-[90%] ssm:bottom-0 ssm:left-[15%] lg:top-10 lg:w-[85%] lg:left-[16%]" src="/Vectores/linkit-slider-empresa.png" alt="Businessman" />
+          <img className="relative self-end content-end w-[90%] left-[15%] xs:left-[15%] xs:w-[85%] ssm:w-[90%] ssm:bottom-0 ssm:left-[7%] lg:top-0 lg:w-[85%] lg:left-[7%]" src="/Vectores/linkit-slider-empresa.png" alt="Businessman" />
 
     </div>
   )
