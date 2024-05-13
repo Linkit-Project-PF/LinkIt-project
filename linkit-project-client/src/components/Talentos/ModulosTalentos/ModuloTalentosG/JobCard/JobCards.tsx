@@ -36,13 +36,15 @@ const JobCards: FunctionComponent = () => {
     fetchedJobOffers();
   }, []);
 
+
   const jobOffersToShow = jobOffers.slice(
     current * jobsPerPage,
     (current + 1) * jobsPerPage
   );
 
+
   return (
-    <div className="flex w-full h-full items-center justify-center mb-16">
+    <div className="flex w-full items-center justify-center mb-16 h-max">
       <button onClick={handlePrev} className="">
         <img
           src={whiteArrow}
@@ -67,12 +69,12 @@ const JobCards: FunctionComponent = () => {
         ) : (
           <div
             className={`${
-              jobOffers.length > 3 ? "grid-rows-2" : "grid-rows-1"
-            } grid grid-cols-3 gap-[3%]`}
+              jobOffers.length > 3 ? "grid-rows-2" : "grid-rows-2"
+            } grid grid-cols-3 gap-x-[2%] gap-y-[10%] h-max`}
           >
-            {jobOffersToShow.map((jobDescription) => (
-              <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
-            ))}
+          {jobOffersToShow.map((jobDescription, index) => (
+            <JobCard key={`card-${jobDescription._id}`} {...jobDescription} index={index} current={current}/>
+          ))}
           </div>
         )}
       </div>

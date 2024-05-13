@@ -6,12 +6,12 @@ import { useTranslation } from "react-i18next";
 export default function ModuloTalentosG() {
   const {t} = useTranslation();
   return (
-    <div className="bg-linkIt-200 p-[7%] justify-center dark:bg-linkIt-400 overflow-hidden">
+    <div className="bg-linkIt-200 p-[7%] justify-center dark:bg-linkIt-400 overflow-hidden h-max">
       <h3 className="titles-size text-center justify-center font-manrope font-bold text-white">{t('Vacantes disponibles')}</h3>
         <div>
         <JobFilters/>
         </div>
-        <div className="hidden lg:block w-full">
+        <div className="hidden lg:block w-full h-max">
         <JobCards/>
         </div>
         <div className="lg:hidden">
