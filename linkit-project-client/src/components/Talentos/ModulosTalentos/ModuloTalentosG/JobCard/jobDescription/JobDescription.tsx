@@ -46,6 +46,7 @@ function JobDescription() {
 
   useEffect(() => {
     const fetchJob = async () => {
+      if(!loading) isLoading(true)
       try {
         const response = await axios.get(
           `https://linkit-server.onrender.com/jds/find?code=${id}`,
