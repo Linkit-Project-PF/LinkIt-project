@@ -44,7 +44,7 @@ const JobCards: FunctionComponent = () => {
 
 
   return (
-    <div className="flex w-full items-center justify-center mb-16 h-max">
+    <div className="flex w-full items-center justify-center mb-20 h-max">
       <button onClick={handlePrev} className="">
         <img
           src={whiteArrow}
