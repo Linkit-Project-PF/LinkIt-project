@@ -57,7 +57,7 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
 
   return (
     <motion.div
-      className="flex  bg-transparent border border-gray-300 rounded-md p-4 w-full h-44"
+      className="flex  bg-transparent border-2 border-gray-300 rounded-md p-4 w-full h-44"
       onClick={handleClick}
       whileHover={{ cursor: "pointer" }}
       ref={bigContainer}
