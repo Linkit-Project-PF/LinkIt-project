@@ -1,108 +1,108 @@
-import { FunctionComponent, useEffect } from "react";
-interface renderizarElementosProps {
+import React, { FunctionComponent, useEffect, useState, useRef } from "react";
+
+interface RenderizarElementosProps {
   stack: string[];
   index: number;
   bigContainer: React.RefObject<HTMLDivElement>;
-  current:number
+  current: number;
 }
 
-const RenderizarStack: FunctionComponent<renderizarElementosProps> = ({
+const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
   stack,
   index,
   bigContainer,
-  current
-
+  current,
 }) => {
-  const deleteElements = (anchoTotal : number, bigContainerWidth:number, indexElemento:number, elementoP:HTMLElement):void=>{
+  const [elementsRendered, setElementsRendered] = useState(false);
+  const elementoContenedorRef = useRef<HTMLDivElement>(null);
+
+  const deleteElements = (
+    anchoTotal: number,
+    bigContainerWidth: number,
+    indexElemento: number,
+    elementoP: HTMLElement
+  ): void => {
     if (anchoTotal >= bigContainerWidth * 0.8) {
       const elementoAEliminar = document.getElementById(
         `stack-${index}-index-${indexElemento}`
       );
-      if(elementoAEliminar?.offsetWidth) anchoTotal = anchoTotal - elementoAEliminar?.offsetWidth
-      elementoAEliminar?.remove()
+      if (elementoAEliminar?.offsetWidth) {
+        anchoTotal -= elementoAEliminar.offsetWidth;
+      }
+      elementoAEliminar?.remove();
       const remaininigOneMoreElement = `${stack.length - indexElemento} +`;
-      elementoP.textContent = remaininigOneMoreElement
-      deleteElements(anchoTotal,bigContainerWidth, indexElemento-1, elementoP)
-    }else{
-      return
+      elementoP.textContent = remaininigOneMoreElement;
+      deleteElements(anchoTotal, bigContainerWidth, indexElemento - 1, elementoP);
     }
-  }
-  const addElements= ()=>{
-    const elementoContenedor = document.getElementById(`stacks-divs${index}`);
-    if (elementoContenedor && bigContainer.current !== null && bigContainer.current.offsetWidth > 0) {
+  };
+
+  const addElements = () => {
+    const elementoContenedor = elementoContenedorRef.current;
+    if (
+      elementoContenedor &&
+      bigContainer.current !== null &&
+      bigContainer.current.offsetWidth > 0
+    ) {
       elementoContenedor.style.display = "flex";
-      let anchoTotal = 0;
+      elementoContenedor.innerHTML = ''; // Limpiar elementos previos
 
       for (const [indexElemento, elemento] of stack.entries()) {
         const elementoDiv = document.createElement("div");
         elementoDiv.id = `stack-${index}-index-${indexElemento}`;
         const elementoP = document.createElement("p");
-        elementoP.textContent =
-        elemento[0].toUpperCase() + elemento.substring(1);
-        elementoP.classList.add("text-[0.5rem]");
-        elementoP.classList.add("ssm:text-[0.8rem]");
-        elementoP.classList.add("sm:text-[1rem]");
-        elementoP.classList.add("lg:text-[0.8rem]");
-        elementoP.classList.add("xl:text-[1rem]");
-        elementoP.classList.add("text-[#1D3750]");
-        elementoP.classList.add("w-full");
-        elementoDiv.classList.add("mt-3");
-        elementoDiv.classList.add("mr-2");
-        elementoDiv.classList.add("mt-3");
-        elementoDiv.classList.add("h-5");
-        elementoDiv.classList.add("w-fit");
-        elementoDiv.classList.add("px-2");
-        elementoDiv.classList.add("py-1");
-        elementoDiv.classList.add("flex");
-        elementoDiv.classList.add("items-center");
-        elementoDiv.classList.add("rounded-lg");
-        elementoDiv.classList.add("bg-[#FEFFFE]");
+        elementoP.textContent = elemento[0].toUpperCase() + elemento.substring(1);
+        elementoP.className = "text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
+        elementoDiv.className = "mt-3 mr-2 w-fit px-2 py-1 flex items-center rounded-lg bg-[#FEFFFE]";
 
         elementoDiv.appendChild(elementoP);
         elementoContenedor.appendChild(elementoDiv);
+      }
+      
+      // Set state to trigger re-render
+      setElementsRendered(true);
+    }
+  };
 
-        const anchoElementoDiv = elementoDiv.offsetWidth;
-        anchoTotal += anchoElementoDiv;
+  useEffect(() => {
+    addElements();
+    const resizeObserver = new ResizeObserver(() => addElements());
+    bigContainer.current && resizeObserver.observe(bigContainer.current);
+    return () => {
+      bigContainer.current && resizeObserver.unobserve(bigContainer.current);
+    };
+  }, [current]);
 
-        if (anchoTotal >= bigContainer.current.offsetWidth * 0.9) {
-          const lastDiv = document.createElement("div");
-          const elementoP = document.createElement("p");
-          const remaininigElements = `${stack.length - indexElemento} +`;
-          elementoP.textContent = remaininigElements;
-          elementoP.classList.add("text-[0.5rem]");
-          elementoP.classList.add("ssm:text-[0.8rem]");
-          elementoP.classList.add("sm:text-[1rem]");
-          elementoP.classList.add("lg:text-[0.8rem]");
-          elementoP.classList.add("xl:text-[1rem]");
-          elementoP.classList.add("text-[#1D3750]");
-          elementoP.classList.add("w-full");
-          lastDiv.classList.add("mr-2");
-          lastDiv.classList.add("mt-3");
-          lastDiv.classList.add("h-5");
-          lastDiv.classList.add("w-fit");
-          lastDiv.classList.add("px-2");
-          lastDiv.classList.add("py-1");
-          lastDiv.classList.add("flex");
-          lastDiv.classList.add("items-center");
-          lastDiv.classList.add("rounded-lg");
-          lastDiv.classList.add("bg-[#FEFFFE]");
-
-          lastDiv.appendChild(elementoP);
-          elementoContenedor.appendChild(lastDiv);
-          const anchoElementoDiv = lastDiv.offsetWidth;
+  useEffect(() => {
+    if (elementsRendered) {
+      const elementoContenedor = elementoContenedorRef.current;
+      if (elementoContenedor && bigContainer.current) {
+        let anchoTotal = 0;
+        const children = Array.from(elementoContenedor.children);
+        for (const [indexElemento, child] of children.entries()) {
+          const anchoElementoDiv = (child as HTMLElement).offsetWidth;
           anchoTotal += anchoElementoDiv;
-          deleteElements(anchoTotal, bigContainer.current.offsetWidth, indexElemento, elementoP)
-          break;
+
+          if (anchoTotal >= bigContainer.current.offsetWidth * 0.9) {
+            const lastDiv = document.createElement("div");
+            const lastP = document.createElement("p");
+            const remainingElements = `${stack.length - indexElemento - 1} +`;
+            lastP.textContent = remainingElements;
+            lastP.className = "text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
+            lastDiv.className = "mr-2 mt-3 h-5 w-fit px-2 py-1 flex items-center rounded-lg bg-[#FEFFFE]";
+
+            lastDiv.appendChild(lastP);
+            elementoContenedor.appendChild(lastDiv);
+            const lastDivWidth = lastDiv.offsetWidth;
+            anchoTotal += lastDivWidth;
+            deleteElements(anchoTotal, bigContainer.current.offsetWidth, indexElemento, lastP);
+            break;
+          }
         }
       }
     }
-  }
+  }, [elementsRendered]);
 
-  useEffect(() => {
-addElements()
-  }, [current]);
-
-  return <div className="flex flex-row"  id={`stacks-divs${index}`}></div>;
+  return <div className="flex flex-row w-full" id={`stacks-divs${index}`} ref={elementoContenedorRef}></div>;
 };
 
 export default RenderizarStack;

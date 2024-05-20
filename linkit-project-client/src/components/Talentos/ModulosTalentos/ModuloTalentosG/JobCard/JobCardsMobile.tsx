@@ -45,7 +45,7 @@ const JobCardsMobile: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex h-full items-center justify-center my-[5%]">
+    <div className="flex h-max items-center justify-center my-[5%]">
       <button onClick={handlePrev} className="">
         <img
           src={whiteArrow}
@@ -53,7 +53,7 @@ const JobCardsMobile: FunctionComponent = () => {
           className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer"
         />
       </button>
-      <div className="justify-center items-center w-full">
+      <div className="mx-[5%] justify-center items-center w-full">
         {jobOffers.length === 0 ? (
           <div className="flex flex-row justify-center items-center content-center my-[10%] mx-2 text-white">
             <motion.p
@@ -68,9 +68,9 @@ const JobCardsMobile: FunctionComponent = () => {
             </motion.p>
           </div>
         ) : (
-          <div className="mx-[5%] grid gap-[3%]">
-            {jobOffersToShow.map((jobDescription) => (
-              <JobCard key={`card-${jobDescription._id}`} {...jobDescription} />
+          <div className="mx-[5%] grid gap-[3%] mb-10">
+            {jobOffersToShow.map((jobDescription, index) => (
+              <JobCard key={`card-${jobDescription._id}`} {...jobDescription} index={index} current={current}/>
             ))}
           </div>
         )}
