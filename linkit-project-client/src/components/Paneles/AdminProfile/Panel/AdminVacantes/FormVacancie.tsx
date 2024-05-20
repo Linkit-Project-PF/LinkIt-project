@@ -13,6 +13,10 @@ import { stateProps } from "./Vacancies2";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import JoditEditor from "jodit-react";
 import "./FormVacancie.css";
+interface AirtableEntry {
+  Client: string;
+  "Talent Pool Stack": (string | undefined)[];
+}
 
 type OnCloseFunction = () => void;
 
@@ -41,12 +45,13 @@ export default function FormVacancie({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [companyNames, setCompanyNames] = useState<string[]>([]);
+  const [technologiesNames, setTechnologiesNames] = useState<string[]>([]);
   const [countries, setCountries] = useState([]);
   const editor = useRef(null);
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",
-    description:"",
+    description: "",
     type: "",
     location: "",
     modality: "",
@@ -89,13 +94,68 @@ export default function FormVacancie({
     (state: stateProps) => state.jobCard.allJobOffers
   );
 
+  const technologiesRightNames = (arr: string[]) => {
+    const technologiesNoChange = [
+      "IOS",
+      "UX/UI",
+      "HTML",
+      "CSS",
+      "SQL",
+      "BI",
+      "PM",
+      "CI/CD",
+      "CITRIX",
+      "PCI",
+      "GCP",
+      "AEM",
+      "CRM",
+      "AWS",
+      "PHP"
+    ];
+    return arr.map((t: string) => {
+      if (t === t.toUpperCase()) {
+        const correctNames = t.split(" ").map((n) => {
+          if (technologiesNoChange.includes(n)) return n;
+          else {
+            let firstLetterFinded = false;
+            const correctName = n.split("").map((l) => {
+              if (!/^[a-zA-Z]+$/.test(l)) return l;
+              else {
+                if (!firstLetterFinded) {
+                  firstLetterFinded = true;
+                  return l.toUpperCase();
+                } else return l.toLowerCase();
+              }
+            });
+            const correctNameString = correctName.toString()
+            return correctNameString.replace(/,/g, "")
+          }
+        });
+        const combinedString:string = correctNames.reduce((accumulator:string, currentValue:string) => {
+          return accumulator + " " + currentValue;
+      }, "");
+        return combinedString.trim()
+      }
+     else return t
+    });
+  };
+
   useEffect(() => {
     const fetchAirtableData = async () => {
-      const { data } = await axios.get(
+      const { data } = await axios.get<AirtableEntry[]>(
         "https://linkit-server.onrender.com/resources/companyjds"
       );
       const allCompanies: string[] = [];
       const companies = data.map((entry: any) => entry.Client);
+      const technologies: string[] = [
+        ...new Set(
+          data
+            .map((entry: any) => entry["Talent Pool Stack"])
+            .flat()
+            .filter((t: undefined|string) => typeof t === "string")
+        ),
+      ];
+      setTechnologiesNames(technologiesRightNames(technologies));
       companies.forEach((comp: string) => {
         if (!allCompanies.includes(comp)) allCompanies.push(comp);
       });
@@ -196,8 +256,6 @@ export default function FormVacancie({
     const stringProps = ["description", "aboutUs", "aboutClient"];
     if (typeof e === "string") {
       name = inputName ? inputName : "";
-      console.log(name);
-      console.log(e);
       value = e;
       if (arrayProps.includes(name))
         setInformation((prevInformation) => ({
@@ -289,12 +347,14 @@ export default function FormVacancie({
       setInformation({
         code: "",
         title: "",
-        description: "Hola! Estamos buscando un increíble Sr Full Stack Developer para unirse al equipo de nuestro cliente. ¿Tenés interés en nuevos desafíos, el trabajo en equipo y buscas disfrutar el camino? ¡No dejes de contactarte!",
+        description:
+          "Hola! Estamos buscando un increíble Sr Full Stack Developer para unirse al equipo de nuestro cliente. ¿Tenés interés en nuevos desafíos, el trabajo en equipo y buscas disfrutar el camino? ¡No dejes de contactarte!",
         type: "",
         location: "",
         modality: "",
         stack: [],
-        aboutUs: "Somos LinkIT, una consultora de selección de personal. Buscamos brindar oportunidades, conectar y colaborar con el talento de LATAM hacia todo el mundo.",
+        aboutUs:
+          "Somos LinkIT, una consultora de selección de personal. Buscamos brindar oportunidades, conectar y colaborar con el talento de LATAM hacia todo el mundo.",
         aboutClient: "",
         responsabilities: [],
         requirements: [],
@@ -328,7 +388,6 @@ export default function FormVacancie({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationError = validations(information as VacancyProps);
-    console.log(validationError);
     setErrors(validationError);
     try {
       validateVacancy(information as VacancyProps);
@@ -371,7 +430,6 @@ export default function FormVacancie({
       setSaveStatus(true);
       return response.data;
     } catch (error) {
-      console.log(error);
       console.error((error as Error).message);
       throw new ValidationError(
         `${t("Error al ingresar los datos en el formulario")}: ${
@@ -397,7 +455,6 @@ export default function FormVacancie({
         },
       });
     } catch (error: any) {
-      console.error(error.response.data);
       console.error(
         t("Error al enviar la solicitud: "),
         (error as Error).message
@@ -613,7 +670,13 @@ export default function FormVacancie({
                 onKeyDown={addToList}
                 onBlur={errors.stack ? handleBlurErrors : addToListBlur}
                 onClick={handleInputClick}
+                list="technology-list"
               />
+               <datalist id="technology-list">
+                {technologiesNames.map((comp) => (
+                  <option value={comp}></option>
+                ))}
+              </datalist>
               {infoList && infoList.stack && infoList.stack.length > 0 ? (
                 <div className="mx-4">
                   <h3 className="text-xs font-bold text-linkIt-200">
