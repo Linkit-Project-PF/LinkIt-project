@@ -72,7 +72,7 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
           id={`medium-container-${index}`}
         >
           <div className="mt-3 h-5 w-fit px-3 py-1 flex items-center rounded-lg bg-linkIt-300">
-            <p className="text-white  text-[0.5rem] ssm:text-[0.6rem] sm:text-[0.8rem] lg:text-[0.6rem] xl:text-[0.8rem]">
+            <p className="text-white  text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem]">
               {`${type}`}
             </p>
           </div>

@@ -39,6 +39,11 @@ const RenderizarStack: FunctionComponent<renderizarElementosProps> = ({
         const elementoP = document.createElement("p");
         elementoP.textContent =
         elemento[0].toUpperCase() + elemento.substring(1);
+        elementoP.classList.add("text-[0.5rem]");
+        elementoP.classList.add("ssm:text-[0.8rem]");
+        elementoP.classList.add("sm:text-[1rem]");
+        elementoP.classList.add("lg:text-[0.8rem]");
+        elementoP.classList.add("xl:text-[1rem]");
         elementoP.classList.add("text-[#1D3750]");
         elementoP.classList.add("w-full");
         elementoDiv.classList.add("mt-3");
@@ -64,10 +69,13 @@ const RenderizarStack: FunctionComponent<renderizarElementosProps> = ({
           const elementoP = document.createElement("p");
           const remaininigElements = `${stack.length - indexElemento} +`;
           elementoP.textContent = remaininigElements;
-
+          elementoP.classList.add("text-[0.5rem]");
+          elementoP.classList.add("ssm:text-[0.8rem]");
+          elementoP.classList.add("sm:text-[1rem]");
+          elementoP.classList.add("lg:text-[0.8rem]");
+          elementoP.classList.add("xl:text-[1rem]");
           elementoP.classList.add("text-[#1D3750]");
           elementoP.classList.add("w-full");
-          lastDiv.classList.add("mt-3");
           lastDiv.classList.add("mr-2");
           lastDiv.classList.add("mt-3");
           lastDiv.classList.add("h-5");
