@@ -37,6 +37,7 @@ import Footer from "./Utils/Footer/Footer.tsx";
 import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.tsx";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions.tsx";
+import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
@@ -273,6 +274,7 @@ function App() {
         />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+        <Route path="/Gracias" element={<SuccesfullForm />} />
       </Routes>
       <TopButton />
       <Footer />

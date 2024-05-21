@@ -2,13 +2,13 @@ import { useState } from "react";
 import validations from "./validations";
 import { validateContact } from "./errors/validation";
 import { ValidationError } from "./errors/errors";
-//import { SUPERADMN_ID } from "../../env";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import "./contactUs.css"
 import { contacts } from "./typeContacts";
 import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
@@ -50,7 +50,7 @@ export default function ContactUs() {
       "inlineWrapper": "flex items-center w-full h-fit rounded-md border border-white p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
   };
 const { t } = useTranslation();
-
+const navigate = useNavigate();
 
 
   const [contacts, setContacts] = useState<contacts>({
@@ -136,23 +136,6 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         })
         // console.log(sessionStorage.getItem("langs"))
         if(response.status === 200) {
-          Swal.fire({ 
-            customClass: {
-              confirmButton: 'background-button bg-linkIt-300'
-            },
-            title: t("¡Gracias por contactarnos!"),
-            text: t("Nos estaremos comunicando a la brevedad"),
-            allowOutsideClick: true,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-            showCloseButton: false,
-            showDenyButton: false,
-            showConfirmButton: true,
-            confirmButtonText: t("Confirmar"),
-            timer: 2000,
-            icon: "success"
-          }),
-  
           setContacts({
             firstName: "",
             lastName: "",
@@ -162,6 +145,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             message: "",
           })
         }
+        navigate("/Gracias")
       }
     } catch (error) {
       Swal.fire({ 

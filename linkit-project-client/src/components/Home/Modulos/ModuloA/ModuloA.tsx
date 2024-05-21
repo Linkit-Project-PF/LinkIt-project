@@ -45,7 +45,7 @@ export default function ModuloA() {
         </div>
         <div className="relative flex top-3">
           <img className="w-1/2 lg:w-1/4 " src={isDarkMode ? starsWhite : starsBlue} alt="stars" />
-          <span className="font-monserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2 font-semibold">{t('Leer reseñas')}</Link></span>
+          <span className="font-monserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center">{t('4/5 on Truspilot')} <Link to='https://es.trustpilot.com/review/linkit-hr.com' target="_blank" className="underline ml-2">{t('Leer reseñas')}</Link></span>
         </div>
         </div>
         <img className="2xl:w-[68%] 2xl:ml-36 2xl:mt-12 xl:w-[65%] xl:ml-36 xl:mt-24 xl:mb-2 lg:w-[75%] lg:mt-16 lg:mb-8 lg:ml-[15%] w-full h-auto px-4 xs:mt-8 md:mt-16 md:ml-12 md:w-[80%] md:mb-4 " src="/Vectores/linkit-slider-home.png" alt="computer" />
