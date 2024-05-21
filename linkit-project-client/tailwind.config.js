@@ -29,6 +29,7 @@ module.exports = {
           500: "#EBEDEF",
           600: "#D7DBDF",
           700: "#666666",
+          800: "#e5e7eb",
         },
       },
       fontFamily: {
@@ -41,5 +42,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tw-elements/dist/plugin.cjs"), require("flowbite/plugin")],
+  plugins: [require("tw-elements/dist/plugin.cjs"), require("flowbite/plugin"), require(`tw-elements/dist/plugin`)],
 };
