@@ -22,7 +22,6 @@ type OnCloseFunction = () => void;
 
 interface FormVacancieProps {
   onClose: OnCloseFunction;
-  token: string;
   setSaveStatus: (status: boolean) => void;
   editing?: { isEditing: boolean; vacancieID?: string };
   setEditing: (status: { isEditing: boolean; vacancieID?: string }) => void;
@@ -35,7 +34,6 @@ interface InfoList {
 
 export default function FormVacancie({
   onClose,
-  token,
   setSaveStatus,
   editing,
   setEditing,
@@ -48,6 +46,7 @@ export default function FormVacancie({
   const [technologiesNames, setTechnologiesNames] = useState<string[]>([]);
   const [countries, setCountries] = useState([]);
   const editor = useRef(null);
+  const token = useSelector((state: any) => state.Authentication.token);
   const [information, setInformation] = useState<Partial<VacancyProps>>({
     code: "",
     title: "",

@@ -361,7 +361,6 @@ export default function HeadVacancy({
       {viewForm && (
         <FormVacancie
           onClose={noShowForm}
-          token={token}
           setSaveStatus={setSaveStatus}
           setEditing={setEditing}
           editing={editing}
