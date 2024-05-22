@@ -6,11 +6,25 @@ import ModuloTalentosF from "./ModulosTalentos/ModuloTalentosF/ModuloTalentosF";
 import ModuloTalentosC from "./ModulosTalentos/ModuloTalentosC/ModuloTalentosC";
 import ModuloTalentosG from "./ModulosTalentos/ModuloTalentosG/ModuloTalentosG";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./Talentos.css";
 import Newsletter from "../../Utils/newsletter/newsletter";
 
+
 function Talentos() {
+  const location = useLocation()
+
+  const navigateIntoTalent = (hash:string) => {
+    setTimeout(() => {
+      window.location.href = hash;
+    }, );
+  };
+
+
   useEffect(() => {
+    if(location.pathname === "/SoyTalento" && location.hash) navigateIntoTalent(location.hash)
+
+
     window.scrollTo(0, 0);
   }, []);
   return (
