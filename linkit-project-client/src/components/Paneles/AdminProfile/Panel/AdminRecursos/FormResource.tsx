@@ -9,6 +9,7 @@ import { IUser } from "../../../../Profiles/types";
 import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
 import JoditEditor from "jodit-react";
 import HTMLReactParser from "html-react-parser";
+import Swal from "sweetalert2";
 
 
 export type stateProps = {
@@ -163,6 +164,14 @@ export default function FormResource({
       setSaveStatus(true);
       return response.data;
     } catch (error: any) {
+      Swal.fire({
+        title: "Error",
+        text: error.response.data,
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      });
       throw new Error(t("Error al enviar la solicitud:")).message;
     }
   };
