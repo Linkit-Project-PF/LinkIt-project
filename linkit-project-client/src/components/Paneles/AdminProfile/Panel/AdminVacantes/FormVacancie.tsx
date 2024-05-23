@@ -442,7 +442,7 @@ export default function FormVacancie({
       });
       console.error((error as Error).message);
       throw new ValidationError(
-        `${t("Error al ingresar los datos en el formularioooo" )}: ${
+        `${t("Error al ingresar los datos en el formulario" )}: ${
           (error as Error).message
         }`
       );
