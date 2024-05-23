@@ -13,6 +13,8 @@ import { stateProps } from "./Vacancies2";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import JoditEditor from "jodit-react";
 import "./FormVacancie.css";
+import Swal from "sweetalert2";
+
 interface AirtableEntry {
   Client: string;
   "Talent Pool Stack": (string | undefined)[];
@@ -383,6 +385,7 @@ export default function FormVacancie({
     };
     fetchData();
   }, []);
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -428,10 +431,18 @@ export default function FormVacancie({
       onClose();
       setSaveStatus(true);
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      Swal.fire({
+        title: "Error",
+        text: error.response.data,
+        icon: "error",
+        background: "#ECEEF0",
+        confirmButtonColor: "#01A28B",
+        confirmButtonText: t("Continuar"),
+      });
       console.error((error as Error).message);
       throw new ValidationError(
-        `${t("Error al ingresar los datos en el formulario")}: ${
+        `${t("Error al ingresar los datos en el formulario" )}: ${
           (error as Error).message
         }`
       );
