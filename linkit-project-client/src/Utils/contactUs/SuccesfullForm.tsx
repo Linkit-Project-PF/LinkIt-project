@@ -1,7 +1,29 @@
+import { useEffect } from 'react'; // Asegúrate de importar useEffect
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
+
+declare global {
+  interface Window {
+    dataLayer: {
+      push: (event: any) => void;
+    };
+  }
+}
+
+
 export default function SuccesfullForm() {
+  
+
+  useEffect(() => {
+    if (window.dataLayer) {
+      window.dataLayer.push({ event: 'formularioCompleto' });
+      console.log('Evento "completedForm" enviado a dataLayer');
+    } else {
+      console.warn('window.dataLayer is not defined');
+    }
+  }, []);
+
   const { t } = useTranslation();
   return (
     <div className="bg-linkIt-200 text-white font-montserrat overflow-hidden w-full px-[5%] pt-[11%] pb-[6%] flex justify-center">

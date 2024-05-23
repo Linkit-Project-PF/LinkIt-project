@@ -6,10 +6,15 @@ import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import './i18.ts'
+import "./i18.ts";
+import TagManager from "react-gtm-module";
 
-const persistor = persistStore(store)
+const persistor = persistStore(store);
+const TagManagerArgs = {
+  gtmId: "GTM-NZBXLVTR",
+};
 
+TagManager.initialize(TagManagerArgs);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <PersistGate persistor={persistor}>
