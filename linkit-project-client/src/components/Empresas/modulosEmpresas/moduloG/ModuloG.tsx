@@ -103,6 +103,11 @@ export default function ModuloG() {
         />
 
         <div className={`${isActive === 1 ? "block" : "hidden"}`}>
+        <img
+            src="./Vectores/linkit-empresa_iconos_3.svg"
+            alt="Clock Icon"
+            className="mx-auto mb-6 w-16 h-16"
+          />
           <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
             {t("Hasta 5 días")}
           </h4>
@@ -111,6 +116,11 @@ export default function ModuloG() {
           </p>
         </div>
         <div className={`${isActive === 2 ? "block" : "hidden"}`}>
+        <img
+            src="./Vectores/linkit-empresa_iconos_4.svg"
+            alt="Clock Icon"
+            className="mx-auto mb-6 w-16 h-16"
+          />
           <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
             {t("Más de 50 países")}
           </h4>
@@ -120,6 +130,11 @@ export default function ModuloG() {
           </p>
         </div>
         <div className={`${isActive === 3 ? "block" : "hidden"}`}>
+        <img
+            src="./Vectores/linkit-empresa_iconos_2.svg"
+            alt="Clock Icon"
+            className="mx-auto mb-6 w-16 h-16"
+          />
           <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
             {t("Más de ")} 100
           </h4>
@@ -129,6 +144,11 @@ export default function ModuloG() {
           </p>
         </div>
         <div className={`${isActive === 4 ? "block" : "hidden"}`}>
+        <img
+            src="./Vectores/linkit-empresa_iconos_1.svg"
+            alt="Clock Icon"
+            className="mx-auto mb-6 w-16 h-16"
+          />
           <h4 className="font-semibold mb-1 text-center subtitles-size font-montserrat">
             {t("Más de ")} 10.000
           </h4>
