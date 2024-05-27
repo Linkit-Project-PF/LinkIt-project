@@ -38,6 +38,8 @@ import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.tsx";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions.tsx";
 import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
+import lightIcon from "../public/Vectores/Favicon de prueba ph 48x48.png"
+import darkIcon from "../public/Vectores/FaviconDark.svg"
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
@@ -110,6 +112,33 @@ function App() {
   const pressLoginCompany = useSelector(
     (state: registerLoginState) => state.registerLogin.pressLoginCompany
   );
+
+  //prefers-color-scheme:
+
+  useEffect(() => {
+    console.log("color-scheme-effect")
+    const handleFaviconChange = () => {
+      const favicon = document.getElementById('Favicon') as HTMLLinkElement;
+      if (favicon) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          favicon.href = darkIcon;
+        } else {
+          favicon.href = lightIcon;
+        }
+      }
+    };
+
+    // Initial favicon setup
+    handleFaviconChange();
+
+    // Listen for changes in color scheme preference
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleFaviconChange);
+
+    // Cleanup listener on component unmount
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleFaviconChange);
+    };
+  }, []);
 
   //* GOOGLE ANALYTICS IN PROGRESS
   useEffect(() => {
