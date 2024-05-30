@@ -116,7 +116,6 @@ function App() {
   //prefers-color-scheme:
 
   useEffect(() => {
-    console.log("color-scheme-effect")
     const handleFaviconChange = () => {
       const favicon = document.getElementById('Favicon') as HTMLLinkElement;
       if (favicon) {
