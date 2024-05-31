@@ -49,6 +49,7 @@ const formVariants: Variants = {
 
 function JobForm() {
   const dispatch = useDispatch();
+  const isAPostulation = true
 
   const isFormVisible = useSelector(
     (state: any) => state.application.isFormVisible
@@ -202,7 +203,6 @@ function JobForm() {
         confirmButtonColor: "#01A28B",
       });
       isLoading(false);
-      console.log(error);
     }
   };
 
@@ -455,6 +455,7 @@ function JobForm() {
                       CV<span className=" text-red-400">*</span>
                     </div>
                     <CloudinaryUploadWidget
+                    isAPostulation={isAPostulation}
                       setFilePublicId={setFilePublicId}
                       setFileName={setFileName}
                     >
