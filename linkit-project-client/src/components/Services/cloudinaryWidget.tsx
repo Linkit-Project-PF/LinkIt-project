@@ -70,13 +70,14 @@ function CloudinaryUploadWidget({
             if (updateLink) {
               updateLink(result.info.secure_url);
             }
-            setFilePublicId && setFilePublicId(result.info.public_id);
-            isAPostulation !== true && setInformationImage(result.info.public_id)
             setCv &&
             setCv({
               fileName: `${result.info.original_filename}.${result.info.format}`,
               cloudinaryId: result.info.public_id,
             });
+            setFilePublicId && setFilePublicId(result.info.public_id);
+            isAPostulation !== true && setInformationImage(result.info.public_id)
+            
             setFileName(
               `${result.info.original_filename}.${result.info.format}`
               );
