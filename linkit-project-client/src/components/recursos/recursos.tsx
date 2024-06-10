@@ -19,7 +19,7 @@ export default function Recursos() {
   return (
     <div className="overflow-hidden">
       <section id="moduloA">
-        <div className="lg:hidden flex justify-start w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white  pt-[17vh] ">
+        <div className="lg:hidden flex justify-start w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white  pt-[17vh] min-[750px]:pt-[22vh]">
           <h2 className=" font-bold font-manrope xs:text-[1.1rem] min-[350px]:text-[1.2rem] min-[380px]:text-[1.3rem] min-[410px]:text-[1.4rem] ssm:text-[1.9rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] md:text-[2.7rem] min-[850px]:text-[2.9rem] min-[900px]:text-[3.1rem] min-[950px]:text-[3.2rem] min-[1000px]:text-[3.4rem] w-[85%] leading-tight pl-[3%] ml-4">
             {t("Impulsa tu carrera")} {t("en IT con los mejores")}{" "}
             {t("tips y recursos!")}
