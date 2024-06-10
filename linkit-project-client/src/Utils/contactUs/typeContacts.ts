@@ -3,6 +3,7 @@ export type contacts = {
     lastName: string,
     company: string,
     service: string[],
-    email: string
-    message: string
+    email: string,
+    message: string,
+    web?: string
 }

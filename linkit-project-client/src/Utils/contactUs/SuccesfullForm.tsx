@@ -18,7 +18,6 @@ export default function SuccesfullForm() {
   useEffect(() => {
     if (window.dataLayer) {
       window.dataLayer.push({ event: 'formularioCompleto' });
-      console.log('Evento "completedForm" enviado a dataLayer');
     } else {
       console.warn('window.dataLayer is not defined');
     }
