@@ -7,11 +7,16 @@ export default function validations (contacts: contacts) {
         company: "",
         service: "",
         email: "",
-        message: ""
+        message: "",
+        web: ""
     }
     
     if (contacts.firstName.length === 0) {
         errors.firstName = "Nombre requerido"
+    }
+    if (contacts.web?.length === 0) {
+
+        errors.web = "La Web es requerida"
     }
     if (typeof contacts.firstName !== 'string') {
         errors.firstName = "Nombre inválido"

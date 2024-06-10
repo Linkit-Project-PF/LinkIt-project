@@ -60,6 +60,7 @@ const navigate = useNavigate();
     service: [] as string[],
     email: "",
     message: "",
+    web: "",
   });
 
   const [errors, setErrors] = useState({
@@ -69,6 +70,7 @@ const navigate = useNavigate();
     service: "",
     email: "",
     message: "",
+    web: "",
   });
 
 const handleChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
@@ -143,6 +145,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             service: [] as string[],
             email: "",
             message: "",
+            web: ""
           })
         }
         navigate("/Gracias")
@@ -160,6 +163,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
       throw new ValidationError(`Faltan datos del formulario: ${(error as Error).message}`);
     }
 }
+
   return (
     <div className="bg-linkIt-300 text-white grid lg:flex p-[7%] lg:gap-[10%] dark:bg-linkIt-400">
       <span className="font-bold text-[0.9rem] xs:text-[1.2rem] ssm:text-[1.7rem] sm:text-[1.9rem] md:text-[2.3rem] xl:text-[2.5rem] leading-tight justify-self-center font-manrope">{t('Contáctanos para escalar tu equipo')}</span>
@@ -211,6 +215,12 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
         {errors.email && (
               <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.email}</p>
             )}
+            
+            <div className="flex flex-col mt-2"> 
+              <input className={`${errors.web ? 'border-black' : 'border-white' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Web" name="web" value={contacts.web} onChange={handleChange} onBlur={handleChange}/>
+        {errors.web && (
+              <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.web}</p>
+            )}</div>
             <div className="flex h-full items-end">
         <button className="bg-white text-linkIt-200 font-bold rounded-[7px] p-1 ssm:p-2 xl:p-2.5 w-[50%] ssm:w-[40%] md:w-[30%] items-end disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
           errors.firstName ||
@@ -219,11 +229,13 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
           errors.service ||
           errors.email ||
           errors.message ||
+          errors.web ||
           contacts.firstName === "" ||
           contacts.lastName === "" ||
           contacts.company === "" ||
           contacts.service.length === 0 ||
           contacts.email === "" ||
+          contacts.web === "" ||
           contacts.message === ""
           ? true
           : false
