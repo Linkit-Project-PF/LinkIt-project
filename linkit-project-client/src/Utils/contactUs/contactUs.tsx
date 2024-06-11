@@ -47,7 +47,7 @@ export default function ContactUs() {
         },
         "target": "w-fit bg-transparent border border-white w-full justify-start text-left focus:outline-none text-[0.4rem] ssm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.4rem] xl:text-[1.6rem] 2xl:text-[2rem]"
       },
-      "inlineWrapper": "flex items-center w-full h-fit rounded-md border border-white p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
+      "inlineWrapper": "flex items-center w-full h-fit rounded-md border border-white p-3 ssm:p-2.5 sm:p-2 lg:p-2.5 xl:p-2 2xl:p-1 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]"
   };
 const { t } = useTranslation();
 const navigate = useNavigate();
@@ -211,18 +211,18 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             )}
           
           <div className="flex flex-col">
-        <input className={`${errors.email ? 'border-black' : 'border-white' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
-        {errors.email && (
-              <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.email}</p>
-            )}
-            
-            <div className="flex flex-col mt-2"> 
-              <input className={`${errors.web ? 'border-black' : 'border-white' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Web" name="web" value={contacts.web} onChange={handleChange} onBlur={handleChange}/>
+        <input className={`${errors.web ? 'border-black' : 'border-white' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Web" name="web" value={contacts.web} onChange={handleChange} onBlur={handleChange}/>
         {errors.web && (
               <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.web}</p>
+            )}
+             <div className="flex flex-col mt-2"> 
+              <input className={`${errors.email ? 'border-black' : 'border-white' } border placeholder-white rounded-md bg-transparent text-white outline-none p-2 w-full focus:border-white focus:ring-0 text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]`} type="text" placeholder="Email" name="email" value={contacts.email} onChange={handleChange} onBlur={handleChange}/>
+        {errors.email && (
+              <p className="text-white ml-3 italic text-[0.6rem] ssm:text-[0.9rem] md:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] 2xl:text-[1.3rem]">{errors.email}</p>
             )}</div>
+           
             <div className="flex h-full items-end">
-        <button className="bg-white text-linkIt-200 font-bold rounded-[7px] p-1 ssm:p-2 xl:p-2.5 w-[50%] ssm:w-[40%] md:w-[30%] items-end disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
+        <button className="bg-white text-linkIt-200 font-bold rounded-[7px] p-1 ssm:p-2 xl:mt-2 xs:mt-2 md:mt-2 xl:p-2.5 w-[50%] ssm:w-[40%] md:w-[30%] items-end disabled:cursor-not-allowed disabled:opacity-[0.8]" type="submit" disabled={
           errors.firstName ||
           errors.lastName ||
           errors.company ||
@@ -249,6 +249,7 @@ const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
             )}
         </div>
       </form>
+      
       </div>
   );
 }

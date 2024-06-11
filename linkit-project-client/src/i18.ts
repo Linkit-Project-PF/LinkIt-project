@@ -140,9 +140,10 @@ export const i18nOptions: InitOptions = {
 "En breve nos contactaremos contigo." : "We will contact you shortly.",
 "¡No te olvides de revisar tu correo!" : "Don't forget to check your email!",
 "Volver a Soy Empresa" : "Return to For Company",
-
-
-
+ 
+        //Agendar llamada
+        "Agendar llamada": "Schedule call",
+        "Agenda una llamada con nuestro equipo!":"Schedule a call with our team!",
         //!Login - company
         "Verifica: si te registraste como compañia, debes de iniciar sesión como compañia, si te registraste como talento, inicia sesión como talento. En caso del error persistir contactar con un administrador": "Verify: if you registered as a company, you must log in as a company, if you registered as a talent, log in as a talent. If the error persists, contact an administrator",
         "¡Te damos la bienvenida a LinkIT!": "Welcome to LinkIT!",
