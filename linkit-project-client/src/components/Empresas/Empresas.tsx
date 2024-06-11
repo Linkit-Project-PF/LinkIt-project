@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import './Empresas.css'
 import Calculadora from "./modulosEmpresas/calculadora/calculadora"
 import ContactUs from "../../Utils/contactUs/contactUs"
+import GetInTouch from "../../Utils/contactUs/calendly"
 
 
 function Empresas() {
@@ -38,6 +39,9 @@ function Empresas() {
       </section>
       <section id="contactanosE">
       <ContactUs />
+      </section>
+      <section>
+        <GetInTouch />
       </section>
       </ div>
   )
