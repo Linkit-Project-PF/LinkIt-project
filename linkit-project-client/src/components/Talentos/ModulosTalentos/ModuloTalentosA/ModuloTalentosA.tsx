@@ -5,13 +5,42 @@ import { RootState } from "../../../../redux/types";
 import { useSelector } from "react-redux";
 import starsBlue from "/Vectores/Stars-Trustpilot.svg";
 import starsWhite from "/Vectores/MO-trustpilot.svg";
+import { useState, useEffect } from "react";
+import useWindowWidth from "../../../../Utils/useWindowWidth";
 
 export default function ModuloTalentosA() {
   const { t } = useTranslation();
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
+  const [fixedHeight, setFixedHeight] = useState(0);
+  const windowWidth = useWindowWidth();
+
+  useEffect(() => {
+    const updateFixedHeight = () => {
+      const fixedNavbar = document.getElementById("Navbar");
+      const fixedPreNavbar = document.getElementById("preNavbar");
+
+      if (fixedNavbar && fixedPreNavbar) {
+        setFixedHeight(fixedNavbar.offsetHeight + fixedPreNavbar.offsetHeight);
+      }
+    };
+
+    updateFixedHeight();
+
+    window.addEventListener("resize", updateFixedHeight);
+    return () => {
+      window.removeEventListener("resize", updateFixedHeight);
+    };
+  }, []);
 
   return (
-    <div className="bg-linkIt-500 dark:bg-linkIt-200 dark:text-white h-full pt-[19vh] ssm:pt-[21vh] md:pt-0">
+    <div
+      className={`bg-linkIt-500 dark:bg-linkIt-200  dark:text-white h-full md:pt-0`}
+      style={
+        windowWidth <= 767
+          ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight / 4 }
+          : undefined
+      }
+    >
       <div className="flex justify-center w-screen">
         <h2 className="md:hidden font-bold font-manrope xs:text-[1.1rem] min-[340px]:text-[1.2rem] min-[370px]:text-[1.3rem] min-[400px]:text-[1.4rem] min-[430px]:text-[1.5rem] min-[465px]:text-[1.6rem] min-[500px]:text-[1.7rem] ssm:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.4rem] min-[700px]:text-[2.5rem] leading-tight w-[90%]">
           {t("Conéctate con los mejores proyectos IT")}
@@ -65,7 +94,7 @@ export default function ModuloTalentosA() {
           alt="computer"
         />
       </div>
-      <div className="md:hidden w-screen flex justify-center pb-[1.5%] pt-[1.5%]">
+      <div className="md:hidden w-screen flex justify-center pb-[1.5%] pt-[1.5%] bg-white">
         <div className="w-[60%] flex flex-row items-center justify-around">
           <img
             className="w-1/3  "

@@ -300,7 +300,7 @@ function NavBar() {
 
   return (
     <div className="h-fit w-full p-0 m-0">
-      <div className="preNavbar">
+      <div className="preNavbar" id="preNavbar">
         <span className="">
           {t("Contrata y gestiona talentos de forma global con LinkIT")} |{" "}
         </span>
@@ -313,7 +313,7 @@ function NavBar() {
         </NavLink>
       </div>
 
-      <div className="navBar">
+      <div className="navBar" id="Navbar">
         <img
           src={!isDarkMode ? LogoBlue : LogoWhite}
           onClick={() => navigatetoHome()}
