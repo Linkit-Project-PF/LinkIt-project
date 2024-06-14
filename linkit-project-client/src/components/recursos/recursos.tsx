@@ -5,9 +5,10 @@ import Events from "./Modulos-Recursos/eventos/Events";
 import CV from "./Modulos-Recursos/cv/CV";
 import FAQ from "./Modulos-Recursos/FAQ/FAQ";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 import Newsletter from "../../Utils/newsletter/newsletter";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import useWindowWidth from "../../Utils/useWindowWidth";
 
 export default function Recursos() {
   const { t } = useTranslation();
@@ -15,26 +16,57 @@ export default function Recursos() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const [fixedHeight, setFixedHeight] = useState(0);
+  const windowWidth = useWindowWidth();
+
+  useEffect(() => {
+    const updateFixedHeight = () => {
+      const fixedNavbar = document.getElementById("Navbar");
+      const fixedPreNavbar = document.getElementById("preNavbar");
+
+      if (fixedNavbar && fixedPreNavbar) {
+        setFixedHeight(fixedNavbar.offsetHeight + fixedPreNavbar.offsetHeight);
+      }
+    };
+
+    updateFixedHeight();
+
+    window.addEventListener("resize", updateFixedHeight);
+    return () => {
+      window.removeEventListener("resize", updateFixedHeight);
+    };
+  }, []);
 
   return (
     <div className="overflow-hidden">
       <section id="moduloA">
-        <div className="lg:hidden flex justify-start w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white pt-[18vh] min-[500px]:pt-[20vh] min-[750px]:pt-[22vh]">
-          <h2 className=" font-bold font-manrope xs:text-[1.1rem] min-[350px]:text-[1.2rem] min-[380px]:text-[1.3rem] min-[410px]:text-[1.4rem] ssm:text-[1.9rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] md:text-[2.7rem] min-[850px]:text-[2.9rem] min-[900px]:text-[3.1rem] min-[950px]:text-[3.2rem] min-[1000px]:text-[3.4rem] w-[85%] leading-tight pl-[3%] ml-4">
-            {t("Impulsa tu carrera")} {t("en IT con los mejores")}{" "}
-            {t("tips y recursos!")}
+        <div
+          className="lg:hidden flex justify-center w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white md:pt-[22vh]"
+          style={
+            windowWidth <= 767
+              ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight / 4 }
+              : undefined
+          }
+        >
+          <h2 className=" font-bold font-manrope xs:text-[1rem] min-[350px]:text-[1.1rem] min-[380px]:text-[1.2rem] min-[410px]:text-[1.3rem] min-[435px]:text-[1.4rem] min-[460px]:text-[1.5rem] min-[500px]:text-[1.6rem] ssm:text-[1.8rem] min-[600px]:text-[1.9rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] md:text-[2.7rem] min-[850px]:text-[2.9rem] min-[900px]:text-[3.1rem] min-[950px]:text-[3.2rem] min-[1000px]:text-[3.4rem] w-[90%] leading-tight ">
+            {t("Impulsa tu carreraen IT con los ")} <br />
+            {t("mejores tips y recursos!")}
           </h2>
         </div>
         <div className="grid grid-cols-2 h-fit md:h-max w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white lg:pt-[22vh]">
-          <div className="space-y-[5%] p-[7%] pl-[6%] ml-4">
+          <div className="space-y-[5%] p-[7%] pl-[6%] min-[300px]:ml-[8px] min-[350px]:ml-[9px] min-[400px]:ml-[10px] min-[450px]:ml-3 min-[500px]:ml-3 ssm:ml-4 md:ml-4 ">
             <h2 className="hidden lg:block font-bold font-manrope  w-[150%] lg:w-[130%] lg:text-[3rem] xl:text-[3.5rem] xl:w-[112%] 2xl:text-[5rem] leading-tight ">
               {t("Impulsa tu carrera")} {t("en IT con los mejores")}{" "}
               {t("tips y recursos!")}
             </h2>
-            <h3 className="ont-monserrat text-[0.6rem] xs:text-[0.7rem] xs:w-[115%] min-[380px]:text-[0.8rem] min-[420px]:text-[0.9rem] min-[506px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[690px]:text-[1.5rem] md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%]  lg:w-[90%] xl:w-[85%] leading-tight">
+            <h3 className="ont-monserrat hidden md:block md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%]  lg:w-[90%] xl:w-[85%] leading-tight">
               {t(
                 "Blogs, ebooks y webinars para crecer como profesional en el mundo tech."
               )}{" "}
+            </h3>
+            <h3 className="ont-monserrat md:hidden text-[0.6rem] xs:text-[0.7rem] xs:w-[115%] min-[380px]:text-[0.8rem] min-[420px]:text-[0.9rem] min-[506px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[690px]:text-[1.5rem] md:text-[1.7rem] w-[110%] ssm:w-[115%] sm:w-[110%] leading-tight">
+              {t("Blogs, ebooks y webinars")} <br />
+              {t("para crecer como profesional")} <br />{t("en el mundo tech.")}{" "}
             </h3>
             <div className="relative top-[5%] ">
               <motion.a
