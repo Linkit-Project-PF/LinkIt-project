@@ -41,7 +41,7 @@ export default function Recursos() {
     <div className="overflow-hidden">
       <section id="moduloA">
         <div
-          className="md:hidden flex justify-center w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white md:pt-[22vh]"
+          className="md:hidden flex justify-center w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white md:pt-[17vh] lg:pt-[22vh]"
           style={
             windowWidth <= 767
               ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight / 4 }
@@ -79,7 +79,7 @@ export default function Recursos() {
             </div>
           </div>
           <img
-            className="relative self-start content-end w-[90%] left-[15%] xs:left-[6%] xs:w-[80%] xs:mt-4 ssm:w-[80%] ssm:bottom-0 ssm:top[5%] ssm:left-[8%] sm:mt-6 md:self-end  md:w-[80%] md:mt-10 md:mb-20 lg:mb-0 lg:self-end lg:top-4 lg:w-[85%] lg:left-[7%]  xl:-mt-4 xl:w-[83%] 2xl:h-[100%]"
+            className="relative self-start content-end w-[90%] left-[15%] xs:left-[6%] xs:w-[80%] xs:mt-4 ssm:w-[80%] ssm:bottom-0 ssm:top[5%] ssm:left-[8%] sm:mt-6 md:self-end  md:left-0 md:w-[95%] md:pb-[10%]  lg:mb-0 lg:self-end lg:top-4 lg:w-[85%] lg:left-[7%]  xl:-mt-4 xl:w-[83%] 2xl:h-[100%]"
             src="/Vectores/linkit-slider-soy-recursos.svg"
             alt="Businessman"
           />
