@@ -44,12 +44,12 @@ export default function Recursos() {
           className="md:hidden flex justify-center w-screen bg-linkIt-500 dark:bg-linkIt-200 dark:text-white md:pt-[17vh] lg:pt-[22vh]"
           style={
             windowWidth <= 767
-              ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight / 4 }
+              ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight * 29 /100 }
               : undefined
           }
         >
-          <h2 className=" font-bold font-manrope md:hidden xs:text-[1rem] min-[350px]:text-[1.1rem] min-[380px]:text-[1.2rem] min-[410px]:text-[1.3rem] min-[435px]:text-[1.4rem] min-[460px]:text-[1.5rem] min-[500px]:text-[1.6rem] ssm:text-[1.8rem] min-[600px]:text-[1.9rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] md:text-[2.7rem] min-[850px]:text-[2.9rem] min-[900px]:text-[3.1rem] min-[950px]:text-[3.2rem] min-[1000px]:text-[3.4rem] w-[90%] leading-tight ">
-            {t("Impulsa tu carrera en IT con los ")} <br />
+          <h2 className=" font-bold font-manrope md:hidden xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[435px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] w-[90%] leading-tight ">
+            {t("Impulsa tu carrera en IT con los")} <br />
             {t("mejores tips y recursos!")}
           </h2>
         </div>
@@ -64,13 +64,13 @@ export default function Recursos() {
                 "Blogs, ebooks y webinars para crecer como profesional en el mundo tech."
               )}{" "}
             </h3>
-            <h3 className="ont-monserrat md:hidden text-[0.6rem] xs:text-[0.7rem] xs:w-[115%] min-[380px]:text-[0.8rem] min-[420px]:text-[0.9rem] min-[506px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[690px]:text-[1.5rem] md:text-[1.7rem] w-[110%] ssm:w-[115%] sm:w-[110%] leading-tight">
+            <h3 className="ont-monserrat md:hidden text-[0.6rem] xs:text-[0.6rem] xs:w-[115%] min-[340px]:text-[0.7rem]  min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[700px]:text-[1.5rem] md:text-[1.7rem] w-[110%] ssm:w-[115%] sm:w-[110%] leading-tight">
               {t("Blogs, ebooks y webinars")} <br />
               {t("para crecer como profesional")} <br />{t("en el mundo tech.")}{" "}
             </h3>
             <div className="relative top-[5%]  ">
               <motion.a
-                className=" md:mb-20 lg:mb-0 background-button xs:text-[0.5rem] min-[400px]:text-[0.6rem] min-[450px]:text-[0.7rem]  min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[1rem] sm:text-[1.1rem] min-[700px]:text-[1.3rem] min-[900px]:text-[1.4rem] "
+                className=" md:mb-20 lg:mb-0 background-button xs:text-[0.4rem] min-[350px]:text-[0.4rem] min-[400px]:text-[0.5rem] [430px]:text-[0.6rem] min-[465px]:text-[0.7rem]  min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem] "
                 whileTap={{ scale: 0.9 }}
                 href="https://airtable.com/appPc8zZP29ez9V2O/shrX7MQRZlgmqP6bq"
               >

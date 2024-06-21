@@ -37,13 +37,13 @@ export default function ModuloTalentosA() {
       className={`bg-linkIt-500 dark:bg-linkIt-200  dark:text-white h-full md:pt-0`}
       style={
         windowWidth <= 767
-          ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight / 4 }
+          ? { marginTop: `${fixedHeight}px`, paddingTop: fixedHeight * 29 /100 }
           : undefined
       }
     >
       <div className="flex justify-center w-screen">
-        <h2 className="md:hidden font-bold font-manrope xs:text-[1.1rem] min-[340px]:text-[1.2rem] min-[370px]:text-[1.3rem] min-[400px]:text-[1.4rem] min-[430px]:text-[1.5rem] min-[465px]:text-[1.6rem] min-[500px]:text-[1.7rem] ssm:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.4rem] min-[700px]:text-[2.5rem] leading-tight w-[90%]">
-          {t("Conéctate con los mejores proyectos IT")}
+        <h2 className="md:hidden font-bold font-manrope xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[430px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] leading-tight w-[90%]">
+          {t("Conéctate con los mejores")}<br/>{t("proyectos IT")}
         </h2>
       </div>
       <div className="grid grid-cols-2 h-fit w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white md:pt-[17vh] lg:pt-[19vh] ">
@@ -55,7 +55,7 @@ export default function ModuloTalentosA() {
             {t("Aplica a las mejores oportunidades")} <br />{" "}
             {t("de manera remota.")}
           </h3>
-          <h3 className="md:hidden font-monserrat text-[0.4rem] xs:text-[0.5rem] min-[340px]:text-[0.6rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[465px]:text-[1rem] min-[500px]:text-[1.1rem] ssm:text-[1.2rem] min-[600px]:text-[1.3rem] sm:text-[1.4rem] min-[300px]:mt-[10%] ssm:mt-[10%] sm:mt-[5%] md:mt-0 min-[700px]:text-[1.5rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
+          <h3 className="md:hidden font-monserrat text-[0.4rem] xs:text-[0.6rem] min-[340px]:text-[0.7rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem]  min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[300px]:mt-[10%] ssm:mt-[10%] sm:mt-[5%] md:mt-0 min-[700px]:text-[1.5rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
             {t("Aplica a oportunidades")}
             <br />
             {t("laborales de manera remota.")}
@@ -63,7 +63,7 @@ export default function ModuloTalentosA() {
           <div className="mt-[10%] md:mt-0 ">
             <a href="#vacantes">
               <motion.button
-                className="background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.7rem] ssm:text-[0.8rem] min-[600px]:text-[0.9rem] sm:text-[1rem] min-[700px]:text-[1.1rem] md:text-[1rem]"
+                className="background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] [400px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem]"
                 whileTap={{ scale: 0.9 }}
               >
                 {t("Vacantes disponibles")}
