@@ -89,7 +89,7 @@ export default function ModuloTalentosA() {
           </div>
         </div>
         <img
-          className="2xl:w-[93%] 2xl:h-[100%] 2xl:ml-12 2xl:mt-0 2xl:bottom-0  xl:w-[90%] xl:ml-6 lg:w-[100%] lg:h-[100%] xs:h-[95%] xs:w-[87%] sm:h-[95%] sm:w-[88%] w-full h-auto md:px-4 min-[400px]:ml-1 min-[450px]:ml-2 ssm:ml-3 ssm:h-[95%] ssm:w-[88%] md:w-full md:h-full xs:self-end  md:self-auto  md:mt-[15%] xl:mt-6"
+          className="2xl:w-[93%] 2xl:h-[100%] 2xl:ml-12 2xl:mt-0 2xl:bottom-0  xl:w-[90%] xl:ml-6 lg:w-[100%] lg:h-[100%] xs:h-[95%] xs:w-[90%] sm:h-[95%] sm:w-[88%] w-full h-auto md:px-4 min-[400px]:ml-1 min-[450px]:ml-2 ssm:ml-3 ssm:h-[95%] ssm:w-[90%] md:w-full md:h-full xs:self-end  md:self-auto  md:mt-[15%] xl:mt-6"
           src="/Vectores/linkit-slider-talento.png"
           alt="computer"
         />
