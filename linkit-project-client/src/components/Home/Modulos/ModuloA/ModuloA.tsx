@@ -58,9 +58,9 @@ export default function ModuloA() {
         <h1 className="md:hidden font-bold font-manrope mt-[5%] xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[430px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[1.9rem] min-[570px]:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] w-[110%] leading-tight ">{t('Conectando los')}<br/>{t('mejores talentos')}<br/>{t('y proyectos')}</h1>
           <h2 className="hidden md:block font-monserrat text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%]  lg:w-[90%] xl:w-[85%] leading-tight">{t('Contrata y gestiona al mejor talento de manera global')}</h2>
         <div className="flex flex-col whitespace-nowrap md:space-x-2 mt-[7%] md:mt-0 md:flex-row">
-          <motion.button className={`background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] [400px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem]`}
+          <motion.button className={`background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] [400px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem] mt-[5%]`}
           onClick={goSoyEmpresa}  
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.9 }} 
           >{t('Contrata Talento')}</motion.button>
 
           <motion.button className={`transparent-background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] [400px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem] mt-[5%]`}
