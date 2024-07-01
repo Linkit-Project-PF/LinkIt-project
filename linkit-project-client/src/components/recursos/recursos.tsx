@@ -59,12 +59,12 @@ export default function Recursos() {
               {t("Impulsa tu carrera")} {t("en IT con los mejores")}{" "}
               {t("tips y recursos!")}
             </h2>
-            <h3 className="ont-monserrat hidden md:block md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%]  lg:w-[90%] xl:w-[85%] leading-tight">
+            <h3 className="ont-montserrat hidden md:block md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%]  lg:w-[90%] xl:w-[85%] leading-tight">
               {t(
                 "Blogs, ebooks y webinars para crecer como profesional en el mundo tech."
               )}{" "}
             </h3>
-            <h3 className="ont-monserrat md:hidden text-[0.6rem] xs:text-[0.6rem] xs:w-[115%] min-[340px]:text-[0.7rem]  min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[700px]:text-[1.5rem] md:text-[1.7rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
+            <h3 className="ont-montserrat md:hidden text-[0.6rem] xs:text-[0.6rem] xs:w-[115%] min-[340px]:text-[0.7rem]  min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[700px]:text-[1.5rem] md:text-[1.7rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
               {t("Blogs, ebooks y webinars")} <br />
               {t("para crecer como profesional")} <br />{t("en el mundo tech.")}{" "}
             </h3>
