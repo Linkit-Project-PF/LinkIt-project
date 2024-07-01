@@ -32,7 +32,7 @@ export default function ModuloE() {
 
   return (
     <div className="p-[7%] relative bg-linkIt-200 text-white">
-        <h3 className="flex font-bold titles-size justify-center mt-[5%]">{t('¿Qué nos hace diferentes?')}</h3>
+        <h3 className="flex font-bold titles-size justify-center mt-[5%] font-manrope">{t('¿Qué nos hace diferentes?')}</h3>
       <div className=" lg:flex flex-col  justify-center hidden  h-full before:absolute before:w-full before:h-[18%] before:bg-linkIt-500 dark:before:bg-linkIt-400 before:top-[-8%] before:left-0 before:-skew-y-3 after:absolute after:w-full after:h-[5px] after:bg-linkIt-200 after:top-[8%] after:left-0 after:-skew-y-3">
             <div>
                 <ul className="grid grid-cols-4">

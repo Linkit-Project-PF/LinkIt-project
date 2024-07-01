@@ -1,17 +1,13 @@
 import { useTranslation } from "react-i18next"
 import './ModuloD.css'
-import peopleSpa from "/Vectores/linkit-web-vectores-06.svg"
-import peopleEn from "/Vectores/flechas-ENG.svg"
+
 
 export default function ModuloD() {
-    const {t, i18n}= useTranslation()
+    const {t}= useTranslation()
 
-    const currentLanguage = i18n.language;
-
-    const isLanguageSpanish = currentLanguage === "es";
+  
     return (
         <div className="grid lg:grid-cols-2 bg-linkIt-500 dark:bg-linkIt-400 dark:text-white p-[6%] items-center">
-            <img src={isLanguageSpanish? peopleSpa: peopleEn} alt="people" className="w lg:w-[110%] lg:mr-[8%] lg:-ml-[5%] justify-self-center" />
             <div className=' mb-4'>
                 <div className="flex items-center ">
                 <img className='w-1/5' src="/Vectores/linkit-web-vectores-08.svg" alt="" />

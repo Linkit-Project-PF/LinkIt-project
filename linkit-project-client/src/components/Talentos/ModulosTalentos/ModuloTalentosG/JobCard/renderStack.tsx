@@ -51,7 +51,7 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
         elementoDiv.id = `stack-${index}-index-${indexElemento}`;
         const elementoP = document.createElement("p");
         elementoP.textContent = elemento[0].toUpperCase() + elemento.substring(1);
-        elementoP.className = "text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
+        elementoP.className = "text-[0.5rem] font-montserrat ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
         elementoDiv.className = "mt-3 mr-2 w-fit px-2 py-1 flex items-center rounded-lg bg-[#FEFFFE]";
 
         elementoDiv.appendChild(elementoP);
@@ -87,7 +87,7 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
             const lastP = document.createElement("p");
             const remainingElements = `${stack.length - indexElemento - 1} +`;
             lastP.textContent = remainingElements;
-            lastP.className = "text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
+            lastP.className = "text-[0.5rem] font-montserrat ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
             lastDiv.className = "mr-2 mt-3 h-5 w-fit px-2 py-1 flex items-center rounded-lg bg-[#FEFFFE]";
 
             lastDiv.appendChild(lastP);
@@ -102,7 +102,7 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
     }
   }, [elementsRendered]);
 
-  return <div className="flex flex-row w-full" id={`stacks-divs${index}`} ref={elementoContenedorRef}></div>;
+  return <div className="flex flex-row w-full font-montserrat" id={`stacks-divs${index}`} ref={elementoContenedorRef}></div>;
 };
 
 export default RenderizarStack;

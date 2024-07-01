@@ -10,7 +10,7 @@ export default function ModuloA() {
             </div>
         <img src="/Vectores/LinkIt-Logotipo-2024-white.svg" alt="logo-ppal-blanco" className="w-[73%] justify-self-end items-center hidden lg:block " />
         <div className="w-full flex justify-end my-[5%] relative before:w-full before:h-[1px] before:absolute before:bg-linkIt-500 before:top-[100%] lg:col-span-full">
-        <span className=" text-white relative text-end text-[0.6rem] ssm:text-[1rem] justify-self-end ">{t('Nuestra Misión')}</span>
+        <span className=" text-white relative text-end text-[0.6rem] ssm:text-[1rem] justify-self-end font-montserrat ">{t('Nuestra Misión')}</span>
         </div>
         </div>
     )

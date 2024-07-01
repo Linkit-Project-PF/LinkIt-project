@@ -2,6 +2,10 @@ import countries from 'i18n-iso-countries';
 import english from 'i18n-iso-countries/langs/en.json';
 import espanish from 'i18n-iso-countries/langs/es.json';
 import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
+import { useRef, useState, useEffect } from 'react';
+import whiteArrow from "/Vectores/downArrowFilters.svg";
+import blackArrow from "/Vectores/blackArrowFilters.svg"
+
 
 const customTheme: CustomFlowbiteTheme['dropdown'] = {
   "arrowIcon": "ml-2 h-4 w-4",
@@ -102,40 +106,146 @@ const countryOptionsEn : OptionType[] = [
 
 
 export function SelectCountryEs({setCountry, country}: any) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
   
+  const closeDropdown = (e: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
   
   const handleChange = (selectedOption: OptionType|null) => {
-    setCountry(selectedOption as OptionType)
+    setCountry(selectedOption as OptionType);
+    
   }
+
+  useEffect(() => {
+    document.addEventListener("click", closeDropdown);
+    return () => {
+      document.removeEventListener("click", closeDropdown);
+    };
+  }, []);
 
   return (
     <div>
+      <div className='hidden lg:flex '>
+
     <Dropdown label={country ? country.label : 'Ubicación'} inline className="h-28 lg:h-40 overflow-y-scroll font-medium" theme={customTheme} >
     {countryOptionsEs.sort((a, b) => a.label.localeCompare(b.label)).map(option => (
-              <a key={option.value} className="block px-2 cursor-pointer"  onClick={() => handleChange(option)}>{option.label}</a>
-            ))}
+      <a key={option.value} className="block px-2 cursor-pointer"  onClick={() => handleChange(option)}>{option.label}</a>
+    ))}
     </Dropdown>
+    </div>
+   
+    <div className='lg:hidden'>
+  <div className="relative" ref={dropdownRef}>
+    <div
+      className={`md:w-[14vh] sm:w-[14vh] ssm:w-[16vh] xs:w-full min-[470px]:w-[15vh] min-[585px]:w-[19vh] ${country.value === "" ?  null : "bg-white"} font-semibold py-1 px-4 rounded-full text-sm border-2 flex justify-between items-center cursor-pointer`}
+      onClick={toggleDropdown}
+    >
+      <p className={`${country.value === "" ? "text-white" : "text-black"}  font-montserrat text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] mr-2`}>
+        Ubicación
+      </p>
+      <img
+            src={country.value === "" ? whiteArrow : blackArrow}
+            alt="previous"
+            className={`cursor-pointer  h-3 w-3 transform transition-transform ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+          />
+    </div>
+
+    {isOpen && (
+      <div className="absolute bg-white text-black w-full rounded shadow-lg z-10 max-h-40 overflow-y-auto">
+       {countryOptionsEs.sort((a, b) => a.label.localeCompare(b.label)).map(option => (
+      <a key={option.value} className="block px-2 cursor-pointer font-montserrat"  onClick={() => {handleChange(option),
+        toggleDropdown()}
+      }>{option.label}</a>
+    ))}
+      </div>
+    )}
+  </div>
+</div>
+
+
     </div>
   );
 }
 
 export function SelectCountryEn({setCountry, country}: any) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDropdown = (e: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
 
   
   const handleChange = (selectedOption: OptionType|null) => {
     setCountry(selectedOption as OptionType)
+    setIsOpen(false);
   }
 
+  useEffect(() => {
+    document.addEventListener("click", closeDropdown);
+    return () => {
+      document.removeEventListener("click", closeDropdown);
+    };
+  }, []);
 
 
 
   return (
     <div>
+      <div className='hidden lg:flex'>
+
     <Dropdown label={country ? country.label : 'Location'} inline className="h-28 lg:h-40 overflow-y-scroll font-medium" theme={customTheme} >
     {countryOptionsEn.sort((a, b) => a.label.localeCompare(b.label)).map(option => (
-              <a key={option.value} className="block px-2 cursor-pointer"  onClick={() => handleChange(option)}>{option.label}</a>
-            ))}
+      <a key={option.value} className="block px-2 cursor-pointer"  onClick={() => handleChange(option)}>{option.label}</a>
+    ))}
     </Dropdown>
+    </div>
+    <div className='lg:hidden'>
+    <div className="relative" ref={dropdownRef}>
+    <div
+      className={`md:w-[14vh] sm:w-[16vh] xs:w-[12vh] min-[470px]:w-[15vh] ${country.value === "" ?  null : "bg-white"} font-semibold py-1 px-4 rounded-full text-sm border-2 flex justify-between items-center cursor-pointer `}
+      onClick={toggleDropdown}
+    >
+      <p className={`${country.value === "" ? "text-white" : "text-[#173951]"}  font-montserrat text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] mr-2`}>
+        Location
+      </p>
+      <img
+            src={country.value === "" ? whiteArrow : blackArrow}
+            alt="previous"
+            className={`cursor-pointer  h-3 w-3 transform transition-transform z-20 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+          />
+    </div>
+
+    {isOpen && (
+      <div className="absolute bg-white text-black w-full rounded shadow-lg z-10 max-h-40 overflow-y-auto ">
+       {countryOptionsEn.sort((a, b) => a.label.localeCompare(b.label)).map(option => (
+      <a key={option.value} className="block px-2 cursor-pointer font-montserrat"  onClick={() => handleChange(option)}>{option.label}</a>
+    ))}
+      </div>
+    )}
+  </div>
+    </div>
     </div>
   );
 }

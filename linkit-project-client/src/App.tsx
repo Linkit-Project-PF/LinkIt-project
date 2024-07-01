@@ -24,7 +24,6 @@ import {
 import { motion, Variants } from "framer-motion";
 import axios, { AxiosError } from "axios";
 import { useEffect } from "react";
-//import { SUPERADMN_ID } from "./env.ts";
 import AdminPanel from "./components/Paneles/AdminProfile/Panel/AdminPanel.tsx";
 import LoginCompany from "./components/Login/Login-company/LoginCompany.tsx";
 import JobDescription from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/jobDescription/JobDescription.tsx";
@@ -40,6 +39,7 @@ import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditio
 import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
 import lightIcon from "../public/Vectores/Favicon de prueba ph 48x48.png"
 import darkIcon from "../public/Vectores/FaviconDark.svg"
+
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
