@@ -31,7 +31,7 @@ export default function Recursos() {
               {t("Impulsa tu carrera")} {t("en IT con los mejores")}{" "}
               {t("tips y recursos!")}
             </h2>
-            <h3 className="ont-monserrat text-[0.6rem] xs:text-[0.7rem] xs:w-[115%] min-[380px]:text-[0.8rem] min-[420px]:text-[0.9rem] min-[506px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[690px]:text-[1.5rem] md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%]  lg:w-[90%] xl:w-[85%] leading-tight">
+            <h3 className="font-montserrat text-[0.6rem] xs:text-[0.7rem] xs:w-[115%] min-[380px]:text-[0.8rem] min-[420px]:text-[0.9rem] min-[506px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[690px]:text-[1.5rem] md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%]  lg:w-[90%] xl:w-[85%] leading-tight">
               {t(
                 "Blogs, ebooks y webinars para crecer como profesional en el mundo tech."
               )}{" "}

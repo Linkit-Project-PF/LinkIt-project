@@ -720,7 +720,7 @@ function Calculadora() {
       <h3 className="text-black titles-size font-manrope font-bold text-center dark:text-white">
         {t("Calculadora")}
       </h3>
-      <span className="text-black subtitles-size font-montserrat font-medium text-center xs:text-[17px] dark:text-white mb-[3%]">
+      <span className="text-black subtitles-size font-montserrat font-medium text-center sm:text-2xl xs:text-[17px] dark:text-white mb-[3%]">
         {t("Por favor rellena todos los campos para poder cotizar.")}
       </span>
 
