@@ -51,11 +51,11 @@ export default function ModuloTalentosA() {
           <h2 className="hidden md:block font-bold font-manrope xs:text-[1.0rem] ssm:text-[1.8rem] sm:text-[2rem] md:text-[2.6rem] w-[150%] ssm:w-[130%] sm:w-[115%] lg:w-[130%] lg:text-[3rem] xl:text-[3.5rem] xl:w-[112%] 2xl:text-[5rem] leading-tight ">
             {t("Conéctate con los mejores proyectos IT")}
           </h2>
-          <h3 className="hidden md:block font-monserrat text-[0.8rem] lg:text-[1.5rem] md:text-[1.4rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%]  lg:w-[90%] xl:w-[85%] leading-tight">
+          <h3 className="hidden md:block font-montserrat text-[0.8rem] lg:text-[1.5rem] md:text-[1.4rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%]  lg:w-[90%] xl:w-[85%] leading-tight">
             {t("Aplica a las mejores oportunidades")} <br />{" "}
             {t("de manera remota.")}
           </h3>
-          <h3 className="md:hidden font-monserrat text-[0.4rem] xs:text-[0.6rem] min-[340px]:text-[0.7rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem]  min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[300px]:mt-[10%] ssm:mt-[10%] sm:mt-[5%] md:mt-0 min-[700px]:text-[1.5rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
+          <h3 className="md:hidden font-montserrat text-[0.4rem] xs:text-[0.6rem] min-[340px]:text-[0.7rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem]  min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[300px]:mt-[10%] ssm:mt-[10%] sm:mt-[5%] md:mt-0 min-[700px]:text-[1.5rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
             {t("Aplica a oportunidades")}
             <br />
             {t("laborales de manera remota.")}
@@ -76,7 +76,7 @@ export default function ModuloTalentosA() {
               src={isDarkMode ? starsWhite : starsBlue}
               alt="stars"
             />
-            <span className="font-monserrat text-[0.6rem]  xs:ml-1 xs:font-light md:text-[1rem] lg:text-[1.2rem] ml-2 flex whitespace-nowrap items-center">
+            <span className="font-montserrat text-[0.6rem]  xs:ml-1 xs:font-light md:text-[1rem] lg:text-[1.2rem] ml-2 flex whitespace-nowrap items-center">
               {t("4/5 on Truspilot")}{" "}
               <Link
                 to="https://es.trustpilot.com/review/linkit-hr.com"
@@ -101,7 +101,7 @@ export default function ModuloTalentosA() {
             src={isDarkMode ? starsWhite : starsBlue}
             alt="stars"
           />
-          <span className="font-monserrat text-[0.5rem]  xs:ml-1 xs:font-light min-[400px]:text-[0.6rem] min-[450px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] min-[700px]:text-[1.1rem]  whitespace-nowrap items-center">
+          <span className="font-montserrat text-[0.5rem]  xs:ml-1 xs:font-light min-[400px]:text-[0.6rem] min-[450px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] min-[700px]:text-[1.1rem]  whitespace-nowrap items-center">
             {t("4/5 on Truspilot")}{" "}
             <Link
               to="https://es.trustpilot.com/review/linkit-hr.com"
