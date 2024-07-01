@@ -45,45 +45,66 @@ const JobCardsMobile: FunctionComponent = () => {
   );
 
   return (
-    <div className="flex h-max items-center justify-center my-[5%]">
-      <button onClick={handlePrev} className="">
-        <img
-          src={whiteArrow}
-          alt="previus"
-          className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer"
-        />
-      </button>
-      <div className="mx-[5%] justify-center items-center w-full">
-        {jobOffers.length === 0 ? (
-          <div className="flex flex-row justify-center items-center content-center my-[10%] mx-2 text-white">
-            <motion.p
-              className="font-montserrat subtitles-size text-center"
-              initial={{ opacity: 0, x: -1000 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, type: "spring", bounce: 0.25 }}
-            >
-              {t(
-                "No se encontraron vacantes disponibles con las opciones seleccionadas. Prueba nuevos filtros!"
-              )}
-            </motion.p>
-          </div>
-        ) : (
-          <div className="mx-[5%] grid gap-[3%] mb-10">
-            {jobOffersToShow.map((jobDescription, index) => (
-              <JobCard key={`card-${jobDescription._id}`} {...jobDescription} index={index} current={current}/>
-            ))}
-          </div>
-        )}
+    <div className="flex flex-col items-center my-[5%]">
+      <div className="flex justify-between w-full px-[5%] lg:w-auto lg:px-0">
+        <button onClick={handlePrev} className="hidden lg:block">
+          <img
+            src={whiteArrow}
+            alt="previous"
+            className="rotate-90 w-[20px] cursor-pointer"
+          />
+        </button>
+        <div className="w-full lg:w-auto">
+          {jobOffers.length === 0 ? (
+            <div className="flex flex-row justify-center items-center my-[10%] mx-2 text-white">
+              <motion.p
+                className="font-montserrat subtitles-size text-center"
+                initial={{ opacity: 0, x: -1000 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, type: "spring", bounce: 0.25 }}
+              >
+                {t(
+                  "No se encontraron vacantes disponibles con las opciones seleccionadas. Prueba nuevos filtros!"
+                )}
+              </motion.p>
+            </div>
+          ) : (
+            <div className="grid gap-[3%] mb-10">
+              {jobOffersToShow.map((jobDescription, index) => (
+                <JobCard key={`card-${jobDescription._id}`} {...jobDescription} index={index} current={current} />
+              ))}
+            </div>
+          )}
+        </div>
+        <button onClick={handleNext} className="hidden lg:block">
+          <img
+            src={whiteArrow}
+            alt="next"
+            className="-rotate-90 w-[20px] cursor-pointer"
+          />
+        </button>
       </div>
-      <button onClick={handleNext} className="">
-        <img
-          src={whiteArrow}
-          alt="next"
-          className="-rotate-90 w-[20px] justify-self-end ssm:justify-self-center cursor-pointer"
-        />
-      </button>
+      {/* mobile version */}
+      <div className="flex items-center mt-4 lg:hidden">
+        <button onClick={handlePrev}>
+          <img
+            src={whiteArrow}
+            alt="previous"
+            className="rotate-90 w-[20px] cursor-pointer mr-4"
+          />
+        </button>
+        <p className="my-2 text-white font-semibold text-xl">{current + 1} de {maxPages}</p>
+        <button onClick={handleNext}>
+          <img
+            src={whiteArrow}
+            alt="next"
+            className="-rotate-90 w-[20px] cursor-pointer ml-4"
+          />
+        </button>
+      </div>
     </div>
   );
+  
 };
 
 export default JobCardsMobile;

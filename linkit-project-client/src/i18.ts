@@ -347,6 +347,7 @@ export const i18nOptions: InitOptions = {
         //!Talentos modulo G
         "Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!": "If none of these vacancies are for you, don't worry, there are many more to come!",
         "Súmate a nuestra base de datos": "Join our database",
+        "Nivel de Inglés" : "English Level",
         "No se encontraron vacantes disponibles con las opciones seleccionadas. Prueba nuevos filtros!": "There were no vacancies available with the selected options. Try new filters!",
         //!Talentos Job filters
         "Encontrar Vacante": "Find vacancies",

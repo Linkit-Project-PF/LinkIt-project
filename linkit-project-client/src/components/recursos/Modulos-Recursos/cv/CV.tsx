@@ -17,7 +17,7 @@ function CV() {
         </h3>
         <button 
         onClick={redirectToLink}
-        className="text-white border-[2px] border-white rounded-[7px] w-fit p-2 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem]"
+        className="text-white border-[2px] border-white rounded-[7px] w-fit p-2 hover:bg-white hover:text-linkIt-300 transition-all duration-300 ease-in-out text-[0.6rem] xs:text-[0.8rem] ssm:text-[1rem] md:text-[1.3rem] lg:text-[0.9rem] font-montserrat"
         >{t('Descargar Plantilla')}</button>
         
       </div>

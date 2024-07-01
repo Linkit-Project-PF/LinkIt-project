@@ -40,6 +40,8 @@ import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditio
 import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
 import lightIcon from "../public/Vectores/Favicon de prueba ph 48x48.png"
 import darkIcon from "../public/Vectores/FaviconDark.svg"
+import { Test } from "./components/Talentos/ModulosTalentos/ModuloTalentosG/JobCard/mobileTest.tsx";
+
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
 
@@ -282,6 +284,7 @@ function App() {
           path="/soyTalento/Joboffer/:id/application"
           element={<JobForm />}
         />
+        <Route path="/Test" element={<Test />} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/libreria" element={<Libreria />} />
         <Route path="/quienesSomos" element={<QuienesSomos />} />
