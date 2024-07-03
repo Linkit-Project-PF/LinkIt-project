@@ -34,7 +34,7 @@ export default function ModuloB() {
                             <div className='grid grid-cols-3 ml-[10%] mt-[3%]'>
                                 <h4 className="text-white font-bold subtitles-size font-manrope text-start ">{t('Gestión')} <br /> {t('y beneficios')}</h4>
 
-                                <p className="text-white text-size font-montserrat w-[120%] justify-self-center self-center">{t('Implementamos planes de beneficios y estrategias de retención para lograr equipos de alto desempeño, realizando informes y asesoramiento personalizado ayudando a tu empresa a retener talento global de manera escalable.')}</p>
+                                <p className="text-white text-size font-montserrat w-[120%] justify-self-center self-center">{t('Implementamos planes de beneficios y estrategias de fidelización para lograr equipos de alto desempeño, realizando informes y asesoramiento personalizado ayudando a tu empresa a retener talento global de manera escalable.')}</p>
                                 <img className="w-1/4 justify-self-center" src="/Vectores/check-bg-green.png" alt="gestión y beneficios" />
 
                                 </div>
