@@ -64,7 +64,7 @@ export default function ModuloA() {
             {t("Escala, gestiona y retiene al")} <br/> {t("mejor talento del mundo.")}
           </h3>
           <h3 className="hidden md:block ont-montserrat md:text-[1.2rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] sm:w-[75%] lg:w-[90%] xl:w-[85%] leading-tight">
-            {t("Escala, gestiona y retiene al mejor")} {t("talento del mundo.")}
+            {t("Escala, gestiona y fideliza al mejor")} {t("talento del mundo.")}
           </h3>
           <div className="hidden md:block">
             <motion.button
