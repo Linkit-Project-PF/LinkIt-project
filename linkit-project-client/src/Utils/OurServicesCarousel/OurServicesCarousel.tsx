@@ -92,7 +92,7 @@ export default function OurServicesCarousel({ component}: OurServicesCarouselPro
     } else if (component === "talent") {
       return t('Elige dónde y cómo recibir el dinero. Te asesoramos en las mejores formas para recibir el dinero, teniendo en cuenta las contrataciones y legislaciones laborales a nivel global.');
     } else if (component === "company") {
-      return t('Implementamos planes de beneficios y estrategias de retención para lograr equipos de alto desempeño, realizando informes y asesoramiento personalizado ayudando a tu empresa a retener talento global de manera escalable.');
+      return t('Implementamos planes de beneficios y estrategias de fidelización para lograr equipos de alto desempeño, realizando informes y asesoramiento personalizado ayudando a tu empresa a fidelizar talento global de manera escalable.');
     } else {
       return t('Facilitamos planes de beneficios, asesoramiento en la retención y elaboración de informes y mucho más.');
     }
