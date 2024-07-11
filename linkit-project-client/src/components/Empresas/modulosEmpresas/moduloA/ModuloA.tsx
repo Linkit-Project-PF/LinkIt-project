@@ -61,7 +61,7 @@ export default function ModuloA() {
             {t("en tan solo 5 días!")}
           </h2>
           <h3 className="md:hidden font-montserrat text-[0.4rem] xs:text-[0.6rem] min-[340px]:text-[0.7rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem]  min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[300px]:mt-[10%] ssm:mt-[10%] sm:mt-[5%] md:mt-0 min-[700px]:text-[1.5rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
-            {t("Escala, gestiona y retiene al")} <br/> {t("mejor talento del mundo.")}
+            {t("Escala, gestiona y fideliza al")} <br/> {t("mejor talento del mundo.")}
           </h3>
           <h3 className="hidden md:block ont-montserrat md:text-[1.2rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] sm:w-[75%] lg:w-[90%] xl:w-[85%] leading-tight">
             {t("Escala, gestiona y fideliza al mejor")} {t("talento del mundo.")}
