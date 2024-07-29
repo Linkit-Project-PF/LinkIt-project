@@ -72,7 +72,7 @@ export default function ModuloA() {
               onClick={goSoyEmpresa}
               whileTap={{ scale: 0.9 }}
             >
-              {"Contacta para contratar"}
+              {t("Contacta para contratar")}
             </motion.button>
           </div>
           <div className="md:hidden mt-[10%] md:mt-0">
@@ -81,7 +81,7 @@ export default function ModuloA() {
               onClick={goSoyEmpresa}
               whileTap={{ scale: 0.9 }}
             >
-              {"Contrata Talento"}
+              {t("Contrata Talento")}
             </motion.button>
           </div>
           <div className="hidden md:flex relative top-3">

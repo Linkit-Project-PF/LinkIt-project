@@ -46,12 +46,17 @@ export const i18nOptions: InitOptions = {
         "Contrata y escala": "Hire and scale",
         "con el mejor talento IT": "with the best IT talent",
         "en tan solo 5 días!": "in just 5 days!",
-        'Escala, gestiona y retiene al mejor': "Scale, manage and retain the best",
+        'Escala, gestiona y fideliza al mejor': "Scale, manage and retain the best",
         "talento del mundo.": "talent in the world",
         "Contrata Talento": "Hire Talent",
         "4/5 en Truspilot": "4/5 on Truspilot",
         "Leer reviews": "Read reviews",
         "Contacta para contratar": "Contact to hire",
+        //!Company module A (Mobile)
+        "Contrata y escala con el mejor": "Hire and scale with the best",
+        "talento IT en tan solo 5 días!": "IT talent in just 5 days!",
+        "Escala, gestiona y fideliza al": "Scale, manage and retain the",
+        "mejor talento del mundo.": "best talent in the world.",
         //Company module B
         "Nuestros servicios": "Our services",
         "Reclutamiento": "Recruitment",
