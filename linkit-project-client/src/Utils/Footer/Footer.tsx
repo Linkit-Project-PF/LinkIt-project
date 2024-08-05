@@ -208,6 +208,7 @@ export default function Footer() {
             <div className="flex  mt-2">
               <a href="https://mail.google.com/mail/?view=cm&to=sales@linkit-hr.com" aria-label="Contact us by Email" target="_blank" className="w-[20%] ssm:w-[7%] lg:w-[5%] xl:w-[4%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-12.svg" alt="" ></img></a>
               <a href="https://www.linkedin.com/company/linkit-hr/" target="_blank" aria-label="Contact us by LinkedIn" className="w-[20%] ssm:w-[7%] lg:w-[5%] xl:w-[4%]"><img className="w-[100%]" src="/Vectores/linkit-web-vectores-13.svg" alt="" /></a>
+              <a href="https://www.youtube.com/channel/UC1OAeKZFyUpbaImzSTI68qQ" target="_blank" aria-label="Contact us by LinkedIn" className="w-[20%] ssm:w-[7%] lg:w-[5%] xl:w-[4%]"><img className="w-[80%] rounded-[45px] mt-[10%] ml-[10%] " src="/Vectores/linkit-web-vectores-youtube-icon.png" alt="" /></a>
             </div>
         </div>
         <div className="flex-col flex ssm:flex-row ssm:mt-3 justify-between items-center whitespace-nowrap">
