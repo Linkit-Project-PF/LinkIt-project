@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";
 import RenderizarElementos from "./renderStack";
+import HasH3TwoLines from "./hasH3TwoLines";
 import { useTranslation } from "react-i18next";
 import { useRef } from "react";
 
@@ -58,14 +59,15 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
   return (
     <div>
       <motion.div
-        className="hidden lg:block w-full h-max  bg-transparent border-2 border-gray-300 rounded-md p-4 font-montserrat"
+        className="hidden lg:block  w-full h-[110%]  bg-transparent border-2 border-gray-300 rounded-md p-4 font-montserrat"
         onClick={handleClick}
         whileHover={{ cursor: "pointer" }}
         ref={bigContainer}
       >
         <div className="w-full" id={`big-container-${index}`}>
           <div className="h-3/6">
-            <h3 className="text-white font-bold text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1.2rem] leading-5 font-montserrat">{`${title}`}</h3>
+            {/* <h3 className="text-white font-bold text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1.2rem] leading-5 font-montserrat">{`${title}`}</h3> */}
+            <HasH3TwoLines text={title}/>
             <span className="text-white text-[0.6rem] ssm:text-[0.7rem] sm:text-[0.9rem] lg:text-[0.7rem] xl:text-[1rem] font-montserrat">{`${location}, ${translateModality(
               modality
             )}`}</span>
@@ -76,14 +78,14 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
                 {`${type}`}
               </p>
             </div>
-            {stack?.length !== undefined && stack?.length > 0 && (
+
               <RenderizarElementos
                 stack={stack}
                 index={index}
                 bigContainer={bigContainer}
                 current={current}
               />
-            )}
+
           </div>
         </div>
       </motion.div>

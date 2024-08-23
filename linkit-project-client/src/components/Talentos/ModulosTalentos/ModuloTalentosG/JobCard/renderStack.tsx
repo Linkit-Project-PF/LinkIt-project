@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState, useRef } from "react";
 
 interface RenderizarElementosProps {
-  stack: string[];
+  stack?: string[];
   index: number;
   bigContainer: React.RefObject<HTMLDivElement>;
   current: number;
@@ -22,7 +22,7 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
     indexElemento: number,
     elementoP: HTMLElement
   ): void => {
-    if (anchoTotal >= bigContainerWidth * 0.8) {
+    if (anchoTotal >= bigContainerWidth * 0.8 && stack?.length !== undefined && stack?.length > 0) {
       const elementoAEliminar = document.getElementById(
         `stack-${index}-index-${indexElemento}`
       );
@@ -41,7 +41,8 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
     if (
       elementoContenedor &&
       bigContainer.current !== null &&
-      bigContainer.current.offsetWidth > 0
+      bigContainer.current.offsetWidth > 0 &&
+      stack?.length !== undefined && stack?.length > 0
     ) {
       elementoContenedor.style.display = "flex";
       elementoContenedor.innerHTML = ''; // Limpiar elementos previos
@@ -63,13 +64,44 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
     }
   };
 
+  const noElements =  () =>{
+    const elementoContenedor = elementoContenedorRef.current;
+    if (
+      elementoContenedor &&
+      bigContainer.current !== null &&
+      bigContainer.current.offsetWidth > 0 
+    ) {
+      elementoContenedor.style.display = "flex";
+      elementoContenedor.innerHTML = ''; // Limpiar elementos previos
+      const elementoDiv = document.createElement("div");
+      elementoDiv.id = `stack-${index}-index-nada}`;
+      const elementoP = document.createElement("p");
+      elementoP.textContent = "Nada";
+      elementoP.className = "text-[0.5rem] font-montserrat ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] w-full";
+      elementoDiv.className = "mt-3 mr-2 w-fit px-2 py-1 flex items-center rounded-lg bg-[#FEFFFE] opacity-0";
+
+      elementoDiv.appendChild(elementoP);
+      elementoContenedor.appendChild(elementoDiv);
+      setElementsRendered(true);
+  }
+}
+
   useEffect(() => {
+    if(stack?.length !== undefined && stack?.length > 0){
     addElements();
     const resizeObserver = new ResizeObserver(() => addElements());
     bigContainer.current && resizeObserver.observe(bigContainer.current);
     return () => {
       bigContainer.current && resizeObserver.unobserve(bigContainer.current);
     };
+  } else {
+    noElements()
+    const resizeObserver = new ResizeObserver(() => noElements());
+    bigContainer.current && resizeObserver.observe(bigContainer.current);
+    return () => {
+      bigContainer.current && resizeObserver.unobserve(bigContainer.current);
+    };
+  }
   }, [current]);
 
   useEffect(() => {
@@ -82,7 +114,7 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
           const anchoElementoDiv = (child as HTMLElement).offsetWidth;
           anchoTotal += anchoElementoDiv;
 
-          if (anchoTotal >= bigContainer.current.offsetWidth * 0.9) {
+          if (anchoTotal >= bigContainer.current.offsetWidth * 0.9 && stack?.length !== undefined && stack?.length > 0) {
             const lastDiv = document.createElement("div");
             const lastP = document.createElement("p");
             const remainingElements = `${stack.length - indexElemento - 1} +`;

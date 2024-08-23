@@ -44,7 +44,7 @@ const JobCards: FunctionComponent = () => {
 
 
   return (
-    <div className="flex w-full items-center justify-center mb-20 h-max">
+    <div className="flex w-full items-center justify-center mb-[10%] h-max">
       <button onClick={handlePrev} className="">
         <img
           src={whiteArrow}
@@ -52,9 +52,9 @@ const JobCards: FunctionComponent = () => {
           className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer"
         />
       </button>
-      <div className="mx-[5%] w-full justify-items-center">
+      <div className="mx-[5%] w-full h-full justify-items-center">
         {jobOffers.length === 0 ? (
-          <div className="flex justify-center items-center content-center w-full text-white my-[10%]">
+          <div className="flex justify-center items-center content-center w-full h-full text-white my-[10%]">
             <motion.p
               className="font-montserrat text-[1rem] ssm:text-[1.5rem] xl:text-[1.5rem] whitespace-nowrap"
               initial={{ opacity: 0, x: -1000 }}
@@ -70,7 +70,7 @@ const JobCards: FunctionComponent = () => {
           <div
             className={`${
               jobOffers.length > 3 ? "grid-rows-2" : "grid-rows-2"
-            } grid grid-cols-3 gap-x-[2%] gap-y-[10%] h-max`}
+            } grid grid-cols-3 gap-x-[2%] gap-y-[10%] h-full w-full`}
           >
           {jobOffersToShow.map((jobDescription, index) => (
             <JobCard key={`card-${jobDescription._id}`} {...jobDescription} index={index} current={current}/>
