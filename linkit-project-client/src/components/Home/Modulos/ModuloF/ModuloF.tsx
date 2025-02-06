@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import "./ModuloF.css";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 

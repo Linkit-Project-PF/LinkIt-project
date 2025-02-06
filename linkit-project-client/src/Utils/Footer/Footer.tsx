@@ -126,7 +126,7 @@ export default function Footer() {
   return (
     <div className="bg-linkIt-200 text-white font-montserrat overflow-hidden w-screen px-[5%] py-[2%]">
       <div className="flex">
-    <img className="w-1/4 xl:w-1/5" src="/Vectores/LinkIt-Logotipo-2024-white.svg" alt="" />
+    <img className="w-1/4 xl:w-1/5" src="/Vectores/LinkIt-Logotipo-2024-white.svg" alt="" loading="lazy"/>
       <div className="flex gap-[5%] lg:gap-[10%] m-[5%] w-full font-montserrat justify-center">
 
                   <div className="flex flex-col ">
