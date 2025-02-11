@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState, useRef } from "react";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 
 interface RenderizarElementosProps {
   stack?: string[];
@@ -13,7 +13,6 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
   bigContainer,
   current,
 }) => {
-  const [elementsRendered, setElementsRendered] = useState(false);
   const elementoContenedorRef = useRef<HTMLDivElement>(null);
 
   const addElements = () => {
@@ -59,8 +58,6 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
           break;
         }
       }
-      
-      setElementsRendered(true);
     }
   };
 
@@ -82,7 +79,6 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
 
       elementoDiv.appendChild(elementoP);
       elementoContenedor.appendChild(elementoDiv);
-      setElementsRendered(true);
     }
   };
 
