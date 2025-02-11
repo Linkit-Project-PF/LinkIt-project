@@ -151,6 +151,7 @@ function App() {
     googleAnalytics();
   }, []);
 
+//cambiar este use effect y que se hagan las peticiones en cada componente.  
   useEffect(() => {
     /**
      * Fetches data from the server and sets the job offers in the state.
