@@ -5,9 +5,6 @@ import WhatMakeUsDCarousel from "./WhatMakeUsDCarousel";
 export default function ModuloC() {
     const {t}= useTranslation()
 
-
-
-
     return (
         <div className="p-[7%] dark:bg-linkIt-200 dark:text-white overflow-hidden">
             <h3 className=" titles-size font-bold text-center font-manrope">{t('¿Qué nos hace diferentes?')}</h3>

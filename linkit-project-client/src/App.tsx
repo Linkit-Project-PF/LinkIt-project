@@ -37,8 +37,8 @@ import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.tsx";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions.tsx";
 import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
-import lightIcon from "../public/Vectores/Favicon de prueba ph 48x48.png"
-import darkIcon from "../public/Vectores/FaviconDark.svg"
+import lightIcon from "/Vectores/Favicon de prueba ph 48x48.png"
+import darkIcon from "/Vectores/FaviconDark.svg"
 
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
