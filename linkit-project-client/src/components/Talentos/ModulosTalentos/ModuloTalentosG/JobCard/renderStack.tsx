@@ -6,7 +6,7 @@ interface RenderizarElementosProps {
   bigContainer: React.RefObject<HTMLDivElement>;
   current: number;
 }
-
+ 
 const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
   stack,
   index,
