@@ -8,7 +8,7 @@ export default function ModuloTalentosG() {
   const {t} = useTranslation();
   return (
     <div className="bg-linkIt-200 p-[7%] md:p-[7%] sm:p-[5%] justify-center dark:bg-linkIt-400 overflow-hidden h-max">
-      <h3 className="titles-size text-center justify-center font-montserrat font-bold text-white mb-6">{t('Vacantes disponibles')}</h3>
+      <h2 className="titles-size text-center justify-center font-montserrat font-bold text-white mb-6">{t('Vacantes disponibles')}</h2>
         <div>
         <JobFilters/>
         </div>

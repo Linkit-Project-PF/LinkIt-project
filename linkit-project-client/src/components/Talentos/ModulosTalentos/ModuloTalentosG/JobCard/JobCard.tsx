@@ -58,38 +58,40 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
 
   return (
     <div>
-      <motion.div
-        className="hidden lg:block  w-full h-[110%]  bg-transparent border-2 border-gray-300 rounded-md p-4 font-montserrat"
+ <motion.div
+        className="hidden lg:block w-full h-[250px] bg-transparent border-2 border-gray-300 rounded-md p-4 font-montserrat"
         onClick={handleClick}
-        whileHover={{ cursor: "pointer" }}
+        whileHover={{
+          scale: 1.02,
+          transition: { duration: 0.2 },
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.3, delay: index * 0.1 },
+        }}
         ref={bigContainer}
       >
-        <div className="w-full" id={`big-container-${index}`}>
-          <div className="h-3/6">
-            {/* <h3 className="text-white font-bold text-[0.7rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1.2rem] leading-5 font-montserrat">{`${title}`}</h3> */}
-            <HasH3TwoLines text={title}/>
-            <span className="text-white text-[0.6rem] ssm:text-[0.7rem] sm:text-[0.9rem] lg:text-[0.7rem] xl:text-[1rem] font-montserrat">{`${location}, ${translateModality(
-              modality
-            )}`}</span>
+        <div className="w-full h-full flex flex-col" id={`big-container-${index}`}>
+          <div className="h-[100px]">
+            <HasH3TwoLines text={title} />
+            <span className="text-white text-[0.6rem] ssm:text-[0.7rem] sm:text-[0.9rem] lg:text-[0.7rem] xl:text-[1rem] font-montserrat">
+              {`${location}, ${translateModality(modality)}`}
+            </span>
           </div>
-          <div className="h-3/6 w-max " id={`medium-container-${index}`}>
+          <div className="flex-grow flex flex-col justify-end">
             <div className="mt-3 h-5 w-fit px-3 py-1 flex items-center rounded-lg bg-linkIt-300">
-              <p className="text-white  text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] font-montserrat">
+              <p className="text-white text-[0.5rem] ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] font-montserrat">
                 {`${type}`}
               </p>
             </div>
-
-              <RenderizarElementos
-                stack={stack}
-                index={index}
-                bigContainer={bigContainer}
-                current={current}
-              />
-
+            <div className="h-[90px] w-full overflow-hidden mt-2">
+              <RenderizarElementos stack={stack} index={index} bigContainer={bigContainer} current={current} />
+            </div>
           </div>
         </div>
       </motion.div>
-
       {/* mobile version */}
       <div className="lg:hidden ">
         <div className=" border-b-2 border-white flex flex-col gap-4 sm:-ml-[3vh] sm:-mr-[3vh] ">

@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../../../redux/types";
 import { useSelector } from "react-redux";
-import starsBlue from "/Vectores/Stars-Trustpilot.svg";
-import starsWhite from "/Vectores/MO-trustpilot.svg";
 import useWindowWidth from "../../../../Utils/useWindowWidth";
 import { useState, useEffect } from "react";
 
@@ -50,16 +48,16 @@ export default function ModuloA() {
       }
     >
       <div className="flex justify-center w-screen">
-        <h2 className="md:hidden font-bold font-manrope xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[430px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[1.9rem] min-[570px]:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] w-[90%] leading-tight ">
+        <h1 className="md:hidden font-bold font-manrope xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[430px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[1.9rem] min-[570px]:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] w-[90%] leading-tight ">
           {t("Contrata y escala con el mejor")}<br/>{t("talento IT en tan solo 5 días!")}
-        </h2>
+        </h1>
       </div>
       <div className="grid grid-cols-2 h-fit w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white  md:pt-[17vh] lg:pt-[19vh]">
         <div className="sm:mt-[5%] md:mt-0 md:space-y-[5%] md:p-[9%]  pl-[6%] min-[300px]:ml-[7px] min-[350px]:ml-2 min-[450px]:ml-3 min-[500px]:ml-3 ssm:ml-4 md:ml-0">
-          <h2 className="hidden md:block font-bold font-manrope md:text-[2.3rem] w-[150%] lg:w-[130%] lg:text-[3rem] xl:text-[3.5rem] xl:w-[112%] 2xl:text-[5rem] leading-tight ">
+          <h1 className="hidden md:block font-bold font-manrope md:text-[2.3rem] w-[150%] lg:w-[130%] lg:text-[3rem] xl:text-[3.5rem] xl:w-[112%] 2xl:text-[5rem] leading-tight ">
             {t("Contrata y escala")} {t("con el mejor talento IT")}{" "}
             {t("en tan solo 5 días!")}
-          </h2>
+          </h1>
           <h3 className="md:hidden font-montserrat text-[0.4rem] xs:text-[0.6rem] min-[340px]:text-[0.7rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem]  min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[300px]:mt-[10%] ssm:mt-[10%] sm:mt-[5%] md:mt-0 min-[700px]:text-[1.5rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
             {t("Escala, gestiona y fideliza al")} <br/> {t("mejor talento del mundo.")}
           </h3>
@@ -87,7 +85,11 @@ export default function ModuloA() {
           <div className="hidden md:flex relative top-3">
             <img
               className="w-1/2 lg:w-1/4 "
-              src={isDarkMode ? starsWhite : starsBlue}
+              src={
+                isDarkMode
+                  ? "/2025/Home/ModuleA/MO-trustpilot.webp"
+                  : "/2025/Home/ModuleA/Stars-Trustpilot.webp"
+              }
               alt="stars"
             />
             <span className="font-montserrat text-[0.6rem] xs:ml-1 xs:font-light lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center">
@@ -104,7 +106,7 @@ export default function ModuloA() {
         </div>
         <img
           className="2xl:w-[89%] 2xl:h-[97%] 2xl:ml-12 2xl:bottom-0 xl:w-[90%]  xl:ml-6 lg:w-[100%] lg:h-[100%] xs:w-[85%] xs:h-[95%] xs:self-end  md:self-auto md:w-full md:h-auto md:ml-3 md:px-4 md:mt-[15%] xl:mt-6"
-          src="/Vectores/linkit-slider-empresa2.0.png"
+          src="/2025/Empresas/ModuloA/linkit-slider-empresa2.0.webp"
           alt="Businessman"
         />
       </div>
@@ -112,10 +114,14 @@ export default function ModuloA() {
         <div className="w-[60%] flex flex-row items-center justify-around">
           <img
             className="w-1/3  "
-            src={isDarkMode ? starsWhite : starsBlue}
+            src={
+              isDarkMode
+                ? "/2025/Home/ModuleA/MO-trustpilot.webp"
+                : "/2025/Home/ModuleA/Stars-Trustpilot.webp"
+            }
             alt="stars"
           />
-          <span className="font-montserrat text-[0.5rem]  xs:ml-1 xs:font-light min-[400px]:text-[0.6rem] min-[450px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] min-[700px]:text-[1.1rem]  whitespace-nowrap items-center">
+          <span className={isDarkMode ? "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center text-black" : "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center"}>
             {t("4/5 on Truspilot")}{" "}
             <Link
               to="https://es.trustpilot.com/review/linkit-hr.com"
