@@ -111,7 +111,6 @@ export default function ModuloA() {
                        md:w-[80%] lg:w-[75%] xl:w-[65%] 2xl:w-[68%]
                        md:mt-16 lg:mt-16 xl:mt-24 2xl:mt-12
                        md:mb-4 lg:mb-8 xl:mb-2"
-            loading="eager"
           />
         </div>
       </div>

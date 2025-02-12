@@ -76,7 +76,15 @@ const countryOptionsEs: OptionType[] = [
   // Otros países
   { value: 'United States', label: 'Estados Unidos' },
   { value: 'Canada', label: 'Canadá' },
+  //
+  { value: "India", label: "India"},
+  {value: "Emiratos Arabes", label: "Emiratos Arabes"},
+  {value: "Filipinas", label: "Filipinas"},
+  {value: "Sudáfrica", label: "Sudáfrica"},
+  {value: "Nigeria", label: "Nigeria"},
+  {value: "Brasil", label:"Brasil"}
 ];
+
 
 const countryOptionsEn : OptionType[] = [
   // Paises de habla hispana
@@ -101,7 +109,12 @@ const countryOptionsEn : OptionType[] = [
     { value: 'Venezuela', label: 'Venezuela' },
     { value: 'United States', label: 'United States' },
     { value: 'Canada', label: 'Canada' },
-  
+    { value: "India", label: "India" },
+    { value: "United Arab Emirates", label: "United Arab Emirates" },
+    { value: "Philippines", label: "Philippines" },
+    { value: "South Africa", label: "South Africa" },
+    { value: "Nigeria", label: "Nigeria" },
+    {value: "Brasil", label:"Brasil"}
 ];
 
 
