@@ -1,8 +1,0 @@
-section::before {
-    content: "";
-    display: block;
-    height: 4rem; 
-    margin-top: -4rem; 
-    visibility: hidden;
-    pointer-events: none;
-}
