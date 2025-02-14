@@ -1,11 +1,8 @@
 import axios from "axios";
-//import { SUPERADMN_ID } from "../../../../../env.ts";
 import { PostEntity } from "../types.blogs.ts";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import BlogsCard from "./BlogsCard.tsx";
-import blackArrow from "/Vectores/arrow.png";
-import whiteArrow from "/Vectores/white-arrow.png"
 import { RootState } from "../../../../../redux/types";
 import { useSelector } from "react-redux";
 
@@ -47,7 +44,7 @@ function BlogsCardsMobile() {
   return (
     <div className="flex w-full justify-center items-center">
       <button disabled={blogs.length <= 1}>
-        <img src={isDarkMode ? whiteArrow : blackArrow} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+        <img src={isDarkMode ?"/Vectores/white-arrow.png" : "/Vectores/arrow.png"} onClick={handlePrev} alt="previus-icon" className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
         </button>
         <div className='grid lg:grid-cols-3 items-end justify-center gap-2 w-full h-full'>
       {blogs.length > 0 && (
@@ -70,7 +67,7 @@ function BlogsCardsMobile() {
       }
     </div>
     <button disabled={blogs.length <= 1}>
-        <img onClick={handleNext} src={isDarkMode ? whiteArrow : blackArrow} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
+        <img onClick={handleNext} src={isDarkMode ? "/Vectores/white-arrow.png" : "/Vectores/arrow.png"} alt="next-icon" className="-rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer" />
         </button>
     </div>
   );

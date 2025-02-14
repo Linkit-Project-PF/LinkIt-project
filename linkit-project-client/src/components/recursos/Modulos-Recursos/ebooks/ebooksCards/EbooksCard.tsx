@@ -21,17 +21,17 @@ const cardVariants: Variants = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.6, // increase duration
-      ease: "easeInOut", // change easing function
-      type: "tween", // change transition type
+      duration: 0.6,
+      ease: "easeInOut", 
+      type: "tween", 
     },
   },
   exit: {
     opacity: 0,
     x: "100vw",
     transition: {
-      duration: 0.6, // increase duration
-      ease: "easeInOut", // change easing function
+      duration: 0.6, 
+      ease: "easeInOut",
     },
   },
 };
@@ -47,8 +47,8 @@ function EbooksCard({
   const [key, setKey] = useState(Math.random());
   const { t } = useTranslation();
   useEffect(() => {
-    setKey(Math.random()); // change key to force re-render
-  }, [title, description, link, category]); // re-render when these props change
+    setKey(Math.random());
+  }, [title, description, link, category]);
 
   return (
     <div className=" border-[2px]  w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white">
