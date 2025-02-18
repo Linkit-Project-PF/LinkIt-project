@@ -20,7 +20,7 @@ export default function ModuloTalentosG() {
         </div>
       <p className="text-center font-montserrat text-size font-semibold text-white xs:text-[17px] xs:p-[3vh] sm:p-0">{t('Si ninguna de estas vacantes es para tí, no te preocupes, ¡vendrán muchas más!')}</p>
       <div className="w-full flex justify-center xs:p-[3vh] sm:p-0 ">
-      <a className="background-button mt-[2%] hover:text-linkIt-200 hover:bg-white justify-self-center xs:text-[14px] ssm:text-base xs:px-[3.5vh]" href="https://airtable.com/appPc8zZP29ez9V2O/shrDb6l9hbaByBAcX" target="_blank">{t('Súmate a nuestra base de datos')}</a>
+      <a className="background-button mt-[2%] hover:text-linkIt-200 hover:bg-white justify-self-center xs:text-[14px] ssm:text-base xs:px-[3.5vh]" href="https://airtable.com/appPc8zZP29ez9V2O/shrZpR4J81d85O4Ty" target="_blank">{t('Súmate a nuestra base de datos')}</a>
       </div>
     </div>
   )
