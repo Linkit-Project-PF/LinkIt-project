@@ -32,10 +32,12 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
       const containerWidth = bigContainer.current.offsetWidth * 0.85; 
 
       for (const [indexElemento, elemento] of stack.entries()) {
+        if (elemento === undefined) continue; // Skip undefined elements
+
         const elementoDiv = document.createElement("div");
         elementoDiv.id = `stack-${index}-index-${indexElemento}`;
         const elementoP = document.createElement("p");
-        elementoP.textContent = elemento[0].toUpperCase() + elemento.substring(1);
+        elementoP.textContent = elemento.charAt(0).toUpperCase() + elemento.slice(1);
         elementoP.className = "text-[0.5rem] font-montserrat ssm:text-[0.8rem] sm:text-[1rem] lg:text-[0.8rem] xl:text-[1rem] text-[#1D3750] whitespace-nowrap";
         elementoDiv.className = "mt-3 mr-2 w-fit px-2 py-1 flex items-center rounded-lg bg-[#FEFFFE]";
 
@@ -60,7 +62,6 @@ const RenderizarStack: FunctionComponent<RenderizarElementosProps> = ({
       }
     }
   };
-
   const noElements = () => {
     const elementoContenedor = elementoContenedorRef.current;
     if (
