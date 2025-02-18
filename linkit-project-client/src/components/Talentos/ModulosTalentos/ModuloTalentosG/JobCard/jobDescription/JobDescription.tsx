@@ -115,6 +115,7 @@ function JobDescription() {
     const textoSinEtiquetas = texto.replace(/<[^>]*>/g, "");
     return /[a-zA-Z0-9]/.test(textoSinEtiquetas);
   };
+  
 
   return (
     <div className="">
@@ -200,32 +201,20 @@ function JobDescription() {
                 </ul>
               </section>
             )}
-            {jobData.requirements?.length > 0 &&
-            jobData.requirements?.length === 1 &&
-            regex.test(jobData.requirements[0]) ? (
+             {jobData.requirements && jobData.requirements.length > 0 && (
               <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                  {t("Requerimientos")}
-                </h3>
-                {HTMLReactParser(agregarClasesHTML(jobData.requirements[0]))}
-              </section>
-            ) : (
-              <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                  {t("Requerimientos")}
-                </h3>
-                <ul className="flex flex-col list">
-                  {jobData.requirements?.map((requirement, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
-                      >
-                        {requirement}
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Requerimientos")}</h3>
+                {jobData.requirements.length === 1 && regex.test(jobData.requirements[0]) ? (
+                  HTMLReactParser(agregarClasesHTML(jobData.requirements[0]))
+                ) : (
+                  <ul className="flex flex-col list">
+                    {jobData.requirements.map((requirement, index) => (
+                      <li key={index} className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white">
+                        {HTMLReactParser(requirement)}
                       </li>
-                    );
-                  })}
-                </ul>
+                    ))}
+                  </ul>
+                )}
               </section>
             )}
             {jobData.niceToHave?.length > 0 &&
