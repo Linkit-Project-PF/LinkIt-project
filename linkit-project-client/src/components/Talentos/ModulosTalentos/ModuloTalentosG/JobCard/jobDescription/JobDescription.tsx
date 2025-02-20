@@ -118,6 +118,7 @@ function JobDescription() {
     const textoSinEtiquetas = texto.replace(/<[^>]*>/g, "");
     return /[a-zA-Z0-9]/.test(textoSinEtiquetas);
   };
+  
 
   return (
     <div className="">
