@@ -46,7 +46,7 @@ function JobDescription() {
 
   useEffect(() => {
     const fetchJob = async () => {
-      if(!loading) isLoading(true)
+      if (!loading) isLoading(true);
       try {
         const response = await axios.get(
           `https://linkit-server.onrender.com/jds/find?code=${id}`,
@@ -97,7 +97,10 @@ function JobDescription() {
     }
   };
   const agregarClasesHTML = (str: string): string => {
-    str = str.replace(/<ul>/g, '<ul className="flex flex-col list" style={{ "list-style": "initial" }} >');
+    str = str.replace(
+      /<ul>/g,
+      '<ul className="flex flex-col list" style={{ "list-style": "initial" }} >'
+    );
     str = str.replace(
       /<li/g,
       '<li className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"'
@@ -115,7 +118,6 @@ function JobDescription() {
     const textoSinEtiquetas = texto.replace(/<[^>]*>/g, "");
     return /[a-zA-Z0-9]/.test(textoSinEtiquetas);
   };
-  
 
   return (
     <div className="">
@@ -168,7 +170,8 @@ function JobDescription() {
                 <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
                   {t("Acerca de nuestro cliente")}
                 </h3>
-                {jobData.aboutClient && HTMLReactParser(agregarClasesHTML(jobData.aboutClient))}
+                {jobData.aboutClient &&
+                  HTMLReactParser(agregarClasesHTML(jobData.aboutClient))}
               </section>
             )}
             {jobData.responsabilities?.length > 0 &&
@@ -201,15 +204,21 @@ function JobDescription() {
                 </ul>
               </section>
             )}
-             {jobData.requirements && jobData.requirements.length > 0 && (
+            {jobData.requirements && jobData.requirements.length > 0 && (
               <section className="mb-[3%]">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Requerimientos")}</h3>
-                {jobData.requirements.length === 1 && regex.test(jobData.requirements[0]) ? (
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Requerimientos")}
+                </h3>
+                {jobData.requirements.length === 1 &&
+                regex.test(jobData.requirements[0]) ? (
                   HTMLReactParser(agregarClasesHTML(jobData.requirements[0]))
                 ) : (
-                  <ul className="flex flex-col list">
+                  <ul className="flex flex-col">
                     {jobData.requirements.map((requirement, index) => (
-                      <li key={index} className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white">
+                      <li
+                        key={index}
+                        className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
+                      >
                         {HTMLReactParser(requirement)}
                       </li>
                     ))}
@@ -249,17 +258,28 @@ function JobDescription() {
                   </ul>
                 </section>
               )}
-            {jobData.benefits?.length > 0 &&
-              jobData.benefits?.length === 1 &&
-              regex.test(jobData.benefits[0]) &&
-              removerEtiquetasHTML(jobData.benefits[0]) && (
-                <section className="mb-[3%]">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
-                    {t("Beneficios")}
-                  </h3>
-                  {HTMLReactParser(agregarClasesHTML(jobData.benefits[0]))}
-                </section>
-              )}
+            {jobData.benefits && jobData.benefits.length > 0 && (
+              <section className="mb-[3%]">
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Beneficios")}
+                </h3>
+                {jobData.benefits.length === 1 &&
+                regex.test(jobData.benefits[0]) ? (
+                  HTMLReactParser(agregarClasesHTML(jobData.benefits[0]))
+                ) : (
+                  <ul className="flex flex-col">
+                    {jobData.benefits.map((benefit, index) => (
+                      <li
+                        key={index}
+                        className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"
+                      >
+                        {HTMLReactParser(benefit)}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            )}
             {jobData.benefits?.length > 0 &&
               !regex.test(jobData.benefits[0]) &&
               /[a-zA-Z0-9]/.test(jobData.benefits[0]) && (
