@@ -21,5 +21,13 @@ export type JobDescriptionProps = {
 export type State = {
     Authentication: {
         isAuthenticated: boolean
+        user: {
+            active: boolean;
+            cv: {
+                cloudinaryId: string,
+                fileName: string
+            },
+            role: string
+        }
     }
 }

@@ -278,9 +278,9 @@ function App() {
         />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
-        <Route path="/soyTalento/Joboffer/:id" element={<JobDescription />} />
+        <Route path="/soyTalento/Joboffer/:id/:slug" element={<JobDescription />} />
         <Route
-          path="/soyTalento/Joboffer/:id/application"
+          path="/soyTalento/Joboffer/:id/:slug/application/"
           element={<JobForm />}
         />
         <Route path="/recursos" element={<Recursos />} />

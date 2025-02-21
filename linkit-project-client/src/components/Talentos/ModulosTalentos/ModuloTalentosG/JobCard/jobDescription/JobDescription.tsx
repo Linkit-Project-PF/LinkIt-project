@@ -29,9 +29,8 @@ function JobDescription() {
 
   const dispatch = useDispatch();
 
-  const isAuthenticated = useSelector(
-    (state: State) => state.Authentication.isAuthenticated
-  );
+  const authentication = useSelector((state: State) => state.Authentication);
+
 
   const [jobData, setJobData] = useState<JobDescriptionProps>(
     {} as JobDescriptionProps
@@ -72,30 +71,46 @@ function JobDescription() {
   const handleGoBack = () => {
     navigate("/soyTalento");
   };
-
   const handleApply = () => {
-    if (!isAuthenticated) {
+    if (!authentication.isAuthenticated) {
       Swal.fire({
         title: "¡Ups!",
         text: "Debes iniciar sesión para poder aplicar a esta vacante",
         icon: "warning",
-        iconColor: "#FBBF24",
-        cancelButtonText: "cancelar",
-        confirmButtonText: "iniciar sesión",
-        showCancelButton: true,
-        reverseButtons: true,
-        cancelButtonColor: "#173951",
+        confirmButtonText: "Iniciar sesión",
         confirmButtonColor: "#01A28B",
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(setPressLogin("visible"));
         }
       });
-    } else {
-      navigate(`application`);
-      dispatch(setFormVisible(true));
+      return;
     }
+
+    if (authentication.user.role !== "user") {
+      Swal.fire({
+        title: "Acceso denegado",
+        text: "Esta acción es solo para talentos. Las empresas no pueden aplicar.",
+        icon: "error",
+        confirmButtonColor: "#F87171",
+        confirmButtonText: "Aceptar",
+      });
+      return;
+    }
+    if (!authentication.user.active) {
+      Swal.fire({
+        title: "Cuenta no verificada",
+        text: "Debes confirmar tu correo electrónico para poder aplicar.",
+        icon: "info",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#3B82F6",
+      });
+      return;
+    }
+    navigate(`application`);
+    dispatch(setFormVisible(true));
   };
+  
   const agregarClasesHTML = (str: string): string => {
     str = str.replace(
       /<ul>/g,
