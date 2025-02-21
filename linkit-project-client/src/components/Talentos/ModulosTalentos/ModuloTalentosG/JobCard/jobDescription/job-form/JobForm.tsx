@@ -19,12 +19,15 @@ import Select from "react-select";
 import FormTransition from "./job-form-types-handlers/FormTransition";
 import { useTranslation } from "react-i18next";
 //import { SUPERADMN_ID } from "../../../../../../../env";
-import { setUser, loginSuccess } from "../../../../../../../redux/features/AuthSlice";
+import {
+  setUser,
+  loginSuccess,
+} from "../../../../../../../redux/features/AuthSlice";
 import { RootState } from "../../../../../../../redux/types";
 import { IUser } from "../../../../../../Profiles/types";
 import Loading from "../../../../../../Loading/Loading";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 const formVariants: Variants = {
   hidden: {
@@ -49,7 +52,7 @@ const formVariants: Variants = {
 
 function JobForm() {
   const dispatch = useDispatch();
-  const isAPostulation = true
+  const isAPostulation = true;
 
   const isFormVisible = useSelector(
     (state: any) => state.application.isFormVisible
@@ -78,7 +81,9 @@ function JobForm() {
   const navigate = useNavigate();
 
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [filePublicId, setFilePublicId] = useState<string>(userData.cv.cloudinaryId);
+  const [filePublicId, setFilePublicId] = useState<string>(
+    userData.cv.cloudinaryId
+  );
   const [fileName, setFileName] = useState<string>(userData.cv.fileName);
   const [country, setCountry] = useState<string>(userData.country ?? "");
   const [englishLevel, setEnglishLevel] = useState<string>(() =>
@@ -97,10 +102,12 @@ function JobForm() {
   const recruiterRef = useRef<HTMLButtonElement>(null);
 
   const [user, setLocalUser] = useState({
-    cv: [{
-      filename: userData.cv.fileName,
-      url: `https://res.cloudinary.com/dquhriqz3/image/upload/${userData.cv.cloudinaryId}`,
-    },],
+    cv: [
+      {
+        filename: userData.cv.fileName,
+        url: `https://res.cloudinary.com/dquhriqz3/image/upload/${userData.cv.cloudinaryId}`,
+      },
+    ],
     firstName: userData.firstName,
     lastName: userData.lastName ?? "",
     email: userData.email,
@@ -153,9 +160,8 @@ function JobForm() {
       lastName: user.lastName,
       recruiter: user.recruiter !== "-" ? user.recruiter : undefined,
       code: window.location.href
-        .split("Joboffer/")
-        .splice(1, 1)[0]
-        .replace("/application", ""),
+        .split("Joboffer/")[1]
+        .split("/")[0], 
     };
     try {
       const response = await axios.post(
@@ -190,7 +196,7 @@ function JobForm() {
             navigate("/soyTalento");
             navigate("/SoyTalento");
             setTimeout(() => {
-            window.location.href = "#vacantes";
+              window.location.href = "#vacantes";
             }, 0);
           }
         });
@@ -233,7 +239,15 @@ function JobForm() {
   };
 
   useEffect(() => {
-    setLocalUser((prevUser) => ({ ...prevUser, cv: [{filename: fileName, url: `https://res.cloudinary.com/dquhriqz3/image/upload/${filePublicId}`}]}));
+    setLocalUser((prevUser) => ({
+      ...prevUser,
+      cv: [
+        {
+          filename: fileName,
+          url: `https://res.cloudinary.com/dquhriqz3/image/upload/${filePublicId}`,
+        },
+      ],
+    }));
   }, [filePublicId]);
 
   useEffect(() => {
@@ -455,7 +469,7 @@ function JobForm() {
                       CV<span className=" text-red-400">*</span>
                     </div>
                     <CloudinaryUploadWidget
-                    isAPostulation={isAPostulation}
+                      isAPostulation={isAPostulation}
                       setFilePublicId={setFilePublicId}
                       setFileName={setFileName}
                     >

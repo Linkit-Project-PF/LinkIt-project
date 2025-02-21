@@ -33,8 +33,13 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const handleClick = async () => {
-    navigate(`/soyTalento/Joboffer/${code}`);
+    const slug = title
+  ? title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")
+  : "sin-titulo";
+  
+    navigate(`/soyTalento/Joboffer/${code}/${slug}`);
   };
+  
 
   const bigContainer = useRef(null);
   const { i18n, t } = useTranslation();
