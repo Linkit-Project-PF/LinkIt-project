@@ -45,6 +45,15 @@ function BlogsResourceCard({
 }: BlogsCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
   return (
     <motion.div
       className="border-[2px] w-full h-full rounded-xl font-montserrat bg-white dark:border-linkIt-400 hover:cursor-pointer"
@@ -53,7 +62,7 @@ function BlogsResourceCard({
     >
       <motion.a
         onClick={() => {
-          navigate(`/blog/${_id}`);
+          navigate(`/blog/${_id}/${generateSlug(title)}`);
         }}
         variants={blogsCardVariants}
         initial="hidden"

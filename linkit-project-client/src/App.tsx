@@ -39,6 +39,7 @@ import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditio
 import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
 import lightIcon from "/Vectores/Favicon de prueba ph 48x48.png"
 import darkIcon from "/Vectores/FaviconDark.svg"
+import EbookView from "./components/recursos/Modulos-Recursos/ebooks/ebooksCards/EbooksView.tsx";
 
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
@@ -289,6 +290,8 @@ function App() {
         <Route path="/AdminDashboard/*" element={<AdminPanel />} />
         <Route path="/dashboard" element={<ProfileContainer />} />
         <Route path="/blog/:id/:slug" element={<BlogView />} />
+        <Route path="/ebook/:slug" element={<EbookView />} />
+
         <Route
           path="/unauthorized"
           element={<Home Unauth={true} error={false} Verify={false} />}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import "./ebooksCard.css";
+import { useNavigate } from "react-router-dom";
 
 type EbooksCardProps = {
   title: string;
@@ -22,15 +23,15 @@ const cardVariants: Variants = {
     x: 0,
     transition: {
       duration: 0.6,
-      ease: "easeInOut", 
-      type: "tween", 
+      ease: "easeInOut",
+      type: "tween",
     },
   },
   exit: {
     opacity: 0,
     x: "100vw",
     transition: {
-      duration: 0.6, 
+      duration: 0.6,
       ease: "easeInOut",
     },
   },
@@ -42,47 +43,64 @@ function EbooksCard({
   link,
   category,
   image,
-  isEditing
+  isEditing,
 }: EbooksCardProps): JSX.Element {
   const [key, setKey] = useState(Math.random());
   const { t } = useTranslation();
+  const navigate = useNavigate()
+  
+
   useEffect(() => {
     setKey(Math.random());
   }, [title, description, link, category]);
 
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
+  const handleClick = () => {
+    const slug = generateSlug(title)
+   
+    navigate(`/ebook/${slug}`, { state: { pdfUrl: link } });
+  };
+
   return (
     <div className=" border-[2px]  w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white">
-    <motion.a
-      key={key}
-      className=""
-      variants={isEditing ? {} : cardVariants}
-      initial={isEditing ? {} : "initial"}
-      animate={isEditing ? {} : "animate"}
-      whileHover={isEditing ? {} : { scale: 1.02, cursor: "pointer" }}
-      whileTap={isEditing ? {} : { scale: 1 }}
-      exit={"exit"}
-      href={link}
-      target="_blank"
-    >
-      <img
-        src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
-        alt={title}
-        className={`w-full rounded-lg aspect-video bg-cover bg-center`}
-      />
-      <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
-        <span className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
-          {category}
-        </span>
-        <span className="font-bold subtitles-size line-clamp-3">{title}</span>
-        <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
-        <motion.div
-          
-          className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
-        >
-          {t('Descargar')}
-        </motion.div>
-      </div>
-    </motion.a>
+      <motion.a
+        key={key}
+        className=""
+        variants={isEditing ? {} : cardVariants}
+        initial={isEditing ? {} : "initial"}
+        animate={isEditing ? {} : "animate"}
+        whileHover={isEditing ? {} : { scale: 1.02, cursor: "pointer" }}
+        whileTap={isEditing ? {} : { scale: 1 }}
+        exit={"exit"}
+        onClick={handleClick}
+        target="_blank"
+      >
+        <img
+          src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
+          alt={title}
+          className={`w-full rounded-lg aspect-video bg-cover bg-center`}
+        />
+        <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
+          <span className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center">
+            {category}
+          </span>
+          <span className="font-bold subtitles-size line-clamp-3">{title}</span>
+          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
+            {description}
+          </p>
+          <motion.div className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
+            {t("Descargar")}
+          </motion.div>
+        </div>
+      </motion.a>
     </div>
   );
 }

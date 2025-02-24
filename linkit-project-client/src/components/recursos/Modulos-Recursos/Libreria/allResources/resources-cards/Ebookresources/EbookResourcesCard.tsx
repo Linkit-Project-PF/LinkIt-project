@@ -2,6 +2,7 @@ import { motion, Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 import "./EbookResources.css";
+import { useNavigate } from "react-router-dom";
 
 type EbooksCardProps = {
   title: string;
@@ -42,6 +43,21 @@ function EbookResourcesCard({
   image,
 }: EbooksCardProps): JSX.Element {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
+  const handleClick = () => {
+    const slug = generateSlug(title)
+   
+    navigate(`/ebook/${slug}`, { state: { pdfUrl: link } });
+  };
   return (
     <motion.div
       className="border-[2px] w-full h-fit rounded-xl font-montserrat bg-white"
@@ -55,7 +71,7 @@ function EbookResourcesCard({
         viewport={{ once: true }}
         exit="exit"
         target="_blank"
-        href={link}
+        onClick={handleClick}
       >
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
