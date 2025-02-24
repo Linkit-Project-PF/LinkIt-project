@@ -1,5 +1,3 @@
-"use client"
-
 import { useLocation } from "react-router-dom"
 import BlogSidebar from "../../blogs/blogs-view/blog-sidebar/BlogSidebar"
 import Newsletter from "../../../../../Utils/newsletter/newsletter"
