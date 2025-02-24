@@ -1,3 +1,8 @@
 User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.linkit-hr.com/sitemap.xml
+
 Disallow: /src/components/Paneles
 Disallow: /src/components/Profiles
