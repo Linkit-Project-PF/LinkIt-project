@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-//import { SUPERADMN_ID } from "../../../../../../env";
 import HTMLReactParser from "html-react-parser";
+import { motion } from "framer-motion";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
-
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 interface Header {
   head: string;
@@ -25,21 +24,83 @@ interface Blog {
 function BlogInfo() {
   const { id } = useParams<{ id: string }>();
   const [blog, setBlog] = useState<Blog | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const totalImages = blog?.headers.filter((h) => h.sectionImage).length || 0;
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(
-        `https://linkit-server.onrender.com/posts/find?id=${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
-        }
-      );
-      setBlog(data);
+      try {
+        const { data } = await axios.get(
+          `https://linkit-server.onrender.com/posts/find?id=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        setBlog(data);
+      } catch (error) {
+        console.error("Error al cargar el blog:", error);
+      }
     })();
   }, []);
+
+  useEffect(() => {
+    if (blog && !blog.image && totalImages === 0) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  }, [blog]);
+
+  const handleImageLoad = () => {
+    setImagesLoaded((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    if (imagesLoaded >= totalImages + (blog?.image ? 1 : 0)) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  }, [imagesLoaded, totalImages, blog?.image]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen space-y-6 bg-gray-50 px-4">
+        {/* Logo girando */}
+        <motion.img
+          src="/Linkit-logo/linkit-logo-blue.svg"
+          alt="Linkit Logo"
+          className="w-24 h-24"
+          animate={{ rotate: [0, 360] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+        />
+  
+        {/* Texto animado */}
+        <motion.h1
+          className="text-lg font-semibold text-gray-700"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        >
+          Cargando contenido...
+        </motion.h1>
+  
+        {/* Barra de carga centrada */}
+        <div className="w-full max-w-md h-2 bg-gray-300 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-blue-500 rounded-full"
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          />
+        </div>
+      </div>
+    );
+  }
+  
 
   return (
     <div className="font-montserrat lg:mr-[5%] grid w-full">
@@ -55,9 +116,10 @@ function BlogInfo() {
       <div className="flex justify-center items-center w-full">
         {blog?.image && (
           <img
-            src={`https://res.cloudinary.com/dquhriqz3/image/upload/${blog?.image}`}
-            alt={blog?.title}
-            className=" w-full lg:w-[90%] aspect-video rounded-xl my-[5%] "
+            src={`https://res.cloudinary.com/dquhriqz3/image/upload/${blog.image}`}
+            alt={blog.title}
+            className="w-full lg:w-[90%] aspect-video rounded-xl my-[5%]"
+            onLoad={handleImageLoad}
           />
         )}
       </div>
@@ -86,7 +148,6 @@ function BlogInfo() {
                 )}
               </div>
               <div className="text-linkIt-400 text-size dark:text-white ml-[5%]">
-                {/* {header.body} */}
                 {HTMLReactParser(header.body)}
               </div>
               <div className="flex justify-center items-center">
@@ -94,12 +155,12 @@ function BlogInfo() {
                   <img
                     className="h-[8rem] xs:h-[10rem] ssm:h-[15rem] md:h-[24rem] lg:h-[24rem] xl:h-[26rem] 2xl:h-[30rem] w-full xl:w-[80%] rounded-xl my-[5%]"
                     src={`https://res.cloudinary.com/dquhriqz3/image/upload/${header.sectionImage}`}
-                    alt={header.head.concat("image")}
+                    alt={header.head.concat(" image")}
+                    onLoad={handleImageLoad}
                   />
                 )}
               </div>
             </li>
-
           );
         })}
       </ul>

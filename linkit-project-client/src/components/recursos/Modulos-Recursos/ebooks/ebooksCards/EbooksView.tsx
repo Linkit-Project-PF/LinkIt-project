@@ -16,12 +16,14 @@ export default function EbookView() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container p-4 pt-[17vh] lg:pt-[23vh]">
-        <div className="grid lg:grid-cols-[1fr_300px] gap-8">
-          <EbookInfo pdfUrl={pdfUrl} />
-          <div className="hidden lg:block">
-            <BlogSidebar />
+    <div className="min-h-screen w-full">
+      <div className="container mx-auto p-4 pt-[17vh] lg:pt-[23vh]">
+        <div className="grid gap-8">
+          <div className="mx-auto w-full max-w-4xl lg:max-w-none lg:grid-cols-[1fr_300px] lg:gap-8 lg:grid">
+            <EbookInfo pdfUrl={pdfUrl} />
+            <div className="hidden lg:block">
+              <BlogSidebar />
+            </div>
           </div>
         </div>
       </div>
