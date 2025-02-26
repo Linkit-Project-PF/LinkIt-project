@@ -54,24 +54,30 @@ function EventCard({ image, title, category, description, link, isEditing }: Eve
   }
 
   const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-
-    const slug = generateSlug(title)
-    setTimeout(() => {
-      navigate(`/events/${slug}`, {
-        state: {
-          videoUrl: link,
-          title,
-          description,
-          category,
-        },
-      })
-    }, 500) 
-  }
+    e.preventDefault();
+    
+  
+    if (link.includes("youtube.com") || link.includes("youtu.be")) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      const slug = generateSlug(title);
+      setTimeout(() => {
+        navigate(`/events/${slug}`, {
+          state: {
+            videoUrl: link,
+            title,
+            description,
+            category,
+          },
+        });
+      }, 500);
+    } else {
+      window.open(link, "_blank");
+    }
+  };
+  
 
   return (
     <div className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400">
