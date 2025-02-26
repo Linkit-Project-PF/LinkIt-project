@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 type BlogsCardProps = {
   image: string;
@@ -29,6 +30,7 @@ function BlogsCard({
   isEditing,
 }: BlogsCardProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate()
 
   const generateSlug = (title: string) => {
     return title
@@ -38,6 +40,18 @@ function BlogsCard({
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
   };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+    setTimeout(() => {
+      navigate(`/blog/${_id}/${generateSlug(title)}`)
+    }, 500) 
+  }
+
 
   return (
     <motion.article
@@ -51,9 +65,8 @@ function BlogsCard({
       itemScope
       itemType="https://schema.org/BlogPosting"
     >
-      <a
-        href={`/blog/${_id}/${generateSlug(title)}`}
-        target="_blank"
+      <button
+        onClick={handleClick}
         rel="noopener noreferrer"
         className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
       >
@@ -65,7 +78,7 @@ function BlogsCard({
           className="w-full rounded-lg aspect-video bg-cover bg-center"
           itemProp="image"
         />
-      </a>
+      </button>
       <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
         <p
           className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold"

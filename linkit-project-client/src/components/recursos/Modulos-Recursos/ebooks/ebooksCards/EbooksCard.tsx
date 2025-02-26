@@ -64,9 +64,15 @@ function EbooksCard({
   };
 
   const handleClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
     const slug = generateSlug(title)
    
+   setTimeout(() => {
     navigate(`/ebook/${slug}`, { state: { pdfUrl: link } });
+   }, 500);
   };
 
   return (

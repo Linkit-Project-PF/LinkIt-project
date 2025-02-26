@@ -1,14 +1,12 @@
 import { useState } from "react"
 import { Document, Page, pdfjs } from "react-pdf"
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
+import "react-pdf/dist/esm/Page/AnnotationLayer.css"
+import "react-pdf/dist/esm/Page/TextLayer.css"
+import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react"
 
-import workerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url'
-
-
+import workerUrl from "pdfjs-dist/build/pdf.worker.mjs?url"
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerUrl
-
 
 interface EbookInfoProps {
   pdfUrl: string
@@ -20,6 +18,9 @@ export default function EbookInfo({ pdfUrl }: EbookInfoProps) {
   const [scale, setScale] = useState(1)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [containerWidth, setContainerWidth] = useState<number | null>(null)
+
+
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages)
@@ -43,9 +44,16 @@ export default function EbookInfo({ pdfUrl }: EbookInfoProps) {
     setScale((prevScale) => Math.min(Math.max(0.5, prevScale + delta), 2))
   }
 
+  const measureContainer = (containerRef: HTMLDivElement | null) => {
+    if (containerRef) {
+      const width = containerRef.clientWidth - 48 
+      setContainerWidth(width)
+    }
+  }
+
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-gray-100 p-8">
+      <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-gray-100 p-4 md:p-8">
         <p className="text-red-500">{error}</p>
         <button
           onClick={() => window.location.reload()}
@@ -58,141 +66,97 @@ export default function EbookInfo({ pdfUrl }: EbookInfoProps) {
   }
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      {/* Controles */}
-      <div className="flex w-full flex-wrap items-center justify-between gap-4 rounded-lg bg-white p-4 shadow-sm">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => changePage(-1)}
-            disabled={pageNumber <= 1}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            ←
-          </button>
-          <div className="flex items-center gap-2">
-            <input
-              type="number"
-              min={1}
-              max={numPages || 1}
-              value={pageNumber}
-              onChange={(e) => {
-                const value = Number.parseInt(e.target.value)
-                if (!isNaN(value) && value >= 1 && value <= (numPages || 1)) {
-                  setPageNumber(value)
-                }
-              }}
-              className="w-16 rounded-md border border-gray-300 px-2 py-1 text-center"
-            />
-            <span className="text-sm text-gray-600">de {numPages || "-"}</span>
+    <div className="flex h-[calc(100vh-20vh)] flex-col bg-background md:h-[calc(100vh-23vh)]">
+      {/* Controles superiores */}
+      <div className="sticky top-0 z-10 rounded-lg shadow-sm md:p-4">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          {/* Navegación de páginas */}
+          <div className="flex items-center justify-center gap-2">
+            <button
+              onClick={() => changePage(-1)}
+              disabled={pageNumber <= 1}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 md:h-10 md:w-10"
+            >
+              <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
+            </button>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                min={1}
+                max={numPages || 1}
+                value={pageNumber}
+                onChange={(e) => {
+                  const value = Number.parseInt(e.target.value)
+                  if (!isNaN(value) && value >= 1 && value <= (numPages || 1)) {
+                    setPageNumber(value)
+                  }
+                }}
+                className="w-16 rounded-md border border-gray-300 px-2 py-1 text-center text-sm md:text-base"
+              />
+              <span className="text-sm text-gray-600 md:text-base">de {numPages || "-"}</span>
+            </div>
+            <button
+              onClick={() => changePage(1)}
+              disabled={!numPages || pageNumber >= numPages}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 md:h-10 md:w-10"
+            >
+              <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
+            </button>
           </div>
-          <button
-            onClick={() => changePage(1)}
-            disabled={!numPages || pageNumber >= numPages}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            →
-          </button>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => changeScale(-0.1)}
-            disabled={scale <= 0.5}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            -
-          </button>
-          <span className="text-sm text-gray-600">{Math.round(scale * 100)}%</span>
-          <button
-            onClick={() => changeScale(0.1)}
-            disabled={scale >= 2}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            +
-          </button>
+
+          {/* Controles de zoom */}
+          <div className="flex items-center justify-center gap-2">
+            <button
+              onClick={() => changeScale(-0.1)}
+              disabled={scale <= 0.5}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 md:h-10 md:w-10"
+            >
+              <ZoomOut className="h-4 w-4 md:h-5 md:w-5" />
+            </button>
+            <span className="w-16 text-center text-sm text-gray-600 md:text-base">{Math.round(scale * 100)}%</span>
+            <button
+              onClick={() => changeScale(0.1)}
+              disabled={scale >= 2}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 md:h-10 md:w-10"
+            >
+              <ZoomIn className="h-4 w-4 md:h-5 md:w-5" />
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="relative w-full rounded-lg bg-white shadow-sm">
+      {/* Contenedor del PDF */}
+      <div ref={measureContainer} className="relative w-full  flex-1 rounded-lg overflow-auto bg-white  shadow-sm md:p-4">
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50/50">
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
           </div>
         )}
-        <Document
-          file={pdfUrl}
-          onLoadSuccess={onDocumentLoadSuccess}
-          onLoadError={onDocumentLoadError}
-          loading={
-            <div className="flex h-[50vh] items-center justify-center bg-white">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
-            </div>
-          }
-        >
-          <Page
-            pageNumber={pageNumber}
-            scale={scale}
-            className="flex justify-center"
+        <div className="flex h-auto items-center justify-center">
+          <Document
+            file={pdfUrl}
+            onLoadSuccess={onDocumentLoadSuccess}
+            onLoadError={onDocumentLoadError}
             loading={
-              <div className="flex h-[50vh] items-center justify-center">
+              <div className="flex h-full items-center justify-center">
                 <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
               </div>
             }
-          />
-        </Document>
-      </div>
-      <div className="flex w-full flex-wrap items-center justify-between gap-4 rounded-lg bg-white p-4 shadow-sm">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => changePage(-1)}
-            disabled={pageNumber <= 1}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
           >
-            ←
-          </button>
-          <div className="flex items-center gap-2">
-            <input
-              type="number"
-              min={1}
-              max={numPages || 1}
-              value={pageNumber}
-              onChange={(e) => {
-                const value = Number.parseInt(e.target.value)
-                if (!isNaN(value) && value >= 1 && value <= (numPages || 1)) {
-                  setPageNumber(value)
-                }
-              }}
-              className="w-16 rounded-md border border-gray-300 px-2 py-1 text-center"
+            <Page
+              pageNumber={pageNumber}
+              scale={scale}
+              width={containerWidth || undefined}
+              className="max-w-full touch-pan-y"
+              loading={
+                <div className="flex h-full items-center justify-center">
+                  <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
+                </div>
+              }
             />
-            <span className="text-sm text-gray-600">de {numPages || "-"}</span>
-          </div>
-          <button
-            onClick={() => changePage(1)}
-            disabled={!numPages || pageNumber >= numPages}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            →
-          </button>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => changeScale(-0.1)}
-            disabled={scale <= 0.5}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            -
-          </button>
-          <span className="text-sm text-gray-600">{Math.round(scale * 100)}%</span>
-          <button
-            onClick={() => changeScale(0.1)}
-            disabled={scale >= 2}
-            className="rounded-md bg-gray-100 p-2 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-          >
-            +
-          </button>
+          </Document>
         </div>
       </div>
-
     </div>
   )
 }
-
