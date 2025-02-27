@@ -24,14 +24,11 @@ export default function EventsView() {
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        // Primero intentamos usar los datos del state
         if (location.state) {
           setEventData(location.state)
           setLoading(false)
           return
         }
-
-        // Si no hay state, intentamos recuperar de sessionStorage
         const savedData = sessionStorage.getItem("eventData")
         if (savedData) {
           const parsedData = JSON.parse(savedData)
@@ -48,13 +45,9 @@ export default function EventsView() {
             return
           }
         }
-
-        // Si no hay datos en sessionStorage, hacemos fetch a la API
         const response = await axios.get(`https://linkit-server.onrender.com/posts/events/${slug}`)
         const data = response.data
-
         if (!data) throw new Error("Event not found")
-
         setEventData({
           videoUrl: data.link,
           title: data.title,
@@ -113,4 +106,3 @@ export default function EventsView() {
     </div>
   )
 }
-

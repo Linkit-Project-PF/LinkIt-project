@@ -70,8 +70,6 @@ function EventCard({ image, title, category, description, link, isEditing }: Eve
 
       const slug = generateSlug(title)
       const videoId = getYoutubeId(link)
-
-      // Guardar datos en sessionStorage
       const eventData = {
         title,
         description,

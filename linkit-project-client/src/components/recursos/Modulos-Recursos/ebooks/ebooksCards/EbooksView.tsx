@@ -101,6 +101,7 @@ export default function EbookView() {
               <p className="text-gray-600">{ebookData.description}</p>
               <EbookInfo pdfUrl={ebookData.pdfUrl} />
             </div>
+
             <div className="hidden lg:block">
               <BlogSidebar />
             </div>
