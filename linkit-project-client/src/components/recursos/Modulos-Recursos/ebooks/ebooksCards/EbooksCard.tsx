@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { motion, Variants } from "framer-motion";
-import { useTranslation } from "react-i18next";
-import "./ebooksCard.css";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { motion, type Variants } from "framer-motion"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
+import "./ebooksCard.css"
 
 type EbooksCardProps = {
-  title: string;
-  description: string;
-  link: string;
-  category: string;
-  image?: string;
-  isEditing?: boolean;
-};
+  title: string
+  description: string
+  link: string
+  category: string
+  image?: string
+  isEditing?: boolean
+}
 
 const cardVariants: Variants = {
   initial: {
@@ -35,24 +35,16 @@ const cardVariants: Variants = {
       ease: "easeInOut",
     },
   },
-};
+}
 
-function EbooksCard({
-  title,
-  description,
-  link,
-  category,
-  image,
-  isEditing,
-}: EbooksCardProps): JSX.Element {
-  const [key, setKey] = useState(Math.random());
-  const { t } = useTranslation();
+function EbooksCard({ title, description, link, category, image, isEditing }: EbooksCardProps): JSX.Element {
+  const [key, setKey] = useState(Math.random())
+  const { t } = useTranslation()
   const navigate = useNavigate()
-  
 
   useEffect(() => {
-    setKey(Math.random());
-  }, [title, description, link, category]);
+    setKey(Math.random())
+  }, []) //Fixed unnecessary dependencies
 
   const generateSlug = (title: string) => {
     return title
@@ -60,23 +52,43 @@ function EbooksCard({
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  };
+      .replace(/^-+|-+$/g, "")
+  }
 
   const handleClick = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     })
+
     const slug = generateSlug(title)
-   
-   setTimeout(() => {
-    navigate(`/ebook/${slug}`, { state: { pdfUrl: link } });
-   }, 500);
-  };
+
+    // Guardamos los datos en sessionStorage antes de navegar
+    const ebookData = {
+      title,
+      description,
+      link,
+      category,
+      image,
+      slug,
+    }
+    sessionStorage.setItem("ebookData", JSON.stringify(ebookData))
+
+    setTimeout(() => {
+      navigate(`/ebook/${slug}`, {
+        state: {
+          pdfUrl: link,
+          title,
+          description,
+          category,
+          image,
+        },
+      })
+    }, 500)
+  }
 
   return (
-    <div className=" border-[2px]  w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white">
+    <div className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white">
       <motion.a
         key={key}
         className=""
@@ -87,7 +99,6 @@ function EbooksCard({
         whileTap={isEditing ? {} : { scale: 1 }}
         exit={"exit"}
         onClick={handleClick}
-        target="_blank"
       >
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
@@ -99,16 +110,15 @@ function EbooksCard({
             {category}
           </span>
           <span className="font-bold subtitles-size line-clamp-3">{title}</span>
-          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">
-            {description}
-          </p>
+          <p className="font-semibold text-size text-ellipsis overflow-clip line-clamp-3">{description}</p>
           <motion.div className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start">
             {t("Descargar")}
           </motion.div>
         </div>
       </motion.a>
     </div>
-  );
+  )
 }
 
-export default EbooksCard;
+export default EbooksCard
+
