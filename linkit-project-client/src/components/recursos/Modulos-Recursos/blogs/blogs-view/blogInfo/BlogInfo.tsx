@@ -138,7 +138,7 @@ function BlogInfo() {
               <motion.img
                 src={`https://res.cloudinary.com/dquhriqz3/image/upload/${header.sectionImage}`}
                 alt={`${header.head} image`}
-                className="w-full lg:w-3/4 rounded-xl my-4 object-cover mx-auto" 
+                className="w-full lg:w-3/4 rounded-xl my-4 object-cover mx-auto"
                 onLoad={handleImageLoad}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}

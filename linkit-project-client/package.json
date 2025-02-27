@@ -44,6 +44,7 @@
     "react-select": "^5.8.0",
     "recharts": "^2.10.4",
     "redux-persist": "^6.0.0",
+    "split-type": "^0.3.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.10.1",
     "tw-elements": "^1.1.0"
