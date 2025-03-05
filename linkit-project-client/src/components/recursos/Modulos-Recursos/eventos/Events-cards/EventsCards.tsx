@@ -65,7 +65,6 @@ const handleNext = () => {
         alt="previus-icon"
         className="rotate-90 w-[20px] justify-self-start ssm:justify-self-center cursor-pointer"
       />
-
       <div className="grid grid-cols-3 items-end gap-3 w-full h-full mx-3">
         {events.slice(startIndex, endIndex).map((event, index) => {
           return (

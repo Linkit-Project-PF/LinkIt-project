@@ -44,7 +44,7 @@ function EbooksCard({ title, description, link, category, image, isEditing }: Eb
 
   useEffect(() => {
     setKey(Math.random())
-  }, []) //Fixed unnecessary dependencies
+  }, []) 
 
   const generateSlug = (title: string) => {
     return title
@@ -86,7 +86,6 @@ function EbooksCard({ title, description, link, category, image, isEditing }: Eb
       })
     }, 500)
   }
-
   return (
     <div className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white">
       <motion.a
