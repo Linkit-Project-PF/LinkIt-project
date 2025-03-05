@@ -52,8 +52,6 @@ export default function EbookView() {
             return
           }
         }
-
-        // Si no hay datos en sessionStorage, hacemos fetch a la API
         const response = await axios.get(`https://linkit-server.onrender.com/posts/ebook/${slug}`)
         if (!response) throw new Error("Ebook not found")
       
@@ -86,6 +84,7 @@ export default function EbookView() {
   if (error || !ebookData) {
     return (
       <div className="flex h-screen items-center justify-center">
+
         <p className="text-red-500 font-semibold">Error: {error || "No se encontró el PDF."}</p>
       </div>
     )
@@ -101,7 +100,6 @@ export default function EbookView() {
               <p className="text-gray-600">{ebookData.description}</p>
               <EbookInfo pdfUrl={ebookData.pdfUrl} />
             </div>
-
             <div className="hidden lg:block">
               <BlogSidebar />
             </div>

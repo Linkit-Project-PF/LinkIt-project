@@ -9,7 +9,6 @@ import {
 import { ResourceProps, ViewResourceProps } from "../../../admin.types";
 import CloudinaryUploadWidget from "../../../../Services/cloudinaryWidget";
 import ModalEditResources from "./ModalEditResources";
-import swal from "sweetalert";
 
 export type stateProps = {
   resources: {
@@ -42,7 +41,6 @@ export default function Resources() {
     }
   };
   useEffect(() => {
-    
     loadData();
   }, [saveStatus || dispatch]);
 
@@ -89,17 +87,16 @@ export default function Resources() {
   const [filePublicId, setFilePublicId] = useState("");
   const handleEdit = (id: string): void => {
     if (selectedRows.has(id)) {
-      setSelectedRows(new Set()); 
+      setSelectedRows(new Set());
     } else {
-      setSelectedRows(new Set([id])); 
+      setSelectedRows(new Set([id]));
     }
     setEditing(false);
   };
-  
- 
+
   const editResource = () => {
     setSaveStatus(false);
-    
+
     if (selectedRows.size === 1) {
       const id = Array.from(selectedRows)[0];
       const selectedResource = data.find((resource) => resource._id === id);
@@ -123,7 +120,6 @@ export default function Resources() {
   };
   const handleSave = async (arrayProps: string | string[]) => {
     try {
-
       const propsArray = Array.isArray(arrayProps) ? arrayProps : [arrayProps];
       propsArray.forEach(async (id: string) => {
         const endPoint = `https://linkit-server.onrender.com/posts/update/${id}`;
@@ -141,7 +137,7 @@ export default function Resources() {
         console.error("Error al enviar la solicitud: ", error.message);
       }
     }
-    
+
     setEditing(false);
     setSaveStatus(!saveStatus);
     setEditedData({});
@@ -164,28 +160,18 @@ export default function Resources() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-
   const [selectedResource, setSelectedResource] =
     useState<ResourceProps | null>(null);
 
-    const handleOpenModal = (resource: ResourceProps): void => {
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-     
-    
-      if (windowWidth >= 1280 && windowHeight >= 800) {
-        setSelectedResource(resource);
-        setModalOpen(true);
-        setIsEditing(true);
-        setEditing(true);
-      } else {
-        swal("¡Atención!", "Esta función no está disponible para dispositivos con una resolución de pantalla de 1280x1024 o inferior.", "warning");
-      }
-    };
-    
+  const handleOpenModal = (resource: ResourceProps): void => {
+    setSelectedResource(resource);
+    setModalOpen(true);
+    setIsEditing(true);
+    setEditing(true);
+  };
 
   const handleCloseModal = (): void => {
-    loadData()
+    loadData();
     setModalOpen(false);
     setIsEditing(false);
     setEditing(false);

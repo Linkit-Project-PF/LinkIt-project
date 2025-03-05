@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Recursos from "./components/recursos/recursos";
 import QuienesSomos from "./components/quienesSomos/quienesSomos";
 import Home from "./components/Home/Home";
@@ -37,13 +37,14 @@ import ProfileContainer from "./components/Profiles/ProfileContainer.tsx";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy.tsx";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions.tsx";
 import SuccesfullForm from "./Utils/contactUs/SuccesfullForm.tsx";
-import lightIcon from "/Vectores/Favicon de prueba ph 48x48.png"
-import darkIcon from "/Vectores/FaviconDark.svg"
+import lightIcon from "/Vectores/Favicon de prueba ph 48x48.png";
+import darkIcon from "/Vectores/FaviconDark.svg";
 import EbookView from "./components/recursos/Modulos-Recursos/ebooks/ebooksCards/EbooksView.tsx";
 import EventsView from "./components/recursos/Modulos-Recursos/eventos/Events-cards/EventsView.tsx";
+//import LandingPage from "./components/LandingPage/LandingPage.tsx";
 
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 type registerLoginState = {
   registerLogin: {
@@ -119,9 +120,12 @@ function App() {
 
   useEffect(() => {
     const handleFaviconChange = () => {
-      const favicon = document.getElementById('Favicon') as HTMLLinkElement;
+      const favicon = document.getElementById("Favicon") as HTMLLinkElement;
       if (favicon) {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
           favicon.href = darkIcon;
         } else {
           favicon.href = lightIcon;
@@ -133,11 +137,15 @@ function App() {
     handleFaviconChange();
 
     // Listen for changes in color scheme preference
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleFaviconChange);
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", handleFaviconChange);
 
     // Cleanup listener on component unmount
     return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleFaviconChange);
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeEventListener("change", handleFaviconChange);
     };
   }, []);
 
@@ -153,7 +161,7 @@ function App() {
     googleAnalytics();
   }, []);
 
-//cambiar este use effect y que se hagan las peticiones en cada componente.  
+  //cambiar este use effect y que se hagan las peticiones en cada componente.
   useEffect(() => {
     /**
      * Fetches data from the server and sets the job offers in the state.
@@ -222,10 +230,12 @@ function App() {
     fetchData();
   }, [dispatch]);
 
+  const location = useLocation();
+  const isLandingPage = location.pathname === "/landing";
+
   return (
     <div className="w-screen h-full">
-      <NavBar />
-
+      {!isLandingPage && <NavBar />}
       <motion.div
         variants={loginVariants}
         initial="hidden"
@@ -280,7 +290,11 @@ function App() {
         />
         <Route path="/soyEmpresa" element={<Empresas />} />
         <Route path="/soyTalento" element={<Talentos />} />
-        <Route path="/soyTalento/Joboffer/:id/:slug" element={<JobDescription />} />
+
+        <Route
+          path="/soyTalento/Joboffer/:id/:slug"
+          element={<JobDescription />}
+        />
         <Route
           path="/soyTalento/Joboffer/:id/:slug/application/"
           element={<JobForm />}
@@ -309,9 +323,10 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
         <Route path="/Gracias" element={<SuccesfullForm />} />
+        {/* <Route path="/landing" element={<LandingPage />} /> */}
       </Routes>
-      <TopButton />
-      <Footer />
+      {!isLandingPage && <TopButton />}
+      {!isLandingPage && <Footer />}
     </div>
   );
 }

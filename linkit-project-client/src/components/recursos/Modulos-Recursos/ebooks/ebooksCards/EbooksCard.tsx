@@ -44,7 +44,7 @@ function EbooksCard({ title, description, link, category, image, isEditing }: Eb
 
   useEffect(() => {
     setKey(Math.random())
-  }, []) 
+  }, []) //Fixed unnecessary dependencies
 
   const generateSlug = (title: string) => {
     return title

@@ -47,7 +47,10 @@ export default function EventsView() {
         }
         const response = await axios.get(`https://linkit-server.onrender.com/posts/events/${slug}`)
         const data = response.data
+
         if (!data) throw new Error("Event not found")
+
+
         setEventData({
           videoUrl: data.link,
           title: data.title,
@@ -106,3 +109,4 @@ export default function EventsView() {
     </div>
   )
 }
+
