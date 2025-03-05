@@ -107,6 +107,7 @@ function BlogInfo() {
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${blog.image}`}
           alt={blog.title}
           className="w-full lg:w-4/5 aspect-video rounded-xl my-6 object-cover mx-auto" // Centrar imagen
+
           onLoad={handleImageLoad}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
@@ -123,7 +124,9 @@ function BlogInfo() {
           >
             {header.head && (
               <div className="flex items-center">
-                <span className="font-bold bg-linkIt-300 text-white px-3 py-1 rounded-full mr-3 ml-2"> {/* Ajustar margen aquí */}
+
+                <span className="font-bold bg-linkIt-300 text-white px-3 py-1 rounded-full mr-3 ml-2">
+
                   {index + 1}
                 </span>
                 <span className="text-linkIt-300 font-semibold text-lg">
@@ -138,7 +141,8 @@ function BlogInfo() {
               <motion.img
                 src={`https://res.cloudinary.com/dquhriqz3/image/upload/${header.sectionImage}`}
                 alt={`${header.head} image`}
-                className="w-full lg:w-3/4 rounded-xl my-4 object-cover mx-auto" // Centrar imagen
+
+                className="w-full lg:w-3/4 rounded-xl my-4 object-cover mx-auto"
                 onLoad={handleImageLoad}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}

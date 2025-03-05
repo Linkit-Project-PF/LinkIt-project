@@ -43,6 +43,7 @@ import EbookView from "./components/recursos/Modulos-Recursos/ebooks/ebooksCards
 import EventsView from "./components/recursos/Modulos-Recursos/eventos/Events-cards/EventsView.tsx";
 //import LandingPage from "./components/LandingPage/LandingPage.tsx";
 
+
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 type registerLoginState = {
