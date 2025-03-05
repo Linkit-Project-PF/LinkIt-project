@@ -44,7 +44,7 @@ function EbooksCard({ title, description, link, category, image, isEditing }: Eb
 
   useEffect(() => {
     setKey(Math.random())
-  }, []) 
+  }, []) //Fixed unnecessary dependencies
 
   const generateSlug = (title: string) => {
     return title
@@ -62,8 +62,6 @@ function EbooksCard({ title, description, link, category, image, isEditing }: Eb
     })
 
     const slug = generateSlug(title)
-
-    // Guardamos los datos en sessionStorage antes de navegar
     const ebookData = {
       title,
       description,
