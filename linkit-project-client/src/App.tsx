@@ -44,6 +44,7 @@ import EventsView from "./components/recursos/Modulos-Recursos/eventos/Events-ca
 import LandingPage from "./components/LandingPage/LandingPage.tsx";
 
 
+
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 type registerLoginState = {
