@@ -7,6 +7,7 @@ import axios from "axios";
 import { searchResource, setResources, sortResource } from "../../../../../redux/features/ResourcesSlice";
 import { useTranslation } from "react-i18next";
 import { stateProps } from "./Resources";
+import { useNavigate } from "react-router-dom";
 
 interface HeadResources {
     hideCol: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -52,12 +53,14 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
         dispatch(sortResource(value))
     }
     //?
-
+    const navigate = useNavigate();
     //? FORM
     const [viewForm, setViewForm] = useState(false);
     const showForm = () => {
-        setSaveStatus(false)
-        setViewForm(true);
+        // setSaveStatus(false)
+        // setViewForm(true);
+        navigate("/AdminDashboard/crear-recurso")
+        
     };
     const noShowForm = () => {
         setViewForm(false);
@@ -138,6 +141,7 @@ export default function HeadResources({ hideCol, viewCol, selectedRows, setSelec
                     >
                         {t("Crear recurso")}
                     </button>
+                   
                 </div>
                 <div className="flex flex-row">
                     <div>

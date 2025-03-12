@@ -12,6 +12,7 @@ import UsersAdmin2 from "../Usuarios/UsersAdmin2";
 import Resources from "./AdminRecursos/Resources";
 import Reviews from "./AdminReviews/Reviews";
 import SuperAdminProfileForm from "../../../Profiles/SuperAdminProfile/SuperAdminProfileForm";
+import CreateResourcePage from "./AdminRecursos/NewCreate/CreateResourcePage";
 // import SuperAdminProfile from "../../../Profiles/SuperAdminProfile/SuperAdminProfile";
 
 export default function AdminPanel() {
@@ -63,6 +64,8 @@ export default function AdminPanel() {
         <Route path="reviews" element={<Reviews />} />
         <Route path="users/*" element={<UsersAdmin2 />} />
         <Route path="mis-datos" element={<SuperAdminProfileForm />} />
+        <Route path="/crear-recurso" element={<CreateResourcePage />} />
+        
       </Routes>
       <br />
     </div>
