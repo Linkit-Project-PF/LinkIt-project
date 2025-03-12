@@ -41,7 +41,7 @@ import lightIcon from "/Vectores/Favicon de prueba ph 48x48.png";
 import darkIcon from "/Vectores/FaviconDark.svg";
 import EbookView from "./components/recursos/Modulos-Recursos/ebooks/ebooksCards/EbooksView.tsx";
 import EventsView from "./components/recursos/Modulos-Recursos/eventos/Events-cards/EventsView.tsx";
-//import LandingPage from "./components/LandingPage/LandingPage.tsx";
+import LandingPage from "./components/LandingPage/LandingPage.tsx";
 
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
@@ -323,7 +323,8 @@ function App() {
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
         <Route path="/Gracias" element={<SuccesfullForm />} />
-        {/* <Route path="/landing" element={<LandingPage />} /> */}
+        <Route path="/contrata-talento-it" element={<LandingPage />} />
+        <Route path="/hire-it-talent" element={<LandingPage />} />
       </Routes>
       {!isLandingPage && <TopButton />}
       {!isLandingPage && <Footer />}
