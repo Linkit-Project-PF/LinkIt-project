@@ -7,3 +7,15 @@ section::before {
     visibility: hidden;
     pointer-events: none;
 }
+
+/* Asegurarse de que los IDs tengan suficiente padding-top para compensar la navbar */
+#contactanosE,
+#serviciosE,
+#casosDeExitoE,
+#moduloE,
+#moduloF,
+#moduloG,
+#procesoE,
+#calculadora {
+  scroll-margin-top: 100px; /* Altura de la navbar */
+}
