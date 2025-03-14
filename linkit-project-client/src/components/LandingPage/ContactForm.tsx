@@ -143,6 +143,7 @@ const ContactForm = () => {
     return translation
   }
 
+  // Obtener las tecnologías del stack desde Redux
   const allStackTechnologies = useSelector((state: any) => (state.resources?.stackTechnologies as Technology[]) || [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -160,6 +161,22 @@ const ContactForm = () => {
     console.log("Form submitted:", formData)
     // Aquí iría la lógica para enviar el formulario
   }
+
+  // Opciones de perfil de respaldo en caso de que no haya tecnologías disponibles
+  const fallbackProfiles = [
+    { name: "Frontend Developer" },
+    { name: "Backend Developer" },
+    { name: "Fullstack Developer" },
+    { name: "DevOps Engineer" },
+    { name: "QA Engineer" },
+    { name: "Mobile Developer" },
+    { name: "Data Scientist/Engineer" },
+    { name: "UI/UX Designer" },
+  ]
+
+  // Usar las tecnologías del stack si están disponibles, de lo contrario usar las opciones de respaldo
+  const profileOptions =
+    allStackTechnologies && allStackTechnologies.length > 0 ? allStackTechnologies : fallbackProfiles
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 font-montserrat">
@@ -211,7 +228,7 @@ const ContactForm = () => {
         />
       </div>
 
-      {/* Número de teléfono - Cambiado a input directo */}
+      {/* Número de teléfono */}
       <div className="space-y-1">
         <label className="block text-sm font-medium text-gray-700">
           {t("telefono")} <span className="text-red-500">*</span>
@@ -243,7 +260,7 @@ const ContactForm = () => {
         />
       </div>
 
-      {/* País de la empresa - Cambiado a input directo */}
+      {/* País de la empresa */}
       <div className="space-y-1">
         <label className="block text-sm font-medium text-gray-700">
           {t("pais")} <span className="text-red-500">*</span>
@@ -324,7 +341,7 @@ const ContactForm = () => {
         </div>
       </div>
 
-      {/* ¿Qué perfil estás buscando? */}
+      {/* ¿Qué perfil estás buscando? - Ahora usando allStackTechnologies */}
       <div className="space-y-1 col-span-1 md:col-span-2">
         <label className="block text-sm font-medium text-gray-700">
           {t("perfilBuscando")} <span className="text-red-500">*</span>
@@ -340,17 +357,13 @@ const ContactForm = () => {
             <option value="" disabled>
               {t("placeholder.seleccionar")}
             </option>
-            <option value="frontend">{t("perfiles.frontend")}</option>
-            <option value="backend">{t("perfiles.backend")}</option>
-            <option value="fullstack">{t("perfiles.fullstack")}</option>
-            <option value="devops">{t("perfiles.devops")}</option>
-            <option value="qa">{t("perfiles.qa")}</option>
-            <option value="mobile">{t("perfiles.mobile")}</option>
-            <option value="data">{t("perfiles.data")}</option>
-            <option value="ui">{t("perfiles.ui")}</option>
+            {profileOptions.map((tech, index) => (
+              <option key={index} value={tech.name}>
+                {tech.name}
+              </option>
+            ))}
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <ArrowRight className="w-4 h-4 text-gray-400" />
           </div>
         </div>
       </div>
@@ -381,7 +394,7 @@ const ContactForm = () => {
       <div className="col-span-1 md:col-span-2 mt-2">
         <motion.button
           type="submit"
-          className="bg-gradient-to-r from-[#4ECDC4] to-linkIt-300 hover:from-[#2AB7CA] hover:to-[#4ECDC4] text-white font-bold py-3 px-6 rounded-md transition-all w-full flex items-center justify-center gap-2"
+          className="bg-gradient-to-r from-[#4ECDC4] to-[#2AB7CA] hover:from-[#2AB7CA] hover:to-[#4ECDC4] text-white font-bold py-3 px-6 rounded-md transition-all w-full flex items-center justify-center gap-2"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
