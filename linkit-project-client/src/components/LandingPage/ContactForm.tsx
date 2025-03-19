@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, X } from "lucide-react"
-import { useSelector } from "react-redux"
-import { useTranslation } from "react-i18next"
-import Swal from "sweetalert2"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, X } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 // Traducciones específicas para este componente
 const translations = {
@@ -42,7 +42,8 @@ const translations = {
     opciones: {
       buscarTalento: "Buscar talento IT",
       contratarTalento: "Contratar talento IT",
-      mejorarProductividad: "Mejorar la productividad y fidelización de tu talento",
+      mejorarProductividad:
+        "Mejorar la productividad y fidelización de tu talento",
     },
     perfiles: {
       frontend: "Frontend Developer",
@@ -59,7 +60,8 @@ const translations = {
       email: "Por favor ingresa un correo electrónico válido",
       telefono: "Por favor ingresa un número de teléfono válido",
       terminos: "Debes aceptar los términos y condiciones",
-      generico: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
+      generico:
+        "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
       faltanDatos: "Faltan datos del formulario",
     },
   },
@@ -115,39 +117,39 @@ const translations = {
       faltanDatos: "Missing form data",
     },
   },
-}
+};
 
 interface FormData {
-  nombre: string
-  apellido: string
-  correo: string
-  telefono: string
-  empresa: string
-  pais: string
-  buscandoTalento: string[]
-  perfiles: string[]
-  aceptaTerminos: boolean
+  nombre: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  empresa: string;
+  pais: string;
+  buscandoTalento: string[];
+  perfiles: string[];
+  aceptaTerminos: boolean;
 }
 
 interface FormErrors {
-  nombre?: string
-  apellido?: string
-  correo?: string
-  telefono?: string
-  empresa?: string
-  pais?: string
-  perfiles?: string
-  aceptaTerminos?: string
-  buscandoTalento?: string
+  nombre?: string;
+  apellido?: string;
+  correo?: string;
+  telefono?: string;
+  empresa?: string;
+  pais?: string;
+  perfiles?: string;
+  aceptaTerminos?: string;
+  buscandoTalento?: string;
 }
 
 interface Technology {
-  name: string
+  name: string;
 }
 
 const ContactForm = () => {
-  const { i18n } = useTranslation()
-  const navigate = useNavigate()
+  const { i18n } = useTranslation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     nombre: "",
     apellido: "",
@@ -158,222 +160,232 @@ const ContactForm = () => {
     buscandoTalento: [],
     perfiles: [],
     aceptaTerminos: false,
-  })
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [touched, setTouched] = useState<Record<string, boolean>>({})
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false)
-
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   //GTM
   const pushToDataLayer = () => {
-  if (typeof window !== 'undefined' && window.dataLayer) {
-    window.dataLayer.push({
-      event: 'LandingForm',
-      formLanguage: currentLang,
-      servicesSelected: formData.buscandoTalento.join(','),
-      profilesSelected: formData.perfiles.join(',')
-    });
-  }
-};
+    if (typeof window !== "undefined" && window.dataLayer) {
+      window.dataLayer.push({
+        event: "LandingForm",
+        formLanguage: currentLang,
+        servicesSelected: formData.buscandoTalento.join(","),
+        profilesSelected: formData.perfiles.join(","),
+      });
+    }
+  };
 
   // Determinar el idioma actual (con fallback a español)
-  const currentLang = i18n.language.startsWith("en") ? "en" : "es"
+  const currentLang = i18n.language.startsWith("en") ? "en" : "es";
 
   // Función para obtener traducciones
   const t = (key: string, params?: Record<string, any>) => {
     // Navegar por el objeto de traducciones usando la ruta de la clave
-    const keys = key.split(".")
-    let translation: any = translations[currentLang]
+    const keys = key.split(".");
+    let translation: any = translations[currentLang];
 
     for (const k of keys) {
-      if (translation[k] === undefined) return key
-      translation = translation[k]
+      if (translation[k] === undefined) return key;
+      translation = translation[k];
     }
 
-    if (typeof translation !== "string") return key
+    if (typeof translation !== "string") return key;
 
     if (params) {
       return Object.entries(params).reduce(
-        (acc, [paramKey, paramValue]) => acc.replace(`{{${paramKey}}}`, paramValue.toString()),
-        translation,
-      )
+        (acc, [paramKey, paramValue]) =>
+          acc.replace(`{{${paramKey}}}`, paramValue.toString()),
+        translation
+      );
     }
-    return translation
-  }
+    return translation;
+  };
 
   // Obtener las tecnologías del stack desde Redux
-  const allStackTechnologies = useSelector((state: any) => (state.resources?.stackTechnologies as Technology[]) || [])
+  const allStackTechnologies = useSelector(
+    (state: any) => (state.resources?.stackTechnologies as Technology[]) || []
+  );
 
   // Cargar datos guardados del localStorage al montar el componente
   useEffect(() => {
-    const savedData = localStorage.getItem("talentFormData")
+    const savedData = localStorage.getItem("talentFormData");
     if (savedData) {
       try {
-        const parsedData = JSON.parse(savedData)
-        setFormData(parsedData)
+        const parsedData = JSON.parse(savedData);
+        setFormData(parsedData);
       } catch (error) {
-        console.error("Error parsing saved form data:", error)
+        console.error("Error parsing saved form data:", error);
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement
+      const target = event.target as HTMLElement;
       if (!target.closest(".profile-dropdown")) {
-        setIsProfileDropdownOpen(false)
+        setIsProfileDropdownOpen(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Validar el formulario
   const validateForm = (): FormErrors => {
-    const newErrors: FormErrors = {}
+    const newErrors: FormErrors = {};
 
     // Validar campos requeridos
-    if (!formData.nombre) newErrors.nombre = t("errores.requerido")
-    if (!formData.apellido) newErrors.apellido = t("errores.requerido")
-    if (!formData.empresa) newErrors.empresa = t("errores.requerido")
-    if (!formData.pais) newErrors.pais = t("errores.requerido")
+    if (!formData.nombre) newErrors.nombre = t("errores.requerido");
+    if (!formData.apellido) newErrors.apellido = t("errores.requerido");
+    if (!formData.empresa) newErrors.empresa = t("errores.requerido");
+    if (!formData.pais) newErrors.pais = t("errores.requerido");
     if (formData.perfiles.length === 0) {
-      newErrors.perfiles = t("errores.requerido")
+      newErrors.perfiles = t("errores.requerido");
     }
     if (formData.buscandoTalento.length === 0) {
-      newErrors.buscandoTalento = t("errores.requerido")
+      newErrors.buscandoTalento = t("errores.requerido");
     }
     if (!formData.correo) {
-      newErrors.correo = t("errores.requerido")
+      newErrors.correo = t("errores.requerido");
     } else if (!/\S+@\S+\.\S+/.test(formData.correo)) {
-      newErrors.correo = t("errores.email")
+      newErrors.correo = t("errores.email");
     }
     if (!formData.telefono) {
-      newErrors.telefono = t("errores.requerido")
+      newErrors.telefono = t("errores.requerido");
     } else if (!/^\+?[0-9\s\-()]+$/.test(formData.telefono)) {
-      newErrors.telefono = t("errores.telefono")
+      newErrors.telefono = t("errores.telefono");
     }
     if (!formData.aceptaTerminos) {
-      newErrors.aceptaTerminos = t("errores.terminos")
+      newErrors.aceptaTerminos = t("errores.terminos");
     }
 
-    return newErrors
-  }
+    return newErrors;
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-  
+
     if (name === "buscandoTalento" && type === "checkbox") {
       setFormData((prev) => {
         let updatedServices = [...prev.buscandoTalento];
-  
+
         if (checked) {
           if (!updatedServices.includes(value)) {
             updatedServices.push(value);
           }
         } else {
-          updatedServices = updatedServices.filter((service) => service !== value);
+          updatedServices = updatedServices.filter(
+            (service) => service !== value
+          );
         }
-  
+
         const updatedData = { ...prev, buscandoTalento: updatedServices };
-  
+
         // Actualiza los errores si el usuario ha interactuado con el campo
         setErrors((prevErrors) => ({
           ...prevErrors,
-          buscandoTalento: updatedServices.length === 0 ? t("errores.requerido") : undefined,
+          buscandoTalento:
+            updatedServices.length === 0 ? t("errores.requerido") : undefined,
         }));
-  
+
         return updatedData;
       });
     } else {
       const newValue = type === "checkbox" ? checked : value;
-  
+
       setFormData((prev) => {
         const updatedData = { ...prev, [name]: newValue };
-  
+
         return updatedData;
       });
     }
-  
+
     setTouched((prev) => ({
       ...prev,
       [name]: true,
     }));
   };
-  
 
   const handleProfileToggle = (profileName: string) => {
     setFormData((prev) => {
       let updatedProfiles = [...prev.perfiles];
-  
+
       if (updatedProfiles.includes(profileName)) {
         updatedProfiles = updatedProfiles.filter((p) => p !== profileName);
       } else {
         updatedProfiles.push(profileName);
       }
-  
+
       const updatedData = { ...prev, perfiles: updatedProfiles };
-  
+
       // Si el usuario ha interactuado con el campo, actualizar los errores
       setErrors((prevErrors) => ({
         ...prevErrors,
-        perfiles: updatedProfiles.length === 0 ? t("errores.requerido") : undefined,
+        perfiles:
+          updatedProfiles.length === 0 ? t("errores.requerido") : undefined,
       }));
-  
+
       return updatedData;
     });
-  
+
     setTouched((prev) => ({
       ...prev,
       perfiles: true,
     }));
   };
-  
-  
 
   const handleRemoveProfile = (profileName: string) => {
     setFormData((prev) => {
       const updatedProfiles = prev.perfiles.filter((p) => p !== profileName);
-  
+
       const updatedData = { ...prev, perfiles: updatedProfiles };
-  
+
       // Si el usuario borra todos los perfiles, marcar como error
       setErrors((prevErrors) => ({
         ...prevErrors,
-        perfiles: updatedProfiles.length === 0 ? t("errores.requerido") : undefined,
+        perfiles:
+          updatedProfiles.length === 0 ? t("errores.requerido") : undefined,
       }));
-  
+
       return updatedData;
     });
-  
+
     setTouched((prev) => ({
       ...prev,
       perfiles: true,
     }));
   };
-  
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name } = e.target
+  const handleBlur = (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name } = e.target;
     setTouched((prev) => ({
       ...prev,
       [name]: true,
-    }))
+    }));
 
-    const fieldErrors = validateForm()
+    const fieldErrors = validateForm();
     setErrors((prev) => ({
       ...prev,
       [name]: fieldErrors[name as keyof FormErrors],
-    }))
-  }
+    }));
+  };
 
- 
   const fallbackProfiles = [
     { name: "Frontend Developer" },
     { name: "Backend Developer" },
@@ -384,33 +396,37 @@ const ContactForm = () => {
     { name: "Data Scientist/Engineer" },
     { name: "UI/UX Designer" },
     { name: "Java: Springboot" },
-  ]
+  ];
 
   const profileOptions =
-    allStackTechnologies && allStackTechnologies.length > 0 ? allStackTechnologies : fallbackProfiles
+    allStackTechnologies && allStackTechnologies.length > 0
+      ? allStackTechnologies
+      : fallbackProfiles;
 
   // Filtrar perfiles según el término de búsqueda
-  const filteredProfiles = profileOptions.filter((tech) => tech.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredProfiles = profileOptions.filter((tech) =>
+    tech.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const contactsBtn = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Validar todo el formulario
-    const formErrors = validateForm()
-    setErrors(formErrors)
+    const formErrors = validateForm();
+    setErrors(formErrors);
 
     // Verificar si hay errores
     if (Object.keys(formErrors).length > 0) {
-      const allTouched: Record<string, boolean> = {}
+      const allTouched: Record<string, boolean> = {};
       Object.keys(formData).forEach((key) => {
-        allTouched[key] = true
-      })
-      setTouched(allTouched)
-      return
+        allTouched[key] = true;
+      });
+      setTouched(allTouched);
+      return;
     }
 
     try {
-      setIsSubmitting(true)
+      setIsSubmitting(true);
 
       const confirmMessage = await Swal.fire({
         icon: "info",
@@ -421,24 +437,30 @@ const ContactForm = () => {
         confirmButtonText: t("confirmar"),
         cancelButtonText: t("cancelar"),
         reverseButtons: true,
-      })
+      });
 
       if (confirmMessage.isConfirmed) {
-        const { aceptaTerminos, ...formDataToSend } = formData
+        const { aceptaTerminos, ...formDataToSend } = formData;
         const dataToSend = {
           ...formDataToSend,
           perfil: formDataToSend.perfiles.join(", "),
-        }
-        delete (dataToSend as any).perfiles
+        };
+        delete (dataToSend as any).perfiles;
+        // Intentar con el endpoint de producción como fallback
         try {
-          const response = await axios.post("http://localhost:3000/resources/contactus/form", dataToSend, {
-            headers: {
-              Authorization: `Bearer ${SUPERADMN_ID}`,
-              "Accept-Language": sessionStorage.getItem("lang") || currentLang,
-            },
-          })
+          const prodResponse = await axios.post(
+            "https://linkit-server.onrender.com/resources/contactus/form",
+            dataToSend,
+            {
+              headers: {
+                Authorization: `Bearer ${SUPERADMN_ID}`,
+                "Accept-Language":
+                  sessionStorage.getItem("lang") || currentLang,
+              },
+            }
+          );
 
-          if (response.status === 200) {
+          if (prodResponse.status === 200) {
             // Limpiar el formulario y localStorage después del envío exitoso
             setFormData({
               nombre: "",
@@ -450,74 +472,42 @@ const ContactForm = () => {
               buscandoTalento: [],
               perfiles: [],
               aceptaTerminos: false,
-            })
-            localStorage.removeItem("talentFormData")
-            pushToDataLayer()
-            navigate("/Gracias")
+            });
+            pushToDataLayer();
+            localStorage.removeItem("talentFormData");
+            navigate("/Gracias");
           }
-        } catch (localError: any) {
-          console.error("Error con endpoint local:", localError)
-          console.error("Detalles del error:", localError.response?.data)
+        } catch (prodError: any) {
+          setIsSubmitting(false);
 
-          // Intentar con el endpoint de producción como fallback
-          try {
-            const prodResponse = await axios.post(
-              "https://linkit-server.onrender.com/resources/contactus/form",
-              dataToSend,
-              {
-                headers: {
-                  Authorization: `Bearer ${SUPERADMN_ID}`,
-                  "Accept-Language": sessionStorage.getItem("lang") || currentLang,
-                },
-              },
-            )
+          // Mostrar información detallada del error
+          const errorMessage =
+            prodError.response?.data?.message || prodError.message;
+          const errorDetails =
+            prodError.response?.data?.error || "No hay detalles adicionales";
 
-            if (prodResponse.status === 200) {
-              // Limpiar el formulario y localStorage después del envío exitoso
-              setFormData({
-                nombre: "",
-                apellido: "",
-                correo: "",
-                telefono: "",
-                empresa: "",
-                pais: "",
-                buscandoTalento: [],
-                perfiles: [],
-                aceptaTerminos: false,
-              })
-              localStorage.removeItem("talentFormData")
-              navigate("/Gracias")
-            }
-          } catch (prodError: any) {
-            setIsSubmitting(false)
-
-            // Mostrar información detallada del error
-            const errorMessage = prodError.response?.data?.message || prodError.message
-            const errorDetails = prodError.response?.data?.error || "No hay detalles adicionales"
-
-            Swal.fire({
-              customClass: {
-                confirmButton: "background-button",
-              },
-              title: "Error al enviar el formulario",
-              html: `
+          Swal.fire({
+            customClass: {
+              confirmButton: "background-button",
+            },
+            title: "Error al enviar el formulario",
+            html: `
                 <p>${errorMessage}</p>
                 <p class="text-sm text-gray-500 mt-2">Detalles técnicos: ${errorDetails}</p>
               `,
-              icon: "error",
-              showConfirmButton: true,
-              buttonsStyling: false,
-            })
+            icon: "error",
+            showConfirmButton: true,
+            buttonsStyling: false,
+          });
 
-            console.error(`${t("errores.faltanDatos")}:`, prodError)
-            console.error("Respuesta completa:", prodError.response?.data)
-          }
+          console.error(`${t("errores.faltanDatos")}:`, prodError);
+          console.error("Respuesta completa:", prodError.response?.data);
         }
       } else {
-        setIsSubmitting(false)
+        setIsSubmitting(false);
       }
     } catch (error: any) {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       Swal.fire({
         customClass: {
           confirmButton: "background-button",
@@ -526,29 +516,36 @@ const ContactForm = () => {
         icon: "error",
         showConfirmButton: true,
         buttonsStyling: false,
-      })
-      console.error(`${t("errores.faltanDatos")}: ${(error as Error).message}`)
+      });
+      console.error(`${t("errores.faltanDatos")}: ${(error as Error).message}`);
     }
-  }
+  };
 
   // Clase condicional para campos con error
   const getInputClassName = (fieldName: keyof FormData) => {
     const baseClass =
-      "w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#4ECDC4] text-sm transition-all text-black"
+      "w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#4ECDC4] text-sm transition-all text-black";
     return `${baseClass} ${
       touched[fieldName] && errors[fieldName as keyof FormErrors]
         ? "border-red-500 bg-red-50"
         : touched[fieldName] && !errors[fieldName as keyof FormErrors]
-          ? "border-green-500 bg-green-50"
-          : "border-gray-300"
-    }`
-  }
+        ? "border-green-500 bg-green-50"
+        : "border-gray-300"
+    }`;
+  };
 
   return (
-    <form onSubmit={contactsBtn} className="grid grid-cols-1 md:grid-cols-2 gap-4 font-montserrat" noValidate>
+    <form
+      onSubmit={contactsBtn}
+      className="grid grid-cols-1 md:grid-cols-2 gap-4 font-montserrat"
+      noValidate
+    >
       {/* Nombre */}
       <div className="space-y-1">
-        <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="nombre"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("nombre")} <span className="text-red-500">*</span>
         </label>
         <input
@@ -565,7 +562,11 @@ const ContactForm = () => {
           required
         />
         {touched.nombre && errors.nombre && (
-          <p id="nombre-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="nombre-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.nombre}
           </p>
         )}
@@ -573,7 +574,10 @@ const ContactForm = () => {
 
       {/* Apellido */}
       <div className="space-y-1">
-        <label htmlFor="apellido" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="apellido"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("apellido")} <span className="text-red-500">*</span>
         </label>
         <input
@@ -590,7 +594,11 @@ const ContactForm = () => {
           required
         />
         {touched.apellido && errors.apellido && (
-          <p id="apellido-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="apellido-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.apellido}
           </p>
         )}
@@ -598,7 +606,10 @@ const ContactForm = () => {
 
       {/* Correo corporativo */}
       <div className="space-y-1">
-        <label htmlFor="correo" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="correo"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("correo")} <span className="text-red-500">*</span>
         </label>
         <input
@@ -615,7 +626,11 @@ const ContactForm = () => {
           required
         />
         {touched.correo && errors.correo && (
-          <p id="correo-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="correo-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.correo}
           </p>
         )}
@@ -623,7 +638,10 @@ const ContactForm = () => {
 
       {/* Número de teléfono */}
       <div className="space-y-1">
-        <label htmlFor="telefono" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="telefono"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("telefono")} <span className="text-red-500">*</span>
         </label>
         <input
@@ -640,7 +658,11 @@ const ContactForm = () => {
           required
         />
         {touched.telefono && errors.telefono && (
-          <p id="telefono-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="telefono-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.telefono}
           </p>
         )}
@@ -648,7 +670,10 @@ const ContactForm = () => {
 
       {/* Empresa */}
       <div className="space-y-1">
-        <label htmlFor="empresa" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="empresa"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("empresa")} <span className="text-red-500">*</span>
         </label>
         <input
@@ -665,7 +690,11 @@ const ContactForm = () => {
           required
         />
         {touched.empresa && errors.empresa && (
-          <p id="empresa-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="empresa-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.empresa}
           </p>
         )}
@@ -673,7 +702,10 @@ const ContactForm = () => {
 
       {/* País de la empresa */}
       <div className="space-y-1">
-        <label htmlFor="pais" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="pais"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("pais")} <span className="text-red-500">*</span>
         </label>
         <input
@@ -690,7 +722,11 @@ const ContactForm = () => {
           required
         />
         {touched.pais && errors.pais && (
-          <p id="pais-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="pais-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.pais}
           </p>
         )}
@@ -714,7 +750,10 @@ const ContactForm = () => {
                 className="w-4 h-4 text-[#4ECDC4] focus:ring-[#4ECDC4]"
                 aria-describedby="servicios-description"
               />
-              <label htmlFor="buscarTalento" className="ml-2 text-sm font-medium">
+              <label
+                htmlFor="buscarTalento"
+                className="ml-2 text-sm font-medium"
+              >
                 {t("opciones.buscarTalento")}
               </label>
             </div>
@@ -729,7 +768,10 @@ const ContactForm = () => {
                 className="w-4 h-4 text-[#4ECDC4] focus:ring-[#4ECDC4]"
                 aria-describedby="servicios-description"
               />
-              <label htmlFor="contratarTalento" className="ml-2 text-sm font-medium">
+              <label
+                htmlFor="contratarTalento"
+                className="ml-2 text-sm font-medium"
+              >
                 {t("opciones.contratarTalento")}
               </label>
             </div>
@@ -739,18 +781,27 @@ const ContactForm = () => {
                 id="mejorarProductividad"
                 name="buscandoTalento"
                 value="Mejorar la productividad y fidelización de tu talento"
-                checked={formData.buscandoTalento.includes("Mejorar la productividad y fidelización de tu talento")}
+                checked={formData.buscandoTalento.includes(
+                  "Mejorar la productividad y fidelización de tu talento"
+                )}
                 onChange={handleChange}
                 className="w-4 h-4 text-[#4ECDC4] focus:ring-[#4ECDC4]"
                 aria-describedby="servicios-description"
               />
-              <label htmlFor="mejorarProductividad" className="ml-2 text-sm font-medium">
+              <label
+                htmlFor="mejorarProductividad"
+                className="ml-2 text-sm font-medium"
+              >
                 {t("opciones.mejorarProductividad")}
               </label>
             </div>
           </div>
           {touched.buscandoTalento && errors.buscandoTalento && (
-            <p id="buscandoTalento-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+            <p
+              id="buscandoTalento-error"
+              className="text-red-500 text-xs mt-1"
+              aria-live="polite"
+            >
               {errors.buscandoTalento}
             </p>
           )}
@@ -762,7 +813,10 @@ const ContactForm = () => {
 
       {/* ¿Qué perfiles estás buscando? - Multiselect */}
       <div className="space-y-1 col-span-1 md:col-span-2">
-        <label htmlFor="perfiles" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="perfiles"
+          className="block text-sm font-medium text-gray-700"
+        >
           {t("perfilBuscando")} <span className="text-red-500">*</span>
         </label>
         <div className="relative profile-dropdown">
@@ -772,8 +826,8 @@ const ContactForm = () => {
               touched.perfiles && errors.perfiles
                 ? "border-red-500 bg-red-50"
                 : touched.perfiles && !errors.perfiles
-                  ? "border-green-500 bg-green-50"
-                  : "border-gray-300"
+                ? "border-green-500 bg-green-50"
+                : "border-gray-300"
             } cursor-pointer`}
             onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
           >
@@ -787,8 +841,8 @@ const ContactForm = () => {
                   <button
                     type="button"
                     onClick={(e) => {
-                      e.stopPropagation()
-                      handleRemoveProfile(profile)
+                      e.stopPropagation();
+                      handleRemoveProfile(profile);
                     }}
                     className="ml-1 text-gray-500 hover:text-gray-700"
                     aria-label={`Eliminar ${profile}`}
@@ -798,7 +852,9 @@ const ContactForm = () => {
                 </div>
               ))
             ) : (
-              <span className="text-gray-400 text-sm py-1">{t("placeholder.seleccionar")}</span>
+              <span className="text-gray-400 text-sm py-1">
+                {t("placeholder.seleccionar")}
+              </span>
             )}
           </div>
 
@@ -821,11 +877,13 @@ const ContactForm = () => {
                     <div
                       key={tech.name}
                       className={`px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center ${
-                        formData.perfiles.includes(tech.name) ? "bg-gray-100" : ""
+                        formData.perfiles.includes(tech.name)
+                          ? "bg-gray-100"
+                          : ""
                       }`}
                       onClick={(e) => {
-                        e.stopPropagation()
-                        handleProfileToggle(tech.name)
+                        e.stopPropagation();
+                        handleProfileToggle(tech.name);
                       }}
                     >
                       <input
@@ -838,14 +896,20 @@ const ContactForm = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="px-4 py-2 text-sm text-gray-500">No se encontraron resultados</div>
+                  <div className="px-4 py-2 text-sm text-gray-500">
+                    No se encontraron resultados
+                  </div>
                 )}
               </div>
             </div>
           )}
 
           {touched.perfiles && errors.perfiles && (
-            <p id="perfiles-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+            <p
+              id="perfiles-error"
+              className="text-red-500 text-xs mt-1"
+              aria-live="polite"
+            >
               {errors.perfiles}
             </p>
           )}
@@ -856,7 +920,9 @@ const ContactForm = () => {
       <div className="col-span-1 md:col-span-2">
         <div
           className={`flex items-start p-3 rounded-md border ${
-            touched.aceptaTerminos && errors.aceptaTerminos ? "bg-red-50 border-red-200" : "bg-gray-50 border-gray-200"
+            touched.aceptaTerminos && errors.aceptaTerminos
+              ? "bg-red-50 border-red-200"
+              : "bg-gray-50 border-gray-200"
           }`}
         >
           <input
@@ -868,19 +934,29 @@ const ContactForm = () => {
             onBlur={handleBlur}
             className="mt-1 w-4 h-4 text-[#4ECDC4] focus:ring-[#4ECDC4] rounded"
             aria-invalid={touched.aceptaTerminos && !!errors.aceptaTerminos}
-            aria-describedby={errors.aceptaTerminos ? "terminos-error" : undefined}
+            aria-describedby={
+              errors.aceptaTerminos ? "terminos-error" : undefined
+            }
             required
           />
           <label htmlFor="terminos" className="ml-2 text-sm text-gray-700">
             {t("terminos")}{" "}
-            <span className="text-[#4ECDC4] hover:underline cursor-pointer font-medium">{t("terminosLink")}</span>{" "}
+            <span className="text-[#4ECDC4] hover:underline cursor-pointer font-medium">
+              {t("terminosLink")}
+            </span>{" "}
             {t("y")}{" "}
-            <span className="text-[#4ECDC4] hover:underline cursor-pointer font-medium">{t("privacidadLink")}</span>{" "}
+            <span className="text-[#4ECDC4] hover:underline cursor-pointer font-medium">
+              {t("privacidadLink")}
+            </span>{" "}
             <span className="text-red-500">*</span>
           </label>
         </div>
         {touched.aceptaTerminos && errors.aceptaTerminos && (
-          <p id="terminos-error" className="text-red-500 text-xs mt-1" aria-live="polite">
+          <p
+            id="terminos-error"
+            className="text-red-500 text-xs mt-1"
+            aria-live="polite"
+          >
             {errors.aceptaTerminos}
           </p>
         )}
@@ -904,7 +980,14 @@ const ContactForm = () => {
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
                 <path
                   className="opacity-75"
                   fill="currentColor"
@@ -921,7 +1004,7 @@ const ContactForm = () => {
         </motion.button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;
