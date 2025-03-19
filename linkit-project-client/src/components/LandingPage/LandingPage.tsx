@@ -14,8 +14,9 @@ const translations = {
   es: {
     hero: {
       title1: "¿Buscas",
-      title2: "contratar talento",
-      title3: "o formar un equipo IT?",
+      title2: "contratar talento ",
+      titleConnector: "o ",
+      title3: "formar un equipo IT?",
       description:
         "En LinkIT, te conectamos con el mejor talento tech sin costos por adelantado. Solo pagas cuando encuentras al candidato perfecto.",
       demoButton: "¡Demo gratuita!",
@@ -40,7 +41,8 @@ const translations = {
     hero: {
       title1: "Looking to",
       title2: "hire talent",
-      title3: "or build an IT team?",
+      titleConnector: " or ",
+      title3: "build an IT team?",
       description:
         "At LinkIT, we connect you with the best tech talent with no upfront costs. You only pay when you find the perfect candidate.",
       demoButton: "Free demo!",
@@ -54,7 +56,8 @@ const translations = {
       title: "Ready to find the talent you need?",
       description: "Our team of experts is ready to help you build the perfect IT team for your company.",
       button: "Schedule a call",
-    },form: {
+    },
+    form: {
       title: "Get Started Now!",
       subtitle: "Fill out the form and we'll get in touch with you",
     },
@@ -97,15 +100,16 @@ const LandingPage = () => {
                 transition={{ duration: 0.6 }}
                 className="mb-8"
               >
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  <span className="block">{t("hero.title1")} </span>
+                <h1 className="text-4xl xl:text-5xl lg:text-4xl md:text-4xl xs:text-3xl font-bold mb-6">
+                  <span className="inline-block">{t("hero.title1")} </span>
                   <SplitText
                     text={t("hero.title2")}
                     className="text-linkIt-300 font-extrabold"
                     animation="fadeInUp"
                     staggerChildren={0.05}
                   />
-                  <span className="block">{t("hero.title3")}</span>
+                  <span className="inline-block">{t("hero.titleConnector")}</span>
+                  <span className="inline-block whitespace-nowrap">{t("hero.title3")}</span>
                 </h1>
 
                 <p className="text-lg md:text-xl mb-6 text-gray-100">{t("hero.description")}</p>
@@ -142,8 +146,8 @@ const LandingPage = () => {
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
                 <div className="bg-gradient-to-r from-[#4ECDC4] to-linkIt-300 p-4 text-white">
-                <h2 className="text-2xl font-bold">{t("form.title")}</h2>
-                <p>{t("form.subtitle")}</p>
+                  <h2 className="text-2xl font-bold">{t("form.title")}</h2>
+                  <p>{t("form.subtitle")}</p>
                 </div>
                 <div className="p-6">
                   <ContactForm />
@@ -207,23 +211,19 @@ const LandingPage = () => {
               <h2 className="text-3xl font-bold text-white mb-4">{t("cta.title")}</h2>
               <p className="text-gray-200 text-lg mb-4 md:mb-0">{t("cta.description")}</p>
             </motion.div>
-            <NavLink
-            to="https://calendly.com/saleslinkit/30min"
-            >
-
-            <motion.button
-              className="flex items-center gap-2 bg-linkIt-300 hover:bg-[#3dbdb5] text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {t("cta.button")}
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
+            <NavLink to="https://calendly.com/saleslinkit/30min">
+              <motion.button
+                className="flex items-center gap-2 bg-linkIt-300 hover:bg-[#3dbdb5] text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t("cta.button")}
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
             </NavLink>
           </div>
         </div>
       </div>
-
     </div>
   )
 }
