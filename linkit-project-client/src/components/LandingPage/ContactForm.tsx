@@ -169,12 +169,9 @@ const ContactForm = () => {
 
   //GTM
   const pushToDataLayer = () => {
-    if (typeof window !== "undefined" && window.dataLayer) {
+    if (window.dataLayer) {
       window.dataLayer.push({
         event: "LandingForm",
-        formLanguage: currentLang,
-        servicesSelected: formData.buscandoTalento.join(","),
-        profilesSelected: formData.perfiles.join(","),
       });
     }
   };
@@ -522,6 +519,13 @@ const ContactForm = () => {
   };
 
   // Clase condicional para campos con error
+  
+  
+
+  
+  
+  
+  
   const getInputClassName = (fieldName: keyof FormData) => {
     const baseClass =
       "w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#4ECDC4] text-sm transition-all text-black";
@@ -860,14 +864,14 @@ const ContactForm = () => {
 
           {/* Dropdown para seleccionar perfiles */}
           {isProfileDropdownOpen && (
-            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+             <div className="absolute z-50 left-0 top-full w-full border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto bg-white">
               <div className="sticky top-0 bg-white p-2 border-b">
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder={t("placeholder.buscar")}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#4ECDC4]"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#4ECDC4] text-black"
                   onClick={(e) => e.stopPropagation()}
                 />
               </div>
