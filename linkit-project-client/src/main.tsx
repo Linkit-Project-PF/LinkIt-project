@@ -8,6 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import "./i18.ts";
 import TagManager from "react-gtm-module";
+import { HelmetProvider } from "react-helmet-async";
 
 const persistor = persistStore(store);
 const TagManagerArgs = {
@@ -20,7 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <PersistGate persistor={persistor}>
     <Provider store={store}>
       <BrowserRouter>
+      <HelmetProvider>
         <App />
+      </HelmetProvider>
       </BrowserRouter>
     </Provider>
   </PersistGate>

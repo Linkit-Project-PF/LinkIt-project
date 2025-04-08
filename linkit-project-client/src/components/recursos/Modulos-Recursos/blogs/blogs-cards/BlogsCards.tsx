@@ -1,5 +1,4 @@
 import axios from "axios";
-//import { SUPERADMN_ID } from "../../../../../env.ts";
 import { PostEntity } from "../types.blogs.ts";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -67,6 +66,7 @@ function BlogsCards() {
               description={blog.description}
               _id={blog._id}
               genre={blog.category}
+              createdDate={blog.createdDate}
             />
           </motion.div>
         ))}

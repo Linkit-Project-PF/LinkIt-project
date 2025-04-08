@@ -12,6 +12,7 @@ import ModuloD from "./Modulos/ModuloD/ModuloD";
 import ModuloE from "./Modulos/ModuloE/ModuloE";
 import ModuloF from "./Modulos/ModuloF/ModuloF";
 import ModuloG from "./Modulos/ModuloG/ModuloG";
+import { Helmet } from "react-helmet-async";
 
 function Home({ error, Unauth, Verify }: { error: boolean; Unauth: boolean; Verify: boolean }) {
   const nav = useNavigate();
@@ -58,22 +59,67 @@ function Home({ error, Unauth, Verify }: { error: boolean; Unauth: boolean; Veri
     window.scrollTo(0, 0);
   }, []);
 
-  return (
-    <div className="flex flex-col overflow-hidden">
-    {/* Revisar si estas verificaciones son necesarias antes de esto, mejor en las rutas quizá.*/}
-      {errorVisible && <Error />}
-      {unauthVisible && <Unauthorized />}
-      {verifyVisible && <VerifyAlert />}
-      <ModuloA />
-      <ModuloB />
-      <div ref={refC} className="min-h-[300px]">{isCVisible && <ModuloC />}</div>
-      <div ref={refD} className="min-h-[300px]">{isDVisible &&  <ModuloD isVisible={isDVisible} />}</div>
-      <div ref={refE} className="min-h-[300px]">{isEVisible && <ModuloE />}</div>
-      <div ref={refF} className="min-h-[300px]">{isFVisible && <ModuloF />}</div>
-      <div ref={refG} className="min-h-[300px]">{isGVisible && <ModuloG />}</div>
+  const generateWebsiteSchema = () => {
+    const websiteSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "LinkIT",
+      "url": "https://www.linkit-hr.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.linkit-hr.com/recursos?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/linkit-hr/",
+      ]
+    };
 
-      <TopButton />
-    </div>
+    // Esquema de organización para mejorar la presencia en Google
+    const organizationSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "LinkIT",
+      "url": "https://www.linkit-hr.com/",
+      "logo": "https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg",
+      "description": "LinkIT conecta talento IT con las mejores empresas del sector tecnológico.",
+      "sameAs": [
+        "https://www.linkedin.com/company/linkit-hr/",
+      ]
+    };
+
+    return [websiteSchema, organizationSchema];
+  };
+
+  return (
+    <>
+      {/* Implementación de Schema.org con Helmet */}
+      <Helmet>
+        <title>LinkIT | Conectamos talento IT con las mejores empresas</title>
+        <meta name="description" content="LinkIT es la plataforma que conecta talento IT con las mejores empresas del sector tecnológico. Encuentra trabajo o contrata profesionales IT de forma rápida y eficiente." />
+        <script type="application/ld+json">
+          {JSON.stringify(generateWebsiteSchema())}
+        </script>
+      </Helmet>
+
+      <div className="flex flex-col overflow-hidden">
+        {errorVisible && <Error />}
+        {unauthVisible && <Unauthorized />}
+        {verifyVisible && <VerifyAlert />}
+        <ModuloA />
+        <ModuloB />
+        <div ref={refC} className="min-h-[300px]">{isCVisible && <ModuloC />}</div>
+        <div ref={refD} className="min-h-[300px]">{isDVisible &&  <ModuloD isVisible={isDVisible} />}</div>
+        <div ref={refE} className="min-h-[300px]">{isEVisible && <ModuloE />}</div>
+        <div ref={refF} className="min-h-[300px]">{isFVisible && <ModuloF />}</div>
+        <div ref={refG} className="min-h-[300px]">{isGVisible && <ModuloG />}</div>
+
+        <TopButton />
+      </div>
+    </>
   );
 }
 

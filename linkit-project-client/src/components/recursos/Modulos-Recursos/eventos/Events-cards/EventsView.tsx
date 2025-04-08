@@ -12,6 +12,8 @@ interface EventData {
   category: string
   image?: string
   videoId?: string
+  createdData?:string
+  createdBy?:string
 }
 
 export default function EventsView() {
@@ -40,6 +42,8 @@ export default function EventsView() {
               category: parsedData.category,
               image: parsedData.image,
               videoId: parsedData.videoId,
+              createdData: parsedData.createdDate,
+              createdBy: parsedData.createdBy
             })
             setLoading(false)
             return
@@ -86,25 +90,30 @@ export default function EventsView() {
     )
   }
 
+ 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container p-4 pt-[17vh] lg:pt-[23vh]">
-        <div className="grid lg:grid-cols-[1fr_300px] gap-8">
-          <div className="space-y-6">
-            <h1 className="text-2xl font-bold">{eventData.title}</h1>
-            <p className="text-gray-600">{eventData.description}</p>
-            <EventsInfo
-              videoUrl={eventData.videoUrl}
-              title={eventData.title}
-              description={eventData.description}
-              category={eventData.category}
-            />
-          </div>
-          <div className="hidden lg:block">
-            <BlogSidebar />
+    <div className="min-h-screen w-full dark:bg-linkIt-200">
+      <div className="container mx-auto px-4 sm:px-6 py-6">
+        <div className="w-full">
+          <div className="mx-auto w-full lg:grid lg:grid-cols-[1fr_300px] lg:gap-8">
+            <div className="space-y-4 max-w-full">
+              <EventsInfo
+                videoUrl={eventData.videoUrl}
+                title={eventData.title}
+                description={eventData.description}
+                category={eventData.category}
+                image={eventData.image}
+                createdDate={eventData.createdData}
+                createdBy={eventData.createdBy}
+              />
+            </div>
+            <div className="hidden lg:block">
+              <BlogSidebar />
+            </div>
           </div>
         </div>
       </div>
+
       <Newsletter />
     </div>
   )

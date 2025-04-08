@@ -67,6 +67,8 @@ function EbooksCards() {
                                 link={ebook.link}
                                 category={ebook.category}
                                 key={index}
+                                createdBy={ebook.createdBy}
+                                createdDate={ebook.createdDate}
                             />
                         )
                     })

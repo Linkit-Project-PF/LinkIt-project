@@ -4,6 +4,7 @@ import BlogSidebar from "../../blogs/blogs-view/blog-sidebar/BlogSidebar"
 import Newsletter from "../../../../../Utils/newsletter/newsletter"
 import EbookInfo from "./EbookInfo"
 import axios from "axios"
+import BreadcrumbsWithSchema from "../../../../../Utils/Breadcrumbs/Breadcrumbs"
 
 interface EbookData {
   pdfUrl: string
@@ -23,7 +24,6 @@ export default function EbookView() {
   useEffect(() => {
     const fetchEbookData = async () => {
       try {
-        // Primero intentamos usar los datos del state
         if (location.state) {
           setEbookData({
             pdfUrl: location.state.pdfUrl,
@@ -36,7 +36,6 @@ export default function EbookView() {
           return
         }
 
-        // Si no hay state, intentamos recuperar de sessionStorage
         const savedData = sessionStorage.getItem("ebookData")
         if (savedData) {
           const parsedData = JSON.parse(savedData)
@@ -54,7 +53,7 @@ export default function EbookView() {
         }
         const response = await axios.get(`https://linkit-server.onrender.com/posts/ebook/${slug}`)
         if (!response) throw new Error("Ebook not found")
-      
+
         setEbookData({
           pdfUrl: response.data.link,
           title: response.data.title,
@@ -84,20 +83,58 @@ export default function EbookView() {
   if (error || !ebookData) {
     return (
       <div className="flex h-screen items-center justify-center">
-
         <p className="text-red-500 font-semibold">Error: {error || "No se encontró el PDF."}</p>
       </div>
     )
   }
 
+  // Schema.org para Ebook
+  const bookSchema = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: ebookData.title,
+    description: ebookData.description,
+    image: ebookData.image,
+    url: window.location.href,
+    publisher: {
+      "@type": "Organization",
+      name: "LinkIT",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg",
+      },
+    },
+    inLanguage: "es",
+    genre: ebookData.category,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      url: window.location.href,
+    },
+  }
+
   return (
-    <div className="min-h-screen w-full">
-      <div className="container mx-auto p-4 pt-[17vh] lg:pt-[23vh]">
-        <div className="grid gap-8">
-          <div className="mx-auto w-full max-w-4xl lg:max-w-none lg:grid-cols-[1fr_300px] lg:gap-8 lg:grid">
-            <div className="space-y-4">
-              <h1 className="text-2xl font-bold">{ebookData.title}</h1>
-              <p className="text-gray-600">{ebookData.description}</p>
+    <div className="min-h-screen w-full overflow-x-hidden dark:bg-linkIt-200">
+      <div className="w-full pt-[17vh] lg:pt-[23vh]">
+        <div className="container mx-auto px-4 sm:px-6">
+          <BreadcrumbsWithSchema
+            items={[
+              { label: "Recursos", path: "/recursos" },
+              { label: "Librería", path: "/recursos/libreria" },
+              {
+                label: ebookData?.title || "Ebook",
+                path: `/ebook/${slug}`,
+                active: true,
+              },
+            ]}
+          />
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 py-6">
+        <div className="w-full">
+          <div className="mx-auto w-full lg:grid lg:grid-cols-[1fr_300px] lg:gap-8">
+            <div className="space-y-4 max-w-full">
               <EbookInfo pdfUrl={ebookData.pdfUrl} />
             </div>
             <div className="hidden lg:block">
@@ -106,6 +143,10 @@ export default function EbookView() {
           </div>
         </div>
       </div>
+
+      {/* Schema.org para Ebook */}
+      <script type="application/ld+json">{JSON.stringify(bookSchema)}</script>
+
       <Newsletter />
     </div>
   )
