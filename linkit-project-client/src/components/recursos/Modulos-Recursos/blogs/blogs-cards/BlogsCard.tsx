@@ -9,7 +9,7 @@ type BlogsCardProps = {
   _id: string;
   genre: string;
   isEditing?: boolean;
-  createdDate: string; 
+  createdDate?: string; 
 };
 
 const blogsCardVariants: Variants = {
