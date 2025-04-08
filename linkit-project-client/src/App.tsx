@@ -42,6 +42,8 @@ import darkIcon from "/Vectores/FaviconDark.svg";
 import EbookView from "./components/recursos/Modulos-Recursos/ebooks/ebooksCards/EbooksView.tsx";
 import EventsView from "./components/recursos/Modulos-Recursos/eventos/Events-cards/EventsView.tsx";
 import LandingPage from "./components/LandingPage/LandingPage.tsx";
+import { Helmet } from "react-helmet-async";
+import MainNavigation from "./Navigation/mainNavigation.tsx";
 
 
 
@@ -236,6 +238,27 @@ function App() {
 
   return (
     <div className="w-screen h-full">
+        <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "LinkIT",
+            url: "https://www.linkit-hr.com/",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://www.linkit-hr.com/recursos?search={search_term_string}",
+              },
+              "query-input": "required name=search_term_string",
+            },
+            sameAs: ["https://www.linkedin.com/company/linkit-hr/", "https://www.instagram.com/linkit.hr/"],
+          })}
+        </script>
+      </Helmet>
+
+      <MainNavigation />
       {!isLandingPage && <NavBar />}
       <motion.div
         variants={loginVariants}

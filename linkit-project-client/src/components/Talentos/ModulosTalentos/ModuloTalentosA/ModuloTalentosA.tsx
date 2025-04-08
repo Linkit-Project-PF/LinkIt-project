@@ -98,11 +98,15 @@ export default function ModuloTalentosA() {
       </div>
       <div className="md:hidden w-screen flex justify-center pb-[1.5%] pt-[1.5%] bg-white">
         <div className="w-[60%] flex flex-row items-center justify-around">
-        src={
+       <img
+       className="w-1/2 lg:w-1/4"  
+       src={
                 isDarkMode
                   ? "/2025/Home/ModuleA/MO-trustpilot.webp"
                   : "/2025/Home/ModuleA/Stars-Trustpilot.webp"
               }
+              alt="stars" />
+        
           <span className="font-montserrat text-[0.5rem]  xs:ml-1 xs:font-light min-[400px]:text-[0.6rem] min-[450px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] min-[700px]:text-[1.1rem]  whitespace-nowrap items-center">
             {t("4/5 on Truspilot")}{" "}
             <Link

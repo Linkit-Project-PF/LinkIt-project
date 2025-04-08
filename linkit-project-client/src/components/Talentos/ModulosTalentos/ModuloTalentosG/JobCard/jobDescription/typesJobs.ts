@@ -1,4 +1,9 @@
 export type JobDescriptionProps = {
+    expirationDate?: string
+    jobType: string
+    salary: any
+    currency: string
+    createdAt?: string
     _id: string
     code: string
     title: string

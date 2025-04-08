@@ -61,6 +61,7 @@ function BlogsCardsMobile() {
               description={blogs[currentBlog].description}
               _id={blogs[currentBlog]._id}
               genre={blogs[currentBlog].category}
+              createdDate={blogs[currentBlog].createdDate}
             />
           </motion.div>
         )

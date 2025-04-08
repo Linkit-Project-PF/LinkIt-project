@@ -22,9 +22,9 @@ function EventsCards() {
 
   const dispatch = useDispatch();
   const events2 = useSelector((state: stateProps) => state.resources.events);
-const events = [...events2].reverse()
+  const events = [...events2].reverse()
 
-const handleNext = () => {
+  const handleNext = () => {
     setCurrentPage(
       currentPage === Math.ceil(events.length / maxEventsPerPage) - 1
         ? 0
@@ -58,7 +58,7 @@ const handleNext = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex w-full h-full justify-center items-center">
+    <div className="flex w-full h-full justify-center items-center font-montserrat">
       <img
         src={isDarkMode ? whiteArrow : blackArrow}
         onClick={handlePrevius}
@@ -74,6 +74,8 @@ const handleNext = () => {
               category={event.category}
               description={event.description}
               link={event.link}
+              createdDate={event.createdDate} 
+              createdBy={event.createdBy}
               key={index}
             />
           );
