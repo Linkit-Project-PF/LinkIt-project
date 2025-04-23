@@ -48,9 +48,11 @@ function JobDescription() {
           },
         })
         setJobData(response.data[0])
+        console.log(sessionStorage.getItem("lang"))
       } catch (error: any) {
         Swal.fire({ title: "Error", text: error.response.data, icon: "error" })
       } finally {
+        console.log(jobData, "finally")
         isLoading(false)
         window.scrollTo(0, 0)
       }

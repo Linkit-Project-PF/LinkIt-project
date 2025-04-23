@@ -3,6 +3,7 @@ import { motion, type Variants } from "framer-motion"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import "./ebooksCard.css"
+import { Helmet } from "react-helmet-async"
 
 type EbooksCardProps = {
   title: string
@@ -49,13 +50,13 @@ function EbooksCard({
   createdDate,
   createdBy 
 }: EbooksCardProps): JSX.Element {
-  const [key, setKey] = useState(Math.random())
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const [key, setKey] = useState(Math.random());
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setKey(Math.random())
-  }, []) //Fixed unnecessary dependencies
+    setKey(Math.random());
+  }, []); 
 
   const generateSlug = (title: string) => {
     return title
@@ -63,16 +64,16 @@ function EbooksCard({
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-  }
+      .replace(/^-+|-+$/g, "");
+  };
 
   const handleClick = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-    })
+    });
 
-    const slug = generateSlug(title)
+    const slug = generateSlug(title);
     const ebookData = {
       title,
       description,
@@ -81,9 +82,9 @@ function EbooksCard({
       image,
       slug,
       createdDate,
-      createdBy
-    }
-    sessionStorage.setItem("ebookData", JSON.stringify(ebookData))
+      createdBy,
+    };
+    sessionStorage.setItem("ebookData", JSON.stringify(ebookData));
 
     setTimeout(() => {
       navigate(`/ebook/${slug}`, {
@@ -94,11 +95,39 @@ function EbooksCard({
           category,
           image,
           createdDate,
-          createdBy
+          createdBy,
         },
-      })
-    }, 500)
-  }
+      });
+    }, 500);
+  };
+
+
+  const currentLanguage = i18n.language;
+
+  const ebookSchema = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: title,
+    description: description,
+    author: {
+      "@type": "Person",
+      name: createdBy || "LinkIt",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LinkIt",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg",
+      },
+    },
+    datePublished: createdDate,
+    bookFormat: "EBook",
+    image: image ? `https://res.cloudinary.com/dquhriqz3/image/upload/${image}` : undefined,
+    url: `${window.location.origin}/ebook/${generateSlug(title)}`,
+    genre: category,
+    inLanguage: currentLanguage,
+  };
 
   return (
     <div 
@@ -106,12 +135,19 @@ function EbooksCard({
       itemScope
       itemType="https://schema.org/Book"
     >
+      {/* Inyectar el esquema JSON-LD en el <head> */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(ebookSchema)}
+        </script>
+      </Helmet>
+
       {/* Metadatos adicionales con itemProp */}
       <meta itemProp="bookFormat" content="EBook/PDF" />
-      <meta itemProp="inLanguage" content="es" />
+      <meta itemProp="inLanguage" content={currentLanguage} />
       {createdDate && <meta itemProp="datePublished" content={createdDate} />}
       <link itemProp="url" href={`${window.location.origin}/ebook/${generateSlug(title)}`} />
-      
+
       {/* Información del autor/publisher si está disponible */}
       <div itemProp="publisher" itemScope itemType="https://schema.org/Organization">
         <meta itemProp="name" content="LinkIt" />
@@ -119,13 +155,13 @@ function EbooksCard({
           <meta itemProp="url" content="https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg" />
         </div>
       </div>
-      
+
       {createdBy && (
         <div itemProp="author" itemScope itemType="https://schema.org/Person">
           <meta itemProp="name" content={createdBy} />
         </div>
       )}
-      
+
       <motion.a
         key={key}
         className=""
@@ -145,9 +181,7 @@ function EbooksCard({
         />
         <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
           <div className="flex flex-col">
-            <div>
-              
-            </div>
+            <div></div>
             <span 
               className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center"
               itemProp="genre"
@@ -176,7 +210,7 @@ function EbooksCard({
         </div>
       </motion.a>
     </div>
-  )
+  );
 }
 
-export default EbooksCard
+export default EbooksCard;

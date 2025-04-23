@@ -1,4 +1,5 @@
 import { motion, Variants } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +10,7 @@ type BlogsCardProps = {
   _id: string;
   genre: string;
   isEditing?: boolean;
-  createdDate?: string; 
+  createdDate?: string;
 };
 
 const blogsCardVariants: Variants = {
@@ -31,7 +32,8 @@ function BlogsCard({
   isEditing,
   createdDate,
 }: BlogsCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const navigate = useNavigate();
 
   const generateSlug = (title: string) => {
@@ -54,6 +56,51 @@ function BlogsCard({
     }, 500);
   };
 
+  // Generar el esquema JSON-LD para el blog
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: description,
+    datePublished: createdDate,
+    author: {
+      "@type": "Person",
+      name: "LinkIt",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "LinkIt",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg",
+      },
+    },
+    image: `https://res.cloudinary.com/dquhriqz3/image/upload/${image}`,
+    url: `${window.location.origin}/blog/${_id}/${generateSlug(title)}`,
+    articleSection: genre,
+    inLanguage: currentLanguage, // Idioma del contenido
+    about: [
+      {
+        "@type": "Thing",
+        name: currentLanguage === "es" ? "Empresas" : "Companies",
+      },
+      {
+        "@type": "Thing",
+        name: currentLanguage === "es" ? "Talentos IT" : "IT Talents",
+      },
+    ],
+    audience: [
+      {
+        "@type": "Audience",
+        audienceType:
+          currentLanguage === "es" ? "Latinoamérica" : "Latin America",
+      },
+      {
+        "@type": "Audience",
+        audienceType: currentLanguage === "es" ? "Europa" : "Europe",
+      },
+    ],
+  };
 
   return (
     <motion.article
@@ -67,16 +114,19 @@ function BlogsCard({
       itemScope
       itemType="https://schema.org/BlogPosting"
     >
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(blogSchema)}</script>
+      </Helmet>
       {/* Metadatos adicionales con itemProp */}
       <meta itemProp="datePublished" content={createdDate} />
       <meta itemProp="author" content={"LinkIt"} />
       <meta itemProp="publisher" content="LinkIt" />
-      <meta itemProp="url" content={`${window.location.origin}/blog/${_id}/${generateSlug(title)}`} />
-      
-      <button
-        onClick={handleClick}
-        className="w-full"
-      >
+      <meta
+        itemProp="url"
+        content={`${window.location.origin}/blog/${_id}/${generateSlug(title)}`}
+      />
+
+      <button onClick={handleClick} className="w-full">
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
           alt={`Imagen destacada del blog: ${title}`}
@@ -93,7 +143,7 @@ function BlogsCard({
             {genre}
           </p>
         </div>
-        
+
         <h2
           className="font-bold subtitles-size line-clamp-3 text-left"
           itemProp="headline"

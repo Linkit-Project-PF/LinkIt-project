@@ -30,16 +30,16 @@ export default function MainNavigation() {
   const mainRoutes = [
     {
       name: isSpanish ? "Para Empresas" : "For Companies",
-      path: "/soyEmpresa",
+      path: "/SoyEmpresa",
       icon: Briefcase,
       description: isSpanish
         ? "Contrata talento IT de forma rápida y eficiente"
         : "Hire IT talent quickly and efficiently",
       submenu: [
-        { name: isSpanish ? "Servicios" : "Services", path: "/soyEmpresa#serviciosE" },
+        { name: isSpanish ? "Servicios" : "Services", path: "/SoyEmpresa#serviciosE" },
         { name: isSpanish ? "Casos de éxito" : "Success Stories", path: "/soyEmpresa#casosDeExitoE" },
-        { name: isSpanish ? "Proceso" : "Process", path: "/soyEmpresa#procesoE" },
-        { name: isSpanish ? "Calculadora" : "Calculator", path: "/soyEmpresa#calculadora" },
+        { name: isSpanish ? "Proceso" : "Process", path: "/SoyEmpresa#procesoE" },
+        { name: isSpanish ? "Calculadora" : "Calculator", path: "/SoyEmpresa#calculadora" },
       ],
     },
     {
