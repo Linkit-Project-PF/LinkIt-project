@@ -14,6 +14,7 @@ import BreadcrumbsWithSchema from "../../Utils/Breadcrumbs/Breadcrumbs"
 import teamMembers from "../../Utils/TeamMembers.json"
 import GetInTouch from "../../Utils/contactUs/calendly"
 
+
 export default function QuienesSomos() {
   const {i18n } = useTranslation()
   const currentLanguage = i18n.language
@@ -233,6 +234,7 @@ export default function QuienesSomos() {
         <div>
           <GetInTouch />
         </div>
+
       </div>
     </>
   )

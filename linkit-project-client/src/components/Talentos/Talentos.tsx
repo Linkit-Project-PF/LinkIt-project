@@ -274,7 +274,6 @@ function Talentos() {
           {isEVisible && (
             <section
               id="serviciosT"
-            
             >
               <ModuloTalentosD />
             </section>

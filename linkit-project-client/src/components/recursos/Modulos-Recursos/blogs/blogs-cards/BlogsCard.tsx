@@ -34,6 +34,7 @@ function BlogsCard({
 }: BlogsCardProps) {
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
+
   const navigate = useNavigate();
 
   const generateSlug = (title: string) => {
@@ -114,9 +115,11 @@ function BlogsCard({
       itemScope
       itemType="https://schema.org/BlogPosting"
     >
+
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(blogSchema)}</script>
       </Helmet>
+
       {/* Metadatos adicionales con itemProp */}
       <meta itemProp="datePublished" content={createdDate} />
       <meta itemProp="author" content={"LinkIt"} />
@@ -127,6 +130,7 @@ function BlogsCard({
       />
 
       <button onClick={handleClick} className="w-full">
+
         <img
           src={`https://res.cloudinary.com/dquhriqz3/image/upload/${image}`}
           alt={`Imagen destacada del blog: ${title}`}
@@ -143,7 +147,6 @@ function BlogsCard({
             {genre}
           </p>
         </div>
-
         <h2
           className="font-bold subtitles-size line-clamp-3 text-left"
           itemProp="headline"

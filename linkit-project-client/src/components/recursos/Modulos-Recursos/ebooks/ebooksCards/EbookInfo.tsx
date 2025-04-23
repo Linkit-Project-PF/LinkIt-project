@@ -36,6 +36,56 @@ export default function EbookInfo({
   const [error, setError] = useState<string | null>(null)
   const [ebookData, setEbookData] = useState<any>(null)
 
+  // Recuperar datos del ebook del sessionStorage si no se proporcionan como props
+  useEffect(() => {
+    if (!title || !description) {
+      const storedData = sessionStorage.getItem("ebookData")
+      if (storedData) {
+        setEbookData(JSON.parse(storedData))
+      }
+    }
+  }, [title, description])
+
+  // Generar el esquema JSON-LD para Schema.org
+  const generateSchemaMarkup = () => {
+    // Usar props o datos almacenados
+    const ebookTitle = title || ebookData?.title || "Ebook"
+    const ebookDescription = description || ebookData?.description || ""
+    const ebookCategory = category || ebookData?.category || ""
+    const ebookImage = image || ebookData?.image || ""
+    const ebookCreatedDate = createdDate || new Date().toISOString()
+    const ebookCreatedBy = createdBy || "LinkIt"
+    
+    // Construir el esquema combinando Book y DigitalDocument
+    const ebookSchema = {
+      "@context": "https://schema.org",
+      "@type": ["Book", "DigitalDocument"],
+      "name": ebookTitle,
+      "description": ebookDescription,
+      "image": ebookImage ? `https://res.cloudinary.com/dquhriqz3/image/upload/${ebookImage}` : "",
+      "datePublished": ebookCreatedDate,
+      "author": {
+        "@type": "Person",
+        "name": ebookCreatedBy
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "LinkIt",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg"
+        }
+      },
+      "inLanguage": "es",
+      "fileFormat": "application/pdf",
+      "url": pdfUrl,
+      "genre": ebookCategory,
+      "educationalUse": "Formación profesional",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Profesionales IT"
+      },
+    };
 
   useEffect(() => {
     if (!title || !description) {
@@ -88,7 +138,6 @@ export default function EbookInfo({
         "audienceType": "Profesionales IT"
       },
     };
-
     return JSON.stringify(ebookSchema);
   };
 
@@ -114,6 +163,16 @@ export default function EbookInfo({
     setScale((prevScale) => Math.min(Math.max(0.5, prevScale + delta), 2))
   }
 
+
+  // Formatear la fecha para mostrarla de manera amigable
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    };
+    return new Date(dateString).toLocaleDateString('es-ES', options);
+  };
 
   // Formatear la fecha para mostrarla de manera amigable
   const formatDate = (dateString: string) => {
@@ -156,10 +215,8 @@ export default function EbookInfo({
           {generateSchemaMarkup()}
         </script>
       </Helmet>
-     
+      
      <div className="flex flex-col items-center justify-center w-full font-montserrat  ">
-
-     
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-2">{ebookTitle}</h1>
         
@@ -242,6 +299,7 @@ export default function EbookInfo({
         </div>
         
         <div className="mt-20">
+
             <CallToAction 
               variant="default"
               customTitle="¿Te interesó este artículo?"
@@ -252,4 +310,3 @@ export default function EbookInfo({
     </>
   )
 }
-        

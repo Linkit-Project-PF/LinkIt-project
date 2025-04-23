@@ -54,6 +54,7 @@ function EbooksCard({
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
+
   useEffect(() => {
     setKey(Math.random());
   }, []); 
@@ -85,6 +86,7 @@ function EbooksCard({
       createdBy,
     };
     sessionStorage.setItem("ebookData", JSON.stringify(ebookData));
+
 
     setTimeout(() => {
       navigate(`/ebook/${slug}`, {
@@ -129,12 +131,14 @@ function EbooksCard({
     inLanguage: currentLanguage,
   };
 
+
   return (
     <div 
       className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white"
       itemScope
       itemType="https://schema.org/Book"
     >
+
       {/* Inyectar el esquema JSON-LD en el <head> */}
       <Helmet>
         <script type="application/ld+json">
@@ -155,13 +159,11 @@ function EbooksCard({
           <meta itemProp="url" content="https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg" />
         </div>
       </div>
-
       {createdBy && (
         <div itemProp="author" itemScope itemType="https://schema.org/Person">
           <meta itemProp="name" content={createdBy} />
         </div>
       )}
-
       <motion.a
         key={key}
         className=""
@@ -181,7 +183,6 @@ function EbooksCard({
         />
         <div className="grid grid-rows-4 items-center justify-items-start gap-[5%] h-[16rem] ssm:h-[23rem] md:h-[26rem] lg:h-[20rem] xl:h-[27rem] 2xl:h-[24rem] p-[7%]">
           <div className="flex flex-col">
-            <div></div>
             <span 
               className="border-[1px] text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] lg:text-[0.8rem] h-fit border-linkIt-300 rounded-[7px] p-1 mb-2 xs:mb-3 font-semibold justify-items-center"
               itemProp="genre"
@@ -214,3 +215,4 @@ function EbooksCard({
 }
 
 export default EbooksCard;
+

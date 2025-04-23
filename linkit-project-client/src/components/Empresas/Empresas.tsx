@@ -65,7 +65,6 @@ function Empresas() {
       },
     };
 
-    // Schema para los servicios ofrecidos - versión en español
     const servicesSchemaES = {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -133,7 +132,6 @@ function Empresas() {
       },
     };
 
-    // Schema para los servicios ofrecidos - versión en inglés
     const servicesSchemaEN = {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -201,7 +199,6 @@ function Empresas() {
       },
     };
 
-    // Schema para la calculadora de costos - versión bilingüe
     const calculatorSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -222,13 +219,11 @@ function Empresas() {
       ],
     };
 
-    // Seleccionar el schema de servicio según el idioma recibido
     const servicesSchema = isSpanish ? servicesSchemaES : servicesSchemaEN;
 
     return [organizationSchema, servicesSchema, calculatorSchema];
   };
 
-  // Utilizamos useMemo para evitar recalcular el JSON-LD en cada render
   const schemaData = useMemo(() => generateServiceSchema(isSpanish), [isSpanish]);
 
   return (
