@@ -6,9 +6,8 @@ import FAQ from "./Modulos-Recursos/FAQ/FAQ"
 import { useTranslation } from "react-i18next"
 import Newsletter from "../../Utils/newsletter/newsletter"
 import { motion } from "framer-motion"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import useWindowWidth from "../../Utils/useWindowWidth"
-import { useIntersectionObserver } from "../../Utils/ModuleObserver/IntersectionObserver"
 import { Helmet } from "react-helmet-async"
 import BreadcrumbsWithSchema from "../../Utils/Breadcrumbs/Breadcrumbs"
 
@@ -20,7 +19,6 @@ export default function Recursos() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
   const [fixedHeight, setFixedHeight] = useState(0)
   const windowWidth = useWindowWidth()
 
@@ -42,17 +40,6 @@ export default function Recursos() {
     }
   }, [])
 
-  const refEbooks = useRef<HTMLDivElement>(null)
-  const refEvents = useRef<HTMLDivElement>(null)
-  const refCV = useRef<HTMLDivElement>(null)
-  const refFAQ = useRef<HTMLDivElement>(null)
-  const refNewsletter = useRef<HTMLDivElement>(null)
-
-  const isEbooksVisible = useIntersectionObserver(refEbooks)
-  const isEventsVisible = useIntersectionObserver(refEvents)
-  const isCVVisible = useIntersectionObserver(refCV)
-  const isFAQVisible = useIntersectionObserver(refFAQ)
-  const isNewsletterVisible = useIntersectionObserver(refNewsletter)
 
   // Generar el schema JSON-LD para la página de recursos
   const generateResourcesSchema = () => {
@@ -96,51 +83,6 @@ export default function Recursos() {
       },
     }
 
-    // Schema para la lista de recursos
-    const itemListSchema = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: isSpanish ? "Colección de recursos IT" : "IT Resources Collection",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: isSpanish ? "Blog" : "Blog",
-          url: "https://www.linkit-hr.com/recursos?type=blog",
-          description: isSpanish
-            ? "Artículos sobre tendencias, consejos de contratación, temas impositivos y noticias del sector IT"
-            : "Articles about trends, hiring tips, tax issues and news from the IT sector",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: isSpanish ? "Librería" : "Library",
-          url: "https://www.linkit-hr.com/recursos/libreria",
-          description: isSpanish
-            ? "Ebooks y guías descargables para profesionales IT y empresas"
-            : "Downloadable ebooks and guides for IT professionals and companies",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: isSpanish ? "Eventos" : "Events",
-          url: "https://www.linkit-hr.com/recursos?type=event",
-          description: isSpanish
-            ? "Webinars y eventos para el desarrollo profesional y empresarial en IT"
-            : "Webinars and events for professional and business development in IT",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: isSpanish ? "CV" : "CV",
-          url: "https://www.linkit-hr.com/recursos#CV",
-          description: isSpanish
-            ? "Consejos y herramientas para crear un CV efectivo y destacar en procesos de selección"
-            : "Tips and tools to create an effective CV and stand out in selection processes",
-        },
-      ],
-    }
-
     // Schema para la organización
     const organizationSchema = {
       "@context": "https://schema.org",
@@ -160,28 +102,6 @@ export default function Recursos() {
       },
     }
 
-    // Schema para el curso educativo (CV)
-    const courseSchema = {
-      "@context": "https://schema.org",
-      "@type": "Course",
-      name: isSpanish
-        ? "Cómo crear un CV efectivo para el sector IT"
-        : "How to create an effective CV for the IT sector",
-      description: isSpanish
-        ? "Aprende a crear un CV que destaque tus habilidades y experiencia en el sector tecnológico."
-        : "Learn how to create a CV that highlights your skills and experience in the technology sector.",
-      provider: {
-        "@type": "Organization",
-        name: "LinkIT",
-        url: "https://www.linkit-hr.com",
-      },
-      audience: [
-        {
-          "@type": "Audience",
-          audienceType: isSpanish ? "Profesionales IT" : "IT Professionals",
-        },
-      ],
-    }
 
     // Schema para el newsletter
     const newsletterSchema = {
@@ -325,7 +245,7 @@ export default function Recursos() {
       ],
     }
 
-    return [webPageSchema, itemListSchema, organizationSchema, courseSchema, newsletterSchema, faqSchema]
+    return [webPageSchema, organizationSchema, newsletterSchema, faqSchema]
   }
 
   return (
@@ -390,11 +310,6 @@ export default function Recursos() {
               <h2 className="ont-montserrat hidden md:block md:text-[1.7rem] min-[800px]:text-[1.8rem] min-[850px]:text-[1.9rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[115%] sm:w-[110%] md:w-[110%] lg:w-[90%] xl:w-[85%] leading-tight">
                 {t("Blogs, ebooks y webinars para crecer como profesional en el mundo tech.")}{" "}
               </h2>
-              <h2 className="ont-montserrat md:hidden text-[0.6rem] xs:text-[0.6rem] xs:w-[115%] min-[340px]:text-[0.7rem] min-[370px]:text-[0.7rem] min-[400px]:text-[0.8rem] min-[430px]:text-[0.9rem] min-[460px]:text-[0.9rem] min-[500px]:text-[1rem] ssm:text-[1.2rem] min-[580px]:text-[1.3rem] sm:text-[1.4rem] min-[700px]:text-[1.5rem] md:text-[1.7rem] w-[110%] ssm:w-[115%] sm:w-[115%] leading-tight">
-                {t("Blogs, ebooks y webinars")} <br />
-                {t("para crecer como profesional")} <br />
-                {t("en el mundo tech.")}{" "}
-              </h2>
               <div className="relative top-[5%]">
                 <motion.a
                   className="md:mb-20 lg:mb-0 background-button xs:text-[0.4rem] min-[350px]:text-[0.4rem] min-[400px]:text-[0.5rem] [430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem]"
@@ -414,51 +329,31 @@ export default function Recursos() {
           </div>
         </section>
 
-        <section id="blogs" itemScope itemType="https://schema.org/Blog">
+        {/* Renderizar directamente los módulos */}
+        <section id="blogs">
           <Blogs />
         </section>
 
-        <div ref={refEbooks} className="min-h-[300px]">
-          {isEbooksVisible && (
-            <section id="ebooks" itemScope itemType="https://schema.org/Book">
-              <Ebooks />
-            </section>
-          )}
-        </div>
+        <section id="ebooks">
+          <Ebooks />
+        </section>
 
-        <div ref={refEvents} className="min-h-[300px]">
-          {isEventsVisible && (
-            <section id="webinars" itemScope itemType="https://schema.org/Event">
-              <Events />
-            </section>
-          )}
-        </div>
+        <section id="webinars">
+          <Events />
+        </section>
 
-        <div ref={refCV} className="min-h-[300px]">
-          {isCVVisible && (
-            <section id="CV" itemScope itemType="https://schema.org/Course">
-              <CV />
-            </section>
-          )}
-        </div>
+        <section id="CV" >
+          <CV />
+        </section>
 
-        <div ref={refFAQ} className="min-h-[300px]">
-          {isFAQVisible && (
-            <section id="FAQ" itemScope itemType="https://schema.org/FAQPage">
-              <FAQ />
-            </section>
-          )}
-        </div>
+        <section id="FAQ" itemScope itemType="https://schema.org/FAQPage">
+          <FAQ />
+        </section>
 
-        <div ref={refNewsletter} className="min-h-[300px]">
-          {isNewsletterVisible && (
-            <section id="form" itemScope itemType="https://schema.org/Service">
-              <Newsletter />
-            </section>
-          )}
-        </div>
+        <section id="form" itemScope itemType="https://schema.org/Service">
+          <Newsletter />
+        </section>
       </div>
     </>
-  )
+  );
 }
-

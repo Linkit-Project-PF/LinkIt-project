@@ -12,6 +12,8 @@ import { Helmet } from "react-helmet-async"
 import { useTranslation } from "react-i18next"
 import BreadcrumbsWithSchema from "../../Utils/Breadcrumbs/Breadcrumbs"
 import teamMembers from "../../Utils/TeamMembers.json"
+import GetInTouch from "../../Utils/contactUs/calendly"
+
 
 export default function QuienesSomos() {
   const {i18n } = useTranslation()
@@ -226,7 +228,13 @@ export default function QuienesSomos() {
         </div>
 
         {/* <ModuloH /> */}
+        <div>
         <ContactUs />
+        </div>
+        <div>
+          <GetInTouch />
+        </div>
+
       </div>
     </>
   )

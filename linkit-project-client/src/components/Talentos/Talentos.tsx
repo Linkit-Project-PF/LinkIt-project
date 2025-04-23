@@ -261,8 +261,6 @@ function Talentos() {
         <ModuloTalentosA />
         <section
           id="vacantes"
-          itemScope
-          itemType="https://schema.org/JobPosting"
         >
           <ModuloTalentosG />
         </section>
@@ -276,8 +274,6 @@ function Talentos() {
           {isEVisible && (
             <section
               id="serviciosT"
-              itemScope
-              itemType="https://schema.org/Service"
             >
               <ModuloTalentosD />
             </section>

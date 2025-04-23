@@ -5,6 +5,7 @@ import { motion, type Variants } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import "./EventCard.css"
+import { Helmet } from "react-helmet-async"
 
 type EventCardProps = {
   image: string
@@ -52,8 +53,10 @@ function EventCard({
   createdBy 
 }: EventCardProps) {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [key] = useState(Math.random())
+  const currentLanguage = i18n.language;
+
 
   const generateSlug = (text: string) => {
     return text
@@ -115,6 +118,8 @@ function EventCard({
 
   // Determinar si es un evento de YouTube o de otra plataforma
   const isYoutubeEvent = link.includes("youtube.com") || link.includes("youtu.be")
+  const isLinkedInEvent = link.includes("linkedin.com");
+
 
   // Determinar el tipo de esquema según el tipo de evento
   const schemaType = isYoutubeEvent ? "VideoObject" : "Event";
@@ -124,12 +129,66 @@ function EventCard({
     ? `https://img.youtube.com/vi/${link.split("v=")[1]}/maxresdefault.jpg`
     : `https://res.cloudinary.com/dquhriqz3/image/upload/${image}`;
 
+    const eventSchema = {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      name: title,
+      description: description,
+      startDate: createdDate,
+      eventStatus: "https://schema.org/EventCompleted",
+      eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+      location: {
+        "@type": "VirtualLocation",
+        url: link,
+      },
+      organizer: {
+        "@type": "Organization",
+        name: "LinkIt",
+        url: "https://www.linkit-hr.com",
+      },
+      image: imageUrl,
+      inLanguage: currentLanguage,
+      video: {
+        "@type": "VideoObject",
+        name: title,
+        description: description,
+        thumbnailUrl: imageUrl,
+        uploadDate: createdDate,
+        contentUrl: link,
+        embedUrl: isYoutubeEvent
+          ? `https://www.youtube.com/embed/${getYoutubeId(link)}`
+          : isLinkedInEvent
+          ? link // LinkedIn no tiene un embedUrl estándar
+          : undefined,
+        author: {
+          "@type": "Person",
+          name: createdBy || "LinkIt",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "LinkIt",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.linkit-hr.com/Linkit-logo/linkit-logo-2024-blue.svg",
+          },
+        },
+      },
+    };
+
+
   return (
     <div 
       className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white dark:border-linkIt-400"
       itemScope
       itemType={`https://schema.org/${schemaType}`}
     >
+       {/* Inyectar el esquema JSON-LD en el <head> */}
+       <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(eventSchema)}
+        </script>
+      </Helmet>
+
       {/* Metadatos comunes */}
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />

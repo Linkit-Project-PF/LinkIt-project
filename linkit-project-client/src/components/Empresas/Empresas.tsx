@@ -6,7 +6,7 @@ import ModuloE from "./modulosEmpresas/moduloE/ModuloE";
 import ModuloF from "./modulosEmpresas/moduloF/ModuloF";
 import ModuloG from "./modulosEmpresas/moduloG/ModuloG";
 import ModuloH from "./modulosEmpresas/moduloH/ModuloH";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./Empresas.css";
 import Calculadora from "./modulosEmpresas/calculadora/calculadora";
 import ContactUs from "../../Utils/contactUs/contactUs";
@@ -18,18 +18,16 @@ import { useTranslation } from "react-i18next";
 
 function Empresas() {
   const [initialLoad, setInitialLoad] = useState(true);
+  const activeHash = useHashNavigation();
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+  const isSpanish = currentLanguage.startsWith("es");
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const timer = setTimeout(() => setInitialLoad(false), 100);
     return () => clearTimeout(timer);
   }, []);
-
-  const activeHash = useHashNavigation();
-  const { i18n } = useTranslation();
-  const currentLanguage = i18n.language;
-  const isSpanish = currentLanguage.startsWith("es");
-
 
   useEffect(() => {
     if (activeHash && !initialLoad) {
@@ -48,7 +46,7 @@ function Empresas() {
     }
   }, [activeHash, initialLoad]);
 
-  const generateServiceSchema = () => {
+  const generateServiceSchema = (isSpanish: boolean) => {
     // Schema para la organización
     const organizationSchema = {
       "@context": "https://schema.org",
@@ -65,9 +63,8 @@ function Empresas() {
         email: "ary@linkit-hr.com",
         availableLanguage: ["Spanish", "English"],
       },
-    }
+    };
 
-    // Schema para los servicios ofrecidos - versión en español
     const servicesSchemaES = {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -109,7 +106,8 @@ function Empresas() {
             itemOffered: {
               "@type": "Service",
               name: "Reclutamiento IT Especializado",
-              description: "Encontramos los mejores perfiles IT para tu empresa con un proceso de selección riguroso.",
+              description:
+                "Encontramos los mejores perfiles IT para tu empresa con un proceso de selección riguroso.",
             },
           },
           {
@@ -117,7 +115,8 @@ function Empresas() {
             itemOffered: {
               "@type": "Service",
               name: "Consultoría de Talento IT",
-              description: "Asesoramiento estratégico para la atracción y retención de talento tecnológico.",
+              description:
+                "Asesoramiento estratégico para la atracción y retención de talento tecnológico.",
             },
           },
           {
@@ -131,9 +130,8 @@ function Empresas() {
           },
         ],
       },
-    }
+    };
 
-    // Schema para los servicios ofrecidos - versión en inglés
     const servicesSchemaEN = {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -175,7 +173,8 @@ function Empresas() {
             itemOffered: {
               "@type": "Service",
               name: "Specialized IT Recruitment",
-              description: "We find the best IT profiles for your company with a rigorous selection process.",
+              description:
+                "We find the best IT profiles for your company with a rigorous selection process.",
             },
           },
           {
@@ -183,7 +182,8 @@ function Empresas() {
             itemOffered: {
               "@type": "Service",
               name: "IT Talent Consulting",
-              description: "Strategic advice for attracting and retaining technological talent.",
+              description:
+                "Strategic advice for attracting and retaining technological talent.",
             },
           },
           {
@@ -191,70 +191,14 @@ function Empresas() {
             itemOffered: {
               "@type": "Service",
               name: "Technical Candidate Assessment",
-              description: "We evaluate the technical skills of candidates to ensure they meet your requirements.",
+              description:
+                "We evaluate the technical skills of candidates to ensure they meet your requirements.",
             },
           },
         ],
       },
-    }
+    };
 
-    // Schema para preguntas frecuentes - versión bilingüe
-    const faqSchema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "¿Cómo funciona el proceso de reclutamiento de LinkIT?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Nuestro proceso comienza con una evaluación de tus necesidades, seguido de una búsqueda especializada, evaluación técnica de candidatos, presentación de perfiles seleccionados, y acompañamiento durante todo el proceso de contratación.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿Cuánto tiempo toma encontrar un candidato adecuado?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "El tiempo promedio para presentar candidatos calificados es de 1-2 semanas, dependiendo de la complejidad del perfil y la disponibilidad en el mercado.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "¿Qué tipos de perfiles IT pueden reclutar?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Reclutamos todo tipo de perfiles tecnológicos: desarrolladores, ingenieros DevOps, especialistas en ciberseguridad, analistas de datos, project managers IT, UX/UI designers, entre otros.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How does LinkIT's recruitment process work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Our process begins with an assessment of your needs, followed by a specialized search, technical evaluation of candidates, presentation of selected profiles, and support throughout the hiring process.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How long does it take to find a suitable candidate?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The average time to present qualified candidates is 1-2 weeks, depending on the complexity of the profile and market availability.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What types of IT profiles can you recruit?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "We recruit all types of technological profiles: developers, DevOps engineers, cybersecurity specialists, data analysts, IT project managers, UX/UI designers, among others.",
-          },
-        },
-      ],
-    }
-
-    // Schema para la calculadora de costos - versión bilingüe
     const calculatorSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -273,29 +217,45 @@ function Empresas() {
           alternateName: "en",
         },
       ],
-    }
+    };
 
-    // Determinar el idioma actual de la página
-    const isSpanish = true
+    const servicesSchema = isSpanish ? servicesSchemaES : servicesSchemaEN;
 
-    // Seleccionar el schema de servicio según el idioma
-    const servicesSchema = isSpanish ? servicesSchemaES : servicesSchemaEN
+    return [organizationSchema, servicesSchema, calculatorSchema];
+  };
 
-    return [organizationSchema, servicesSchema, faqSchema, calculatorSchema]
-  }
+  const schemaData = useMemo(() => generateServiceSchema(isSpanish), [isSpanish]);
 
   return (
     <>
       {/* Implementación de Schema.org con Helmet */}
       <Helmet>
-        <title>Servicios de Reclutamiento IT para Empresas | LinkIT</title>
+        <title>
+          {isSpanish
+            ? "Servicios de Reclutamiento IT para Empresas | LinkIT"
+            : "IT Recruitment Services for Companies | LinkIT"}
+        </title>
         <meta
           name="description"
-          content="LinkIT ofrece servicios especializados de reclutamiento IT para empresas. Conectamos a las organizaciones con el mejor talento tecnológico del mercado."
+          content={
+            isSpanish
+              ? "LinkIT ofrece servicios especializados de reclutamiento IT para empresas. Conectamos a las organizaciones con el mejor talento tecnológico del mercado."
+              : "LinkIT offers specialized IT recruitment services for companies. We connect organizations with the best tech talent in the market."
+          }
         />
-        <link rel="alternate" hrefLang="en" href="https://www.linkit-hr.com/SoyEmpresa#serviciosE" />
-        <link rel="alternate" hrefLang="es" href="https://www.linkit-hr.com/soyEmpresa" />
-        <script type="application/ld+json">{JSON.stringify(generateServiceSchema())}</script>
+        <link
+          rel="alternate"
+          hrefLang="en"
+          href="https://www.linkit-hr.com/SoyEmpresa#serviciosE"
+        />
+        <link
+          rel="alternate"
+          hrefLang="es"
+          href="https://www.linkit-hr.com/soyEmpresa"
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
       </Helmet>
 
       <div className="overflow-hidden">
@@ -336,21 +296,22 @@ function Empresas() {
         <div id="calculadora">
           <Calculadora />
         </div>
-       
+
         <div>
           <GetInTouch />
         </div>
+
         <div className="container mx-auto px-4 py-8">
-                        <CallToAction
-                          variant="default"
-                          customTitle={
-                            isSpanish
-                              ? "¿Listo para encontrar tu próxima oportunidad IT?"
-                              : "Ready to find your next IT opportunity?"
-                          }
-                          buttonStyle="filled"
-                        />
-                      </div>
+          <CallToAction
+            variant="default"
+            customTitle={
+              isSpanish
+                ? "¿Listo para encontrar tu próxima oportunidad IT?"
+                : "Ready to find your next IT opportunity?"
+            }
+            buttonStyle="filled"
+          />
+        </div>
       </div>
     </>
   );
