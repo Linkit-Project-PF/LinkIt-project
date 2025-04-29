@@ -31,21 +31,21 @@ export default function EbookInfo({
 }: EbookInfoProps) {
   const [numPages, setNumPages] = useState<number | null>(null)
   const [pageNumber, setPageNumber] = useState(1)
-  const [scale, setScale] = useState(1)
+  const [scale, setScale] = useState(0.7)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [ebookData, setEbookData] = useState<any>(null)
 
-
+const isMobile = window.innerWidth <= 768;
   useEffect(() => {
     if (!title || !description) {
       const storedData = sessionStorage.getItem("ebookData")
       if (storedData) {
         setEbookData(JSON.parse(storedData))
       }
-      const isMobile = window.innerWidth <= 768; 
+       
       if (isMobile) {
-        setScale(0.55);
+        setScale(0.30);
       }
     }
   }, [title, description])
@@ -157,7 +157,7 @@ export default function EbookInfo({
         </script>
       </Helmet>
      
-     <div className="flex flex-col items-center justify-center w-full font-montserrat  ">
+     <div className="flex flex-col items-center justify-center w-full font-montserrat">
 
      
       <div className="mb-6">
@@ -243,7 +243,7 @@ export default function EbookInfo({
         
         <div className="mt-20">
             <CallToAction 
-              variant="default"
+              variant={isMobile ? "compact" : "default"}
               customTitle="¿Te interesó este artículo?"
               buttonStyle="filled"
             />

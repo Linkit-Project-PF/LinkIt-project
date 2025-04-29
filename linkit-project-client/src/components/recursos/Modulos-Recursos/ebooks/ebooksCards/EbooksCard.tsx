@@ -50,14 +50,22 @@ function EbooksCard({
   createdDate,
   createdBy 
 }: EbooksCardProps): JSX.Element {
-  const [key, setKey] = useState(Math.random());
+  const [key] = useState(Math.random());
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setKey(Math.random());
-  }, []); 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); 
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize); 
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const generateSlug = (title: string) => {
     return title
@@ -69,40 +77,47 @@ function EbooksCard({
   };
 
   const handleClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    const slug = generateSlug(title);
-    const ebookData = {
-      title,
-      description,
-      link,
-      category,
-      image,
-      slug,
-      createdDate,
-      createdBy,
-    };
-    sessionStorage.setItem("ebookData", JSON.stringify(ebookData));
-
-
-    setTimeout(() => {
-      navigate(`/ebook/${slug}`, {
-        state: {
-          pdfUrl: link,
-          title,
-          description,
-          category,
-          image,
-          createdDate,
-          createdBy,
-        },
+    if (isMobile) {
+      const linkElement = document.createElement("a");
+      linkElement.href = link; 
+      linkElement.download = `${title}.pdf`;
+      document.body.appendChild(linkElement);
+      linkElement.click();
+      document.body.removeChild(linkElement);
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
       });
-    }, 500);
-  };
 
+      const slug = generateSlug(title);
+      const ebookData = {
+        title,
+        description,
+        link,
+        category,
+        image,
+        slug,
+        createdDate,
+        createdBy,
+      };
+      sessionStorage.setItem("ebookData", JSON.stringify(ebookData));
+
+      setTimeout(() => {
+        navigate(`/ebook/${slug}`, {
+          state: {
+            pdfUrl: link,
+            title,
+            description,
+            category,
+            image,
+            createdDate,
+            createdBy,
+          },
+        });
+      }, 500);
+    }
+  };
 
   const currentLanguage = i18n.language;
 
@@ -131,14 +146,12 @@ function EbooksCard({
     inLanguage: currentLanguage,
   };
 
-
   return (
     <div 
       className="border-[2px] w-[12rem] xs:w-[16rem] ssm:w-[25rem] sm:w-[29rem] md:w-[32rem] lg:w-full h-fit rounded-xl font-montserrat bg-white"
       itemScope
       itemType="https://schema.org/Book"
     >
-
       {/* Inyectar el esquema JSON-LD en el <head> */}
       <Helmet>
         <script type="application/ld+json">
@@ -206,7 +219,7 @@ function EbooksCard({
           <motion.div 
             className="text-[0.5rem] xs:text-[0.6rem] ssm:text-[0.8rem] md:text-[1rem] font-bold mt-2 xs:mt-3 place-self-end justify-self-start"
           >
-            {t("Descargar")}
+            {isMobile ? t("Descargar") : t("Leer Nota")}
           </motion.div>
         </div>
       </motion.a>

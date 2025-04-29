@@ -114,9 +114,9 @@ export default function EbookView() {
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden dark:bg-linkIt-200">
+    <div className="min-h-screen w-full overflow-x-hidden dark:bg-linkIt-200 ">
       <div className="w-full pt-[17vh] lg:pt-[23vh]">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto px-4 sm:px-6 xs:px-0">
           <BreadcrumbsWithSchema
             items={[
               { label: "Recursos", path: "/recursos" },
@@ -131,7 +131,7 @@ export default function EbookView() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-6">
+      <div className=" xs:w-[90%] sm:w-[80%] mx-auto px-4 sm:px-6 xs:px-0 py-6">
         <div className="w-full">
           <div className="mx-auto w-full lg:grid lg:grid-cols-[1fr_300px] lg:gap-8">
             <div className="space-y-4 max-w-full">
