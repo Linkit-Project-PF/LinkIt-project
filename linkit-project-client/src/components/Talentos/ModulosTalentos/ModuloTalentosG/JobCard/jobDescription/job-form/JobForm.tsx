@@ -801,7 +801,7 @@ function JobForm() {
                       >
                         Ninguno
                       </li>
-                      {["Julieta", "Shayna"].map(
+                      {["Julieta", "Shayna", "Ramiro", "Tobias"].map(
                         (recruiter: string, index: number) => {
                           return (
                             <li

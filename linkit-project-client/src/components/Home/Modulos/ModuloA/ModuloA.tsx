@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../../redux/types";
 import { useState, useEffect, useCallback } from "react";
+//import InicioForm from "../../../../Utils/contactUs/InicioForm";
+//import companies from "../../../../Utils/companies.json";
 
 export default function ModuloA() {
   const { t } = useTranslation();
@@ -32,6 +34,13 @@ export default function ModuloA() {
 
   const goSoyEmpresa = () => navigate("/SoyEmpresa");
   const goSoyTalento = () => navigate("/SoyTalento");
+
+
+  //carrousel
+    // const duplicatedCompanies = [...companies];
+    // const renderedCompanies = duplicatedCompanies;
+  
+    // const carouselRef = useRef<HTMLUListElement>(null);
 
   return (
     <div
@@ -62,16 +71,16 @@ export default function ModuloA() {
           <h2 className="hidden md:block font-montserrat text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%] lg:w-[90%] xl:w-[85%] leading-tight">
             {t("Contrata y gestiona al mejor talento de manera global")}
           </h2>
-          <div className="flex flex-col whitespace-nowrap md:space-x-2 mt-[7%] md:mt-0 md:flex-row">
+          <div className="flex-col space-y-2 mt-4 sm:space-x-2 md:space-x-4">
             <motion.button
-              className="background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] [400px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem] mt-[5%]"
+              className="background-button "
               onClick={goSoyEmpresa}
               whileTap={{ scale: 0.9 }}
             >
               {t("Contrata Talento")}
             </motion.button>
             <motion.button
-              className="transparent-background-button text-[0.3rem] min-[300px]:text-[0.4rem] min-[350px]:text-[0.5rem] [400px]:text-[0.5rem] min-[430px]:text-[0.6rem] min-[465px]:text-[0.7rem] min-[500px]:text-[0.8rem] ssm:text-[0.9rem] min-[600px]:text-[0.9rem] sm:text-[1.1rem] min-[700px]:text-[1.2rem] md:text-[1rem] mt-[5%]"
+              className="transparent-background-button"
               onClick={goSoyTalento}
               whileTap={{ scale: 0.9 }}
             >
@@ -103,6 +112,8 @@ export default function ModuloA() {
             </span>
           </div>
         </div>
+        {/* <div className="w-full h-full relative"><InicioForm /></div>
+         */}
         <div>
           <img
             src="/2025/Home/ModuleA/linkit-slider-home.webp"
@@ -140,6 +151,30 @@ export default function ModuloA() {
           </span>
         </div>
       </div>
+      {/* <div className="hidden md:flex justify-center mt-8 mb-8">
+  <div
+    className="relative inline-flex flex-nowrap overflow-hidden max-w-[90%] mx-auto [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+  >
+    <ul
+      ref={carouselRef}
+      className="animate-infinite-scroll flex items-center gap-x-6 [&_li]:mx-4 [&_img]:max-w-none"
+      style={{ animation: "infinite-scroll 30s linear infinite" }}
+    >
+      {renderedCompanies.map((company) => (
+        <li
+          className="relative flex justify-center items-center overflow-hidden h-[4rem] lg:h-[5rem] w-[6rem] lg:w-[8rem]"
+          key={company.id}
+        >
+          <img
+            src={company.logo}
+            className="h-full w-full object-contain"
+            alt={`logo`}
+          />
+        </li>
+      ))}
+    </ul>
+  </div>
+</div> */}
     </div>
   );
 }
