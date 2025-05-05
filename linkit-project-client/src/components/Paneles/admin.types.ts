@@ -278,10 +278,10 @@ export interface ViewColHeadAdmins {
   rol: boolean;
   nombre: boolean;
   apellido: boolean;
-  pais: boolean;
+  pais?: boolean;
   correo: boolean;
   'Fecha de creación': boolean;
-  imagen: boolean;
+  imagen?: boolean;
   'Firebase Id': boolean;
   Estado: boolean;
 }
@@ -340,3 +340,4 @@ export interface OKRsType {
   archived: boolean
   _id:string
 }
+

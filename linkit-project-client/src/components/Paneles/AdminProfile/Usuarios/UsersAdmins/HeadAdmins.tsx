@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ViewColHeadAdmins } from "../../../admin.types";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,22 +20,26 @@ interface HeadAdmins {
   editAdmin: () => void;
   handleSave: (arrayProps: string[]) => void;
   setSaveStatus: (status: boolean) => void;
+  selectedUsersStatus: any;
+  setSelectedRows: (selectedRows: Set<string>) => void;
 }
 
 export default function HeadAdmins({
   hideCol,
   viewCol,
   selectedRows,
+  setSelectedRows,
   editing,
   editAdmin,
   handleSave,
   setSaveStatus,
+  selectedUsersStatus,
 }: HeadAdmins) {
-
   const arraySelectedRows = [...selectedRows];
   const { t } = useTranslation();
   const token = useSelector((state: any) => state.Authentication.token);
   const dispatch = useDispatch();
+  const [loading] = useState(false);
 
   //? OPTIONS COLUMNS
   const [options, setOptions] = useState(false);
@@ -61,7 +65,7 @@ export default function HeadAdmins({
   //? FORM
   const [viewForm, setViewForm] = useState(false);
   const showForm = () => {
-    setSaveStatus(false)
+    setSaveStatus(false);
     setViewForm(true);
   };
   const noShowForm = () => {
@@ -69,34 +73,150 @@ export default function HeadAdmins({
   };
   //?
 
-  const deleteUser = async () => {
-    swal({
-      title: t("¿Deseas eliminar el Usuario?"),
+  const blockOrActiveUser = async () => {
+    const action = selectedUsersStatus.every((status: Boolean) => status)
+      ? t("bloquear")
+      : t("activar");
+
+    Swal.fire({
+      title: t(`¿Deseas ${action} el Admin?`),
       icon: "warning",
-      buttons: [t("Cancelar"), t("Aceptar")],
-      dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
+      showCancelButton: true,
+      confirmButtonText: t("Aceptar"),
+      cancelButtonText: t("Cancelar"),
+      customClass: {
+        confirmButton: "background-button",
+        cancelButton: "transparent-background-button",
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: t("Procesando..."),
+          text: t(`Estamos ${action} el Admin, por favor espera.`),
+          icon: "info",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
         try {
-          arraySelectedRows.forEach(async (id: string) => {
-            const response = await axios.delete(
-              `https://linkit-server.onrender.com/admins/delete/${id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Accept-Language": sessionStorage.getItem("lang"),
-                },
-              }
-            );
-            dispatch(setUsersAdmins(response.data));
-            swal(t("Usuario eliminado"), { icon: "success" });
+          await Promise.all(
+            arraySelectedRows.map(async (id: string) => {
+              const response = await axios.delete(
+                `https://linkit-server.onrender.com/admins/delete/${id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Accept-Language": sessionStorage.getItem("lang"),
+                  },
+                }
+              );
+              dispatch(setUsersAdmins(response.data));
+            })
+          );
+
+          Swal.fire({
+            title: t("¡Éxito!"),
+            text: t(`El Admin ha sido ${action} correctamente.`),
+            icon: "success",
+            confirmButtonText: t("Cerrar"),
+            customClass: {
+              confirmButton: "background-button",
+            },
           });
-        } catch (error) {
-          throw new Error(t("Error al enviar la solicitud:")).message
+        } catch (response: any) {
+          Swal.fire({
+            title: t("Error"),
+            text: t(
+              `Hubo un problema al ${action} el Admin: ${
+                response.response?.data || response.message
+              }`
+            ),
+            icon: "error",
+            confirmButtonText: t("Cerrar"),
+            customClass: {
+              confirmButton: "background-button",
+            },
+          });
         }
       }
     });
+
     setSaveStatus(true);
+  };
+
+  const deleteUserPermanently = async () => {
+    Swal.fire({
+      title: t("¿Deseas eliminar permanentemente el Admin?"),
+      icon: "warning", 
+      showCancelButton: true,
+      confirmButtonText: t("Aceptar"),
+      cancelButtonText: t("Cancelar"),
+      customClass: {
+        confirmButton: "background-button",
+        cancelButton: "transparent-background-button", 
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: t("Procesando..."),
+          text: t(
+            "Estamos eliminando permanentemente el Admin, por favor espera."
+          ),
+          icon: "info",
+          allowOutsideClick: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          // Eliminar Admins seleccionados
+          await Promise.all(
+            arraySelectedRows.map(async (id: string) => {
+              const deleteAdmin = await axios.delete(
+                `http://localhost:3000/admins/${id}/permanent`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Accept-Language": sessionStorage.getItem("lang"),
+                  },
+                }
+              );
+              dispatch(setUsersAdmins(deleteAdmin.data));
+            })
+          );
+
+          Swal.fire({
+            title: t("¡Éxito!"),
+            text: t("El Admin ha sido eliminado permanentemente."),
+            icon: "success",
+            confirmButtonText: t("Cerrar"),
+            customClass: {
+              confirmButton: "background-button",
+            },
+          });
+          setSelectedRows(new Set([])); 
+        } catch (response: any) {
+          Swal.fire({
+            title: t("Error"),
+            text: t(
+              `Hubo un problema al eliminar el Admin: ${
+                response.response?.data || response.message
+              }`
+            ),
+            icon: "error",
+            confirmButtonText: t("Cerrar"),
+            customClass: {
+              confirmButton: "background-button",
+            },
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -105,14 +225,14 @@ export default function HeadAdmins({
         <h1 className="text-4xl pl-16 py-6">{t("Administradores")}</h1>
       </div>
       <div className=" flex flex-row justify-around pb-6">
-          <div>
-            <button
-              className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
-              onClick={showForm}
-            >
-              {t("Nuevo Admin")}
-            </button>
-          </div>
+        <div>
+          <button
+            className="flex items-center border border-linkIt-300 rounded-[7px] p-2 shadow-md hover:border-linkIt-200 transition-all duration-300 ease-in-out mr-5"
+            onClick={showForm}
+          >
+            {t("Nuevo Admin")}
+          </button>
+        </div>
         <div className="flex flex-row">
           <div>
             <h1>{t("Ordenar: ")}</h1>
@@ -147,10 +267,9 @@ export default function HeadAdmins({
             </div>
           )}
         </div>
-        {viewForm && <AdminsForm
-          onClose={noShowForm}
-          setSaveStatus={setSaveStatus}
-        />}
+        {viewForm && (
+          <AdminsForm onClose={noShowForm} setSaveStatus={setSaveStatus} />
+        )}
         <div>
           <input
             type="text"
@@ -162,21 +281,25 @@ export default function HeadAdmins({
       </div>
 
       <div>
+        <div className="pl-4">
+          <p className="text-lg m-2 bg-linkIt-300 text-white font-semibold p-2 rounded-lg w-1/6 text-center">
+            {t("Seleccionados: ")} {selectedRows.size}
+          </p>
+        </div>
         <span className="flex flex-row pl-8">
-          {t("Seleccionados: ")} {selectedRows.size}
           {selectedRows.size > 0 && (
-            <div className="flex flex-row">
+            <div className="flex flex-row space-x-4 pl-4 mb-4">
               {editing ? (
-                <div>
+                <div className="flex space-x-4">
                   <button
                     onClick={() => handleSave(arraySelectedRows)}
-                    className="pl-6 hover:text-linkIt-300"
+                    className="px-4 py-2 bg-linkIt-300 text-white rounded-md shadow-md hover:bg-linkIt-400 transition-all duration-300"
                   >
                     {t("Guardar")}
                   </button>
                   <button
                     onClick={editAdmin}
-                    className="pl-6 hover:text-linkIt-300"
+                    className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md shadow-md hover:bg-gray-400 transition-all duration-300"
                   >
                     {t("Cancelar")}
                   </button>
@@ -185,24 +308,44 @@ export default function HeadAdmins({
                 <div>
                   <button
                     onClick={editAdmin}
-                    className="pl-6 hover:text-linkIt-300"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-all duration-300"
                   >
                     {selectedRows.size && t("Editar")}
                   </button>
                 </div>
               )}
-              <button onClick={deleteUser} className="pl-6 hover:text-red-600">
-                {selectedRows.size && t("Eliminar")}
+              {selectedRows.size === 1 && (
+                <button
+                  onClick={() => isPermVisible(true)}
+                  className="px-4 py-2 bg-cyan-500 text-white rounded-md shadow-md hover:bg-cyan-600 transition-all duration-300"
+                >
+                  {t("Asignar Permisos")}
+                </button>
+              )}
+              <button
+                onClick={blockOrActiveUser}
+                className={`px-4 py-2 ${
+                  selectedUsersStatus.every((status: Boolean) => status)
+                    ? "bg-yellow-500 hover:bg-yellow-600"
+                    : "bg-green-500 hover:bg-green-600"
+                } text-white rounded-md shadow-md transition-all duration-300`}
+                disabled={loading}
+              >
+                {loading
+                  ? t("Cargando...")
+                  : selectedUsersStatus.every((status: Boolean) => status)
+                  ? t("Bloquear Admin")
+                  : t("Activar Admin")}
+              </button>
+
+              <button
+                onClick={deleteUserPermanently}
+                className="px-4 py-2 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 transition-all duration-300"
+                disabled={loading}
+              >
+                {loading ? t("Cargando...") : t("Eliminar Admin")}
               </button>
             </div>
-          )}
-          {selectedRows.size === 1 && (
-            <button
-              onClick={() => isPermVisible(true)}
-              className="ml-5 hover:cursor-pointer hover:text-cyan-500"
-            >
-              {t("Asignar permisos")}
-            </button>
           )}
         </span>
         {permVisible && (
