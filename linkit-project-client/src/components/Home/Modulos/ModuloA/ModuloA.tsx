@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../../redux/types";
-import { useState, useEffect, useCallback } from "react";
-//import InicioForm from "../../../../Utils/contactUs/InicioForm";
-//import companies from "../../../../Utils/companies.json";
+import { useState, useEffect, useCallback, useRef } from "react";
+import InicioForm from "../../../../Utils/contactUs/InicioForm";
+import companies from "../../../../Utils/companies.json";
+
 
 export default function ModuloA() {
   const { t } = useTranslation();
@@ -32,19 +33,27 @@ export default function ModuloA() {
     };
   }, [updateDimensions]);
 
-  const goSoyEmpresa = () => navigate("/SoyEmpresa");
+  useEffect(() => {
+    const ul = carouselRef.current;
+    ul?.insertAdjacentHTML("afterend", ul.outerHTML);
+    const nextElement = ul?.nextElementSibling;
+    if (nextElement) {
+      nextElement.setAttribute("aria-hidden", "true");
+    }
+  }, []);
+
+  //const goSoyEmpresa = () => navigate("/SoyEmpresa");
   const goSoyTalento = () => navigate("/SoyTalento");
 
-
   //carrousel
-    // const duplicatedCompanies = [...companies];
-    // const renderedCompanies = duplicatedCompanies;
-  
-    // const carouselRef = useRef<HTMLUListElement>(null);
+  const duplicatedCompanies = [...companies];
+  const renderedCompanies = duplicatedCompanies;
+
+  const carouselRef = useRef<HTMLUListElement>(null);
 
   return (
     <div
-      className="overflow-hidden md:pt-[17vh] bg-linkIt-500 dark:bg-linkIt-200 dark:text-white"
+      className="overflow-hidden md:pt-[15vh] bg-linkIt-500 dark:bg-linkIt-200 dark:text-white"
       style={
         windowWidth <= 767
           ? {
@@ -55,41 +64,43 @@ export default function ModuloA() {
       }
     >
       <div className="grid grid-cols-2 h-fit w-screen overflow-hidden bg-linkIt-500 dark:bg-linkIt-200 dark:text-white">
-        <div className="md:space-y-[5%] md:mt-4 md:p-[9%] md:pl-[6%] xs:pl-[9%]">
-          <h1 className="hidden md:block font-bold font-manrope md:text-[2.3rem] md:w-[115%] sm:w-[135%] lg:w-[120%] lg:text-[3rem] xl:text-[3.5rem] xl:w-[125%] 2xl:text-[5rem] leading-tight">
-            {t(
-              "Conectando al talento más destacado con los mejores proyectos IT"
-            )}
-          </h1>
-          <h1 className="md:hidden font-bold font-manrope mt-[5%] xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[430px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[1.9rem] min-[570px]:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] w-[110%] leading-tight">
-            {t("Conectando los")}
-            <br />
-            {t("mejores talentos")}
-            <br />
-            {t("y proyectos")}
-          </h1>
-          <h2 className="hidden md:block font-montserrat text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%] lg:w-[90%] xl:w-[85%] leading-tight">
-            {t("Contrata y gestiona al mejor talento de manera global")}
-          </h2>
-          <div className="flex-col space-y-2 mt-4 sm:space-x-2 md:space-x-4">
+        <div className="md:space-y-[3%] md:mt-4 md:p-[6%] md:pl-[6%] xs:pl-[9%] flex flex-col justify-between h-full">
+          {/* Título principal */}
+          <div className="pb-12">
+            <h1 className="hidden md:block font-bold font-manrope md:text-[2.3rem] md:w-[115%] sm:w-[135%] lg:w-[100%] lg:text-[2.5rem] xl:text-[3rem] xl:w-[100%] 2xl:text-[3.5rem] leading-tight text-center">
+              {t(
+                "Conectando al talento más destacado con los mejores proyectos IT"
+              )}
+            </h1>
+            <h1 className="md:hidden font-bold font-manrope mt-[5%] xs:text-[1rem] min-[340px]:text-[1.1rem] min-[360px]:text-[1.2rem] min-[390px]:text-[1.2rem] min-[410px]:text-[1.4rem] min-[430px]:text-[1.4rem] min-[465px]:text-[1.5rem] min-[500px]:text-[1.7rem] ssm:text-[1.9rem] min-[570px]:text-[2rem] min-[600px]:text-[2.1rem] sm:text-[2.2rem] min-[670px]:text-[2.3rem] min-[700px]:text-[2.4rem] w-[110%] leading-tight">
+              {t("Conectando los")}
+              <br />
+              {t("mejores talentos")}
+              <br />
+              {t("y proyectos")}
+            </h1>
+            <div className="items-center justify-center flex">
+              <h2 className="hidden md:block font-montserrat text-[0.8rem] ssm:text-[0.9rem] sm:text-[1rem] lg:text-[1.5rem] xl:text-[1.8rem] 2xl:text-[2.5rem] w-[110%] ssm:w-[89%] sm:w-[75%] lg:w-[90%] xl:w-[85%] leading-tight text-center mt-16">
+                {t("Contrata y gestiona al mejor talento de manera global")}
+              </h2>
+            </div>
+          </div>
+
+          {/* Botón */}
+          <div className="flex justify-center ">
             <motion.button
-              className="background-button "
-              onClick={goSoyEmpresa}
-              whileTap={{ scale: 0.9 }}
-            >
-              {t("Contrata Talento")}
-            </motion.button>
-            <motion.button
-              className="transparent-background-button"
+              className="bg-linkIt-300 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-linkIt-400 transition-all duration-300 text-sm xs:text-base sm:text-lg md:text-xl"
               onClick={goSoyTalento}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {t("Vacantes disponibles")}
+              {t("Ver vacantes disponibles")}
             </motion.button>
           </div>
-          <div className="hidden md:flex relative top-3">
+
+          {/* Trustpilot Rating */}
+          <div className="flex items-center justify-center ">
             <img
-              className="w-1/2 lg:w-1/4"
+              className="w-16 h-16 lg:w-16 lg:h-6"
               src={
                 isDarkMode
                   ? "/2025/Home/ModuleA/MO-trustpilot.webp"
@@ -99,22 +110,24 @@ export default function ModuloA() {
               width="100"
               height="20"
             />
-            <span className={isDarkMode ? "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center text-white" : "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center"}>
-              {t("4/5 on Truspilot")}
+            <span className="font-montserrat text-sm xs:text-base sm:text-base md:text-base lg:text-base xl:text-lg text-gray-800 dark:text-white ml-4">
+              {t("4/5 on Trustpilot")}
               <Link
                 to="https://es.trustpilot.com/review/linkit-hr.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline ml-2"
+                className="underline ml-2 text-linkIt-300 hover:text-linkIt-400"
               >
                 {t("Leer reseñas")}
               </Link>
             </span>
           </div>
         </div>
-        {/* <div className="w-full h-full relative"><InicioForm /></div>
-         */}
-        <div>
+        <div className="w-full h-full relative">
+          <InicioForm />
+        </div>
+
+        {/* <div>
           <img
             src="/2025/Home/ModuleA/linkit-slider-home.webp"
             alt="LinkIT workspace illustration"
@@ -123,7 +136,7 @@ export default function ModuloA() {
                        md:mt-16 lg:mt-16 xl:mt-24 2xl:mt-12
                        md:mb-4 lg:mb-8 xl:mb-2"
           />
-        </div>
+        </div> */}
       </div>
       <div className="md:hidden w-screen flex justify-center py-[1.5%] mt-8 bg-white">
         <div className="w-[60%] flex flex-row items-center justify-around">
@@ -138,7 +151,13 @@ export default function ModuloA() {
             width="100"
             height="20"
           />
-          <span className={isDarkMode ? "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center text-black" : "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center"}>
+          <span
+            className={
+              isDarkMode
+                ? "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center text-black"
+                : "font-montserrat text-[0.6rem] lg:text-[1.2rem] md:text-[1rem] ml-2 flex whitespace-nowrap items-center"
+            }
+          >
             {t("4/5 on Truspilot")}{" "}
             <Link
               to="https://es.trustpilot.com/review/linkit-hr.com"
@@ -151,30 +170,29 @@ export default function ModuloA() {
           </span>
         </div>
       </div>
-      {/* <div className="hidden md:flex justify-center mt-8 mb-8">
-  <div
-    className="relative inline-flex flex-nowrap overflow-hidden max-w-[90%] mx-auto [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
-  >
-    <ul
-      ref={carouselRef}
-      className="animate-infinite-scroll flex items-center gap-x-6 [&_li]:mx-4 [&_img]:max-w-none"
-      style={{ animation: "infinite-scroll 30s linear infinite" }}
-    >
-      {renderedCompanies.map((company) => (
-        <li
-          className="relative flex justify-center items-center overflow-hidden h-[4rem] lg:h-[5rem] w-[6rem] lg:w-[8rem]"
-          key={company.id}
-        >
-          <img
-            src={company.logo}
-            className="h-full w-full object-contain"
-            alt={`logo`}
-          />
-        </li>
-      ))}
-    </ul>
-  </div>
-</div> */}
+
+      <div className="hidden md:flex justify-center mt-8 mb-8">
+        <div className="relative inline-flex flex-nowrap overflow-hidden max-w-[90%] mx-auto [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+          <ul
+            ref={carouselRef}
+            className="animate-infinite-scroll flex items-center gap-x-6 [&_li]:mx-4 [&_img]:max-w-none"
+            style={{ animation: "infinite-scroll 30s linear infinite" }}
+          >
+            {renderedCompanies.map((company) => (
+              <li
+                className="relative flex justify-center items-center overflow-hidden h-[4rem] lg:h-[3rem] w-[6rem] lg:w-[5rem]"
+                key={company.id}
+              >
+                <img
+                  src={company.logo}
+                  className="h-full w-full object-contain"
+                  alt={`logo`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
