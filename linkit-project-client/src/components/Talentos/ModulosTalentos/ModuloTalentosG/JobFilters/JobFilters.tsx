@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { applyFilters } from "../../../../../redux/features/JobCardsSlice";
 import { CustomFlowbiteTheme, Dropdown } from "flowbite-react";
 import whiteArrow from "/Vectores/downArrowFilters.svg";
-import blackArrow from "/Vectores/blackArrowFilters.svg"
+import blackArrow from "/Vectores/blackArrowFilters.svg";
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
@@ -70,7 +70,7 @@ const JobFilters = () => {
   );
 
   const allStackTechnologies = useSelector(
-    (state: any) => state.resources.stackTechnologies as Technology[] 
+    (state: any) => state.resources.stackTechnologies as Technology[]
   );
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
@@ -179,7 +179,12 @@ const JobFilters = () => {
     }, []);
 
     const getWidthClass = (label: string) => {
-      if (label === "Ubicación" || label === "Modalidad" || label === "Location" || label === "Modality") {
+      if (
+        label === "Ubicación" ||
+        label === "Modalidad" ||
+        label === "Location" ||
+        label === "Modality"
+      ) {
         return "md:w-full sm:w-full ssm:w-[16vh] xs:w-full  ";
       } else {
         return "md:w-full sm:w-full ssm:w-[16vh] xs:w-[9vh] min-[470px]:w-[13vh] min-[515px]:w-[14vh] min-[410px]:w-[11vh] min-[440px]:w-[12vh] min-[585px]:w-[16vh]";
@@ -228,7 +233,7 @@ const JobFilters = () => {
                 >
                   <input
                     type="checkbox"
-                    className="mr-2 rounded-full"
+                    className="mr-2 rounded-full z-10"
                     checked={
                       selectedOption.includes(option.toLocaleLowerCase()) ||
                       modality.includes(option.toLocaleLowerCase())
@@ -279,7 +284,6 @@ const JobFilters = () => {
     }
   }, [stackValue, typeValue, modalityValue, country, isMobile]);
 
-
   return (
     <div className="w-full">
       <div className="hidden lg:flex rounded-[7px] p-4 my-[5%] h-[4rem] items-center font-montserrat whitespace-nowrap bg-white text-linkIt-400">
@@ -293,17 +297,16 @@ const JobFilters = () => {
             >
               {allStackTechnologies?.map((stack: any, index: number) => {
                 return (
-                  <li key={index} onClick={() => handleStack(stack.name)}>
+                  <li key={index}>
                     <input
                       className="checked:bg-linkIt-300 rounded-sm mx-2 focus:ring-0 cursor-pointer font-normal"
                       id={`ch-${index}`}
                       type="checkbox"
                       checked={stackValue.includes(stack.name)}
-                      readOnly
-                      onClick={(e) => e.stopPropagation()}
+                      onChange={() => handleStack(stack.name)} 
                     />
                     <label
-                      htmlFor={stack.name}
+                      htmlFor={`ch-${index}`}
                       className="cursor-pointer w-full"
                     >
                       {stack.name}
@@ -498,10 +501,7 @@ const JobFilters = () => {
           </div>
           <div className="w-full xs:w-auto flex justify-center m-1">
             {language === "en" ? (
-              <SelectCountryEn
-                setCountry={setCountry}
-                country={country}
-              />
+              <SelectCountryEn setCountry={setCountry} country={country} />
             ) : (
               <SelectCountryEs setCountry={setCountry} country={country} />
             )}
