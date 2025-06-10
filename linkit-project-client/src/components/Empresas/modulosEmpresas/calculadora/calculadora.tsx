@@ -5,6 +5,7 @@ import "./calculadora.css";
 import { useTranslation } from "react-i18next";
 import whiteArrow from "/Vectores/downArrowFilters.svg";
 import blackArrow from "/Vectores/blackArrowFilters.svg";
+import Swal from "sweetalert2";
 
 interface VacancyFirstState {
   [key: string]: string;
@@ -317,7 +318,7 @@ function Calculadora() {
         filterPosition: false,
       }));
     }
-
+  
     if (vacancyFirst.englishLevel === "") {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -329,7 +330,7 @@ function Calculadora() {
         filterEnglishLevel: false,
       }));
     }
-
+  
     if (vacancyFirst.seniorityV === "") {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -341,11 +342,11 @@ function Calculadora() {
         filterSeniority: false,
       }));
     }
-
+  
     if (vacancySecond.technologies.length === 0) {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
-        filterTechnologies: false,
+        filterTechnologies: true, // Cambiar a rojo si está vacío
       }));
     } else {
       setFiltersToSelect((prevFiltersToSelect) => ({
@@ -353,11 +354,11 @@ function Calculadora() {
         filterTechnologies: false,
       }));
     }
-
+  
     if (vacancySecond.frameworks.length === 0) {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
-        filterFrameworks: false,
+        filterFrameworks: true, // Cambiar a rojo si está vacío
       }));
     } else {
       setFiltersToSelect((prevFiltersToSelect) => ({
@@ -365,7 +366,7 @@ function Calculadora() {
         filterFrameworks: false,
       }));
     }
-
+  
     if (vacancySecond.others.length === 0) {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -453,45 +454,62 @@ function Calculadora() {
   }, [vacancyFirst]);
 
   const CalculatePrice = async () => {
-    if (isDisabled) {
-      handleFiltersSelected();
-    } else {
-      try {
-        let techsValue = ["No techs"];
-        let frameworksValue = ["No frameworks"];
-        let othersValue = ["No others"];
-
-        if (vacancySecond.technologies.length > 0) {
-          techsValue = vacancySecond.technologies;
-        }
-        if (vacancySecond.frameworks.length > 0) {
-          frameworksValue = vacancySecond.frameworks;
-        }
-        if (vacancySecond.others.length > 0) {
-          othersValue = vacancySecond.others;
-        }
-        setVacancySecond({
+    // Validar que los campos requeridos estén completos
+    if (
+      isDisabled || // Validar los campos de vacancyFirst
+      vacancySecond.technologies.length === 0 || // Validar Tecnologías
+      vacancySecond.frameworks.length === 0 // Validar Frameworks
+    ) {
+      // Mostrar mensaje de error si faltan campos
+      Swal.fire({
+        title: t("Error"),
+        text: t(
+          "Por favor completa todos los campos obligatorios, incluyendo Tecnologías y Frameworks."
+        ),
+        icon: "error",
+        confirmButtonText: t("Cerrar"),
+        customClass: {
+          confirmButton: "background-button",
+        },
+      });
+      return; // Detener la ejecución si faltan campos
+    }
+  
+    try {
+      let techsValue = ["No techs"];
+      let frameworksValue = ["No frameworks"];
+      let othersValue = ["No others"];
+  
+      if (vacancySecond.technologies.length > 0) {
+        techsValue = vacancySecond.technologies;
+      }
+      if (vacancySecond.frameworks.length > 0) {
+        frameworksValue = vacancySecond.frameworks;
+      }
+      if (vacancySecond.others.length > 0) {
+        othersValue = vacancySecond.others;
+      }
+      setVacancySecond({
+        technologies: techsValue,
+        frameworks: frameworksValue,
+        others: othersValue,
+      });
+  
+      const response = await axios.post(
+        `https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`,
+        {
           technologies: techsValue,
           frameworks: frameworksValue,
           others: othersValue,
-        });
-
-        const response = await axios.post(
-          `https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`,
-          {
-            technologies: techsValue,
-            frameworks: frameworksValue,
-            others: othersValue,
-          }
-        );
-
-        if (response.status === 200) {
-          const data = response.data;
-          setPrice(data);
         }
-      } catch (error) {
-        console.log(error);
+      );
+  
+      if (response.status === 200) {
+        const data = response.data;
+        setPrice(data);
       }
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -163,6 +163,9 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
               </svg>
               <span className="text-white text-sm font-medium">{location}</span>
               <span className="text-gray-400">•</span>
+              <p className="text-white text-sm font-medium">
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </p>
               <motion.div
                 className="px-2 py-0.5 rounded-md bg-gray-700 text-white text-xs font-medium"
                 whileHover={{ backgroundColor: "#4B5563" }}
@@ -173,16 +176,6 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
           </div>
 
           <div className="flex-grow">
-            <div className="flex flex-wrap gap-2 mt-3">
-              <motion.div
-                className="h-7 px-3 py-1 flex items-center justify-center rounded-lg bg-pink-700"
-                whileHover={{ scale: 1.05, backgroundColor: "#F472B6" }}
-              >
-                <p className="text-white text-sm font-medium">
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
-                </p>
-              </motion.div>
-            </div>
             <div className="h-[90px] w-full overflow-hidden mt-4">
               <div className="flex flex-col h-full">
                 <div className="flex flex-wrap gap-2 mb-3">

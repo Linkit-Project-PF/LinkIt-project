@@ -146,7 +146,7 @@ function Register() {
       if (user.role === "company") user.companyName = user.firstName;
       user.provider = "email";
       const response = await axios.post(
-        "https://linkit-server.onrender.com/auth/register",
+        "http://localhost:3000/auth/register",
         user,
         {
           headers: {
@@ -398,7 +398,7 @@ function Register() {
             {user.role === "user" && (
               <input
                 type="text"
-                className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]  focus:border-linkIt-300 focus:ring-0" 
+                className="border-[.125rem] bg-white border-linkIt-300 w-[90%] rounded-[10px] p-[3px] flex flex-row items-center content-center gap-[.4rem] pl-[.7rem] bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500]  focus:border-linkIt-300 focus:ring-0"
                 // className="border-none focus:ring-0 bg-transparent focus:outline-none placeholder:text-[.9rem] placeholder:text-linkIt-400 font-[500] w-[90%]"
                 placeholder={t("Apellido")}
                 name="lastName"
