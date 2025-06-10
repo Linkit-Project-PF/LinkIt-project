@@ -265,7 +265,7 @@ function JobDescription() {
         )}
       </Helmet>
 
-      <div className="overflow-x-hidden ">
+      <div className="">
         {loading ? <Loading text={t("Cargando información")} /> : null}
         <article className="font-montserrat text-linkIt-400 dark:bg-linkIt-200 flex flex-col relative p-[7%] pt-[17vh] lg:pt-[23vh]">
           {/* Breadcrumbs */}
