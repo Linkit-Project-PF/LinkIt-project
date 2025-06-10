@@ -78,7 +78,7 @@ export default function MainNavigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed hidden top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? "bg-white shadow-md dark:bg-linkIt-200 dark:shadow-gray-800" : "bg-transparent"
       }`}
       role="banner"

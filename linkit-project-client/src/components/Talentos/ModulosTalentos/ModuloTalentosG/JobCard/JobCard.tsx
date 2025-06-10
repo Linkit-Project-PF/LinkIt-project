@@ -176,14 +176,6 @@ export const JobCard: FunctionComponent<JobCardProps> = ({
           </div>
 
           <div className="flex-grow">
-            {/* <div className="flex flex-wrap gap-2 mt-3">
-              <motion.div
-                className="h-7 px-3 py-1 flex items-center justify-center rounded-lg bg-pink-700"
-                whileHover={{ scale: 1.05, backgroundColor: "#F472B6" }}
-              >
-                
-              </motion.div>
-            </div> */}
             <div className="h-[90px] w-full overflow-hidden mt-4">
               <div className="flex flex-col h-full">
                 <div className="flex flex-wrap gap-2 mb-3">

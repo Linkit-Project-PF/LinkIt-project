@@ -1,67 +1,72 @@
-import { useEffect, useState } from "react"
-import "./JobDescription.css"
-import { useParams, useNavigate } from "react-router-dom"
-import axios from "axios"
-import type { JobDescriptionProps, State } from "./typesJobs"
-import { useTranslation } from "react-i18next"
-import { motion } from "framer-motion"
-import { useSelector, useDispatch } from "react-redux"
-import { setFormVisible } from "../../../../../../redux/features/ApplicationSlice"
-import Swal from "sweetalert2"
-import { setPressLogin } from "../../../../../../redux/features/registerLoginSlice"
-import Newsletter from "../../../../../../Utils/newsletter/newsletter"
-import blackArrow from "/Vectores/arrowBlackLeft.png"
-import whiteArrow from "/Vectores/arrowWhiteLeft.png"
-import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg"
-import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg"
-import type { RootState } from "../../../../../../redux/types"
-import Loading from "../../../../../Loading/Loading"
-import HTMLReactParser from "html-react-parser"
-import { Helmet } from "react-helmet-async"
-import BreadcrumbsWithSchema from "../../../../../../Utils/Breadcrumbs/Breadcrumbs"
-import CallToAction from "../../../../../../Utils/Buttons/CTA/callToAction"
+import { useEffect, useState } from "react";
+//import "./JobDescription.css";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import type { JobDescriptionProps, State } from "./typesJobs";
+import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { setFormVisible } from "../../../../../../redux/features/ApplicationSlice";
+import Swal from "sweetalert2";
+import { setPressLogin } from "../../../../../../redux/features/registerLoginSlice";
+import Newsletter from "../../../../../../Utils/newsletter/newsletter";
+import blackArrow from "/Vectores/arrowBlackLeft.png";
+import whiteArrow from "/Vectores/arrowWhiteLeft.png";
+import WhiteLogo from "/Vectores/LinkIt-Logotipo-2024-white.svg";
+import BlueLogo from "/Vectores/LinkIt-Logotipo-2024-blue.svg";
+import type { RootState } from "../../../../../../redux/types";
+import Loading from "../../../../../Loading/Loading";
+import HTMLReactParser from "html-react-parser";
+import { Helmet } from "react-helmet-async";
+import BreadcrumbsWithSchema from "../../../../../../Utils/Breadcrumbs/Breadcrumbs";
+//import CallToAction from "../../../../../../Utils/Buttons/CTA/callToAction";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 function JobDescription() {
-  const { id, slug } = useParams<{ id: string; slug: string }>()
+  const { id, slug } = useParams<{ id: string; slug: string }>();
 
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const authentication = useSelector((state: State) => state.Authentication)
-  const [jobData, setJobData] = useState<JobDescriptionProps>({} as JobDescriptionProps)
-  const [loading, isLoading] = useState<boolean>(false)
-  const { i18n } = useTranslation()
-  const { language } = i18n
-  const navigate = useNavigate()
-  const isDarkMode = useSelector((state: RootState) => state.darkMode)
-  const isSpanish = language === "es"
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const authentication = useSelector((state: State) => state.Authentication);
+  const [jobData, setJobData] = useState<JobDescriptionProps>(
+    {} as JobDescriptionProps
+  );
+  const [loading, isLoading] = useState<boolean>(false);
+  const { i18n } = useTranslation();
+  const { language } = i18n;
+  const navigate = useNavigate();
+  const isDarkMode = useSelector((state: RootState) => state.darkMode);
+  const isSpanish = language === "es";
 
   useEffect(() => {
     const fetchJob = async () => {
-      if (!loading) isLoading(true)
+      if (!loading) isLoading(true);
       try {
-        const response = await axios.get(`https://linkit-server.onrender.com/jds/find?code=${id}`, {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
-        })
-        setJobData(response.data[0])
+        const response = await axios.get(
+          `https://linkit-server.onrender.com/jds/find?code=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${SUPERADMN_ID}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+            },
+          }
+        );
+        setJobData(response.data[0]);
       } catch (error: any) {
-        Swal.fire({ title: "Error", text: error.response.data, icon: "error" })
+        Swal.fire({ title: "Error", text: error.response.data, icon: "error" });
       } finally {
-        isLoading(false)
-        window.scrollTo(0, 0)
+        isLoading(false);
+        window.scrollTo(0, 0);
       }
-    }
-    fetchJob()
-    window.scrollTo(0, 0)
-  }, [i18n.language, id])
+    };
+    fetchJob();
+    window.scrollTo(0, 0);
+  }, [i18n.language, id]);
 
   const handleGoBack = () => {
-    navigate("/soyTalento")
-  }
+    navigate("/soyTalento");
+  };
 
   const handleApply = () => {
     if (!authentication.isAuthenticated) {
@@ -73,10 +78,10 @@ function JobDescription() {
         confirmButtonColor: "#01A28B",
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(setPressLogin("visible"))
+          dispatch(setPressLogin("visible"));
         }
-      })
-      return
+      });
+      return;
     }
 
     if (authentication.user.role !== "user") {
@@ -86,8 +91,8 @@ function JobDescription() {
         icon: "error",
         confirmButtonColor: "#F87171",
         confirmButtonText: "Aceptar",
-      })
-      return
+      });
+      return;
     }
     if (!authentication.user.active) {
       Swal.fire({
@@ -96,50 +101,40 @@ function JobDescription() {
         icon: "info",
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#3B82F6",
-      })
-      return
+      });
+      return;
     }
-    navigate(`application`)
-    dispatch(setFormVisible(true))
-  }
-
-  const agregarClasesHTML = (str: string): string => {
-    str = str.replace(/<ul>/g, '<ul className="flex flex-col list" style={{ "list-style": "initial" }} >')
-    str = str.replace(/<li/g, '<li className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white"')
-    str = str.replace(/<p/g, '<p className="font-[600] text-size lg:max-w-[70%] dark:text-white"')
-
-    return str
-  }
-
-  const regex = /<.*?>/g
-  const removerEtiquetasHTML = (texto: string): boolean => {
-    const textoSinEtiquetas = texto.replace(/<[^>]*>/g, "")
-    return /[a-zA-Z0-9]/.test(textoSinEtiquetas)
-  }
+    navigate(`application`);
+    dispatch(setFormVisible(true));
+  };
 
   // Extraer texto plano para los schemas
   const getPlainText = (htmlString: string): string => {
-    if (!htmlString) return ""
-    const div = document.createElement("div")
-    div.innerHTML = htmlString
-    return div.textContent || div.innerText || ""
-  }
+    if (!htmlString) return "";
+    const div = document.createElement("div");
+    div.innerHTML = htmlString;
+    return div.textContent || div.innerText || "";
+  };
 
   // Convertir arrays de HTML a texto plano para los schemas
   const getPlainTextFromArray = (arr: string[] | undefined): string => {
-    if (!arr || arr.length === 0) return ""
-    return arr.map((item) => getPlainText(item)).join(", ")
-  }
+    if (!arr || arr.length === 0) return "";
+    return arr.map((item) => getPlainText(item)).join(", ");
+  };
 
   // Generar el schema de JobPosting para Schema.org
   const generateJobPostingSchema = () => {
-    if (!jobData || !jobData.title) return null
+    if (!jobData || !jobData.title) return null;
 
     // Fecha de publicación (si no está disponible, usar la fecha actual menos 7 días)
-    const datePosted = jobData.createdAt || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+    const datePosted =
+      jobData.createdAt ||
+      new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
     // Fecha de expiración (si no está disponible, usar la fecha actual más 30 días)
-    const validThrough = jobData.expirationDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+    const validThrough =
+      jobData.expirationDate ||
+      new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
 
     // Construir el schema
     const jobPostingSchema: any = {
@@ -173,31 +168,88 @@ function JobDescription() {
         name: "LinkIT Job Code",
         value: id,
       },
-    }
+    };
 
     // Añadir requisitos si están disponibles
     if (jobData.requirements && jobData.requirements.length > 0) {
-      jobPostingSchema["skills"] = getPlainTextFromArray(jobData.requirements)
-      jobPostingSchema["qualifications"] = getPlainTextFromArray(jobData.requirements)
+      jobPostingSchema["skills"] = getPlainTextFromArray(jobData.requirements);
+      jobPostingSchema["qualifications"] = getPlainTextFromArray(
+        jobData.requirements
+      );
     }
 
     // Añadir responsabilidades si están disponibles
     if (jobData.responsabilities && jobData.responsabilities.length > 0) {
-      jobPostingSchema["responsibilities"] = getPlainTextFromArray(jobData.responsabilities)
+      jobPostingSchema["responsibilities"] = getPlainTextFromArray(
+        jobData.responsabilities
+      );
     }
 
     // Añadir beneficios si están disponibles
     if (jobData.benefits && jobData.benefits.length > 0) {
-      jobPostingSchema["jobBenefits"] = getPlainTextFromArray(jobData.benefits)
+      jobPostingSchema["jobBenefits"] = getPlainTextFromArray(jobData.benefits);
     }
-    return jobPostingSchema
-  }
+    return jobPostingSchema;
+  };
+
+  // Utilidad para renderizar arrays mixtos (con o sin HTML)
+  const renderList = (arr: string[]) => {
+    // Si algún item tiene <ul>, extrae los <li> y los mete en un <ul> propio
+    if (arr.some((item) => /<ul[\s>]/i.test(item))) {
+      const allLis = arr.flatMap((item) => {
+        const matches = item.match(/<li[\s\S]*?<\/li>/gi);
+        return matches
+          ? matches.map((li, idx) => (
+              <li
+                key={idx}
+                className="font-[600] text-size lg:max-w-[70%] dark:text-white"
+              >
+                {HTMLReactParser(li.replace(/<\/?li.*?>/gi, ""))}
+              </li>
+            ))
+          : [];
+      });
+      return <ul className="flex flex-col list-disc pl-6">{allLis}</ul>;
+    }
+    if (arr.some((item) => /<li[\s>]/i.test(item))) {
+      const allLis = arr.flatMap((item) => {
+        const matches = item.match(/<li[\s\S]*?<\/li>/gi);
+        return matches
+          ? matches.map((li, idx) => (
+              <li
+                key={idx}
+                className="font-[600] text-size lg:max-w-[70%] dark:text-white"
+              >
+                {HTMLReactParser(li.replace(/<\/?li.*?>/gi, ""))}
+              </li>
+            ))
+          : [];
+      });
+      return <ul className="flex flex-col list-disc pl-6">{allLis}</ul>;
+    }
+    return (
+      <ul className="flex flex-col list-disc pl-6">
+        {arr.map((item, idx) => (
+          <li
+            key={idx}
+            className="font-[600] text-size lg:max-w-[70%] dark:text-white"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
-    <>
+    <div className="">
       {/* Schema.org implementation */}
       <Helmet>
-        <title>{jobData.title ? `${jobData.title} | LinkIT` : "Oferta de trabajo | LinkIT"}</title>
+        <title>
+          {jobData.title
+            ? `${jobData.title} | LinkIT`
+            : "Oferta de trabajo | LinkIT"}
+        </title>
         <meta
           name="description"
           content={
@@ -206,10 +258,14 @@ function JobDescription() {
               : "Descubre esta oportunidad laboral en el sector IT con LinkIT. Aplica ahora y da el siguiente paso en tu carrera profesional."
           }
         />
-        {jobData.title && <script type="application/ld+json">{JSON.stringify(generateJobPostingSchema())}</script>}
+        {jobData.title && (
+          <script type="application/ld+json">
+            {JSON.stringify(generateJobPostingSchema())}
+          </script>
+        )}
       </Helmet>
 
-      <div className="">
+      <div className="overflow-x-hidden ">
         {loading ? <Loading text={t("Cargando información")} /> : null}
         <article className="font-montserrat text-linkIt-400 dark:bg-linkIt-200 flex flex-col relative p-[7%] pt-[17vh] lg:pt-[23vh]">
           {/* Breadcrumbs */}
@@ -217,10 +273,18 @@ function JobDescription() {
             <BreadcrumbsWithSchema
               items={[
                 { label: isSpanish ? "Inicio" : "Home", path: "/" },
-                { label: isSpanish ? "Para Talento" : "For Talent", path: "/soyTalento" },
-                { label: isSpanish ? "Ofertas de trabajo" : "Job Offers", path: "/soyTalento#vacantes" },
                 {
-                  label: jobData.title || (isSpanish ? "Oferta de trabajo" : "Job Offer"),
+                  label: isSpanish ? "Para Talento" : "For Talent",
+                  path: "/soyTalento",
+                },
+                {
+                  label: isSpanish ? "Ofertas de trabajo" : "Job Offers",
+                  path: "/soyTalento#vacasntes",
+                },
+                {
+                  label:
+                    jobData.title ||
+                    (isSpanish ? "Oferta de trabajo" : "Job Offer"),
                   path: `/soyTalento/Joboffer/${id}/${slug}`,
                   active: true,
                 },
@@ -238,13 +302,20 @@ function JobDescription() {
                   initial={{ opacity: 0, x: -100 }}
                   whileInView={{ opacity: 1, x: 0 }}
                 >
-                  <img src={isDarkMode ? whiteArrow : blackArrow} alt="back" className="w-[1.5rem]" />
+                  <img
+                    src={isDarkMode ? whiteArrow : blackArrow}
+                    alt="back"
+                    className="w-[1.5rem]"
+                  />
                   {language === "en" ? "Go back" : "Volver"}
                 </motion.button>
                 <h3 className="text-black border-[2px] border-linkIt-300 dark:border-linkIt-200 dark:bg-white dark: inline-flex px-2 py-1 text-size font-semibold rounded-[7px] mb-[3%]">
                   CODE: {id}
                 </h3>
-                <h1 className="text-black dark:text-white font-bold titles-size" itemProp="title">
+                <h1
+                  className="text-black dark:text-white font-bold titles-size"
+                  itemProp="title"
+                >
                   {jobData.title}
                 </h1>
 
@@ -288,14 +359,18 @@ function JobDescription() {
                 </div>
               </header>
               <section className="mb-[3%]" itemProp="description">
-                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Descripción")}</h3>
+                <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                  {t("Descripción")}
+                </h3>
                 <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
                   {jobData.description && HTMLReactParser(jobData.description)}
                 </p>
               </section>
               {jobData?.aboutUs && (
                 <section className="mb-[3%]">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Acerca de nosotros")}</h3>
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Acerca de nosotros")}
+                  </h3>
                   <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
                     {jobData.aboutUs && HTMLReactParser(jobData.aboutUs)}
                   </p>
@@ -303,104 +378,52 @@ function JobDescription() {
               )}
               {jobData?.aboutClient && (
                 <section className="mb-[3%]">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Acerca de nuestro cliente")}</h3>
-                  {jobData.aboutClient && HTMLReactParser(agregarClasesHTML(jobData.aboutClient))}
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Acerca de nuestro cliente")}
+                  </h3>
+                  <p className="font-[600] text-size lg:max-w-[70%] dark:text-white">
+                    {jobData.aboutClient &&
+                      HTMLReactParser(jobData.aboutClient)}
+                  </p>
                 </section>
               )}
-              {jobData.responsabilities?.length > 0 &&
-              jobData.responsabilities?.length === 1 &&
-              regex.test(jobData.responsabilities[0]) ? (
-                <section className="mb-[3%]" itemProp="responsibilities">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Responsabilidades")}</h3>
-                  {HTMLReactParser(agregarClasesHTML(jobData.responsabilities[0]))}
-                </section>
-              ) : (
-                <section className="mb-[3%]" itemProp="responsibilities">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Responsabilidades")}</h3>
-                  <ul className="flex flex-col list">
-                    {jobData.responsabilities?.map((responsability, index) => {
-                      return (
-                        <li key={index} className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white">
-                          {responsability}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </section>
-              )}
+
+              {jobData.responsabilities &&
+                jobData.responsabilities.length > 0 && (
+                  <section className="mb-[3%]" itemProp="responsibilities">
+                    <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                      {t("Responsabilidades")}
+                    </h3>
+                    {renderList(jobData.responsabilities)}
+                  </section>
+                )}
+
               {jobData.requirements && jobData.requirements.length > 0 && (
                 <section className="mb-[3%]" itemProp="qualifications">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Requerimientos")}</h3>
-                  {jobData.requirements.length === 1 && regex.test(jobData.requirements[0]) ? (
-                    HTMLReactParser(agregarClasesHTML(jobData.requirements[0]))
-                  ) : (
-                    <ul className="flex flex-col">
-                      {jobData.requirements.map((requirement, index) => (
-                        <li key={index} className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white">
-                          {HTMLReactParser(requirement)}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Requerimientos")}
+                  </h3>
+                  {renderList(jobData.requirements)}
                 </section>
               )}
-              {jobData.niceToHave?.length > 0 &&
-                jobData.niceToHave?.length === 1 &&
-                regex.test(jobData.niceToHave[0]) &&
-                removerEtiquetasHTML(jobData.niceToHave[0]) && (
-                  <section className="mb-[3%]">
-                    <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Deseable")}</h3>
-                    {HTMLReactParser(agregarClasesHTML(jobData.niceToHave[0]))}
-                  </section>
-                )}{" "}
-              {jobData.niceToHave?.length > 0 &&
-                !regex.test(jobData.niceToHave[0]) &&
-                /[a-zA-Z0-9]/.test(jobData.niceToHave[0]) && (
-                  <section className="mb-[3%]">
-                    <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Deseable")}</h3>
-                    <ul className="flex flex-col list">
-                      {jobData.niceToHave?.map((desirable, index) => {
-                        return (
-                          <li key={index} className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item">
-                            {desirable}
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </section>
-                )}
+
+              {jobData.niceToHave && jobData.niceToHave.length > 0 && (
+                <section className="mb-[3%]">
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Deseable")}
+                  </h3>
+                  {renderList(jobData.niceToHave)}
+                </section>
+              )}
+
               {jobData.benefits && jobData.benefits.length > 0 && (
                 <section className="mb-[3%]" itemProp="jobBenefits">
-                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Beneficios")}</h3>
-                  {jobData.benefits.length === 1 && regex.test(jobData.benefits[0]) ? (
-                    HTMLReactParser(agregarClasesHTML(jobData.benefits[0]))
-                  ) : (
-                    <ul className="flex flex-col">
-                      {jobData.benefits.map((benefit, index) => (
-                        <li key={index} className="font-[600] text-size list-item lg:max-w-[70%] dark:text-white">
-                          {HTMLReactParser(benefit)}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">
+                    {t("Beneficios")}
+                  </h3>
+                  {renderList(jobData.benefits)}
                 </section>
               )}
-              {jobData.benefits?.length > 0 &&
-                !regex.test(jobData.benefits[0]) &&
-                /[a-zA-Z0-9]/.test(jobData.benefits[0]) && (
-                  <section className="mb-[3%]" itemProp="jobBenefits">
-                    <h3 className="font-bold text-linkIt-300 subtitles-size mb-[1%]">{t("Beneficios")}</h3>
-                    <ul className="flex flex-col list">
-                      {jobData.benefits?.map((benefit, index) => {
-                        return (
-                          <li key={index} className="font-[600] text-size lg:max-w-[70%] dark:text-white list-item">
-                            {benefit}
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </section>
-                )}
               <section className="mt-[10%] lg:flex grid content-center items-center justify-items-center lg:max-w-[70%] dark:text-white">
                 <img
                   src="/Vectores/complete-form.svg"
@@ -408,7 +431,8 @@ function JobDescription() {
                   className="w-[30px] ssm:w-[40px] lg:w-1/16 mr-2 lg:mr-4 hidden lg:block"
                 />
                 <h3 className="font-bold text-black dark:text-white subtitles-size row-start-1 text-center lg:text-start">
-                  {t("Para aplicar por favor completa")} {t("el siguiente formulario")}
+                  {t("Para aplicar por favor completa")}{" "}
+                  {t("el siguiente formulario")}
                 </h3>
               </section>
             </div>
@@ -429,23 +453,26 @@ function JobDescription() {
           </div>
 
           {/* Call to Action */}
-          <div className="mt-8 mb-12">
+          {/* <div className="mt-8 mb-12">
             <CallToAction
               variant="compact"
-              customTitle={isSpanish ? "¿Buscas otras oportunidades?" : "Looking for other opportunities?"}
+              customTitle={
+                isSpanish
+                  ? "¿Buscas otras oportunidades?"
+                  : "Looking for other opportunities?"
+              }
               buttonStyle="gradient"
               externalLinks={{
                 findJob: "/soyTalento#vacantes",
                 resources: "/recursos",
               }}
             />
-          </div>
+          </div> */}
         </article>
         <Newsletter />
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default JobDescription
-
+export default JobDescription;
