@@ -150,13 +150,13 @@ export default function HeadAdmins({
   const deleteUserPermanently = async () => {
     Swal.fire({
       title: t("¿Deseas eliminar permanentemente el Admin?"),
-      icon: "warning", 
+      icon: "warning",
       showCancelButton: true,
       confirmButtonText: t("Aceptar"),
       cancelButtonText: t("Cancelar"),
       customClass: {
         confirmButton: "background-button",
-        cancelButton: "transparent-background-button", 
+        cancelButton: "transparent-background-button",
       },
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -178,7 +178,7 @@ export default function HeadAdmins({
           await Promise.all(
             arraySelectedRows.map(async (id: string) => {
               const deleteAdmin = await axios.delete(
-                `http://localhost:3000/admins/${id}/permanent`,
+                `https://linkit-server.onrender.com/admins/${id}/permanent`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`,
@@ -199,7 +199,7 @@ export default function HeadAdmins({
               confirmButton: "background-button",
             },
           });
-          setSelectedRows(new Set([])); 
+          setSelectedRows(new Set([]));
         } catch (response: any) {
           Swal.fire({
             title: t("Error"),

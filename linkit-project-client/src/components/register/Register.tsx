@@ -146,7 +146,7 @@ function Register() {
       if (user.role === "company") user.companyName = user.firstName;
       user.provider = "email";
       const response = await axios.post(
-        "http://localhost:3000/auth/register",
+        "https://linkit-server.onrender.com/auth/register",
         user,
         {
           headers: {
