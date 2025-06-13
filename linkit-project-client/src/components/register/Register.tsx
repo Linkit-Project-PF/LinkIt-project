@@ -13,6 +13,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  createUserWithEmailAndPassword,
+  sendEmailVerification
 } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 import { FirebaseError } from "firebase/app";
@@ -22,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import "sweetalert2/dist/sweetalert2.min.css";
 import Loading from "../Loading/Loading";
 import { motion } from "framer-motion";
+
 
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
@@ -139,82 +142,112 @@ function Register() {
     });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    isLoading(true);
-    try {
-      if (user.role === "company") user.companyName = user.firstName;
-      user.provider = "email";
-      const response = await axios.post(
-        "https://linkit-server.onrender.com/auth/register",
-        user,
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
-        }
-      );
-      if (response.data._id) {
-        isLoading(false);
-        Swal.fire({
-          icon: "success",
-          title: t("¡Registro exitoso!"),
-          text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}, ${t(
-            "Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."
-          )}`,
-          confirmButtonText: t("Confirmar"),
-          confirmButtonColor: "#01A28B",
-          allowOutsideClick: true,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showCloseButton: false,
-          showCancelButton: false,
-          showDenyButton: false,
-          showConfirmButton: true,
-          timer: 3000,
-          timerProgressBar: true,
-          // didOpen: () => {
-          //   Swal.showLoading();
-          // },
-          // didClose: () => {
-          //   dispatch(setPressRegister("hidden"));
-          //   dispatch(setPressLogin("visible"));
-          // },
-        });
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  isLoading(true);
+  try {
+    if (user.role === "company") user.companyName = user.firstName;
+    user.provider = "email";
+
+    // 1. Crear usuario en Firebase Auth
+    const firebaseUserCredential = await createUserWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
+
+    // 2. Enviar email de verificación
+    await sendEmailVerification(firebaseUserCredential.user);
+
+    // 3. Guardar usuario en la base de datos
+   const response = await axios.post(
+      "https://linkit-server.onrender.com/auth/register",
+      {
+        ...user,
+        firebaseId: firebaseUserCredential.user.uid,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${SUPERADMN_ID}`,
+          "Accept-Language": sessionStorage.getItem("lang"),
+        },
       }
-      dispatch(setPressRegister("hidden"));
-      return response;
-    } catch (error) {
+    );
+
+    if (response.data._id) {
       isLoading(false);
-      if (error instanceof AxiosError) {
-        Swal.fire({
-          icon: "error",
-          title: "¡Error!",
-          text: `${error.response?.data}`,
-          confirmButtonText: t("Aceptar"),
-          confirmButtonColor: "#01A28B",
-          allowOutsideClick: true,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-          showCloseButton: false,
-          showCancelButton: false,
-          showDenyButton: false,
-          showConfirmButton: true,
-          timer: 2500,
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-        });
-        if (
-          error.response?.data === "This email is already registered" ||
-          error.response?.data === "El email ya esta registrado"
-        )
-          setErrors({ ...errors, email: "Email en uso" });
-      } else console.log(error);
+      Swal.fire({
+        icon: "success",
+        title: t("¡Registro exitoso!"),
+        text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}, ${t(
+          "Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."
+        )}`,
+        confirmButtonText: t("Confirmar"),
+        confirmButtonColor: "#01A28B",
+        allowOutsideClick: true,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        showDenyButton: false,
+        showConfirmButton: true,
+        timer: 3000,
+        timerProgressBar: true,
+      });
     }
-  };
+    dispatch(setPressRegister("hidden"));
+    return response;
+  } catch (error: any) {
+    isLoading(false);
+    let errorMsg = t("Ocurrió un error. Intenta nuevamente.");
+    if (error instanceof FirebaseError) {
+      // Errores comunes de Firebase Auth
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          errorMsg = t("El email ya está registrado.");
+          setErrors({ ...errors, email: "Email en uso" });
+          break;
+        case "auth/invalid-email":
+          errorMsg = t("El email no es válido.");
+          setErrors({ ...errors, email: "Email inválido" });
+          break;
+        case "auth/weak-password":
+          errorMsg = t("La contraseña es muy débil. Debe tener al menos 6 caracteres.");
+          setErrors({ ...errors, password: "Contraseña débil" });
+          break;
+        default:
+          errorMsg = error.message;
+      }
+    } else if (error instanceof AxiosError) {
+      errorMsg = error.response?.data || error.message;
+      if (
+        error.response?.data === "This email is already registered" ||
+        error.response?.data === "El email ya esta registrado"
+      ) {
+        setErrors({ ...errors, email: "Email en uso" });
+      }
+    }
+    Swal.fire({
+      icon: "error",
+      title: "¡Error!",
+      text: errorMsg,
+      confirmButtonText: t("Aceptar"),
+      confirmButtonColor: "#01A28B",
+      allowOutsideClick: true,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      showCloseButton: false,
+      showCancelButton: false,
+      showDenyButton: false,
+      showConfirmButton: true,
+      timer: 2500,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+};
 
   const handleAuthLogin = async (prov: string) => {
     try {

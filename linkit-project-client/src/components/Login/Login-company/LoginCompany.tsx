@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 import validations from "../loginValidations.ts";
 import { useDispatch } from "react-redux";
 import axios, { AxiosError } from "axios";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
-//import { SUPERADMN_ID } from "../../../env.ts";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -86,51 +85,110 @@ function LoginCompany() {
     });
   };
 
-  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    isLoading(true);
-    try {
-      const response = await axios.post<ICompany>(
-        `https://linkit-server.onrender.com/auth/login`,
-        {
-          email: user.email,
-          password: user.password,
-          role: "company",
+ const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  isLoading(true);
+
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, user.email, user.password);
+    const token = await userCredential.user.getIdToken();
+ if (!userCredential.user.emailVerified) {
+       isLoading(false);
+       Swal.fire({
+         title: t("Email no verificado"),
+         html: `
+       <div style="display: flex; flex-direction: column; align-items: center;">
+         <p>${t(
+           "Por favor verifica tu correo electrónico antes de continuar."
+         )}</p>
+         <button id="resend-verification-btn" style="margin: 10px 0; background: #01A28B; color: white; border: none; border-radius: 5px; padding: 8px 16px; cursor: pointer;">
+           ${t("Reenviar email de verificación")}
+         </button>
+         <span style="font-size: 0.9em; color: #173951; margin-top: 8px;">
+           ${t(
+             "Si tu cuenta fue creada antes de junio 2025, por favor volve verificar tu correo debido a nuevas actualizaciones. Muchas gracias"
+           )}
+         </span>
+       </div>
+     `,
+         icon: "warning",
+         background: "#ECEEF0",
+         showConfirmButton: false,
+         didOpen: () => {
+           const btn = document.getElementById("resend-verification-btn");
+           if (btn) {
+             btn.onclick = async () => {
+               try {
+                 await sendEmailVerification(auth.currentUser!);
+                 Swal.fire({
+                   title: t("Correo reenviado"),
+                   text: t(
+                     "Se ha reenviado el correo de verificación. Revisa tu bandeja de entrada o spam."
+                   ),
+                   icon: "info",
+                   background: "#ECEEF0",
+                   confirmButtonColor: "#01A28B",
+                   confirmButtonText: t("Continuar"),
+                 });
+               } catch (error: any) {
+                 Swal.fire({
+                   title: t("Error"),
+                   text: error.message,
+                   icon: "error",
+                   background: "#ECEEF0",
+                   confirmButtonColor: "#01A28B",
+                   confirmButtonText: t("Continuar"),
+                 });
+               }
+             };
+           }
+         },
+       });
+       return;
+     }
+    const response = await axios.post<ICompany>(
+      "https://linkit-server.onrender.com/auth/login",
+      { role: "company" },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": sessionStorage.getItem("lang"),
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-          },
-        }
-      );
-      const loggedCompany = response.data;
-      if (response.status === 200) {
-        Swal.fire({
-          title: t("Bienvenido/a de vuelta ") + loggedCompany.companyName,
-          text: t("Has ingresado correctamente"),
-          icon: "success",
-          iconColor: "#173951",
-          background: "#ECEEF0",
-          confirmButtonColor: "#01A28B",
-          confirmButtonText: t("Continuar"),
-        });
-        isLoading(false);
-        dispatch(loginSuccess(loggedCompany));
-        dispatch(setPressLoginCompany("hidden"));
       }
-    } catch (error: any) {
-      isLoading(false);
+    );
+
+    const loggedUser = response.data;
+
+    if (response.status === 200) {
       Swal.fire({
-        title: "Error",
-        text: error.response.data,
-        icon: "error",
+        title: t("Bienvenido/a de vuelta ") + response.data.companyName,
+        text: t("Has ingresado correctamente"),
+        icon: "success",
+        iconColor: "#173951",
         background: "#ECEEF0",
+        allowOutsideClick: true,
         confirmButtonColor: "#01A28B",
         confirmButtonText: t("Continuar"),
       });
+      isLoading(false);
+      dispatch(loginSuccess(loggedUser));
+      dispatch(setPressLoginCompany("hidden"));
     }
-  };
+  } catch (error: any) {
+    isLoading(false);
+    Swal.fire({
+      title: "Error",
+      text: error.response?.data || error.message,
+      icon: "error",
+      background: "#ECEEF0",
+      allowOutsideClick: true,
+      confirmButtonColor: "#01A28B",
+      confirmButtonText: t("Continuar"),
+    });
+  }
+};
 
   const handleAuthClick = async (prov: string) => {
     try {
