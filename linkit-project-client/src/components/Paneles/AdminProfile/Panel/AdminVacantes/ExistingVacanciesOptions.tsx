@@ -50,7 +50,6 @@ export default function ExistingVacanciesOptions({
   };
   const updateVacancie = (e: React.MouseEvent) => {
     e.preventDefault()
-    console.log("updateVacancie")
     setEditing({
       isEditing: true,
       vacancieID: id,
@@ -149,6 +148,6 @@ export default function ExistingVacanciesOptions({
       </div>
     </div>
   );
-  
-  
+
+
 }

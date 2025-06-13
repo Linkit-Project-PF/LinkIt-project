@@ -6,7 +6,6 @@ interface IComponentProps {
 }
 
 export default function TalentApp({ app }: IComponentProps) {
-  console.log(app)
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col sm:flex-row justify-between items-center right-[3.5rem]">
       <div className="flex items-center space-x-4">

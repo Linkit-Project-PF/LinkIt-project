@@ -46,8 +46,6 @@ export default function InicioForm() {
     setErrors(newErrors);
 
     if (!newErrors.name && !newErrors.email && !newErrors.message) {
-      console.log("Formulario enviado:", formData);
-      // Aquí puedes manejar el envío del formulario
       setFormData({ name: "", email: "", message: "" });
     }
   };

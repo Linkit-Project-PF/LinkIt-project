@@ -106,11 +106,11 @@ export function ResourceForm({
     updatedHeaders.splice(index, 1);
     updateResource({ headers: updatedHeaders });
   };
-
+const devLog = (..._args: any[]) => {};
   // Función para enviar el formulario
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(pdfName, mainImageName, sectionImageName)
+    devLog(pdfName, mainImageName, sectionImageName)
     // Validación final antes de enviar
     const validationErrors = validateResource(resource as ResourceProps)
     setErrors(validationErrors)
@@ -149,9 +149,6 @@ export function ResourceForm({
       if (response.status === 201 || response.status === 200) {
         // Extraer información útil de la respuesta
         const createdResource = response.data
-        console.log("Recurso creado:", createdResource)
-
-        // Mostrar mensaje de éxito con opciones de redirección
         Swal.fire({
           icon: "success",
           title: "¡Recurso creado exitosamente!",

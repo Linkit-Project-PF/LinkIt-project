@@ -43,7 +43,6 @@ const SuperAdminProfileForm: FunctionComponent = () => {
 
         });
     } catch (error: any) {
-      console.log(error);
       Swal.fire({
         title:"Error",
         text: error.message,
@@ -157,14 +156,14 @@ const SuperAdminProfileForm: FunctionComponent = () => {
             >
               {t("Cambiar contraseña")}
             </button> : null}
-           
+
           </div>
         </div>
       </div>
       {loading && <Loading text={t("Enviando los cambios")} />}
       {admin.role === UserRoleEnum.ADMIN && (
         <form action="" onSubmit={handleSubmit} className="flex flex-col">
-          <div className="flex flex justify-center flex-col gap-5 md:flex-row md:flex-wrap justify-content: center;">
+          <div className="flex justify-center flex-col gap-5 md:flex-row md:flex-wrap justify-content: center;">
             <div className="flex flex-col">
               <label className="ml-2">{t("Nombre")}</label>
               <input

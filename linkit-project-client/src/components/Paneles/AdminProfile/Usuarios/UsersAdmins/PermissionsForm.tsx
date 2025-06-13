@@ -122,7 +122,7 @@ export default function PermissionsForm({
 
   async function handleSave() {
     try {
-      const response = await axios.put(
+       await axios.put(
         `https://linkit-server.onrender.com/admins/permissions/${admin}`,
         permissions,
         {
@@ -139,7 +139,6 @@ export default function PermissionsForm({
         allowOutsideClick: true,
         confirmButtonColor: "#01A28B"
       });
-      console.log(response);
       hideFunction(false);
     } catch (error: any) {
       Swal.fire({

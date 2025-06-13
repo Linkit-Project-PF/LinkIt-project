@@ -117,7 +117,7 @@ const JobFilters = () => {
       });
       dispatch(applyFilters(response.data));
     } catch (error) {
-      console.log(error);
+      throw new Error((error as any).message);
     }
   };
 
@@ -303,7 +303,7 @@ const JobFilters = () => {
                       id={`ch-${index}`}
                       type="checkbox"
                       checked={stackValue.includes(stack.name)}
-                      onChange={() => handleStack(stack.name)} 
+                      onChange={() => handleStack(stack.name)}
                     />
                     <label
                       htmlFor={`ch-${index}`}
