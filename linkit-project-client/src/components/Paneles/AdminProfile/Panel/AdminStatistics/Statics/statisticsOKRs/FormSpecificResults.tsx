@@ -13,7 +13,7 @@ type OnCloseFunction = () => void;
 interface FormOKRsProps {
   onClose: OnCloseFunction;
   token: string;
-  onOkrsSpecificUpdate: (newspecificResult: SpecificOKRsArea["okrsSpecific"]) => void; 
+  onOkrsSpecificUpdate: (newspecificResult: SpecificOKRsArea["okrsSpecific"]) => void;
 }
 
 interface InfoList {
@@ -24,7 +24,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
   const { t } = useTranslation()
 
   const [information, setInformation] = useState<any>({
-  
+
     okrsSpecific: [],
   });
 
@@ -34,7 +34,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
 
 
   const [infoList, setInfoList] = useState<InfoList>({
-    
+
     okrsSpecific: [],
 
   });
@@ -115,15 +115,8 @@ export default function FormSpecificResults(props: FormOKRsProps) {
         ...information,
         [name]: value,
       });
-    
-    // const validationError = validations(information as VacancyProps);
-    // setErrors(validationError);
-  };
-  // console.log(information)
-  // const handleBlurErrors = () => {
-    // const validationError = validations(information as VacancyProps);
-    // setErrors(validationError);
-  // };
+
+  };;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -144,7 +137,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
     setInputClicked(true);
   };
 
-  
+
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-auto">
@@ -168,10 +161,10 @@ export default function FormSpecificResults(props: FormOKRsProps) {
           action=""
         >
           <div className="flex flex-wrap justify-start mx-3 mb-6 px-16">
-            
+
 
             <div className="w-full px-3 mb-6">
-              
+
               <input
                 className="appearance-none block w-full bg-linkIt-500 text-blackk border border-linkIt-300 rounded py-3 px-4 mb-3 focus:outline-none focus:bg-white"
                 type="text"
@@ -184,7 +177,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
               />
             </div>
 
-            
+
             {infoList &&
               infoList.okrsSpecific &&
               infoList.okrsSpecific.length > 0 ? (
@@ -214,7 +207,7 @@ export default function FormSpecificResults(props: FormOKRsProps) {
             errors.title ||
             errors.company ||
             errors.location ||
-            errors.stack || 
+            errors.stack ||
             errors.requirements ||
             errors.description ? (
             <span className="text-red-500">

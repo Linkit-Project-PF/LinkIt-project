@@ -1,7 +1,7 @@
 import { Cloudinary, CloudinaryImage } from "@cloudinary/url-gen";
 
 export default class CloudinaryService {
-  
+
   private cloudinary: Cloudinary | null = null
 
   constructor(){
@@ -18,11 +18,10 @@ export default class CloudinaryService {
         apiSecret: `i1t_xabdnNzxuHAzAgGprsMycrI`,
       }
     });
-    console.log(`Cloudinary SDK initialized`);
   }
 
   getImageComponent(publicId: string): CloudinaryImage | null {
-    
+
     if (!this.cloudinary) return null
     return this.cloudinary?.image(publicId)
   }

@@ -23,7 +23,7 @@ function BlogsCardsMobile() {
         });
         setBlogs(response.data.filter((item: any) => item.archived === false ));
       } catch (error) {
-        console.log(error);
+         throw new Error((error as any).message);
       }
     })();
   }, []);
@@ -36,7 +36,7 @@ function BlogsCardsMobile() {
   const handlePrev = () => {
     setCurrentBlog(currentBlog === 0 ? blogs.length - 1 : currentBlog - 1);
   };
-  
+
 
 
 

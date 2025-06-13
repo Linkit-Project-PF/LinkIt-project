@@ -81,6 +81,5 @@ export const editCompany = async (company: ICompany): Promise<ICompany> => {
       'Accept-Language': sessionStorage.getItem('lang') },
     }
   );
-  console.log(response);
   return response.data;
 };

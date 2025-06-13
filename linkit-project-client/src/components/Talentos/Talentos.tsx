@@ -21,13 +21,12 @@ function Talentos() {
   const currentLanguage = i18n.language;
   const isSpanish = currentLanguage.startsWith("es");
   const [jobListings, setJobListings] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+
 
   const navigateIntoTalent = (hash: string) => {
     setTimeout(() => {
       window.location.href = hash;
     });
-    console.log(isLoading)
   };
 
   const refC = useRef<HTMLDivElement>(null);
@@ -46,19 +45,16 @@ function Talentos() {
   useEffect(() => {
     const fetchJobListings = async () => {
       try {
-        setIsLoading(true);
+
         // Usar el mismo servicio que usa JobCardList
         const fetchedJobOffers = await getJobOffers();
         // Filtrar solo las ofertas activas
         const activeJobOffers = fetchedJobOffers
           .reverse()
           .filter((jobOffer) => jobOffer.archived === false);
-
         setJobListings(activeJobOffers);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching job listings:", error);
-        setIsLoading(false);
       }
     };
 

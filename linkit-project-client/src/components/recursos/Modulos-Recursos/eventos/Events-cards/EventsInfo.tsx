@@ -54,8 +54,7 @@ export function EventsInfo({ videoUrl, title, description, category, image, crea
         return urlObj.pathname.split("/")[2]
       }
 
-      console.log("No se pudo extraer ID de:", url)
-      return null
+      throw new Error(`No se pudo extraer ID de:${url}` )
     } catch (error) {
       console.error("Error al procesar URL:", error)
       return null

@@ -318,7 +318,7 @@ function Calculadora() {
         filterPosition: false,
       }));
     }
-  
+
     if (vacancyFirst.englishLevel === "") {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -330,7 +330,7 @@ function Calculadora() {
         filterEnglishLevel: false,
       }));
     }
-  
+
     if (vacancyFirst.seniorityV === "") {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -342,7 +342,7 @@ function Calculadora() {
         filterSeniority: false,
       }));
     }
-  
+
     if (vacancySecond.technologies.length === 0) {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -354,7 +354,7 @@ function Calculadora() {
         filterTechnologies: false,
       }));
     }
-  
+
     if (vacancySecond.frameworks.length === 0) {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -366,7 +366,7 @@ function Calculadora() {
         filterFrameworks: false,
       }));
     }
-  
+
     if (vacancySecond.others.length === 0) {
       setFiltersToSelect((prevFiltersToSelect) => ({
         ...prevFiltersToSelect,
@@ -474,12 +474,12 @@ function Calculadora() {
       });
       return; // Detener la ejecución si faltan campos
     }
-  
+
     try {
       let techsValue = ["No techs"];
       let frameworksValue = ["No frameworks"];
       let othersValue = ["No others"];
-  
+
       if (vacancySecond.technologies.length > 0) {
         techsValue = vacancySecond.technologies;
       }
@@ -494,7 +494,7 @@ function Calculadora() {
         frameworks: frameworksValue,
         others: othersValue,
       });
-  
+
       const response = await axios.post(
         `https://linkit-server.onrender.com/resources/googleSheet/filter?position=${vacancyFirst.positionV}&englishLevel=${vacancyFirst.englishLevel}&seniority=${vacancyFirst.seniorityV}`,
         {
@@ -503,13 +503,13 @@ function Calculadora() {
           others: othersValue,
         }
       );
-  
+
       if (response.status === 200) {
         const data = response.data;
         setPrice(data);
       }
     } catch (error) {
-      console.log(error);
+      throw new Error((error as any).message);
     }
   };
 
@@ -636,7 +636,7 @@ function Calculadora() {
       if (
         label === "Tecnologías" ||
         label === "Frameworks" ||
-        label === "Technologies" 
+        label === "Technologies"
       ) {
         return "md:w-[16vh] sm:w-[16vh] ssm:w-full xs:w-full";
       }else if (label === "Posición" ){
@@ -1123,7 +1123,7 @@ function Calculadora() {
         </div>
       </div>
 
-      
+
       <div className="lg:hidden  space-y-2">
       <div className="flex flex-wrap">
   <div className="w-full space-x-2 ">

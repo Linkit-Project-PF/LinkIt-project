@@ -12,19 +12,21 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../../../helpers/authentication/firebase.ts";
 import saveUserThirdAuth from "../../../helpers/authentication/thirdPartyUserSave.ts";
 import { loginSuccess } from "../../../redux/features/AuthSlice.ts";
-//import { SUPERADMN_ID } from "../../../env.ts";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
 import { IUser, UserLoginType } from "../../Profiles/types.ts";
 import Loading from "../../Loading/Loading.tsx";
 import ResetPassword from "../../../Utils/ResetPassword/ResetPassword.tsx";
+import { FirebaseError } from "firebase/app";
 
-const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID
+const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
 
 type Event = {
   target: HTMLInputElement;
@@ -38,6 +40,7 @@ function LoginTalent() {
   const [open, setOpen] = useState<string>("closed");
   const [loading, isLoading] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  // const [showResendVerification, setShowResendVerification] = useState(false);
 
   const handlePressNotRegistered = () => {
     dispatch(setPressSignUp("visible"));
@@ -90,56 +93,170 @@ function LoginTalent() {
     });
   };
 
+  // const handleResendVerification = async () => {
+  //   try {
+  //     if (auth.currentUser) {
+  //       await sendEmailVerification(auth.currentUser);
+  //       Swal.fire({
+  //         title: t("Correo reenviado"),
+  //         text: t(
+  //           "Se ha reenviado el correo de verificación. Revisa tu bandeja de entrada o spam."
+  //         ),
+  //         icon: "info",
+  //         background: "#ECEEF0",
+  //         confirmButtonColor: "#01A28B",
+  //         confirmButtonText: t("Continuar"),
+  //       });
+  //     }
+  //   } catch (error: any) {
+  //     Swal.fire({
+  //       title: t("Error"),
+  //       text: error.message,
+  //       icon: "error",
+  //       background: "#ECEEF0",
+  //       confirmButtonColor: "#01A28B",
+  //       confirmButtonText: t("Continuar"),
+  //     });
+  //   }
+  // };
+
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    isLoading(true);
-    try {
-      const response = await axios.post<IUser>(
-        "https://linkit-server.onrender.com/auth/login",
-        {
-          email: user.email,
-          password: user.password,
-          role: "user",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${SUPERADMN_ID}`,
-            "Accept-Language": sessionStorage.getItem("lang"),
-            "Content-Type": "application/json", // Especifica el tipo de contenido como JSON
-          },
-        }
-      );
+  event.preventDefault();
+  isLoading(true);
 
-      const loggedUser = response.data;
-
-      if (response.status === 200) {
-        Swal.fire({
-          title: t("Bienvenido/a de vuelta ") + response.data.firstName,
-          text: t("Has ingresado correctamente"),
-          icon: "success",
-          iconColor: "#173951",
-          background: "#ECEEF0",
-          allowOutsideClick: true,
-          confirmButtonColor: "#01A28B",
-          confirmButtonText: t("Continuar"),
-        });
-        isLoading(false);
-        dispatch(loginSuccess(loggedUser));
-        dispatch(setPressLoginTalent("hidden"));
-      }
-    } catch (error: any) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
+    const token = await userCredential.user.getIdToken();
+    if (!userCredential.user.emailVerified) {
       isLoading(false);
       Swal.fire({
-        title: "Error",
-        text: error.response.data,
-        icon: "error",
+        title: t("Email no verificado"),
+        html: `
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <p>${t(
+          "Por favor verifica tu correo electrónico antes de continuar."
+        )}</p>
+        <button id="resend-verification-btn" style="margin: 10px 0; background: #01A28B; color: white; border: none; border-radius: 5px; padding: 8px 16px; cursor: pointer;">
+          ${t("Reenviar email de verificación")}
+        </button>
+        <span style="font-size: 0.9em; color: #173951; margin-top: 8px;">
+          ${t(
+            "Si tu cuenta fue creada antes de junio 2025, por favor volvé verificar tu correo debido a nuevas actualizaciones. Muchas gracias."
+          )}
+        </span>
+      </div>
+    `,
+        icon: "warning",
+        background: "#ECEEF0",
+        showConfirmButton: false,
+        didOpen: () => {
+          const btn = document.getElementById("resend-verification-btn");
+          if (btn) {
+            btn.onclick = async () => {
+              try {
+                await sendEmailVerification(auth.currentUser!);
+                Swal.fire({
+                  title: t("Correo reenviado"),
+                  text: t(
+                    "Se ha reenviado el correo de verificación. Revisa tu bandeja de entrada o spam."
+                  ),
+                  icon: "info",
+                  background: "#ECEEF0",
+                  confirmButtonColor: "#01A28B",
+                  confirmButtonText: t("Continuar"),
+                });
+              } catch (error: any) {
+                Swal.fire({
+                  title: t("Error"),
+                  text: error.message,
+                  icon: "error",
+                  background: "#ECEEF0",
+                  confirmButtonColor: "#01A28B",
+                  confirmButtonText: t("Continuar"),
+                });
+              }
+            };
+          }
+        },
+      });
+      return;
+    }
+    const response = await axios.post<IUser>(
+      "https://linkit-server.onrender.com/auth/login",
+      { role: "user" },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Accept-Language": sessionStorage.getItem("lang"),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const loggedUser = response.data;
+
+    if (response.status === 200) {
+      Swal.fire({
+        title: t("Bienvenido/a de vuelta ") + response.data.firstName,
+        text: t("Has ingresado correctamente"),
+        icon: "success",
+        iconColor: "#173951",
         background: "#ECEEF0",
         allowOutsideClick: true,
         confirmButtonColor: "#01A28B",
         confirmButtonText: t("Continuar"),
       });
+      isLoading(false);
+      dispatch(loginSuccess(loggedUser));
+      dispatch(setPressLoginTalent("hidden"));
     }
-  };
+  } catch (error: any) {
+    isLoading(false);
+    let errorMsg = t("Ocurrió un error. Intenta nuevamente.");
+
+    // Manejo de errores de Firebase
+    if (error instanceof FirebaseError || error.code?.startsWith("auth/")) {
+      switch (error.code) {
+        case "auth/invalid-login-credentials":
+        case "auth/wrong-password":
+          errorMsg = t("Correo o contraseña incorrectos.");
+          break;
+        case "auth/user-not-found":
+          errorMsg = t("No existe una cuenta con ese correo.");
+          break;
+        case "auth/too-many-requests":
+          errorMsg = t("Demasiados intentos fallidos. Intenta más tarde o restablece tu contraseña.");
+          break;
+        case "auth/user-disabled":
+          errorMsg = t("Esta cuenta ha sido deshabilitada. Contacta a soporte.");
+          break;
+        case "auth/visibility-check-was-unavailable":
+          errorMsg = t("No se pudo validar la sesión. Por favor, recarga la página, revisa tus extensiones de navegador y vuelve a intentarlo.");
+          break;
+        default:
+          errorMsg = t("Error de autenticación. ") + (error.message || "");
+      }
+    } else if (error instanceof AxiosError) {
+      errorMsg = error?.response?.data || error.message;
+    } else if (typeof error === "string") {
+      errorMsg = error;
+    }
+
+    Swal.fire({
+      title: t("¡Error!"),
+      text: errorMsg,
+      icon: "error",
+      background: "#ECEEF0",
+      allowOutsideClick: true,
+      confirmButtonColor: "#01A28B",
+      confirmButtonText: t("Continuar"),
+    });
+  }
+};
 
   const handleAuthClick = async (prov: string) => {
     try {
