@@ -1,9 +1,9 @@
 [{
     "id": 1,
-    "link": "https://www.linkedin.com/in/philippesainthubert/",
-    "img": "/people-LinkIt/philo-perfil.png",
-    "name": "Philipe Saint-Hubert",
-    "position": "Co-Founder"
+    "link": "https://www.linkedin.com/in/tobias-feuer/",
+    "img": "/people-LinkIt/Tobi.png",
+    "name": "Tobias Feuer",
+    "position": "COO & Co-Founder"
 }, {
     "id": 2,
     "link": "https://www.linkedin.com/in/arymolchadsky/",
@@ -33,15 +33,16 @@
 }
 , {
     "id": 6,
-    "link": "https://www.linkedin.com/in/macarena-cuadro/",
-    "img": "/people-LinkIt/maca-perfil.png",
-    "name": "Macarena Cuadro",
-    "position": "Business Development Specialist"
-}, {
+    "link": "https://www.linkedin.com/in/ramiro-caballero-a9ab6b136/",
+    "img": "/people-LinkIt/Rami.png",
+    "name": "Ramiro Caballero",
+    "position": "Talent Acquisition Specialist"
+ }, {
     "id": 7,
-    "link": "https://www.linkedin.com/in/macarena-cuadro/",
-    "img": "/people-LinkIt/ju-perfil_b.png",
-    "name": "Julieta Radicich",
-    "position": "Growth Marketing Specialist"
-}]
+    "img": "/people-LinkIt/Zoe.png",
+    "name": "Zoe Feuer",
+    "position": "Content Creator",
+    "link": "https://www.linkedin.com/in/zoe-feuer-1a75261a2/"
+}
+]
 
