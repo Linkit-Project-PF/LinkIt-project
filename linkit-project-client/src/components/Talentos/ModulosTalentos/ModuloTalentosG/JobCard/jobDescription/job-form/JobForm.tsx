@@ -159,9 +159,7 @@ function JobForm() {
       firstName: user.firstName,
       lastName: user.lastName,
       recruiter: user.recruiter !== "-" ? user.recruiter : undefined,
-      code: window.location.href
-        .split("Joboffer/")[1]
-        .split("/")[0], 
+      code: window.location.href.split("Joboffer/")[1].split("/")[0],
     };
     try {
       const response = await axios.post(
@@ -330,342 +328,461 @@ function JobForm() {
               {/*-----------------------------------------------------------------STEP 1-----------------------------------------------------------*/}
 
               {currentStep === 1 && (
-                <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
-                  <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
-                    {t("Información Personal")}
-                  </h2>
-                  <label
-                    htmlFor="firstName"
-                    className="font-montserrat font-[500] relative  text-[1.3rem] w-full flex flex-col"
+                <motion.section
+                  className="w-full max-w-[420px] mx-auto flex flex-col items-center justify-center gap-6 px-4 py-6 bg-white rounded-xl shadow-md"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+                  transition={{ duration: 0.4, type: "spring" }}
+                >
+                  <motion.h2
+                    className="font-montserrat text-[1.4rem] text-linkIt-400 font-bold mb-2 text-center"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
                   >
-                    <div className="flex">
+                    {t("Información Personal")}
+                  </motion.h2>
+
+                  {/* Nombre */}
+                  <motion.label
+                    htmlFor="firstName"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <span>
                       {t("Nombre")}
-                      <span className=" text-red-400">*</span>
-                    </div>
+                      <span className="text-red-400">*</span>
+                    </span>
                     <input
                       type="text"
                       name="firstName"
                       value={user.firstName}
                       onChange={handleInputChange}
-                      className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 focus:outline-linkIt-400 bg-white text-linkIt-400"
                     />
-                  </label>
+                    {errors.firstName && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.firstName}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.firstName && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.firstName}
-                    </p>
-                  )}
-
-                  <label
+                  {/* Apellido */}
+                  <motion.label
                     htmlFor="lastName"
-                    className="font-montserrat font-[500] relative text-[1.3rem] w-full "
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.18 }}
                   >
-                    <div className="flex">
+                    <span>
                       {t("Apellido")}
-                      <span className=" text-red-400">*</span>
-                    </div>
+                      <span className="text-red-400">*</span>
+                    </span>
                     <input
                       type="text"
                       name="lastName"
                       value={user.lastName}
                       onChange={handleInputChange}
-                      className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 focus:outline-linkIt-400 bg-white text-linkIt-400"
                     />
-                  </label>
+                    {errors.lastName && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.lastName}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.lastName && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.lastName}
-                    </p>
-                  )}
-
-                  <label
+                  {/* Email */}
+                  <motion.label
                     htmlFor="email"
-                    className="font-montserrat font-[500] relative text-[1.3rem] w-full"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.21 }}
                   >
-                    <div className="flex">
-                      Email<span className=" text-red-400">*</span>
-                    </div>
+                    <span>
+                      Email
+                      <span className="text-red-400">*</span>
+                    </span>
                     <input
                       type="email"
                       name="email"
                       value={user.email}
                       onChange={handleInputChange}
-                      className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 focus:outline-linkIt-400 bg-white text-linkIt-400"
                     />
-                  </label>
+                    {errors.email && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.email}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.email && (
-                    <p className="text-red-500 text-[.8rem]">{errors.email}</p>
-                  )}
-
-                  <label
-                    htmlFor=""
-                    className="font-montserrat font-[500] relative text-[1.3rem] w-full"
+                  {/* País */}
+                  <motion.label
+                    htmlFor="country"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.24 }}
                   >
-                    {t("País")}
-                    <span className="text-red-400 ">*</span>
+                    <span>
+                      {t("País")}
+                      <span className="text-red-400">*</span>
+                    </span>
                     <SelectCountryFormEs
                       setCountry={setCountry}
                       country={country}
                       setUser={setLocalUser}
                     />
-                  </label>
+                    {errors.country && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.country}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.country && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.country}
-                    </p>
-                  )}
-
-                  <div className="inline-flex w-full justify-between relative top-[1rem]">
-                    <button
+                  {/* Botón Siguiente */}
+                  <motion.div
+                    className="flex w-full justify-end gap-3 mt-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.27 }}
+                  >
+                    <motion.button
                       type="button"
-                      className="opacity-0"
-                      disabled={currentStep === 1}
-                    ></button>
-
-                    <button
-                      type="button"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] rounded-[5px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-sky-800  transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-linkIt-400 text-white font-semibold py-2 rounded-lg border-2 border-linkIt-400 hover:bg-linkIt-200 hover:text-linkIt-400 transition-all duration-200 active:scale-95 disabled:opacity-60"
                       onClick={() => {
                         handleNextStep(currentStep);
                         dispatch(setCompletedStep(currentStep));
                       }}
                       disabled={
-                        errors.firstName ||
-                        errors.lastName ||
-                        errors.email ||
-                        errors.country ||
+                        Boolean(errors.firstName) ||
+                        Boolean(errors.lastName) ||
+                        Boolean(errors.email) ||
+                        Boolean(errors.country) ||
                         user.firstName === "" ||
                         user.lastName === "" ||
                         user.email === "" ||
                         country === "" ||
                         country === "Ubicación"
-                          ? true
-                          : false
                       }
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Siguiente")}
-                    </button>
-                  </div>
-                </section>
+                    </motion.button>
+                  </motion.div>
+                </motion.section>
               )}
 
               {/*-----------------------------------------------------------------STEP 2-----------------------------------------------------------*/}
 
               {currentStep === 2 && (
-                <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
-                  <h2 className="font-montserrat text-[1.7rem] text-linkIt-400 relative whitespace-nowrap">
+                <motion.section
+                  className="w-full max-w-[420px] mx-auto flex flex-col items-center justify-center gap-6 px-4 py-6 bg-white rounded-xl shadow-md"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+                  transition={{ duration: 0.4, type: "spring" }}
+                >
+                  <motion.h2
+                    className="font-montserrat text-[1.4rem] text-linkIt-400 font-bold mb-2 text-center"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
                     {t("Información Profesional")}
-                  </h2>
+                  </motion.h2>
 
-                  <label
-                    htmlFor="cv"
-                    className="font-montserrat relative text-[1.3rem] w-full flex flex-col "
-                  >
-                    <div className="flex">
-                      CV<span className=" text-red-400">*</span>
-                    </div>
-                    <CloudinaryUploadWidget
-                      isAPostulation={isAPostulation}
-                      setFilePublicId={setFilePublicId}
-                      setFileName={setFileName}
-                    >
-                      <button
-                        type="button"
-                        name="cv"
-                        className="border-linkIt-50 border-[2px] text-opacity-75 text-linkIt-400 font-[500] w-full h-[2.5rem] focus:border-linkIt-200 rounded-[5px]"
-                      >
-                        {fileName === "" ? t("Subir CV") : fileName}
-                      </button>
-                    </CloudinaryUploadWidget>
-                  </label>
+                  {/* CV */}
+<motion.label
+  htmlFor="cv"
+  className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+  initial={{ opacity: 0, x: -20 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.15 }}
+>
+  <span className="flex items-center gap-1">
+    <svg
+      width="20"
+      height="20"
+      fill="#01A28B"
+      viewBox="0 0 24 24"
+    >
+      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM5 5v14h14V9h-5V5H5zm7 0v4h4l-4-4z" />
+    </svg>
+    CV<span className="text-red-400">*</span>
+  </span>
 
-                  {/* {errors.cv && (
-                  <p className="text-red-500 text-[.8rem]">{errors.cv}</p>
-                )} */}
+  {/* Nuevo bloque UX */}
+  {(userData.cv?.fileName && fileName === userData.cv.fileName) ? (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2 bg-linkIt-50 border-2 border-linkIt-200 rounded-lg px-3 py-2">
+        <svg width="20" height="20" fill="#01A28B" viewBox="0 0 24 24">
+          <path d="M12 16.5l4-4h-3V3h-2v9.5H8l4 4zM20 18v2H4v-2H2v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2h-2z" />
+        </svg>
+        <span className="truncate max-w-[140px] font-semibold">{userData.cv.fileName}</span>
+        <a
+          href={`https://res.cloudinary.com/dquhriqz3/image/upload/${userData.cv.cloudinaryId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-linkIt-400 underline text-sm ml-2"
+        >
+          {t("Ver CV")}
+        </a>
+      </div>
+      <div className="flex gap-2 mt-1">
+        <button
+          type="button"
+          className="px-3 py-1 rounded bg-linkIt-200 text-white font-semibold hover:bg-linkIt-400 transition"
+          onClick={() => {
+            // Usar el CV actual, no hacer nada
+          }}
+        >
+          {t("Usar mi CV actual")}
+        </button>
+        <button
+          type="button"
+          className="px-3 py-1 rounded border border-linkIt-200 text-linkIt-400 font-semibold hover:bg-linkIt-50 transition"
+          onClick={() => setFileName("")}
+        >
+          {t("Cargar uno nuevo")}
+        </button>
+      </div>
+    </div>
+  ) : (
+    <CloudinaryUploadWidget
+      isAPostulation={isAPostulation}
+      setFilePublicId={setFilePublicId}
+      setFileName={setFileName}
+    >
+      <span
+        className="flex items-center justify-center gap-2 border-2 border-linkIt-200 bg-linkIt-50 text-linkIt-400 font-semibold w-full h-12 rounded-lg shadow-sm hover:bg-linkIt-200 hover:text-white transition-all duration-200 active:scale-95 cursor-pointer select-none"
+        style={{ fontSize: "1.08rem", letterSpacing: ".01em" }}
+      >
+        <svg
+          width="22"
+          height="22"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          className="mr-1"
+        >
+          <path d="M12 16.5l4-4h-3V3h-2v9.5H8l4 4zM20 18v2H4v-2H2v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2h-2z" />
+        </svg>
+        {fileName === "" ? (
+          <span>
+            <span className="font-bold">{t("Subir CV")}</span>
+            <span className="ml-2 text-linkIt-300 text-[.98rem]">
+              (PDF o imagen)
+            </span>
+          </span>
+        ) : (
+          <span className="truncate max-w-[180px]">
+            {fileName}
+          </span>
+        )}
+      </span>
+    </CloudinaryUploadWidget>
+  )}
+</motion.label>
 
-                  <label
+                  {/* LinkedIn */}
+                  <motion.label
                     htmlFor="linkedin"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.18 }}
                   >
-                    <div className="flex">
-                      LinkedIn<span className=" text-red-400">*</span>
-                    </div>
+                    <span>
+                      LinkedIn<span className="text-red-400">*</span>
+                    </span>
                     <input
                       type="url"
                       name="linkedin"
                       onChange={handleInputChange}
                       value={user.linkedin}
                       placeholder="https://www.linkedin.com/in/username/"
-                      className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 focus:outline-linkIt-400 bg-white text-linkIt-400 placeholder:text-linkIt-300"
                     />
-                  </label>
+                    {errors.linkedin && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.linkedin}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.linkedin && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.linkedin}
-                    </p>
-                  )}
-
-                  <label
+                  {/* Nivel de inglés */}
+                  <motion.label
                     htmlFor="englishLevel"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2 relative"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.21 }}
                   >
-                    <div className="flex">
+                    <span>
                       {t("Nivel de inglés")}
-                      <span className=" text-red-400">*</span>
-                    </div>
+                      <span className="text-red-400">*</span>
+                    </span>
                     <button
                       type="button"
                       name="englishLevel"
-                      className="border-linkIt-50 flex flex-row justify-center items-center border-[2px] w-full h-[2.5rem] focus:border-linkIt-200 p-[.5rem] rounded-[5px]"
-                      onClick={() => {
-                        setOpenEnglishLevel(!openEnglishLevel);
-                      }}
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 flex items-center justify-between bg-white text-linkIt-400"
+                      onClick={() => setOpenEnglishLevel(!openEnglishLevel)}
                       ref={englishLevelRef}
                     >
                       {englishLevel}
+                      <svg
+                        width="18"
+                        height="18"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M7 10l5 5 5-5z" />
+                      </svg>
                     </button>
-
                     <motion.ul
                       className={`${
                         !openEnglishLevel ? "hidden" : "englishDropdown"
-                      } font-montserrat`}
-                      onClick={() => {
-                        setOpenEnglishLevel(!openEnglishLevel);
+                      } font-montserrat bg-white border border-linkIt-100 rounded-lg shadow-md mt-1 absolute z-50 w-full`}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{
+                        opacity: openEnglishLevel ? 1 : 0,
+                        y: openEnglishLevel ? 0 : -10,
                       }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => setOpenEnglishLevel(false)}
                     >
-                      <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        onClick={() => handleEnglishLevelChange("Basic")}
-                      >
-                        Basic
-                      </li>
-                      <hr />
-                      <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        onClick={() => handleEnglishLevelChange("Intermediate")}
-                      >
-                        Intermediate
-                      </li>
-                      <hr />
-                      <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        onClick={() =>
-                          handleEnglishLevelChange("intermediate (B1)")
-                        }
-                      >
-                        Intermediate{"(B1)"}
-                      </li>
-                      <hr />
-                      <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        onClick={() =>
-                          handleEnglishLevelChange("intermediate (B2)")
-                        }
-                      >
-                        Intermediate{"(B2)"}
-                      </li>
-                      <hr />
-                      <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        onClick={() => handleEnglishLevelChange("Advanced")}
-                      >
-                        Advanced
-                      </li>
-                      <hr />
-                      <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                        onClick={() => handleEnglishLevelChange("Professional")}
-                      >
-                        Professional
-                      </li>
+                      {[
+                        "Basic",
+                        "Intermediate",
+                        "intermediate (B1)",
+                        "intermediate (B2)",
+                        "Advanced",
+                        "Professional",
+                      ].map((level, idx) => (
+                        <li
+                          key={level}
+                          className="p-2 hover:bg-linkIt-100 hover:text-linkIt-400 cursor-pointer"
+                          onClick={() => handleEnglishLevelChange(level)}
+                        >
+                          {level}
+                          {idx < 5 && <hr className="my-1 border-linkIt-50" />}
+                        </li>
+                      ))}
                     </motion.ul>
-                  </label>
+                    {errors.englishLevel && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.englishLevel}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.englishLevel && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.englishLevel}
-                    </p>
-                  )}
-
-                  <label
+                  {/* Expectativa Salarial */}
+                  <motion.label
                     htmlFor="salary"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.24 }}
                   >
-                    <div className="flex">
+                    <span>
                       {t("Expectativa Salarial mensual en USD")}
-                      <span className=" text-red-400">*</span>
-                    </div>
+                      <span className="text-red-400">*</span>
+                    </span>
                     <input
                       type="number"
                       name="salary"
                       onChange={handleInputChange}
                       placeholder="USD"
                       value={user.salary}
-                      className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 focus:outline-linkIt-400 bg-white text-linkIt-400 placeholder:text-linkIt-300"
                     />
-                  </label>
+                    {errors.salary && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.salary}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.salary && (
-                    <p className="text-red-500 text-[.8rem]">{errors.salary}</p>
-                  )}
-
-                  <div className="inline-flex w-full justify-between relative top-[1rem]">
-                    <button
+                  {/* Botones de navegación */}
+                  <motion.div
+                    className="flex w-full justify-between gap-3 mt-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.27 }}
+                  >
+                    <motion.button
                       type="button"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-linkIt-200 transition-all duration-300 ease-in-out rounded-[5px]"
+                      className="w-1/2 bg-linkIt-100 text-linkIt-400 font-semibold py-2 rounded-lg border-2 border-linkIt-200 hover:bg-linkIt-200 hover:text-white transition-all duration-200 active:scale-95"
                       onClick={() => {
                         dispatch(setUncompletedStep(currentStep - 1));
                         handlePreviousStep(currentStep);
                       }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Anterior")}
-                    </button>
-
-                    <button
+                    </motion.button>
+                    <motion.button
                       type="button"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-linkIt-200 transition-all duration-300 ease-in-out rounded-[5px] disabled:opacity-80"
+                      className="w-1/2 bg-linkIt-400 text-white font-semibold py-2 rounded-lg border-2 border-linkIt-400 hover:bg-linkIt-200 hover:text-linkIt-400 transition-all duration-200 active:scale-95 disabled:opacity-60"
                       onClick={() => {
                         dispatch(setCompletedStep(currentStep));
                         handleNextStep(currentStep);
                       }}
                       disabled={
                         !fileName ||
-                        errors.linkedin ||
-                        errors.englishLevel ||
-                        errors.salary ||
+                        Boolean(errors.linkedin) ||
+                        Boolean(errors.englishLevel) ||
+                        Boolean(errors.salary) ||
                         user.linkedin === "" ||
                         englishLevel === "" ||
                         Number(user.salary) === 0 ||
                         !user.salary
-                          ? true
-                          : false
                       }
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Siguiente")}
-                    </button>
-                  </div>
-                </section>
+                    </motion.button>
+                  </motion.div>
+                </motion.section>
               )}
 
               {/*-----------------------------------------------------------------STEP 3-----------------------------------------------------------*/}
 
               {currentStep === 3 && (
-                <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
-                  <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                    {t("Información Profesional")}
-                  </h2>
-
-                  <label
-                    htmlFor="technologies"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                <motion.section
+                  className="w-full max-w-[420px] mx-auto flex flex-col items-center justify-center gap-6 px-4 py-6 bg-white rounded-xl shadow-md"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+                  transition={{ duration: 0.4, type: "spring" }}
+                >
+                  <motion.h2
+                    className="font-montserrat text-[1.4rem] text-linkIt-400 font-bold mb-2 text-center"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
                   >
-                    {t("Selecciona Tus Tecnologías")}
-                    <span className=" text-red-400">*</span>
+                    {t("Información Profesional")}
+                  </motion.h2>
+
+                  {/* Tecnologías */}
+                  <motion.label
+                    htmlFor="technologies"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <span>
+                      {t("Selecciona Tus Tecnologías")}
+                      <span className="text-red-400">*</span>
+                    </span>
                     <Select
                       options={technologies}
                       isMulti={true}
@@ -700,26 +817,35 @@ function JobForm() {
                       }}
                       onChange={(e) => {
                         setUserTechnologies(e?.map((tech: any) => tech.value));
-                        setLocalUser((prevUser) => {
-                          return {
-                            ...prevUser,
-                            technologies: e?.map((tech: any) => tech.value),
-                          };
-                        });
+                        setLocalUser((prevUser) => ({
+                          ...prevUser,
+                          technologies: e?.map((tech: any) => tech.value),
+                        }));
                       }}
                     />
-                  </label>
+                    {errors.technologies && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.technologies}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  <label
-                    htmlFor="technologies"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                  {/* Stack Técnico */}
+                  <motion.label
+                    htmlFor="technicalStack"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.18 }}
                   >
-                    {t("Selecciona Stack Técnico")}
-                    <span className=" text-red-400">*</span>
+                    <span>
+                      {t("Selecciona Stack Técnico")}
+                      <span className="text-red-400">*</span>
+                    </span>
                     <Select
                       options={technicalStack}
                       isMulti={true}
-                      name="technicaStack"
+                      name="technicalStack"
                       value={user.technicalStack.map((tech: any) => ({
                         value: tech,
                         label: tech,
@@ -753,29 +879,35 @@ function JobForm() {
                       }}
                       onChange={(e) => {
                         setUserStack(e?.map((tech: any) => tech.value));
-                        setLocalUser((prevUser) => {
-                          return {
-                            ...prevUser,
-                            technicalStack: e?.map((tech: any) => tech.value),
-                          };
-                        });
+                        setLocalUser((prevUser) => ({
+                          ...prevUser,
+                          technicalStack: e?.map((tech: any) => tech.value),
+                        }));
                       }}
                     />
-                  </label>
+                    {errors.technicalStack && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.technicalStack}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  <label
+                  {/* Reclutador */}
+                  <motion.label
                     htmlFor="Recruiter"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2 relative"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.21 }}
                   >
-                    <div className="flex">
+                    <span>
                       {t("¿Estás haciendo el proceso con algún reclutador/a?")}
-                      <span className=" text-red-400">*</span>
-                    </div>
-
+                      <span className="text-red-400">*</span>
+                    </span>
                     <button
                       type="button"
                       name="Recruiter"
-                      className="border-linkIt-50 flex flex-row justify-center items-center border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 flex items-center justify-between bg-white text-linkIt-400"
                       onClick={() => {
                         setOpenRecruiter(!openRecruiter);
                         setOpenEnglishLevel(false);
@@ -783,18 +915,29 @@ function JobForm() {
                       ref={recruiterRef}
                     >
                       {recruiter === "" ? t("Seleccionar") : recruiter}
+                      <svg
+                        width="18"
+                        height="18"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M7 10l5 5 5-5z" />
+                      </svg>
                     </button>
-
                     <motion.ul
                       className={`${
                         !openRecruiter ? "hidden" : "recruiterDropdown"
-                      } font-montserrat`}
-                      onClick={() => {
-                        setOpenRecruiter(!openRecruiter);
+                      } font-montserrat bg-white border border-linkIt-100 rounded-lg shadow-md mt-1 absolute z-50 w-full`}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{
+                        opacity: openRecruiter ? 1 : 0,
+                        y: openRecruiter ? 0 : -10,
                       }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => setOpenRecruiter(false)}
                     >
                       <li
-                        className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
+                        className="p-2 hover:bg-linkIt-100 hover:text-linkIt-400 cursor-pointer"
                         onClick={() =>
                           handleRecruiterChange("-", setRecruiter, setLocalUser)
                         }
@@ -802,155 +945,179 @@ function JobForm() {
                         Ninguno
                       </li>
                       {["Julieta", "Shayna", "Ramiro", "Tobias"].map(
-                        (recruiter: string, index: number) => {
-                          return (
-                            <li
-                              key={index}
-                              className="p-[.5rem] hover:bg-gray-100 hover:cursor-pointer"
-                              onClick={() =>
-                                handleRecruiterChange(
-                                  recruiter,
-                                  setRecruiter,
-                                  setLocalUser
-                                )
-                              }
-                            >
-                              {recruiter}
-                            </li>
-                          );
-                        }
+                        (recruiterName: string, index: number) => (
+                          <li
+                            key={index}
+                            className="p-2 hover:bg-linkIt-100 hover:text-linkIt-400 cursor-pointer"
+                            onClick={() =>
+                              handleRecruiterChange(
+                                recruiterName,
+                                setRecruiter,
+                                setLocalUser
+                              )
+                            }
+                          >
+                            {recruiterName}
+                          </li>
+                        )
                       )}
                     </motion.ul>
-                  </label>
+                    {errors.recruiter && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.recruiter}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.recruiter && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.recruiter}
-                    </p>
-                  )}
-
-                  <div className="inline-flex w-full justify-between relative top-[1rem]">
-                    <button
+                  {/* Botones de navegación */}
+                  <motion.div
+                    className="flex w-full justify-between gap-3 mt-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.27 }}
+                  >
+                    <motion.button
                       type="button"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-linkIt-200 transition-all duration-300 ease-in-out rounded-[5px]"
+                      className="w-1/2 bg-linkIt-100 text-linkIt-400 font-semibold py-2 rounded-lg border-2 border-linkIt-200 hover:bg-linkIt-200 hover:text-white transition-all duration-200 active:scale-95"
                       onClick={() => {
                         dispatch(setUncompletedStep(currentStep - 1));
                         handlePreviousStep(currentStep);
                       }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Anterior")}
-                    </button>
-
-                    <button
+                    </motion.button>
+                    <motion.button
                       type="button"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-linkIt-200 transition-all duration-300 ease-in-out disabled:opacity-80 rounded-[5px]"
+                      className="w-1/2 bg-linkIt-400 text-white font-semibold py-2 rounded-lg border-2 border-linkIt-400 hover:bg-linkIt-200 hover:text-linkIt-400 transition-all duration-200 active:scale-95 disabled:opacity-60"
                       onClick={() => {
                         dispatch(setCompletedStep(currentStep));
                         handleNextStep(currentStep);
                       }}
                       disabled={
-                        errors.technicalStack ||
-                        errors.technologies ||
-                        errors.recruiter ||
-                        user.technologies[0] === undefined ||
+                        Boolean(errors.technicalStack) ||
+                        Boolean(errors.technologies) ||
+                        Boolean(errors.recruiter) ||
+                        !user.technologies.length ||
                         !recruiter
-                          ? true
-                          : false
                       }
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Siguiente")}
-                    </button>
-                  </div>
-                </section>
+                    </motion.button>
+                  </motion.div>
+                </motion.section>
               )}
 
               {/*-----------------------------------------------------------------STEP 4-----------------------------------------------------------*/}
 
               {currentStep === 4 && (
-                <section className="w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] flex flex-col content-center items-center justify-center gap-[1rem]">
-                  <h2 className="font-montserrat text-[2rem] text-linkIt-400">
-                    {t("Información Profesional")}
-                  </h2>
-                  <label
-                    htmlFor="availability"
-                    className="font-montserrat relative  text-[1.3rem] w-full flex flex-col "
+                <motion.section
+                  className="w-full max-w-[420px] mx-auto flex flex-col items-center justify-center gap-6 px-4 py-6 bg-white rounded-xl shadow-md"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+                  transition={{ duration: 0.4, type: "spring" }}
+                >
+                  <motion.h2
+                    className="font-montserrat text-[1.4rem] text-linkIt-400 font-bold mb-2 text-center"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
                   >
-                    <div className="flex">
+                    {t("Información Profesional")}
+                  </motion.h2>
+
+                  {/* Periodo de aviso */}
+                  <motion.label
+                    htmlFor="availability"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <span>
                       {t("Periodo de aviso")}
-                      <span className=" text-red-400">*</span>
-                    </div>
+                      <span className="text-red-400">*</span>
+                    </span>
                     <input
                       type="text"
                       name="availability"
                       onChange={handleInputChange}
                       value={user.availability}
-                      className="border-linkIt-50 border-[2px] w-full h-[2.5rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="border-2 border-linkIt-200 rounded-lg h-11 px-3 focus:outline-linkIt-400 bg-white text-linkIt-400"
                     />
-                  </label>
+                    {errors.availability && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.availability}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.availability && (
-                    <p className="text-red-500 text-[.8rem]">
-                      {errors.availability}
-                    </p>
-                  )}
-
-                  <label
+                  {/* Motivo de cambio */}
+                  <motion.label
                     htmlFor="reason"
-                    className="font-montserrat relative text-[1.3rem] w-full"
+                    className="font-montserrat text-[1.05rem] w-full flex flex-col gap-2"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.18 }}
                   >
-                    <div className="flex">
+                    <span>
                       {t(
                         "¿Por qué estás buscando una nueva oportunidad laboral?"
                       )}
-                      <span className=" text-red-400">*</span>
-                    </div>
+                      <span className="text-red-400">*</span>
+                    </span>
                     <textarea
                       name="reason"
                       id="reason"
-                      cols={10}
-                      rows={10}
+                      rows={6}
                       value={user.reason}
                       placeholder={t("Escribe aquí tu respuesta")}
                       onChange={handleInputChange}
-                      className=" resize-none border-linkIt-50 border-[2px] w-full h-[10rem] focus:outline-linkIt-200 p-[.5rem] rounded-[5px]"
+                      className="resize-none border-2 border-linkIt-200 rounded-lg px-3 py-2 focus:outline-linkIt-400 bg-white text-linkIt-400"
                     ></textarea>
-                  </label>
+                    {errors.reason && (
+                      <p className="text-red-500 text-[.85rem]">
+                        {errors.reason}
+                      </p>
+                    )}
+                  </motion.label>
 
-                  {errors.reason && (
-                    <p className="text-red-500 text-[.8rem]">{errors.reason}</p>
-                  )}
-
-                  <div className="inline-flex w-full justify-between relative top-[1rem]">
-                    <button
+                  {/* Botones de navegación */}
+                  <motion.div
+                    className="flex w-full justify-between gap-3 mt-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.27 }}
+                  >
+                    <motion.button
                       type="button"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-sky-800 transition-all duration-300 ease-in-out rounded-[5px]"
+                      className="w-1/2 bg-linkIt-100 text-linkIt-400 font-semibold py-2 rounded-lg border-2 border-linkIt-200 hover:bg-linkIt-200 hover:text-white transition-all duration-200 active:scale-95"
                       onClick={() => {
                         dispatch(setUncompletedStep(currentStep - 1));
                         handlePreviousStep(currentStep);
                       }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Anterior")}
-                    </button>
+                    </motion.button>
 
-                    <button
+                    <motion.button
                       type="submit"
-                      className="w-[45%] border-linkIt-200 bg-linkIt-200 text-white border-[2px] font-montserrat font-[600] p-[.5rem] hover:bg-white hover:text-sky-800 transition-all duration-300 ease-in-out disabled:opacity-80 rounded-[5px]"
-                      onClick={() => {
-                        handleSubmit;
-                      }}
+                      className="w-1/2 bg-linkIt-400 text-white font-semibold py-2 rounded-lg border-2 border-linkIt-400 hover:bg-linkIt-200 hover:text-linkIt-400 transition-all duration-200 active:scale-95 disabled:opacity-60"
                       disabled={
-                        errors.availability ||
-                        errors.reason ||
+                        Boolean(errors.availability) ||
+                        Boolean(errors.reason) ||
                         !user.availability ||
                         !user.reason
-                          ? true
-                          : false
                       }
+                      whileTap={{ scale: 0.97 }}
                     >
                       {t("Enviar")}
-                    </button>
-                  </div>
-                </section>
+                    </motion.button>
+                  </motion.div>
+                </motion.section>
               )}
             </motion.form>
           </>

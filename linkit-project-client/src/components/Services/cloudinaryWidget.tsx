@@ -1,4 +1,3 @@
-// import { Cloudinary } from "@cloudinary/url-gen/index";
 import { createContext, useEffect, useState } from "react";
 import { Curriculum } from "../Profiles/types";
 import Swal from "sweetalert2";
@@ -20,24 +19,11 @@ interface IComponentProps {
   setReload?: (value: boolean) => void;
   className?: string;
   setInformationImage?: any;
-  isAPostulation?: true | undefined | null
+  isAPostulation?: true | undefined | null;
 }
 
-// Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext({});
 
-/**
- * Component to load the Cloudinary upload widget script and open the widget
- * @param {children} React.ReactNode - The component children
- * @param {setFilePublicId} (value: string) => void - The function to set the file public id
- * @returns {JSX.Element} - The component JSX.Element
- *
- * @example
- *  const [filePublicId, setFilePublicId] = useState("")
- *  <CloudinaryUploadWidget setFilePublicId={setFilePublicId}>
- *    <button>Upload</button>
- *  </CloudinaryUploadWidget>
- */
 function CloudinaryUploadWidget({
   children,
   setFilePublicId,
@@ -47,7 +33,7 @@ function CloudinaryUploadWidget({
   className,
   setReload,
   setInformationImage,
-  isAPostulation
+  isAPostulation,
 }: IComponentProps) {
   const [loaded, setLoaded] = useState(false);
   const { t } = useTranslation();
@@ -55,67 +41,50 @@ function CloudinaryUploadWidget({
   const [uwConfig] = useState({
     cloudName: "dquhriqz3",
     uploadPreset: "new-preset",
+    sources: ["local", "camera"],
+    multiple: false,
+    maxFiles: 1,
+    cropping: false,
+    resourceType: "auto",
   });
-  let uploadSuccess = false;
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   const openCloudinaryWidget = () => {
     if (loaded) {
-      // Create upload widget configuration
-
       const myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error: any, result: any) => {
           if (!error && result && result.event === "success") {
-            uploadSuccess = true;
-            if (updateLink) {
-              updateLink(result.info.secure_url);
-            }
+            if (updateLink) updateLink(result.info.secure_url);
             setCv &&
-            setCv({
-              fileName: `${result.info.original_filename}.${result.info.format}`,
-              cloudinaryId: result.info.public_id,
-            });
+              setCv({
+                fileName: `${result.info.original_filename}.${result.info.format}`,
+                cloudinaryId: result.info.public_id,
+              });
             setFilePublicId && setFilePublicId(result.info.public_id);
-            isAPostulation !== true && setInformationImage && setInformationImage(result.info.public_id)
+            isAPostulation !== true &&
+              setInformationImage &&
+              setInformationImage(result.info.public_id);
 
             setFileName(
               `${result.info.original_filename}.${result.info.format}`
-              );
+            );
             setReload && setReload(true);
             myWidget.close();
           } else if (result.event === "close") {
-            if (uploadSuccess) {
-              Swal.fire({
-                icon: "success",
-                title: t("Enviado"),
-                timer: 1000,
-                showConfirmButton: false,
-                showLoaderOnConfirm: true
-              })
-              uploadSuccess = false;
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: t("Cancelado"),
-                timer: 1000,
-                showConfirmButton: false,
-                showLoaderOnConfirm: true
-              })
-            }
+            // Opcional: feedback visual
           }
         }
-        );
-
+      );
       myWidget.open();
     }
   };
 
   useEffect(() => {
-    // Check if the script is already loaded
     if (!loaded) {
       const uwScript = document.getElementById("uw");
       if (!uwScript) {
-        // If not loaded, create and load the script
         const script = document.createElement("script");
         script.setAttribute("async", "");
         script.setAttribute("id", "uw");
@@ -123,11 +92,52 @@ function CloudinaryUploadWidget({
         script.addEventListener("load", () => setLoaded(true));
         document.body.appendChild(script);
       } else {
-        // If already loaded, update the state
         setLoaded(true);
       }
     }
   }, [loaded]);
+
+  // Handler para input nativo en mobile
+  const handleMobileFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "new-preset");
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dquhriqz3/auto/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await res.json();
+      setFilePublicId && setFilePublicId(data.public_id);
+      setFileName && setFileName(data.original_filename + "." + data.format);
+      setReload && setReload(true);
+      setCv &&
+        setCv({
+          fileName: data.original_filename + "." + data.format,
+          cloudinaryId: data.public_id,
+        });
+      Swal.fire({
+        icon: "success",
+        title: t("Enviado"),
+        timer: 1000,
+        showConfirmButton: false,
+        showLoaderOnConfirm: true,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: t("Error al subir archivo"),
+        text: t("Intenta nuevamente o usa otro archivo."),
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    }
+  };
 
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
@@ -135,13 +145,26 @@ function CloudinaryUploadWidget({
         src="https://media-editor.cloudinary.com/all.js"
         type="text/javascript"
       ></script>
-      <div
-        className={className}
-        onClick={openCloudinaryWidget}
-        id="upload_widget"
-      >
-        {children}
-      </div>
+     {isMobile ? (
+  <label className={className} style={{ width: "100%", cursor: "pointer" }}>
+    <input
+      type="file"
+      accept="application/pdf,image/*"
+      style={{ display: "none" }}
+      onChange={handleMobileFile}
+    />
+    <span className="...">{children}</span>
+  </label>
+) : (
+  <div
+    className={className}
+    onClick={openCloudinaryWidget}
+    id="upload_widget"
+    style={{ cursor: "pointer" }}
+  >
+    {children}
+  </div>
+)}
     </CloudinaryScriptContext.Provider>
   );
 }

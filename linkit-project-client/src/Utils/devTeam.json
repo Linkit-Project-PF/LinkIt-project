@@ -1,17 +1,17 @@
 [{
     "id": 1,
-    "img": "/people-LinkIt/Samuel-Rodriguez.png",
-    "name": "Samuel Rodríguez",
+    "img": "/people-LinkIt/Zoe.png",
+    "name": "Zoe Feuer",
     "position": "FullStack Web Developer",
-    "rol": "(FrontEnd)",
-    "link": "https://www.linkedin.com/in/samuelrodriguezyopasa/"
+    "rol": "Content Creator",
+    "link": "https://www.linkedin.com/in/zoe-feuer-1a75261a2/"
 }, {
     "id": 2,
-    "img":"/people-LinkIt/maria-gabriela-henry.png",
+    "img":"/people-LinkIt/Rami.png",
     "name": "Maria Gabriela Sándigo",
     "position": "FullStack Web Developer",
     "rol": "(BackEnd)",
-    "link": "http://www.linkedin.com/in/maria-gabriela-sandigo-munoz"
+    "link": "https://www.linkedin.com/in/ramiro-caballero-a9ab6b136/"
 }, {
     "id": 3,
     "img": "/people-LinkIt/jose-henry.png",
