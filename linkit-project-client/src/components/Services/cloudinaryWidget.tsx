@@ -66,7 +66,6 @@ function CloudinaryUploadWidget({
             isAPostulation !== true &&
               setInformationImage &&
               setInformationImage(result.info.public_id);
-
             setFileName(
               `${result.info.original_filename}.${result.info.format}`
             );
@@ -77,6 +76,7 @@ function CloudinaryUploadWidget({
           }
         }
       );
+
       myWidget.open();
     }
   };
