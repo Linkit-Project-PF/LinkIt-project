@@ -76,7 +76,6 @@ function CloudinaryUploadWidget({
           }
         }
       );
-
       myWidget.open();
     }
   };

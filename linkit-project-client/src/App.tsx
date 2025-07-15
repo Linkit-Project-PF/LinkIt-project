@@ -103,6 +103,16 @@ const loginVariants: Variants = {
 
 function App() {
   const dispatch = useDispatch();
+
+
+useEffect(() => {
+  if (!sessionStorage.getItem("lang")) {
+    const browserLang = navigator.language.startsWith("en") ? "en" : "es";
+    sessionStorage.setItem("lang", browserLang);
+  }
+}, []);
+
+
   const pressSignUp = useSelector(
     (state: registerLoginState) => state.registerLogin.pressSignUp
   );
