@@ -8,14 +8,14 @@ export default function Language() {
   useEffect(() => {
     const storedLang = sessionStorage.getItem('lang');
     if (!storedLang) {
-      // Si el idioma empieza con "es", usa español. Si no, usa inglés.
-      const browserLang = navigator.language.startsWith("es") ? "es" : "en";
+      const browserLang = navigator.language.startsWith("en") ? "en" : "es";
       i18n.changeLanguage(browserLang);
       sessionStorage.setItem('lang', browserLang);
     } else {
       i18n.changeLanguage(storedLang);
     }
   }, []);
+
 
   useEffect(() => {
     sessionStorage.setItem('lang', i18n.language)
