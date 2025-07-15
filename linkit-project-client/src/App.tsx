@@ -186,7 +186,7 @@ useEffect(() => {
           {
             headers: {
               Authorization: `Bearer ${SUPERADMN_ID}`,
-              "Accept-Language": sessionStorage.getItem("lang"),
+              "Accept-Language": "es",
             },
           }
         );
