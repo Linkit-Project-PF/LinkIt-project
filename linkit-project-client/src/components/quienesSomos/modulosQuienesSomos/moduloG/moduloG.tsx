@@ -33,27 +33,32 @@ export default function ModuloG() {
 
                     <div className="flex flex-col space-y-1">
                     <Link target="_blank" to="https://www.linkedin.com/in/julieta-clara-26b207296/" className="text-center font-bold subtitles-size font-montserrat">Julieta Jasin</Link>
-                    <span className="font-normal text-size  font-montserrat">Talent Acquisition Specialist</span>
+                    <span className="font-normal text-size  font-montserrat">Sr. Talent Acquisition Specialist</span>
                     </div>
 
 
                 </div>
-                <div className="grid grid-cols-3 justify-items-center px-[20%] dark:text-white gap-[5%] items-start text-center leading-tight">
+                <div className="grid grid-cols-4 items-start justify-items-center my-[5%] gap-[5%] mx-[5%] dark:text-white text-center leading-tight">
                     <img src="/people-LinkIt/shay-perfil.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Shayna Iskandarani" />
-                    <img src="/people-LinkIt/Rami.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Ramiro Caballero" />
+                    <img src="/people-LinkIt/Magali.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Magali Di Catarina" />
                     <img src="/people-LinkIt/Zoe.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Zoe Feuer" />
+                    <img src="/people-LinkIt/juan1.png" className=" bg-linkIt-500 rounded-xl w-1/1 h-1/1 aspect-square" alt="Juan Meyer" />
 
                     <div className="flex flex-col space-y-1">
                     <Link target="_blank" to="https://www.linkedin.com/in/shayna-iskandarani-126270211/" className="text-center subtitles-size font-bold font-montserrat">Shayna Iskandarani</Link>
-                    <span className="font-normal text-size  font-montserrat">Talent Acquisition Specialist</span>
+                    <span className="font-normal text-size  font-montserrat">Sr. Talent Acquisition Specialist</span>
                     </div>
                     <div className="flex flex-col space-y-1">
-                    <Link target="_blank" to="https://www.linkedin.com/in/ramiro-caballero-a9ab6b136/" className="text-center subtitles-size font-bold font-montserrat">Macarena Cuadro</Link>
-                    <span className="font-normal text-size  font-montserrat">Business Development Specialist</span>
+                    <Link target="_blank" to="https://www.linkedin.com/" className="text-center subtitles-size font-bold font-montserrat">Magali Di Catarina</Link>
+                    <span className="font-normal text-size  font-montserrat">Talent Acquisition Specialist</span>
                     </div>
                     <div className="flex flex-col space-y-1">
                     <Link target="_blank" to="https://www.linkedin.com/in/zoe-feuer-1a75261a2/" className="text-center subtitles-size font-bold font-montserrat">Zoe Feuer</Link>
                     <span className="font-normal text-size  font-montserrat">Growth Marketing Specialist</span>
+                    </div>
+                     <div className="flex flex-col space-y-1">
+                    <Link target="_blank" to="https://www.linkedin.com/in/zoe-feuer-1a75261a2/" className="text-center subtitles-size font-bold font-montserrat">Juan Meyer</Link>
+                    <span className="font-normal text-size  font-montserrat">Full Stack Developer</span>
                     </div>
                 </div>
             </div>
