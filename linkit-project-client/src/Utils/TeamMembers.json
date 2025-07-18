@@ -14,7 +14,7 @@
     "id": 3,
     "link": "https://www.linkedin.com/in/gonzalo-leon-744aa01a1/",
     "img": "/people-LinkIt/gonza-perfil.png",
-    "name": "Gonzalo Lein",
+    "name": "Gonzalo Leon",
     "position": "Sales Development Representative"
 },
 {
@@ -22,20 +22,20 @@
     "link": "https://www.linkedin.com/in/julieta-clara-26b207296/",
     "img": "/people-LinkIt/juli-perfil.png",
     "name": "Julieta Jasin",
-    "position": "Talent Acquisition Specialist"
+    "position": "Sr. Talent Acquisition Specialist"
 },
 {
     "id": 5,
     "link": "https://www.linkedin.com/in/shayna-iskandarani-126270211/",
     "img": "/people-LinkIt/shay-perfil.png",
     "name": "Shayna Iskandarani",
-    "position": "Talent Acquisition Specialist"
+    "position": "Sr. Talent Acquisition Specialist"
 }
 , {
     "id": 6,
-    "link": "https://www.linkedin.com/in/ramiro-caballero-a9ab6b136/",
-    "img": "/people-LinkIt/Rami.png",
-    "name": "Ramiro Caballero",
+    "link": "https://www.linkedin.com/",
+    "img": "/people-LinkIt/Magali.png",
+    "name": "Magali Di Catarina",
     "position": "Talent Acquisition Specialist"
  }, {
     "id": 7,
@@ -43,6 +43,13 @@
     "name": "Zoe Feuer",
     "position": "Content Creator",
     "link": "https://www.linkedin.com/in/zoe-feuer-1a75261a2/"
+},
+{
+    "id": 8,
+    "link": "https://www.linkedin.com/in/rodrigo-fernandez-0b1a4b1a6/",
+    "img": "/people-LinkIt/juan1.png",
+    "name": "Juan Meyer",
+    "position": "Full Stack Developer"
 }
 ]
 
