@@ -618,6 +618,11 @@ export const i18nOptions: InitOptions = {
         "Error al cargar los recursos": "Error loading resources",
         "Error al enviar la solicitud: ": "Error sending request:",
         "Título requerido": "Title required",
+
+        //!NavBar translations
+        "Sesión cerrada": "Session closed",
+       
+
         //!Panel Admin Vacantes
         "¿Deseas ocultar la vacante?": "Do you want to hide the vacancy?",
         "¿Deseas eliminar la vacante?": "Do you want to delete the vacancy?",
