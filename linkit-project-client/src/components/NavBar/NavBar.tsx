@@ -93,7 +93,7 @@ const customTheme: CustomFlowbiteTheme['dropdown'] = {
 };
 
 function NavBar() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const pressLogin = useSelector(
     (state: RootState) => state.registerLogin.pressLogin
@@ -120,6 +120,21 @@ function NavBar() {
     (state: RootState) => state.Authentication
   );
 
+  // Función mejorada para detectar el idioma actual
+  const getCurrentLanguage = () => {
+    // Usar múltiples fuentes para detectar el idioma de manera más robusta
+    const currentLang = i18n.language || i18n.resolvedLanguage || 'es';
+    return currentLang.startsWith('es') ? 'es' : 'en';
+  };
+
+  // Función para obtener traducciones con fallback
+  const getTranslation = (key: string, fallback?: string) => {
+    const translation = t(key);
+    return translation !== key ? translation : (fallback || key);
+  };
+
+  // Detectar idioma actual de manera dinámica
+  const currentLanguage = getCurrentLanguage();
   const goAdminDashboard = () => {
     navigate("/AdminDashboard/statistics/OKRs");
   };
@@ -130,11 +145,11 @@ function NavBar() {
   const handleLogout = () => {
     dispatch(logout());
     Swal.fire({
-      title: t ("Sesión cerrada"),
-      text: t ("Hemos cerrado tu sesión con éxito"),
+      title: getTranslation("Sesión cerrada", "Sesión cerrada"),
+      text: getTranslation("Hemos cerrado tu sesión con éxito", "Hemos cerrado tu sesión con éxito"),
       icon: "success",
       showConfirmButton: true,
-      confirmButtonText: t("Confirmar"),
+      confirmButtonText: getTranslation("Confirmar", "Confirmar"),
       confirmButtonColor: "#01A28B",
       timer: 3000
     })
@@ -296,20 +311,26 @@ function NavBar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
+  // Efecto para sincronizar el idioma con sessionStorage
+  useEffect(() => {
+    const storedLang = sessionStorage.getItem('lang');
+    if (storedLang && storedLang !== currentLanguage) {
+      i18n.changeLanguage(storedLang);
+    }
+  }, [currentLanguage, i18n]);
 
   return (
     <div className="h-fit w-full p-0 m-0">
       <div className="preNavbar" id="preNavbar">
         <span className="">
-          {t("Contrata y gestiona talentos de forma global con LinkIT")} |{" "}
+          {getTranslation("Contrata y gestiona talentos de forma global con LinkIT", "Contrata y gestiona talentos de forma global con LinkIT")} |{" "}
         </span>
         <NavLink
           to="https://calendly.com/saleslinkit/30min"
           className="ml-2 underline underline-offset-[3.3px]"
           target="_blank"
         >
-          {t("Comienza ahora!")} →
+          {getTranslation("Comienza ahora!", "Comienza ahora!")} →
         </NavLink>
       </div>
 
@@ -331,7 +352,7 @@ function NavBar() {
               }`}
               onClick={() => goHome()}
             >
-              {t("Inicio")}
+              {getTranslation("Inicio", "Inicio")}
             </motion.button>
 
             <motion.nav
@@ -347,7 +368,7 @@ function NavBar() {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goSoyEmpresa()}
               >
-                {t("Soy Empresa")}
+                {getTranslation("Soy Empresa", "Soy Empresa")}
                 <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2 hidden lg:block">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
@@ -362,19 +383,19 @@ function NavBar() {
                 <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 dark:after:bg-white after:absolute"></div>
                 <li className={`hover:text-linkIt-300`}>
                   <button onClick={navigatetoServicesCompany}>
-                    {t("Servicios")}
+                    {getTranslation("Servicios", "Servicios")}
                   </button>
                 </li>
                 <hr className="w-[100%]" />
                 <li className=" hover:text-linkIt-300">
                   <button onClick={navigatetoProcessCompany}>
-                    {t("Proceso")}
+                    {getTranslation("Proceso", "Proceso")}
                   </button>
                 </li>
                 <hr className="w-[100%]" />
                 <li className=" hover:text-linkIt-300">
                   <button onClick={navigatetoQuoteCompany}>
-                    {t("Cotiza")}
+                    {getTranslation("Cotiza", "Cotiza")}
                   </button>{" "}
                 </li>
               </ul>{" "}
@@ -393,7 +414,7 @@ function NavBar() {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goSoyTalento()}
               >
-                {t("Soy Talento")}
+                {getTranslation("Soy Talento", "Soy Talento")}
                 <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2 hidden lg:block">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
@@ -408,19 +429,19 @@ function NavBar() {
                 <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoVacanciesTalent}>
-                    {t("Vacantes")}
+                    {getTranslation("Vacantes", "Vacantes")}
                   </button>
                 </li>
                 <hr className="w-[100%]" />
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoServicesTalent}>
-                    {t("Servicios")}
+                    {getTranslation("Servicios", "Servicios")}
                   </button>
                 </li>
                 <hr className="w-[100%]" />
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoProcessTalent}>
-                    {t("Proceso")}
+                    {getTranslation("Proceso", "Proceso")}
                   </button>
                 </li>
               </ul>
@@ -439,7 +460,7 @@ function NavBar() {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goRecursos()}
               >
-                {t("Recursos")}
+                {getTranslation("Recursos", "Recursos")}
                 <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
@@ -453,17 +474,17 @@ function NavBar() {
               >
                 <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoBlogs}>{t("Blogs")}</button>
+                  <button onClick={navigatetoBlogs}>{getTranslation("Blogs", "Blogs")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoEbooks}>{t("Ebooks")}</button>
+                  <button onClick={navigatetoEbooks}>{getTranslation("Ebooks", "Ebooks")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoWebinars}>{t("Webinars")}</button>
+                  <button onClick={navigatetoWebinars}>{getTranslation("Webinars", "Webinars")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
@@ -477,7 +498,7 @@ function NavBar() {
                     onClick={() => navigate("/recursos/libreria")}
                     className="cursor-pointer"
                   >
-                    {t("Librería")}
+                    {getTranslation("Librería", "Librería")}
                   </button>
                 </li>
               </ul>
@@ -496,7 +517,7 @@ function NavBar() {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => goQS()}
               >
-                {t("Quiénes Somos")}
+                {getTranslation("Quiénes Somos", "Quiénes Somos")}
                 <div className="arrow w-2 xl:w-3 ml-1 xl:ml-2">
                   <img src={!isDarkMode ? arrow : whiteArrow} alt="arrow" />
                 </div>
@@ -510,28 +531,28 @@ function NavBar() {
               >
                 <div className="absolute w-[85%] left-[7.5%] after:h-[4px] after:w-full after:bg-linkIt-300 after:absolute dark:after:bg-white"></div>
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoMission}>{t("Misión")}</button>
+                  <button onClick={navigatetoMission}>{getTranslation("Misión", "Misión")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoVision}>{t("Visión")}</button>
+                  <button onClick={navigatetoVision}>{getTranslation("Visión", "Visión")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoValues}>{t("Valores")}</button>
+                  <button onClick={navigatetoValues}>{getTranslation("Valores", "Valores")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
-                  <button onClick={navigatetoHistory}>{t("Historia")}</button>
+                  <button onClick={navigatetoHistory}>{getTranslation("Historia", "Historia")}</button>
                 </li>
                 <hr className="w-[100%]" />
 
                 <li className="hover:text-linkIt-300">
                   <button onClick={navigatetoInternalTalent}>
-                    {t("Talento interno")}
+                    {getTranslation("Talento interno", "Talento interno")}
                   </button>
                 </li>
               </ul>
@@ -574,7 +595,7 @@ function NavBar() {
                 setBurgerMenu(false);}
               }
             >
-              {t("Inicio")}
+              {getTranslation("Inicio", "Inicio")}
             </li>
             <li
               className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
@@ -582,7 +603,7 @@ function NavBar() {
               }`}
               onClick={() => {setBurgerMenu(false); goSoyEmpresa()}}
             >
-              {t("Soy Empresa")}
+              {getTranslation("Soy Empresa", "Soy Empresa")}
             </li>
             <li
               className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
@@ -591,7 +612,7 @@ function NavBar() {
               onClick={() => {setBurgerMenu(false); goSoyTalento()}}
             >
               {" "}
-              {t("Soy Talento")}
+              {getTranslation("Soy Talento", "Soy Talento")}
             </li>
             <li
               className={`flex cursor-pointer items-center my-3 hover:text-linkIt-300  ${
@@ -600,7 +621,7 @@ function NavBar() {
               onClick={() => {setBurgerMenu(false); goRecursos()}}
             >
               {" "}
-              {t("Recursos")}
+              {getTranslation("Recursos", "Recursos")}
             </li>
             <li
               className={`flex cursor-pointer items-center hover:text-linkIt-300  ${
@@ -609,7 +630,7 @@ function NavBar() {
               onClick={() => {setBurgerMenu(false); goQS()}}
             >
               {" "}
-              {t("Quiénes Somos")}
+              {getTranslation("Quiénes Somos", "Quiénes Somos")}
             </li>
           </motion.ul>
             )}
@@ -631,14 +652,14 @@ function NavBar() {
             onClick={() => goSoyEmpresa()}
             whileTap={{ scale: 0.9 }}
           >
-            {t("Contrata Talento")}
+            {getTranslation("Contrata Talento", "Contrata Talento")}
           </motion.button>
           <motion.button
             className={`transparent-background-button`}
             onClick={() => goSoyTalento()}
             whileTap={{ scale: 0.9 }}
           >
-            {t("Vacantes disponibles")}
+            {getTranslation("Vacantes disponibles", "Vacantes disponibles")}
           </motion.button>
           <div className="relative hidden lg:block 2xl:ml-3">
             <Languaje />
@@ -664,20 +685,20 @@ function NavBar() {
                           navigate("/dashboard");
                         }}
                       >
-                        {t("Mis datos")}
+                        {getTranslation("Mis datos", "Mis datos")}
                     </Dropdown.Item>
                     <Dropdown.Item
                         className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={() => navigate("/dashboard#postulations")}
                       >
-                        {t("Postulaciones")}
+                        {getTranslation("Postulaciones", "Postulaciones")}
                     </Dropdown.Item>
                     <DropdownDivider/>
                     <Dropdown.Item
                         className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={handleLogout}
                       >
-                        {t("Cerrar sesión")}
+                        {getTranslation("Cerrar sesión", "Cerrar sesión")}
                     </Dropdown.Item>
                   </div>
                 ) : isAuthenticated && role === "admin" ? (
@@ -686,7 +707,7 @@ function NavBar() {
                         className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={goAdminDashboard}
                       >
-                        {t("Panel")}
+                        {getTranslation("Panel", "Panel")}
                       
                     </Dropdown.Item>
                     <DropdownDivider/>
@@ -694,7 +715,7 @@ function NavBar() {
                         className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={handleLogout}
                       >
-                        {t("Cerrar sesión")}
+                        {getTranslation("Cerrar sesión", "Cerrar sesión")}
                     </Dropdown.Item>
                   </div>
                 ) : isAuthenticated && role === "company" ? (
@@ -705,7 +726,7 @@ function NavBar() {
                           navigate("/dashboard");
                         }}
                       >
-                        {t("Mis datos")}
+                        {getTranslation("Mis datos", "Mis datos")}
                     </Dropdown.Item>
                     <Dropdown.Item 
                     className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
@@ -713,14 +734,14 @@ function NavBar() {
                       navigate("/dashboard#misvacantes");
                     }}
                     >
-                        {t("Mis vacantes")}
+                        {getTranslation("Mis vacantes", "Mis vacantes")}
                     </Dropdown.Item>
                     <DropdownDivider />
                     <Dropdown.Item
                         className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
                         onClick={handleLogout}
                       >
-                        {t("Cerrar sesión")}
+                        {getTranslation("Cerrar sesión", "Cerrar sesión")}
                      
                     </Dropdown.Item>
                   </div>
@@ -733,7 +754,7 @@ function NavBar() {
                             : dispatch(setPressLogin("visible")),
                             dispatch(setPressSignUp("hidden"));
                         }}>
-                        {t("Inicia Sesión")}
+                        {getTranslation("Inicia Sesión", "Inicia Sesión")}
                     </Dropdown.Item>
                     <Dropdown.Item
                         className="text-[0.6rem] lg:text-[0.9rem] font-montserrat border-none outline-none hover:text-linkIt-300 transition-all duration-200 ease-in-out"
@@ -746,7 +767,7 @@ function NavBar() {
                             setPressRegister("hidden");
                         }}
                       >
-                        {t("Regístrate")}
+                        {getTranslation("Regístrate", "Regístrate")}
                       
                     </Dropdown.Item>
                   </div>
