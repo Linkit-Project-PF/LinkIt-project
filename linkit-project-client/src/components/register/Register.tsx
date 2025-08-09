@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import "sweetalert2/dist/sweetalert2.min.css";
 import Loading from "../Loading/Loading";
 import { motion } from "framer-motion";
+import { loginSuccess } from "../../redux/features/AuthSlice.ts";
 
 
 
@@ -103,7 +104,7 @@ function Register() {
         icon: "info",
         title: t("Espera un momento"),
         text: t("Estamos registrando tu cuenta"),
-        confirmButtonText: t("Iniciar sesión"),
+        confirmButtonText: t("Continuar"),
         confirmButtonColor: "#01A28B",
         allowOutsideClick: false,
         allowEscapeKey: false,
@@ -117,7 +118,6 @@ function Register() {
         },
         didClose: () => {
           dispatch(setPressRegister("hidden"));
-          dispatch(setPressLogin("visible"));
         },
       });
     }
@@ -176,12 +176,28 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     );
 
     if (response.data._id) {
+      // 4. Login automático usando el token de Firebase
+      const token = await firebaseUserCredential.user.getIdToken();
+      const loginResponse = await axios.post(
+        "https://linkit-server.onrender.com/auth/login",
+        { role: user.role },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Accept-Language": sessionStorage.getItem("lang"),
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // 5. Actualizar estado de autenticación y cerrar modal
+      const loggedUser = loginResponse.data;
       isLoading(false);
       Swal.fire({
         icon: "success",
-        title: t("¡Registro exitoso!"),
-        text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}, ${t(
-          "Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión."
+        title: t("¡Registro e inicio de sesión exitoso!"),
+        text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}. ${t(
+          "Has iniciado sesión automáticamente."
         )}`,
         confirmButtonText: t("Confirmar"),
         confirmButtonColor: "#01A28B",
@@ -195,8 +211,9 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         timer: 3000,
         timerProgressBar: true,
       });
+      dispatch(loginSuccess(loggedUser));
+      dispatch(setPressRegister("hidden"));
     }
-    dispatch(setPressRegister("hidden"));
     return response;
   } catch (error: any) {
     isLoading(false);
@@ -298,24 +315,34 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
           String(user.role),
           externalProvider
         );
+
+        // Login automático con token de Firebase
+        const token = await response.user.getIdToken();
+        const loginResponse = await axios.post(
+          "https://linkit-server.onrender.com/auth/login",
+          { role: String(user.role) },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Accept-Language": sessionStorage.getItem("lang"),
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const loggedUser = loginResponse.data;
         Swal.fire({
           icon: "success",
-          title: t("¡Registro exitoso!"),
+          title: t("¡Registro e inicio de sesión exitoso!"),
           text: `${t("Bienvenido/a a LinkIT")} ${
             DBresponse.role === "company"
               ? DBresponse.companyName
               : DBresponse.firstName
-          } ${"Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión."}`,
+          }`,
           confirmButtonText: t("Confirmar"),
           confirmButtonColor: "#01A28B",
-          // didOpen: () => {
-          //   Swal.showLoading();
-          // },
-          // didClose: () => {
-          //   dispatch(setPressRegister("hidden"));
-          //   dispatch(setPressLogin("visible"));
-          // },
         });
+        dispatch(loginSuccess(loggedUser));
         dispatch(setPressRegister("hidden"));
         setThirdParty(false);
       }
