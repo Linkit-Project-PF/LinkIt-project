@@ -14,7 +14,7 @@ import {
   signInWithPopup,
   GithubAuthProvider,
   createUserWithEmailAndPassword,
-  sendEmailVerification
+  
 } from "firebase/auth";
 import saveUserThirdAuth from "../../helpers/authentication/thirdPartyUserSave";
 import { FirebaseError } from "firebase/app";
@@ -156,8 +156,9 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       user.password
     );
 
+    // TEMPORAL: Comentado para deshabilitar envío de email de verificación
     // 2. Enviar email de verificación
-    await sendEmailVerification(firebaseUserCredential.user);
+    // await sendEmailVerification(firebaseUserCredential.user);
 
     // 3. Guardar usuario en la base de datos
    const response = await axios.post(
@@ -180,7 +181,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         icon: "success",
         title: t("¡Registro exitoso!"),
         text: `${t("Bienvenido/a a LinkIT")}, ${user.firstName}, ${t(
-          "Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."
+          "Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión."
         )}`,
         confirmButtonText: t("Confirmar"),
         confirmButtonColor: "#01A28B",
@@ -304,7 +305,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             DBresponse.role === "company"
               ? DBresponse.companyName
               : DBresponse.firstName
-          } ${"Te hemos enviado un correo electrónico para validar tu dirección de correo. Por favor, revisa tu bandeja de entrada y sigue las instrucciones para completar el proceso de validación."}`,
+          } ${"Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión."}`,
           confirmButtonText: t("Confirmar"),
           confirmButtonColor: "#01A28B",
           // didOpen: () => {
