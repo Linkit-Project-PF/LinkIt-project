@@ -44,7 +44,7 @@ import EventsView from "./components/recursos/Modulos-Recursos/eventos/Events-ca
 import LandingPage from "./components/LandingPage/LandingPage.tsx";
 import { Helmet } from "react-helmet-async";
 import MainNavigation from "./Navigation/mainNavigation.tsx";
-
+import i18n from "./i18";
 
 
 const SUPERADMN_ID = import.meta.env.VITE_SUPERADMN_ID;
@@ -106,12 +106,31 @@ function App() {
 
 
 useEffect(() => {
-  if (!sessionStorage.getItem("lang")) {
-    const browserLang = navigator.language.startsWith("en") ? "en" : "es";
-    sessionStorage.setItem("lang", browserLang);
-  }
-}, []);
+  // Sincronizar sessionStorage con el idioma detectado por i18n
+  const syncLanguageWithStorage = () => {
+    const currentLang = i18n.language;
+    const storedLang = sessionStorage.getItem("lang");
+    
+    if (!storedLang) {
+      // Si no hay idioma guardado, guardar el que detectó i18n
+      sessionStorage.setItem("lang", currentLang);
+    } else if (storedLang !== currentLang) {
+      // Si hay diferencia, actualizar sessionStorage con el idioma actual de i18n
+      sessionStorage.setItem("lang", currentLang);
+    }
+  };
 
+  // Esperar a que i18n esté listo antes de sincronizar
+  if (i18n.isInitialized) {
+    syncLanguageWithStorage();
+  } else {
+    i18n.on('initialized', syncLanguageWithStorage);
+  }
+
+  return () => {
+    i18n.off('initialized', syncLanguageWithStorage);
+  };
+}, []);
 
   const pressSignUp = useSelector(
     (state: registerLoginState) => state.registerLogin.pressSignUp
