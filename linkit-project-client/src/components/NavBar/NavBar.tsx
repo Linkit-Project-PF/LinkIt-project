@@ -3,7 +3,7 @@ import LogoBlue from "/Linkit-logo/linkit-logo-2024-blue.svg";
 import LogoWhite from "/Linkit-logo/linkit-logo-2024-white.svg";
 import arrow from "/Vectores/arrow.png";
 import whiteArrow from "/Vectores/white-arrow.png";
-import Languaje from "../../Utils/Language";
+
 import userGreen from "/Vectores/user-green.svg";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -93,7 +93,7 @@ const customTheme: CustomFlowbiteTheme['dropdown'] = {
 };
 
 function NavBar() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const pressLogin = useSelector(
     (state: RootState) => state.registerLogin.pressLogin
@@ -120,21 +120,11 @@ function NavBar() {
     (state: RootState) => state.Authentication
   );
 
-  // Función mejorada para detectar el idioma actual
-  const getCurrentLanguage = () => {
-    // Usar múltiples fuentes para detectar el idioma de manera más robusta
-    const currentLang = i18n.language || i18n.resolvedLanguage || 'es';
-    return currentLang.startsWith('es') ? 'es' : 'en';
-  };
-
   // Función para obtener traducciones con fallback
   const getTranslation = (key: string, fallback?: string) => {
     const translation = t(key);
     return translation !== key ? translation : (fallback || key);
   };
-
-  // Detectar idioma actual de manera dinámica
-  const currentLanguage = getCurrentLanguage();
   const goAdminDashboard = () => {
     navigate("/AdminDashboard/statistics/OKRs");
   };
@@ -311,13 +301,7 @@ function NavBar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Efecto para sincronizar el idioma con sessionStorage
-  useEffect(() => {
-    const storedLang = sessionStorage.getItem('lang');
-    if (storedLang && storedLang !== currentLanguage) {
-      i18n.changeLanguage(storedLang);
-    }
-  }, [currentLanguage, i18n]);
+
 
   return (
     <div className="h-fit w-full p-0 m-0">
@@ -577,7 +561,7 @@ function NavBar() {
           >
             <div className="flex justify-between items-center text-[1rem] ssm:text-[1.3rem] ssm:mx-2 ">
               <button onClick={() => setBurgerMenu(false)}>
-              <Languaje />
+              
               </button>
               <div className="cl-toggle-switch top-[1px]">
                 <label className="cl-switch" id="switchDarkModeOutside" aria-label="Cambiar modo oscuro">
@@ -662,7 +646,7 @@ function NavBar() {
             {getTranslation("Vacantes disponibles", "Vacantes disponibles")}
           </motion.button>
           <div className="relative hidden lg:block 2xl:ml-3">
-            <Languaje />
+            
           </div>
           <Dropdown
             label={
